@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>U+ IOT 智能云服务 在线文档</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app">loading</div>
+  <script>
+    window.$docsify = {
+      name: '',
+      repo: '',
+	  loadSidebar: true,
+	  autoHeader: true,   //根据sidebar自动添加标题
+	  subMaxLevel: 4,   //显示目录级别
+	 // alias: {
+    //  '/.*/_sidebar.md': '/_sidebar.md'
+    //},
+	loadNavbar: true,   // 配置头部导航
+	coverpage: true ,   // 配置封面
+	auto2top: true ,    //切换页面后是否自动跳转到页面顶部。
+	name: 'U+ IOT',
+	 nameLink: {       //点击文档标题后跳转的链接地址。
+	 '/zh-cn/': '/zh-cn/',
+     '/': '/'
+    },
+	// themeColor: '#3F51B5',   //主题颜色
+	//executeScript: true,  //配置可执行js脚本
+	//mergeNavbar: true,  //小屏设备下合并导航栏到侧边栏。
+	formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',    
+	 formatUpdated: function(time) {   //可以显示文档更新日期通过 {docsify-updated} 变量. 并且格式化日期通过 formatUpdated
+    // ...
+
+    return time;
+  },
+    externalLinkTarget: '_self' ,// default: '_blank',_self    //外联打开方式
+	 notFoundPage: {    //404页面
+    '/': '_404.md',
+    '/zh-cn': 'zh-cn/_404.md'
+    },
+	
+	    search: 'auto', // 默认值
+    // 以下为serch完整配置参数
+    search: {
+      maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+      paths: [], // or 'auto'
+      placeholder: 'Type to search',
+
+      // 支持本地化
+      placeholder: {
+        '/zh-cn/': '搜索',
+        '/': 'Type to search'
+      },
+
+      noData: 'No Results!',
+
+      // 支持本地化
+      noData: {
+        '/zh-cn/': '找不到结果',
+        '/': 'No Results'
+      },
+
+      // 搜索标题的最大程级, 1 - 6
+      depth: 2
+    },
+	
+	
+	}
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+  
+  <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>  
+   <script src="//unpkg.com/prismjs/components/prism-java.js"></script>  
+   <script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
+</script>
+
+<script src="//unpkg.com/docsify-copy-code"></script>
+</body>
+</html>
