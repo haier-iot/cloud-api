@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8407792db61dc433ffc9d62b181bd4ea8e8e6ba9
 ## 海尔优家
 
 ?> U+智慧生活平台（简称U+平台），是海尔旗下全球首个智慧家庭领域全开放、全兼容、全交互的智慧生活平台。
@@ -24,4 +28,10 @@ U+互联互通技术能力具有快连接、全互联、高安全、专业云四
 [haieruplus]:http://www.haieruplus.com
 [joinhaieruplus]:http://www.haieruplus.com/zhaopinlist.htm
 
+<<<<<<< HEAD
 
+=======
+=======
+# guide
+>>>>>>> remotes/origin/master
+>>>>>>> 8407792db61dc433ffc9d62b181bd4ea8e8e6ba9
