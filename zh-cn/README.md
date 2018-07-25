@@ -23,6 +23,9 @@ U+互联互通技术能力具有快连接、全互联、高安全、专业云四
 
 
 ## UWS API 调用说明
+
+UWS ( U+ WEB Servcie)
+
 ### 接入说明
 
 1. **接入前提**  
@@ -44,7 +47,7 @@ UWS的使用方应做如下假设：
 
 |接口分类|	生产环境接入地址	|开发者环境接入地址	|
 |---|---|---|---|
-|UWS接口	|https://uws.haier.net|	https://uws-dev.haigeek.com	|
+|UWS接口	|https://uws.haier.net|	https://dev-uws.haigeek.com	|
 
 
 ###  公共字段

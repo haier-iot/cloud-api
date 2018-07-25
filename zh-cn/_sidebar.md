@@ -8,6 +8,7 @@
 * [场景引擎](zh-cn/IFTTT)
 * [设备影子](zh-cn/DevicesShadow)
 * [消息推送](zh-cn/MessagePush)
+* [预约定时](zh-cn/Scheduler)
 * [能力服务](zh-cn/CapacityService)
 * * [天气服务](zh-cn/CapacityService_Weather)
 
