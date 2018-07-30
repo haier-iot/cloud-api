@@ -24,19 +24,21 @@
 
 
 ### 使用方式
-
-### 开通流程  
+#### 开通流程  
 ![开通流程][dataSubscription_liucheng]
+具体开通方法详见“数据推送服务接入说明书”。
 
 ### 文档资料
 
-[UWS 数据订阅服务][dataSubscription_document_url]
+[数据推送平台接口规范说明书][dataSubscription_document_url]
+[数据推送服务接入说明书][dataSubscription_document_url]
 
 ### 常见问题
 
 
 [^-^]:文本连接注释
-[dataSubscription_document_url]:#
+[dataSubscription_document_url]:_document/_dataSubscription/数据推送平台接口规范说明书.pdf
+[dataSubscription_document_url]:_document/_dataSubscription/数据推送服务接入说明书.pdf
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
