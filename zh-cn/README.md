@@ -79,6 +79,7 @@ UWS的使用方应做如下假设：
 
 ###  媒体类型
 对于请求UWS规定用以下三种Content-Type媒体类型：
+
 1.Content-Type: application/json
 UWS服务与应用的交互数据接口统一为基于JSON的REST-RPC接口
 
