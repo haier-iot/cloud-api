@@ -66,8 +66,7 @@ UWS的使用方应做如下假设：
 |timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
 |language	|String	|Header|	必填	|该参数为多语言版提供支持。默认填写zh-cn即可。|
 |timezone	|String|	Header|	必填	|时区， -11 至 13。传入用户所在时区，默认填写8即可。|
-|Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为application/json;charset=UTF-8
-具体参照媒体类型|
+|Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为"application/json;charset=UTF-8" 具体参照媒体类型|
 
 
 **输出参数**
