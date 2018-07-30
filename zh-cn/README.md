@@ -78,7 +78,7 @@ UWS的使用方应做如下假设：
 |retInfo	|String	|Body	|是	|返回信息（用于调试的返回信息，不支持国际化，也不能直接显示在UI上）|
 
 
-###媒体类型
+###  媒体类型
 对于请求UWS规定用以下三种Content-Type媒体类型：
 1.Content-Type: application/json
 UWS服务与应用的交互数据接口统一为基于JSON的REST-RPC接口
