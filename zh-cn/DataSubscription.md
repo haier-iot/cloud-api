@@ -30,7 +30,7 @@
 
 ### 文档资料
 
-[数据推送平台接口规范说明书][dataSubscription_document_url]
+[数据推送平台接口规范说明书][dataSubscription_document_url]    
 [数据推送服务接入说明书][dataSubscription_document_url]
 
 ### 常见问题
