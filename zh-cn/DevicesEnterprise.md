@@ -1,4 +1,4 @@
-!> **当前版本：** [设备管理服务企业版v1.5.1][DevicesEnterprise_document_url]</brt>
+!> **当前版本：** [设备管理服务企业版v1.5.1][DevicesEnterprise_document_url]</br>
 **日期：** 2018-07-19 
 
 ## 简介
@@ -8,6 +8,8 @@
 ### 名词解释
 
 -  **标准设备**
+>  标准设备是指
+
 -  **非标准设备**
 -  **单命令**
 -  **组命令**
@@ -65,7 +67,7 @@ result|String|操作应答结果|是一个base64码，</br>标准模型设备解
 > 根据MAC查询绑定的用户信息
 
 ##### 1、接口定义
-？> **接入地址：** /udse/v1/devBindUsers
+？> **接入地址：** `/udse/v1/devBindUsers`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -129,7 +131,7 @@ Body
 > 厂商服务端下发非标准设备命令（单命令、组命令），不需要使用用户token
 
 ##### 1、接口定义
-？> **接入地址：** /udse/v1/devOp
+？> **接入地址：** `/udse/v1/devOp`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -203,7 +205,7 @@ Body
 > 支持标准模型和非标准模型设备
 
 ##### 1、接口定义
-?> **接入地址：** /udse/v1/devOpStatus
+?> **接入地址：** `/udse/v1/devOpStatus`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -266,7 +268,7 @@ Body
 > 读取标准模型设备的属性
 
 ##### 1、接口定义
-？> **接入地址：** /udse/v1/stdDevPropertyRead
+？> **接入地址：** `/udse/v1/stdDevPropertyRead`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -339,7 +341,7 @@ Body
 > 写入标准模型设备属性
 
 ##### 1、接口定义
-?> **接入地址：** /udse/v1/stdDevPropertyWrite
+?> **接入地址：** `/udse/v1/stdDevPropertyWrite`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -414,8 +416,387 @@ Body
 > 操作标注模型设备
 
 ##### 1、接口定义
-?> **接入地址：** /udse/v1/stdDevOperate
+?> **接入地址：** `/udse/v1/stdDevOperate`</br>
 **HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备id
+operationName|String|Body|必填|操作名称
+operationValue|List<OpPropertyValue>|Body|必填|属性值的列表，由模型文档决定是否必填及如何填
+sn|String|Body|必填|设备操作请求序列号
+callbackUrl|String|body|非必填|操作应答回调地址,只支持http协议
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
+
+##### 2、请求示例
+
+**请求示例**
+```
+请求地址：/udse/v1/stdDevOperate
+Header：
+	appId:MB-ABC-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp: 1436236880183
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
+Body
+{
+	"deviceId": "0007A893C119",
+	"operationName": "operationName",
+	"operationValue": 
+	[
+    	{"name": "name1","value": "value1"},
+    	{"name": "name2","value": "value2"}
+	],
+	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+	"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+```
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+
+**操作应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864",
+	"deviceId": "0007A893C119",
+	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
+	"resCode":0
+}
+```
+##### 3、接口错误码
+> B00001、C00002、C00006、D00001、G20202
+
+### 用户授权设备控制
+
+#### 用户设备操作-控制通道-非标准模型
+> 用户设备操作-控制通道，支持非标准模型（6位码设备）设备的操作
+
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/devicesOperate`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+category|String|Body|必填|操作的分类</br>单命令："AttrOp";组命令："GroupOp"
+name|String|Body|必填|操作名称
+operateCodes|String|Body|必填|操作命令Base64加密值
+callbackUrl|String|Body|必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
+
+##### 2、请求示例
+
+**请求示例**
+```
+请求地址：/udse/v1/devicesOperate
+Header：
+	appId:MB-ABC-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp: 1436236880183
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
+Body
+{
+	"deviceId": "0007A893C119",
+	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH",
+	"category": "AttrOp",
+	"name": "221001",
+	"operateCodes": "eyJ2YWx1ZSI6IjIyMTAwMSJ9",
+	"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+```
+
+**请求应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+
+**操作应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864",
+	"deviceId": "0007A893C119",
+	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJzdGF0dXNlcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogIioqKiIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICIqKioiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogIioqKiIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICIqKioiCiAgICAgICAgfQogICAgXQp9"，
+	"resCode":0
+}
+```
+
+##### 2、接口错误码
+> B00001、B00004、A00001、D00006、G20202、G03002
+
+
+
+
+#### 用户读属性-异步接口-标准模型
+> 用户读属性-异步接口，支持标准模型的属性读
+
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/propertyRead`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+property|String|Body|必填|设备读属性的属性名
+callbackUrl|String|Body|必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
+
+
+##### 2、请求示例
+
+**请求示例**
+```
+请求地址：/udse/v1/propertyRead
+Header：
+	appId:MB-ABC-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp: 1436236880183
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
+Body
+{
+	"deviceId": "0007A893C119",
+	"property": "propertyName",
+	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+	"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+```
+
+**请求应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+
+**操作应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864",
+	"deviceId": "0007A893C119",
+	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0="
+}
+```
+
+
+##### 3、请求错误码
+> B00001、B00004、A00001、D00006、G20202、G03002
+
+
+#### 用户写属性-异步接口-标准模型
+> 用户写属性-异步接口，支持标准模型的属性写
+
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/propertyWrite`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+property|String|Body|必填|设备写属性的属性名
+value|String|Body|必填|设备写属性的属性名
+callbackUrl|String|Body|必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
+
+
+##### 2、请求示例
+
+**请求示例**
+```
+请求地址：/udse/v1/propertyWrite
+Header：
+	appId:MB-ABC-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp: 1436236880183
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
+Body
+{
+	"deviceId": "0007A893C119",
+	"property": "propertyName",
+	"value": "value",
+	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+	"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+```
+**请求应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+
+**操作应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864",
+	"deviceId": "0007A893C119",
+	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
+	"resCode":0
+}
+```
+##### 3、接口错误码
+> B00001、G20202、B00004、A00001、D00006、G03002
+
+
+
+#### 用户设备操作-异步接口-标准模型
+> 用户设备操作-异步接口，支持标准模型设备操作
+
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/operate`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|设备操作请求序列号
+operationName|String|Body|必填|操作名称
+operationValue|List<OpPropertyValue>|Body|必填|属性值的列表，由模型文档决定是否必填及如何填
+callbackUrl|String|Body|必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
+
+
+##### 2、请求示例
+
+**请求示例**
+```
+请求地址：/udse/v1/operate
+Header：
+	appId:MB-ABC-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp: 1436236880183
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
+Body
+{
+	"deviceId": "0007A893C119",
+	"operationName": "operationName",
+	"operationValue": 
+	[
+	    {"name": "name1","value": "value1"},
+	    {"name": "name2","value": "value2"}
+	],
+	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+	"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+```
+
+
+**请求应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+**操作应答**
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功!",
+	"usn": "600ce95da3e14fc7a68f483dd14db864",
+	"deviceId": "0007A893C119",
+	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
+	"resCode":0
+}
+```
+
+##### 3、接口错误码
+> B00001、B00004、A00001、D00006、G20202、G03002
+
 
 
 
