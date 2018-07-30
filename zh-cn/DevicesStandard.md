@@ -12,7 +12,7 @@
 ### 功能介绍
 
 **绑定与解绑**</br>
-1、绑定设备：用户与设备建立关联，形成绑定关系，绑定用户成为设备管理员；</br>
+1、绑定设备：用户与设备建立关联，形成绑定关系，绑定用户成为设备管理员；
 2、解绑设备：用户与设备解除绑定关系，同时用户关于此设备的相关分享也解除；</br>
 3、我的设备列表：用于查询与某单一用户绑定的所有智能互联设备。</br>
 
@@ -141,8 +141,7 @@ deviceId|String|设备ID
 > 用户绑定设备的接口
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/bindDevice
-
+?> **接入地址：** `/uds/v1/protected/bindDevice`
 **HTTP Method：** POST
 
 **输入参数**
@@ -197,8 +196,7 @@ Body
 > 用户解绑设备，同时解除设备的相关分享
 
 ##### 1、接口定义
-？> **接入地址：** /uds/v1/protected/{deviceId}/unbindDevice 
-
+？> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` 
 **HTTP Method：** POST
 
 **输入参数**
