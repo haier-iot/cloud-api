@@ -141,7 +141,7 @@ deviceId|String|设备ID
 > 用户绑定设备的接口
 
 ##### 1、接口定义
-?> **接入地址：** `/uds/v1/protected/bindDevice`
+?> **接入地址：** `/uds/v1/protected/bindDevice`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -196,7 +196,6 @@ Body
 > 用户解绑设备，同时解除设备的相关分享
 
 ##### 1、接口定义
-？> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` 
 **HTTP Method：** POST
 
 **输入参数**
@@ -244,8 +243,6 @@ Header：
 > 获取设备aliasName（别名）
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/aliasName 
-
 **HTTP Method：** GET
 
 **输入参数**
@@ -301,8 +298,7 @@ Header：
 > 获取设备的loaction（位置）内容
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/location
-
+?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -364,8 +360,7 @@ Header：
 
 ##### 1、接口定义
 
-?> **接入地址：** /uds/v1/protected/{deviceId}/deviceInfo
-
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceInfo`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -466,7 +461,7 @@ Header：
 
 ##### 1、接口定义
 
-?> **接入地址：** /uds/v1/protected/{deviceId}/location
+?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** PUT
 
 **输入参数**
@@ -527,7 +522,7 @@ body
 
 ##### 1、接口定义
 
-?> **接入地址：** /uds/v1/protected/{deviceId}/aliasName
+?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
 **HTTP Method：** PUT
 
 **输入参数**
@@ -585,7 +580,7 @@ body
 
 ##### 1、接口定义
 
-?> **接入地址：** /uds/v1/protected/deviceinfos
+?> **接入地址：** `/uds/v1/protected/deviceinfos`</br>
 **HTTP Method：** GET
 
 **输入参数：** 无
@@ -713,7 +708,7 @@ Header：
 > 用户可以查看设备是否在线
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/isOnline
+?> **接入地址：** `/uds/v1/protected/{deviceId}/isOnline`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -769,7 +764,7 @@ Header：
 
 ##### 1、接口定义
 
-?> **接入地址：** /uds/v1/protected/{deviceId}/deviceNetQuality
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceNetQuality`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -832,7 +827,7 @@ Header：
 > 获取到用户最新上报的状态信息
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/lastReportStatus
+?> **接入地址：** `/uds/v1/protected/{deviceId}/lastReportStatus`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -896,7 +891,7 @@ Header：
 > 保存房间位置信息
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/saveDeviceRoom
+?> **接入地址：** `/uds/v1/protected/{deviceId}/saveDeviceRoom`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -952,7 +947,7 @@ body
 > 获取设备信息及房间位置信息
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/deviceAndRoom
+?> **接入地址：** `/uds/v1/protected/deviceAndRoom`</br>
 **HTTP Method：** GET
 
 **输入参数**
@@ -1028,7 +1023,7 @@ Header：
 > 为设备添加品牌信息
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/saveDeviceBrand
+?> **接入地址：** `/uds/v1/protected/saveDeviceBrand`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -1087,7 +1082,7 @@ body
 > 查询设备的品牌信息
 
 ##### 1、接口定义
-?> **接入地址：** /uds/v1/protected/{deviceId}/deviceBrand
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceBrand`</br>
 **HTTP Method：** GET
 
 **输入参数**
