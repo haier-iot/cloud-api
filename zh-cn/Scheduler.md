@@ -18,6 +18,62 @@
 执行预览，为保证定时或周期性任务正确执行可对预约任务进行预览，即立即执行一次以预览相关控制指令设定效果。
 查询与运行历史，已设定预约与历史执行情况，提供了查询接口可查看已有预约任务与其历史运行情况，包括运行时间、执行的操作、执行结果等数据。
 
+### 接口清单
+
+> API接口总览
+
+| API名称        | 作用          | 是否开放  | 特别说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| 预约定时新增     | 适用于单设备单任务场景 | 是| 无|
+| 预约定时批量新增  |适应于单设备批量定时和批量设备单定时场景 | 是| 无|
+| 预约定时删除     | 将指定任务ID的预约定时设置为删除状态 | 是| 无|
+| 预约定时修改     | 适用于单设备单任务场景 | 是| 无|
+| 预约定时批量修改 | 适应于单设备批量定时和批量设备单定时场景 | 是| 无|
+| 根据userid查询预约| 根据userId查询创建人或编辑人为自己预约（不做用户鉴权，有可能查到用户已取消分享的设备预约） | 是| 无|
+| 根据deviceid查询预约| 根据deviceid查询预约详情 | 是| 无|
+| 根据taskId查询预约| 根据taskid查询预约详情 | 是| 无|
+| 预约定时执行日志查询| 预约定时执行日志查询 | 是| 无|
+| 预约任务执行预览| 任务立即下发一次 | 是| 无|
+
+
+#### 公共结构
+**TaskInfo**
+
+|名称	|预约定时任务信息|&emsp;|TaskInfo|
+| ------------- |:-------------:|:-----:|:-------------:|
+|字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
+|taskId	|String	|任务id|	varchar(50)
+|taskName|	String	|任务名称|	varchar(50)
+|schedulerType|	int	|预约类型（1=设备），此版本仅支持设备预约；|	int(2)|
+|typeId|	String	|设备型号|	varchar(100)
+|deviceId|	String	|设备mac	|varchar(50)
+|appInfo|	appInfo[]	|应用信息 |	&emsp;|
+|createUserInfo|	UserInfo[]	|创建者|	&emsp;|
+|createTime|	dateTime	|创建时间: 日期时间类型的字符串|`yyyy-MM-dd hh:mm:ss`|
+|modifyUserInfo|	UserInfo[]|	修改者	|&emsp;|
+|modifyTime|	dateTime|	修改时间: 日期时间类型的字符串|`yyyy-MM-dd hh:mm:ss`|
+|cron|	Cron[]|	cron对象	|&emsp;|
+|endTime|	dateTime|	任务终止时间: 日期时间类型的字符串|`yyyy-MM-dd hh:mm:ss`|
+|endTimeSource|	int	|endTime来源	|0: 系统默认，1:用户设置|
+|argsInfo|	ArgsInfo[]	|指令	|&emsp;|
+|status|	int|	定时预约状态 0 启用；1 已完成； 2 暂停；3 删除；4失效 |	int(2)|
+|taskDesc|	String|	任务描述	|varchar(100)
+|taskSeq|	int|	子任务序号id|	1：系统默认
+|taskAmount|	int|	子任务总数|	&emsp;|
+
+#### 预约定时新增
+
+
+
+
+#### 预约定时批量新增
+
+
+
+#### 预约定时删除
+
+
+
 
 ### 应用场景
 
