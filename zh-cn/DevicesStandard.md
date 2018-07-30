@@ -196,7 +196,7 @@ Body
 > 用户解绑设备，同时解除设备的相关分享
 
 ##### 1、接口定义
-？> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
+?> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
 **HTTP Method：** POST
 
 **输入参数**
