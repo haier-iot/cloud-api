@@ -1,4 +1,4 @@
-!>  **当前版本**：[UWS 数据订阅 V1.0.0][dataSubscription_document_url]  
+!>  **当前版本**：[UWS 数据订阅 V1.0.0][dataSubscription_document_url2]  
  **发布时间**：2018-07-19  
 
 ### 简介
@@ -30,15 +30,15 @@
 
 ### 文档资料
 
-[数据推送平台接口规范说明书][dataSubscription_document_url]    
-[数据推送服务接入说明书][dataSubscription_document_url]
+[数据推送平台接口规范说明书][dataSubscription_document_url1]    
+[数据推送服务接入说明书][dataSubscription_document_url2]
 
 ### 常见问题
 
 
 [^-^]:文本连接注释
-[dataSubscription_document_url]:_document/_dataSubscription/数据推送平台接口规范说明书.pdf
-[dataSubscription_document_url]:_document/_dataSubscription/数据推送服务接入说明书.pdf
+[dataSubscription_document_url1]:_document/_dataSubscription/数据推送平台接口规范说明书.pdf
+[dataSubscription_document_url2]:_document/_dataSubscription/数据推送服务接入说明书.pdf
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
