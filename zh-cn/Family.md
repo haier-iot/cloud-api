@@ -54,7 +54,8 @@
 |loginName|String|用户登录名（ids注册的登录名）|不为空|  
 
 - **Permission**  
-| 描述权限信息结构 | **名称** | 权限信息 | Permission | |
+ 描述权限信息结构
+| **名称** | 权限信息 | Permission | |
 | ------------- |:-------------:|:-----:|:-----:|     
 |**字段名**|**类型**|**说明**|**备注**|  
 |auth|AuthInfo|权限内容||  
@@ -94,10 +95,80 @@
 |familyOwner|UserBriefInfo|家庭管理员用户简明信息||  
 |ownerName|String|家庭管理员用户简明信息||  
 |appId|String|应用Id|| 
-|createtime|date|应用Id|家庭创建时间|  
+|createtime|date|家庭创建时间||  
 
-   
+- **FamilyMemberInfo**  
+描述家庭成员信息,包含家庭成员id,成员名称,所属家庭id
+| **名称** | 家庭信息 | FamilyMemberInfo |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|memberInfo|UserBriefInfo|用户简明信息||  
+|memberName|String|用户在家庭中的昵称||  
+|familyId|String|家庭id||  
+|joinTime|String|加入家庭时间|格式：YYYY-MM-DD HH:mm:ss|  
+
+- **DeviceBriefInfo**  
+| **名称** | 设备简明信息 | DeviceBriefInfo |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|deviceName|String|设备名称，等同于别名||  
+|deviceId|String|设备ID||  
+|wifiType|String|设备wifitype||  
+|deviceType|String|设备类别|| 
+|online|Boolean|是否在线||   
+
+
+- **UserBriefInfo **  
+Map<String,String> 用户属性值key/value  
+
+- **DeviceInfo**  
+| **名称** | 绑定设备信息 | DeviceInfo |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|deviceName|String|设备名称，等同于别名||  
+|deviceId|String|设备ID||  
+|wifiType|String|设备wifitype||  
+|deviceType|String|设备类别|| 
+|totalPermission|AuthInfo|权限和，权限信息的综合|| 
+|permissions|Permission[]|权限信息 ||  
+|online|Boolean|是否在线|| 
+
+- **BaseProperty**  
+| **名称** | 基础属性 | BaseProperty |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|brand|String|设备品牌||  
+|model|String|设备型号||  
+|others|Map<String,String>|其他属性||    
+
+
+- **DeviceVersion**  
+| **名称** | 设备版本信息 | DeviceVersion |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|deviceId|String|模块信息||  
+|modules|Set<Module>|设备型号||  
+|wifiType|String|wifi类型||  
+|deviceType|String|设备类型||  
+|basePropertiy|BaseProperty|品牌信息||  
+|location|Location|位置信息||  
   
+- **Module**  
+| **名称** | 模块信息 | Module |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|moduleId|String|模块ID||  
+|moduleType|String|模块类型||  
+|moduleInfos|Map<String,String>|模块其他信息||   
+
+- **Location**  
+| **名称** | 模块信息 | Location |    
+| ------------- |:-------------:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|longitude|Double|经度||  
+|latitude|Double|维度||  
+|cityCode|String|城市编码||    
+
 
 
 
