@@ -24,25 +24,25 @@
 ### 公共结构  
 #### AuthInfo  
 描述权限内容信息结构   
-| **名称** | 权限内容信息，至少一项为true |&emsp;| AuthInfo |    
-| ------------- |:-------------:|:-----:|:-------------:|   
+| **名称** | 权限内容信息，至少一项为true |&emsp;| AuthInfo |   
+| ------------- |:-------------:|:-----:|:-------------:|    
 |**字段名**|**类型**|**说明**|**备注**|  
 |view|Boolean|是否有查看权||  
 |set|Boolean|是否有配置权限||  
 |control|Boolean|是否有控制权||    
 
-### QueryInfo  
+#### QueryInfo  
 描述查询条件的接口 
-| **名称** | 查询条件对象 | &emsp; | QueryInfo |     
-| ------------- |:-------------:|:-----:|:-------------:|   
+| **名称** | 查询条件对象 | &emsp; | QueryInfo |  
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|  
 |queryKey|String|查询关键字|mobile：手机，email：邮箱|  
 |queryValue|String|关键字值|根据queryKey确定值|  
 |accType|String|账号类型||  
 
-- **QueryUserInfoResult**  
+#### QueryUserInfoResult   
 查询用户信息结果 
-| **名称** | 查询用户信息结果对象 | QueryUserInfoResult |    
+| **名称** | 查询用户信息结果对象 |&emsp;| QueryUserInfoResult |
 | ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|  
 |mobile|String|用户手机号|可能为空，由用户信息是否完整决定|  
@@ -50,19 +50,19 @@
 |userId|String|临时分配用户userid|不为空|  
 |loginName|String|用户登录名（ids注册的登录名）|不为空|  
 
-- **Permission**  
- 描述权限信息结构
-| **名称** | 权限信息 | Permission | |
-| ------------- |:-------------:|:-----:|:-------------:|     
+#### Permission  
+描述权限信息结构
+| **名称** | 权限信息 |&emsp;| Permission |
+| ------------- |:-------------:|:-----:|:-------------:|   
 |**字段名**|**类型**|**说明**|**备注**|  
 |auth|AuthInfo|权限内容||  
 |authType|String|权限类型|home:家庭分享，share：个人分享，owner：设备主人，server：给appserver的权限|  
 
 
-- **ShareDevice**  
+#### ShareDevice   
 描述设备的共享信息内容,包含设备分享到家庭的id,设备的属主,设备名字,分享权限集 
-| **名称** | 设备共享信息 | ShareDevice |    
-| ------------- |:-------------:|:-----:|:-------------:| 
+| **名称** | 设备共享信息 | &emsp;|ShareDevice |  
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|  
 |devInfo|DeviceBriefInfo|设备简明信息||  
 |devName|String|设备名称||  
@@ -71,10 +71,10 @@
 |devOwner|UserBriefInfo|设备管理员简明信息||  
 |permission|Permision|权限||   
 
-- **FamilyInfo**  
+#### FamilyInfo    
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称
-| **名称** | 家庭信息 | FamilyInfo |    
-| ------------- |:-------------:|:-----:|:-------------:|
+| **名称** | 家庭信息 | &emsp;|FamilyInfo |
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|  
 |familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|  
 |familyName|String|家庭名称||  
@@ -82,10 +82,10 @@
 |appId|String|应用Id||  
 |createtime|date|家庭创建时间||  
 
-- **FamilyInfoOwnerName**  
+#### FamilyInfoOwnerName   
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称
-| **名称** | 家庭信息,包含管理员的昵称 | FamilyInfoOwnerName |    
-| ------------- |:-------------:|:-----:|:-------------:|  
+| **名称** | 家庭信息,包含管理员的昵称 | &emsp;|FamilyInfoOwnerName |   
+| ------------- |:-------------:|:-----:|:-------------:|    
 |**字段名**|**类型**|**说明**|**备注**|  
 |familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|  
 |familyName|String|家庭名称||  
@@ -94,19 +94,19 @@
 |appId|String|应用Id|| 
 |createtime|date|家庭创建时间||  
 
-- **FamilyMemberInfo**  
+#### FamilyMemberInfo    
 描述家庭成员信息,包含家庭成员id,成员名称,所属家庭id
-| **名称** | 家庭信息 | FamilyMemberInfo |    
-| ------------- |:-------------:|:-----:|:-------------:|
+| **名称** | 家庭信息 | &emsp;|FamilyMemberInfo |
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |memberInfo|UserBriefInfo|用户简明信息||  
 |memberName|String|用户在家庭中的昵称||  
 |familyId|String|家庭id||  
 |joinTime|String|加入家庭时间|格式：YYYY-MM-DD HH:mm:ss|  
 
-- **DeviceBriefInfo**  
-| **名称** | 设备简明信息 | DeviceBriefInfo |    
-| ------------- |:-------------:|:-----:|:-------------:|
+#### DeviceBriefInfo    
+| **名称** | 设备简明信息 | &emsp;|DeviceBriefInfo |
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |deviceName|String|设备名称，等同于别名||  
 |deviceId|String|设备ID||  
@@ -115,12 +115,12 @@
 |online|Boolean|是否在线||   
 
 
-- **UserBriefInfo **  
+#### UserBriefInfo    
 Map<String,String> 用户属性值key/value  
 
-- **DeviceInfo**  
-| **名称** | 绑定设备信息 | DeviceInfo |    
-| ------------- |:-------------:|:-----:|:-------------:| 
+#### DeviceInfo    
+| **名称** | 绑定设备信息 | &emsp;|DeviceInfo |
+| ------------- |:-------------:|:-----:|:-------------:|   
 |**字段名**|**类型**|**说明**|**备注**|    
 |deviceName|String|设备名称，等同于别名||  
 |deviceId|String|设备ID||  
@@ -130,18 +130,18 @@ Map<String,String> 用户属性值key/value
 |permissions|Permission[]|权限信息 ||  
 |online|Boolean|是否在线|| 
 
-- **BaseProperty**  
-| **名称** | 基础属性 | BaseProperty |    
-| ------------- |:-------------:|:-----:|:-------------:|
+#### BaseProperty   
+| **名称** | 基础属性 |&emsp;| BaseProperty |   
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |brand|String|设备品牌||  
 |model|String|设备型号||  
 |others|Map<String,String>|其他属性||    
 
 
-- **DeviceVersion**  
-| **名称** | 设备版本信息 | DeviceVersion |    
-| ------------- |:-------------:|:-----:|:-------------:|
+#### DeviceVersion    
+| **名称** | 设备版本信息 | &emsp;|DeviceVersion |
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |deviceId|String|模块信息||  
 |modules|Set<Module>|设备型号||  
@@ -150,15 +150,15 @@ Map<String,String> 用户属性值key/value
 |basePropertiy|BaseProperty|品牌信息||  
 |location|Location|位置信息||  
   
-- **Module**  
-| **名称** | 模块信息 | Module |    
-| ------------- |:-------------:|:-----:|:-------------:|
+#### Module    
+| **名称** | 模块信息 | &emsp;|Module |
+| ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |moduleId|String|模块ID||  
 |moduleType|String|模块类型||  
 |moduleInfos|Map<String,String>|模块其他信息||   
 
-- **Location**  
+#### Location 
 |**名称**	|模块信息 |&emsp;|Location|
 | ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
