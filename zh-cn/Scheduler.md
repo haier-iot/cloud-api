@@ -442,8 +442,7 @@ Body:
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|taskInfo|	TaskInfo|	Body|	必填	|任务信息|
 
 
 **输出参数**  
@@ -452,17 +451,73 @@ Body:
 | ----- |:----------:|:-----:|:--------:|:---------:|
 
 
+>输入参数TaskInfo对象说明：
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|taskId	|String varchar(50)|	Body|	必填|	预约定时任务id|
+|taskSeq	|int|	Body|	必填	|子任务序号id|
+|taskName	|String varchar(50)	|Body|	选填	|任务名称|
+|taskDesc	|String varchar(100)	|Body|	选填	|任务描述|
+|status	|int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
+|endTime	|dateTime	|Body	|选填	|如果有值，按照此值的有效期|
+|cron	|cron[]|	Body	|选填	|预约定时表达式|
+|argsInfo	|ArgsInfo[]|	Body|	选填|	多套指令集；当前版本只支持一套|
+
+
+
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+	"cron": [
+	{
+		"seconds":"0",
+		"minutes":"0/5",
+		"hours":"*",
+		"day":"*",
+		"monty":"*",
+		"week":"?",
+		"year":""
+	}
+	],
+	"argsInfo": [
+	{
+		"optName": "OnOffStatus", 
+		"args": [
+			"esdFilterCleanTime", 
+			"desc", 
+			"-12"
+		]
+	}
+	]
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
 
 ```
 
@@ -480,8 +535,8 @@ Body:
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|taskInfos|	List<TaskInfo>|	Body|	必填	|批量任务的修改；list长度上限为50，超出则分批次调用；|
+
 
 
 **输出参数**  
@@ -490,17 +545,75 @@ Body:
 | ----- |:----------:|:-----:|:--------:|:---------:|
 
 
+>输入参数TaskInfo对象说明：
+
+|参数名	|类型	|位置|	必填|	说明|
+| ----- |:----------:|:-----:|:--------:|:---------:|
+|taskId	|String varchar(50)|	Body|	必填|	预约定时任务id|
+|taskSeq|	int|	Body|	必填|	子任务序号id；每组中的此字段不能重复|
+|taskName|	String varchar(50)|	Body|	选填|	任务名称|
+|taskDesc|	String varchar(100)|	Body|	选填|	任务描述|
+|status|	Int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
+|endTime	|dateTime|	Body|	选填	|如果有值，按照此值的有效期|
+|cron	|cron[]	|Body	|选填	|预约定时表达式|
+|argsInfo|	ArgsInfo[]|	Body|	选填|	多套指令集；当前版本只支持一套|
+
+
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+			"cron": [
+				{
+				   "seconds":"0",
+				   "minutes”:"0/5",
+				   "hours":"*",
+				   "day":"*",
+				   "monty":"*",
+				   "week":"?",
+					"year":""
+				}
+			],
+		    "argsInfo": [
+				{
+					"optName": "OnOffStatus", 
+					"args": [
+						"esdFilterCleanTime", 
+						"desc", 
+						"-12"
+					]
+				}
+			]
+			}
+		]
+   }
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
 
 ```
 
@@ -518,27 +631,117 @@ Body:
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|deviceId|	String|	Body|	选填	|设备id；如果不为空，根据userId和deviceId查询，为空根据userId查询|
+|startNumber|	int	|Body 	|选填	|分页参数，起始值；如果不填写，默认值为1|
+|length	|int|	Body| 	选填	|分页参数，长度；如果不填写，默认值为100|
+
 
 
 **输出参数**  
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-
+|detailInfo|	List<TaskInfo>|	Body|	必填|	返回详情；|
 
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"deviceId":"DC330D01FBF1",
+  	"startNumber":1,
+	"length":10
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+  "retCode": "00000",
+"retInfo": "查询成功",
+“detailInfo “:{
+    [
+		{
+		"retCode": "00000",
+		"retInfo": "查询成功",
+		"detailInfo": {
+		"taskId": "111111"，
+		"taskSeq": 1，
+		"taskName": "空调开机"，
+		"deviceId": "DC330D01FBF1"，
+		"scheduleType"：1，
+		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
+		"appInfo":[
+			{
+			"appId":"1111111",
+			"appVersion":"",
+			"appName":"",
+			"appLogo":""
+			}
+			]， 
+		"createUserInfo": [
+			{
+			"userId":"111111",
+			"userName":"",
+			"headImg":"",
+			"phone”:"139****1234"
+			}
+		]，
+		"createTime": "2018-04-19 17:00:00"，
+		"modifyUserInfo": "[
+			{
+			"userId":"111111",
+			"userName":"test",
+			"headImg":"b.jpg",
+			"phone":"139****1234"
+			}
+		]，
+		"modifyTime": "2018-04-19 17:00:00"，
+		"cron": [
+			{
+			"seconds":"0",
+			"minutes":"0/5",
+			"hours":"*",
+			"day":"*",
+			"monty":"*",
+			"week":"?",
+			"year":""
+			}
+		],
+		"endTime":"2018-05-21 12:00:00",
+		"status": 1,
+		"argsInfo": [
+			{
+			"optName": "OnOffStatus", 
+			"args": [
+			"esdFilterCleanTime", 
+			"desc", 
+			"-12"
+			]
+			}
+		],
+		"taskDesc":"空调开机"
+		}
+	]
+    }
+}
 
 ```
 
@@ -555,27 +758,117 @@ Body:
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|deviceId|	String|	Body|	必填|	设备id|
+|startNumber|	int|	Body|	选填	|分页参数，起始值；如果不填写，默认值为1|
+|length|	int|	Body|	选填	|分页参数，长度；如果不填写，默认值为100|
+
 
 
 **输出参数**  
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-
+|detailInfo|	List<TaskInfo>|	Body|	必填|	返回详情；|
 
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"deviceId": "DC330D32C193",
+ 	"startNumber":1,
+	"length":10
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+"retCode": "00000",
+"retInfo": "查询成功",
+"detailInfo":{
+    [
+		{
+		"retCode": "00000",
+		"retInfo": "查询成功",
+		"detailInfo": {
+		"taskId": "111111"，
+		"taskSeq": 1，
+		"taskName": "空调开机"，
+		"deviceId": "DC330D01FBF1"，
+		"scheduleType"：1，
+		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
+		"appInfo":[
+			{
+			"appId":"1111111",
+			"appVersion":"",
+			"appName":"",
+			"appLogo”:""
+			}
+			]， 
+		"createUserInfo": [
+			{
+			"userId":"111111",
+			"userName":"",
+			"headImg":"",
+			"phone":"139****1234"
+			}
+		]，
+		"createTime":"2018-04-19 17:00:00"，
+		"modifyUserInfo": "[
+			{
+			"userId":"111111",
+			"userName":"test",
+			"headImg":"b.jpg",
+			"phone":"139****1234"
+			}
+		]，
+		"modifyTime": "2018-04-19 17:00:00"，
+		"cron": [
+			{
+			"seconds":"0",
+			"minutes":"0/5",
+			"hours”:"*",
+			"day":"*",
+			"monty":"*",
+			"week":"?",
+			"year":""
+			}
+		],
+		"endTime":"2018-05-21 12:00:00",
+		"status": 1,
+		"argsInfo": [
+			{
+			"optName": "OnOffStatus", 
+			"args": [
+			"esdFilterCleanTime", 
+			"desc", 
+			"-12"
+			]
+			}
+		],
+		"taskDesc":"空调开机"
+		}
+	]
+    }
+}
 
 ```
 
@@ -601,19 +894,105 @@ Body:
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-
+|detailInfo|	List<TaskInfo>|	Body|	必填|	返回详情；|
 
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+  "taskId": "111111'
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+"retCode": "00000",
+"retInfo": "查询成功",
+"detailInfo":{
+    [
+		{
+		"retCode": "00000",
+		"retInfo": "查询成功",
+		"detailInfo": {
+		"taskId": "111111"，
+		"taskSeq": 1，
+		"taskName": "空调开机"，
+		"deviceId": "DC330D01FBF1"，
+		"scheduleType"：1，
+		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
+		"appInfo":[
+			{
+			"appId":"1111111",
+			"appVersion":"",
+			"appName":"",
+			"appLogo”:""
+			}
+			]， 
+		"createUserInfo": [
+			{
+			"userId":"111111",
+			"userName":"",
+			"headImg":"",
+			"phone":"139****1234"
+			}
+		]，
+		"createTime":"2018-04-19 17:00:00"，
+		"modifyUserInfo": "[
+			{
+			"userId":"111111",
+			"userName":"test",
+			"headImg":"b.jpg",
+			"phone":"139****1234"
+			}
+		]，
+		"modifyTime": "2018-04-19 17:00:00"，
+		"cron": [
+			{
+			"seconds":"0",
+			"minutes":"0/5",
+			"hours”:"*",
+			"day":"*",
+			"monty":"*",
+			"week":"?",
+			"year":""
+			}
+		],
+		"endTime":"2018-05-21 12:00:00",
+		"status": 1,
+		"argsInfo": [
+			{
+			"optName": "OnOffStatus", 
+			"args": [
+			"esdFilterCleanTime", 
+			"desc", 
+			"-12"
+			]
+			}
+		],
+		"taskDesc":"空调开机"
+		}
+	]
+    }
+}
 
 ```
 
@@ -631,27 +1010,77 @@ Body:
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|taskId	|String varchar(50)	|Body|	可选	|任务id|
+|deviceId|	String varchar(50)|	Body|	必填|	设备id|
+|beginTime|	Date|	Body|	可选|	任务执行开始时间: 日期类型的字符串|
+|endTime|	Date|	Body|	可选	|任务执行结束时间: 日期类型的字符串|
+|currentPage|	int|	Body|	可选|	分页参数，当前页，最小为1;默认值1|
+|pageSize|	int|	Body|	可选|	分页参数，每页条数;默认值10|
+
 
 
 **输出参数**  
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-
+|detailInfo|	List<TaskRestLogDataInfo>|	Body|	必填	|返回详情；|
 
 
 ##### 2、请求样例  
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+  	"taskId":"111111",
+  	"deviceId":"DC330D32C193",
+  	"beginTime":"2018-04-19 17:00:00",
+  	"endTime":"2018-04-20 17:00:00",
+  	"pageSize":10,
+	"currentPage":1
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+"retCode": "00000",
+"retInfo": "查询成功",
+"detailInfo":{
+	[
+		{
+			"total": 6,
+			"curSize": 6,
+			"currentPage": 1,
+			"pageSize": 10,
+			"logInfos": [{
+				"taskId": 1,
+				"deviceId": "DC330D32C193 ",
+				"sn": "dd753e6da718402dbd32fef9549e9676",
+				"excuteTime": "2018 - 04 - 19 17: 00: 00",
+				"step": 0,
+				"retCode": "00000",
+				"retInfo": "成功"
+			}]
+		}
+	]
+}
+}
 
 ```
 
@@ -669,7 +1098,7 @@ Body:
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
 |taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
-|taskSeq|	int	|Body|	选填	|子任务序号id|
+|taskSeq|	int	|Body|	必填	|子任务序号id|
 
 
 **输出参数**  
@@ -683,12 +1112,34 @@ Body:
 
 **用户请求**
 ```java 
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+timestamp: 1491014596343 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+	"taskId": "111111"
+  	"taskSeq":1
+}
 
 
 ```
 
 ***请求应答**
 ```java
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
 
 ```
 
