@@ -25,11 +25,11 @@
 #### AuthInfo  
 描述权限内容信息结构   
 | **名称** | 权限内容信息，至少一项为true |&emsp;| AuthInfo |   
-| ------------- |:-------------:|:-----:|:-------------:|    
+| ------------- |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
 |view| Boolean | 是否有查看权 ||  
 |set| Boolean | 是否有配置权限 ||  
-|control| Boolean | 是否有控制权 ||    
+|control| Boolean | 是否有控制权 |&emsp;|    
 
 #### QueryInfo  
 描述查询条件的接口 
@@ -102,17 +102,17 @@
 |memberInfo|UserBriefInfo|用户简明信息||  
 |memberName|String|用户在家庭中的昵称||  
 |familyId|String|家庭id||  
-|joinTime|String|加入家庭时间|格式：YYYY-MM-DD HH:mm:ss|  
+|joinTime|String|加入家庭时间|格式：`YYYY-MM-DD HH:mm:ss`|  
 
 #### DeviceBriefInfo    
 | **名称** | 设备简明信息 | &emsp;|DeviceBriefInfo |
-| ------------- |:-------------:|:-----:|:-------------:|  
+| ------------- |:-------------:|:-----:|:-------------:|   
 |**字段名**|**类型**|**说明**|**备注**|    
 |deviceName|String|设备名称，等同于别名||  
 |deviceId|String|设备ID||  
 |wifiType|String|设备wifitype||  
 |deviceType|String|设备类别|| 
-|online|Boolean|是否在线||   
+|online|Boolean|是否在线|&emsp;|     
 
 
 #### UserBriefInfo    
@@ -128,7 +128,7 @@ Map<String,String> 用户属性值key/value
 |deviceType|String|设备类别|| 
 |totalPermission|AuthInfo|权限和，权限信息的综合|| 
 |permissions|Permission[]|权限信息 ||  
-|online|Boolean|是否在线|| 
+|online|Boolean|是否在线|&emsp;|     
 
 #### BaseProperty   
 | **名称** | 基础属性 |&emsp;| BaseProperty |   
@@ -136,7 +136,7 @@ Map<String,String> 用户属性值key/value
 |**字段名**|**类型**|**说明**|**备注**|    
 |brand|String|设备品牌||  
 |model|String|设备型号||  
-|others|Map<String,String>|其他属性||    
+|others|Map<String,String>|其他属性|&emsp;|       
 
 
 #### DeviceVersion    
@@ -148,7 +148,7 @@ Map<String,String> 用户属性值key/value
 |wifiType|String|wifi类型||  
 |deviceType|String|设备类型||  
 |basePropertiy|BaseProperty|品牌信息||  
-|location|Location|位置信息||  
+|location|Location|位置信息|&emsp;|      
   
 #### Module    
 | **名称** | 模块信息 | &emsp;|Module |
@@ -156,7 +156,7 @@ Map<String,String> 用户属性值key/value
 |**字段名**|**类型**|**说明**|**备注**|    
 |moduleId|String|模块ID||  
 |moduleType|String|模块类型||  
-|moduleInfos|Map<String,String>|模块其他信息||   
+|moduleInfos|Map<String,String>|模块其他信息||       
 
 #### Location 
 |**名称**	|模块信息 |&emsp;|Location|
@@ -164,7 +164,7 @@ Map<String,String> 用户属性值key/value
 |**字段名**|**类型**|**说明**|**备注**|    
 |longitude|Double|经度||  
 |latitude|Double|维度||  
-|cityCode|String|城市编码||    
+|cityCode|String|城市编码|&emsp;|        
 
 
 
@@ -184,8 +184,7 @@ Map<String,String> 用户属性值key/value
 | 家庭管理员删除家庭     | 家庭管理员删除家庭,收回用户分享给家庭的设备权限,收回家庭成员的家庭分享设备权限，向删除前家庭成员发送删除家庭消息，记录消息推送结果到日志 | 是| 无| 
 | 家庭管理员添加家庭成员    | 家庭管理员添加家庭成员,分享家庭设备权限给成员，发送家庭成员添加家庭成员消息,支持memberId为临时的userid | 是| 无| 
 | 家庭管理员邀请用户加入家庭     | 家庭管理员邀请用户加入家庭，并向用户下发推送邀请码, 支持targetId为临时的userid | 是| 无| 
-| 家庭成员回复家庭管理员邀请     | 家庭成员接受家庭管理员邀请，加入家庭，
-,分享家庭设备权限给成员，并发送添加家庭成员消息给家庭成员；如果拒绝，本次邀请结束，发送用户拒绝加入家庭消息到家庭管理员，记录消息推送结果到日志| 是| 无| 
+| 家庭成员回复家庭管理员邀请     | 家庭成员接受家庭管理员邀请，加入家庭,分享家庭设备权限给成员，并发送添加家庭成员消息给家庭成员；如果拒绝，本次邀请结束，发送用户拒绝加入家庭消息到家庭管理员，记录消息推送结果到日志| 是| 无| 
 | 家庭管理员或家庭成员修改家庭成员名称     | 家庭管理员修改家庭成员信息，其中包含家庭管理员在家庭中的昵称家庭成员可以修改自己的信息，发送修改家庭成员信息消息给家庭成员，记录消息推送结果到日志
  | 是| 无| 
 | 家庭管理员删除家庭成员     | 家庭主人删除家庭成员,并解除成员在家庭中分享的设备关系，并收回成员分享给家庭的设备，发送删除家庭成员消息给家庭全体成员，记录消息推送结果到日志 | 是| 无| 
