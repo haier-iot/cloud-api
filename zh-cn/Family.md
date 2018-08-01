@@ -78,36 +78,39 @@
 
 #### FamilyInfo    
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称。     
-| **名称** | 家庭信息 | &emsp;|FamilyInfo |
-| ------------- |:-------------:|:-----:|:-------------:|   
-|**字段名**|**类型**|**说明**|**备注**|    
-|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|    
-|familyName|String|家庭名称||  
-|familyOwner|UserBriefInfo|家庭管理员用户简明信息||  
-|appId|String|应用Id|| 
-|createtime|date|家庭创建时间|&emsp;|      
+  
+| **名称** | 家庭信息 | &emsp;|FamilyInfo |    
+| ------------- |:-------------:|:-----:|:-------------:|    
+|**字段名**|**类型**|**说明**|**备注**|      
+|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|      
+|familyName|String|家庭名称| |    
+|familyOwner|UserBriefInfo|家庭管理员用户简明信息||    
+|appId|String|应用Id||   
+|createtime|date|家庭创建时间|&emsp;|         
 
 #### FamilyInfoOwnerName   
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称。  
-| **名称** | 家庭信息,包含管理员的昵称 | &emsp;|FamilyInfoOwnerName |
-| ------------- |:-------------:|:-----:|:-------------:|   
-|**字段名**|**类型**|**说明**|**备注**|    
-|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|    
-|familyName|String|家庭名称||  
-|familyOwner|UserBriefInfo|家庭管理员用户简明信息||  
-|ownerName|String|家庭管理员用户简明信息|| 
-|appId|String|应用Id|&emsp;| 
-|createtime|date|家庭创建时间|&emsp;| 
+  
+| **名称** | 家庭信息,包含管理员的昵称 | &emsp;|FamilyInfoOwnerName |  
+| ------------- |:-------------:|:-----:|:-------------:|    
+|**字段名**|**类型**|**说明**|**备注**|      
+|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|      
+|familyName|String|家庭名称||    
+|familyOwner|UserBriefInfo|家庭管理员用户简明信息||    
+|ownerName|String|家庭管理员用户简明信息||   
+|appId|String|应用Id|&emsp;|   
+|createtime|date|家庭创建时间|&emsp;|   
 
 #### FamilyMemberInfo    
 描述家庭成员信息,包含家庭成员id,成员名称,所属家庭id。  
-| **名称** |家庭信息 | &emsp;|FamilyMemberInfo |
-| ------------- |:-------------:|:-----:|:-------------:|   
-|**字段名**|**类型**|**说明**|**备注**|    
-|memberInfo|UserBriefInfo|用户简明信息||  
-|memberName|String|用户在家庭中的昵称||  
-|familyId|String|家庭id||  
-|joinTime|String|加入家庭时间|格式：`YYYY-MM-DD HH:mm:ss`| 
+  
+| **名称** |家庭信息 | &emsp;|FamilyMemberInfo |  
+| ------------- |:-------------:|:-----:|:-------------:|    
+|**字段名**|**类型**|**说明**|**备注**|      
+|memberInfo|UserBriefInfo|用户简明信息||    
+|memberName|String|用户在家庭中的昵称||    
+|familyId|String|家庭id||    
+|joinTime|String|加入家庭时间|格式：`YYYY-MM-DD HH:mm:ss`|   
 
 #### DeviceBriefInfo    
 | **名称** | 设备简明信息 | &emsp;|DeviceBriefInfo |
