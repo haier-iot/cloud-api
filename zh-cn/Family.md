@@ -206,15 +206,15 @@ Map<String,String> 用户属性值key/value
 
 **输入参数**  
 
-| 参数名        | 类型          | 位置  | 必填|说明|
+| 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-|  familyInfo    | FamilyInfo | Body| 必填|家庭信息|
+|  FamilyInfo    | familyInfo | Body| 必填|家庭信息|
 
 **输出参数**  
 
-|   名称      |     类型      | 位置  |必填 |说明|
+|   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| familyInfo |  FamilyInfo  |   Body  |  必填  | 家庭信息 |
+| FamilyInfo |  familyInfo  |   Body  |  必填  | 家庭信息 |
 
 ##### 2、请求样例  
 
@@ -233,9 +233,146 @@ timezone: +8
 appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+Body:
 {
-    "aliasName": "s"
+"familyInfo":{
+"familyName":"我家"
+	}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+"familyInfo":{
+"familyName":"我家",
+"familyId":"10086",
+"familyOwner":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+		}
+	},
+"appId":"MB-PORTAL-0000"，
+"createtime":"2016-10-01 12:00:00"
+}
+   "retCode": "00000",
+   "retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008  
+
+#### 家庭管理员创建家庭带管理员昵称(新增)
+> 用户创建家庭,在家庭模型管理平台中创建家庭,请求者作为家庭管理员,返回家庭的基础信息和错误码  
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/familyWithOwnerName `  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  FamilyInfoWithOwnerName    | familyInfo | Body| 必填|家庭信息|
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyInfoWithOwnerName |  familyInfo  |   Body  |  必填  | 家庭信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"familyInfo":{
+"familyName":"我家"，
+"ownerName":"admin100013957366154693"
+	}
+}
+
+
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功","familyInfo":{"familyId":"566070358640000000","familyName":"我的家庭1","familyOwner":{"userId":"100013957366154693","mobile":"136****8934"},"ownerName":"admin100013957366154693","appId":"MB-UBOT-0009","createTime":"2018-01-03 16:17:20"}}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008  
+
+#### 家庭管理员修改家庭名称
+> 用户修改拥有的家庭的名称，发送修改家庭信息消息给家庭成员,记录发送结果到日志    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/family `  
+ **HTTP Method：** PUT
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  FamilyInfo    | familyInfo | Body| 必填|家庭信息|  
+|  String    | familyId | url| 必填|家庭id|  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"familyInfo":{
+"familyName":"你家"
+	}
 }
 
 ```  
@@ -244,26 +381,1822 @@ Body
 
 ```java
 {
-    "retCode": "00000",
-    "retInfo": "成功!"
+"retCode": "00000",
+"retInfo": "成功"
+}
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31108   
+
+#### 家庭管理员或家庭成员查询家庭信息
+> 家庭管理员或家庭成员查询家庭信息    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/family `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  String    | familyId | url| 必填|家庭id|  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyInfo |  familyInfo  |   Body  |  必填  | 家庭信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+"familyInfo":{
+"familyName":"我家",
+"familyId":"10086",
+"familyOwner":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+},
+"appId":"MB-PORTAL-0000"
+}
+   "retCode": "00000",
+   "retInfo": "成功"
 }
 
 ```
 
 ##### 3、错误码  
-> A00001、B00001、G20202、A00004、B00001、D00006
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109   
+
+#### 家庭管理员查询创建家庭信息列表
+> 验证用户token,确认用户是否为家庭主人,查询家庭信息,并返回    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/createdFamilies `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyInfo[] |  families  |   Body  |  必填  | 家庭信息列表 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+"families":[{
+"familyName":"我家",
+"familyId":"10005618",
+"appId":"MB-PORTAL-0000",
+"createtime":"2016-09-28 10:00:00"
+},
+{
+"familyName":"你家",
+"familyId":"1000569",
+"appId":"MB-PORTAL-0000",
+"createtime":"2016-09-28 10:00:00"
+}]
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008   
+
+#### 家庭成员查询加入的家庭信息列表
+> 验证用户token,确认用户是否为家庭成员,查询加入的家庭信息,并返回    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/families`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyInfo[] |  families  |   Body  |  必填  | 家庭信息列表 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+"families":[{
+"familyName":"测试1",
+"familyId":"20021003012012",
+"familyOwner":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+},
+"appId":"MB-PORTAL-0000",
+"createtime":"2016-09-28 10:00:00"
+},
+{
+"familyName":"测试3",
+"familyId":"20021003012012",
+"familyOwner":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+},
+"appId":"MB-PORTAL-0000",
+"createtime":"2016-09-28 10:00:00"
+
+}]
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008  
+
+#### 家庭管理员删除家庭
+> 家庭管理员删除家庭,收回用户分享给家庭的设备权限,收回家庭成员的家庭分享设备权限，向删除前家庭成员发送删除家庭消息，记录消息推送结果到日志   
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/family`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | familyId  | url | 必填 |家庭id |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31108    
+
+#### 家庭管理员添加家庭成员
+> 家庭管理员添加家庭成员,分享家庭设备权限给成员，发送家庭成员添加家庭成员消息,支持memberId为临时的userid  
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/familyMember`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | memberId   | Body |必填|家庭成员id |  
+| String  | memberName   | Body |必填|家庭成员名称 |  
+| String  | familyId   | Body |必填|家庭id |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"familyId":"105876",
+"memberId":"10008573",
+"memberName":"老大"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31105、E31108  
+
+#### 家庭管理员邀请用户加入家庭
+> 家庭管理员邀请用户加入家庭，并向用户下发推送邀请码, 支持targetId为临时的userid
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/invitation/{familyId}/{targetId}/familyMember`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | targetId   | url |必填|被邀请用户id |  
+| String  | familyId   | url |必填|家庭id |  
+| String  | familyId  | Body |必填|家庭成员在家庭中名称 |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| String |  familyId  |   body |  必填  | 家庭id|
+| String |  inviteCode  |   body |  必填  | 用户邀请码|  
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"memberName": "大家长"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"familyId": "11389",
+"inviteCode": "123034",
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31130、H00001  
+    
+#### 家庭成员回复邀请加入家庭
+> 家庭成员接受家庭管理员邀请，加入家庭，,分享家庭设备权限给成员，并发送添加家庭成员消息给家庭成员；如果拒绝，本次邀请结束，发送用户拒绝加入家庭消息到家庭管理员，记录消息推送结果到日志  
+
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/agreeInvitation/{familyId}/familyMember`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | familyId   | url |必填|家庭id|  
+| String  | inviteCode   | body |必填|邀请码 |  
+| String  | memberName  | Body |必填|家庭成员在家庭中名称 | 
+| Boolean  | agree  | Body |必填|true，同意，false不同意 |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp;  |  &emsp;   |   &emsp;  |  &emsp;   | &emsp; |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"inviteCode": "123034",
+"agree": true
+ }
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31130、E31131、E31132、E31133    
+
+#### 家庭管理员或家庭成员修改家庭成员名称
+> 家庭管理员修改家庭成员信息，其中包含家庭管理员在家庭中的昵称，家庭成员可以修改自己的信息，发送修改家庭成员信息消息给家庭成员，记录消息推送结果到日志  
+ 
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/{memberId}/familyMember`  
+ **HTTP Method：** PUT
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| FamilyMemberInfo  | memberInfo   | Body |必填|家庭成员信息|  
+| String  | familyId   | url |必填|家庭id |  
+| String  | memberId  | url |必填|家庭成员id | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp;  |  &emsp;   |   &emsp;  |  &emsp;   | &emsp; |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"memberInfo":
+{
+"memberName":"老大"
+}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109  
+
+#### 家庭管理员删除家庭成员
+> 家庭主人删除家庭成员,并解除成员在家庭中分享的设备关系，并收回成员分享给家庭的设备，发送删除家庭成员消息给家庭全体成员，记录消息推送结果到日志 
+ 
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/{memberId}/familyMember`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | memberId   | url |必填|用户id |  
+| String  | familyId  | url |必填|家庭id | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp;  |  &emsp;   |   &emsp;  |  &emsp;   | &emsp; |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31107、E31108  
+
+
+#### 家庭成员主动退出家庭
+> 家庭成员主动退出家庭,撤销家庭成员的家庭设备分享,撤销其他家庭成员对本家庭成员设备的分享权限，向家庭其他成员发送删除家庭成员消息  
+ 
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/familyMember`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | familyId  | url |必填|家庭id | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp;  |  &emsp;   |   &emsp;  |  &emsp;   | &emsp; |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31107、E31108   
+
+#### 家庭管理员或家庭成员查询家庭成员
+>家庭管理员或家庭成员查询家庭成员  
+ 
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/familyMembers`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | familyId  | url |必填|家庭id | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyMemberInfo[]  |  familyMembers   |   Body  |  必填   | 家庭成员信息列表 |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+
+"familyMembers":[
+{"familyId":"105876",
+"memberInfo":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+},
+"memberName":"测试1","joinTime ":"2016-11-01 00:00:00"},
+{"familyId":"105876",
+"memberInfo":{
+"userId: "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+"userSex": "male"
+},
+"memberName":"测试2""joinTime ":"2016-11-01 00:00:00"},
+{"familyId":"105876",
+"memberInfo":{
+"userId: "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+"userSex": "male"
+},
+"memberName":"测试3""joinTime ":"2016-11-01 00:00:00"}
+],
+"retCode":"00000",
+"retInfo":"成功"
+
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109     
+
+#### 家庭成员或家庭管理员查询家庭成员所有成员（包含管理员）
+>家庭管理员或家庭成员查询家庭成员 
+ 
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/allFamilyMembers`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | familyId  | url |必填|家庭id | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyMemberInfo[]  |  familyMembers   |   Body  |  必填   | 家庭成员信息列表 |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+
+{"retCode":"00000","retInfo":"成功","familyMembers":[{"memberInfo":{"userId":"100013957366154693","mobile":"136****8934"},"memberName":"admin100013957366154693","familyId":"566070358640000000","joinTime":"2018-01-03 16:17:20"}]}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109      
+
+#### 根据关键字精确检索好友信息（新增）
+>精确查找用户信息，用于执行需要用户ID的场景，本次用户id有时效性，临时分配，有效期为1天，支持其他接口使用，在相关接口中有说明 
+ 
+##### 1、接口定义
+?> **接入地 址：**  `//ufm/v1/protected/familyService/userInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| QueryInfo  | queryInfo  | body |必填|查询条件 | 
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| QueryUserInfoResult |  qUserR   |   Body  |  必填   | 用户信息 |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"queryInfo":{
+"queryKey":"mobile",
+"queryValue":"13800000000"，
+"accType":"0"，
+}
+}
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功","qUserInfo":{"userId":"1566070351894000000","mobile":"13621108934","email":"chenj@haierubic.com","loginName":"H642R1510027712631"}}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109   
+
+### 设备分享管理服务
+> API接口总览
+
+| API名称        | 作用          | 是否开放  | 特别说明|  
+| ------------- |:-------------:|:-----:|:-------------:|
+| 家庭管理员或家庭成员查询家庭的所有设备     | 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备 | 是| 无| 
+| 设备管理员查询设备管理员分享给个人的所有设备    | 查询设备管理员分享给个人的所有设备| 是| 无| 
+| 查询设备管理员分享给家庭的设备     | 查询设备管理员分享给家庭的所有设备 | 是| 无| 
+| 家庭成员查询分享给我的所有家庭设备    | 家庭成员查询分享给我的所有家庭设备 | 是| 无| 
+| 普通用户查询分享给我的个人分享设备     | 查询分享给我的所有个人分享设备 | 是| 无| 
+| 设备管理员查询自有设备列表     | 查询用户自有设备列表 | 是| 无| 
+| 家庭成员或家庭管理员分享设备给家庭    | 家庭成员或家庭管理员作为设备的管理员分享设备给家庭，发送分享家庭设备消息给家庭成员，包含管理员，记录消息发送结果到日志 | 是| 无| 
+| 家庭管理员取消设备的家庭分享    | 用户取消分享给家庭的设备,收回分享给家庭用户的设备家庭权限，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志 | 是| 无| 
+| 设备管理员取消设备的家庭分享     | 设备管理员取消分享给家庭的设备，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志 | 是| 无| 
+| 设备管理员分享设备给个人     | 设备管理员分享设备给个人，发送分享个人设备消息给目标用户，记录消息发送结果到日志，支持targetId为临时的userid| 是| 无| 
+| 设备管理员取消设备分享    | 设备管理员取消用户分享，发送取消个人分享设备消息给目标用户，记录消息发送结果到日志, 支持targetId为临时的userid| 是| 无| 
+| 用户删除分享自己的个人设备    | 用户取消设备管理员分享给自己的设备 | 是| 无|  
+
+#### 家庭管理员或家庭成员查询家庭的所有设备
+> 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/{familyid}/shareDevices`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  String    | familyId | url| 必填|家庭Id|
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+
+" shareDevs ":[
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devFamilyId":"1",
+"devOwner":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+},
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+},
+{
+"devId":"12346",
+"devName":"测试1",
+"devFamilyId":"1",
+"devOwner":{
+"userId: "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+},
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+}
+],
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31109   
+
+#### 设备管理员查询设备管理员分享给个人的所有设备
+> 查询设备管理员分享给个人的所有设备  
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ person/shareDevices `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;    | &emsp; | &emsp;| &emsp;|&emsp;|
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ShareDevice[] |  shareDevs  |   Body  |  必填  |共享设备信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"shareDevs":[
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+
+"devName":"测试1",
+"devShareUser":{
+"userId":  "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+},
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
+}
+},
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试2",
+"devShareUser":{
+"userId": "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+},
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
+}
+}
+],
+"retCode":"00000",
+"retInfo":"成功"
+
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008    
+
+#### 设备管理员查询分享给家庭的所有设备
+> 查询设备管理员分享给家庭的所有设备   
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |    
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ShareDevice[] |  shareDevs |   Body|  必填  | 共享设备信息 |  
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"shareDevs ":[
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+}
+,
+"devName":"测试1",
+"devFamilyId":"1006785",
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+
+},
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devFamilyId":"1006785",
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+}
+],
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008    
+
+#### 家庭成员查询分享给我的所有家庭设备
+> 家庭成员查询分享给我的所有家庭设备    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices2me `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+shareDevs ":[
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devFamilyId":"1006785",
+"devOwner":{
+"userId":  "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+}，
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+
+},
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devFamilyId":"1006785",
+"devOwner":{
+"userId":  "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+}，
+"permission":{
+"authType":"home",
+"auth":{"view":true,"set":false,"control":false}
+}
+}],
+    "retCode": "00000", 
+    "retInfo": "成功", 
+   
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008     
+
+#### 普通用户查询分享给我的个人分享设备
+> 查询分享给我的所有个人分享设备   
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/shareDevices2me `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+shareDevs ":[
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devOwner":{
+"userId":  "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+}，
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
+}
+
+},
+{
+"devInfo":{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+},
+"devName":"测试1",
+"devOwner":{
+"userId":  "10811563273",
+"userNickName": "xiaoyi",
+"userHeadImg": "https://uhome.haier.com/resource/headimg",
+"userAge": "10811563273",
+"userAddr": "10811563273",
+“userSex”: “male”
+}
+}，
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
+}
+
+}
+],
+    "retCode": "00000", 
+    "retInfo": "成功", 
+   
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008     
+
+#### 设备管理员查询自有设备列表
+> 查询用户自有设备列表    
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/devices`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| DeviceBriefInfo [] |  devices  |   Body  |  必填  |  &emsp;|
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+```  
+
+**请求应答**
+
+```java
+{
+"devices ":[{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+}, 
+{
+"deviceName": "测试",
+        "deviceId": "100823",
+        "wifiType": "0000000000000000000000000",
+"deviceType": "00000",
+online":false
+}], 
+"retCode":"00000","retInfo":"成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008    
+
+#### 家庭成员或家庭管理员分享设备给家庭
+> 家庭成员或家庭管理员作为设备的管理员分享设备给家庭，发送分享家庭设备消息给家庭成员，包含管理员，记录消息发送结果到日志   
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/shareDevice`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| ShareDevice  | shareDev  | Body | 必填 |设备的分享信息 |  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"shareDev":{
+"devInfo":{           
+"deviceId": "100823"
+},
+"devName":"test",
+"permission":{ "authType":"home",
+"auth":{ "view": true, "set": false, "control": false}},
+" devFamilyId":"1256738"
+}
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31111      
+
+#### 家庭管理员取消设备的家庭分享
+> 用户取消分享给家庭的设备,收回分享给家庭用户的设备家庭权限，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/ {familyId}/manager/{devId}/shareDevice`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | devId   | url |必填|设备id |  
+| String  | familyId   | url |必填|家庭id |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31108   
+
+#### 设备管理员取消设备的家庭分享
+> 设备管理员取消分享给家庭的设备，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/ {familyId}/{devId}/shareDevice`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | devId   | url |必填|设备id |  
+| String  | familyId   | url |必填|家庭id |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31107、E31108  
+
+#### 家庭管理员取消设备的家庭分享
+> 用户取消分享给家庭的设备,收回分享给家庭用户的设备家庭权限，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/ {familyId}/manager/{devId}/shareDevice`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | devId   | url |必填|设备id |  
+| String  | familyId   | url |必填|家庭id |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31104、E31108   
+
+#### 设备管理员分享设备给个人
+> 设备管理员分享设备给个人，发送分享个人设备消息给目标用户，记录消息发送结果到日志，支持targetId为临时的userid
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/{targetId}/shareDevice`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| ShareDevice  | shareDev   | Body |必填|设备的分享信息 |  
+| String  | targetId   | url |必填|分享设备的目标用户 |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body:
+{
+"shareDev":{
+"devInfo":{           
+"deviceId": "100823",
+},
+"devName":"test",
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
+}
+
+}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008，F31225   
+  
+
+#### 设备管理员取消设备分享
+> 设备管理员取消用户分享，发送取消个人分享设备消息给目标用户，记录消息发送结果到日志, 支持targetId为临时的userid
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/ {targetId}/{devId}/shareDevice`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | devId   | url |必填|设备id |  
+| String  | targetId   | url |必填|设备分享者 |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| -------------|:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008   
+
+#### 用户删除分享给自己的个人设备（新增）
+> 用户取消设备管理员分享给自己的设备
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/{devId}/shareDeviceToMe`  
+ **HTTP Method：** DELETE
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| String  | devId   | url |必填|设备id |  
+  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| -------------|:----------:|:-----:|:--------:|:---------:|
+| &emsp; |  &emsp;  |   &emsp;  |  &emsp;  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008    
 
 ### 应用场景
+适用于多个用户间组建管理组，即创建“家庭”；同事拥有家庭组的用户，可把自有的设备分享到家庭组中，分享设备的使用，即实现以群组为单位的设备共享。
 
 ### 使用方式
+![开通流程][family_liucheng]
 
 ### 文档资料
-
+[UWS 家庭模型服务][family_document_url] 
 ### 常见问题
 
 
 [^-^]:文本连接注释
-[family_document_url]:#
+[family_document_url]:_document/_family/家庭模型服务v1.5.0.docx
 
 [^-^]:常用图片注释
 [family_type]:_media/_family/family_type.png
