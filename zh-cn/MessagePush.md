@@ -1,4 +1,7 @@
-!> **当前版本：** [消息推送服务标准版v3.0.3][MessagePush_document_url]</br>
+!> 待完善
+
+
+!>**当前版本：** [消息推送服务标准版v3.0.3][MessagePush_document_url]</br>
 **日期：** 2018-07-19 
 
 ## 简介
@@ -184,7 +187,227 @@ appPackage|String|长度1到100|Body|是|终端标识，依此来对应推送第
 ##### 3、请求错误码
 
 
+#### 用户注销消息通道
+> 当设备不再需要推送功能或者此设备授权已经移交给他人，可注销消息通道
 
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/unRegister`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
+appPackage|String|长度1到100|Body|必填|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
+
+**输出参数:** 输出标准应答参数
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/unRegister
+{
+    "clientId":"****",
+    "appPackage":"com.a.b"
+}
+```
+
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success"
+}
+```
+
+##### 3、请求错误码
+
+
+### 获取用户注册设备列表
+
+#### 获取用户注册消息通道的设备列表
+> 获取当前账号下已经注册过消息通道的带屏设备列表
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/deviceList`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+
+**输出参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+deviceList|UserRegInfo[]|Body|非必填|用户注册设备列表
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/deviceList
+{
+    "appPackage":"com.a.b"
+}
+```
+
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success",
+   "deviceList":[]
+}
+```
+
+##### 3、请求错误码
+
+### 端-端消息推送
+
+#### 按设备向自己发送消息
+> 用户按设备发送消息，可指定发送给某几个app
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByDev</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+deviceId|String[]|数组最大支持200个|Body|必填|设备标识
+deviceType|String[]|数组最大支持200个|Body|非必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
+appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+
+**输出参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+msgId|String|Body|必填|消息ID
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/msg/pushByDev
+{
+    "isTry": 1,
+    "priority": 0, 
+    "expires": 3600,
+    "isLong": 0,
+    "message": {},
+    "deviceIds": ["dev001","dev002"],
+    "deviceTypes": [ "01"],
+    "appPackages": ["com.a.b"]
+}
+```
+
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success",
+   "msgId":"xxx"
+}
+```
+
+##### 3、接口错误码
+
+
+#### 按终端向自己发送消息
+> 用户按终端类型发送消息
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByDevType</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+deviceType|String[]|数组最大支持200个|Body|非必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
+
+
+**输出参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+msgId|String|Body|必填|消息ID
+
+##### 2、请求样例
+ 
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/msg/pushByDevType
+{
+    "isTry": 1,
+    "priority": 0,
+    "expires": 3600,
+    "isLong": 0,
+    "message": {},
+    "deviceTypes": [ "01" ]
+}
+```
+
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success",
+   "msgId":"xxx"
+}
+```
+
+##### 3、接口错误码
+
+
+#### 按APP向自己发送消息
+> 用户指定发送给某几个app
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByApp</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+
+
+**输出参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+msgId|String|Body|必填|消息ID
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/msg/pushMsgByApp
+{
+    "isTry": 1,
+    "priority": 0,
+    "expires": 3600,
+    "isLong": 0,
+    "message": {},
+    "appPackages": ["com.a.b"]
+}
+
+```
+
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success",
+   "msgId":"xxx"
+}
+```
+
+##### 3、接口错误码
 
 
 ### 应用场景
