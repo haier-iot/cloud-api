@@ -32,17 +32,17 @@ APP server等在未登陆情况对终端进行消息下发</br>
 **UserRegInfo：** 用户注册信息
 
 参数名|类型|说明|备注
-:-|:-:|:-:|:-
+:-|:-:|:-|:-
 userId|String|账号登陆后返回的userId|
 clientId|String|带屏设备终端的唯一标识|如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址。
 deviceName|String|设备名称|设备昵称
 pushId|String|推送标识|第三方终端SDK产生的用于区分每个终端的唯一标识，例如极光是regID
-deviceType|String|终端类型|01：手机，02：平板电脑 ，03：电视 ，04：带屏冰箱 ，</br>05：带屏烟机 ，06：SmartCenter，07：魔镜 ，08：智能音箱
+deviceType|String|终端类型|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
 typeId|String|设备类型编码|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
 appPackage|String|终端标识|依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名，IOS = Bundle ID，Linux =服务名称，Window = 服务名称。</br>为避免重复，接入前需要和UMS做好沟通
 regTime|String|注册时间|第一次正确注册时的时间
-status|int|状态值。</br>1：已注册，2：已注销，3：已更新|IF 1 -> 3 ; IF 2 -> 1 ; IF 3 -> 3
-collab3th|int|当前合作方通道类型|0：极光 ； 1：haier-M2M
+status|int|状态值。</br>1：已注册，</br>2：已注销，</br>3：已更新|IF 1 -> 3 ;</br> IF 2 -> 1 ; </br>IF 3 -> 3
+collab3th|int|当前合作方通道类型|0：极光 ；</br>1：haier-M2M
 
 **MessageInfo：** 消息信息
 
@@ -57,7 +57,8 @@ status|int|0：发送失败，</br>1：发送成功，</br>2：终端已接收�
 
 ## 接口清单
 
-### 设备初始化注册消息通道
+### 消息通道注册
+#### 设备初始化注册消息通道
 > 按设备注册消息通道
 
 ##### 1、接口定义
@@ -71,9 +72,117 @@ status|int|0：发送失败，</br>1：发送成功，</br>2：终端已接收�
 clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
 pushId|String|长度为1到100|Body|必填|极光返回的推送id
 deviceName|String|长度为1到100|Body|非必填|设备昵称
-deviceType|String|长度为2|Body|必填|01：手机，02：平板电脑 ，03：电视 ，04：带屏冰箱 ，</br>05：带屏烟机 ，06：SmartCenter，07：魔镜 ，08：智能音箱
+deviceType|String|长度为1到100|Body|必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
 typeId|String|长度为1到64|Body|非必填|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
-collab3th|String|长度为1到64|Body|必填|当前合作方通道,</br>0：极光 ； 1：haier-M2M
+collab3th|int|长度为1|Body|必填|0：极光 ；</br>1：haier-M2M
+
+**输出参数:** 输出标准应答参数
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/deviceReg
+Body
+{
+	"clientId":"********",
+	"pushId":"pushId",
+	"deviceType":"01",
+	"appPackage":"com.a.b",
+	"collab3th":0
+}
+```
+**请求应答**
+```
+{
+	"retCode":"00000",
+	"retInfo":"success"
+}
+```
+
+##### 3、请求错误码
+
+
+
+
+#### 用户登录后注册消息通道
+> 用户登录成功后，注册消息通道
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/userReg`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
+pushId|String|长度为1到100|Body|必填|极光返回的推送id
+deviceName|String|长度为1到100|Body|非必填|设备昵称
+deviceType|String|长度为1到100|Body|必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
+typeId|String|长度为1到64|Body|非必填|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
+appPackage|String|长度1到100|Body|是|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
+collab3th|int|长度为1|Body|必填|0：极光 ；</br>1：haier-M2M
+
+
+**输出参数:** 输出标准应答参数
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/userReg
+{
+    "clientId":"******",
+    "pushId":"pushId",
+    "deviceType":"01",
+    "appPackage":"com.a.b",
+    "collab3th":0
+}
+```
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success"
+}
+```
+
+##### 3、请求错误码
+
+
+
+#### 用户注销消息通道
+> 当设备不再需要推送功能或者此设备授权已经移交给他人，可注销消息通道
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v3/unRegister`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|取值范围|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
+appPackage|String|长度1到100|Body|是|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
+
+##### 2、请求样例
+**请求样例**
+```
+请求地址：https://uws.haier.net/ums/v3/unRegister
+{
+    "clientId":"****",
+    "appPackage":"com.a.b"
+}
+
+```
+**请求应答**
+```
+{
+  "retCode":"00000",
+  "retInfo":"success"
+}
+```
+##### 3、请求错误码
+
 
 
 
