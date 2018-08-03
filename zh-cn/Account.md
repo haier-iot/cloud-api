@@ -79,7 +79,7 @@
 以下是烤圈应用的用户扩展属性：  
  
  
-| **名称** | 用户 | &emsp; | UserProfile |  
+| **名称** | 用户 | &emsp; |&emsp; | UserProfile |  
 | ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**长度**|**备注**|  
 |id|String|用户ID|20||  
@@ -980,8 +980,7 @@ Body
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-| user     | User | Body| id注册时不填；loginName可不填写，如不填写，则由系统自动生成；
-email与mobile两者必填一个；userProfile如果没有，需填写{}|用户信息，User对象中包括userBase和userProfile属性，注册自有账号时userBase中的acctype必须为99|  
+| user     | User | Body| id注册时不填；loginName可不填写，如不填写，则由系统自动生成；email与mobile两者必填一个；userProfile如果没有，需填写{}|用户信息，User对象中包括userBase和userProfile属性，注册自有账号时userBase中的acctype必须为99|  
 | password     | String | Body| 必填|密码，长度为6~20位|  
 
 
@@ -1462,7 +1461,7 @@ Body
 ## 常见问题
 
 [^-^]:文本连接注释
-[account_document_url]:#
+[account_document_url]:_document/_account/账号服务v1.0.0（临时方案）.docx
 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
