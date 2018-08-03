@@ -52,8 +52,57 @@
 2、	开发者的自有账号登录，在U+IOT平台生成对应的暗账号并以U+账号身份进行用户授权登录到U+平台，开发者可建立其独立的开发者账号体系。
 
 
+### 公共结构  
+#### UserBase  
+描述用户基础信息结构。   
+  
+| **名称** | 用户基础信息 |&emsp;| UserBase |   
+| ------------- |:----------:|:-----:|:--------:|
+|**字段名**|**类型**|**说明**|**备注**|  
+|id| String | 用户ID |由系统生成|  
+|loginName| String | 登录名 |长度为3~15位 不允许使用特殊字符|  
+|email| String | 邮箱 |需要符合邮箱格式|    
+|mobile| String | 手机号 |需要符合手机号格式|      
+|email| String | 邮箱 |0：海尔账号  99：自有账号|  
+
+#### UserProfile  
+用户扩展属性。属性不固定的键值对对象，结构如下：  
+{  
+	"key1":"value1",  
+	"key2":"value2",  
+	"key3":"value3",  
+	 …  
+	"keyn":"valuen",  
+}  
+用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。  
+
+以下是烤圈应用的用户扩展属性：  
+ 
+ 
+| **名称** | 用户 | &emsp; | UserProfile |  
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**长度**|**备注**|  
+|id|String|用户ID|20||  
+|nickName|String|昵称|32||  
+|userName|String|用户姓名|32||  
+|avatar|String|用户头像资源id||&emsp; |  
+|points|long|积分|8||  
+|focusCount|int|关注数|8||  
+|followCount|int|粉丝数|8|&emsp;|  
+
+#### User    
+     
+| **名称** | 用户属性 |&emsp;| User |
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|  
+|userBase|UserBase|用户基本属性对象||  
+|userProfile|UserProfile|用户扩展属性|&emsp;|  
+
 ## 接口清单
 ### 海尔优家 账号  
+
+<!-- 注释开始
+
 > API接口总览
 
 | API名称        | 作用          | 是否开放  | 特别说明|
@@ -898,11 +947,498 @@ Body
 ##### 3、错误码  
 > B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21008、B00002-21009、B00002-21010、A00001-21011、B00007-21012、A00001-21013、B00007-21020、A00001-21026、B00002-22100、B22101-22101、B22113-22113、B22109-22820、B00006-22821、B00003-22826、A00001-00011、B00002-01002、A00001-01004  
 
+注释结束 -->
+
 ### 海尔优家 OAuth
 
 ### 海尔优家 第三方登录
 
 ### 海尔优家 开发者自有账号登录
+> API接口总览
+
+| API名称        | 作用          | 是否开放  | 特别说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| 账号注册     | 使用手机注册，成功后，平台向用户手机发送短信验证码 | 是| 无|  
+| 账号登录     | 用户登录成功，安全系统创建安全令牌accessToken，通过header头返回给用户 | 是| 无|  
+| 账号退出 | 系统校验请求头中的accessToken，accessToken有效，执行退出平台操作 | 是| 无|  
+| 账号查询账号信息    | 用户查询账号信息| 是| 无|  
+| 账号信息修改  | 修改用户的应用属性，其他基础属性 | 是| 无|  
+| 账号动态验证码申请     | 验证码生成后会直接发送验证码到验证手机或验证邮箱 | 是| 无|  
+| 账号动态验证码验证     | 当用户是注册时收到的激活码，那么transactionId填空字符串 | 是| 无|  
+
+#### 账号注册
+>使用手机注册的用户，注册成功后，平台根据用户填写的mobile向用户的手机发送短信验证码，用户使用短信中的验证码，调用“自有账号动态验证码验证”接口进行激活。使用邮箱注册的用户，注册成功后，平台根据用户填写的email向用户的邮箱发送包含激活验证码的邮件，调用“自有账号动态验证码验证”接口进行激活。激活码的有效时间为10分钟。不需登录可以访问。   
+
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `https://uhome.haier.net:7343/serviceAgent/rest/users/register`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| user     | User | Body| id注册时不填；loginName可不填写，如不填写，则由系统自动生成；
+email与mobile两者必填一个；userProfile如果没有，需填写{}|用户信息，User对象中包括userBase和userProfile属性，注册自有账号时userBase中的acctype必须为99|  
+| password     | String | Body| 必填|密码，长度为6~20位|  
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |    |     |     |  &emsp;   |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:    
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"password":"111111",
+"user":
+{
+"userBase":{ 
+"loginName":"test",
+"email":"848421322@qq.com",
+"mobile":"18259060830",
+"accType":99
+},
+"userProfile":{
+"nickName":"test",
+"userName":"test",
+"points":"0",
+"focusCount":"0",
+"followCount":"0"
+}
+}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
+
+```
+
+##### 3、错误码  
+> B00002-00002、A00001-22001、B00002-22100、B00002-22803、A00001-00011、B00002-01002、A00001-01004  
+
+#### 账号登录
+> 用户登录成功，安全系统创建安全令牌accessToken，通过header头返回给用户。不需登录可以访问。  
+  
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `https://uhome.haier.net:7343/serviceAgent/rest/security/userlogin`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| sequenceId     | String | Body| 必填|&emsp; |  
+| loginId     | String | Body| 必填|登录用户名 |  
+| password     | String | Body| 必填|密码 |  
+| accType     | int | Body| 必填|必须为99  |   
+| loginType     | int | Body| 必填|登录类型 0：loginName ；1：手机号； 2：邮箱  |  
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| accessToken   |   String |  Header   |  必填   |  安全令牌  |  
+| userId   |   String |  Body   |  必填   |  用户标识   |
+
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:  
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"sequenceId":"20140305102633000001",
+"accType": "99",
+"loginId":"14759167292",
+"password":"123456",
+"thirdpartyAppId":"",
+"thirdpartyAccessToken":"",
+"loginType":"1"
+}
+
+
+
+
+```  
+
+**请求应答**
+
+```java
+Header：
+accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
+{"retCode":"00000","retInfo":"登录UHOME云平台成功","userId":"100013957366155388"}
+
+```
+
+##### 3、错误码  
+> B00002-00002、A00001-22001、B00002-22100、B22101-22101、B22102-22102、B00007-22805、A00001-00011、B00002-01002、A00001-01004   
+
+#### 账号退出
+> 系统校验请求头中的accessToken，accessToken有效，执行退出平台操作     
+  
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/security/userlogout`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| sequenceId     | String | Body| 必填|&emsp; |   
+   
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |    |     |     |  &emsp;   |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470  
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"sequenceId":"100013957366155388"
+}
+
+
+
+```  
+
+**请求应答**
+
+```java
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
+
+```
+
+##### 3、错误码  
+> B00002-00002、A00001-22001、B00002-22100、B00002-22802、B22101-22101、A00001-00011、B00002-01002、A00001-01004   
+
+#### 账号查询账号信息
+>用户查询自有账号信息   
+
+  
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/users/{uid}`  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| uid     | int | Url| 必填|用户id|   
+   
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| user   |  User  |   Body  |  必填 userProfile可为null   | 用户信息   |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470 
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"正确","user":{"userBase":{"id":"100013957366155385","loginName":"zhoujie","email":"848421322@qqq.com","mobile":"18259000000","accType":"99","status":"1"},"userProfile":{"phone":null,"updateTime":null,"status":null,"tel":null,"applyTime":null,"idcard":null,"companyName":null,"type":null,"postcode":null,"legalPerson":null,"contacts":null,"companyCode":null,"businessLicense":null,"address":null,"contactsPhone":null,"email":null,"QQ":null,"name":null,"realname":null,"idcardPhoto":null}}}
+
+```
+
+##### 3、错误码  
+> B22102-22102、B00002-22803、A00001-00011、B00002-01002、A00001-01004  
+
+#### 账号信息修改
+>修改用户的应用属性，其他基础属性。验证参数传入的userId（url）与登录用户（通过accessToken获取登录用户）是否为同一用户，不是同一用户将抛出错误码。  
+
+
+  
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/users/{userId}/profile`  
+ **HTTP Method：** PUT
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| userId     | int | Url| 必填|用户id|   
+| userProfile     | UserProfile | Body| 必填|用户扩展信息|  
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |    |     |     |  &emsp;   |   
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT13OOQL5O7TEAB21WVIKCJTEL470 
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"userProfile":{"phone":14759167292,"updateTime":"20141115","status":null,"tel":"0596","applyTime":null,"idcard":null,"companyName":null,"type":null,"postcode":null,"legalPerson":null,"contacts":null,"companyCode":333,"businessLicense":null,"address":"china","contactsPhone":null,"email":"848421322@qq.com","QQ":"848421322","name":"test","realname":"test","idcardPhoto":null}
+}
+
+```  
+
+**请求应答**
+
+```java
+
+{
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
+
+```
+
+##### 3、错误码  
+> B22102-22102、B00007-22805、A00001-00011、B00002-01002、A00001-01004、B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21008、B00002-21009、B00002-21010、A00001-21011、B00007-21012、A00001-21013、B00007-21020、A00001-21026、B00002-22100、B22101-22101、B22113-22113、B22109-22820、B00006-22821、B00003-22826、A00001-00011、B00002-01002、A00001-01004  
+
+#### 账号动态验证码申请
+>uvcs:User Verification Code 注意： 验证码生成后会直接发送验证码到验证手机或验证邮箱，以保证安全  
+  
+
+##### 1、接口定义
+
+?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/uvcs`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| loginName     | String | Body| 必填|账号，本字段做了兼容，可以填写用户名，如果validateType为1，可以填注册手机号；为2，填写邮箱|   
+| validateType     | int | Body| 必填|验证方式 1：手机 2：邮箱| 
+| validateScene     | int | Body| 必填|验证场景 1：激活 2：密码重置 |  
+| sendTo     | String | Body| 必填|验证码发送到的地址（手机或邮箱），由validateType决定 |  
+| accType     | int | Body| 必填|必须填写99 |   
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  transactionId  |  String  | Body    | 必填    |  事物ID  |  
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"tenantId":"1",
+"loginName":"test321",
+"validateType":1,
+"validateScene":2,
+"sendTo":"14759167292",
+"accType":99
+}
+
+
+
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"正确","transactionId":"1416045701521203"}
+
+```
+
+##### 3、错误码  
+> B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21008、B00002-21009、B00002-21010、A00001-21011、B00007-21012、A00001-21013、B00007-21020、A00001-21026、B00002-22100、B22101-22101、B22113-22113、B22109-22820、B00006-22821、B00003-22826、A00001-00011、B00002-01002、A00001-01004    
+    
+#### 账号动态验证码验证
+>注意：当用户是注册时收到的激活码，那么transactionId填空字符串（””）     
+ 
+
+##### 1、接口定义
+
+?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/uvcs/{uvc}/verify`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+|   uvc   | String | Url | 必填 | 验证码|      
+|   loginName   | String | Body | 必填 | 用户登录名或注册手机号或注册邮箱|    
+|   validateScene   | int | Body | 必填 | 验证场景 1：激活 2：密码重置|  
+|   validateType   | int | Body | 必填 | 验证方式 1：手机 2：邮件|  
+|   transactionId   | String | Body | 必填 | 事物ID|  
+|   accType   | int | Body | 必填 | 必须填写99|    
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |    |     |     |  &emsp;  |  
+ 
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-FRIDGEGENE1-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken:TGT1OY0RUUAH5D242SB68E9WX0W930  
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+"tenantId":"100",
+"loginName":"test321",
+"validateType":2,
+"validateScene":2,
+"accType":99,
+"transactionId":"1416045701521203"
+}
+
+
+```  
+
+**请求应答**
+
+```java
+
+{"retCode":"00000","retInfo":"操作成功"}
+
+```
+
+##### 3、错误码  
+> B00007-21021、B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21010、A00001-21026、A00001-21011、B00002-21030、A00001-21027、B00007-21014、B00007-21015、B00007-21016  
 
 ## 使用方式
 
