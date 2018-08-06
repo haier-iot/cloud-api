@@ -35,22 +35,25 @@
 标准设备操作|用户以下发命令的方式对设备进行操作
 
 ## 公共结构说明
-**User：** 用户信息
+### User
+用户信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
 loginId|String|用户名（邮箱）|
 userId|String|用户Id|
-userProflie|Map|用户拓展属性
+userProflie|Map|用户拓展属性|
 
-**OpPropertyValue：** 属性操作
+### OpPropertyValue
+属性操作
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
 name|String|属性|
 value|String|值|
 
-**OpResult：** 操作结果
+### OpResult 
+操作结果
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
