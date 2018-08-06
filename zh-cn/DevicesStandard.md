@@ -24,7 +24,8 @@
 1、可以通过设备管理服务标准版进行包括更新位置信息、添加设备品牌信息、更新设备别名等在内的对于设备相关属性、信息的修改操作。</br>
 
 ## 公共结构说明
-**AuthInfo：** 权限内容，其中至少一项为ture
+### AuthInfo
+权限内容，其中至少一项为ture
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -32,14 +33,16 @@ view|Boolean|是否有查看权限|
 set|Boolean|是否有配置权限|
 control|Boolean|是否有控制权限|
 
-**Permission：** 权限信息
+### Permission
+权限信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
 auth|AuthInfo|权限内容|
 authType|String|权限类型|home：家庭分享</br>share：个人分享</br>owener：设备主人</br>server：给appserver的权限
 
-**DeviceInfo：** 绑定设备信息
+###　DeviceInfo
+绑定设备信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -51,7 +54,8 @@ totalPermission|AuthInfo|权限和，权限信息的综合|
 permissions|String|权限信息|
 online|String|是否在线|
 
-**BaseProperty：** 基础属性
+### BaseProperty
+基础属性
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -59,7 +63,8 @@ brand|String|设备品牌|
 model|String|设备型号|
 others|Map<String,Strng>|其他属性|
 
-**Deviceversion：** 设备详细信息
+### Deviceversion
+设备详细信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -70,7 +75,8 @@ deviceType|String|设备类型|
 baseProperty|BaseProperty|品牌信息|
 location|Location|位置信息|
 
-**Module：** 模块信息
+### Module
+模块信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -78,7 +84,8 @@ moduleId|String|模块ID|
 moduleType|String|模块类型|
 ModuleInfos|Map<String,String>|模块其他信息|
 
-**Location：** 定位信息
+### Location
+定位信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -86,7 +93,8 @@ longitude|Double|经度|
 latitude|Double|维度|
 cityCode|String|城市编码|
 
-**DeviceNetQualityDto：** 设备信号强度
+### DeviceNetQualityDto
+设备信号强度
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -97,7 +105,8 @@ softdwareVers|String|软件版本号|
 netType|String|网络类型|可取值：</br>unknown,位置网络或设备不支持挽留过质量上报；</br>Wifi：WIFI网络
 strength|String|信号强度|
 
-**DeviceStatus：** 设备状态
+### DeviceStatus
+设备状态
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -105,7 +114,8 @@ timestamp|long|时间戳|
 deviceId|String|设备Id|
 statuses|Map<String,String>|设备状态|
 
-**RoomInfoLocation：** 房间位置
+### RoomInfoLocation
+房间位置
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -113,7 +123,8 @@ userId|String|用户ID|
 deviceId|String|设备Id|
 room|String|设备房间位置信息|
 
-**DeviceRoomInfoDto：** 设备房间位置信息
+### DeviceRoomInfoDto
+设备房间位置信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
@@ -125,13 +136,14 @@ room|String|设备房间位置信息|
 permission|Permission[]|权限信息|
 online|Boolean|是否在线|
 
-**BrandInfo：** 品牌/型号信息
+### BrandInfo
+品牌/型号信息
 
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
 brand|String|品牌|
 model|String|型号|
-deviceId|String|设备ID
+deviceId|String|设备ID|
 
 ## 接口清单
 
