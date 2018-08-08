@@ -969,7 +969,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `https://uhome.haier.net:7343/serviceAgent/rest/users/register`  
+?> **接入地 址：**  `/serviceAgent/rest/users/register`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1038,7 +1038,7 @@ Body
 ```
 
 ##### 3、错误码  
-> B00002-00002、A00001-22001、B00002-22100、B00002-22803、A00001-00011、B00002-01002、A00001-01004  
+> 见首页公共错误码 
 
 #### 账号登录
 > 用户登录成功，安全系统创建安全令牌accessToken，通过header头返回给用户。不需登录可以访问。  
@@ -1047,7 +1047,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `https://uhome.haier.net:7343/serviceAgent/rest/security/userlogin`  
+?> **接入地 址：**  `/serviceAgent/rest/security/userlogin`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1112,7 +1112,7 @@ accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
 ```
 
 ##### 3、错误码  
-> B00002-00002、A00001-22001、B00002-22100、B22101-22101、B22102-22102、B00007-22805、A00001-00011、B00002-01002、A00001-01004   
+> 见首页公共错误码   
 
 #### 账号退出
 > 系统校验请求头中的accessToken，accessToken有效，执行退出平台操作     
@@ -1121,7 +1121,7 @@ accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/security/userlogout`  
+?> **接入地 址：**  `/serviceAgent/rest/security/userlogout`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1176,7 +1176,7 @@ Body
 ```
 
 ##### 3、错误码  
-> B00002-00002、A00001-22001、B00002-22100、B00002-22802、B22101-22101、A00001-00011、B00002-01002、A00001-01004   
+> 见首页公共错误码  
 
 #### 账号查询账号信息
 >用户查询自有账号信息   
@@ -1186,7 +1186,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/users/{uid}`  
+?> **接入地 址：**  `/serviceAgent/rest/users/{uid}`  
  **HTTP Method：** GET
 
 **输入参数**  
@@ -1232,7 +1232,7 @@ Content-type: application/json
 ```
 
 ##### 3、错误码  
-> B22102-22102、B00002-22803、A00001-00011、B00002-01002、A00001-01004  
+> 见首页公共错误码 
 
 #### 账号信息修改
 >修改用户的应用属性，其他基础属性。验证参数传入的userId（url）与登录用户（通过accessToken获取登录用户）是否为同一用户，不是同一用户将抛出错误码。  
@@ -1243,7 +1243,7 @@ Content-type: application/json
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/users/{userId}/profile`  
+?> **接入地 址：**  `/serviceAgent/rest/users/{userId}/profile`  
  **HTTP Method：** PUT
 
 **输入参数**  
@@ -1297,7 +1297,7 @@ Body
 ```
 
 ##### 3、错误码  
-> B22102-22102、B00007-22805、A00001-00011、B00002-01002、A00001-01004、B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21008、B00002-21009、B00002-21010、A00001-21011、B00007-21012、A00001-21013、B00007-21020、A00001-21026、B00002-22100、B22101-22101、B22113-22113、B22109-22820、B00006-22821、B00003-22826、A00001-00011、B00002-01002、A00001-01004  
+> 见首页公共错误码 
 
 #### 账号动态验证码申请
 >uvcs:User Verification Code 注意： 验证码生成后会直接发送验证码到验证手机或验证邮箱，以保证安全  
@@ -1305,7 +1305,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/uvcs`  
+?> **接入地 址：**  `/serviceAgent/rest/uvcs`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1365,7 +1365,7 @@ Body
 ```
 
 ##### 3、错误码  
-> B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21008、B00002-21009、B00002-21010、A00001-21011、B00007-21012、A00001-21013、B00007-21020、A00001-21026、B00002-22100、B22101-22101、B22113-22113、B22109-22820、B00006-22821、B00003-22826、A00001-00011、B00002-01002、A00001-01004    
+> 见首页公共错误码    
     
 #### 账号动态验证码验证
 >注意：当用户是注册时收到的激活码，那么transactionId填空字符串（””）     
@@ -1373,7 +1373,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `http://uhome.haier.net:7340/serviceAgent/rest/uvcs/{uvc}/verify`  
+?> **接入地 址：**  `/serviceAgent/rest/uvcs/{uvc}/verify`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1433,12 +1433,86 @@ Body
 ```
 
 ##### 3、错误码  
-> B00007-21021、B00002-21004、B00002-21005、B00002-21006、B00002-21007、B00002-21010、A00001-21026、A00001-21011、B00002-21030、A00001-21027、B00007-21014、B00007-21015、B00007-21016  
+> 见首页公共错误码
 
 
 ### 海尔优家 OAuth
 
 ### 海尔优家 第三方登录
+
+#### 第三方用户登录
+>移动APP客户端，第三方用户登录Haier uHome云平台。安全系统调用云平台用户系统的验证Validate()接口。用户系统验证成功，向安全系统返回验证成功retCode，retInfo和userId。安全系统创建安全令牌accessToken，将accessToken和userId返回移动APP。用户系统验证失败retCode和retInfo，向安全系统返回验证失败结果。安全系统向移动APP返回登录失败。  
+ 
+
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/serviceAgent/rest/security/userlogin`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| loginId     | String | Body| 必填|登录用户名|  
+| password     | String | Body| 必填|密码，如无需要，可填无意义值|  
+| loginType     | int | Body| 必填|登录类型 0：loginName 1：手机号 2：邮箱 3：动态密码|    
+| accType     | int | Body| 必填|用户类型 0: 海尔官网用户 1：QQ 2：微信 3：新浪 4：豆瓣 5：人人 99：uHome用户 8：百度用户 本字段不填默认为0|  
+| sequenceId     | String | Body| 必填||  
+| thirdpartyAppId     | String | Body| 非必填|第三方平台应用ID|  
+| thirdpartyAccessToken     | String | Body| 必填|第三方平台安全令牌|  
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  |  String  |   Header  |  必填   |  安全令牌    |
+|  userId  |  String  |   Body  |  必填   |  用户标识    |  
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+header:
+appId MB-DEVELOPERSITE-0000
+sequenceId 20140730112234000001
+Content-Type application/json;charset=UTF-8
+appKey 0b6d09518p152c9aj09cf6d80ee657c9
+appVersion 10.01.11.00025
+clientId 356877020056553-08002700DC94
+body:
+{
+"loginId":"897",
+"password":"111111",
+"accType": "11",
+"loginType":"1",
+"sequenceId":"20140305102633000001",
+"thirdpartyAccessToken":"AAAAAAAAAAAA",
+"thirdpartyAppId":"bbbbbbb"
+}
+
+
+```  
+
+**请求应答**
+
+```java
+header:
+appId MB-DEVELOPERSITE-0000
+sequenceId 20140730112234000001
+Content-Type application/json;charset=UTF-8
+appKey 0b6d09518p152c9aj09cf6d80ee657c9
+appVersion 10.01.11.00025
+clientId 356877020056553-08002700DC94
+Body:
+{"retCode":"00000","retInfo":"登录UHOME云平台成功","userId":"100013957366155388"}
+
+```
+
+##### 3、错误码  
+> 见首页公共错误码  
 
 ## 使用方式
 
