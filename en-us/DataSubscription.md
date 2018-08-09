@@ -1,44 +1,42 @@
-!>  **当前版本**：[UWS 数据订阅 V1.0.0][dataSubscription_document_url2]  
- **发布时间**：2018-07-19  
+!>  **current version**：[UWS Data subscription V1.0.0][dataSubscription_document_url2]  
+ **release time**：2018-07-19  
 
-### 简介
->  数据订阅服务功能旨在帮助开发者或应用快速获取实时的增量数据，包括设备信息数据、用户数据以及其他开发者根据实际需求订阅的自定义数据。
+### Introduction
+>  The Data Subscription Service feature is designed to help developers or applications quickly access real-time incremental data, including device information data, user data, and other custom data that developers subscribe to based on actual needs.  
 
-智能互联设备上传的实时数据会进入IOT平台，当开发者或应用需要参考设备数据进行相关分析或操作时，开发者可以通过数据订阅连接到U+IOT平台设备上报的实时数据。
+The real-time data uploaded by the smart connected device will enter the IOT platform. When the developer or the application needs to refer to the device data for related analysis or operation, the developer can connect to the real-time data reported by the U+IOT platform device through the data subscription.
 
-![数据订阅图片][dataSubscription_type]
+![Data subscription image][dataSubscription_type]
 
-### 功能介绍
-
-第三方可以通过数据推送服务，订阅海尔设备消息功能，实现海尔设备数据与第三方平台的互通。设备消息包括设备的上下线，设备状态属性，设备告警，以及设备的大数据信息。目前支持根据设备的typeid进行推送。
-设备数据订阅包括设备基础配置信息以及设备运行状态的实时信息。
-1、	设备基础信息，包括设备版本、绑定信息、型号等；
-2、	运行状态，包括故障、wifi信息、心跳、离线原因等。
+### Function is introduced
+The third party can subscribe to the Haier device message function through the data push service, and realize the interworking between the Haier device data and the third-party platform. Device messages include the device's online and offline lines, device status attributes, device alarms, and device big data information. Pushing is currently supported based on the typeid of the device.Device data subscriptions include device infrastructure configuration information and real-time information about the device's operational status.  
+1、	Basic device information, including device version, binding information, and model number.
+2、	Operating status, including faults, wifi information, heartbeat, offline reasons, etc.
 
 
-### 应用场景
+### Application scenarios
 
-适用于第三方平台要获取在海尔平台上的设备数据（上下线，设备状态属性，设备告警，以及设备的大数据信息）用来实现某些业务逻辑。
+Applicable to third-party platforms to obtain device data (up and down lines, device status attributes, device alarms, and device big data information) on the Haier platform to implement certain business logic.  
 
-面向使用或销售海尔平台设备的第三方合作伙伴，服务支持海尔U+云平台向第三方合作商推送设备的上下线、属性、报警、大数据信息功能。实现海尔云平台向第三方平台服务的数据推送功能。
+For third-party partners who use or sell Haier platform equipment, the service supports the Haier U+ cloud platform to push the device's online and offline, attributes, alarms, and big data information functions to third-party partners. Realize the data push function of Haier cloud platform to serve third-party platforms.  
 
 
-### 使用方式
-#### 开通流程  
-![开通流程][dataSubscription_liucheng]
-具体开通方法详见“数据推送服务接入说明书”。
+### Way of use
+#### Opening process  
+![Opening process][dataSubscription_liucheng]
+For details of the opening method, please refer to the “Data Push Service Access Manual”.
 
-### 文档资料
+### Documentation
 
-[数据推送平台接口规范说明书][dataSubscription_document_url1]    
-[数据推送服务接入说明书][dataSubscription_document_url2]
+[Data Push Platform Interface Specification][dataSubscription_document_url1]    
+[Data Push Service Access Manual][dataSubscription_document_url2]
 
 ### 常见问题
 
 
 [^-^]:文本连接注释
-[dataSubscription_document_url1]:_document/_dataSubscription/数据推送平台接口规范说明书.pdf
-[dataSubscription_document_url2]:_document/_dataSubscription/数据推送服务接入说明书.pdf
+[dataSubscription_document_url1]:_document/_dataSubscription/Data Push Platform Interface Specification.docx
+[dataSubscription_document_url2]:_document/_dataSubscription/Data push access manual.docx
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
