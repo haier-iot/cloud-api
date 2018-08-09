@@ -1,4 +1,4 @@
-!>  **current version**：[UWS Data subscription V1.0.0][dataSubscription_document_url2]  
+!>  **current version**：[UWS DataSubscription V1.0.0][dataSubscription_document_url2]  
  **release time**：2018-07-19  
 
 ### Introduction
@@ -28,15 +28,15 @@ For details of the opening method, please refer to the “Data Push Service Acce
 
 ### Documentation
 
-[Data Push Platform Interface Specification][dataSubscription_document_url1]    
-[Data Push Service Access Manual][dataSubscription_document_url2]
+[DataPushPlatformInterfaceSpecification][dataSubscription_document_url1]    
+[DataPushServiceAccessManual][dataSubscription_document_url2]
 
-### 常见问题
+### common problem
 
 
 [^-^]:文本连接注释
-[dataSubscription_document_url1]:_document/_dataSubscription/Data Push Platform Interface Specification.docx
-[dataSubscription_document_url2]:_document/_dataSubscription/Data push access manual.docx
+[dataSubscription_document_url1]:_document/_dataSubscription/DataPushPlatformInterfaceSpecification.docx
+[dataSubscription_document_url2]:_document/_dataSubscription/DataPushAccessManual.docx
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
