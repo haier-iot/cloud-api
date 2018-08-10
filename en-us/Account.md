@@ -42,16 +42,11 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.  
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.  
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-**Account information related ability**  
-1. Query the account information of the IOT platform and request to obtain user information (including user attributes such as id, loginName, email, and mobile).  
-2. Modify the account information of the IOT platform, and the user needs to modify the application attribute information and user basic attributes.  
-<!--
 **Account system association ability**  
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.  
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
--->
 ### Public structure  
-#### no
+#### no  
 <!--
 #### UserProfile  
 User extended attributes. A key-value pair object with an unfixed attribute is structured as follows:   
@@ -73,8 +68,7 @@ Here are the user extension properties for the Grill app:
 |avatar|String|User avatar resource id||&emsp; |  
 |points|long|integral|8||  
 |focusCount|int|number of followers|8||  
-|followCount|int|number of fans|8|&emsp;|  
-
+|followCount|int|number of fans|8|&emsp;|    
 -->
 ## Interface list
 
