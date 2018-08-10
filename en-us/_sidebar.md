@@ -1,5 +1,7 @@
 * [Home](en-us/)
 * [Account service](en-us/Account)
-* [Equipment management Enterprise Edition](en-us/DevicesEnterprise)
+* [Equipment management](#)
+* *[Equipment management Standard Edition](en-us/DevicesStandard)
+* *[Equipment management Enterprise Edition](en-us/DevicesEnterprise)
 * [Data subscription](en-us/DataSubscription)
 * [changelog](en-us/ChangeLog)
