@@ -1169,5 +1169,5 @@ Header：
 [DevicesStandard_document_url]:#
 
 [^-^]:常用图片注释
-[DevicesStandard_type]:_media/_DevicesStandard/DevicesStandard_type.png
-[DevicesStandard_liucheng]:_media/_DevicesStandard/DevicesStandard_liucheng.png
+[DevicesStandard_type]:_media/_devicesStandard/DevicesStandard_type.png
+[DevicesStandard_liucheng]:_media/_devicesStandard/DevicesStandard_liucheng.png
