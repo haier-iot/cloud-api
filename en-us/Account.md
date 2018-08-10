@@ -648,7 +648,7 @@ Content-Length: 1381
 
 
 
-#### Capability class interface
+### Capability class interface
 > API interface overview
 
 | API name        | effect          | Whether open | Special Note|
