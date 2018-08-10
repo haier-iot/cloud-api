@@ -37,10 +37,10 @@ Third-party social accounts support QQ, WeChat, Weibo, Douban, Renren.com accoun
 
 Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
 
-### Function is introduced
+### Function is introduced  
 **Account base capability**  
-1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.  
-2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.  
+1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
+2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
 **Account system association ability**  
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
