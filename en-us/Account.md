@@ -105,7 +105,7 @@ Here are the user extension properties for the Grill app:
 
 **Input parameters**  
 
-| parameter name        | pypes         | location  | c|description|
+| parameter name        | types         | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
 | loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
 | password     | String | Body| yes |Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits.|  
@@ -117,7 +117,7 @@ Here are the user extension properties for the Grill app:
 
 **Output standard output parameters.**
 
-|   name      |     types      | location  |location |description|
+|   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |    |    |     |     |  &emsp;   |
 
@@ -193,7 +193,7 @@ Body
 
 **Output parameters**  
 
-|   name      |     pypes      | location  |required |description|
+|   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | accessToken   |   String |  Header   |  yes   |  Security token  |  
 | userId   |   String |  Body   |  yes   | User id, user ID   |
@@ -648,7 +648,7 @@ Content-Length: 1381
 ```
 
 ##### 3、error code    
-> 见首页公共错误码  
+> See the home page public error code  
 
 
 
@@ -674,9 +674,9 @@ Content-Length: 1381
 
 **Input parameters**  
 
-| parameter name        | pypes         | location  | c|description|
-| ------------- |:-------------:|:-----:|:-------------:|
-| appId     | String | Header| AppId|   
+| parameter name        | types         | location  | required|description|
+| ------------- |:-------------:|:-----:|:-------------:|:---------:|
+| appId     | String | Header| yes| AppId  |
 
 **Output parameters**  
 
@@ -832,7 +832,7 @@ Developers have their own account system, accessing U+ account services through 
 ## Documentation
 [UWS AccountService][account_document_url]
 
-## 常见问题
+## common problem
 
 [^-^]:文本连接注释
 [account_document_url]:_document/_account/GEAProjectInterfaceDefinitionSpecification.docx
