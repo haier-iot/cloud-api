@@ -156,6 +156,8 @@ Body
 
 **Output parameters**  
 
+Output standard response parameters  
+
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 | | | | |&emsp;|
