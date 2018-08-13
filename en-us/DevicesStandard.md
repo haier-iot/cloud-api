@@ -66,7 +66,8 @@ latitude|Double|Dimension|
 cityCode|String|City code|
 
 ### BaseProperty
-Basic attribute
+Basic attribute  
+
 Field name|Types|Description|Remarks  
 :-|:-:|:-:|:-
 brand|String|Equipment brand|
@@ -127,7 +128,7 @@ No input parameters
    
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-| | | | &emsp;|  
+| | | | |&emsp;|  
 
 
 **Output parameters:**  
