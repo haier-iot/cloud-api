@@ -32,7 +32,8 @@ APP server等在未登陆情况对终端进行消息下发</br>
 3、消息终端显示后，消息已读/已处理等状态上报UMS；</br>
 
 ## 公共结构说明
-**UserRegInfo：** 用户注册信息
+### UserRegInfo
+用户注册信息
 
 参数名|类型|说明|备注
 :-|:-:|:-|:-
@@ -47,7 +48,8 @@ regTime|String|注册时间|第一次正确注册时的时间
 status|int|状态值。</br>1：已注册，</br>2：已注销，</br>3：已更新|IF 1 -> 3 ;</br> IF 2 -> 1 ; </br>IF 3 -> 3
 collab3th|int|当前合作方通道类型|0：极光 ；</br>1：haier-M2M
 
-**MessageInfo：** 消息信息
+### MessageInfo
+消息信息
 
 参数名|类型|说明|备注
 :-|:-:|:-|:-
