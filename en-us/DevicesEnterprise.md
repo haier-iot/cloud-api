@@ -66,9 +66,9 @@ result|String|Operation response result|Is a base64 code, </br> the result of de
 #### Query the user bound to the device
 > User information bound according to device MAC query
 
-##### 1、Interface definition  
+##### 1、Interface definition    
 
-？> **Access address：** `/udse/v1/devBindUsers`</br>
+?> **Access address：** `/udse/v1/devBindUsers`</br>
 **HTTP Method：** PUT
 
 **Input parameters**
@@ -138,9 +138,9 @@ Body
 > Non-standard device commands (single command, group command) are issued  
 
 
-##### 1、Interface definition  
+##### 1、Interface definition    
 
-？> **Access address：** `/udse/v1/devOp`</br>
+?> **Access address：** `/udse/v1/devOp`</br>
 **HTTP Method：** PUT
 
 **Input parameters**
@@ -217,7 +217,7 @@ Body
 
 ##### 1、Interface definition  
 
-?> **Access address：**  `/udse/v1/devOpStatus`</br>
+?> **Access address：** `/udse/v1/devOpStatus`</br>
 **HTTP Method：** PUT
 
 **Input parameters**
