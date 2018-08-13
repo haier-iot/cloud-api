@@ -123,13 +123,15 @@ ModuleInfos|Map<String,String>|Module other information|Collection of attributes
 **HTTP Method：** GET
 
 **Input parameters**  
-No input parameters    
+No input parameters  
+   
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 | | | | &emsp;|  
 
 
-**Output parameters:**    
+**Output parameters:**  
+  
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceinfos| DeviceInfo[]| Body|yes | Device information list  |  
@@ -346,6 +348,7 @@ Header：
 **HTTP Method：** POST
 
 **Input parameters**  
+
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceId|String|body|yes|Device ID |
@@ -401,6 +404,7 @@ Body
 **HTTP Method：** POST
 
 **Input parameters**  
+  
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceId|String|url|yes|Device ID  |
@@ -621,6 +625,7 @@ Header：
 |deviceId|String|url|yes|DeviceID|  
 
 **Output parameters**  
+
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |loc|Lociation|body|yes|Device location information|      
@@ -675,11 +680,13 @@ Header：
 **HTTP Method：** GET
 
 **Input parameters**  
+
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceId|String|url|yes|DeviceID  |  
 
 **Output parameters**  
+
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceVersion|DeviceVersion|body|yes|Device Information |   
