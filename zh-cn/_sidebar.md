@@ -12,4 +12,6 @@
 * * [天气服务](zh-cn/CapacityService_Weather)
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
 
+* [商务合作](zh-cn/Business)
+
 * [changelog](zh-cn/ChangeLog)
