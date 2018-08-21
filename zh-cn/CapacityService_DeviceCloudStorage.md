@@ -615,7 +615,7 @@ Body：
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-filename|String|Header|非必填|文件下载时的名字，</br> 此处不传或者填“”（任意个空格）则为本地文件名，也可以在此重命名，</br>重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。</br>不能包含  ` /\|;*?"<> ` 字符。</br>需要urlencode编码：  `URLEncoder.encode(meta, "UTF-8")` 。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
+filename|String|Header|非必填|文件下载时的名字，</br> 此处不传或者填“”（任意个空格）则为本地文件名，也可以在此重命名，</br>重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。</br>不能包含  ` /\|;*?"<> ` 字符。</br>需要urlencode编码：  URLEncoder.encode(meta, "UTF-8") 。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
 privilegeType|int|Header|必填|权限信息
 meta|String|Header|非必填|文件meta信息，传json</br>需要urlecdoe编码：`URLEncoder.encode(meta, "UTF-8")`
 accessKey|String|Header|必填|用户主ak
