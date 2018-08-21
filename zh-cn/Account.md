@@ -1,4 +1,4 @@
-!>  **当前版本**：[UWS 账户服务 V1.0.0][file://account_document_url]  
+!>  **当前版本**：[UWS 账户服务 V1.0.0][account_document_url]  
  **发布时间**：2018-07-19  
 
 
@@ -1538,7 +1538,7 @@ Body:
 ## 常见问题
 
 [^-^]:文本连接注释
-[account_document_url]:_document/_account/账号服务v1.0.0（临时方案）.docx
+[account_document_url]:/zh-cn/_document/_account/账号服务v1.0.0（临时方案）.docx
 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
