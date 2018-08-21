@@ -1538,7 +1538,7 @@ Body:
 ## 常见问题
 
 [^-^]:文本连接注释
-[account_document_url]:/zh-cn/_document/_account/act.docx
+[account_document_url]:file:/zh-cn/_document/_account/act.docx
 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
