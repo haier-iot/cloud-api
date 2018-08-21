@@ -406,178 +406,13 @@ Body：
 ```
 
 
-#### 获取存储区列表
 
-> 根据当前用户的accessKey信息查询其创建的所有存储区；</br>
-> 按照创建时间降序返回当前用户拥有所有权的存储区列表，超过一页翻页展示，每页20条
-
-##### 1、接口定义
-?> **接入地址：** `/css/v1/bucketList？pageNo={pageNo}`</br>
-**HTTP Method：** GET
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-pageNo|int|Param|必填|查询请求当前页码，从0开始
-accessKey|String|header|用户主ak
-
-
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-bucketList|BucketList|body|必填
-
-
-##### 2、请求样例
-
-**请求样例**
-```
-接入地址：http://123.103.113.62/css/v1/bucketList?pageNo=0
-Header：
-	accessKey: 1681314738825497:2K0MymVucAOQ==
-```
-
-
-**请求应答**
-```
-Body：
-{
-    "bucketList":
-    {
-        "buckets":
-        [
-            {
-                "bucketId":123,
-                "bucketName":"haier099",
-                "createTime":"2017-01-12 19:49:39",
-                "privilegeType":0
-            },
-            {
-                "bucketId":119,
-                "bucketName":"haiertestbucket",
-                "createTime":"2017-01-12 14:31:10",
-                "privilegeType":0
-            },
-            {
-                "bucketId":115,
-                "bucketName":"testasdf",
-                "createTime":"2017-01-12 14:01:56",
-                "privilegeType":0
-            },
-            {
-                "bucketId":111,
-                "bucketName":"testasd",
-                "createTime":"2017-01-12 13:56:29",
-                "privilegeType":0
-            },
-            {
-                "bucketId":105,
-                "bucketName":"haier007",
-                "createTime":"2017-01-10 17:25:19",
-                "privilegeType":0
-            },
-            {
-                "bucketId":101,
-                "bucketName":"haier005",
-                "createTime":"2017-01-10 16:48:45",
-                "privilegeType":1
-            },
-            {
-                "bucketId":83,
-                "bucketName":"haier001",
-                "createTime":"2017-01-06 14:54:08",
-                "privilegeType":1
-            },
-            {
-                "bucketId":81,
-                "bucketName":"enjoyfree12",
-                "createTime":"2017-01-06 11:23:25",
-                "privilegeType":1
-            },
-            {
-                "bucketId":77,
-                "bucketName":"enjoyfree11",
-                "createTime":"2017-01-06 11:16:16",
-                "privilegeType":1
-            },
-            {
-                "bucketId":73,
-                "bucketName":"enjoyfree8",
-                "createTime":"2017-01-05 18:49:26",
-                "privilegeType":1
-            },
-            {
-                "bucketId":71,
-                "bucketName":"enjoyfree7",
-                "createTime":"2017-01-05 18:38:34",
-                "privilegeType":1
-            },
-            {
-                "bucketId":69,
-                "bucketName":"enjoyfree6",
-                "createTime":"2017-01-05 18:37:21",
-                "privilegeType":1
-            },
-            {
-                "bucketId":67,
-                "bucketName":"enjoyfree5",
-                "createTime":"2017-01-05 18:36:33",
-                "privilegeType":1
-            },
-            {
-                "bucketId":65,
-                "bucketName":"enjoyfree4",
-                "createTime":"2017-01-05 18:34:40",
-                "privilegeType":1
-            },
-            {
-                "bucketId":63,
-                "bucketName":"enjoyfree3",
-                "createTime":"2017-01-05 18:33:58",
-                "privilegeType":1
-            },
-            {
-                "bucketId":61,
-                "bucketName":"enjoyfree2",
-                "createTime":"2017-01-05 18:16:42",
-                "privilegeType":1
-            },
-            {
-                "bucketId":59,
-                "bucketName":"enjoyfree1",
-                "createTime":"2017-01-05 17:54:17",
-                "privilegeType":1
-            },
-            {
-                "bucketId":57,
-                "bucketName":"enjoyfree",
-                "createTime":"2017-01-05 17:50:09",
-                "privilegeType":1
-            },
-            {
-                "bucketId":55,
-                "bucketName":"hello12131",
-                "createTime":"2017-01-05 17:37:11",
-                "privilegeType":0
-            }
-        ],
-        "nextMarker":-1,
-        "total":19
-    },
-    "retCode":"00000",
-    "retInfo":"成功"
-}
-```
-
-### 获取存储区内文件
+#### 获取存储区内文件
 
 > 根据存储区id查询存储区里面的文件列表，按照文件创建时间降序排列，超过1页则翻页，每页20条，最多可以翻页到499页；</br>
 > 存储区必须存在，且当前用户拥有访问权限
 
-#### 1、接口定义
+##### 1、接口定义
 ?> **接入地址：** `/css/v1/fileList/{bucketId}?pageNo={pageNo}`</br>
 **HTTP Method：** GET
 
@@ -593,7 +428,7 @@ accessKey|String|header|必填|用户主ak
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-fileList|FileList|Body|
+fileList|FileList|Body||
 
 
 ##### 2、请求样例
@@ -764,20 +599,13 @@ Body：
 }
 ```
 
-### 上传文件及meta信息
+#### 上传文件及meta信息
 
 > 把一个本地文件上传到云存储服务的指定存储区中</br>
 > 1.存储区名字符合要求（具体参见创建存储区），如存储区存在，则上传文件到此存储区，如不存在，则自动创建此名字的存储区，权限为私有。</br>
 > 2.文件名使用UTF-8编码，长度必须在1-100字符之间。不能包含/\|;*?"<>字符。</br>
 > 3.文件大小范围为1-5Mbytes</br>
-> 4.每条Meta信息包含key/value值对的json格式字符串，key不能为空，整个Meta信息的json字符串长度不能超过4000； key重复将导致value会被覆盖</br>
-> 目前预定义的meta的key有：</br>
-> 省: province</br>
-> 市：city</br>
-> 区县：district</br>
-> Mac标识: macid</br>
-> User标识：userid</br>
-> 其它meta的key可以自定义
+> 4.每条Meta信息包含key/value值对的json格式字符串，key不能为空，整个Meta信息的json字符串长度不能超过4000； key重复将导致value会被覆盖,目前预定义的meta的key有：省，province;  市,city；  区县，district；  Mac标识，macid；   User标识，userid；    其它meta的key可以自定义
 
 ##### 1、接口定义
 ?> **接入地址：** `/css/v1/uploadFile/{bucketName}`</br>
@@ -787,7 +615,7 @@ Body：
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-filename|String|Header|非必填|文件下载时的名字，</br> 此处不传或者填“”（任意个空格）则为本地文件名，也可以在此重命名，</br>重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。</br>不能包含 `/\|;*?"<>`字符。</br>需要urlencode编码：`URLEncoder.encode(meta, "UTF-8")`。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
+filename|String|Header|非必填|文件下载时的名字，</br> 此处不传或者填“”（任意个空格）则为本地文件名，也可以在此重命名，</br>重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。</br>不能包含  ` /\|;*?"<> ` 字符。</br>需要urlencode编码：  `URLEncoder.encode(meta, "UTF-8")` 。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
 privilegeType|int|Header|必填|权限信息
 meta|String|Header|非必填|文件meta信息，传json</br>需要urlecdoe编码：`URLEncoder.encode(meta, "UTF-8")`
 accessKey|String|Header|必填|用户主ak
@@ -844,10 +672,10 @@ Body：
 }
 ```
 
-### 按meta搜索文件
+#### 按meta搜索文件
 
 > 文件上传时可以带有文件相关的meta信息。</br>
-> 用户可以根据指定的meta值（多个是and的关系），上传时间（到天） ，把当前用户所有的存储文件中满足条件的文件列表搜索出来。超过一页分页显示，每页10条。</br>
+> 用户可以根据指定的meta值（多个是and的关系），上传时间（到天） ，把当前用户所有的存储文件中满足条件的文件列表搜索出来，超过一页分页显示，每页10条。</br>
 > 只能在当前用户拥有所有权的文件中搜索，条件中可以输入多个meta值，它们是and的关系
 超过一页则分页展示，每页10条，最多可以翻页到999页
 
@@ -859,8 +687,8 @@ Body：
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-startTime|Data|Body|可选|开始时间，格式为yyy-MM-dd HH:mm:ss
-endTime|Data|Body|可选|结束时间，格式为yyy-MM-dd HH:mm:ss
+startTime|Data|Body|可选|开始时间，格式为yyy-MM-dd HH : mm:ss
+endTime|Data|Body|可选|结束时间，格式为yyy-MM-dd HH : mm:ss
 meta|Map|Body|可选|Meta信息
 pageNo|int|Param|必填|差选请求当前页码，从0开始
 accessKey|String|Header|必填|用户主ak
@@ -870,9 +698,9 @@ accessKey|String|Header|必填|用户主ak
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-fileList|FileList|Body|必填
+fileList|FileList|Body|必填||
 
-MetaInfo类型的对象，包含属性：MAP<String,String> 属性/值 描述文件相关信息
+MetaInfo类型的对象，包含属性：MAP<String,String> 属性值 描述文件相关信息
 
 ##### 2、请求样例
 
@@ -1026,7 +854,7 @@ Body：
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 fileID|long|url|必填|要修改的文件id
-privilegeType|int|Body|权限：0，私有；1，公共读,2,缺省
+privilegeType|int|Body|必填|权限：0，私有；1，公共读,2,缺省
 accessKey|String|Header|必填|用户主ak
 
 **输出参数**： 标准输出参数
@@ -1054,7 +882,7 @@ Body：
 }
 ```
 
-### 删除文件
+#### 删除文件
 > 用户使用主ak，拥有文件的私有权限，删除文件
 
 ##### 1、接口定义
@@ -1090,7 +918,7 @@ Body：
 ```
 ### 针对应用的服务
 
-### 文件匿名下载
+#### 文件匿名下载
 
 > 文件匿名下载，检查文件权限，如果文件为公共读，可以被用户下载；</br>
 > 文件ID必须存在
