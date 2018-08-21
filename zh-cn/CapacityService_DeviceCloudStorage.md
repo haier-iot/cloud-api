@@ -28,7 +28,7 @@
 :-|:-:|:-
 bucketId|int|id
 bucketName|String|name
-privilegeType|int|权限：</br>0，私有；</br>1，公共读
+privilegeType|int|权限：0，私有；1，公共读
 createTime|Data|创建时间
 
 ### BucketList
@@ -36,14 +36,14 @@ createTime|Data|创建时间
 :-|:-:|:-
 buckets|BucaketInfo[]|存储区列表
 total|int|记录总数
-nextMarker|int|下一页页码，</br>第一页从0开始</br>最后一页或无数据返回时为-1
+nextMarker|int|下一页页码，第一页从0开始,最后一页或无数据返回时为-1
 
 ### FileInfo
 参数名|类型|说明
 :-|:-:|:-
 fileId|long|id
 fileName|String|name
-privilegeType|int|权限：</br>0，私有；</br>1，公共读；</br>2，缺省（同所在存储区权限）
+privilegeType|int|权限：0，私有；1，公共读；2，缺省（同所在存储区权限）
 fileSize|long|文件大小
 bucketId|int|所属存储区id
 creteTime|Data|创建时间
@@ -53,7 +53,7 @@ creteTime|Data|创建时间
 :-|:-:|:-
 infos|FileInfo[]|信息列表
 total|int|文件记录总数
-nextMarker|int|下一页页码，</br>第一页从0开始</br>最后一页或无数据返回时为-1
+nextMarker|int|下一页页码，第一页从0开始,最后一页或无数据返回时为-1
 
 
 ## 接口清单
@@ -62,10 +62,10 @@ nextMarker|int|下一页页码，</br>第一页从0开始</br>最后一页或无
 
 #### 创建存储区
 
-> 主用户用来创建存储区，保证后续文件上传下载等文件存储功能；</br>
-> 存储区名字智能为小写字母或数字或短横线，必须以小写字母或数字开通和结尾，长度在3~63个字符之间；</br>
-> 存储区一旦创建后名字不能修改；</br>
-> 同一用户下的存储区不能重名。</br>
+> 1.主用户用来创建存储区，保证后续文件上传下载等文件存储功能；</br>
+> 2.存储区名字智能为小写字母或数字或短横线，必须以小写字母或数字开通和结尾，长度在3~63个字符之间；</br>
+> 3.存储区一旦创建后名字不能修改；</br>
+> 4.同一用户下的存储区不能重名。</br>
 
 ##### 1、接口定义
 ?> **接入地址：** `/css/v1/createBucket`</br>
@@ -76,7 +76,7 @@ nextMarker|int|下一页页码，</br>第一页从0开始</br>最后一页或无
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 bucketName|String|Body|必填|要创建的存储区名字
-Privilege|int|Body|必填|权限：</br>0，私有；</br>1，公共读
+Privilege|int|Body|必填|权限：0，私有；1，公共读
 accessKey|String|header|必填|用户主ak
 
 **输出参数**
@@ -117,7 +117,8 @@ Body：
 ```
 
 #### 查看存储区
-> 根据存储区id查询存储区信息；存储区必须存在，且当前用户拥有访问权限
+> 1.根据存储区id查询存储区信息；</br>
+> 2.存储区必须存在，且当前用户拥有访问权限
 
 ##### 接口定义
 ?> **接入地址：** `/css/v1/queryBucket/{bucketId}`</br>
@@ -164,8 +165,8 @@ Body：
 
 #### 修改存储区权限
 
-> 根据存储区id修改存储区的权限，可选值为：0，私有；1，公共读；</br>
-> 存储区必须存在，且当前用户拥有访问权限；权限值只能为0 or 1,其它值报错
+> 1.根据存储区id修改存储区的权限，可选值为：0，私有；1，公共读；</br>
+> 2.存储区必须存在，且当前用户拥有访问权限；权限值只能为0 or 1,其它值报错
 
 ##### 1、接口定义
 ？> **接入地址：** `/css/v1/modifyBucketACL/{bucketId}`</br>
@@ -205,9 +206,9 @@ Body：
 
 #### 删除存储区
 
-> 根据存储区id删除该存储区，但需要里面没有文件。否则删除不了；</br>
-> 存储区必须存在，且当前用户拥有访问权限；</br>
-> 如果存储区里还有文件，则不能被删除，会抛出相应的异常信息</br>
+> 1.根据存储区id删除该存储区，但需要里面没有文件。否则删除不了；</br>
+> 2.存储区必须存在，且当前用户拥有访问权限；</br>
+> 3.如果存储区里还有文件，则不能被删除，会抛出相应的异常信息</br>
 
 ##### 1、接口定义
 ?> **接入地址：** `/css/v1/deleteBucket/{bucketId}`</br>
@@ -243,8 +244,8 @@ Body：
 
 #### 获取存储区列表
 
-> 根据当前用户的accessKey信息查询其创建的所有存储区；</br>
-> 按照创建时间降序返回当前用户拥有所有权的存储区列表，超过一页翻页展示，每页20条
+> 1.根据当前用户的accessKey信息查询其创建的所有存储区；</br>
+> 2.按照创建时间降序返回当前用户拥有所有权的存储区列表，超过一页翻页展示，每页20条
 
 
 ##### 1、接口定义
@@ -409,8 +410,8 @@ Body：
 
 #### 获取存储区内文件
 
-> 根据存储区id查询存储区里面的文件列表，按照文件创建时间降序排列，超过1页则翻页，每页20条，最多可以翻页到499页；</br>
-> 存储区必须存在，且当前用户拥有访问权限
+> 1.根据存储区id查询存储区里面的文件列表，按照文件创建时间降序排列，超过1页则翻页，每页20条，最多可以翻页到499页；</br>
+> 2.存储区必须存在，且当前用户拥有访问权限
 
 ##### 1、接口定义
 ?> **接入地址：** `/css/v1/fileList/{bucketId}?pageNo={pageNo}`</br>
@@ -601,11 +602,11 @@ Body：
 
 #### 上传文件及meta信息
 
-> 把一个本地文件上传到云存储服务的指定存储区中</br>
+> 把一个本地文件上传到云存储服务的指定存储区中：</br>
 > 1.存储区名字符合要求（具体参见创建存储区），如存储区存在，则上传文件到此存储区，如不存在，则自动创建此名字的存储区，权限为私有。</br>
 > 2.文件名使用UTF-8编码，长度必须在1-100字符之间。不能包含/\|;*?"<>字符。</br>
 > 3.文件大小范围为1-5Mbytes</br>
-> 4.每条Meta信息包含key/value值对的json格式字符串，key不能为空，整个Meta信息的json字符串长度不能超过4000； key重复将导致value会被覆盖,目前预定义的meta的key有：省，province;  市,city；  区县，district；  Mac标识，macid；   User标识，userid；    其它meta的key可以自定义
+> 4.每条Meta信息包含key/value值对的json格式字符串，key不能为空，整个Meta信息的json字符串长度不能超过4000；key重复将导致value会被覆盖,目前预定义的meta的key有：省，province;  市,city；  区县，district；  Mac标识，macid；   User标识，userid；    其它meta的key可以自定义
 
 ##### 1、接口定义
 ?> **接入地址：** `/css/v1/uploadFile/{bucketName}`</br>
@@ -615,9 +616,9 @@ Body：
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-filename|String|Header|非必填|文件下载时的名字，此处不传或者填“”（任意个空格）则为本地文件名，也可以在此重命名，重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。</br>不能包含/\  &#124;；*?"<>字符。</br>需要urlencode编码：  `URLEncoder.encode(meta, "UTF-8")`。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
+filename|String|Header|非必填|文件下载时的名字，此处不传或者填“”（任意个空格）则为本地文件名；</br>也可以在此重命名，重命名后的文件名需使用UTF-8编码，文件名整个长度（含后缀）在1-100字节之间。不能包含/\  &#124;；*?"<>字符。</br>需要urlencode编码：  `URLEncoder.encode(meta, "UTF-8")`。</br>另外，本地文件名暂时只支持英文字符，其他字符可能产生乱码问题。
 privilegeType|int|Header|必填|权限信息
-meta|String|Header|非必填|文件meta信息，传json</br>需要urlecdoe编码：`URLEncoder.encode(meta, "UTF-8")`
+meta|String|Header|非必填|文件meta信息，传json,需要urlecdoe编码：`URLEncoder.encode(meta, "UTF-8")`
 accessKey|String|Header|必填|用户主ak
 file|File|Body|必填|文件
 
@@ -698,7 +699,7 @@ accessKey|String|Header|必填|用户主ak
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-fileList|FileList|Body|必填||
+fileList|FileList|Body|必填|
 
 MetaInfo类型的对象，包含属性：MAP<String,String> 属性值 描述文件相关信息
 
