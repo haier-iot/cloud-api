@@ -1,4 +1,4 @@
-!>  **当前版本**：[UWS 账户服务 V1.0.0][account_document_url]  
+!>  **当前版本**：[UWS 账户服务 V1.0.0](file:///zh-cn/_document/_account/act.docx)  
  **发布时间**：2018-07-19  
 
 
