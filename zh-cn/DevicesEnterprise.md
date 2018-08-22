@@ -70,7 +70,7 @@ result|String|操作应答结果|是一个base64码，</br>标准模型设备解
 > 根据MAC查询绑定的用户信息
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/devBindUsers`</br>
+?> **接入地址：** `/udse/v1/devBindUsers`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -134,7 +134,7 @@ Body
 > 厂商服务端下发非标准设备命令（单命令、组命令），不需要使用用户token
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/devOp`</br>
+?> **接入地址：** `/udse/v1/devOp`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -271,7 +271,7 @@ Body
 > 读取标准模型设备的属性
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/stdDevPropertyRead`</br>
+?> **接入地址：** `/udse/v1/stdDevPropertyRead`</br>
 **HTTP Method：** POST
 
 **输入参数**

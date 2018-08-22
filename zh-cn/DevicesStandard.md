@@ -41,7 +41,8 @@ control|Boolean|是否有控制权限|
 auth|AuthInfo|权限内容|
 authType|String|权限类型|home：家庭分享</br>share：个人分享</br>owener：设备主人</br>server：给appserver的权限
 
-###　DeviceInfo
+### DeviceInfo
+
 绑定设备信息
 
 参数名|类型|说明|备注
