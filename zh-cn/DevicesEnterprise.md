@@ -59,7 +59,7 @@ value|String|值|
 :-|:-:|:-:|:-
 usn|String|操作序列号|
 deviceId|String|操作设备ID
-result|String|操作应答结果|是一个base64码，</br>标准模型设备解密后的结果为：</br>{"extData":{},"args":[]}，其中[]中的数据为多个由name,value组成的键值对；</br>非标准模型设备解密后的结果为:</br> {"extData":{},"statuses":[]}，其中[]中的数据为多个由name,value组成的键值对
+result|String|操作应答结果|是一个base64码，标准模型设备解密后的结果为：`{"extData":{},"args":[]}`，其中[]中的数据为多个由name,value组成的键值对；</br>非标准模型设备解密后的结果为:`{"extData":{},"statuses":[]}`，其中[]中的数据为多个由name,value组成的键值对
 
 
 ## 接口清单
