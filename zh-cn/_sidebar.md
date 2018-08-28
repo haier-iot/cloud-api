@@ -2,6 +2,7 @@
 * [商务合作](zh-cn/Business)
 * [统一接入规范](zh-cn/AccessSpecification)
 * [账户服务](zh-cn/Account)
+
 * 设备管理
 * * [设备管理服务 标准版](zh-cn/DevicesStandard)
 * * [设备管理服务 企业版](zh-cn/DevicesEnterprise)
