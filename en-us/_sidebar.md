@@ -1,5 +1,7 @@
 * [Home](en-us/)
-* [Account service](en-us/Account)
+* [Account service](#)
+* *[Account service-North American Environment](en-us/Account-NorthAmericanEnvironment)  
+* *[Account service-European Environment](en-us/Account-EuropeanEnvironment)
 * [Equipment management](#)
 * * [Equipment management Standard Edition](en-us/DevicesStandard)
 * * [Equipment management Enterprise Edition](en-us/DevicesEnterprise)
