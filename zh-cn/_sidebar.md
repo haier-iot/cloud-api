@@ -1,6 +1,6 @@
 * [首页](zh-cn/README)
 * [商务合作](zh-cn/Business)
-* [统一接入规范](zh-cn/AccessSpecification)
+* [接入规范](zh-cn/AccessSpecification)
 * [账户服务](zh-cn/Account)
 
 * 设备管理
