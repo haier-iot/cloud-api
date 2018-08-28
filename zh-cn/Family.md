@@ -2193,8 +2193,11 @@ Content-type: application/json
 ### 使用方式
 ![开通流程][family_liucheng]
 
+<!--
 ### 文档资料
 [UWS 家庭模型服务][family_document_url] 
+-->
+
 ### 常见问题
 
 

@@ -51,13 +51,14 @@ SoftAP配置方式是将智能设备设置为WIFI热点，通过移动端SDK连�
 
 ![usdk图片][usdk_4]
 
+<!--
 ### 文档资料
 
 [uSDK5.0_Phone_Android开发手册][usdk_document_url] 
 
 [uSDK5.0_Phone_ios开发手册][usdk_document_url] 
 
-
+-->
 
 
 
