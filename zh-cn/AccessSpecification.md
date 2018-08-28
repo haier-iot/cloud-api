@@ -63,7 +63,7 @@ U+平台现有的UWS服务说明
 |retInfo	|String	|Body	|是	|返回信息（用于调试的返回信息，不支持国际化，也不能直接显示在UI上）|
 
 
-###  媒体类型
+##  媒体类型
 对于请求UWS规定用以下三种Content-Type媒体类型：
 
 1.Content-Type: application/json
