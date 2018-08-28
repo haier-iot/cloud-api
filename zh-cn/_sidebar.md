@@ -12,14 +12,15 @@
 * * [天气服务](zh-cn/CapacityService_Weather)
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
 
-<<<<<<< HEAD
+
 
 * [统一接入规范](zh-cn/AccessSpecification)
 
-=======
+
+
 * [移动端SDK](zh-cn/uSDK)
 * [设备端SDK](zh-cn/SmartDeviceSDK)
->>>>>>> 9210212416776b4cb4eb5c22165972705ec1be0c
+
 
 * [商务合作](zh-cn/Business)
 
