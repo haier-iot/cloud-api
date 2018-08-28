@@ -148,9 +148,11 @@ address为null时，address属性不返回
 
 1. **说明**
 
+
 调用方需要对发送到uws的请求进行签名，签名后赋值到Header头中的sign属性（见公共部分说明），以便服务端进行签名验证。
 
 2. **参数介绍**
+
 
 **待签名字符串为：** url字符串 + Body字符串+appId+appKey +timestamp；
 
