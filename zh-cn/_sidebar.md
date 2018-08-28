@@ -11,8 +11,16 @@
 * [能力服务](zh-cn/CapacityService)
 * * [天气服务](zh-cn/CapacityService_Weather)
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
+
+
+
+* [统一接入规范](zh-cn/AccessSpecification)
+
+
+
 * [移动端SDK](zh-cn/uSDK)
 * [设备端SDK](zh-cn/SmartDeviceSDK)
+
 
 * [商务合作](zh-cn/Business)
 
