@@ -168,7 +168,7 @@ Body：
 > 2.存储区必须存在，且当前用户拥有访问权限；权限值只能为0 or 1,其它值报错
 
 ##### 1、接口定义
-？> **接入地址：** `/css/v1/modifyBucketACL/{bucketId}`</br>
+?>  **接入地址：** `/css/v1/modifyBucketACL/{bucketId}`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -210,7 +210,7 @@ Body：
 > 3.如果存储区里还有文件，则不能被删除，会抛出相应的异常信息</br>
 
 ##### 1、接口定义
-?> **接入地址：** `/css/v1/deleteBucket/{bucketId}`</br>
+?> **接入地址：**  `/css/v1/deleteBucket/{bucketId}`</br>
 **HTTP Method：** POST
 
 **输入参数**
