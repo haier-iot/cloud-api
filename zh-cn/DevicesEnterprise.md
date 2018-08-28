@@ -59,7 +59,7 @@ value|String|值|
 :-|:-:|:-:|:-
 usn|String|操作序列号|
 deviceId|String|操作设备ID
-result|String|操作应答结果|是一个base64码，</br>标准模型设备解密后的结果为：</br>{"extData":{},"args":[]}，其中[]中的数据为多个由name,value组成的键值对；</br>非标准模型设备解密后的结果为:</br> {"extData":{},"statuses":[]}，其中[]中的数据为多个由name,value组成的键值对
+result|String|操作应答结果|是一个base64码，标准模型设备解密后的结果为：`{"extData":{},"args":[]}`，其中[]中的数据为多个由name,value组成的键值对；</br>非标准模型设备解密后的结果为:`{"extData":{},"statuses":[]}`，其中[]中的数据为多个由name,value组成的键值对
 
 
 ## 接口清单
@@ -70,7 +70,7 @@ result|String|操作应答结果|是一个base64码，</br>标准模型设备解
 > 根据MAC查询绑定的用户信息
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/devBindUsers`</br>
+?> **接入地址：** `/udse/v1/devBindUsers`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -134,7 +134,7 @@ Body
 > 厂商服务端下发非标准设备命令（单命令、组命令），不需要使用用户token
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/devOp`</br>
+?> **接入地址：** `/udse/v1/devOp`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -271,7 +271,7 @@ Body
 > 读取标准模型设备的属性
 
 ##### 1、接口定义
-？> **接入地址：** `/udse/v1/stdDevPropertyRead`</br>
+?> **接入地址：** `/udse/v1/stdDevPropertyRead`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -806,7 +806,7 @@ Body
 ![开通流程][DevicesStandard_liucheng]
 
 ### 应用场景
-设备管理服务（标准版）主要为开发的应用程序实现用户与设备绑定、解绑设备、获取用户设备列表等与智能互联设备相关的基础管理服务。
+企业版服务既可应用于应用端发起，也可以从应用服务端（即app server）与平台直接互联的情况，进行企业级别的设备管理。应用服务器统一获取设备信息与设备控制能力。 
 
 ## 文档资料
 [设备管理服务标准版v2.0.1][DevicesEnterprise_document_url]

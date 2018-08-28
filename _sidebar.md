@@ -10,5 +10,6 @@
 * [消息推送](zh-cn/MessagePush)
 * [能力服务](zh-cn/CapacityService)
 * * [天气服务](zh-cn/CapacityService_Weather)
+* * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
 
 * [changelog](zh-cn/ChangeLog)
