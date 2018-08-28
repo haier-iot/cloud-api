@@ -1,5 +1,5 @@
 * Translations
-  * [English](en/)
+  * [English](en-us/)
   * [Chinese](zh-cn/)
 * Online question
   * [Account service](#)
