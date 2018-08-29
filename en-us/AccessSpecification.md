@@ -89,7 +89,7 @@ Applicable to file upload and download
 |Limited type|	Description|	format|	Json example|
 |---|---|---|---|
 |DateTime	|Date time type string|	`yyyy-MM-dd hh:mm:ss`| `	{“lgTime”:“2013-10-08 08:00:00”}`|
-|Date	|Date type string	|yyyy-MM-dd 	|`{“lgDate”:“2013-10-08”}`|
+|Date	|Date type string	|`yyyy-MM-dd` 	|`{“lgDate”:“2013-10-08”}`|
 |String	|String		||`{“address”:“street 123”}`|
 |int	|int	||	`{“age”:1234}`|
 |long	|long	||	`{“oid”:1234567890123}`|
@@ -158,10 +158,9 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 
 3. **Signature algorithm**
 The signature algorithm is to calculate the 32-bit lowercase SHA-256 value for the signature string. See the following example for details:  
-```
-java
-
-String getSign(String appId, String appKey, String timestamp, String body,String url){
+ 
+```java
+String getSign(String appId, String appKey, String timestamp, String body,String url){：
     URL urlObj = new URL(url);
     url=urlObj.getPath();
 	appKey = appKey.trim();
@@ -201,7 +200,8 @@ String BinaryToHexString(byte[] bytes) {
 	return hex.toString();
 }
 
-```
+```  
+
 
 
 ## Internationalization 
