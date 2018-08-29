@@ -8,6 +8,7 @@
 * [数据订阅](zh-cn/DataSubscription)
 * [家庭模型](zh-cn/Family)
 * [场景引擎](zh-cn/IFTTT)
+* [预约定时](zh-cn/Scheduler)
 * [设备影子](zh-cn/DevicesShadow)
 * [消息推送](zh-cn/MessagePush)
 * [能力服务](#)

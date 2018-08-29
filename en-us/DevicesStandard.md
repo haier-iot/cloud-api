@@ -848,7 +848,7 @@ Header：
 ### Application scenario
 The device management service (standard version) mainly implements the basic management services related to the smart connected device, such as binding the user to the device, unbinding the device, and obtaining the user device list for the developed application.
 
-## 文档资料
+## Documentation
 [DeviceManagementServiceStandardEditionV2.0.1][DevicesStandard_document_url]
 
 

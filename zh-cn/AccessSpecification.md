@@ -32,12 +32,13 @@ U+平台现有的UWS服务说明
 4|[数据订阅](zh-cn/DataSubscription)|udp|v1.0.0
 5|[家庭模型](zh-cn/Family)|ufm|v1.5.1  
 6|[场景引擎](zh-cn/IFTTT)|iftttscene|v3.0.11  
-7|[设备影子](zh-cn/DevicesShadow)|uds|v1.0.0
-8|[消息推送](zh-cn/MessagePush)|ums|v3.0.0
-9|[天气服务](zh-cn/CapacityService_Weather)| |v1.0.0 
-10|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)||v1.0.0   
-11|[移动端uSDK](zh-cn/uSDK)||v1.0.0
-12|[设备端SDK](zh-cn/SmartDeviceSDK)||v1.0.0
+7|[预约定时](zh-cn/Scheduler)||v1.0.0  
+8|[设备影子](zh-cn/DevicesShadow)|uds|v1.0.0
+9|[消息推送](zh-cn/MessagePush)|ums|v3.0.3
+10|[天气服务](zh-cn/CapacityService_Weather)| |v1.0.0 
+11|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)||v1.0.0   
+12|[移动端uSDK](zh-cn/uSDK)||v1.0.0
+13|[设备端SDK](zh-cn/SmartDeviceSDK)||v1.0.0
 
 
 ##  公共字段
