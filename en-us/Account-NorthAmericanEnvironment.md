@@ -2,7 +2,7 @@
  **release time**：2018-07-19  
 
 
-## Introduction
+### Introduction
 
 > The account service is designed to provide access control services covering the entire process of the IoT, and to build a unified user login system for developers.   
 
@@ -45,6 +45,48 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 **Account system association ability**  
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
+
+### Security of user password  
+
+#### Safety instructions  
+Since openapi USES md5+salt password processing mode, if the uws-uam interface also USES md5 mode, the app needs to transmit the password in clear text, which will reduce the security of the entire original gea environment, so the app transmission password must be encrypted. The login is encrypted as sha256, and the password is encrypted as sha256 when registering. Aes is used for encryption and base64 encoding.  
+#### Password flow  
+![密码传输流程图片][account_PasswordFlow]
+#### Cipher encryption and decryption algorithm  
+algorithm:aes
+secret key:App encryption and server decryption use the same secret key
+algorithm code:  
+
+```java
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+public class AESUtil {
+	private final static String CIPHER_ALGORITHM = "AES";
+	private final static String CIPHER_ALGORITHM_FULL = "AES/CBC/PKCS5Padding";
+	private final static String VIPARA = "1269571569321021";
+	public static String encryptContent(String secret, String content) throws Exception {
+	    IvParameterSpec zeroIv = new IvParameterSpec(VIPARA.getBytes());  
+	    SecretKeySpec key = new SecretKeySpec(secret.getBytes(), CIPHER_ALGORITHM);  
+	    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_FULL);  
+        cipher.init(Cipher.ENCRYPT_MODE, key, zeroIv);  
+		byte[] byteContent =content.getBytes("UTF-8");
+		byte[] result = cipher.doFinal(byteContent);
+		return new String(Base64Util.encode(result));
+	}
+	public static String decryptContent(String secret, String content) throws Exception {
+	    byte[] byteMi = Base64Util.decode(content); 
+        IvParameterSpec zeroIv = new IvParameterSpec(VIPARA.getBytes());  
+        SecretKeySpec key = new SecretKeySpec(secret.getBytes(), CIPHER_ALGORITHM);  
+        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM_FULL);  
+        cipher.init(Cipher.DECRYPT_MODE, key, zeroIv);  
+        byte[] decryptedData = cipher.doFinal(byteMi);  
+        return new String(decryptedData, "UTF-8");   
+	}
+}
+
+```  
 
 ### Public structure  
 
@@ -815,7 +857,7 @@ Body
 ## Way of use
 
 ### Opening process  
-![开通流程][account_liucheng]
+![开通流程][account_callingProcess]
 
 ### Application scenario
 **Account management**  
@@ -824,10 +866,10 @@ Developers do not have an account system and can integrate U+ account related se
 **Developer account**  
 Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
 
-
+<!-- 
 ## Documentation
 [UWS AccountService][account_document_url]
-
+-->
 ## common problem
 
 [^-^]:文本连接注释
@@ -836,6 +878,7 @@ Developers have their own account system, accessing U+ account services through 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
 [account_liucheng]:_media/_account/account_liucheng.png
-
+[account_callingProcess]:_media/_account/account_callingProcess.png
+[account_PasswordFlow]:_media/_account/account_PasswordFlow.png
 
 
