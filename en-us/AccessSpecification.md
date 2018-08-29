@@ -1,7 +1,7 @@
-## Access instructions
+## Access Instructions
 
 1. **Access premise**  
-Before using the UWS service of Haier U+ Cloud Platform, the application developer needs to register as a developer at Haigeek(http://www.haigeek.com)and apply to create their own application products (application types include Andriod, IOS). According to the development test of the application product, the stage of the release process corresponds to the UWS service of the Haier U+ cloud platform by using the information of the appid and appkey assigned by the created application. 
+Before using the UWS service of Haier U+ Cloud Platform, the application developer needs to register as a developer at Haigeek(http://www.haigeek.com) and apply to create their own application products (application types include Andriod, IOS). According to the development test of the application product, the stage of the release process corresponds to the UWS service of the Haier U+ cloud platform by using the information of the appid and appkey assigned by the created application. 
 
 2. **Access method**  
 The interactive interface between the cloud platform UWS and the application is unified into a JSON-based REST interface. The request parameter of the GET and DELETE primitives is the QueryParam of the url, and the URLEncode needs to be performed. The user of UWS should make the following assumptions:  
@@ -32,7 +32,7 @@ Serial number|UWS service name|Application name|Version number (current version)
 5|[Data Subscription](en-us/DataSubscription)|udp|v1.0.0
 
 
-###  Public field
+##  Public Field
 The public field describes the public fields that should be included for each request and response. These fields have no special conditions and are not repeated in the service class interface message definition.  
 
 **Input parameters**    
@@ -58,8 +58,7 @@ The public field describes the public fields that should be included for each re
 |retCode|	String	|Body|	yes	|Return code (where 00000 means the request is successful, others represent errors, error codes and descriptions are listed in the Appendix Error Code Table)|
 |retInfo	|String	|Body	|yes	|Return information (return information for debugging, does not support internationalization, and cannot be directly displayed on the UI)|
 
-
-###  media type
+##  Media Type
 The following three Content-Type media types are specified for requesting UWS:  
 
 1.Content-Type: application/json
@@ -83,7 +82,7 @@ Suitable for form file upload
 3.Content-Type:application/octet-stream
 Applicable to file upload and download 
 
-### Data type qualification
+## Data Type Qualification
 
 1. **Field type description**
 
@@ -137,7 +136,7 @@ When address is null, the address attribute does not return:
 
 	{"name":"Tom","age":23,"birthday":"2013-10-08 08:00:00" }
 
-## Signature authentication
+## Signature Authentication
 
 1. **Description**
 
@@ -149,7 +148,7 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 |parameter name|	Description|
 |:-----|-----|
 |Signature string|Url string + Body string +appId+appKey +timestamp;|
-|url |Refers to the path part of the requested interface address after removing https://uws.haier.net;|
+|url |Refers to the path part of the requested interface address after removing https://uws-gea-euro.haieriot.net or https://uws-gea-us.haieriot.net;|
 |Body|Refers to the JSON string after the body part of the application sends the request to remove all whitespace characters. If there is no body, it is an empty string (not null);|
 |appId|The attributes in the Header header (see the public section);|
 |appKey|The appKey applied to the application on the Haigeek cannot be sent in clear text;|
@@ -159,8 +158,10 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 
 3. **Signature algorithm**
 The signature algorithm is to calculate the 32-bit lowercase SHA-256 value for the signature string. See the following example for details:  
-```java
-String getSign(String appId, String appKey, String timestamp, String body,String url){：
+```
+java
+
+String getSign(String appId, String appKey, String timestamp, String body,String url){
     URL urlObj = new URL(url);
     url=urlObj.getPath();
 	appKey = appKey.trim();
@@ -203,7 +204,7 @@ String BinaryToHexString(byte[] bytes) {
 ```
 
 
-### Internationalization 
+## Internationalization 
 The retCode and retInfo returned by the interface response are not internationalized and are processed by the interface caller.  
 The internationalization of the interface involving business data is defined by passing the language parameter in the header. The specific international language code is shown below.  
 
@@ -262,7 +263,7 @@ The data acquired by the App through UWS, etc., must ensure storage security.
 It must be executed in strict accordance with the usage documentation of the UWS interface service.
 
 
-## Common HTTP status code commentary
+## Common HTTP Status Code Commentary
 
 Status Code|Meaning|Solutions
 :-:|:-|:-
@@ -278,7 +279,7 @@ Status Code|Meaning|Solutions
 504|(Gateway timeout)</br> When a server working as a gateway or proxy attempts to execute a request, it fails to receive a response from the upstream server (the server identified by the URI, such as HTTP, FTP, LDAP) or the secondary server (for example, DNS).|Troubleshoot the corresponding server error or exception
 
 
-### Public error code
+## Public error code
 |retCode|	retInfo|
 |---|---|---|---|
 |A00001|	service is not available                                   |
