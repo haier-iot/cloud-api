@@ -53,8 +53,8 @@ Since openapi USES md5+salt password processing mode, if the uws-uam interface a
 #### Password flow  
 ![密码传输流程图片][account_PasswordFlow]
 #### Cipher encryption and decryption algorithm  
-algorithm:aes
-secret key:App encryption and server decryption use the same secret key
+algorithm:aes  
+secret key:App encryption and server decryption use the same secret key  
 algorithm code:  
 
 ```java
