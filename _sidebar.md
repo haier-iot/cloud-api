@@ -1,4 +1,6 @@
 * [首页](zh-cn/)
+* [商务合作](zh-cn/Business)
+* [接入规范](zh-cn/AccessSpecification)
 * [账户服务](zh-cn/Account)
 * 设备管理
 * * [设备管理服务 标准版](zh-cn/DevicesStandard)
@@ -11,9 +13,6 @@
 * [能力服务](zh-cn/CapacityService)
 * * [天气服务](zh-cn/CapacityService_Weather)
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
-
-
-* [统一接入规范](zh-cn/AccessSpecification)
 
 
 
