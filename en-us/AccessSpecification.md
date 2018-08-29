@@ -26,7 +26,7 @@ U+ platform existing UWS service description
 Serial number|UWS service name|Application name|Version number (current version)
 :-:|:-:|:-:|:-:
 1|[Account Service-North American Environment](en-us/Account-NorthAmericanEnvironment)|uam|v1.4.0  
-2|[Account Service-European Environment](en-us/Account-EuropeanEnvironment)|uam|v1.3.0
+2|[Account Service-European Environment](en-us/Account-EuropeanEnvironment)|uam|v2.0.0
 3|[Equipment Management Standard Edition](en-us/DevicesStandard)|uds|v1.5.2
 4|[Equipment Management Enterprise Edition](en-us/DevicesEnterprise)|udse|v1.5.2
 5|[Data Subscription](en-us/DataSubscription)|udp|v1.0.0
@@ -44,7 +44,8 @@ The public field describes the public fields that should be included for each re
 |clientId	|String	|Header	|yes	|The client ID is 27 characters, and the client code is combined with the client MAC address to form a unique client ID. The primary purpose is to uniquely identify the client (for example, a mobile phone). The mobile phone is coded as an IMEI code. The phone MAC is a 12-bit address. Naming convention: client machine code (15 bit) - client MAC address (12 bit) format: XXXXXXXXXXXXXXX-XXXXXXXXXXXX Example: 356877020056553-08002700DC94|
 |sequenceId	|String	|Header|yes	|Message flow (client only) client transaction serial number. 20-bit, first 14-bit timestamp (format: yyyyMMddHHmmss), last 6-digit serial number. When a transaction occurs, it is incremented according to the number of transactions. App applications must ensure that each request is unique and cannot be repeated when accessing the uws interface.|
 |accessToken	|String	|Header|yes|（Not vacant after login, can be empty before login) Request token (after user login) security token token. 30 characters. The user logs in to the Haier uHome cloud platform, which is created by the system. The user quits the Haier uHome cloud platform and is destroyed by the system.|
-|sign	|String|	Header|	yes|(Not empty after login, can be empty before login) See the signature certification section for details.|
+|sign	|String|	Header|	yes|(Not empty after login, can be empty before login) See the signature certification section for details.|  
+|privacyVersion	|String|Header|	yes(Only for the European environment)|Latest Privacy Agreement Version|  
 |timestamp	|String	|Header	|yes|Long timestamp, accurate to milliseconds, this parameter provides support for multi-country regions. The user's location timestamp should be passed in.|
 |language	|String	|Header|	yes	|This parameter provides support for multi-language versions. By default, you can fill in zh-cn.|
 |timezone	|String|	Header|	yes	|Time zone, -11 to 13. In the time zone of the incoming user, you can fill in 8 by default.|

@@ -1,8 +1,8 @@
-!>  **current version**：[UWS Accountservice V1.0.0][account_document_url]  
+!>  **current version**：[UWS Accountservice V2.0.0][account_document_url]  
  **release time**：2018-07-19  
 
 
-## Introduction
+### Introduction
 
 > The account service is designed to provide access control services covering the entire process of the IoT, and to build a unified user login system for developers.   
 
@@ -46,6 +46,240 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
+### User privacy data security  
+#### Safety instructions  
+User privacy data item.  
+| **Field** | **Encryption processing**  |  **Interface** | 
+| ------------- |:-------------:|  
+|email|	RSA encryption	|Register, login, reset password, change password|  
+|password|	RSA encryption	|Register, login, reset password, change password|  
+#### Secret key usage process  
+![密码传输流程图片][account_PasswordFlow1]  
+![密码传输流程图片][account_PasswordFlow2]  
+#### Cipher encryption and decryption algorithm  
+algorithm:RSA  
+secret key:The app side holds the public key, the server side holds the private key, the public key private key is a pair of secret keys, the public key is encrypted, and the private key is decrypted.  
+algorithm code:  
+
+```java
+package com.hshbic.cloud.user.util.encrypt;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.crypto.Cipher;
+import org.apache.commons.codec.binary.Base64;
+import com.hshbic.cloud.user.model.AppRsaKeys;
+
+public class RSAUtil {
+
+	public static final String CHARSET = "UTF-8";
+	public static final String RSA_ALGORITHM = "RSA";
+	public static Map<String, AppRsaKeys> KEYSMAP = new ConcurrentHashMap<String, AppRsaKeys>();
+	public static Map<String, String> createKeys(int keySize) {
+		// Create a KeyPairGenerator object for the RSA algorithm
+		KeyPairGenerator kpg;
+		try {
+			kpg = KeyPairGenerator.getInstance(RSA_ALGORITHM);
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException("No such algorithm-->["
+					+ RSA_ALGORITHM + "]");
+		}
+		// Initialize the KeyPairGenerator object, key length
+		kpg.initialize(keySize);
+		// Generate key pair
+		KeyPair keyPair = kpg.generateKeyPair();
+		// Get the public key
+		Key publicKey = keyPair.getPublic();
+		String publicKeyStr = Base64.encodeBase64URLSafeString(publicKey
+				.getEncoded());
+		// Get the private key
+		Key privateKey = keyPair.getPrivate();
+		String privateKeyStr = Base64.encodeBase64URLSafeString(privateKey
+				.getEncoded());
+		Map<String, String> keyPairMap = new HashMap<String, String>();
+		keyPairMap.put("publicKey", publicKeyStr);
+		keyPairMap.put("privateKey", privateKeyStr);
+		return keyPairMap;
+	}
+	/**
+	 * Get the public key
+	 * 
+	 * @param publicKey
+	 *  Key string (base64 encoded)
+	 * @throws Exception
+	 */
+	public static RSAPublicKey getPublicKey(String publicKey)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		// Get the public key object by X509 encoded Key instruction
+		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
+		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(
+				Base64.decodeBase64(publicKey));
+		RSAPublicKey key = (RSAPublicKey) keyFactory
+				.generatePublic(x509KeySpec);
+		return key;
+	}
+	/**
+	 * Get the private key
+	 * 
+	 * @param privateKey
+	 *   Key string (base64 encoded)
+	 * @throws Exception
+	 */
+	public static RSAPrivateKey getPrivateKey(String privateKey)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		// Obtain the private key object by the Key instruction encoded by PKCS#8
+		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
+		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(
+				Base64.decodeBase64(privateKey));
+		RSAPrivateKey key = (RSAPrivateKey) keyFactory
+				.generatePrivate(pkcs8KeySpec);
+		return key;
+	}
+	/**
+	 * Public key encryption
+	 * 
+	 * @param data
+	 * @param publicKey
+	 * @return
+	 */
+	public static String publicEncrypt(String data, RSAPublicKey publicKey) {
+		try {
+			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+			return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher,
+					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), publicKey
+							.getModulus().bitLength()));
+		} catch (Exception e) {
+			throw new RuntimeException("Encountered an exception while encrypting the string [" + data + "] ", e);
+		}
+	}
+	/**
+	 * Private key decryption
+	 * 
+	 * @param data
+	 * @param privateKey
+	 * @return
+	 */
+	public static String privateDecrypt(String data, RSAPrivateKey privateKey) {
+		try {
+			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+			cipher.init(Cipher.DECRYPT_MODE, privateKey);
+			return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE,
+					Base64.decodeBase64(data), privateKey.getModulus()
+							.bitLength()), CHARSET);
+		} catch (Exception e) {
+			throw new RuntimeException("Encountered an exception while decrypting the string [" + data + "] ", e);
+		}
+	}
+	/**
+	 * Private key encryption
+	 * 
+	 * @param data
+	 * @param privateKey
+	 * @return
+	 */
+	public static String privateEncrypt(String data, RSAPrivateKey privateKey) {
+		try {
+			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+			cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+			return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher,
+					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), privateKey
+							.getModulus().bitLength()));
+		} catch (Exception e) {
+			throw new RuntimeException("Encountered an exception while encrypting the string [" + data + "] ", e);
+		}
+	}
+	/**
+	 * Public key decryption
+	 * 
+	 * @param data
+	 * @param publicKey
+	 * @return
+	 */
+	public static String publicDecrypt(String data, RSAPublicKey publicKey) {
+		try {
+			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+			cipher.init(Cipher.DECRYPT_MODE, publicKey);
+			return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE,
+					Base64.decodeBase64(data), publicKey.getModulus()
+							.bitLength()), CHARSET);
+		} catch (Exception e) {
+			throw new RuntimeException("Encountered an exception while decrypting the string [" + data + "] ", e);
+		}
+	}
+	private static byte[] rsaSplitCodec(Cipher cipher, int opmode,
+			byte[] datas, int keySize) {
+		int maxBlock = 0;
+		if (opmode == Cipher.DECRYPT_MODE) {
+			maxBlock = keySize / 8;
+		} else {
+			maxBlock = keySize / 8 - 11;
+		}
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		int offSet = 0;
+		byte[] buff;
+		int i = 0;
+		try {
+			while (datas.length > offSet) {
+				if (datas.length - offSet > maxBlock) {
+					buff = cipher.doFinal(datas, offSet, maxBlock);
+				} else {
+					buff = cipher.doFinal(datas, offSet, datas.length - offSet);
+				}
+				out.write(buff, 0, buff.length);
+				i++;
+				offSet = i * maxBlock;
+			}
+			byte[] resultDatas = out.toByteArray();
+			return resultDatas;
+		} catch (Exception e) {
+			throw new RuntimeException("An exception occurs when the encryption/decryption threshold is [" + maxBlock + "] ", e);
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				
+			}
+		}
+	}
+	public static void main(String[] args) throws Exception {
+		Map<String, String> keyMap = RSAUtil.createKeys(1024);
+		String publicKey = keyMap.get("publicKey");
+		String privateKey = keyMap.get("privateKey");
+		System.out.println("Public key: \n\r" + publicKey);
+		System.out.println("Private key: \n\r" + privateKey);
+		String str = "123";
+		System.out.println("\r Clear text：\r\n" + str);
+		System.out.println("\r Clear text size：\r\n" + str.getBytes().length);
+		String encodedData = RSAUtil.publicEncrypt(str,
+				RSAUtil.getPublicKey(publicKey));
+		System.out.println("Ciphertext：\r\n" + encodedData);
+		String decodedData = RSAUtil.privateDecrypt(encodedData,
+				RSAUtil.getPrivateKey(privateKey));
+		System.out.println("Decrypted text: \r\n" + decodedData);
+	}
+}
+
+```  
+
+### Use of language templates
+#### Support for overseas oem version app  
+The appId in the header is oem type, and the oem template is used to register, activate, and reset the password.  
+OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
+
 ### Public structure  
 
 #### no  
@@ -81,32 +315,39 @@ Here are the user extension properties for the Grill app:
 | API name        | effect          | Whether open | Special Note|
 | ------------- |:-------------:|:-----:|:-------------:|
 | User registration     | Register new user | yes|  no |  
-| User login     | User login to get accessToken and openId | yes| no|  
-| Resend activation email | After the registration is successful, but the user failed to receive the activation email due to the mail network, etc. | yes| no|  
-| sign out   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
-| Query user information | Obtain user information based on the registrant token | yes| no|  
-| User information modification    | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|  
-| Request a reset password     | When the user requests to reset the password, the user will send a link to reset the password in the user's mailbox, and the user clicks the link to reset the password. |  yes| no|    
-| Get image verification code    | Get image verification code |  yes| no|    
+| User login     | User login to get accessToken | yes| no|  
+| Get verification code     | Apply for a verification code before registration to verify the user's real email address | yes| no|  
+| Reset Password     | To reset the password, you need to apply for a verification code first. | yes| no|  
+| Change password | To reset the password, you need to apply for a verification code first. | yes| no|  
+|Get the public key | Get the public key | yes| no|  
+|Verify the public key |Provide the front-end application with an interface to verify the validity of the local public key| yes| no|  
+|Get graphic verification code |Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.| yes| no| 
+| Log out v1   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
+| Query user information v1 | Obtain user information based on the registrant token | yes| no|  
+| User information modification v1   | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|     
+| User accepts privacy policy v1  | User accepts the privacy policy and records the privacy policy version number |  yes| no|    
 
 #### User registration 
-> Register new user    
+> Register new user  
+> Preconditions:Get the verification code interface  
 
 
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/security/register`  
+?> **Access address：**  `/uam/v2/user/registerEmailAcounnt`  
  **HTTP Method：** POST
 
 **Input parameters**  
 
 | parameter name        | types         | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
-| password     | String | Body| yes |Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits.|  
-| captcha     | String | Body| yes |Verification code, a combination of 4 letters and numbers.|  
-| userProfile     | Map | Body| no |Added to meet the different needs of user information for different applications.|  
+|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
+|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section 2.6 for details.|  
+|captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. According to the requirement, msgCode fails to verify more than three times, and the user is required to input the graphic verification code.|
+|userProfile|Map|Body|No|Added to meet the user information needs of different applications. When the application needs to extend user attributes, it can apply to the cloud platform user system. The attributes that need to be extended are listed in the application, and the key, type and length corresponding to each attribute are also listed.|
+|msgCode|String|	Body|	yes	|Verification code, the user applies for verification before registration, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|
+
 
 
 **Output parameters**  
@@ -122,32 +363,35 @@ Here are the user extension properties for the Grill app:
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:    
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGT20QGFDOIY0U8S2754W0ZH3XY390
+sign: 5a46d3ca2a7f4589e97fbf4f2eae4b74c56eeb685884d91f136d339ea523dd0a
+timestamp: 1533868371182 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: dg00ad3ea782c34aa86c656f2a401d8e
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+privacyVersion: V1.0.0
+Content-Length: 434
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+[no cookies]
+
+Body:
 {
-  "loginId": "14759167292@qq.com",
-  "password": "Abcd!123456",
-  "userProfile": {
-    "updateTime": "20141115",
-    "tel": "0596",
-    "companyCode": 333,
-    "address": "china",
-    "email": "848421322@qq.com",
-    "QQ": "848421322",
-    "name": "test",
-    "realname": "test"
-  }
+	"email": "mzyc5-J0Cucq84wqFh7KfkWWqd3P3EagdvW2Eb8f6fqoQ3oX1Llhdt2o_YRpnu0D6xLUeocU7ckagnr5YlpNwh2OlVO6SKUNsmp9sXetFpjd9riOFeaJRqGeta8oPDMqPOnTIGt-9XaZ4nr5v2zH44eNalPSwL1kyUykVdHjbrU",
+	"password": "ZrZjvu0dpDNqKoQDUHCnyPyNw1gpvy6_b3BoVRQnpPW4Gj31Ieyr8B0DkbiayEWV2x5slwqvf4HU_b-ZF_NdMC-V_OQ5VZxZixqmH-piZ8uAMzmZaiVf5Hxn26g6w1x679Oma2xiEnRdm2YpsVKhzwHiBn0-uZxNQnUxLZ9YI6k",
+	"msgCode": "050289",
+	"userProfile": {
+		"name": "test"
+	},
+	"captcha": "dmpp"
 }
 
 
@@ -835,7 +1079,8 @@ Developers have their own account system, accessing U+ account services through 
 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
-[account_liucheng]:_media/_account/account_liucheng.png
-
+[account_liucheng]:_media/_account/account_callingProcess.png
+[account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
+[account_PasswordFlow1]:_media/_account/account_PasswordFlow2.png
 
 
