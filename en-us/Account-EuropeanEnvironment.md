@@ -38,9 +38,10 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 #### Safety instructions  
 User privacy data item.  
 | **Field** | **Encryption processing**  |  **Interface** |  
-| ------------- |:-------------:|  
-|email|	RSA encryption	|Register, login, reset password, change password|   
-|password|	RSA encryption	|Register, login, reset password, change password|   
+| ------------- |:-------------:|:-------------:|   
+|email|	RSA encryption	|Register, login, reset password, change password|    
+|password|	RSA encryption	|Register, login, reset password, change password|  
+ 
 #### Secret key usage process  
 ![密码传输流程图片][account_PasswordFlow1]  
 ![密码传输流程图片][account_PasswordFlow2]  
@@ -781,7 +782,7 @@ Body:
 
 | parameter name        | types          | location  | requierd|description|
 | ------------- |:-------------:|:-----:|:-------------:|
-|     |  | | yes|&emsp;|    
+|     |  | | |&emsp;|    
 
 
 **Output parameters**  
