@@ -29,7 +29,9 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-**Account system association ability**  
+
+**Account system association ability**   
+ 
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
@@ -104,7 +106,8 @@ public class AESUtil {
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/register`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** No (header can not pass accessToken)  
 
 **Input parameters**  
@@ -187,7 +190,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/login`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** No  
 
 **Input parameters**  
@@ -268,6 +272,7 @@ body
 
 ?> **Access address：**  `/uam/v1/security/sendActiveMail`  
  **HTTP Method：** POST  
+ 
  **Token authentication：** No  
 
 **Input parameters**  
@@ -332,7 +337,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/logout`  
- **HTTP Method：** POST   
+ **HTTP Method：** POST  
+  
  **Token authentication：** Yes  
 
 **Input parameters**  
@@ -399,7 +405,8 @@ Content-type: application/json
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/users/get`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** Yes 
 **Input parameters**  
 
@@ -483,7 +490,8 @@ Content-type: application/json
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/users/update`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** Yes 
 **Input parameters**  
 
@@ -558,7 +566,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/pwd/applyReset`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** No
 **Input parameters**  
 
@@ -621,7 +630,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/captcha`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+
  **Token authentication：** No
 **Input parameters**  
 
