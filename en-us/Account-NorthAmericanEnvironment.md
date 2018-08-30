@@ -12,26 +12,13 @@ By integrating the U+IOT platform account service, the developer not only provid
 
 ### Noun explanation
 
-<!--
--  **Haier OAuth authorization**
->  Refers to the unified account authorization provided by Haier Group User Center. It can use this kind of user authorization to log in to Haier Youjia IOT platform to obtain user equipment related rights. At the same time, it has the right to log in to other related business services of Haier Group, such as Haier Mall and Haier Community. 
 
-- **Haier U+ Account**
->  It refers to the self-owned IoT account system provided by Haier Youjia Platform of Haier Group. The account system has the authority to bind/control Haier IoT appliances.
-
-If you use Haier OAuth to authorize login, according to Haier OAuth access requirements, you can automatically obtain Haier Youjia account information at the same time; that is, you can use Haier account to obtain Haier Youjia account at the same time.  
--->
 - **Haier U+ OAuth**
 > Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
 
 Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
 
-<!--
-- **Haier U+ Third Party Login**
-> Refers to the use of third-party platform accounts to log in Haier Youjia platform, such as WeChat, Jingdong, Taobao and so on.  
 
-Third-party social accounts support QQ, WeChat, Weibo, Douban, Renren.com account login. If there are other third-party platform account login requirements, online feedback is available.
--->
 - **Haier U+  Developer Account Login**
 > It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
 
@@ -42,7 +29,9 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-**Account system association ability**  
+
+**Account system association ability**   
+ 
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
@@ -91,29 +80,7 @@ public class AESUtil {
 ### Public structure  
 
 #### no  
-<!--
-#### UserProfile  
-User extended attributes. A key-value pair object with an unfixed attribute is structured as follows:   
-{  
-	"key1":"value1",  
-	"key2":"value2",  
-	"key3":"value3",  
-	 …  
-	"keyn":"valuen",  
-}  
-It is used to meet the different needs of user information for different applications. When the application needs to expand the user attributes, you can apply to the cloud platform user system. When applying, specify the attributes that need to be extended, and specify the key, type, and length of each attribute.  
-Here are the user extension properties for the Grill app:    
-| **name** | User attribute | &emsp; |&emsp; | UserProfile |  
-| ------------- |:-------------:|:-----:|:-------------:|  
-|**field name**|**types**|**description**|**length**|**remarks**|  
-|id|String|userID|20||  
-|nickName|String|nickname|32||  
-|userName|String|username|32||  
-|avatar|String|User avatar resource id||&emsp; |  
-|points|long|integral|8||  
-|focusCount|int|number of followers|8||  
-|followCount|int|number of fans|8|&emsp;|    
--->
+
 ## Interface list
 
 
@@ -139,7 +106,8 @@ Here are the user extension properties for the Grill app:
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/register`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** No (header can not pass accessToken)  
 
 **Input parameters**  
 
@@ -207,7 +175,10 @@ Body
 ```
 
 ##### 3、error code  
-> D00012、D00015  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00012   |   Account already exists |  &emsp;   |    
+| D00015   |   Verification code error |  &emsp;   |  
  
 
 #### User login
@@ -218,7 +189,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/login`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** No  
 
 **Input parameters**  
 
@@ -282,8 +254,12 @@ body
 ```
 
 ##### 3、error code  
-> D00002、D00009、D00010、D00015  
- 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00002   |  Account or password error|  &emsp;   |    
+| D00009   |   Logon failure exceeded limit, need to use authentication code login |  After the login failed twice, start the verification code login  |   
+| D00010   |  Account locked|  After 5 failed login attempts, lock the account   |  
+| D00015   |  Verification code error|   &emsp;   |  
 
 #### Resend activation email
 > After the registration is successful, but the user fails to receive the activation email due to the mail network, etc., and the user receives the activation email but does not perform the activation, and the activation email expires, the user can resend the activation through the interface. mail. The prerequisite for using this interface is that the user has already registered but is not activated. The activation time for the activation email is 120 minutes. Can be accessed without login.     
@@ -293,7 +269,8 @@ body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/sendActiveMail`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** No  
 
 **Input parameters**  
 
@@ -305,6 +282,7 @@ body
 
 
 **Output Parameters**  
+**Output standard output parameters.**
 
 |   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
@@ -345,19 +323,19 @@ Body
 ```
 
 ##### 3、error code  
-> D00011、D00017  
- 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00011   |  Account not activated|  &emsp;   |    
+| D00017   |  Account does not exist |  &emsp;  |   
 
-#### sign out
+#### Log out
 >Mobile APP users exit the Haier U+ cloud platform interface  
-
-  
-
 
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/logout`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+  **Token authentication：** Yes  
 
 **Input parameters**  
 
@@ -407,7 +385,10 @@ Content-type: application/json
 ```
 
 ##### 3、error code  
-> D00005、D00016
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00005   |  The Token is not created by this application and does not pass Token validation.|  Operation is successful  |    
+| D00016   |  You are logged out or not logged in |  &emsp;  |   
 
 
 #### Query user information
@@ -420,7 +401,8 @@ Content-type: application/json
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/users/get`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 
@@ -492,7 +474,10 @@ Content-type: application/json
 ```
 
 ##### 3、error code  
-> D00008 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00008   |  Illegal user|  AccessToken error  |    
+  
 
 #### User information modification
 >Modify the extended attribute of the currently logged in user according to the token of the logged in person  
@@ -501,7 +486,8 @@ Content-type: application/json
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/users/update`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 
@@ -565,16 +551,19 @@ Body
 ```
 
 ##### 3、error code  
-> D00008    
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00008   |  Illegal user|  AccessToken error  |   
     
-#### Request a reset password
+#### Apply for reset password
 >When the user requests to reset the password, the user will send a link to reset the password in the user's mailbox, and the user clicks the link to reset the password.      
  
 
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/pwd/applyReset`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** No  
 
 **Input parameters**  
 
@@ -625,7 +614,10 @@ Body
 ```
 
 ##### 3、error code    
-> D00011、D00017  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00011   |  Account not activated|  &emsp;  |   
+| D00017   |  Account does not exist|  &emsp;  |   
 
 #### Get image verification code
 >Get image verification code.      
@@ -634,7 +626,8 @@ Body
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v1/security/captcha`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** No  
 
 **Input parameters**  
 
@@ -646,7 +639,7 @@ Body
 
 **Output parameters**  
 
-文件流，image/png
+File stream，image/png
 response.setContentType("image/png");
 
 
@@ -770,9 +763,13 @@ Body
 ```
 
 ##### 3、error code  
-> B00001、C00002、C00006、C00007、D00001  
-
- 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| B00001   |  Lack of required parameters|  AppId is empty  |   
+| C00002  |  Appserver has no access|  Appserver has no access  |    
+| C00006  | Product configuration information is empty|  Product configuration   |   
+| C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
+| D00001  |  Digital signature error|  ThDigital signature error |  
 
 #### Upload resource file 
 > Upload the resource file to the server. (Note: To use this interface, you need to contact the capability administrator first, upload and authorize the APPId, and configure the file format and size of the uploaded resource. Otherwise, there is no error in returning the file configuration.)  
@@ -850,7 +847,13 @@ Body
 ```
 
 ##### 3、error code  
-> C00002、C00004、C00006、C00007、D00008
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| C00002  |  Appserver has no access|  Appserver has no access  |   
+| C00004   | Insufficient operation permission|  Size format error  |   
+| C00006  | Product configuration information is empty|  Product configuration   |   
+| C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
+| D00008  | Illegal user| AccessToken error |  
 
  
 
