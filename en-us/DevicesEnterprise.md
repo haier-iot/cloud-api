@@ -5,14 +5,14 @@
 The device management enterprise version provides the operation capability of the related devices such as command delivery, reading and writing, etc. for the operation device of the intelligent interconnection device provided by the Haier U+ cloud platform, and can directly operate the device through the application server.  
 
 
-### Noun explanation
+## Noun explanation
 
 
 -  **Non-standard equipment**
 -  **Single command**
 -  **Group command**
 
-### Function introduced
+## Function introduced
 **Vendor authorized device control**  
 
 A device-authorized third-party application can obtain device information by using the device type (typeid) and send control commands to the device through the MAC address of the device.  
@@ -285,8 +285,6 @@ Body
 ### Application scenario
 The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
-## Documentation
-[EquipmentManagementServiceEnterpriseEdition][DevicesEnterprise_document_url]
 
 
 [^-^]:文本连接注释

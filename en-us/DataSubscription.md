@@ -26,10 +26,7 @@ For third-party partners who use or sell Haier platform equipment, the service s
 ![Opening process][dataSubscription_liucheng]
 For details of the opening method, please refer to the “Data Push Service Access Manual”.
 
-### Documentation
 
-[DataPushPlatformInterfaceSpecification][dataSubscription_document_url1]    
-[DataPushServiceAccessManual][dataSubscription_document_url2]
 
 ### common problem
 
