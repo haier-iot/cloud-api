@@ -1284,8 +1284,6 @@ Developers do not have an account system and can integrate U+ account related se
 Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
 
 
-## Documentation
-[UWS AccountService][account_document_url]
 
 ## common problem
 
