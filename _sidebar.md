@@ -10,7 +10,7 @@
 * [场景引擎](zh-cn/IFTTT)
 * [设备影子](zh-cn/DevicesShadow)
 * [消息推送](zh-cn/MessagePush)
-* [能力服务](zh-cn/CapacityService)
+* 能力服务
 * * [天气服务](zh-cn/CapacityService_Weather)
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
 

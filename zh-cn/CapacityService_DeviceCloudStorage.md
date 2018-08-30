@@ -1,4 +1,4 @@
-!>  **当前版本**：[云存储Rest接口说明书V1.0.0][CapacityService_DeviceCloudStorage_document_url]  
+!>  **当前版本**：[智能设备资源云存储V1.0.0]()  
  **发布时间**：
 
 ### 简介
@@ -7,6 +7,10 @@
 ![云存储Rest接口图片][CapacityService_DeviceCloudStorage_type]
 
 ### 名词解释
+
+
+### 应用场景
+适用于智能互联设备文件上传与存储服务，为设备在云平台服务端建立存储空间，用于存储图片、文本等各种文件资源，为智能设备建立统一的云端设备存储服务。
 
 
 ### 功能介绍
@@ -985,17 +989,13 @@ Header：
 ![开通流程][CapacityService_DeviceCloudStorage_liucheng]
 
 
-### 应用场景
-适用于智能互联设备文件上传与存储服务，为设备在云平台服务端建立存储空间，用于存储图片、文本等各种文件资源，为智能设备建立统一的云端设备存储服务。
+
 
 
 
 ## 常见问题
 
 
-
-[^-^]:文本连接注释
-[CapacityService_DeviceCloudStorage_document_url]:_document/_CapacityService_DeviceCloudStorage/
 
 [^-^]:常用图片注释
 [CapacityService_DeviceCloudStorage_type]:_media/_CapacityService_DeviceCloudStorage/CapacityService_DeviceCloudStorage_type.png
