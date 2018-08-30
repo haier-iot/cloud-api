@@ -190,7 +190,6 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/login`  
  **HTTP Method：** POST  
-
  **Token authentication：** No  
 
 **Input parameters**  
@@ -271,7 +270,6 @@ body
 
 ?> **Access address：**  `/uam/v1/security/sendActiveMail`  
  **HTTP Method：** POST  
- 
  **Token authentication：** No  
 
 **Input parameters**  
@@ -337,8 +335,7 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/logout`  
  **HTTP Method：** POST  
-  
- **Token authentication：** Yes  
+  **Token authentication：** Yes  
 
 **Input parameters**  
 
@@ -405,7 +402,6 @@ Content-type: application/json
 
 ?> **Access address：**  `/uam/v1/users/get`  
  **HTTP Method：** POST  
-
  **Token authentication：** Yes 
 **Input parameters**  
 
@@ -490,8 +486,7 @@ Content-type: application/json
 
 ?> **Access address：**  `/uam/v1/users/update`  
  **HTTP Method：** POST  
-
- **Token authentication：** Yes 
+ **Token authentication：** Yes   
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
@@ -566,7 +561,6 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/pwd/applyReset`  
  **HTTP Method：** POST  
-
  **Token authentication：** No
 **Input parameters**  
 
@@ -630,7 +624,6 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/captcha`  
  **HTTP Method：** POST  
-
  **Token authentication：** No
 **Input parameters**  
 
