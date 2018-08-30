@@ -1297,5 +1297,5 @@ Developers have their own account system, accessing U+ account services through 
 [account_liucheng]:_media/_account/account_callingProcess.png
 [account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
 [account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
-[account_captcha]:_media/_account/account_captcha.png
+[account_captcha]:_media/_account/account_captcha.png  
 
