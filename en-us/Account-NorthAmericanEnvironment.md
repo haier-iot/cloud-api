@@ -107,7 +107,6 @@ public class AESUtil {
 
 ?> **Access address：**  `/uam/v1/security/register`  
  **HTTP Method：** POST  
-
  **Token authentication：** No (header can not pass accessToken)  
 
 **Input parameters**  
