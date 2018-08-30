@@ -1,4 +1,4 @@
-!> **current version：** [DeviceManagementServiceStandardEditionV2.0.1][DevicesStandard_document_url]</br>
+!> **current version：** DeviceManagementServiceStandardEditionV2.0.1  
 **date：** 2018-07-19 
 
 ## Introduction  

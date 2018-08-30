@@ -1,4 +1,4 @@
-!>  **current version**：[UWS Accountservice V2.0.0][account_document_url]  
+!>  **current version**：UWS Accountservice V2.0.0  
  **release time**：2018-07-19  
 
 

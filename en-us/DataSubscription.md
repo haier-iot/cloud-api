@@ -1,4 +1,4 @@
-!>  **current version**：[UWS DataSubscription V1.0.0][dataSubscription_document_url2]  
+!>  **current version**：UWS DataSubscription V1.0.0  
  **release time**：2018-07-19  
 
 ### Introduction
