@@ -12,26 +12,12 @@ By integrating the U+IOT platform account service, the developer not only provid
 
 ### Noun explanation
 
-<!--
--  **Haier OAuth authorization**
->  Refers to the unified account authorization provided by Haier Group User Center. It can use this kind of user authorization to log in to Haier Youjia IOT platform to obtain user equipment related rights. At the same time, it has the right to log in to other related business services of Haier Group, such as Haier Mall and Haier Community. 
-
-- **Haier U+ Account**
->  It refers to the self-owned IoT account system provided by Haier Youjia Platform of Haier Group. The account system has the authority to bind/control Haier IoT appliances.
-
-If you use Haier OAuth to authorize login, according to Haier OAuth access requirements, you can automatically obtain Haier Youjia account information at the same time; that is, you can use Haier account to obtain Haier Youjia account at the same time.  
--->
 - **Haier U+ OAuth**
 > Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
 
 Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
 
-<!--
-- **Haier U+ Third Party Login**
-> Refers to the use of third-party platform accounts to log in Haier Youjia platform, such as WeChat, Jingdong, Taobao and so on.  
 
-Third-party social accounts support QQ, WeChat, Weibo, Douban, Renren.com account login. If there are other third-party platform account login requirements, online feedback is available.
--->
 - **Haier U+  Developer Account Login**
 > It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
 
@@ -42,17 +28,19 @@ Haier Youjia provides inter-platform account docking solution, with standard OAu
 1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
+  
 **Account system association ability**  
+ 
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
 ### User privacy data security  
 #### Safety instructions  
 User privacy data item.  
-| **Field** | **Encryption processing**  |  **Interface** | 
+| **Field** | **Encryption processing**  |  **Interface** |  
 | ------------- |:-------------:|  
-|email|	RSA encryption	|Register, login, reset password, change password|  
-|password|	RSA encryption	|Register, login, reset password, change password|  
+|email|	RSA encryption	|Register, login, reset password, change password|   
+|password|	RSA encryption	|Register, login, reset password, change password|   
 #### Secret key usage process  
 ![密码传输流程图片][account_PasswordFlow1]  
 ![密码传输流程图片][account_PasswordFlow2]  
@@ -1081,6 +1069,6 @@ Developers have their own account system, accessing U+ account services through 
 [account_type]:_media/_account/account_type.png
 [account_liucheng]:_media/_account/account_callingProcess.png
 [account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
-[account_PasswordFlow1]:_media/_account/account_PasswordFlow2.png
+[account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
 
 
