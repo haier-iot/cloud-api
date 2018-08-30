@@ -271,29 +271,7 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 ### Public structure  
 
 #### no  
-<!--
-#### UserProfile  
-User extended attributes. A key-value pair object with an unfixed attribute is structured as follows:   
-{  
-	"key1":"value1",  
-	"key2":"value2",  
-	"key3":"value3",  
-	 …  
-	"keyn":"valuen",  
-}  
-It is used to meet the different needs of user information for different applications. When the application needs to expand the user attributes, you can apply to the cloud platform user system. When applying, specify the attributes that need to be extended, and specify the key, type, and length of each attribute.  
-Here are the user extension properties for the Grill app:    
-| **name** | User attribute | &emsp; |&emsp; | UserProfile |  
-| ------------- |:-------------:|:-----:|:-------------:|  
-|**field name**|**types**|**description**|**length**|**remarks**|  
-|id|String|userID|20||  
-|nickName|String|nickname|32||  
-|userName|String|username|32||  
-|avatar|String|User avatar resource id||&emsp; |  
-|points|long|integral|8||  
-|focusCount|int|number of followers|8||  
-|followCount|int|number of fans|8|&emsp;|    
--->
+
 ## Interface list
 
 
@@ -317,21 +295,21 @@ Here are the user extension properties for the Grill app:
 
 #### User registration 
 > Register new user  
-> Preconditions:Get the verification code interface  
-
 
 
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v2/user/registerEmailAcounnt`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Preconditions:** Get the verification code interface  
+ **Token authentication：** No  
 
 **Input parameters**  
 
 | parameter name        | types         | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
-|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section 2.6 for details.|  
+|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section User privacy data security  for details.|  
 |captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. According to the requirement, msgCode fails to verify more than three times, and the user is required to input the graphic verification code.|
 |userProfile|Map|Body|No|Added to meet the user information needs of different applications. When the application needs to extend user attributes, it can apply to the cloud platform user system. The attributes that need to be extended are listed in the application, and the key, type and length corresponding to each attribute are also listed.|
 |msgCode|String|	Body|	yes	|Verification code, the user applies for verification before registration, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|
@@ -347,6 +325,11 @@ Here are the user extension properties for the Grill app:
 |    |    |     |     |  &emsp;   |
 
 ##### 2、Request sample  
+
+**Request address**  
+```  
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/registerEmailAcounnt
+```  
 
 **User request**
 ```java  
@@ -397,26 +380,36 @@ Body:
 ```
 
 ##### 3、error code  
-> D00012、D00015  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00012   |  The mailbox already exists|  &emsp;  |   
+|D00015  |  Graphic verification code error|  &emsp;  |   
+|D00022 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
+|D00009 |  The number of attempts exceeds the limit, the number of failed attempts is exceeded, and a graphic verification code is required.|  msgCode verification failed more than three times |  
+|B00010 |  Parameter algorithm error|  Server decryption failed  |  
+
+
  
 
 #### User login
-> User login to get accessToken and openId.   
+> User login to get accessToken  
   
 
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/security/login`  
- **HTTP Method：** POST
+?> **Access address：**  `/uam/v2/user/loginEmailAcounnt`  
+ **HTTP Method：** POST  
+ **Preconditions:** Registered  
+ **Token authentication：** No  
 
 **Input parameters**  
 
 | parameter name        | types        | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
-| password     | String | Body| yes|Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits. |  
-| captcha     | String | Body| no |Verification code, a combination of 4 letters and numbers.|  
+| email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
+| password     | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules |  
+| captcha     | String | Body| no |Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. Log in to enter the wrong password. You must enter the graphic verification code when the number of times is greater than or equal to three.|  
 
 
 **Output parameters**  
@@ -424,32 +417,44 @@ Body:
 |   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | accessToken   |   String |  Header   |  yes   |  Security token  |  
-| userId   |   String |  Body   |  yes   | User id, user ID   |
-| status   |   String |  Body   |  yes   | 0:activation   1:inactivation   |  
 
 
 
 ##### 2、Request sample  
 
+**Request address**  
+```  
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/loginEmailAcounnt
+```
+
 **User request**
 ```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
+Header：  
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTWCHUYVYMTS7L2QMJ5L6K8ERHI00
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+[no cookies]
+
+Body:
 {
-  "loginId": "14759167292@qq.com",
-  "password": " Abcd!123456"
+	"email": "cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"password": "hPeBKqC3OH8uG1yDM3l2CEk6zmvAzUonBxIcR6Z40IIPV8U20A_26nXX7wMn39kL5pJ-Irybmua9YUMYgmfNFZoZIyQzP6UTznuupqwZrVMr9vDH_4rLRzlcno8rBgxvWL6EUwL_ivK-Bwx6pOqIawjVTGoxGX8OSzwHcKK7Dvw",
+	"captcha": "kq6g"
 }
 
 
@@ -458,68 +463,89 @@ Body
 **Request response**
 
 ```java
-Header：
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
-body
+header:
+accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
+
 {
   "retCode": "00000",
   "retInfo": "成功", 
   "userId ": "1234567",
-"status":"0"
+  "status":"0"
 }
-
 
 ```
 
 ##### 3、error code  
-> D00002、D00009、D00010、D00015  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| 10000   | The login is successful, but the password security level is increased. Please change the password.| User uses weak password  |   
+|D00002 |  Account or password error| User uses wrong password  |   
+|D00009 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
+|D00009 | Logon failure exceeded limit, need to use authentication code login| After the login failed twice, start the verification code login |  
+|D00010 |  Account locked| After 5 failed login attempts, lock the account  |  
+|D00015 | Verification code error| &emsp;  |  
+|B00010 | Parameter algorithm error| Server decryption failed  | 
  
 
-#### Resend activation email
-> After the registration is successful, but the user fails to receive the activation email due to the mail network, etc., and the user receives the activation email but does not perform the activation, and the activation email expires, the user can resend the activation through the interface. mail. The prerequisite for using this interface is that the user has already registered but is not activated. The activation time for the activation email is 120 minutes. Can be accessed without login.     
-  
-
+#### Get verification code
+> Apply for a verification code before registration to verify the user's real email address.  
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/security/sendActiveMail`  
- **HTTP Method：** POST
+?> **Access address：**  `/uam/v2/user/applyVerificationCode`  
+ **HTTP Method：** POST  
+ **Preconditions:** Registered  
+ **Token authentication：** No  
 
 **Input parameters**  
 
 | parameter name        | types          | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
+| email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
+| type    | String | Body| yes|1: Registration  2: Retrieve password|  
    
- 
-
 
 **Output Parameters**  
+**Output standard output parameters.**  
+
 
 |   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |    |    |     |     |  &emsp;   |
 
 ##### 2、Request sample  
+**Request address**  
+```
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/applyVerificationCode
+```  
 
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 0cdb49b20d552b6f99384373b1e7f3c34136237b7a39d91ab63b35035f54f8d0
+timestamp: 1533886290915 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+privacyVersion: V1.0.0
+Content-Length: 194
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+[no cookies]
+
+Body:
 {
-  "loginId": "14759167292@qq.com"
+	"email": "Vfg5EFcuBWBMhs7MkSfWkXmvNaE0uuUcF6abMJ1NrrpaWbNwD9qVndJABZeHm0OJL4Lndxih1HMuB16lWWPSupFybylkgl-ztjjKhoPc2K7QCLV0n2i73ei2LhTLIZdQ_VsPUhtM9jET50MFNRDAUpnBHwQwrj2JUDi0SAztMbg",
+	"type": "2"
 }
 
 ```  
@@ -528,32 +554,40 @@ Body
 
 ```java
 {
-    "retCode": "00000",
-    "retInfo": "成功!"
+  "retCode": "00000",
+  "retInfo": "成功"
 }
 
 ```
 
 ##### 3、error code  
-> D00011、D00017  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00017   | Account does not exist| Unregistered user reset password  |   
+| D00012 |  Account already exists| Registered users apply for registration verification code  |   
+|B00010 | Parameter algorithm error| Server decryption failed  | 
+  
  
 
-#### sign out
->Mobile APP users exit the Haier U+ cloud platform interface  
+#### Apply for reset password
+>To reset the password, you need to apply for a verification code first.  
 
   
-
-
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/security/logout`  
- **HTTP Method：** POST
+?> **Access address：**  `/uam/v2/user/resetPassword`  
+ **HTTP Method：** POST  
+ **Preconditions:** Registered  
+ **Token authentication：** No  
 
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
 | ------------- |:-------------:|:-----:|:-------------:|
-|    |  | ||&emsp;|   
+|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
+|password|String|Body|Yes|	New password: Public key encryption is required. The long backend service decrypts and verifies the rules.See section User privacy data security  for details.|  
+|captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. For the same App, the same mobile phone terminal mailbox verification code fails to verify the authentication 3 times, you need to enable the graphic verification code for verification, 3 times configurable, the default is 3 times. After the verification of the mailbox verification code is successful, the number of allowed failures is restored to 0.|  
+|msgCode|String|Body|yes|Verification code, the user applies for the verification code to reset the password, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|  
    
  
 
@@ -566,22 +600,42 @@ Body
 |    |  | ||&emsp;| 
 
 ##### 2、Request sample  
+**Request address**  
+```
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/resetPassword
+```
 
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470 
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+[no cookies]
+
+Body:
+{
+	"email": "qra5hNX9V5c57aj4mbjaxqnfcWbCBXncyNocZLvWfWRsMc1mJ2rnqUpELkgJ8qHJbKMkQgNUnDpvGN9Sj24LbvcL4a9UosZtpLRF4ZSGSiuXbpL75U0mSrkQvB8QulmW_tk9rLZP_cRPkImI_OS0ar24ZkO1yNnAA7y0XgsFXZs",
+	"password": "FRR_c9JhWIL5JCtZ0-lD54MbnRHxzLtdejp_45E72iWC5ARhL36R_R3XiQqpDL8LqvM11seGx86W59T8Topq_54V4z_4lTsVod7N_VuHSRsFNQLwlu3Hnaat1_OK6HWN5hhk1DPhXcAgsj8JTn8UhPAONHdPROgtr7vDpIPgxc0",
+	"msgCode": "632438",
+	"captcha": "9mf2"
+}
+
 
 ```  
 
@@ -597,53 +651,77 @@ Content-type: application/json
 ```
 
 ##### 3、error code  
-> D00005、D00016
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00017   | Account does not exist| Unregistered user reset password  |   
 
 
-#### Query user information
->Obtain user information based on the registrant token.  
 
+#### Change password
+>To reset the password, you need to apply for a verification code first.
 
   
 
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/users/get`  
- **HTTP Method：** POST
+?> **Access address：**  `/uam/v2/user/changePassword`  
+ **HTTP Method：** POST  
+ **Preconditions:** Login  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
 | ------------- |:-------------:|:-----:|:-------------:|  
-|    |    |     |     |  &emsp;   |   
+|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
+|newPassword|String|Body|Yes|	New password: Public key encryption is required. Long backend service decryption and verification rules|  
+|captcha|	String|	Body|	Yes	|Graphic verification code, for the same App, the same mobile phone terminal to modify the password when the continuous verification fails m times, you need to enable the graphic verification code for verification, m configurable, the default is 3 times. After the verification code is enabled, if the graphic verification code is entered correctly, the corresponding account will be locked for n times after the same day, and n can be configured. The default is 10 times.|  
+     
 
 
 
 **Output parameters**  
 
+**Output standard output parameters.**
+
 |   name      |     types      | location  |requierd |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| userProfile     | Map | Body| no|User extension information, including nicknames, avatars, etc|  
+|    |  | ||&emsp;| 
 
 
 ##### 2、Request sample  
+**Request address**  
+```
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/changePassword
+```  
 
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken: TGT13OOQL5O7TEAB21WVIKCJTEL470 
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTWCHUYVYMTS7L2QMJ5L6K8ERHI00
+sign: 52b96f85e392ab0172d98f3ac1d7a5f7a284c387d4eeb1ea0d428df73aa55fe7
+timestamp: 1533880044559 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 391
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+[no cookies]
+
+Body:
+{"password":"M86jq-ZxErDwBcy_p2gztuBKVbk_nlrHTvePtQP2YGqzXW5q6zbY-a5sV7rltbLD8Kl4Jc8O6emWz3zEOeANJfVQkIbjq2wPc4XEeHls3AwVqnDR6GB2ncljRvX-ZlD2UHcM4AzuJk3I-stOYLnbTPVoDTSxbyNfxEREXq2e2ZI","newPassword":"MrGIHA_edrlvBIvxYSn5Kstp7pj89ccQ_UFYQNVHQPuulIfJ1QRoEoi-Oq8mpYX-58BU2eglmfPcV8bpQRXH9ILRXbiVLaU0ZhCStkv68l9Q_GuSYrjEISAKK62naHwbMQrzb_seUnmQsGtCwrJx8WtQdnm6Gcz7aGZ7DGWzLC8","captcha":"73ll"}
+
 
 ```  
 
@@ -679,19 +757,383 @@ Content-type: application/json
   }
 }
 
+
 ```
 
 ##### 3、error code  
-> D00008 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00003   |Token does not exist|User not logged in  |   
+| D00002   |The original password is wrong|Enter the wrong original password when changing the password  |   
 
-#### User information modification
->Modify the extended attribute of the currently logged in user according to the token of the logged in person  
+#### Get the public key  
+>Get the public key  
   
 
 ##### 1、Interface definition
 
+?> **Access address：**  `/uam/v2/mgr/getPublicKey`  
+ **HTTP Method：** POST  
+ **Preconditions:** Use a valid appId  
+ **Token authentication：** No 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+|     |  | | yes|&emsp;|    
+
+
+**Output parameters**  
+
+publicKey
+
+##### 2、Request sample  
+**Request address**  
+```  
+https://uws-gea-euro.haieriot.net:6353/uam/v2/mgr/getPublicKey
+```  
+
+**User request**
+```java  
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGT36PQONTJY5UY02L214BESBJT9S0
+sign: 9972aec958ec085bf5305f81ff135b933def3bde65fdb59cb12bc6caa0ccb17a
+timestamp: 1533894864095 
+language: en
+timezone: +8
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 0
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```  
+
+**Request response**
+
+```java
+{"retCode":"00000","retInfo":"成功","publicKey":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7jrpGqqsUERuS3RhjKGoKSFaoUyfk5eKwjxSq3ARW5sMg8hsnuC0dmLEOrUoaJYSoaLOn7V1uvpX4PYVJ89BjnDJtjbFoYAsk3VMVsTiJ8RBEp4bCaX9bfHqs4f04Ii_U3IeodHnHL2XKzjdNFv7M1g27Y-Ao-HZVbQJm8d-0PwIDAQAB"}
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| C00001  |appId and appKey validation failed|Use the invalid appId to get the public key  |   
+
+#### Verify the public key
+>Provide the front-end application with an interface to verify the validity of the local public key.      
+ 
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/mgr/verifyPublicKey`  
+ **HTTP Method：** POST  
+ **Preconditions:** Get the public key interface 
+ **Token authentication：** No 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+|   sn   | String | body | yes | The public key is used to encrypt the timestamp, and the backend service decrypts successfully. The timestamp number is correct.|      
+
+
+**Output parameters**  
+
+**Output standard output parameters.**
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |    |     |     |  &emsp;  |  
+ 
+
+##### 2、Request sample  
+**Request address**  
+```
+https://uws-gea-euro.haieriot.net:6353/uam/v2/mgr/verifyPublicKey
+```  
+
+**User request**
+```java  
+Header：
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGT36PQONTJY5UY02L214BESBJT9S0
+sign: 2a2aa21216e50ab61f6b846658356a88e827fbba0fadb40bc2c6e7ec647f66d7
+timestamp: 1533895007298 
+language: en
+timezone: +8
+appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 180
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+[no cookies]
+
+
+Body:
+{"sn":"V3O5gPCk9JQm_lPiScTeyDXpf-6pIb4Vl0mR9fB7cUocn_RQizg0ica0bJ0-65fJpLolkCNiVZ78jTDfTlj6o_HraGUiIpz-sBp5UZrO6ffBIPr4LhPL1Aew3XNrThIQNlleVKDkLHrHq2hMXxLx9M6BQro_SfrrGdInxk9Fu8Y"}
+
+```  
+
+**Request response**
+
+```java
+
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+##### 3、error code    
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| A00005  |Database exception|verification failed  |    
+| B00002  |Parameter verification failed|verification failed  |    
+
+#### Get image verification code
+>Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.     
+ 
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/user/captcha`  
+ **HTTP Method：** POST  
+ **Preconditions:** Use a valid appId, and clientId 
+ **Token authentication：** No 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+|    |    |     |     |  &emsp;  |  
+      
+
+
+**Output parameters**  
+
+Content-Type: image/png;charset=UTF-8
+
+
+##### 2、Request sample  
+**Request address**  
+```  
+https://uws-gea-euro.haieriot.net:6353/uam/v2/user/captcha
+```  
+
+**User request**
+```java  
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: cf328601c6a2249f38fc0055b00ff781c4cc357745fe6ff0302e113a810a7c89
+timestamp: 1533884947784 
+language: en
+timezone: +8
+appKey: dg11ad3ea78cc19aa86c656f2a401d7e
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 0
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+![验证码图片][account_captcha] 
+
+
+##### 3、error code    
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| C00001  |appId and appKey validation failed|Use invalid appId  |    
+
+
+###	Log out v1
+> Mobile APP users exit Haier U+ cloud platform interface
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v1/security/logout`  
+ **HTTP Method：** POST  
+ **Token authentication：** Yes  
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+|    |  | ||&emsp;|   
+   
+ 
+
+
+**Output parameters**  
+**Output standard output parameters.**
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |  | ||&emsp;| 
+
+##### 2、Request sample  
+
+**User request**
+```java  
+Header：
+appId:MB-ABC-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+accessToken: TGT1OY0RUUAH5D242SB68E9WX0W930
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp:1446639090139
+language:zh-cn
+timezone:8
+Content-type: application/json
+
+```  
+
+**Request response**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00005   |  The Token is not created by this application and does not pass Token validation.|  Operation is successful  |    
+| D00016   |  You are logged out or not logged in |  &emsp;  |   
+
+ 
+
+#### Query user information v1
+> Get the user information according to the login token     
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v1/users/get`  
+ **HTTP Method：** POST  
+ **Token authentication：** Yes  
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|    |    |     |     |  &emsp;   |   
+
+
+
+**Output parameters**  
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| userProfile     | Map | Body| no|User extension information, including nicknames, avatars, etc|  
+
+
+##### 2、Request sample  
+
+**User request**
+```java  
+Header：
+appId:MB-ABC-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+accessToken: TGT1OY0RUUAH5D242SB68E9WX0W930
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp:1446639090139
+language:zh-cn
+timezone:8
+Content-type:application/json
+
+```  
+
+**Request response**
+
+```java
+{
+  “retCode”: “00000”,
+  “retInfo”: “正确”,
+  “userProfile”: {
+       “nickName”: ,
+       “avatar”: ,
+       “phone”: ,
+       “updateTime”: “20141115”,
+       “status”: null,
+       “tel”: “0596”,
+       “applyTime”: null,
+       “idcard”: null,
+       “companyName”: null,
+       “type”: null,
+       “postcode”: null,
+       “legalPerson”: null,
+       “contacts”: null,
+       “companyCode”: 333,
+       “businessLicense”: null,
+       “address”: “china”,
+       “contactsPhone”: null,
+       “email”: “848421322@qq.com”,
+       “QQ”: “848421322”,
+       “name”: “test”,
+       “realname”: “test”,
+       “idcardPhoto”: null
+  }
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00008   |  Illegal user|  AccessToken error  |    
+
+
+ 
+
+#### User information modification v1
+> Modify the extended properties of the current logged in user according to the token of the logged in person  
+
+
+##### 1、Interface definition
+
 ?> **Access address：**  `/uam/v1/users/update`  
- **HTTP Method：** POST
+ **HTTP Method：** POST  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 
@@ -713,19 +1155,18 @@ Content-type: application/json
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
+appId:MB-ABC-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+accessToken: TGT1OY0RUUAH5D242SB68E9WX0W930
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp:1446639090139
+language:zh-cn
+timezone:8
+Content-type:application/json
+
+Body:
 {
   "userProfile": {
 "nickName": ,
@@ -741,6 +1182,76 @@ Body
   }
 }
 
+```  
+
+**Request response**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00008   |  Illegal user|  AccessToken error  |   
+ 
+#### Accept the privacy policy v1
+> User accepts the privacy policy and records the privacy policy version number   
+
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam /v1/security/acceptUserPrivacy`  
+ **HTTP Method：** POST  
+ **Preconditions:** Login status  
+ **Token authentication：** Yes  
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+| privacyVersion    | String | Body| yes|Privacy Policy Version Number|    
+
+
+**Output parameters**  
+
+**Output standard output parameters.**
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |  | ||&emsp;| 
+
+##### 2、Request sample  
+
+**User request**
+```java
+  
+{"privacyVersion":"V1.0.0"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-HKQHWBB-0001
+appVersion: 2.4.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT2CXEYLXJ7EL3225D8DDZJ7BAGZ0
+sign: aa97d5db9989d6f4b37659d2eb679c4e873533d280413fa2f04f9dcb2f44279c
+timestamp: 1533901887123 
+language: en
+timezone: +8
+appKey: d44625bb0556fb0b1611ad6a073fb6f5
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 27
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
@@ -755,294 +1266,10 @@ Body
 ```
 
 ##### 3、error code  
-> D00008    
-    
-#### Request a reset password
->When the user requests to reset the password, the user will send a link to reset the password in the user's mailbox, and the user clicks the link to reset the password.      
- 
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uam/v1/security/pwd/applyReset`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
-|   loginId   | String | body | yes | Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|      
-
-
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;  |  
- 
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-  "loginId": "13679101193@qq.com"
-}
-
-```  
-
-**Request response**
-
-```java
-
-{"retCode":"00000","retInfo":"操作成功"}
-
-```
-
-##### 3、error code    
-> D00011、D00017  
-
-#### Get image verification code
->Get image verification code.      
- 
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uam/v1/security/captcha`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
-|    |    |     |     |  &emsp;  |  
-      
-
-
-**Output parameters**  
-
-文件流，image/png
-response.setContentType("image/png");
-
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-
-```  
-
-**Request response**
-
-```java
-
-HTTP/1.1 200 OK
-Date: Fri, 21 Nov 2008 01:57:21 GMT
-Connection: close
-Accept-Ranges: bytes
-Pragma: No-cache
-PATH=/; DOMAIN=.rd139.com;
-Content-Type: image/png
-Content-Length: 1381
-
-```
-
-##### 3、error code    
-> See the home page public error code  
-
-
-
-### Capability class interface
-> API interface overview
-
-| API name        | effect          | Whether open | Special Note|
-| ------------- |:-------------:|:-----:|:-------------:|
-| Get app version information     | Get app version information | yes|  no |  
-| Upload resource file    | Upload resource files to the server | yes| no|   
-
- 
-
-#### Get app version information 
-> Get app version information     
-
-
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uas/v1/appVersion/getLatest`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types         | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:---------:|
-| appId     | String | Header| yes| AppId  |
-
-**Output parameters**  
-
-|   name      |     types      | location  |location |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  version |  String  |  Body  |  yes  |  Version number (format 2015110501) |  
-|  versionName |  String  |  Body  |  yes  |  Version name, which can be returned as an empty string |  
-|  description |  String  |  Body  |  yes  | Description, can return an empty string |  
-|  resId |  String  |  Body  |  yes  |  The resource number or the url of the resource store can be returned as an empty string |  
-|  status |  String  |  Body  |  yes  |  App status |  
-|  force |  String  |  Body  |  yes  |  Whether to force |  
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:    
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-" appId ":"MB-UZHSH-0000"
-}
-
-```  
-
-**Request response**
-
-```java
-{
-  "retCode": "00000",
-  "retInfo": "成功",
-  "data": {
-    "version": "20140911",
-    "versionName": "V01.10.15.09101",
-    "description": "V01.10.15.09101",
-    "resId": "/uam/v1/resource/enabling/uzhsh/100013957366155388.jpg ",
-    "status": 1,
-    "force": "true"
-  }
-}
-
-```
-
-##### 3、error code  
-> B00001、C00002、C00006、C00007、D00001  
-
- 
-
-#### Upload resource file 
-> Upload the resource file to the server. (Note: To use this interface, you need to contact the capability administrator first, upload and authorize the APPId, and configure the file format and size of the uploaded resource. Otherwise, there is no error in returning the file configuration.)  
-  
-
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uas/v1/resource/uploadFile`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
-| file     | multipart/form-data | Body| yes|Uploaded file|  
-| description     | String | Body| yes|PFile description, within 255 characters |  
-| ownerType     | Integer | Body| yes |Owner type: 0: user, 1: device, 9: other|  
-
-
-**Output parameters**  
-
-|   name      |     pypes      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-| resourceInfo  |   ResourceInfo |  Body   |  yes   |  Uploaded resource information  |  
-
-
-
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT1OY0RUUAH5D242SB68E9WX0W930  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-"description":"Test file upload new interface",
-"ownerType":0
-}
-
-
-
-```  
-
-**Request response**
-
-```java
-{
-"retCode": "00000",
-"retInfo": "成功"，
-"resourceInfo":{
-		"id":30121,
-"createTime":"2016-09-22 16:09:14",
-"description":"Test file upload new interface",
-"fileType":"png",
-"ownerType":0,
-"fileName":"table.png",
-"systemId":"SV-UZHSH-0000",
-"url":"/uam/v1/resource/enabling/uzhsh/100013957366155388.jpg",
-"creator":"100013957366155388"
-}
-}
-```
-
-##### 3、error code  
-> C00002、C00004、C00006、C00007、D00008
-
- 
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| B00004  |  Parameter error|  Wrong privacy clause version number  |   
+| D00003 |  Token does not exist, failed to pass the token|  Token does not exist or the wrong token  |   
 
 ## Way of use
 
@@ -1070,5 +1297,5 @@ Developers have their own account system, accessing U+ account services through 
 [account_liucheng]:_media/_account/account_callingProcess.png
 [account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
 [account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
-
+[account_captcha]:_media/_account/account_captcha.png
 

@@ -335,7 +335,7 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/logout`  
  **HTTP Method：** POST  
-  **Token authentication：** Yes  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 
