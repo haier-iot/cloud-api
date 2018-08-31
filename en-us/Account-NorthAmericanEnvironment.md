@@ -1,4 +1,4 @@
-!>  **current version**：[UWS Accountservice V1.4.0][account_document_url]  
+!>  **current version**：UWS Accountservice V1.4.0  
  **release time**：2018-07-19  
 
 
@@ -335,7 +335,7 @@ Body
 
 ?> **Access address：**  `/uam/v1/security/logout`  
  **HTTP Method：** POST  
-  **Token authentication：** Yes  
+ **Token authentication：** Yes  
 
 **Input parameters**  
 

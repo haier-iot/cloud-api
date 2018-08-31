@@ -1,4 +1,4 @@
-!>  **current version**：[UWS DataSubscription V1.0.0][dataSubscription_document_url2]  
+!>  **current version**：UWS DataSubscription V1.0.0  
  **release time**：2018-07-19  
 
 ### Introduction
@@ -26,10 +26,7 @@ For third-party partners who use or sell Haier platform equipment, the service s
 ![Opening process][dataSubscription_liucheng]
 For details of the opening method, please refer to the “Data Push Service Access Manual”.
 
-### Documentation
 
-[DataPushPlatformInterfaceSpecification][dataSubscription_document_url1]    
-[DataPushServiceAccessManual][dataSubscription_document_url2]
 
 ### common problem
 
