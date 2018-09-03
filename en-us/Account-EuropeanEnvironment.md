@@ -48,6 +48,7 @@ User privacy data item.
 ![密码传输流程图片][account_PasswordFlow2]  
 #### Cipher encryption and decryption algorithm  
 algorithm:RSA  
+Secret key length: 1024  
 secret key:The app side holds the public key, the server side holds the private key, the public key private key is a pair of secret keys, the public key is encrypted, and the private key is decrypted.  
 algorithm code:  
 
@@ -264,7 +265,17 @@ public class RSAUtil {
 }
 
 ```  
+### User privacy agreement  
 
+#### User privacy agreement version  
+
+Version: V1.0.0, uppercase V  
+
+#### View user privacy agreement content  
+
+Https://uws-gea-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}
+The lg parameter refers to the internationalized language table in the [access specification](en-us/AccessSpecification).
+  
 ### Use of language templates
 #### Support for overseas oem version app  
 The appId in the header is oem type, and the oem template is used to register, activate, and reset the password.  
@@ -283,13 +294,14 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 | API name        | effect          | Whether open | Special Note|
 | ------------- |:-------------:|:-----:|:-------------:|
 | User registration     | Register new user | yes|  no |  
-| User login     | User login to get accessToken | yes| no|  
+| Email Login     | User login to get accessToken | yes| no|  
 | Get verification code     | Apply for a verification code before registration to verify the user's real email address | yes| no|  
-| Reset Password     | To reset the password, you need to apply for a verification code first. | yes| no|  
+| Use email to reset the password    | To reset the password, you need to apply for a verification code first. | yes| no|  
 | Change password | To reset the password, you need to apply for a verification code first. | yes| no|  
 |Get the public key | Get the public key | yes| no|  
 |Verify the public key |Provide the front-end application with an interface to verify the validity of the local public key| yes| no|  
-|Get graphic verification code |Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.| yes| no| 
+|Get graphic verification code |Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.| yes| no|  
+|	Apply to cancel account and device information|The user requests to delete the account information and the device binding relationship, and send an email notification.|yes|no|  
 | Log out v1   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
 | Query user information v1 | Obtain user information based on the registrant token | yes| no|  
 | User information modification v1   | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|     
@@ -311,7 +323,7 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 | parameter name        | types         | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
-|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section User privacy data security  for details.|  
+|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section User privacy data security  for details. Server verification rules: uppercase and lowercase letters, numbers, special characters, three or more `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
 |captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. According to the requirement, msgCode fails to verify more than three times, and the user is required to input the graphic verification code.|
 |userProfile|Map|Body|No|Added to meet the user information needs of different applications. When the application needs to extend user attributes, it can apply to the cloud platform user system. The attributes that need to be extended are listed in the application, and the key, type and length corresponding to each attribute are also listed.|
 |msgCode|String|	Body|	yes	|Verification code, the user applies for verification before registration, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|
@@ -330,7 +342,7 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/registerEmailAcounnt
+https://uws-gea-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
 ```  
 
 **User request**
@@ -388,12 +400,14 @@ Body:
 |D00015  |  Graphic verification code error|  &emsp;  |   
 |D00022 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
 |D00009 |  The number of attempts exceeds the limit, the number of failed attempts is exceeded, and a graphic verification code is required.|  msgCode verification failed more than three times |  
-|B00010 |  Parameter algorithm error|  Server decryption failed  |  
+|B00010 |  Public key error|  Server decryption failed  |  
+|B00004 | Incorrect mailbox and password| Parameter error handling  |  
+   
 
 
  
 
-#### User login
+#### Email Login
 > User login to get accessToken  
   
 
@@ -402,7 +416,7 @@ Body:
 
 ?> **Access address：**  `/uam/v2/user/loginEmailAcounnt`  
  **HTTP Method：** POST  
- **Preconditions:** Registered  
+ **Preconditions:** Use email registration  
  **Token authentication：** No  
 
 **Input parameters**  
@@ -411,7 +425,7 @@ Body:
 | ------------- |:-------------:|:-----:|:-------------:|
 | email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
 | password     | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules |  
-| captcha     | String | Body| no |Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. Log in to enter the wrong password. You must enter the graphic verification code when the number of times is greater than or equal to three.|  
+| captcha     | String | Body| no |Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. Log in to enter the wrong password. You must enter the graphic verification code when the number of times is greater than or equal to three.When the user enters the wrong password 5 times, the account is locked for 5 hours.|  
 
 
 **Output parameters**  
@@ -426,7 +440,7 @@ Body:
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/loginEmailAcounnt
+https://uws-gea-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
 ```
 
 **User request**
@@ -481,12 +495,13 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|  
 | 10000   | The login is successful, but the password security level is increased. Please change the password.| User uses weak password  |   
+| 00001   | Successful login but did not accept the latest version of the privacy agreement| Old account does not accept the privacy policy  |   
 |D00002 |  Account or password error| User uses wrong password  |   
 |D00009 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
-|D00009 | Logon failure exceeded limit, need to use authentication code login| After the login failed twice, start the verification code login |  
+|D00009 | Logon failure exceeded limit, need to use authentication code login| After the login fails 3 times, the verification code is started. |  
 |D00010 |  Account locked| After 5 failed login attempts, lock the account  |  
 |D00015 | Verification code error| &emsp;  |  
-|B00010 | Parameter algorithm error| Server decryption failed  | 
+|B00010 | Public key error| Server decryption failed  | 
  
 
 #### Get verification code
@@ -504,7 +519,7 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 | parameter name        | types          | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|
 | email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
-| type    | String | Body| yes|1: Registration  2: Retrieve password|  
+| type    | String | Body| yes|1: Registration  2: Retrieve password 5: cancel account|  
    
 
 **Output Parameters**  
@@ -518,7 +533,7 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/applyVerificationCode
+https://uws-gea-euro.haieriot.net/uam/v2/user/applyVerificationCode
 ```  
 
 **User request**
@@ -565,13 +580,13 @@ Body:
 ##### 3、error code  
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|  
-| D00017   | Account does not exist| Unregistered user reset password  |   
-| D00012 |  Account already exists| Registered users apply for registration verification code  |   
-|B00010 | Parameter algorithm error| Server decryption failed  | 
+| D00017   | Account does not exist| Unregistered user reset password,Return when input parameter type is 2 |   
+| D00012 |  Account already exists| Registered users apply for registration verification code,Return when the input parameter type is 1.  |   
+|B00010 | Public key error| Server decryption failed  | 
   
  
 
-#### Apply for reset password
+#### Use email to reset the password
 >To reset the password, you need to apply for a verification code first.  
 
   
@@ -579,7 +594,7 @@ Body:
 
 ?> **Access address：**  `/uam/v2/user/resetPassword`  
  **HTTP Method：** POST  
- **Preconditions:** Registered  
+ **Preconditions:** Registered,Application verification code 
  **Token authentication：** No  
 
 **Input parameters**  
@@ -588,7 +603,7 @@ Body:
 | ------------- |:-------------:|:-----:|:-------------:|
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
 |password|String|Body|Yes|	New password: Public key encryption is required. The long backend service decrypts and verifies the rules.See section User privacy data security  for details.|  
-|captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. For the same App, the same mobile phone terminal mailbox verification code fails to verify the authentication 3 times, you need to enable the graphic verification code for verification, 3 times configurable, the default is 3 times. After the verification of the mailbox verification code is successful, the number of allowed failures is restored to 0.|  
+|captcha|	String|	Body|	No	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. For the same App, the same mobile phone terminal mailbox verification code fails to verify the authentication 3 times, you need to enable the graphic verification code for verification, 3 times configurable, the default is 3 times. After the verification of the mailbox verification code is successful, the number of allowed failures is restored to 0.|  
 |msgCode|String|Body|yes|Verification code, the user applies for the verification code to reset the password, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|  
    
  
@@ -604,7 +619,7 @@ Body:
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/resetPassword
+https://uws-gea-euro.haieriot.net/uam/v2/user/resetPassword
 ```
 
 **User request**
@@ -656,8 +671,9 @@ Body:
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|  
 | D00017   | Account does not exist| Unregistered user reset password  |   
-
-
+| B00010   |Public key error| Server decryption failed  |   
+| D00009   | Login failed to exceed the limit, you need to use the graphical verification code to log in| After the login fails 3 times, the verification code is started.  |   
+| D00022   | msgCode verification code error| 6-digit random number requested by the user before resetting the password  |   
 
 #### Change password
 >To reset the password, you need to apply for a verification code first.
@@ -695,7 +711,7 @@ Body:
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/changePassword
+https://uws-gea-euro.haieriot.net/uam/v2/user/changePassword
 ```  
 
 **User request**
@@ -766,7 +782,10 @@ Body:
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|  
 | D00003   |Token does not exist|User not logged in  |   
-| D00002   |The original password is wrong|Enter the wrong original password when changing the password  |   
+| D00002   |The original password is wrong|Enter the wrong original password when changing the password  |  
+| B00010   |Public key error| Server decryption failed  |   
+| D00009   | Login failed to exceed the limit, you need to use the graphical verification code to log in| After the login fails 3 times, the verification code is started.  |  
+| B00004   |The parameter does not meet the rule requirements|Wrong password format  |  
 
 #### Get the public key  
 >Get the public key  
@@ -793,7 +812,7 @@ publicKey
 ##### 2、Request sample  
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net:6353/uam/v2/mgr/getPublicKey
+https://uws-gea-euro.haieriot.net/uam/v2/mgr/getPublicKey
 ```  
 
 **User request**
@@ -863,7 +882,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net:6353/uam/v2/mgr/verifyPublicKey
+https://uws-gea-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
 ```  
 
 **User request**
@@ -941,7 +960,7 @@ Content-Type: image/png;charset=UTF-8
 ##### 2、Request sample  
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net:6353/uam/v2/user/captcha
+https://uws-gea-euro.haieriot.net/uam/v2/user/captcha
 ```  
 
 **User request**
@@ -978,6 +997,82 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|  
 | C00001  |appId and appKey validation failed|Use invalid appId  |    
+
+
+###	Apply to cancel account and device information  
+> The user applies to delete the account information and device binding relationship, and sends an email notification. After the user successfully applies, the account cannot be logged in, and the login returns the password error  
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/user/applyDeleteAccount`  
+ **HTTP Method：** POST  
+ **Preconditions:** Login and apply for dynamic verification code   
+ **Token authentication：** Yes  
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|
+| msgCode   | String |Body |Yes|Verification code, the user applies for the verification code to cancel the account, the verification code is sent to the user's mailbox, and the verification code is required before the logout, 6 random numbers. Application type type=5|   
+   
+ 
+
+
+**Output parameters**  
+**Output standard output parameters.**
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |  | ||&emsp;| 
+
+##### 2、Request sample  
+
+**User request**
+```java  
+POST https://uws-gea-euro.haieriot.net/uam/v2/user/applyDeleteAccount
+
+POST data:
+{"msgCode":"123333"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-HKQHWBB-0001
+appVersion: 2.4.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT19G55PP0TWL812NAZVNWRLPN7P0
+sign: 2cb6c701bcad8e141972e44afa58b5b12d920b5303b8429cd3880b9499375d06
+timestamp: 1534215683804 
+language: en
+timezone: +8
+appKey: d44625bb0556fb0b1611ad6a073fb6f5
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 20
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| D00022   |  Verification code is incorrect or has expired| User enters wrong verification code  |    
+
 
 
 ###	Log out v1
