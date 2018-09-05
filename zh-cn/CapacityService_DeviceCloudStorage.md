@@ -26,6 +26,16 @@
 
 
 ## 公共结构
+
+### accesskey
+
+accesskey为接口头信息，术语公共信息每个请求、应答应该包含
+
+参数名|类型|位置|说明
+:-|:-:|:-:|:-
+accessKey|String|Header|云存储accessKey，由AccesskeyId与加密密文两部分组成，</br>accessKey=AccesskeyId:密文，加密密文采用AES对称加密</br>密文 = base64 (AccesskeyId+body)</br>秘钥 = AccesskeySecret</br>Body为空时传空字符。
+
+
 ### BuckInfo
 
 参数名|类型|说明
