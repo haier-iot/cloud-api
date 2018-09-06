@@ -1,5 +1,5 @@
 !>  **current version**：UWS Accountservice V1.4.0  
- **release time**：2018-07-19  
+ **release time**：{docsify-updated} 
 
 
 ### Introduction

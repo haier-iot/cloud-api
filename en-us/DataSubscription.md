@@ -1,5 +1,5 @@
 !>  **current version**：UWS DataSubscription V1.0.0  
- **release time**：2018-07-19  
+ **release time**：{docsify-updated} 
 
 ### Introduction
 >  The Data Subscription Service feature is designed to help developers or applications quickly access real-time incremental data, including device information data, user data, and other custom data that developers subscribe to based on actual needs.  
