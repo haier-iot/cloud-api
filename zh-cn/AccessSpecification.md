@@ -1,4 +1,5 @@
 ## 接入说明
+更新时间：{docsify-updated}   
 
 1. **接入前提**  
 应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品（应用类型包括Andriod、IOS）。
