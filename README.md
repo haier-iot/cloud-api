@@ -20,9 +20,10 @@ U+互联互通技术能力具有快连接、全互联、高安全、专业云四
 ![图片2](http://resource.haigeek.com/haierupfile/views/pc/img/cloud_qh2.png)
 
 **全球部署**
-![全球部署](_media/worldiot.png)
+![全球部署][worldiot]
 
 [haigeek]:http://www.haigeek.com
 [haieruplus]:http://www.haieruplus.com
 [joinhaieruplus]:http://www.haieruplus.com/zhaopinlist.htm
+[worldiot]:/_media/worldiot.png
 
