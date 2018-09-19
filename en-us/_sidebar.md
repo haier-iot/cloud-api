@@ -4,7 +4,7 @@
 * Account Service
 * * [Account Service-North American Environment](en-us/Account-NorthAmericanEnvironment)  
 * * [Account Service-European Environment](en-us/Account-EuropeanEnvironment)
-* [Equipment Management](#)
+* Equipment Management
 * * [Equipment Management Standard Edition](en-us/DevicesStandard)
 * * [Equipment Management Enterprise Edition](en-us/DevicesEnterprise)
 * [Data Subscription](en-us/DataSubscription)

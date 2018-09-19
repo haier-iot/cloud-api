@@ -1,5 +1,5 @@
 !> **current version：** EquipmentManagementServiceEnterpriseEditionv1.5.1  
-**date：** 2018-07-19 
+**date：** {docsify-updated} 
 
 ## Introduction
 The enterprise version of the service can be applied to both the application-side and the enterprise-level device management from the case where the application server (ie, the app server) is directly connected to the platform. The application server uniformly obtains device information and device control capabilities.  
