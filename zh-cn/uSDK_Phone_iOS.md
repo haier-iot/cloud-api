@@ -553,12 +553,540 @@ cmdList：uSDKArgument对象实例的集合
 #### 命令超时设定
 uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的情况下瞬间返回。自定义超时时间范围：T（单位：秒）5< T <120，App根据自身业务设定超时间。
 
-#### 4.9.3.	写属性命令（标准文档）
+#### 4.9.3	写属性命令（标准文档）
 海极网支持创建智能设备，创建完成后会产生《XX设备应用开发文档》，以下将说明如何使用此文档与设备进行交互。
 
 操作属性
 操作属性的含义是此项可以作为智能设备的属性，可写列为T时，此项可以作为命令发往设备；可写列为F时，表示此命令不可用，不能作为命令发往设备。
 ![public_op_attr_stand][public_op_attr_stand]
+
+示例代码：
+
+    	[self.currentDevice writeAttributeWithName:name value:value timeoutInterval:5 success:^{
+            // do cmd success
+        } failure:^(NSError *error) {
+            // do cmd failure
+        }];
+
+name：属性名称，NSString类型，必须和文档中一致。
+value：属性名称对应的可取值，NSString类型，必须和文档中一致。
+5：超时时间，单位是秒
+代码块success：命令执行成功时触发。
+代码块failure：命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，  error.localizedDescription为错误码的文字描述。
+注意
+1、发送指令时Key和Value大小写敏感（例如：”True”）。
+2、可写列为F时，此行不能作为指令发送。
+
+#### 4.9.4 操作命令/组命令（标准文档）
+操作，是一组属性的集合，即是您在海极网创建的高级命令， 需要使用发送组命令的形式发送。
+操作形式一：
+![public_stand_cmd_getAllProperty][public_stand_cmd_getAllProperty]
+
+示例代码：
+
+    	NSArray* cmdList = [[NSArray alloc]init];
+    	NSString *groupCmdName =  @"getAllProperty";
+       [self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
+           //do group cmd success
+       } failure:^(NSError *error) {
+           //do group cmd failure
+       }];
+
+groupName：操作命令名称，NSString类型。
+cmdList：uSDKArgument对象实例的集合。不能为nil
+5：超时时间，单位是秒
+代码块success命令执行成功时触发。
+代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+操作形式二：
+![public_stand_op_cmd_2][public_stand_op_cmd_2]
+
+示例代码：
+
+    uSDKArgument *arg = [[uSDKArgument alloc]init];
+    arg.name =@"tempPwdLengthX";
+    arg.value = @"10";
+    
+    uSDKArgument *arg2 = [[uSDKArgument alloc]init];
+    arg2.name =@"tempPwdPart1X";
+    arg2.value = @"3";
+    
+    uSDKArgument *arg3 = [[uSDKArgument alloc]init];
+    arg3.name =@"tempPwdPart2X";
+    arg3.value = @"3";
+    
+    NSArray* cmdList = [NSArray arrayWithObjects:arg,arg2,arg3 nil];
+    NSString *groupCmdName =  @"Tmpopen";
+    [self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
+        //do group cmd success
+    } failure:^(NSError *error) {
+        //do group cmd failure
+    }];
+
+groupName：操作名称，NSString类型。
+cmdList：uSDKArgument对象实例的集合。不能为nil
+5：超时时间，单位是秒
+代码块success命令执行成功时触发。
+代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+注意
+App需要严格遵守ID文档或应用开发文档的规定，命令格式中要求的指令key、value不能随意填空，值不能超过文档规定的范围。
+
+
+### 4.10 实现设备远程控制
+经过前面的开发，我们已经可以在本地和智能设备完美交互了，但是我们的手机不能切换路由或者使用4G，如果这么做和智能设备的数据通路会立刻切断。现在我们来介绍手机更换WIFI或使用4G时，如何让App连接远程服务器，进行设备设备远程控制、获取设备状态等。
+
+#### 实现远程控制，本章将讲解以下内容
+1.连接用户接入网关时机
+2.用户账号有绑定设备时连接用户接入网关
+3.连接用户接入关后新绑定设备添加远程控制能力
+4.设备解绑时解除设备远程能力
+5.如何测试远程功能是否正常
+
+#### 实现设备远程控制预备知识
+请参考4.8以前所有章节实现小循环与设备交互。
+请参考章节3“常规业务及开发快速入门”中的确定连接用户接入网关时机。
+
+#### 相关概念及术语
+1.用户接入网关：U+云支持App实现远程功能的服务器软件系统。App编程使用如下服务器地址和端口：
+![public_user_gateway_dev_online][public_user_gateway_dev_online]
+
+2.U+云OPEN API：U+云为开发人员提供的网络API，主要和用户账号等业务系统交互（OPEN API开发文档请从海极网下载）。
+
+3.accessToken(session)：App用户账号登录后OPEN API分配。
+绑定、设备绑定：由App发起将用户及所属设备数据上送到云并创建设备数据档案的过程，设备能够被远程控制的前提是已经被用户绑定。
+
+4.切网：用户由设备所在A路由切换到B路由，或改用数据网络的行为。
+
+5.小循环VS大循环：它们是两种情景的描述。小循环指的是App与智能设备在同一无线局域网。大循环是说App需要借助U+云用户接入网关才能和设备进行交互的情景，此时App与设备通常不在同一网络。
+
+#### 连接用户接入网关调用时机
+连接用户接入网关操作是使设备具备远程能力的必要步骤，APP开发者在开发过程中需要在三个地方需要调用连接用户接入网关操作：1、登录成功后；2.绑定设备成功后；3.解绑定设备成功后。
+
+##### 新绑定设备的处理：
+通过OPEN API绑定一台新设备后，开发者需要在现有用户帐号下的设备列表中增加已绑定的新设备或者重新获取用户帐号下的设备列表，将新的设备列表作为参数重新执行连接用户接入网关方法，确保已添加的新设备远程可用。
+
+##### 	解绑设备的处理：
+通过OPEN API解绑定一台设备后，需要调用断开连接用户接入网关方法将该设备断开连接，开发者需要从现有用户帐号下的设备列表中删除已解绑的设备或者重新获取用户帐号下的设备列表，将新的设备列表作为参数重新执行连接用户接入网关方法，确保已解绑的设备远程不再具备远程能力。
+
+####  连接用户接入网关调用步骤
+通过执行uSDKDeviceManager的connectToCloudWithDevices方法连接用户接入网关，此方法需要几个参数：session就是U+云账号登录后的accessToken；设备信息集合就是用户拥有哪些设备，我们需要做的就是把这些参数凑齐然，参考章节5的图示适时运行方法即可。
+
+##### 步骤一、获取用户名下的用户设备列表
+通过U+平台的OPEN API 提供的方法获取用户名下的用户设备列表json：以燃气热水器为例，我们要使用三个红色加粗字段，
+{"id":"0007A88A527B","status":{"online":true},"location":{"cityCode":null,"longitude":"0.0","latitude":"0.0"},"attrs":{"brand":null,"model":null},"name":"燃气热水器_527B","mac":"0007A88A527B","type":{"type":"18","typeIdentifier"
+:"111c120024000810180400418002480000000000000000000000000000000000","specialCode":"0041800248","subType":"04"},"version":{"eProtocolVer":"2.15","smartlink":{"smartLinkSoftwareVersion":"e_0.1.36","smartLinkHardwareVersion":"G_1.0.00","smartLinkPlatform":"UDISCOVERY_UWT","smartLinkDevfileVersion":"0.0.0"}}}
+
+##### 步骤二、构建需要上传的数据
+   使用步骤1的三个标红字段，为用户账号下的每台设备都生成一个uSDKDeviceInfo，每个字段都不能为空和随意填写。
+示例代码：
+
+    NSMutableArray* remoteDevices = [[NSMutableArray alloc] init];
+    uSDKDevice* dev = [[uSDKDevice alloc]initWithDeviceID:item.id uplusID:item.typeInfo.typeId isOnline:item.status];
+    [remoteDevices addObject:dev];
+    
+##### 步骤三、执行连接用户接入网关方法
+ 开发过程中的项目使用开发环境，上线产品需要使用生产环境。如果智能设备和手机APP使用了不同环境，将导致远程设备离线、不可控制。
+示例代码：
+    
+     NSArray* devList = [NSArray arrayWithArray:appDelegate.remoteDevicesList];
+            //开发过程中的项目需要使用开发环境，上线产品需要使用生产环境。如果使用了错误环境，将导致远程设备离线、不可控制。
+            //连接用户接入网关地址(生产环境）
+            // gatewayPort= @"56811";
+            //gatewayDomain =@"gw.haier.net";
+            //连接用户接入网关地址(开发环境）
+            //gatewayPort= @"56821";
+            //gatewayDomain =@"usermg.uopendev.haier.net";
+  [[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
+                
+            } failure:^(NSError *error) {
+            
+            }];
+connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力
+deviceList：远程设备列表。
+remoteSession +云账号登录后的accessToken。
+gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者需要注意智能设备和手机APP是否使用了相同的环境。
+代码块success执行成功时被触发。
+代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+注意：
+1、用户登录后，例如一位新用户，从云拉取用户设备列表为空时，deviceList不能为nil，可以是长度为0的NSArray对象.
+2、如果当用户只关心业务消息推送，不关心设备远程控制时，deviceList不能为nil, 可以是长度为0的NSArray对象.
+
+
+#### 获取连接用户接入网关的状态
+	站在APP开发者使用的角度来看，可以分为主动获取用户接入网关连接状态和被动接收用户接入网关连接状态两种方式。
+
+##### 1、主动获取用户接入网关连接状态
+uSDK启动成功后，uSDK会对用户接入网关连接状态进行维护，可以在任意时刻通过如下方法获取，具体状态值见7.1.17章节 uSDK与云平台连接状态值定义。
+	
+    uSDKCloudConnectionState *cloudState =   [uSDKDeviceManager defaultDeviceManager].cloudConnectionState;
+
+##### 2、被动接收用户接入网关连接状态
+APP开发者调用连接用户接入网关方法后，需要实现uSDKDeviceManagerDelegage委托并设置委托，通过实现如下方法，方可获得用户接入网关连接状态推送。具体状态值见7.1.17章节 uSDK与云平台连接状态值定义
+
+设置委托：
+
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
+
+
+实现委托：	
+
+    -(void)deviceManager:(uSDKDeviceManager*)deviceManager didUpdateCloudState:(uSDKCloudConnectionState)state error:(NSError*)offlineReason{
+    if(state==uSDKCloudConnectionStateConnectFailed){
+         NSLog(@"云连接失败，错误码：@%",offlineReason.code);
+    }
+}    
+
+#### 测试远程功能是否正常
+手机在配置设备到A路由，绑定设备成功。手机或平板电脑切换连接B路由或直接使用2G、3G、4G数据网络，查询设备状态、进行控制。
+
+##### 注意：
+1、当用户切网时，移动设备切网成功后uSDK会自动尝试连接用户接入网关，当uSDK成功读取到智能设备信息后，再次向移动应用程序推送设备就绪消息和设备状态变化消息。
+
+2、连接用户接入网关地址，需要和uPlug的目标连接环境一致。举例：App申请北京联调环境用户接入网关地址，uPlug也应该连接北京联调环境设备。
+
+3、App使用OPEN API过程中，U+云平台会要求移动应用客户端要有自己的ClientId。ClientId和移动应用的身份验证是相关的，验证合法的ClientId会分配 Session值（Token），而Session值会应用于uSDK远程登录，所以错误或固定的ClientId会产生异常行为。
+
+#### 断开用户接入网关连接，解除设备远程功能
+当用户切换帐号、注销、退出程序时，开发者需要调用uSDK的API方法断开用户接入网关连接，解除设备的远程功能，具体代码如下
+    
+    [[uSDKDeviceManager defaultDeviceManager]disconnectToCloudWithToken:deletate.remoteSession success:^{
+            
+     } failure:^(NSError *error) {
+            
+     }];
+代码块success，执行成功时触发，断开云的连接成功
+代码块failure，执行失败触发，断开云的连接失败，建议重新执行该方法。
+
+### 4.11 接收U+云平台推送消息
+App获得消息推送需要先连接用户接入网关。在U+云消息推送功能中，uSDK仅扮演Client角色，透传用户接入网关发送来的消息。
+下面主要分为业务消息推送和Session异常消息推送
+
+##### 4.11.1 接收U+云平台推送业务消息
+
+APP开发者需要实现uSDKManagerDelegage委托并设置委托，通过实现如下方法，获得业务消息推送。
+
+设置委托：
+
+    uSDKManager *uSDKMgr = [uSDKManager defaultManager];
+    uSDKMgr.delegate = self;
+
+实现委托：
+    
+    -(void)uSDKManager:(uSDKManager *)sdkManager businessMessage:(NSString *)businessMessage{
+    
+    }
+    
+sdkManager 当前uSDKManager对象
+
+businessMessage 当前推送的业务消息
+
+
+##### 4.11.2  接收U+云推送的Session异常消息
+当App得到Session异常消息时，可以提示用户登录信息已失效，提示用户重新登录，或者检查程序逻辑，查看用户登录地址与连接用户接入网管地址是否同一服务器环境。
+APP开发者需要实现uSDKManagerDelegage委托并设置委托，通过实现如下方法，获得Session异常消息推送。
+
+设置委托：
+
+    uSDKManager *uSDKMgr = [uSDKManager defaultManager];
+    uSDKMgr.delegate = self;
+
+实现委托：
+
+    -(void)uSDKManager:(uSDKManager*)sdkManager sessionException:(NSString*)token{
+    
+    }
+    
+sdkManager     当前uSDKManager对象
+
+token          当前会话失效的token
+
+
+###  4.12 接收云平台推送的绑定和解除绑定消息
+当uSDK已经和云平台建立连接，调用OPEN API中的绑定和解绑定方法成功时，uSDK会收到云平台推送的绑定和解除绑定消息。如果存在同一帐号、在手机A和B上绑定同一台设备的情况，开发者需要区别处里。
+APP开发者需要实现uSDKDeviceManagerDelegate委托并设置委托，通过实现如下2个方法，获得绑定和解除绑定消息推送。
+
+#### 4.12.1 接收绑定消息推送
+
+设置委托：
+
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
+
+实现委托：
+ 
+     -(void)deviceManager:(uSDKDeviceManager *)deviceManager didBindDevice:(NSString *)deviceID{
+    
+    }
+deviceManager 设备管理器对象
+
+deviceID   定设备的ID
+    	
+#### 4.12.2 接收解除绑定消息推送。
+
+设置委托：
+
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
+
+实现委托：
+ 
+     -(void)deviceManager:(uSDKDeviceManager *)deviceManager didUnbindDevice:(NSString *)deviceID{
+    
+     }  
+deviceManager 设备管理器对象
+
+deviceID   解绑定设备的ID
+
+
+### 4.13 	获取设备Wifi信号强度
+    设备就绪后，使用uSDKDevice实例对象的方法获取设备的Wifi信号强度。
+ 信号强度等级，包含 差、中、良、优，等级与具体数值对应关系如下：
+ 差：number <= 20，
+ 中：21 <= number <= 30，
+ 良：31 <= number <= 40，
+ 优：number => 41
+ 
+示例代码：
+    
+    [device getDeviceNetQualitySuccess:^(NSUInteger number, DeviceNetQuality quality) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+代码块success，执行成功时触发，其中number表示信号强度的具体数值，quality 代表强度的等级，包含 差、中、良、优 
+
+码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+        
+## 5 设备绑定和解绑操作
+当需要使用设备具备远程控制能力时、需要将设备和用户建立关联关系，使该设备为用户所有，就是设备绑定操作。
+
+当该用用户与已绑定的设备不需要这种关联关系时，用户需要对该设备进行解绑操作，解除关联关系。解除绑定后的设备，将不再具备远程的控制能力。
+
+设备绑定操作和解绑操作都需要访问外部网络，所以必须保证外部网络良好可用。
+
+### 5.1 设备绑定
+绑定设备操作是将设备和用户帐号建立关联关系的一项操作，需要依赖外部网络。本章主要介绍两种绑定方式，开发者可以根据实际情况选择。绑定方式：1、使用uSDK提供的绑定方法绑定。2、使用云平台提供的绑定接口进行绑定（open api或者uws）。
+
+#### 绑定设备的基本条件
+1.设备和app必须连接同一服务器的环境，否则将会绑定失败。例如app连接开发者环境，设备连接到生产环境。
+
+2.绑定设备操作是将设备和用户帐号建立关联关系的一项操作，需要访问外部网络，所以必须保证外网可以正常访问。
+
+#### 设备绑定的时机 
+1.海尔模块设备：配置完成10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新进行配置。
+
+2.SmartDevice SDK接入设备：成功开启绑定时间窗10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新开启绑定时间窗   
+
+####	5.1.1使用uSDK的绑定方法
+SDK的绑定方法中包含了获取设备绑定信息和绑定设备到云平台的操作，方法简单易用，降低了开发人员的开发成本。
+
+##### 前提条件
+使用SDK的绑定方法进行设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
+
+
+##### 操作步骤：
+1.使用uAccount类提供的帐号登录功能登录U+云成功
+
+2.设备配置入网成功
+
+3.使用uSDK的绑定设备方法绑定设备
+
+4.获取用户设备列表
+
+5.执行连接用户接入网关
+
+##### 执行绑定设备方法
+示例代码：
+
+    [[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
+        //新设备，需要连接用户接入网关。
+    } failure:^(NSError *error) {
+        
+    }];
+device：配置成功的设备
+
+deviceName：设备名称，可自定义
+
+timeoutInterval:超时时间，范围20-120秒，建议90，可以根据实际情况调节。
+
+success代码块：方法执行成功时触发，说明设备成功绑定到U+云时。
+
+failure代码块：方法执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+
+####	5.1.2使用U+云提供的绑定方法（uws或open api）
+当开发人员使用U+云提供uws或open api接口文档进行开发时，就需要使用文档中提供的绑定设备方法完成绑定操作。此时不能与uAccount提供的绑定方法混用。
+
+本章节重点介绍uSDK中uSDKDevice类提供的获取设备绑定信息方法,关于U+云提供uws或open api接口文档提供绑定方法见详细接口文档。
+
+##### 获取绑定信息的时机 
+1.海尔模块设备：配置完成10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新进行配置。
+
+2.SmartDevice SDK接入设备：成功开启绑定时间窗10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新开启绑定时间窗  
+
+##### 操作步骤：
+1.使用U+云提供uws或open api接口文档提供的帐号登录功能登录U+云成功
+
+2.设备配置入网成功
+
+3.使用uSDK中uSDKDevice类提供的获取设备绑定信息方法获取绑定信息
+
+4.使用U+云提供uws或open api接口文档提供绑定方法完成设备绑定
+
+5.获取用户设备列表
+
+6.执行连接用户接入网关
+
+##### 执行获取设备绑定信息
+
+示例代码
+
+    [device getDeviceBindInfoWithToken:@"token" timeoutInterval:30 success:^(NSString *info) {
+        //调用云平台提供的设备绑定方
+    } failure:^(NSError *error) {
+        
+    }];  
+    
+"token"：用户登录的真实token
+
+30：获取绑定信息的超时时间，单位秒。
+
+代码块success，执行成功时触发，info就是设备绑定信息。
+
+码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+
+### 5.2 设备解除绑定
+当该用用户与已绑定的设备不需要这种关联关系时，用户需要对该设备进行解绑操作，解除关联关系。解除绑定后的设备，将不再具备远程的控制能力。
+
+解绑操作都需要访问外部网络，所以必须保证外部网络良好可用。
+
+####	5.2.1使用uSDK的解除绑定方法
+
+##### 前提条件
+使用SDK的绑定方法进行解除设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
+
+
+##### 操作步骤：
+1.使用uAccount类提供的帐号登录功能登录U+云成功
+
+2.使用uSDK的解除绑定设备方法
+
+3.获取用户设备列表
+
+4.执行连接用户接入网关
+
+
+##### 执行设备解除绑定方法
+解除绑定方法内部具有重试机制，为异步方法，不会阻塞线程，执行结果会在回调函数中以参数形式返回
+
+示例代码：
+
+    [[uAccount defaultUAccount]unbindDeviceWithDeviceId:deviceID success:^(RespCommonModel *successModel) {
+        
+    } failure:^(RespCommonModel *failureModel) {
+        
+    } httpError:^(RespCommonModel *httpErrorModel) {
+        
+    }];
+    
+代码块success，执行成功时触发，successModel返回的具体信息。
+
+代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+代码块httpError 网络异常时触发
+
+
+####	5.2.2使用U+云提供的解除绑定方法
+当开发人员使用U+云提供uws或open api接口文档进行开发时，就需要使用文档中提供的绑定设备方法完成绑定操作。此时不能与uAccount提供的绑定方法混用。
+
+##### 操作步骤：
+1.使用uAccount类提供的帐号登录功能登录U+云成功
+
+2.使用U+云提供的解除绑定方法
+
+3.获取用户设备列表
+
+4.执行连接用户接入网关
+
+##### 执行设备解除绑定方法
+具体方法详见uws或open api接口文档。
+
+### 5.3	异常处理
+设备进行绑定时的加密信息来源与 U+云，app调用bindDevice接口时，由于时间或网络因素，智能设备可能还没有成功连接到 U+云，开发者可以参考下列信息处理异常: 
+![public_get_bindinfo_error_code][public_get_bindinfo_error_code]
+
+## 6 海外uSDK业务开发指引
+
+到目前为止uSDK分为国内版、欧洲版和美国版，三个版本，各地区需要使用对应的版本。
+
+通读第四章节，并熟练掌握相关知识是开发海外智能设备功能的前提条件， 开发者需要重点阅读本章节。
+
+#### 6.1 设置配置文件下载地址
+uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海外数据中心下载配置文件使设备连接成功或就绪、可控。
+
+##### 配置文件地址：
+
+    1、美国：https://standardcfm-gea-us.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
+    2、欧洲：https://standardcfm-gea-euro.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
+
+示例代码：
+
+    uSDKErrorConst result =   [[uSDKManager defaultManager]setProfileServiceUrl:url];
+    if(result!=RET_USDK_OK){
+        //重新设置配置文件服务器的地址
+    }
+url：下载配置文件服务器的地址，参数不能为@""或nil，长度不超过128，且必须以http或者https开头.
+result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下执行
+
+#### 6.2 连接海外用户网关
+开发海外远程功能时，需要连接不同地域使用的用户接入网关地址和端口不同，如在美国需要使用的美国数据中心，用户接入网关地址和端口应该是美国数据中心的地址和端口。
+
+##### 海外用户网关地址和端口：
+1、美国：
+
+    	网关地址：gw-gea-us.haieriot.net
+    	网关端口：56815
+	
+2、欧洲：
+
+    	网关地址：gw-gea-euro.haieriot.net
+    	网关端口：56815
+
+示例代码：
+
+     [[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
+                
+     } failure:^(NSError *error) {
+            
+     }];
+connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力<br>
+deviceList：远程设备列表。<br>
+remoteSession +云账号登录后的accessToken。<br>
+gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
+代码块success执行成功时被触发。<br>
+代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
+注意：<br>
+1、用户登录后，例如一位新用户，从云拉取用户设备列表为空时，deviceList不能为nil，可以是长度为0的NSArray对象.<br>
+2、如果当用户只关心业务消息推送，不关心设备远程控制时，deviceList不能为nil, 可以是长度为0的NSArray对象.     
+
+
+#### 6.3 设置uPlug模块主网关地址
+已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址，来更改模块连接的数据中心。
+当App端配置设备成功后10分钟内，且使设备处于连接成功或就绪状态时，开发者才可以调用的设置模块主网关地址和端口方法，发送主网关域名和端口到设备模块中，使设备能够连接到指定的海外数据中心。配置设备成功10分钟内后，该方法调用返回失败结果。
+
+目前有两种方法设置模块的主网关地址；1、softap时设置模块的主网关地址。2、使用uSDKDevice对象设置模块的主网关地址
+
+##### 6.2.1 softap时设置模块的主网关地址
+示例代码：
+
+
+##### 6.2.2 SDKDevice对象设置模块的主网关地址
+示例代码：
+
+
+
 
 
 
@@ -578,6 +1106,10 @@ uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的�
 [public_group_cmd_sixcode]:_media/_usdk/public_group_cmd_sixcode.png
 [public_group_cmd_stand]:_media/_usdk/public_group_cmd_stand.png
 [public_op_attr_stand]:_media/_usdk/public_op_attr_stand.png
+[public_stand_cmd_getAllProperty]:_media/_usdk/public_stand_cmd_getAllProperty.png
+[public_stand_op_cmd_2]:_media/_usdk/public_stand_op_cmd_2.png
+[public_user_gateway_dev_online]:_media/_usdk/public_user_gateway_dev_online.png
+[public_get_bindinfo_error_code]:_media/_usdk/public_get_bindinfo_error_code.png
 
 
 
