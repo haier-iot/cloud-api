@@ -18,7 +18,7 @@
 
 * 移动端uSDK
 * * [uSDK能力简介](zh-cn/uSDK)
-* * [uSDK_iOS_开发指南]
+* * uSDK iOS 开发指南
 * * * [uSDK使用说明](zh-cn/uSDK_Phone_iOS_USE_GUIDE)
 * * * [uSDK接口说明](zh-cn/uSDK_Phone_iOS_API_GUIDE)
 
