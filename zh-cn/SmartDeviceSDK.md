@@ -46,7 +46,7 @@ SDK具备如下特点：
 
 ### uSDK SmartDevice Android 5.0 开发手册
 
-####1.SmartDevice SDK 5.0简介
+#### 1.SmartDevice SDK 5.0简介
 
 	SmartDevice SDK是一款Android移动应用开发套件，包含设备接入和设备控制功能，能够使用在有屏的Android系统的智能设备上，将设备接入到U+平台，并与U+设备交互。
 
@@ -56,21 +56,21 @@ SDK具备如下特点：
 
 	本文档主要介绍设备接入功能部分，设备控制功能部分不在本文内，详情见uSDK4.0_Phone开发手册。
 
-####2.SmartDevice SDK整体交互图
+#### 2.SmartDevice SDK整体交互图
 
 	开发者可以把SmartDevice SDK理解为一套标准的中间连接件，用于连接底板设备和云、手机uSDK，完成大小循环的建立，功能与海尔uPlug模块功能基本相同。开发者只需要集中精力在底板和smartdevice之间的数据转换上，完成设备的快速接入。
 
 ![SmartDeviceSDK图片][SmartDeviceSDK_3]
 
 
-####3.SmartDevice SDK接入流程简图
+#### 3.SmartDevice SDK接入流程简图
 
 
 ![SmartDeviceSDK图片][SmartDeviceSDK_5]
 
 
 
-####4.SmartDevice设备接入业务详解
+#### 4.SmartDevice设备接入业务详解
 
 	设备接入是指使用SmartDevice SDK的接入功能，在有屏android设备上，通过软件程序实现一台安全类的智能设备并接入U+云的功能，其作用与uplug模块功能类似。
 
