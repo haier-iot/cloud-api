@@ -1,4 +1,4 @@
- **当前版本**：[uSDK_Phone_iOS V5.0]()  
+ **当前版本**：[uSDK_Phone_iOS V5.0]
  **更新时间**：{docsify-updated}
 
 #  uSDK使用指南
