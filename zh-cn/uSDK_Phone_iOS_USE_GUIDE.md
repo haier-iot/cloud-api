@@ -1,8 +1,6 @@
  **当前版本**：[uSDK_Phone_iOS V5.0]
  **更新时间**：{docsify-updated}
 
-#  uSDK使用指南
-
 ## 1 uSDK5.0简介
 uSDK是一款移动应用开发套件，它能够支持目前主流的Android和iOS系统。它允许您运用Java、Object-C、Swift等创建App和智能硬件互动。<br>
 通过uSDK可以实现的功能包括智能设备配置入网、搜索、状态查询、控制、接收报警。

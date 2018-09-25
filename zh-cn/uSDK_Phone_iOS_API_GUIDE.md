@@ -3,8 +3,6 @@
 **当前版本**：[uSDK_Phone_iOS V5.0]
 **更新时间**：{docsify-updated}
 
-#   uSDK接口说明
-
 ## 1.uSDK启动
 启动uSDK是调用各种功能性API，使用U+物联功能的前提，在主线程中启动一次即可。下面分别讲解启动uSDK及启动前后前后需要进行的必要设置：设置设备管理委托、设置过滤设备类型、启动uSDK、成功后设定uSDK日志级别、开启和关闭dns防劫持功能。
 
@@ -16,18 +14,18 @@ SecretKey：在海极网申请，uSDK使用
 ### 1.1设置设备管理委托
 uSDK启动前，APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，才能在uSDK成功启动后，得到变化的设备集合，对设备列表集进行管理，详情见1.3章节 管理设备集变化中的管理设备列表集合。
 
-[uSDKDeviceManager defaultDeviceManager].delegate = self。
+    [uSDKDeviceManager defaultDeviceManager].delegate = self。
 
 ### 1.2设置过滤设备类型
 uSDK启动前，设置开发者关心的设备类型，可以是一个，也可以是多个；若不设置，默认为全部类型。设置过滤类型后，只能收到或查询到自己关心类型的设备，其他类型的设备将被过滤掉。多次执行[uSDKDeviceManager defaultDeviceManager]. interestedDeviceTypes进行赋值，将覆盖已设定的设备过滤类型，以最后一次为准。<br>
 示例代码：
 
-[uSDKDeviceManager defaultDeviceManager]. interestedDeviceTypes = ALL_TYPE
+    [uSDKDeviceManager defaultDeviceManager].interestedDeviceTypes = ALL_TYPE
 
 ### 1.3启动uSDK
 启动uSDK是使用U+物联功能的前提，按如下方式启动uSDK。
 
-[[uSDKManager defaultManager] startSDKWithAppId:appDelegate.APPID appKey:appDelegate.APPKey secretKey:appDelegate.SERCERTKEY success:success failure:failure];
+    [[uSDKManager defaultManager] startSDKWithAppId:appDelegate.APPID appKey:appDelegate.APPKey secretKey:appDelegate.SERCERTKEY success:success failure:failure];
 
 appId：海极网分配的appId，不能为空，不能随意填写。<br>
 appKey：海极网分配的appkey，不能为空，不能随意填写。<br>
@@ -42,11 +40,11 @@ sercertKey：海极网分配的sercertKey，不能为空，不能随意填写。
 uSDK启动成功后，可以设置uSDK的日志级别，开发过程中建议使用USDK_LOG_DEBUG，上线产品建议使用USDK_LOG_NONE或USDK_LOG_ERROR，如不设置，默认为USDK_LOG_DEBUG输出所有日志。uSDK运行时会输出日志，其中包含与硬件交互及反馈给App的详细日志，uSDK的日志标签是uClient和uServer。<br>
 示例代码：
 
-[[uSDKManager defaultManager] setLogWithLevel:USDK_LOG_DEBUG isWriteToFile:NO success:^{
+    [[uSDKManager defaultManager] setLogWithLevel:USDK_LOG_DEBUG isWriteToFile:NO success:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 
 代码块success方法执行成功时被触发。<br>
 代码块failure方法执行失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
@@ -59,22 +57,22 @@ API介绍如下：
 
 1、开启全部特性
 
-[[uSDKManager defaultManager] enableFeatures:uSDKFeatureDefault];
+    [[uSDKManager defaultManager] enableFeatures:uSDKFeatureDefault];
 
 2、关闭全部特性
 
-[[uSDKManager defaultManager] enableFeatures:uSDKFeatureNone];
+    [[uSDKManager defaultManager] enableFeatures:uSDKFeatureNone];
 
 
 
 ## 2 退出uSDK
 App需要退出或者不需要使用U+物联功能时需要停止uSDK
 
-[[uSDKManager defaultManager]stopSDKWithSuccess:^{
+    [[uSDKManager defaultManager]stopSDKWithSuccess:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 
 ##  3配置设备入网
 配置设备入网就是使用uSDK将设备加入指定无线网络，或更改U+设备所在网络的一项操作。uSDK支持SmartLink、SoftAP两种方式入网，下面讲分别进行讲解。<br>
@@ -98,28 +96,19 @@ uSDKDeviceManager.configDeviceBySmartLinkWithSSID有多个重载方法，可以�
 #### 执行SmartLink配置方式
 App把无线的名字和密码发给待入网的设备，示例代码如下：
 
-void(^sucess)(uSDKDevice* device) = ^(uSDKDevice* device){
-};
-
-void(^failure)(NSError* error) = ^(NSError* error){ 
-};
-
-[[uSDKDeviceManager defaultDeviceManager]configDeviceBySmartLinkWithSSID:ssid password:pwd deviceID:mac timeoutInterval:60 security:NO success:sucess failure:failure];
+    void(^sucess)(uSDKDevice* device) = ^(uSDKDevice* device){
+    }
+    void(^failure)(NSError* error) = ^(NSError* error){ 
+    };
+    [[uSDKDeviceManager defaultDeviceManager]configDeviceBySmartLinkWithSSID:ssid password:pwd deviceID:mac timeoutInterval:60 security:NO success:sucess failure:failure];
 
 configDeviceBySmartLinkWithSSID：配置设备入网方法。<br>
-
 ssid：无线网络名称，不能为空，最大长度31。<br>
-
 pwd：无线网络密码，可以为空，最大长度63。<br>
-
 mac：设备mac地址。不知道的话，填写@”";<br>
-
 timeoutInterval：配置超时时间，单位为秒。范围5-120秒，推荐60秒。<br>
-
 security：安全配置方法标识。YES时，进行安全配置；NO时，普通配置。<br>
-
 代码块success配置成功时触发，device不为nil，设备配置入网成功，device携带设备信息。<br>
-
 代码块failure配置失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 ##### 判断设备入网是否成功及获得设备实例
@@ -128,11 +117,11 @@ security：安全配置方法标识。YES时，进行安全配置；NO时，普�
 ##### 中断设备配置入网
 在执行配置设备入网过程中可以调用API中断，中断动作结果将通过回调参数通知App。
 
-[[uSDKDeviceManager defaultDeviceManager]stopSmartLinkConfig:^{
+    [[uSDKDeviceManager defaultDeviceManager]stopSmartLinkConfig:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 代码块success中断配置成功时触发。<br>
 代码块failure中断配置失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
@@ -146,30 +135,30 @@ SoftAP配置方式是将uPlug设置为WIFI热点，手机连接uPlug热点，然
 创建uSDKSoftApConfigInfo对象并设置必要的基本信息，用于传递给设备热点。
 开发者需要向configInfo对象中写入正确的wifi名称（不支持中文，最小长度1，最大长度31）和密码（不支持中文，可以为空，最大长度63）才能保证设备是可以配置成功的。
 
-uSDKSoftApConfigInfo * cfgInfo = [uSDKSoftApConfigInfo init];
-cfgInfo.security = NO;
-cfgInfo.timeoutInterval = 60;
-cfgInfo.ssid = ssid;
-cfgInfo.password =pwd;
+    uSDKSoftApConfigInfo * cfgInfo = [uSDKSoftApConfigInfo init];
+    cfgInfo.security = NO;
+    cfgInfo.timeoutInterval = 60;
+    cfgInfo.ssid = ssid;
+    cfgInfo.password =pwd;
 
 ##### 步骤三 执行SOFTAP配置
 SoftAp配置接口，开发者无需再调用getSoftapDeviceConfigInfo接口。该接口整合了获取配置信息(getSoftapDeviceConfigInfo)和发送配置命令两个步骤，并且两个步骤均提供了重试功能，方便开发者使用。该接口可在softApConfigInfo参数中配置超时时间在APP进入后台时是否计时。 uSDK 5.01新增<br>
 示例代码：
 
-[[uSDKDeviceManager defaultDeviceManager] configDeviceBySoftapWithConfigInfo:cfgInfo sendConfigInfoSuccess:^{
-[AlertViewTools shouAlertViewWithTitle:@"提示"
-Msg:@"配置信息发送成功，请切换到目标网络"];
-} success:^(uSDKDevice *device) {
-//配置成功的设备
-[self showFindDevice:device];
-if(delegate.isLogin){
-[DemoUtils bindDevice:device];
-}
-} failure:^(NSError *error) {
-self.configResultLable.text = @"设备配置失败!";
-NSString *info = [NSString stringWithFormat:@"%ld", (long)error.code] ;
-[AlertViewTools shouAlertViewWithTitle:@"设备配置失败" Msg:info];
-}];
+    [[uSDKDeviceManager defaultDeviceManager] configDeviceBySoftapWithConfigInfo:cfgInfo sendConfigInfoSuccess:^{
+       [AlertViewTools shouAlertViewWithTitle:@"提示"
+             Msg:@"配置信息发送成功，请切换到目标网络"];
+     } success:^(uSDKDevice *device) {
+         //配置成功的设备
+         [self showFindDevice:device];
+         if(delegate.isLogin){
+            [DemoUtils bindDevice:device];
+         }
+      } failure:^(NSError *error) {
+        self.configResultLable.text = @"设备配置失败!";
+        NSString *info = [NSString stringWithFormat:@"%ld", (long)error.code] ;
+         [AlertViewTools shouAlertViewWithTitle:@"设备配置失败" Msg:info];
+      }];
 
 cfgInfo：装载配置信息的对象<br>
 sendConfigInfoSuccess： 配置信息发送成功时被触发，需要切网到目标网络<br>
@@ -184,14 +173,12 @@ Failure：配置失败时被触发，error中有需要关注的错误信息，er
 ##  4.管理设备集变化
 uSDK启动完成后会不断扫描本网络里的U+设备，完成设备发现、设备离线，维护设备集合中设备数量及数据的变化，App通过实现设备列表变化回调实现设备集合变化的管理。本章分别讲解：管理变化设备列表集合、获得设备池全集的方法。
 
-预备知识<br>
-请先了解章节3“快速入门” <br>
 相关概念和术语<br>
 小循环：uSDK和U+设备处于同一无线局域网完成设备交互的情形。<br>
 TYPEID：TYPEID就是设备类型的标识字符串，用它可以识别U+平台上的各种硬件设备。
 设备连接状态<br>
 未连接：App还没连上智能设备，表示设备加入WIFI已发现。调用uSDKDevice的state 属性值是uSDKDeviceStateUnconnect。<br>
-离线：设备发现过并且App进行了连接，但此时无法收到设备的响应数据。uSDKDevice             的state属性值是uSDKDeviceStateOffline。<br>
+离线：设备发现过并且App进行了连接，但此时无法收到设备的响应数据。uSDKDevice的state属性值是uSDKDeviceStateOffline。<br>
 设备的属性状态（属性）：开机、关机、运行等值。
 
 ##### 管理变化设备列表集合
@@ -200,28 +187,28 @@ APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，通过�
 
 ###### 设置委托：
 
-uSDKDeviceManager* deviceManager =  [uSDKDeviceManager defaultDeviceManager];
-deviceManager.delegate = self;//设置代理
+    uSDKDeviceManager* deviceManager =  [uSDKDeviceManager defaultDeviceManager];
+    deviceManager.delegate = self;//设置代理
 
 ###### 实现委托：
 
--(void)deviceManager:(uSDKDeviceManager *)deviceManager didAddDevices:(NSArray<uSDKDevice *> *)devices{
-//    devices中是收到的最新发现的设备集合，demo中使用的是设备全集
-self.deviceList =  [[uSDKDeviceManager defaultDeviceManager].deviceDict.allValues;
-[self.myTableView reloadData];
-}
+    -(void)deviceManager:(uSDKDeviceManager *)deviceManager didAddDevices:(NSArray<uSDKDevice *> *)devices{
+        //    devices中是收到的最新发现的设备集合，demo中使用的是设备全集
+        self.deviceList =  [[uSDKDeviceManager defaultDeviceManager].deviceDict.allValues;
+        [self.myTableView reloadData];
+     }
 
--(void)deviceManager:(uSDKDeviceManager *)deviceManager didRemoveDevices:(NSArray<uSDKDevice *> *)devices{
-//    devices中是下线的设备集合，demo中使用的是设备全集
-self.deviceList = deviceManager.deviceDict.allValues;
-[self.myTableView reloadData];
-}
+    -(void)deviceManager:(uSDKDeviceManager *)deviceManager didRemoveDevices:(NSArray<uSDKDevice *> *)devices{
+      //    devices中是下线的设备集合，demo中使用的是设备全集
+      self.deviceList = deviceManager.deviceDict.allValues;
+      [self.myTableView reloadData];
+    }
 
 devices：变化的设备列表集合。uSDK启动前设置委托，第一次接收到当前设备池里的所有设备集合，之后接收到的是状态发生变化的设备集合。uSDK启动成功后设置委托，第一次接收到的设备集合可能是所有设备集合，也可能是状态发生变化的设备集合。示例中使用uSDK的API获取所有设备的全集，使用变化的集合还是使用设备全集，需要根据实际业务需求确定。
 
 ##### 获得所有设备全集的方法
 
-[[uSDKDeviceManager defaultDeviceManager].deviceDict.allValues;
+    [[uSDKDeviceManager defaultDeviceManager].deviceDict.allValues;
 
 
 ##  5.管理设备连接状态变化
@@ -230,15 +217,15 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 
 ###### 设置委托：
 
-uSDKDeviceManager* deviceManager =  [uSDKDeviceManager defaultDeviceManager];
-deviceManager.delegate = self;//设置代理
+    uSDKDeviceManager* deviceManager =  [uSDKDeviceManager defaultDeviceManager];
+    deviceManager.delegate = self;//设置代理
 
 ###### 实现委托：
 
--(void)device:(uSDKDevice *)device didUpdateState:(uSDKDeviceState)state error:(NSError *)error{
-self.deviceList = [[uSDKDeviceManager defaultDeviceManager]getDeviceList:ALL_TYPE];
-[self.myTableView reloadData];
-}
+    -(void)device:(uSDKDevice *)device didUpdateState:(uSDKDeviceState)state error:(NSError *)error{
+      self.deviceList = [[uSDKDeviceManager defaultDeviceManager]getDeviceList:ALL_TYPE];
+      [self.myTableView reloadData];
+    }
 
 当设备变为离线状态时可以通过error类获取错误码和错误描述。开发者可以根据错误码和错误描述，分析设备离线原因，自行进行处理。
 
@@ -263,11 +250,11 @@ self.deviceList = [[uSDKDeviceManager defaultDeviceManager]getDeviceList:ALL_TYP
 #### 1、连接设备但不获得设备属性方法：
 使用uSDKDevice对象执行该方法，该方法执行成功后，需要等待一定时间App的设备连接状态将变为“连接成功/已连接”状态，不会出现“就绪” 状态。
 
-[self.currentDevice connectWithSuccess:success{
+    [self.currentDevice connectWithSuccess:success{
 
-} failure:{
+    } failure:{
 
-}];
+    }];
 代码块success执行成功时触发，等待一定时间后设备状态变为“已连接或连接成功”状态。<br>
 代码块failure执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述
 
@@ -275,11 +262,11 @@ self.deviceList = [[uSDKDeviceManager defaultDeviceManager]getDeviceList:ALL_TYP
 #### 2、连接设备并获得设备属性方法：
 执行连接设备并获得设备属性方法，该方法执行成功后，等待一定时间设备会变为“就绪” 状态，设备就绪状态时可以执行设备控制和获取的设备的属性集合。
 
-[self.currentDevice connectNeedPropertiesWithSuccess:^{
+    [self.currentDevice connectNeedPropertiesWithSuccess:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 
 代码块success执行成功时触发，等待一定时间后设备状态将变为“就绪” 状态。<br>
 代码块failure执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
@@ -288,11 +275,11 @@ self.deviceList = [[uSDKDeviceManager defaultDeviceManager]getDeviceList:ALL_TYP
 #### 执行断开设备连接
 不关注某台设备属性数据时，执行断开连接设备方法，释放设备资源。只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
 
-[self.currentDevice disconnectWithSuccess:^{
+    [self.currentDevice disconnectWithSuccess:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 
 #### 获取设备的连接状态
 通过uSDKDevice的state属性，获取设备的连接状态
@@ -314,13 +301,14 @@ ID开发文档：六位码的集合文档，主要用途是明确设备操作指
 App开发者成功连接设备操作并实现uSDKDeviceDelegate委托并设置委托，通过如下方法获得设备的属性值集合推送； 
 ##### 设置委托：
 
-self.currentDevice.delegate = self;
+    self.currentDevice.delegate = self;
 
 ##### 实现委托：
--(void)device:(uSDKDevice *)device didUpdateValueForAttributes:(NSArray<uSDKDeviceAttribute *> *)attributes{
-self.attrDict = self.currentDevice.attributeDict;
-[self.myTableview reloadData];
-}
+
+    -(void)device:(uSDKDevice *)device didUpdateValueForAttributes:(NSArray<uSDKDeviceAttribute *> *)attributes{
+      self.attrDict = self.currentDevice.attributeDict;
+      [self.myTableview reloadData];
+    }
 
 attributes：第一次收到attributes时，它包含该设备所有的属性值的全集，之后收到的是变化的属性集合。
 
@@ -328,7 +316,7 @@ attributes：第一次收到attributes时，它包含该设备所有的属性值
 当设备就绪或已连接状态时，uSDKDevice对象的attributeDict属性中保存设备当前最新属性值合集，非就绪状态属性返回值无意义。<br>
 示例代码：
 
-self.currentDevice.attributeDict;
+    self.currentDevice.attributeDict;
 
 ##    8.设备故障和报警
 设备就绪或已连接状态下，智能设备或家电如果存在故障或警告，uSDK会即时将消息推送给App。设备报警信息用uSDKDeviceAlarm承载。报警信息六位码具体含义参考相关ID文档。本章讲解：获得报警消息、发送停止报警指令、获得报警解除消息、主动查询设备报警等内容。
@@ -340,26 +328,26 @@ self.currentDevice.attributeDict;
 App开发者需要成功连接设备并实现uSDKDeviceDelegate委托并设置委托，通过如下方法，可以获得报警消息；
 ##### 设置委托：
 
-self.currentDevice.delegate = self;
+    self.currentDevice.delegate = self;
 
 ##### 实现委托：
 
--(void)device:(uSDKDevice *)device didReceiveAlarms:(NSArray<uSDKDeviceAlarm*>*)alarms{
-if (alarms.count<=0) {
-return;
-}
-NSString *alarmStr = @"";
+    -(void)device:(uSDKDevice *)device didReceiveAlarms:(NSArray<uSDKDeviceAlarm*>*)alarms{
+      if (alarms.count<=0) {
+          return;
+      }
+      NSString *alarmStr = @"";
 
-for (uSDKDeviceAlarm *alarm in alarms){
-if ([alarm.alarmMessage isEqualToString:@"506000"] ) {
-//506000 报警解除，不是报警
-continue;
-}else{ 
-//开发者收到报警时，需要根据开发文档对报警进行处理。如发送停止报警命令
-alarmStr = [alarmStr stringByAppendingFormat:@"%@ - %@,",alarm.alarmTimestamp,alarm.alarmMessage];
-}
-}
-}
+      for (uSDKDeviceAlarm *alarm in alarms){
+        if ([alarm.alarmMessage isEqualToString:@"506000"] ) {
+          //506000 报警解除，不是报警
+          continue;
+        }else{ 
+          //开发者收到报警时，需要根据开发文档对报警进行处理。如发送停止报警命令
+          alarmStr = [alarmStr stringByAppendingFormat:@"%@ - %@,",alarm.alarmTimestamp,alarm.alarmMessage];
+        }
+      }
+    }
 
 #### 发送停止报警指令
 当智能设备或家电报警时，其可能向uSDK规律性快速报警，App通知用户或记录信息之后，可以向设备发送停止报警指令，用于表示使用者已经了解设备已经发生故障。停止报警对于App来讲只是一条普通单命令，停止报警的指令参考设备的ID文档。
@@ -370,8 +358,8 @@ alarmStr = [alarmStr stringByAppendingFormat:@"%@ - %@,",alarm.alarmTimestamp,al
 #### 主动查询设备报警
 App可以调用API主动查询设备报警信息
 
-NSArray<uSDKDeviceAlarm*>* alarmList = self.currentDevice.alarmList;
-self. currentDevice：uSDKDevice对象，App查询设备是否有报警信息<br>
+    NSArray<uSDKDeviceAlarm*>* alarmList = self.currentDevice.alarmList;
+self.currentDevice：uSDKDevice对象，App查询设备是否有报警信息<br>
 alarmList：设备当前的报警信息列表
 
 ##  9.执行设备控制
@@ -395,31 +383,28 @@ TYPEID：TYPEID就是设备类型的标识字符串。uSDK的功能是通用的�
 App开发者使用uSDKDevice对象发送单命令时，需要严格遵守ID文档规定，发送指定的key和value，不能随意填写或填空，值不能超过ID文档规定的范围。不能使用发送组命令的方法发送单命令。<br>
 示例代码：
 
-if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
-void(^success)(void) =^{
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"命令执行成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-};
-void(^failure)(NSError* error) = ^(NSError* error){
-NSString *str = [NSString stringWithFormat:@"错误原因:%@",[error description]];
-NSString *title = [NSString stringWithFormat:@"%@ 命令执行失败",name];
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title
-message:str delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-};
-[self.currentDevice writeAttributeWithName:name value:value success:success failure:failure];
+    if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){ 
+      void(^success)(void) =^{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"命令执行成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+      };
+      void(^failure)(NSError* error) = ^(NSError* error){
+        NSString *str = [NSString stringWithFormat:@"错误原因:%@",[error description]];
+        NSString *title = [NSString stringWithFormat:@"%@ 命令执行失败",name];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:title
+        message:str delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+      };
+      [self.currentDevice writeAttributeWithName:name   value:value success:success failure:failure];
 
-}else{
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"设备非连接成功或就绪状态,不可交互" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-return;
-}
+    }else{
+      UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"设备非连接成功或就绪状态,不可交互" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+      [alertView show];
+      return;
+    }
 name：属性名，NSString类型。如”201.03”<br>
-
 value：属性值，NSString类型。如”201.03”<br>
-
 代码块success命令执行成功时触发。<br>
-
 代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。 
 
 ### 9.2.发送组命令（6位码）
@@ -444,25 +429,25 @@ ID文档中的组命令号或组命令标识： 分为10进制和16进制两种
 
 示例代码：以组命令号19807为例。
 
-if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
-NSString* groupCmdName = @"001.5F";
-void(^success)(void) =^{
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"命令执行成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-};
-void(^failure)(NSError* error) = ^(NSError* error){
-NSString *str = [NSString stringWithFormat:@"错误原因:%@",[error description]];
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"命令执行失败" message:str delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-};
-//timeoutInterval值的单位是秒，默认为15s，取值范围5-120s，建议15s左右
-
-[self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:success failure:failure];
-}else{
-UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"设备非连接成功或就绪状态,不可交互" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-[alertView show];
-return;
-}
+    if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
+        NSString* groupCmdName = @"001.5F";
+        void(^success)(void) =^{
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"命令执行成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+        };
+        void(^failure)(NSError* error) = ^(NSError* error){
+            NSString *str = [NSString stringWithFormat:@"错误原因:%@",[error description]];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"命令执行失败" message:str delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alertView show];
+        };
+        //timeoutInterval值的单位是秒，默认为15s，取值范围5-120s，建议15s左右
+        
+        [self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:success failure:failure];
+    }else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"设备非连接成功或就绪状态,不可交互" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        return;
+    }
 
 groupName：组命令标识字，NSString类型。长度6位的16进制大写字符串。<br>
 
@@ -491,11 +476,11 @@ uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的�
 
 示例代码：
 
-[self.currentDevice writeAttributeWithName:name value:value timeoutInterval:5 success:^{
-// do cmd success
-} failure:^(NSError *error) {
-// do cmd failure
-}];
+    [self.currentDevice writeAttributeWithName:name value:value timeoutInterval:5 success:^{
+        // do cmd success
+    } failure:^(NSError *error) {
+        // do cmd failure
+    }];
 
 name：属性名称，NSString类型，必须和文档中一致。<br>
 value：属性名称对应的可取值，NSString类型，必须和文档中一致。<br>
@@ -514,14 +499,13 @@ value：属性名称对应的可取值，NSString类型，必须和文档中一�
 
 示例代码：
 
-NSArray* cmdList = [[NSArray alloc]init];
-NSString *groupCmdName =  @"getAllProperty";
-[self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
-//do group cmd success
-} failure:^(NSError *error) {
-//do group cmd failure
-}];
-
+    NSArray* cmdList = [[NSArray alloc]init];
+    NSString *groupCmdName =  @"getAllProperty";
+    [self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
+        //do group cmd success
+    } failure:^(NSError *error) {
+        //do group cmd failure
+    }];
 groupName：操作命令名称，NSString类型。<br>
 cmdList：uSDKArgument对象实例的集合。不能为nil<br>
 5：超时时间，单位是秒<br>
@@ -533,26 +517,25 @@ cmdList：uSDKArgument对象实例的集合。不能为nil<br>
 
 示例代码：
 
-uSDKArgument *arg = [[uSDKArgument alloc]init];
-arg.name =@"tempPwdLengthX";
-arg.value = @"10";
-
-uSDKArgument *arg2 = [[uSDKArgument alloc]init];
-arg2.name =@"tempPwdPart1X";
-arg2.value = @"3";
-
-uSDKArgument *arg3 = [[uSDKArgument alloc]init];
-arg3.name =@"tempPwdPart2X";
-arg3.value = @"3";
-
-NSArray* cmdList = [NSArray arrayWithObjects:arg,arg2,arg3 nil];
-NSString *groupCmdName =  @"Tmpopen";
-[self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
-//do group cmd success
-} failure:^(NSError *error) {
-//do group cmd failure
-}];
-
+    uSDKArgument *arg = [[uSDKArgument alloc]init];
+    arg.name =@"tempPwdLengthX";
+    arg.value = @"10";
+    
+    uSDKArgument *arg2 = [[uSDKArgument alloc]init];
+    arg2.name =@"tempPwdPart1X";
+    arg2.value = @"3";
+    
+    uSDKArgument *arg3 = [[uSDKArgument alloc]init];
+    arg3.name =@"tempPwdPart2X";
+    arg3.value = @"3";
+    
+    NSArray* cmdList = [NSArray arrayWithObjects:arg,arg2,arg3 nil];
+    NSString *groupCmdName =  @"Tmpopen";
+    [self.currentDevice executeOperation:groupCmdName args:cmdList timeoutInterval:5 success:^{
+        //do group cmd success
+    } failure:^(NSError *error) {
+        //do group cmd failure
+    }];
 groupName：操作名称，NSString类型。<br>
 cmdList：uSDKArgument对象实例的集合。不能为nil<br>
 5：超时时间，单位是秒<br>
@@ -611,27 +594,22 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
 使用步骤1的三个标红字段，为用户账号下的每台设备都生成一个uSDKDeviceInfo，每个字段都不能为空和随意填写。<br>
 示例代码：
 
-NSMutableArray* remoteDevices = [[NSMutableArray alloc] init];
-uSDKDevice* dev = [[uSDKDevice alloc]initWithDeviceID:item.id uplusID:item.typeInfo.typeId isOnline:item.status];
-[remoteDevices addObject:dev];
+    NSMutableArray* remoteDevices = [[NSMutableArray alloc] init];
+    uSDKDevice* dev = [[uSDKDevice alloc]initWithDeviceID:item.id uplusID:item.typeInfo.typeId isOnline:item.status];
+    [remoteDevices addObject:dev];
 
 ##### 步骤三、执行连接用户接入网关方法
 开发过程中的项目使用开发环境，上线产品需要使用生产环境。如果智能设备和手机APP使用了不同环境，将导致远程设备离线、不可控制。<br>
 示例代码：
 
-NSArray* devList = [NSArray arrayWithArray:appDelegate.remoteDevicesList];
-//开发过程中的项目需要使用开发环境，上线产品需要使用生产环境。如果使用了错误环境，将导致远程设备离线、不可控制。
-//连接用户接入网关地址(生产环境）
-// gatewayPort= @"56811";
-//gatewayDomain =@"gw.haier.net";
-//连接用户接入网关地址(开发环境）
-//gatewayPort= @"56821";
-//gatewayDomain =@"usermg.uopendev.haier.net";
-[[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
+    NSArray* devList = [NSArray arrayWithArray:appDelegate.remoteDevicesList];
+       
+    [[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
 
-} failure:^(NSError *error) {
-
-}];
 connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力<br>
 deviceList：远程设备列表。<br>
 remoteSession +云账号登录后的accessToken。<br>
@@ -650,23 +628,25 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者�
 ##### 1、主动获取用户接入网关连接状态
 uSDK启动成功后，uSDK会对用户接入网关连接状态进行维护，可以在任意时刻通过如下方法获取，具体状态值见7.1.17章节 uSDK与云平台连接状态值定义。
 
-uSDKCloudConnectionState *cloudState =   [uSDKDeviceManager defaultDeviceManager].cloudConnectionState;
+    uSDKCloudConnectionState *cloudState =   [uSDKDeviceManager defaultDeviceManager].cloudConnectionState;
+ 
 
 ##### 2、被动接收用户接入网关连接状态
 APP开发者调用连接用户接入网关方法后，需要实现uSDKDeviceManagerDelegage委托并设置委托，通过实现如下方法，方可获得用户接入网关连接状态推送。具体状态值见7.1.17章节 uSDK与云平台连接状态值定义
 
 设置委托：
 
-[uSDKDeviceManager defaultDeviceManager].delegate = self;
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
 
 
 实现委托：    
 
--(void)deviceManager:(uSDKDeviceManager*)deviceManager didUpdateCloudState:(uSDKCloudConnectionState)state error:(NSError*)offlineReason{
-if(state==uSDKCloudConnectionStateConnectFailed){
-NSLog(@"云连接失败，错误码：@%",offlineReason.code);
-}
-}    
+    -(void)deviceManager:(uSDKDeviceManager*)deviceManager didUpdateCloudState:(uSDKCloudConnectionState)state error:(NSError*)offlineReason{
+       if(state==uSDKCloudConnectionStateConnectFailed){
+            NSLog(@"云连接失败，错误码：@%",offlineReason.code);
+        }
+    }
+  
 
 #### 测试远程功能是否正常
 手机在配置设备到A路由，绑定设备成功。手机或平板电脑切换连接B路由或直接使用2G、3G、1.数据网络，查询设备状态、进行控制。<br>
@@ -681,11 +661,11 @@ NSLog(@"云连接失败，错误码：@%",offlineReason.code);
 #### 断开用户接入网关连接，解除设备远程功能
 当用户切换帐号、注销、退出程序时，开发者需要调用uSDK的API方法断开用户接入网关连接，解除设备的远程功能，具体代码如下
 
-[[uSDKDeviceManager defaultDeviceManager]disconnectToCloudWithToken:deletate.remoteSession success:^{
-
-} failure:^(NSError *error) {
-
-}];
+    [[uSDKDeviceManager defaultDeviceManager]disconnectToCloudWithToken:deletate.remoteSession success:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
 代码块success，执行成功时触发，断开云的连接成功<br>
 代码块failure，执行失败触发，断开云的连接失败，建议重新执行该方法。
 
@@ -704,12 +684,11 @@ uSDKMgr.delegate = self;
 
 实现委托：
 
--(void)uSDKManager:(uSDKManager *)sdkManager businessMessage:(NSString *)businessMessage{
+    -(void)uSDKManager:(uSDKManager *)sdkManager businessMessage:(NSString *)businessMessage{
 
-}
+    }
 
 sdkManager 当前uSDKManager对象<br>
-
 businessMessage 当前推送的业务消息
 
 
@@ -719,53 +698,50 @@ APP开发者需要实现uSDKManagerDelegage委托并设置委托，通过实现�
 
 设置委托：
 
-uSDKManager *uSDKMgr = [uSDKManager defaultManager];
-uSDKMgr.delegate = self;
+    uSDKManager *uSDKMgr = [uSDKManager defaultManager];
+    uSDKMgr.delegate = self;
 
 实现委托：
 
--(void)uSDKManager:(uSDKManager*)sdkManager sessionException:(NSString*)token{
+    -(void)uSDKManager:(uSDKManager*)sdkManager sessionException:(NSString*)token{
 
-}
+    }
 
-sdkManager     当前uSDKManager对象<br>
-
-token          当前会话失效的token
+sdkManager：     当前uSDKManager对象<br>
+token：          当前会话失效的token
 
 
 ## 12 接收云平台推送的绑定和解除绑定消息
 当uSDK已经和云平台建立连接，调用UWS或OPEN API中的绑定和解绑定方法成功时，uSDK会收到云平台推送的绑定和解除绑定消息。如果存在同一帐号、在手机A和B上绑定同一台设备的情况，开发者需要区别处里。<br>
 APP开发者需要实现uSDKDeviceManagerDelegate委托并设置委托，通过实现如下2个方法，获得绑定和解除绑定消息推送。
 
-######12.1 接收绑定消息推送
+### 12.1 接收绑定消息推送
 
 设置委托：
 
-[uSDKDeviceManager defaultDeviceManager].delegate = self;
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
 
 实现委托：
 
--(void)deviceManager:(uSDKDeviceManager *)deviceManager didBindDevice:(NSString *)deviceID{
+    -(void)deviceManager:(uSDKDeviceManager *)deviceManager didBindDevice:(NSString *)deviceID{
 
-}
-deviceManager 设备管理器对象<br>
+    }
+deviceManager： 设备管理器对象<br>
+deviceID :  绑定设备的ID
 
-deviceID   定设备的ID
-
-######12.2 接收解除绑定消息推送。
+### 12.2 接收解除绑定消息推送。
 
 设置委托：
 
-[uSDKDeviceManager defaultDeviceManager].delegate = self;
+    [uSDKDeviceManager defaultDeviceManager].delegate = self;
 
 实现委托：
 
--(void)deviceManager:(uSDKDeviceManager *)deviceManager didUnbindDevice:(NSString *)deviceID{
+    -(void)deviceManager:(uSDKDeviceManager *)deviceManager didUnbindDevice:(NSString *)deviceID{
 
-}  
-deviceManager 设备管理器对象<br>
-
-deviceID   解绑定设备的ID
+    }  
+deviceManager: 设备管理器对象<br>
+deviceID:   解绑定设备的ID
 
 
 ###  13.获取设备Wifi信号强度
@@ -778,13 +754,12 @@ deviceID   解绑定设备的ID
 
 示例代码：
 
-[device getDeviceNetQualitySuccess:^(NSUInteger number, DeviceNetQuality quality) {
+    [device getDeviceNetQualitySuccess:^(NSUInteger number, DeviceNetQuality quality) {
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
-代码块success，执行成功时触发，其中number表示信号强度的具体数值，quality 代表强度的等级，包含 差、中、良、优 
-
+    }];
+代码块success，执行成功时触发，其中number表示信号强度的具体数值，quality 代表强度的等级，包含 差、中、良、优 <br>
 码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 ## 14. 设备绑定和解绑操作
@@ -816,31 +791,23 @@ SDK的绑定方法中包含了获取设备绑定信息和绑定设备到云平�
 
 ##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
-
 2.设备配置入网成功<br>
-
 3.使用uSDK的绑定设备方法绑定设备<br>
-
-1.获取用户设备列表<br>
-
+4.获取用户设备列表<br>
 5.执行连接用户接入网关<br>
 
 ##### 执行绑定设备方法
 示例代码：
 
-[[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
-//新设备，需要连接用户接入网关。
-} failure:^(NSError *error) {
+    [[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
+      //新设备，需要连接用户接入网关。
+    } failure:^(NSError *error) {
 
-}];
+    }];
 device：配置成功的设备<br>
-
 deviceName：设备名称，可自定义<br>
-
 timeoutInterval:超时时间，范围20-120秒，建议90，可以根据实际情况调节。<br>
-
 success代码块：方法执行成功时触发，说明设备成功绑定到U+云时。<br>
-
 failure代码块：方法执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 
@@ -852,39 +819,30 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 ##### 获取绑定信息的时机 
 1.海尔模块设备：配置完成10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新进行配置。<br>
-
 2.SmartDevice SDK接入设备：成功开启绑定时间窗10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新开启绑定时间窗  <br>
 
 ##### 操作步骤：
 1.使用U+云提供uws或open api接口文档提供的帐号登录功能登录U+云成功<br>
-
 2.设备配置入网成功<br>
-
 3.使用uSDK中uSDKDevice类提供的获取设备绑定信息方法获取绑定信息<br>
-
 4.使用U+云提供uws或open api接口文档提供绑定方法完成设备绑定<br>
-
 5.获取用户设备列表<br>
-
 6.执行连接用户接入网关<br>
 
 ##### 执行获取设备绑定信息
 
 示例代码
 
-[device getDeviceBindInfoWithToken:@"token" timeoutInterval:30 success:^(NSString *info) {
-//调用云平台提供的设备绑定方
-} failure:^(NSError *error) {
+    [device getDeviceBindInfoWithToken:@"token" timeoutInterval:30 success:^(NSString *info) {
+       //调用云平台提供的设备绑定方
+    } failure:^(NSError *error) {
 
-}];  
+    }];  
 
 "token"：用户登录的真实token<br>
-
 30：获取绑定信息的超时时间，单位秒。<br>
-
 代码块success，执行成功时触发，info就是设备绑定信息。<br>
-
-码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 
 ### 14.2 设备解除绑定
@@ -900,11 +858,8 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 ##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
-
 2.使用uSDK的解除绑定设备方法<br>
-
 3.获取用户设备列表<br>
-
 4.执行连接用户接入网关<br>
 
 
@@ -913,18 +868,15 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 示例代码：
 
-[[uAccount defaultUAccount]unbindDeviceWithDeviceId:deviceID success:^(RespCommonModel *successModel) {
-
-} failure:^(RespCommonModel *failureModel) {
-
-} httpError:^(RespCommonModel *httpErrorModel) {
-
-}];
-
+    [[uAccount defaultUAccount]unbindDeviceWithDeviceId:deviceID success:^(RespCommonModel *successModel) {
+        
+    } failure:^(RespCommonModel *failureModel) {
+        
+    } httpError:^(RespCommonModel *httpErrorModel) {
+        
+    }];
 代码块success，执行成功时触发，successModel返回的具体信息。<br>
-
 代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
-
 代码块httpError 网络异常时触发<br>
 
 
@@ -933,11 +885,8 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 ##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
-
 2.使用U+云提供的解除绑定方法<br>
-
 3.获取用户设备列表<br>
-
 4.执行连接用户接入网关<br>
 
 ##### 执行设备解除绑定方法
@@ -958,15 +907,15 @@ uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海
 
 ##### 配置文件地址：
 
-1、美国：https://standardcfm-gea-us.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
-2、欧洲：https://standardcfm-gea-euro.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
+    1、美国：https://standardcfm-gea-us.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
+    2、欧洲：https://standardcfm-gea-euro.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
 
 示例代码：
 
-uSDKErrorConst result =   [[uSDKManager defaultManager]setProfileServiceUrl:url];
-if(result!=RET_USDK_OK){
-//重新设置配置文件服务器的地址
-}
+    uSDKErrorConst result =   [[uSDKManager defaultManager]setProfileServiceUrl:url];
+      if(result!=RET_USDK_OK){
+      //重新设置配置文件服务器的地址
+    }
 url：下载配置文件服务器的地址，参数不能为@""或nil，长度不超过128，且必须以http或者https开头.<br>
 result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下执行
 
@@ -976,21 +925,21 @@ result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下
 #### 海外用户网关地址和端口：
 1、美国：
 
-网关地址：gw-gea-us.haieriot.net
-网关端口：56815
+    网关地址：gw-gea-us.haieriot.net
+    网关端口：56815
 
 2、欧洲：
 
-网关地址：gw-gea-euro.haieriot.net
-网关端口：56815
+    网关地址：gw-gea-euro.haieriot.net
+    网关端口：56815
 
 示例代码：
 
-[[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
+    [[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
 
-} failure:^(NSError *error) {
+    } failure:^(NSError *error) {
 
-}];
+    }];
 connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力<br>
 deviceList：远程设备列表。<br>
 remoteSession +云账号登录后的accessToken。<br>
@@ -1012,28 +961,29 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
 SoftAp配置接口，开发者无需再调用getSoftapDeviceConfigInfo接口。该接口整合了获取配置信息(getSoftapDeviceConfigInfo)和发送配置命令两个步骤，并且两个步骤均提供了重试功能，方便开发者使用。该接口可在softApConfigInfo参数中配置超时时间在APP进入后台时是否计时。 uSDK 4.5.01新增。<br>
 示例代码：
 
-uSDKSoftApConfigInfo *cfgInfo = [uSDKSoftApConfigInfo init];
-cfgInfo.mainGatewayDomain = usMainGatewayDomain;
-cfgInfo.mainGatewayPort = usMainGatewayPort;
-cfgInfo.security = NO;
-cfgInfo.timeoutInterval = 60;
-cfgInfo.ssid = ssid;
-cfgInfo.password =pwd;
-
-[[uSDKDeviceManager defaultDeviceManager] configDeviceBySoftapWithConfigInfo:cfgInfo sendConfigInfoSuccess:^{
-[AlertViewTools shouAlertViewWithTitle:@"提示"
-Msg:@"配置信息发送成功，请切换到目标网络"];
-} success:^(uSDKDevice *device) {
-//配置成功的设备
-[self showFindDevice:device];
-if(delegate.isLogin){
-[DemoUtils bindDevice:device];
-}
-} failure:^(NSError *error) {
-self.configResultLable.text = @"设备配置失败!";
-NSString *info = [NSString stringWithFormat:@"%ld", (long)error.code] ;
-[AlertViewTools shouAlertViewWithTitle:@"设备配置失败" Msg:info];
-}];
+    [self.view endEditing:YES]; //实现该方法是需要注意view需要是继承UIControl而来的
+    uSDKSoftApConfigInfo *cfgInfo = [uSDKSoftApConfigInfo init];
+    cfgInfo.mainGatewayDomain = usMainGatewayDomain;
+    cfgInfo.mainGatewayPort = usMainGatewayPort;
+    cfgInfo.security = NO;
+    cfgInfo.timeoutInterval = 60;
+    cfgInfo.ssid = ssid;
+    cfgInfo.password =pwd;
+    
+    [[uSDKDeviceManager defaultDeviceManager] configDeviceBySoftapWithConfigInfo:cfgInfo sendConfigInfoSuccess:^{
+        [AlertViewTools shouAlertViewWithTitle:@"提示"
+                                           Msg:@"配置信息发送成功，请切换到目标网络"];
+    } success:^(uSDKDevice *device) {
+        //配置成功的设备
+        [self showFindDevice:device];
+        if(delegate.isLogin){
+            [DemoUtils bindDevice:device];
+        }
+    } failure:^(NSError *error) {
+        self.configResultLable.text = @"设备配置失败!";
+        NSString *info = [NSString stringWithFormat:@"%ld", (long)error.code] ;
+        [AlertViewTools shouAlertViewWithTitle:@"设备配置失败" Msg:info];
+    }];
 usMainGatewayDomain：模块主网关地址<br>
 usMainGatewayPort：网关端口<br>
 oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密码、超时时间等参数<br>
@@ -1044,13 +994,13 @@ oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密�
 当App端配置设备成功后10分钟内，且使设备处于连接成功或就绪状态时，开发者才可以调用SDKDevice对象设置模块主网关地址和端口方法，发送主网关域名和端口到设备模块中，使设备能够连接到指定的海外数据中心。配置设备成功10分钟内后，该方法调用返回失败结果。<br>
 示例代码：
 
-if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
-[device setDeviceGatewayWithDomain:mainGatewayDomain port:mainGatewayPort success:^{
-
-} failure:^(NSError *error) {
-
-}];
-}
+    if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
+        [device setDeviceGatewayWithDomain:mainGatewayDomain port:mainGatewayPort success:^{
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 mainGatewayDomain：模块主网关地址<br>
 mainGatewayPort：网关端口<br>
 代码块success，执行成功时触发<br>
@@ -1073,20 +1023,20 @@ uSDK版本要求：uSDK需要升级到4.2.02及以上版本
 APP开发者需要实现uSDKDeviceScannerDelegate委托并设置委托，通过实现如下方法，才能发现待配置设备。
 ##### 设置委托
 
-[[uSDKDeviceScanner alloc]init].delegate = self;
+    [[uSDKDeviceScanner alloc]init].delegate = self;
 
 ##### 启动设备扫描功能
 
-[uSDKDeviceScanner startScanConfigurableDevice];
+     [uSDKDeviceScanner startScanConfigurableDevice];
 
 ##### 实现发现待配置设备方法
 发现新增的待入网设备时触发该方法
 
-- (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
+    - (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
 
-}
-scanner uSDKDeviceScanner 对象<br>
-device  发现的设备对象
+    }
+scanner： uSDKDeviceScanner 对象<br>
+device：  发现的设备对象
 
 
 ### 16.2  免密码配置功能
@@ -1094,16 +1044,15 @@ device  发现的设备对象
 
 #### 执行无密码配置设备入网
 
-- (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
-if(device.supportNoPwdConfig==YES){
-[[uSDKDeviceManager defaultDeviceManager]configDeviceByNoPasswordWithDeviceID:device.deviceID timeoutInterval:60 
-success:^(uSDKDevice *device) {
-
-} failure:^(NSError *error) {
-
-}];
-}
-}
+    - (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
+      if(device.supportNoPwdConfig==YES){
+          [[uSDKDeviceManager defaultDeviceManager]configDeviceByNoPasswordWithDeviceID:device.deviceID timeoutInterval:60 success:^(uSDKDevice *device) {
+        
+            } failure:^(NSError *error) {
+            
+          }];
+      }
+    }  
 device.deviceID：设备id或者设备mac<br>
 代码块success，执行成功时触发<br>
 代码块failure执行失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
@@ -1112,17 +1061,17 @@ device.deviceID：设备id或者设备mac<br>
 ### 16.3 实现移除待配置设备方法
 SDK连续三次扫描不到原来已发现的待配置设备，则会通过该方法将已移除的设备上报给开发者。
 
-- (void)deviceScanner:(uSDKDeviceScanner*)scanner didRemoveDevice:(uSDKDeviceInfo *)device{
+    - (void)deviceScanner:(uSDKDeviceScanner*)scanner didRemoveDevice:(uSDKDeviceInfo *)device{
 
-}
+     }
 
-scanner uSDKDeviceScanner 对象<br>
-device  减少的设备对象
+scanner： uSDKDeviceScanner 对象<br>
+device：  减少的设备对象
 
 
 ### 16.4 停止设备扫描功能
 
-[uSDKDeviceScanner stopScanConfigurableDevice];
+    [uSDKDeviceScanner stopScanConfigurableDevice];
 
 
 
@@ -1135,3 +1084,4 @@ device  减少的设备对象
 [public_stand_op_cmd_2]:_media/_usdk/public_stand_op_cmd_2.png
 [public_user_gateway_dev_online]:_media/_usdk/public_user_gateway_dev_online.png
 [public_get_bindinfo_error_code]:_media/_usdk/public_get_bindinfo_error_code.png
+[connectstatus_change_step]:_media/_usdk/connectstatus_change_step.png
