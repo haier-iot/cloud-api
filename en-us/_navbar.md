@@ -1,6 +1,6 @@
 * Translations
-  * [English](en/)
-  * [Chinese](zh-cn/)
+  * [English](en-us/)
+  * [中文](zh-cn/)
 * Online question
   * [Account service](#)
   * [Equipment management](#)

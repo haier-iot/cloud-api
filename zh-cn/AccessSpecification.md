@@ -1,4 +1,7 @@
-## 接入说明
+更新时间：{docsify-updated}  
+
+
+## 接入说明 
 
 1. **接入前提**  
 应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品（应用类型包括Andriod、IOS）。
@@ -25,15 +28,19 @@ UWS的使用方应做如下假设：
 U+平台现有的UWS服务说明
 
 序号|UWS服务名|应用名|版本号（当前版本）
-:-:|:-:|:-:|:-:
-1|设备管理服务标准版|uds|v2.0.1
-2|设备管理服务企业版|udse|v1.5.1
-3|家庭模型服务|ufm|v1.5.1
-4|消息推送服务标准版|ums|v3.0.0
-5|消息推送服务企业版|umse|v3.0.0
-6|场景引擎服务|iftttscene|v3.0.11
-7|预约定时服务|scheduler|v1.0.0
-8|智能设备资源云存储|css|v1.0.0
+:-:|:-:|:-:|:-:  
+1|[账户服务](zh-cn/Account)|uam|v1.0.0
+2|[设备管理服务标准版](zh-cn/DevicesStandard)|uds|v2.0.1
+3|[设备管理服务企业版](zh-cn/DevicesEnterprise)|udse|v1.5.1  
+4|[数据订阅](zh-cn/DataSubscription)|无|v1.0.0
+5|[家庭模型](zh-cn/Family)|ufm|v1.5.1  
+6|[场景引擎](zh-cn/IFTTT)|iftttscene|v3.0.11  
+7|[预约定时](zh-cn/Scheduler)|scheduler|v1.0.0  
+8|[设备影子](zh-cn/DevicesShadow)|shadow|暂未开放
+9|[消息推送](zh-cn/MessagePush)|ums|v3.0.3
+10|[天气服务](zh-cn/CapacityService_Weather)|暂未开放|暂未开发 
+11|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|v1.0.0   
+
 
 
 ##  公共字段
@@ -364,7 +371,7 @@ App通过UWS获取的数据等要确保存储安全。
 |G20301|	设备信息查询失败                              |
 |20903	|主数据访问异常                                   |
 |G20904|	已超过绑定数量                                |
-|G20908|	设备不在安全期                                |
+|G20908|	安全校验未通过                                |
 |G20910|	非安全设备校验失败                            |
 |G23401|	设备未绑定                                    |
 |G23501|	用户绑定设备安全校验失败                      |

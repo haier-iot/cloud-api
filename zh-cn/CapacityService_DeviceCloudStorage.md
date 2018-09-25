@@ -1,4 +1,4 @@
-!>  **当前版本**：[云存储Rest接口说明书V1.0.0][CapacityService_DeviceCloudStorage_document_url]  
+!>  **当前版本**：[智能设备资源云存储V1.0.0]()  
  **发布时间**：
 
 ### 简介
@@ -7,6 +7,10 @@
 ![云存储Rest接口图片][CapacityService_DeviceCloudStorage_type]
 
 ### 名词解释
+
+
+### 应用场景
+适用于智能互联设备文件上传与存储服务，为设备在云平台服务端建立存储空间，用于存储图片、文本等各种文件资源，为智能设备建立统一的云端设备存储服务。
 
 
 ### 功能介绍
@@ -22,6 +26,16 @@
 
 
 ## 公共结构
+
+### accesskey
+
+accesskey为接口头信息，术语公共信息每个请求、应答应该包含
+
+参数名|类型|位置|说明
+:-|:-:|:-:|:-
+accessKey|String|Header|云存储accessKey，由AccesskeyId与加密密文两部分组成，</br>accessKey=AccesskeyId:密文，加密密文采用AES对称加密</br>密文 = base64 (AccesskeyId+body)</br>秘钥 = AccesskeySecret</br>Body为空时传空字符。
+
+
 ### BuckInfo
 
 参数名|类型|说明
@@ -168,7 +182,7 @@ Body：
 > 2.存储区必须存在，且当前用户拥有访问权限；权限值只能为0 or 1,其它值报错
 
 ##### 1、接口定义
-？> **接入地址：** `/css/v1/modifyBucketACL/{bucketId}`</br>
+?>  **接入地址：** `/css/v1/modifyBucketACL/{bucketId}`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -210,7 +224,7 @@ Body：
 > 3.如果存储区里还有文件，则不能被删除，会抛出相应的异常信息</br>
 
 ##### 1、接口定义
-?> **接入地址：** `/css/v1/deleteBucket/{bucketId}`</br>
+?> **接入地址：**  `/css/v1/deleteBucket/{bucketId}`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -247,8 +261,9 @@ Body：
 > 2.按照创建时间降序返回当前用户拥有所有权的存储区列表，超过一页翻页展示，每页20条
 
 
-##### 1、接口定义
-?> **接入地址：** `/css/v1/bucketList？pageNo={pageNo}`</br>
+##### 1、接口定义  
+
+?> **接入地址：** `/css/v1/bucketList？pageNo={pageNo}`
 **HTTP Method：** GET
 
 **输入参数**
@@ -984,18 +999,13 @@ Header：
 ![开通流程][CapacityService_DeviceCloudStorage_liucheng]
 
 
-### 应用场景
-适用于智能互联设备文件上传与存储服务，为设备在云平台服务端建立存储空间，用于存储图片、文本等各种文件资源，为智能设备建立统一的云端设备存储服务。
 
-## 文档资料
-[云存储Rest接口说明书V1.0.0][CapacityService_DeviceCloudStorage_document_url]
+
+
 
 ## 常见问题
 
 
-
-[^-^]:文本连接注释
-[CapacityService_DeviceCloudStorage_document_url]:_document/_CapacityService_DeviceCloudStorage/
 
 [^-^]:常用图片注释
 [CapacityService_DeviceCloudStorage_type]:_media/_CapacityService_DeviceCloudStorage/CapacityService_DeviceCloudStorage_type.png

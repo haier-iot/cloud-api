@@ -8,6 +8,8 @@
 * API接口使用说明
 * Q&A
 
+
 [开发者社区](http://www.haigeek.com/static/index/index.html)
-[Get Started](zh-cn/README)
+[开发文档](zh-cn/README)
+[Get Started](en-us/README)
 

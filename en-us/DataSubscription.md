@@ -1,5 +1,5 @@
-!>  **current version**：[UWS DataSubscription V1.0.0][dataSubscription_document_url2]  
- **release time**：2018-07-19  
+!>  **current version**：UWS DataSubscription V1.0.0  
+ **release time**：{docsify-updated} 
 
 ### Introduction
 >  The Data Subscription Service feature is designed to help developers or applications quickly access real-time incremental data, including device information data, user data, and other custom data that developers subscribe to based on actual needs.  
@@ -26,10 +26,7 @@ For third-party partners who use or sell Haier platform equipment, the service s
 ![Opening process][dataSubscription_liucheng]
 For details of the opening method, please refer to the “Data Push Service Access Manual”.
 
-### Documentation
 
-[DataPushPlatformInterfaceSpecification][dataSubscription_document_url1]    
-[DataPushServiceAccessManual][dataSubscription_document_url2]
 
 ### common problem
 

@@ -1,15 +1,15 @@
-!> **current version：** [DeviceManagementServiceStandardEditionV2.0.1][DevicesStandard_document_url]</br>
-**date：** 2018-07-19 
+!> **current version：** DeviceManagementServiceStandardEditionV2.0.1  
+**date：** {docsify-updated} 
 
 ## Introduction  
 The Device Management Service Standard Edition provides developers with a basic capability service for the management of intelligent terminal device information. By integrating this service module, the developer can provide the basic maintenance capability of binding the user to the device, presenting the device status, location, and other attributes of the device, and realize rapid development of the basic capability integration related to the smart device.  
 ![设备管理标准版图片][DevicesStandard_type]
 
-### Noun explanation
+## Noun explanation
 
 -  **noun**
 
-### Function Introduction
+## Function Introduction
 
 **Binding and unbinding**</br>
 1、Bind device: The user associates with the device to form a binding relationship. The binding user becomes the device administrator.  
@@ -848,7 +848,7 @@ Header：
 ### Application scenario
 The device management service (standard version) mainly implements the basic management services related to the smart connected device, such as binding the user to the device, unbinding the device, and obtaining the user device list for the developed application.
 
-## 文档资料
+## Documentation
 [DeviceManagementServiceStandardEditionV2.0.1][DevicesStandard_document_url]
 
 
