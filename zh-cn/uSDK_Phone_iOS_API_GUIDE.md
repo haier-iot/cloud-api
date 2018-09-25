@@ -232,7 +232,7 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 ## 6    与设备建立或断开连接
 发现设备且设备处于未连接状态时，App连接或断开智能设备将触发连接状态的变化。本章分别讲解：执行连接设备、执行断开设备连接操作。
 
-##### 设备的5种连接状态：
+### 设备的5种连接状态：
 未连接状态：智能设备正常入网后被uSDK发现时的状态<br>
 连接中状态：执行连接智能设备，智能设备变为连接中<br>
 已连接状态:与智能设备连接成功后，变为已连接状态<br>
@@ -242,12 +242,12 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 ![connectstatus_change_step][connectstatus_change_step]
 
 
-#### 执行连接设备
+### 6.1 执行连接设备
 当需要获得某台设备属性数据或进行命令功能控制时，需要先执行设备连接方法。目前uSDK只支持连接单个设备，不支持同时连接多个设备，如有需要请逐个方法调用。<br>
 
 开发者执行设备连接操作前，可以通过设备的isSubscribed属性对设备的状态进行判断，为NO时进行连接操作，如果是YES，不需要再次对设备执行连接操作。
 
-#### 1、连接设备但不获得设备属性方法：
+#### 6.1.1、连接设备但不获得设备属性方法：
 使用uSDKDevice对象执行该方法，该方法执行成功后，需要等待一定时间App的设备连接状态将变为“连接成功/已连接”状态，不会出现“就绪” 状态。
 
     [self.currentDevice connectWithSuccess:success{
@@ -259,7 +259,7 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 代码块failure执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述
 
 
-#### 2、连接设备并获得设备属性方法：
+#### 6.1.2、连接设备并获得设备属性方法：
 执行连接设备并获得设备属性方法，该方法执行成功后，等待一定时间设备会变为“就绪” 状态，设备就绪状态时可以执行设备控制和获取的设备的属性集合。
 
     [self.currentDevice connectNeedPropertiesWithSuccess:^{
@@ -272,7 +272,7 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 代码块failure执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
 
 
-#### 执行断开设备连接
+### 6.2 断开设备连接
 不关注某台设备属性数据时，执行断开连接设备方法，释放设备资源。只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
 
     [self.currentDevice disconnectWithSuccess:^{
@@ -281,7 +281,7 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 
     }];
 
-#### 获取设备的连接状态
+### 6.3 获取设备的连接状态
 通过uSDKDevice的state属性，获取设备的连接状态
 
 注意<br>
@@ -297,13 +297,13 @@ App开发者需要为每个设备实例实现uSDKDeviceDelegate委托并设置�
 六位码：六位码是一个键值对，在程序当中是对象uSDKDeviceAttribute，App使用它和设备进行沟通交流。举例：20w001代表开关机功能，App通过uSDK发送<br>uSDKDeviceAttribute｛20w001:20w001｝就是开机，发送<br>uSDKDeviceAttribute｛20w001:20w002｝关机，查询设备属性时<br>uSDKDeviceAttribute｛20w001：20w001｝说明电视开机。<br>
 ID开发文档：六位码的集合文档，主要用途是明确设备操作指令及属性集等。
 
-#### 实现获得设备的属性状态方法
+### 实现获得设备的属性状态方法
 App开发者成功连接设备操作并实现uSDKDeviceDelegate委托并设置委托，通过如下方法获得设备的属性值集合推送； 
-##### 设置委托：
+### 设置委托：
 
     self.currentDevice.delegate = self;
 
-##### 实现委托：
+### 实现委托：
 
     -(void)device:(uSDKDevice *)device didUpdateValueForAttributes:(NSArray<uSDKDeviceAttribute *> *)attributes{
       self.attrDict = self.currentDevice.attributeDict;
@@ -312,7 +312,7 @@ App开发者成功连接设备操作并实现uSDKDeviceDelegate委托并设置�
 
 attributes：第一次收到attributes时，它包含该设备所有的属性值的全集，之后收到的是变化的属性集合。
 
-#### App主动获得当前设备所有属性值
+### App主动获得当前设备所有属性值
 当设备就绪或已连接状态时，uSDKDevice对象的attributeDict属性中保存设备当前最新属性值合集，非就绪状态属性返回值无意义。<br>
 示例代码：
 
@@ -324,13 +324,13 @@ attributes：第一次收到attributes时，它包含该设备所有的属性值
 预备知识<br>
 与设备建立连接，使设备就绪请参考章节单命令及如何向设备发送指令。
 
-#### 获得报警消息
+### 获得报警消息
 App开发者需要成功连接设备并实现uSDKDeviceDelegate委托并设置委托，通过如下方法，可以获得报警消息；
-##### 设置委托：
+### 设置委托：
 
     self.currentDevice.delegate = self;
 
-##### 实现委托：
+### 实现委托：
 
     -(void)device:(uSDKDevice *)device didReceiveAlarms:(NSArray<uSDKDeviceAlarm*>*)alarms{
       if (alarms.count<=0) {
@@ -349,13 +349,13 @@ App开发者需要成功连接设备并实现uSDKDeviceDelegate委托并设置�
       }
     }
 
-#### 发送停止报警指令
+### 发送停止报警指令
 当智能设备或家电报警时，其可能向uSDK规律性快速报警，App通知用户或记录信息之后，可以向设备发送停止报警指令，用于表示使用者已经了解设备已经发生故障。停止报警对于App来讲只是一条普通单命令，停止报警的指令参考设备的ID文档。
 
-#### 获得报警解除消息
+### 获得报警解除消息
 发生故障的设备修理正常后会向uSDK发送报警解除消息，对于App来讲报警解除就是没有报警，就是设备正常。报警解除消息与普通报警消息都在-(void)device:(uSDKDevice *)device didReceiveAlarms:(NSArray<uSDKDeviceAlarm*>*)alarms方法中处理，App注意分辨。报警解除的六位码请参考设备ID文档。
 
-#### 主动查询设备报警
+### 主动查询设备报警
 App可以调用API主动查询设备报警信息
 
     NSArray<uSDKDeviceAlarm*>* alarmList = self.currentDevice.alarmList;
@@ -373,7 +373,7 @@ alarmList：设备当前的报警信息列表
 
 
 
-##### 相关术语和概念
+### 相关术语和概念
 TYPEID：TYPEID就是设备类型的标识字符串。uSDK的功能是通用的，它可以识别U+平台各种硬件设备，使用者可以使用TYPEID区分设备类型。
 
 ### 9.1.    发送单命令（6位码）
@@ -470,7 +470,7 @@ uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的�
 ### 9.3    写属性命令（标准文档）
 海极网支持创建智能设备，创建完成后会产生《XX设备应用开发文档》，以下将说明如何使用此文档与设备进行交互。
 
-##### 操作属性
+#### 操作属性
 操作属性的含义是此项可以作为智能设备的属性，可写列为T时，此项可以作为命令发往设备；可写列为F时，表示此命令不可用，不能作为命令发往设备。
 ![public_op_attr_stand][public_op_attr_stand]
 
@@ -549,18 +549,14 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
 ## 10 实现设备远程控制
 经过前面的开发，我们已经可以在本地和智能设备完美交互了，但是我们的手机不能切换路由或者使用1.，如果这么做和智能设备的数据通路会立刻切断。现在我们来介绍手机更换WIFI或使用1.时，如何让App连接远程服务器，进行设备设备远程控制、获取设备状态等。
 
-#### 实现远程控制，本章将讲解以下内容
+### 本章将讲解以下内容
 1.连接用户接入网关时机<br>
 2.用户账号有绑定设备时连接用户接入网关<br>
 3.连接用户接入关后新绑定设备添加远程控制能力<br>
 1.设备解绑时解除设备远程能力<br>
 5.如何测试远程功能是否正常<br>
 
-#### 实现设备远程控制预备知识
-请参考1.8以前所有章节实现小循环与设备交互。<br>
-请参考章节3“常规业务及开发快速入门”中的确定连接用户接入网关时机。
-
-#### 相关概念及术语
+### 相关概念及术语
 1.用户接入网关：U+云支持App实现远程功能的服务器软件系统。App编程使用如下服务器地址和端口：
 ![public_user_gateway_dev_online][public_user_gateway_dev_online]
 
@@ -573,19 +569,19 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
 
 5.小循环VS大循环：它们是两种情景的描述。小循环指的是App与智能设备在同一无线局域网。大循环是说App需要借助U+云用户接入网关才能和设备进行交互的情景，此时App与设备通常不在同一网络。
 
-#### 连接用户接入网关调用时机
+### 10.1v连接用户接入网关调用时机
 连接用户接入网关操作是使设备具备远程能力的必要步骤，APP开发者在开发过程中需要在三个地方需要调用连接用户接入网关操作：1、登录成功后；2.绑定设备成功后；3.解绑定设备成功后。
 
-##### 新绑定设备的处理：
+#### 1.新绑定设备的处理：
 通过UWS或OPEN API绑定一台新设备后，开发者需要在现有用户帐号下的设备列表中增加已绑定的新设备或者重新获取用户帐号下的设备列表，将新的设备列表作为参数重新执行连接用户接入网关方法，确保已添加的新设备远程可用。
 
-#####     解绑设备的处理：
+####   2.解绑设备的处理：
 通过UWS或OPEN API解绑定一台设备后，需要调用断开连接用户接入网关方法将该设备断开连接，开发者需要从现有用户帐号下的设备列表中删除已解绑的设备或者重新获取用户帐号下的设备列表，将新的设备列表作为参数重新执行连接用户接入网关方法，确保已解绑的设备远程不再具备远程能力。
 
-####  连接用户接入网关调用步骤
+###  10.2 连接用户接入网关调用步骤
 通过执行uSDKDeviceManager的connectToCloudWithDevices方法连接用户接入网关，此方法需要几个参数：session就是U+云账号登录后的accessToken；设备信息集合就是用户拥有哪些设备，我们需要做的就是把这些参数凑齐然，参考章节5的图示适时运行方法即可。
 
-##### 步骤一、获取用户名下的用户设备列表
+#### 步骤一、获取用户名下的用户设备列表
 通过U+平台的UWS或OPEN API 提供的方法获取用户名下的用户设备列表json：以燃气热水器为例，我们要使用三个红色加粗字段，
 {"id":"0007A88A527B","status":{"online":true},"location":{"cityCode":null,"longitude":"0.0","latitude":"0.0"},"attrs":{"brand":null,"model":null},"name":"燃气热水器_527B","mac":"0007A88A527B","type":{"type":"18","typeIdentifier"
 :"111c120021.008101801.01.80021.0000000000000000000000000000000000","specialCode":"001.80021.","subType":"01.},"version":{"eProtocolVer":"2.15","smartlink":{"smartLinkSoftwareVersion":"e_0.1.36","smartLinkHardwareVersion":"G_1.0.00","smartLinkPlatform":"UDISCOVERY_UWT","smartLinkDevfileVersion":"0.0.0"}}}
@@ -622,16 +618,16 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者�
 2、如果当用户只关心业务消息推送，不关心设备远程控制时，deviceList不能为nil, 可以是长度为0的NSArray对象.<br>
 
 
-#### 获取连接用户接入网关的状态
+### 10.3获取连接用户接入网关的状态
 站在APP开发者使用的角度来看，可以分为主动获取用户接入网关连接状态和被动接收用户接入网关连接状态两种方式。
 
-##### 1、主动获取用户接入网关连接状态
+#### 1、主动获取用户接入网关连接状态
 uSDK启动成功后，uSDK会对用户接入网关连接状态进行维护，可以在任意时刻通过如下方法获取，具体状态值见7.1.17章节 uSDK与云平台连接状态值定义。
 
     uSDKCloudConnectionState *cloudState =   [uSDKDeviceManager defaultDeviceManager].cloudConnectionState;
  
 
-##### 2、被动接收用户接入网关连接状态
+#### 2、被动接收用户接入网关连接状态
 APP开发者调用连接用户接入网关方法后，需要实现uSDKDeviceManagerDelegage委托并设置委托，通过实现如下方法，方可获得用户接入网关连接状态推送。具体状态值见7.1.17章节 uSDK与云平台连接状态值定义
 
 设置委托：
@@ -648,17 +644,17 @@ APP开发者调用连接用户接入网关方法后，需要实现uSDKDeviceMana
     }
   
 
-#### 测试远程功能是否正常
+### 10.4 测试远程功能是否正常
 手机在配置设备到A路由，绑定设备成功。手机或平板电脑切换连接B路由或直接使用2G、3G、1.数据网络，查询设备状态、进行控制。<br>
 
-##### 注意：
+#### 注意：
 1、当用户切网时，移动设备切网成功后uSDK会自动尝试连接用户接入网关，当uSDK成功读取到智能设备信息后，再次向移动应用程序推送设备就绪消息和设备状态变化消息。<br>
 
 2、连接用户接入网关地址，需要和uPlug的目标连接环境一致。举例：App申请北京联调环境用户接入网关地址，uPlug也应该连接北京联调环境设备。<br>
 
 3、App使用UWS或OPEN API过程中，U+云平台会要求移动应用客户端要有自己的ClientId。ClientId和移动应用的身份验证是相关的，验证合法的ClientId会分配 Session值（Token），而Session值会应用于uSDK远程登录，所以错误或固定的ClientId会产生异常行为。
 
-#### 断开用户接入网关连接，解除设备远程功能
+### 10.5 断开用户接入网关连接，解除设备远程功能
 当用户切换帐号、注销、退出程序时，开发者需要调用uSDK的API方法断开用户接入网关连接，解除设备的远程功能，具体代码如下
 
     [[uSDKDeviceManager defaultDeviceManager]disconnectToCloudWithToken:deletate.remoteSession success:^{
@@ -785,18 +781,18 @@ deviceID:   解绑定设备的ID
 ####   14.1.1使用uSDK的绑定方法
 SDK的绑定方法中包含了获取设备绑定信息和绑定设备到云平台的操作，方法简单易用，降低了开发人员的开发成本。
 
-##### 前提条件
+#### 前提条件
 使用SDK的绑定方法进行设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
 
 
-##### 操作步骤：
+#### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.设备配置入网成功<br>
 3.使用uSDK的绑定设备方法绑定设备<br>
 4.获取用户设备列表<br>
 5.执行连接用户接入网关<br>
 
-##### 执行绑定设备方法
+#### 执行绑定设备方法
 示例代码：
 
     [[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
@@ -817,11 +813,11 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 本章节重点介绍uSDK中uSDKDevice类提供的获取设备绑定信息方法,关于U+云提供uws或open api接口文档提供绑定方法见详细接口文档。
 
-##### 获取绑定信息的时机 
+#### 获取绑定信息的时机 
 1.海尔模块设备：配置完成10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新进行配置。<br>
 2.SmartDevice SDK接入设备：成功开启绑定时间窗10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新开启绑定时间窗  <br>
 
-##### 操作步骤：
+#### 操作步骤：
 1.使用U+云提供uws或open api接口文档提供的帐号登录功能登录U+云成功<br>
 2.设备配置入网成功<br>
 3.使用uSDK中uSDKDevice类提供的获取设备绑定信息方法获取绑定信息<br>
@@ -829,7 +825,7 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 5.获取用户设备列表<br>
 6.执行连接用户接入网关<br>
 
-##### 执行获取设备绑定信息
+#### 执行获取设备绑定信息
 
 示例代码
 
@@ -852,18 +848,18 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 ####    14.2.1使用uSDK的解除绑定方法
 
-##### 前提条件
+#### 前提条件
 使用SDK的绑定方法进行解除设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
 
 
-##### 操作步骤：
+#### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.使用uSDK的解除绑定设备方法<br>
 3.获取用户设备列表<br>
 4.执行连接用户接入网关<br>
 
 
-##### 执行设备解除绑定方法
+#### 执行设备解除绑定方法
 解除绑定方法内部具有重试机制，为异步方法，不会阻塞线程，执行结果会在回调函数中以参数形式返回
 
 示例代码：
@@ -880,16 +876,16 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 代码块httpError 网络异常时触发<br>
 
 
-####    14.2.2使用U+云提供的解除绑定方法
+####   14.2.2使用U+云提供的解除绑定方法
 当开发人员使用U+云提供uws或open api接口文档进行开发时，就需要使用文档中提供的绑定设备方法完成绑定操作。此时不能与uAccount提供的绑定方法混用。
 
-##### 操作步骤：
+#### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.使用U+云提供的解除绑定方法<br>
 3.获取用户设备列表<br>
 4.执行连接用户接入网关<br>
 
-##### 执行设备解除绑定方法
+#### 执行设备解除绑定方法
 具体方法详见uws或open api接口文档。
 
 ### 14..3    异常处理
@@ -905,7 +901,7 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 ### 15..1 设置配置文件下载地址
 uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海外数据中心下载配置文件使设备连接成功或就绪、可控。
 
-##### 配置文件地址：
+#### 配置文件地址：
 
     1、美国：https://standardcfm-gea-us.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
     2、欧洲：https://standardcfm-gea-euro.haieriot.net:443/hardwareconfig/config/getDownUrlByFormat
@@ -1021,15 +1017,15 @@ uSDK版本要求：uSDK需要升级到4.2.02及以上版本
 
 ####  代码开发指导
 APP开发者需要实现uSDKDeviceScannerDelegate委托并设置委托，通过实现如下方法，才能发现待配置设备。
-##### 设置委托
+#### 设置委托
 
     [[uSDKDeviceScanner alloc]init].delegate = self;
 
-##### 启动设备扫描功能
+#### 启动设备扫描功能
 
      [uSDKDeviceScanner startScanConfigurableDevice];
 
-##### 实现发现待配置设备方法
+#### 实现发现待配置设备方法
 发现新增的待入网设备时触发该方法
 
     - (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
