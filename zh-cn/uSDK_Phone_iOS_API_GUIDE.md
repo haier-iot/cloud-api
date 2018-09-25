@@ -586,7 +586,7 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
 {"id":"0007A88A527B","status":{"online":true},"location":{"cityCode":null,"longitude":"0.0","latitude":"0.0"},"attrs":{"brand":null,"model":null},"name":"燃气热水器_527B","mac":"0007A88A527B","type":{"type":"18","typeIdentifier"
 :"111c120021.008101801.01.80021.0000000000000000000000000000000000","specialCode":"001.80021.","subType":"01.},"version":{"eProtocolVer":"2.15","smartlink":{"smartLinkSoftwareVersion":"e_0.1.36","smartLinkHardwareVersion":"G_1.0.00","smartLinkPlatform":"UDISCOVERY_UWT","smartLinkDevfileVersion":"0.0.0"}}}
 
-##### 步骤二、构建需要上传的数据
+#### 步骤二、构建需要上传的数据
 使用步骤1的三个标红字段，为用户账号下的每台设备都生成一个uSDKDeviceInfo，每个字段都不能为空和随意填写。<br>
 示例代码：
 
@@ -594,7 +594,7 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
     uSDKDevice* dev = [[uSDKDevice alloc]initWithDeviceID:item.id uplusID:item.typeInfo.typeId isOnline:item.status];
     [remoteDevices addObject:dev];
 
-##### 步骤三、执行连接用户接入网关方法
+#### 步骤三、执行连接用户接入网关方法
 开发过程中的项目使用开发环境，上线产品需要使用生产环境。如果智能设备和手机APP使用了不同环境，将导致远程设备离线、不可控制。<br>
 示例代码：
 
@@ -781,18 +781,18 @@ deviceID:   解绑定设备的ID
 ####   14.1.1使用uSDK的绑定方法
 SDK的绑定方法中包含了获取设备绑定信息和绑定设备到云平台的操作，方法简单易用，降低了开发人员的开发成本。
 
-#### 前提条件
+##### 前提条件
 使用SDK的绑定方法进行设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
 
 
-#### 操作步骤：
+##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.设备配置入网成功<br>
 3.使用uSDK的绑定设备方法绑定设备<br>
 4.获取用户设备列表<br>
 5.执行连接用户接入网关<br>
 
-#### 执行绑定设备方法
+##### 执行绑定设备方法
 示例代码：
 
     [[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
@@ -825,7 +825,7 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 5.获取用户设备列表<br>
 6.执行连接用户接入网关<br>
 
-#### 执行获取设备绑定信息
+##### 执行获取设备绑定信息
 
 示例代码
 
@@ -948,7 +948,7 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
 2、如果当用户只关心业务消息推送，不关心设备远程控制时，deviceList不能为nil, 可以是长度为0的NSArray对象.    <br> 
 
 
-#### 15.3 设置uPlug模块主网关地址
+### 15.3 设置uPlug模块主网关地址
 已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址，来更改模块连接的数据中心。<br>
 
 目前有两种方法设置模块的主网关地址；1、softap时设置模块的主网关地址。2、使用uSDKDevice对象设置模块的主网关地址
@@ -1017,15 +1017,15 @@ uSDK版本要求：uSDK需要升级到4.2.02及以上版本
 
 ####  代码开发指导
 APP开发者需要实现uSDKDeviceScannerDelegate委托并设置委托，通过实现如下方法，才能发现待配置设备。
-#### 设置委托
+##### 设置委托
 
     [[uSDKDeviceScanner alloc]init].delegate = self;
 
-#### 启动设备扫描功能
+##### 启动设备扫描功能
 
      [uSDKDeviceScanner startScanConfigurableDevice];
 
-#### 实现发现待配置设备方法
+##### 实现发现待配置设备方法
 发现新增的待入网设备时触发该方法
 
     - (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
