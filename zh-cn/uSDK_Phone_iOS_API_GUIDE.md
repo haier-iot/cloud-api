@@ -744,7 +744,7 @@ deviceManager: 设备管理器对象<br>
 deviceID:   解绑定设备的ID
 
 
-###  13.获取设备Wifi信号强度
+##  13.获取设备Wifi信号强度
 设备就绪后，使用uSDKDevice实例对象的方法获取设备的Wifi信号强度。
 信号强度等级，包含 差、中、良、优，等级与具体数值对应关系如下：<br>
 差：number <= 20，<br>
