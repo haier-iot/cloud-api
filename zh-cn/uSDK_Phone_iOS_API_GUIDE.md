@@ -376,6 +376,9 @@ alarmList：设备当前的报警信息列表
 ### 相关术语和概念
 TYPEID：TYPEID就是设备类型的标识字符串。uSDK的功能是通用的，它可以识别U+平台各种硬件设备，使用者可以使用TYPEID区分设备类型。
 
+### 控制命令超时设定
+uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的情况下瞬间返回。自定义超时时间范围：T（单位：秒）5<= T <=120，App根据自身业务设定超时间。
+
 ### 9.1.    发送单命令（6位码）
 单命令：App只发送一个指令给设备
 ![public_single_cmd][public_single_cmd]
@@ -450,13 +453,9 @@ ID文档中的组命令号或组命令标识： 分为10进制和16进制两种
     }
 
 groupName：组命令标识字，NSString类型。长度6位的16进制大写字符串。<br>
-
 cmdList：uSDKArgument对象实例的集合<br>
-
 5：超时时间，单位是秒<br>
-
 代码块success命令执行成功时触发。<br>
-
 代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 注意
@@ -464,13 +463,12 @@ cmdList：uSDKArgument对象实例的集合<br>
 2．组命令标识字具体值参考设备的ID文档，需要传入长度6位的16进制大写的字符串。<br>
 3．App需要严格遵守ID文档组命令的具体规定，不能随意添加或者减少指令，命令格式中要求的指令key和value不能随意填空。
 
-#### 命令超时设定
-uSDK提供的默认控制方法超时时间为15秒，网络及设备良好的情况下瞬间返回。自定义超时时间范围：T（单位：秒）5< T <120，App根据自身业务设定超时间。
+
 
 ### 9.3    写属性命令（标准文档）
 海极网支持创建智能设备，创建完成后会产生《XX设备应用开发文档》，以下将说明如何使用此文档与设备进行交互。
 
-#### 操作属性
+操作属性<br>
 操作属性的含义是此项可以作为智能设备的属性，可写列为T时，此项可以作为命令发往设备；可写列为F时，表示此命令不可用，不能作为命令发往设备。
 ![public_op_attr_stand][public_op_attr_stand]
 
@@ -586,7 +584,7 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
 {"id":"0007A88A527B","status":{"online":true},"location":{"cityCode":null,"longitude":"0.0","latitude":"0.0"},"attrs":{"brand":null,"model":null},"name":"燃气热水器_527B","mac":"0007A88A527B","type":{"type":"18","typeIdentifier"
 :"111c120021.008101801.01.80021.0000000000000000000000000000000000","specialCode":"001.80021.","subType":"01.},"version":{"eProtocolVer":"2.15","smartlink":{"smartLinkSoftwareVersion":"e_0.1.36","smartLinkHardwareVersion":"G_1.0.00","smartLinkPlatform":"UDISCOVERY_UWT","smartLinkDevfileVersion":"0.0.0"}}}
 
-##### 步骤二、构建需要上传的数据
+#### 步骤二、构建需要上传的数据
 使用步骤1的三个标红字段，为用户账号下的每台设备都生成一个uSDKDeviceInfo，每个字段都不能为空和随意填写。<br>
 示例代码：
 
@@ -594,7 +592,7 @@ App需要严格遵守ID文档或应用开发文档的规定，命令格式中要
     uSDKDevice* dev = [[uSDKDevice alloc]initWithDeviceID:item.id uplusID:item.typeInfo.typeId isOnline:item.status];
     [remoteDevices addObject:dev];
 
-##### 步骤三、执行连接用户接入网关方法
+#### 步骤三、执行连接用户接入网关方法
 开发过程中的项目使用开发环境，上线产品需要使用生产环境。如果智能设备和手机APP使用了不同环境，将导致远程设备离线、不可控制。<br>
 示例代码：
 
@@ -781,18 +779,18 @@ deviceID:   解绑定设备的ID
 ####   14.1.1使用uSDK的绑定方法
 SDK的绑定方法中包含了获取设备绑定信息和绑定设备到云平台的操作，方法简单易用，降低了开发人员的开发成本。
 
-#### 前提条件
+##### 前提条件
 使用SDK的绑定方法进行设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
 
 
-#### 操作步骤：
+##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.设备配置入网成功<br>
 3.使用uSDK的绑定设备方法绑定设备<br>
 4.获取用户设备列表<br>
 5.执行连接用户接入网关<br>
 
-#### 执行绑定设备方法
+##### 执行绑定设备方法
 示例代码：
 
     [[uSDKDeviceManager defaultDeviceManager]bindDevice:device deviceName:@"device1" timeoutInterval:90 success:^{
@@ -813,11 +811,11 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 本章节重点介绍uSDK中uSDKDevice类提供的获取设备绑定信息方法,关于U+云提供uws或open api接口文档提供绑定方法见详细接口文档。
 
-#### 获取绑定信息的时机 
+##### 获取绑定信息的时机 
 1.海尔模块设备：配置完成10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新进行配置。<br>
 2.SmartDevice SDK接入设备：成功开启绑定时间窗10分钟内，完成设备绑定操作，超过10分钟将绑定失败，需要重新开启绑定时间窗  <br>
 
-#### 操作步骤：
+##### 操作步骤：
 1.使用U+云提供uws或open api接口文档提供的帐号登录功能登录U+云成功<br>
 2.设备配置入网成功<br>
 3.使用uSDK中uSDKDevice类提供的获取设备绑定信息方法获取绑定信息<br>
@@ -825,7 +823,7 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 5.获取用户设备列表<br>
 6.执行连接用户接入网关<br>
 
-#### 执行获取设备绑定信息
+##### 执行获取设备绑定信息
 
 示例代码
 
@@ -848,18 +846,18 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 
 ####    14.2.1使用uSDK的解除绑定方法
 
-#### 前提条件
+##### 前提条件
 使用SDK的绑定方法进行解除设备绑定，是uSDK提供的uAccount类提供的功能，所以需要使用uAccount类提供的登录、获取设备列表等全功能。
 
 
-#### 操作步骤：
+##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.使用uSDK的解除绑定设备方法<br>
 3.获取用户设备列表<br>
 4.执行连接用户接入网关<br>
 
 
-#### 执行设备解除绑定方法
+##### 执行设备解除绑定方法
 解除绑定方法内部具有重试机制，为异步方法，不会阻塞线程，执行结果会在回调函数中以参数形式返回
 
 示例代码：
@@ -879,16 +877,16 @@ failure代码块：方法执行失败时触发，error中有需要关注的错�
 ####   14.2.2使用U+云提供的解除绑定方法
 当开发人员使用U+云提供uws或open api接口文档进行开发时，就需要使用文档中提供的绑定设备方法完成绑定操作。此时不能与uAccount提供的绑定方法混用。
 
-#### 操作步骤：
+##### 操作步骤：
 1.使用uAccount类提供的帐号登录功能登录U+云成功<br>
 2.使用U+云提供的解除绑定方法<br>
 3.获取用户设备列表<br>
 4.执行连接用户接入网关<br>
 
-#### 执行设备解除绑定方法
+##### 执行设备解除绑定方法
 具体方法详见uws或open api接口文档。
 
-### 14..3    异常处理
+### 14.3  异常处理
 设备进行绑定时的加密信息来源与 U+云，app调用bindDevice接口时，由于时间或网络因素，智能设备可能还没有成功连接到 U+云，开发者可以参考下列信息处理异常: 
 ![public_get_bindinfo_error_code][public_get_bindinfo_error_code]
 
@@ -915,7 +913,7 @@ uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海
 url：下载配置文件服务器的地址，参数不能为@""或nil，长度不超过128，且必须以http或者https开头.<br>
 result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下执行
 
-### 15..2 连接海外用户网关
+### 15.2 连接海外用户网关
 开发海外远程功能时，需要连接不同地域使用的用户接入网关地址和端口不同，如在美国需要使用的美国数据中心，用户接入网关地址和端口应该是美国数据中心的地址和端口。
 
 #### 海外用户网关地址和端口：
@@ -928,7 +926,7 @@ result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下
 
     网关地址：gw-gea-euro.haieriot.net
     网关端口：56815
-
+####  执行连接海外用户网关  
 示例代码：
 
     [[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:remoteSession gatewayDomain:gatewayDomain gatewayPort:gatewayPort success:^{
@@ -948,7 +946,7 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
 2、如果当用户只关心业务消息推送，不关心设备远程控制时，deviceList不能为nil, 可以是长度为0的NSArray对象.    <br> 
 
 
-#### 15.3 设置uPlug模块主网关地址
+### 15.3 设置uPlug模块主网关地址
 已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址，来更改模块连接的数据中心。<br>
 
 目前有两种方法设置模块的主网关地址；1、softap时设置模块的主网关地址。2、使用uSDKDevice对象设置模块的主网关地址
@@ -1017,15 +1015,15 @@ uSDK版本要求：uSDK需要升级到4.2.02及以上版本
 
 ####  代码开发指导
 APP开发者需要实现uSDKDeviceScannerDelegate委托并设置委托，通过实现如下方法，才能发现待配置设备。
-#### 设置委托
+##### 设置委托
 
     [[uSDKDeviceScanner alloc]init].delegate = self;
 
-#### 启动设备扫描功能
+##### 启动设备扫描功能
 
      [uSDKDeviceScanner startScanConfigurableDevice];
 
-#### 实现发现待配置设备方法
+##### 实现发现待配置设备方法
 发现新增的待入网设备时触发该方法
 
     - (void)deviceScanner:(uSDKDeviceScanner*)scanner didFindNewDevice:(uSDKDeviceInfo *)device{
