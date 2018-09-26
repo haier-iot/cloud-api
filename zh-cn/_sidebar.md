@@ -16,7 +16,16 @@
 * * [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)
 
 
-* [移动端uSDK](zh-cn/uSDK)
+* 移动端uSDK
+* * [uSDK能力简介](zh-cn/uSDK)
+* * uSDK iOS 开发指南
+* * * [uSDK使用说明](zh-cn/uSDK_Phone_iOS_USE_GUIDE)
+* * * [uSDK接口说明](zh-cn/uSDK_Phone_iOS_API_GUIDE)
+
+* * [uSDK_Android_开发指南](zh-cn/uSDK_Phone_Android)
+* * * [uSDK使用说明](zh-cn/uSDK_Phone_iOS)
+* * * [uSDK接口说明](zh-cn/uSDK_Phone_iOS)
+
 * [设备端SDK](zh-cn/SmartDeviceSDK)
 
 
