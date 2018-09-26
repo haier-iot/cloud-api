@@ -23,7 +23,7 @@ UWS的使用方应做如下假设：
 
 |接口分类|	生产环境接入地址	|开发者环境接入地址	|开发者环境DNS配置|
 |---|---|---|---|
-|UWS接口	|https://uws.haier.net|	https://dev-uws.haigeek.com	|210.51.17.146|
+|UWS接口	|https://uws.haier.net|	https://dev-uws.haigeek.com	|221.122.92.13|
 
 ## UWS服务说明
 U+平台现有的UWS服务说明
