@@ -1,5 +1,6 @@
-更新时间：{docsify-updated}  
 
+!> **当前版本：** [uws统一接入规范v1.2]()  
+**更新时间**：{docsify-updated} 
 
 ## 接入说明 
 
