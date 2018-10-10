@@ -330,10 +330,8 @@ Body
 |parameter name|types|location|required|description |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 |deviceId|String|Body|yes|Device ID|  
+|property|String|Body|yes|The device reads the property name of the property|  
 |sn|String|Body|yes|Operate the serial number. Must be the only|  
-|category|String|Body|yes|Classification of operations.</br>Single order: "AttrOp"</br>Group order: GroupOp"|  
-|name|String|Body|yes|Operation name|  
-|operateCodes|String|Body|yes|Operation command Base64 encryption value|   
 |callbackUrl|String|Body|no|Operation reply callback address, support only HTTP protocol|   
 
 **Output parameters**  
@@ -359,10 +357,8 @@ Content-type: application/json
 Body
 {
 "deviceId": "0007A893C119",
-"sn": "FJIJ2L3-FSFRFGRTWT-HYRH",
-"category": "AttrOp",
-"name": "221001",
-"operateCodes": "eyJ2YWx1ZSI6IjIyMTAwMSJ9",
+"property": "propertyName",
+"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
 "callbackUrl": "https://www.uhome.haier.net/callback.html"
 }
 
@@ -385,9 +381,9 @@ Body
 "retInfo": "成功!",
 "usn": "600ce95da3e14fc7a68f483dd14db864",
 "deviceId": "0007A893C119",
-"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJzdGF0dXNlcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogIioqKiIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICIqKioiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogIioqKiIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICIqKioiCiAgICAgICAgfQogICAgXQp9"，
-"resCode":0
+"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0="
 }
+
 
 ```
 
@@ -395,13 +391,194 @@ Body
 
 |   errorcode      |     description      | scenario  |  
 | ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
 | C00002   |  Appserver has no access authorization | &emsp;   |   
-| C00004   |  Insufficient operation permission |Size format error   | 
 | C00006   | Product configuration information is empty |  &emsp;   |    
-| D00008  |  Illegal user | AccessToken error  |      
+| D00001  | Sign error | Digital signature error |      
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
-| G03002  | Equipment offline | The device cannot issue commands without being online  |      
- 
+
+
+####  Write standard model device attributes      
+> Write standard model device attributes       
+
+##### 1、Interface definition    
+
+?> **Access address：** `/udse/v1/stdDevPropertyWrite`</br>
+**HTTP Method：** POST
+
+**Input parameters**
+
+|parameter name|types|location|required|description |  
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
+|deviceId|String|Body|yes|Device ID|  
+|property|String|Body|yes|The device writes the property name of the property|  
+|value|String|Body|yes|The device writes the attribute value of the attribute|    
+|sn|String|Body|yes|Operate the serial number. Must be the only|  
+|callbackUrl|String|Body|no|Operation reply callback address, support only HTTP protocol|   
+
+**Output parameters**  
+
+|parameter name|types|location|required|description |  
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:| 
+|usn|String|Body|yes|Operation sequence number|
+
+##### 2、Request sample
+**User request**
+```
+Header：
+appId:MB-ABC-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp: 1436236880183
+language:zh-cn
+timezone:8
+Content-type: application/json
+
+Body
+{
+"deviceId": "0007A893C119",
+"property": "propertyName",
+"value": "value",
+"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+
+
+```  
+
+**Request response**
+```
+{
+"retCode": "00000",
+"retInfo": "成功!",
+"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+```
+
+**Operational response**  
+
+```  
+{
+"retCode": "00000",
+"retInfo": "成功!",
+"usn": "600ce95da3e14fc7a68f483dd14db864",
+"deviceId": "0007A893C119",
+"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
+"resCode":0
+}
+
+
+
+```
+
+##### 3、Interface error code  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| C00002   |  Appserver has no access authorization | &emsp;   |   
+| C00006   | Product configuration information is empty |  &emsp;   |    
+| D00001  | Sign error | Digital signature error |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+
+
+
+####  Operate standard model equipment      
+> Operate standard model equipment      
+
+##### 1、Interface definition    
+
+?> **Access address：** `/udse/v1/stdDevOperate`</br>
+**HTTP Method：** POST
+
+**Input parameters**
+
+|parameter name|types|location|required|description |  
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
+|deviceId|String|Body|yes|Device ID|  
+|operationName|String|Body|yes|The operation name|  
+|operationValue|List<OpPropertyValue>|Body|yes|A list of property values, which are required by the model document and how.|    
+|sn|String|Body|yes|Operate the serial number. Must be the only|  
+|callbackUrl|String|Body|no|Operation reply callback address, support only HTTP protocol|   
+
+**Output parameters**  
+
+|parameter name|types|location|required|description |  
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:| 
+|usn|String|Body|yes|Operation sequence number|
+
+##### 2、Request sample
+**User request**
+```
+Header：
+appId:MB-ABC-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp: 1436236880183
+language:zh-cn
+timezone:8
+Content-type: application/json
+
+Body
+{
+"deviceId": "0007A893C119",
+"operationName": "operationName",
+"operationValue": [
+    {
+"name": "name1",
+"value": "value1"
+    },
+    {
+"name": "name2",
+"value": "value2"
+    }
+  ],
+"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
+"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+
+
+```  
+
+**Request response**
+```
+{
+"retCode": "00000",
+"retInfo": "成功!",
+"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+
+```
+
+**Operational response**  
+
+```  
+{
+"retCode": "00000",
+"retInfo": "成功!",
+"usn": "600ce95da3e14fc7a68f483dd14db864",
+"deviceId": "0007A893C119",
+"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
+"resCode":0
+}
+
+
+```
+
+##### 3、Interface error code  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| C00002   |  Appserver has no access authorization | &emsp;   |   
+| C00006   | Product configuration information is empty |  &emsp;   |    
+| D00001  | Sign error | Digital signature error |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+
 
 ####  User Equipment Operation - Control Channel - Non-Standard Model 
 > ser equipment operation - control channel, support for operation of non-standard model (6-bit code device) devices  
@@ -475,8 +652,17 @@ Body
 	"resCode":0
 }
 ```
-##### 3、Interface error code
-> B00001、B00004、A00001、D00006、G20202、G03002
+##### 3、Interface error code  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| B00004   | The parameters do not conform to the rules | Parameter format error   |   
+| A00001   |  Service unavailable | Service unavailable  |   
+| D00006   | Session invalidation |  User session state does not exist  |    
+| G03002  | Equipment offline | The device cannot issue commands without being online |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+ 
 
 
 
@@ -551,8 +737,17 @@ Body
 }
 
 ```
-##### 3、Interface error code
-> B00001、B00004、A00001、D00006、G20202、G03002 
+##### 3、Interface error code  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| B00004   | The parameters do not conform to the rules | Parameter format error   |   
+| A00001   |  Service unavailable | Service unavailable  |   
+| D00006   | Session invalidation |  User session state does not exist  |    
+| G03002  | Equipment offline | The device cannot issue commands without being online |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+ 
 
 
 
@@ -630,7 +825,16 @@ Body
 ```
 
 ##### 3、Interface error code  
-> B00001、G20202、B00004、A00001、D00006、G03002  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| B00004   | The parameters do not conform to the rules | Parameter format error   |   
+| A00001   |  Service unavailable | Service unavailable  |   
+| D00006   | Session invalidation |  User session state does not exist  |    
+| G03002  | Equipment offline | The device cannot issue commands without being online |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+ 
 
 
 #### User Equipment Operation - Asynchronous Interface - Standard Model  
@@ -709,8 +913,17 @@ Body
 }
 ```
 
-##### 3、Interface error code
-> B00001、B00004、A00001、D00006、G20202、G03002
+##### 3、Interface error code  
+
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|   
+| B00001   |  Lack of required parameters| AppId is empty   |   
+| B00004   | The parameters do not conform to the rules | Parameter format error   |   
+| A00001   |  Service unavailable | Service unavailable  |   
+| D00006   | Session invalidation |  User session state does not exist  |    
+| G03002  | Equipment offline | The device cannot issue commands without being online |      
+| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+ 
 
 ## Way of use
 
