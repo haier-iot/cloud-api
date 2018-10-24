@@ -59,7 +59,7 @@ U+平台现有的UWS服务说明
 |sign	|String|	Header|	必填|对请求进行签名运算产生的签名,签名算法见附录。|
 |timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
 |language	|String	|Header|	必填	|该参数为多语言版提供支持。默认填写zh-cn即可。|
-|timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，默认填写“Asia/Shanghai”即可。具体时区ID参见附录。|
+|timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，默认填写"Asia/Shanghai"即可。具体参照国际时区ID列表。|
 |Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为"application/json;charset=UTF-8" 具体参照媒体类型|
 
 
