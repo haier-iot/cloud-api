@@ -7,5 +7,6 @@
 * Equipment Management
 * * [Equipment Management Standard Edition](en-us/DevicesStandard)
 * * [Equipment Management Enterprise Edition](en-us/DevicesEnterprise)
+* * [European Environment-Equipment Management Enterprise Edition](en-us/DevicesEnterprise-EuropeanEnvironment)
 * [Data Subscription](en-us/DataSubscription)
 * [Changelog](en-us/ChangeLog)
