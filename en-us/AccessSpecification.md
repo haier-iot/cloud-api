@@ -20,7 +20,7 @@ In development and joint debugging, application developers should connect to the
 
 |Interface classification|	European address	|North American address	|
 |---|---|---|---|
-|UWS interface	|https://uws-gea-euro.haieriot.net|	https://uws-gea-us.haieriot.net|  
+|UWS interface	|https://uws-euro.haieriot.net|	https://uws-gea-us.haieriot.net|  
 
 ## UWS Service Description
 U+ platform existing UWS service description
