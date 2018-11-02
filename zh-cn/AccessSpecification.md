@@ -37,7 +37,7 @@ U+平台现有的UWS服务说明
 5|[家庭模型](zh-cn/Family)|ufm|v1.5.1  
 6|[场景引擎](zh-cn/IFTTT)|iftttscene|v3.0.11  
 7|[预约定时](zh-cn/Scheduler)|scheduler|v1.0.0  
-8|[设备影子](zh-cn/DevicesShadow)|shadow|暂未开放
+8|[影子设备](zh-cn/DevicesShadow)|shadow|v1.0.0
 9|[消息推送](zh-cn/MessagePush)|ums|v3.0.3
 10|[天气服务](zh-cn/CapacityService_Weather)|暂未开放|暂未开发 
 11|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|v1.0.0   
