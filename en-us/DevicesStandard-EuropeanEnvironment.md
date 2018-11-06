@@ -521,7 +521,8 @@ Header：
 ##### 1、Interface definition
 ?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
  **Historical reasons for the European environment old version App uses the following address:**  
-`/uds/v1/protected/{deviceId}/updateLocation`
+
+`/uds/v1/protected/{deviceId}/updateLocation`  
 **HTTP Method：** PUT
 
 **Input parameters**  
@@ -581,6 +582,7 @@ body：
 ##### 1、Interface definition
 ?> **Access address：** `/uds/v1/protected/{deviceId}/aliasName`</br>
  **Historical reasons for the European environment old version App uses the following address:**  
+
 `/uds/v1/protected/{deviceId}/updateAliasName`
 **HTTP Method：** PUT
 
