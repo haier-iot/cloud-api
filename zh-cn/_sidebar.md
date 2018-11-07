@@ -22,9 +22,9 @@
 * * * [uSDK使用说明](zh-cn/uSDK_Phone_iOS_USE_GUIDE)
 * * * [uSDK接口说明](zh-cn/uSDK_Phone_iOS_API_GUIDE)
 
-* * [uSDK_Android_开发指南](zh-cn/uSDK_Phone_Android)
-* * * [uSDK使用说明](zh-cn/uSDK_Phone_iOS)
-* * * [uSDK接口说明](zh-cn/uSDK_Phone_iOS)
+* * uSDK_Android_开发指南
+* * * [uSDK使用说明](zh-cn/uSDK_Phone_Android)
+* * * [uSDK接口说明](zh-cn/uSDK_Phone_Android)
 
 * [设备端SDK](zh-cn/SmartDeviceSDK)
 
