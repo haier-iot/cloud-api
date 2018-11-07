@@ -61,20 +61,26 @@ result|String|Operation response result|Is a base64 code, </br> the result of de
 
 > API interface overview  
 
-
-| API name        | effect          | Whether open | Special Note|
-| ------------- |:-------------:|:-----:|:-------------:|  
+<!--  
 |Query the device bound user|Query the bound user information based on the device MAC |yes | no |  
 |Non-standard equipment orders issued|Non-standard equipment command (single command, group command) issued |yes | no |  
 |Check the latest status of the device|Support for standard and non-standard model devices |yes | no |  
 |Read the standard model device attributes|Read the standard model device attributes |yes | no |  
 |Write standard model device attributes|Write standard model device attributes |yes | no |  
 |Operate standard model equipment|Operate standard model equipment |yes | no |  
+
+-->
+
+
+| API name        | effect          | Whether open | Special Note|
+| ------------- |:-------------:|:-----:|:-------------:|  
 | User Equipment Operation - Control Channel - Non-Standard Model   |User equipment operation - control channel, support for operation of non-standard model (6-bit code device) devices| yes|  no |  
 |User Read Attribute - Asynchronous Interface - Standard Model | User read attribute-asynchronous interface, support attribute reading of standard model| yes|  no |  
 | User write attribute - asynchronous interface - standard model | User write attribute - asynchronous interface, support attribute writing of standard model| yes|  no |  
 | User Equipment Operation - Asynchronous Interface - Standard Model | User device operation - asynchronous interface, supports standard model device operation| yes|  no |  
 
+
+<!--  
 
 ####  Query the device bound user  
 > Query the bound user information based on the device MAC   
@@ -579,6 +585,7 @@ Body
 | D00001  | Sign error | Digital signature error |      
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
 
+-->
 
 ####  User Equipment Operation - Control Channel - Non-Standard Model 
 > ser equipment operation - control channel, support for operation of non-standard model (6-bit code device) devices  
