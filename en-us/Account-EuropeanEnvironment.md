@@ -321,7 +321,7 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 **Input parameters**  
 
 | parameter name        | types         | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
 |password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section User privacy data security  for details. Server verification rules: uppercase and lowercase letters, numbers, special characters, three or more `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
 |captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. According to the requirement, msgCode fails to verify more than three times, and the user is required to input the graphic verification code.|
@@ -422,7 +422,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
 | password     | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules |  
 | captcha     | String | Body| no |Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. Log in to enter the wrong password. You must enter the graphic verification code when the number of times is greater than or equal to three.When the user enters the wrong password 5 times, the account is locked for 5 hours.|  
@@ -517,7 +517,7 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 **Input parameters**  
 
 | parameter name        | types          | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
 | type    | String | Body| yes|1: Registration  2: Retrieve password 5: cancel account|  
    
@@ -600,7 +600,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
 |password|String|Body|Yes|	New password: Public key encryption is required. The long backend service decrypts and verifies the rules.See section User privacy data security  for details.|  
 |captcha|	String|	Body|	No	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. For the same App, the same mobile phone terminal mailbox verification code fails to verify the authentication 3 times, you need to enable the graphic verification code for verification, 3 times configurable, the default is 3 times. After the verification of the mailbox verification code is successful, the number of allowed failures is restored to 0.|  
@@ -691,7 +691,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|  
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|  
 |email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
 |newPassword|String|Body|Yes|	New password: Public key encryption is required. Long backend service decryption and verification rules|  
 |captcha|	String|	Body|	Yes	|Graphic verification code, for the same App, the same mobile phone terminal to modify the password when the continuous verification fails m times, you need to enable the graphic verification code for verification, m configurable, the default is 3 times. After the verification code is enabled, if the graphic verification code is entered correctly, the corresponding account will be locked for n times after the same day, and n can be configured. The default is 10 times.|  
@@ -801,7 +801,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |     |  | | |&emsp;|    
 
 
@@ -866,7 +866,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |   sn   | String | body | yes | The public key is used to encrypt the timestamp, and the backend service decrypts successfully. The timestamp number is correct.|      
 
 
@@ -947,7 +947,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |    |    |     |     |  &emsp;  |  
       
 
@@ -1012,7 +1012,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | msgCode   | String |Body |Yes|Verification code, the user applies for the verification code to cancel the account, the verification code is sent to the user's mailbox, and the verification code is required before the logout, 6 random numbers. Application type type=5|   
    
  
@@ -1087,7 +1087,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |    |  | ||&emsp;|   
    
  
@@ -1149,7 +1149,7 @@ Content-type: application/json
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|  
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|  
 |    |    |     |     |  &emsp;   |   
 
 
@@ -1235,7 +1235,7 @@ Content-type:application/json
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | userProfile     | Map | Body| yes|User extension information, including nicknames, avatars, etc.|    
 
 
@@ -1310,7 +1310,7 @@ Body:
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | privacyVersion    | String | Body| yes|Privacy Policy Version Number|    
 
 

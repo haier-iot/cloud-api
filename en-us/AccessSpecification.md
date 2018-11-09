@@ -18,8 +18,8 @@ The externally provided services use the HTTPS protocol uniformly. By default, p
 In development and joint debugging, application developers should connect to the production environment (currently only the production environment in the future), and application developers can build their own joint or developer environment as needed.  
 -->  
 
-|Interface classification|	European address	|North American address	|
-|---|---|---|---|
+|Interface classification|	European address|North American address	|  
+|---|---|---|  
 |UWS interface	|https://uws-euro.haieriot.net|	https://uws-gea-us.haieriot.net|  
 
 ## UWS Service Description
@@ -283,46 +283,56 @@ Status Code|Meaning|Solutions
 
 
 ## Public error code
-|retCode|	retInfo|
-|---|---|---|---|
-|A00001|	service is not available                                   |
-|A00002|	Network exception                                      |
-|A00003|	Access or operation timeout                                |
-|A00004|	Internal System Error                                 |
-|A00005|	Database access exception                                |
-|A00006|	Unknown exception                                      |
-|A00007|	Mail service exception                                  |
-|A00008|	Mail failed to send                                  |
-|A00009|	The number of emails sent exceeded                             |
-|B00001|	Missing required parameters                                 |
-|B00002|	Incorrect parameter type                                |
-|B00003|	Parameter value is out of range or not enumerated                  |
-|B00004|	The parameter does not meet the rule requirements                            |
-|B00006|	Incorrect parameter length                                  |
-|B00007|	The parameter does not match the interface definition                          |
-|C00001|	appId and appKey validation failed                         |
-|C00002|	appServer no access authorization                          |
-|C00003|	Insufficient access                                 |
-|C00004|	Insufficient authority                                 |
-|C00005|	Repeat request                                     |
-|C00006|	Unknown device type                                 |
-|C00007|	appId configuration information is empty                             |
-|C00008|	appKey is empty                                    |
-|D00001|	Sign signature error                                 |
-|D00002|	Incorrect username or password                               |
-|D00003|	Token does not exist, not verified by token                |
-|D00004|	Token has expired and has not been verified by token                |
-|D00005|	Token is not created by this application, not verified by token      |
-|D00006|	Session invalidation                                      |
-|D00007|	Not an internal user                              |
-|D00008|	User is not legal                                    |  
-|D00009|	Login Failure Number More than Limit, Need Verification Code|  
-|D00010|	Account Locked|  
-|D00011|	Account Not Activated|  
-|D00012|	Account Already Excit|  
-|D00015|	Wrong Verification Code| 
-|D00016|Already Logout or Havn't Login|  
-|D00017	|Account Not Excit|  
-|G20202	|User Doesn't match the Device|  
-|G20904|	Device Has Been bound|  
-|G20908|	Equipment out of Safety Period  
+|retCode|	retInfo|Try a solution|
+|---|---|---|  
+|10000|The login was successful, but the password security level was improved. Please change the password|User uses weak password, please change password|
+|00001|The login was successful but the latest version of the privacy agreement was not accepted|Please accept the latest privacy agreement for the old account|
+|A00001|	service is not available           |Contact the cloud platform to check if the service is normal|
+|A00002|	Network exception                  |Contact the cloud platform to check if the service is normal|
+|A00003|	Access or operation timeout        |Contact the cloud platform to check if the service is normal|
+|A00004|	Internal System Error              |Contact the cloud platform to check if the service is normal|
+|A00005|	Database access exception          |Contact the cloud platform to check if the service is normal|
+|A00006|	Unknown exception                  |Contact the cloud platform to check if the service is normal|
+|A00007|	Mail service exception             |Contact the cloud platform to check if the service is normal|
+|A00008|	Mail failed to send                |Contact the cloud platform to check if the service is normal|
+|A00009|	The number of emails sent exceeded |Check whether the required parameter is a valid value (non-null and cannot be an empty string)|
+|B00001|	Missing required parameters        |N/A|
+|B00002|	Incorrect parameter type           |N/A|
+|B00003|	Parameter value is out of range or not enumerated   |N/A|
+|B00004|	The parameter does not meet the rule requirements   |N/A|
+|B00006|	Incorrect parameter length                          |N/A|
+|B00007|	The parameter does not match the interface definition   |N/A|
+|C00001|	appId and appKey validation failed                      |N/A|
+|C00002|	appServer no access authorization                       |N/A|
+|C00003|	Insufficient access                                |N/A|
+|C00004|	Insufficient authority                             |N/A|
+|C00005|	Repeat request                                     |N/A|
+|C00006|	Unknown device type                                 |N/A|
+|C00007|	appId configuration information is empty           |N/A|
+|C00008|	appKey is empty                                    |N/A|
+|D00001|	Sign signature error                               |N/A|
+|D00002|	Incorrect username or password                        |N/A|
+|D00003|	Token does not exist, not verified by token               |N/A|
+|D00004|	Token has expired and has not been verified by token        |N/A|
+|D00005|	Token is not created by this application, not verified by token  |N/A|
+|D00006|	Session invalidation                                    |N/A|
+|D00007|	Not an internal user                              |N/A|
+|D00008|	User is not legal                                    |N/A|
+|D00009|	Login Failure Number More than Limit, Need Verification Code|N/A|
+|D00010|	Account Locked| N/A|
+|D00011|	Account Not Activated|  N/A|
+|D00012|	Account Already Excit|N/A|
+|D00015|	Wrong Verification Code|N/A|
+|D00016|Already Logout or Havn't Login|N/A|
+|D00017|Account Not Excit|N/A|
+|G20003|Unable to get adapter/Application information|N/A|
+|G20201|Failed to get the user bound device list|N/A|
+|G20202|User Doesn't match the Device| Check if the device id matches the user| 
+|G20904|The number of bindings has been exceeded| A user can only bind to 100 devices |
+|G20908|Safety check failed| Please re-distribute the network |
+|G20910|The non-safety device failed to check|Non-secure device binding:</br>1. Equipment must be online</br>2. The time for reporting version information of the equipment shall be no more than 10 minutes, that is, less than or equal to 10 minutes|
+|G20301|Device information query failed|N/A|
+|G23401|Device unbound|N/A|
+|G23501|User - bound device security verification failed|N/A|
+|G24001|The equipment brand model information is empty|N/A|  
+|20903|Master data access exception|N/A|

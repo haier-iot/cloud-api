@@ -112,7 +112,7 @@ public class AESUtil {
 **Input parameters**  
 
 | parameter name        | types         | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
 | password     | String | Body| yes |Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits.|  
 | captcha     | String | Body| yes |Verification code, a combination of 4 letters and numbers.|  
@@ -195,7 +195,7 @@ Body
 **Input parameters**  
 
 | parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
 | password     | String | Body| yes|Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits. |  
 | captcha     | String | Body| no |Verification code, a combination of 4 letters and numbers.|  
@@ -275,7 +275,7 @@ body
 **Input parameters**  
 
 | parameter name        | types          | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
    
  
@@ -340,7 +340,7 @@ Body
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |    |  | ||&emsp;|   
    
  
@@ -407,7 +407,7 @@ Content-type: application/json
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|  
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |    |    |     |     |  &emsp;   |   
 
 
@@ -492,7 +492,7 @@ Content-type: application/json
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | userProfile     | Map | Body| yes|User extension information, including nicknames, avatars, etc.|    
 
 
@@ -568,7 +568,7 @@ Body
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |   loginId   | String | body | yes | Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|      
 
 
@@ -632,7 +632,7 @@ Body
 **Input parameters**  
 
 | parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 |    |    |     |     |  &emsp;  |  
       
 
@@ -784,7 +784,7 @@ Body
 **Input parameters**  
 
 | parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
 | file     | multipart/form-data | Body| yes|Uploaded file|  
 | description     | String | Body| yes|PFile description, within 255 characters |  
 | ownerType     | Integer | Body| yes |Owner type: 0: user, 1: device, 9: other|  
