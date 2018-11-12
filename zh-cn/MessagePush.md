@@ -151,8 +151,8 @@ data|String|Body|是|返回数据
 > B00004、A00004
 
 #### 终端消息推送
-> dst中type：0，到端的消息推送，不限于当前账户；</br>
-> dst中type：1，2，3，一个用户的多屏互动场景。
+> dst 中 type：0，到端的消息推送，不限于当前账户；</br>
+> dst 中 type：1，2，3，一个用户的多屏互动场景。
 
 ##### 1、接口定义
 ?> **接入地址：** `https://uws.haier.net/ums/v2/msgPush`</br>
@@ -168,7 +168,7 @@ data|String|Body|是|返回数据
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 expires|int|Body|非必填|消息有效期，单位秒
-dst|Json-obj {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"devType":["01","02"]}</br> {"type":3,"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2按照设备类型发送，例如：用户发给用户下是当前用户下（header中token）的appPackage_A、appPackage_B</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
+dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"devType":["01","02"]}</br> {"type":3,"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2按照设备类型发送，例如：用户发给用户下是当前用户下（header中token）的appPackage_A、appPackage_B</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
 message|Json-obj|Body|否|业务基础信息
 
 **message示例**
@@ -199,7 +199,8 @@ data|String|Body|是|返回数据或null
 **data示例**
 ```
 data: {'msgId':”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息，产生原则:时间戳+消息源信息
+msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
+msgId产生原则:时间戳+消息源信息
 ```
 
 ##### 2、错误码
@@ -251,7 +252,7 @@ data|String|Body|是|返回数据或null
 :-:|:-:|:-:|:-:|:-
 appPackage|String|Body|必填|APP包名
 msgId|String|Body|必填|终端在推送完毕后，服务端返回的data中的msgId
-status|int|Body|必填|2：终端已接受</br>3：终端已展示</br>4:终端已反馈（参考massageInfo结构）
+status|int|Body|必填|2：终端已接受</br>3：终端已展示</br>4：终端已反馈（参考massageInfo结构）
 
 **输出参数**
 
@@ -268,8 +269,8 @@ data|String|Body|是|返回数据或null
 
 #### 终端消息推送——设备绑定者
 
-> 消息推送至设备绑定者
-> 【1】根据设备的deviceId发送信息到设备的在M2M系统绑定的主人的手机
+> 消息推送至设备绑定者</br>
+> 【1】根据设备的deviceId发送信息到设备的在M2M系统绑定的主人的手机</br>
 > 【2】主人的手机，即为注册消息通道时候，注册类型deviceType为“01：手机”的所有APP
 
 ##### 1、接口定义
@@ -367,7 +368,7 @@ data|String|Body|是|返回数据
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 expires|int|Body|非必填|消息有效期，单位秒
-dst|Json-obj {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"Id":["userId1","userId2"]"devType":["01","02"]}</br> {"type":3,"Id":["userId1","userId2"],"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2，ID为userId,按照设备类型发送dstType</br>type:3,ID为userId，按照应用类型appType发送</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（获取的类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
+dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"Id":["userId1","userId2"]"devType":["01","02"]}</br> {"type":3,"Id":["userId1","userId2"],"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2，ID为userId,按照设备类型发送dstType</br>type:3,ID为userId，按照应用类型appType发送</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（获取的类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
 message|Json-obj|Body|否|业务基础信息
 
 **message说明**
@@ -400,7 +401,8 @@ data|String|Body|是|返回数据
 
 ```
 data: {'msgId' :”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息，产生原则:时间戳+消息源信息
+msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
+msgId产生原则:时间戳+消息源信息
 ```
 
 #### 云端信息状态查询接口
