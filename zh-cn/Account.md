@@ -1,5 +1,5 @@
 !>  **当前版本**：[UWS 账户服务 V1.0.0]()  
- **更新时间**：{docsify-updated} 
+ **更新时间**：{docsify-updated} [更新说明](zh-cn/ChangeLog/Account)
 
 
 ## 简介
