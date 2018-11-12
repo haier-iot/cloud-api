@@ -1,6 +1,6 @@
 
 !> **当前版本：** [uws统一接入规范v1.3]()  
-**更新时间**：{docsify-updated} 
+**更新时间**：{docsify-updated}  [更新说明](zh-cn/ChangeLog/AccessSpecification) 
 
 ## 接入说明 
 
@@ -31,8 +31,8 @@ U+平台现有的UWS服务说明
 序号|UWS服务名|应用名|版本号（当前版本）
 :-:|:-:|:-:|:-:  
 1|[账户服务](zh-cn/Account)|uam|v1.0.0
-2|[设备管理服务标准版](zh-cn/DevicesStandard)|uds|v2.0.1
-3|[设备管理服务企业版](zh-cn/DevicesEnterprise)|udse|v1.5.1  
+2|[设备管理服务标准版](zh-cn/DevicesStandard)|uds|v2.0.2
+3|[设备管理服务企业版](zh-cn/DevicesEnterprise)|udse|v1.5.2 
 4|[数据订阅](zh-cn/DataSubscription)|无|v1.0.0
 5|[家庭模型](zh-cn/Family)|ufm|v1.5.1  
 6|[场景引擎](zh-cn/IFTTT)|iftttscene|v3.0.11  
