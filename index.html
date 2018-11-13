@@ -12,8 +12,8 @@
   <div id="app">loading</div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: '',
+      name: 'U+ IOT 云服务使用手册',
+      repo: 'https://github.com/haier-iot/guide',
 	  loadSidebar: true,
 	  autoHeader: true,   //根据sidebar自动添加标题
 	  subMaxLevel: 4,   //显示目录级别
@@ -21,7 +21,7 @@
     //  '/.*/_sidebar.md': '/_sidebar.md'
     //},
 	loadNavbar: true,   // 配置头部导航
-	coverpage: true ,   // 配置封面
+	coverpage: false ,   // 配置封面
 	auto2top: true ,    //切换页面后是否自动跳转到页面顶部。
 	name: 'U+ IOT',
 	 nameLink: {       //点击文档标题后跳转的链接地址。
@@ -67,8 +67,21 @@
       // 搜索标题的最大程级, 1 - 6
       depth: 2
     },
-	formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}'
+	formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}',
 	
+	 plugins: [
+            function (hook, vm) {
+                hook.beforeEach(function (html) {
+                    var url = 'https://github.com/haier-iot/guide/blob/master/' + vm.route.file;
+                    var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
+                    return editHtml
+                      + html
+                      + '\n----\n'
+                      + 'Last modified {docsify-updated} '
+                      + editHtml;
+                });
+            }
+        ]
 	}
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
