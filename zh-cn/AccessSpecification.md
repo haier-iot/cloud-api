@@ -35,7 +35,7 @@ U+平台现有的UWS服务说明
 3|[设备管理服务企业版](zh-cn/DevicesEnterprise)|udse|v1.5.2 
 4|[数据订阅](zh-cn/DataSubscription)|无|v1.0.0
 5|[家庭模型](zh-cn/Family)|ufm|v1.5.1  
-6|[场景引擎](zh-cn/IFTTT)|iftttscene|v3.0.11  
+6|[场景引擎](zh-cn/IFTTT)|iftttscene|v2.6.1  
 7|[预约定时](zh-cn/Scheduler)|scheduler|v1.0.0  
 8|[影子设备](zh-cn/DevicesShadow)|shadow|v1.0.0
 9|[消息推送](zh-cn/MessagePush)|ums|v3.0.3
@@ -279,6 +279,9 @@ App通过UWS获取的数据等要确保存储安全。
 
 要严格按照UWS接口服务的使用文档调用,开发相关安全参照“海尔优家安全开发规范V1.0.pdf”执行。
 
+
+## 开通流程  
+![开通流程][account_liucheng]
 
 ## 常见HTTP状态码解说
 
@@ -1025,3 +1028,8 @@ App通过UWS获取的数据等要确保存储安全。
 |Pacific/Easter
 |Chile/EasterIsland
 |Chile/Continental
+
+
+
+[^-^]:常用图片注释
+[account_liucheng]:_media/_account/account_liucheng.png
