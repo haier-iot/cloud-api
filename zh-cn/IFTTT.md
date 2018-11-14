@@ -544,8 +544,6 @@ Cron表达式说明
 |errorMessage |String   |错误信息 |必填; 场景动作执行失败原因 |
 
 
->>>>>>> e418d6379dc53412f28256dc96c46f72a7d461f7
-
 ## 接口清单
 
 ### 场景类
@@ -587,7 +585,6 @@ Cron表达式说明
 >APP从场景Store中批量下载场景。</br>
 注：同一个家庭同一个场景只能下载一次
 
-<<<<<<< HEAD
 ##### 1、接口定义
 
 ?> **接入地 址：**  `/iftttscene/scene/store/download`  
