@@ -775,7 +775,7 @@ Cron表达式说明
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/iftttscene/scene/updateAppSceneAlias`  
+?> **接入地 址：**  `/iftttscene/scene/updateActiveTime`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -794,9 +794,55 @@ Cron表达式说明
 
 
 
+#### 删除用户下载的场景
+>删除用户下载的场景。
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/iftttscene/scene/deleteAppScene`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| familyId| String |32| Body| 必填|家庭id|  
+| sceneIds| String[]|32| Body| 必填|要删除的场景id数组|  
+ 
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  data  | Object| Body  |  必填 |显示为：null |
 
 
-[^-^]:## 常见问题
+
+
+
+#### 用户创建平台触发类场景
+>根据用户填写的参数保存场景。
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/iftttscene/scene/addUserScene`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| userSceneDto| UserSceneDto |&emsp;| Body| 必填|场景参数 [Json结构](zh-cn/IFTTT_jsonDataStructure)|         
+| sceneIds| String[]|32| Body| 必填|要删除的场景id数组|  
+ 
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  data  | Object| Body  |  必填 |显示为：null |
+
+
 
 
 
