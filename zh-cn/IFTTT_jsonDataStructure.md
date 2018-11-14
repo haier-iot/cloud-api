@@ -1,4 +1,4 @@
-#### 场景参数 Json结构如下:
+#### 场景对象UserSceneDto Json结构如下:
 
 
 ```
@@ -100,4 +100,36 @@
 	 "status" : ""		//定时开关状态
   }
 }
+```  
+
+####  查询支持的关系表达式接口输出参数data，Json类型结构如下: 
+```  
+[
+  {
+    "value":"greaterThan",
+    "desc":"大于",
+    "required":false
+  },
+  {
+    "value":"greaterThanEqual",
+    "desc":"大于等于",
+    "required":false
+  },
+  {
+    "value":"equal",
+    "desc":"等于",
+    "required":false
+  },
+  {
+    "value":"lessThan",
+    "desc":"小于",
+    "required":false
+  },
+  {
+    "value":"lessThanEqual",
+    "desc":"小于等于",
+    "required":false
+  }
+]
+
 ```
