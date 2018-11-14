@@ -1,5 +1,5 @@
 !>  **当前版本**：[UWS 家庭模型服务 V1.5.1]()  
- **更新时间**：{docsify-updated} 
+ **更新时间**：{docsify-updated} [更新说明](zh-cn/ChangeLog/Family)
 
 
 ## 简介

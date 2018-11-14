@@ -1,7 +1,4 @@
-!> 待完善
-
-
-!>**当前版本：** [消息推送服务标准版v3.0.3]()   
+!>**当前版本：** [消息推送服务标准版v2.0.8]()   
 **更新时间：** {docsify-updated} 
 
 ## 简介
@@ -62,11 +59,12 @@ pushTime|String|将消息下发的时间|
 status|int|0：发送失败，</br>1：发送成功，</br>2：终端已接收，</br>3：终端已展示，</br>4：终端已反馈，</br>5：取消展示，</br>6：消息已更新|0：UMS发送失败,尚未发送 , </br>1：UMS发送成功 ,</br> 2: 终端接收消息后，上报状态 , </br>3: 终端展示消息后，上报状态, </br> 4：终端反馈消息后，上报状态 ,</br> 5: UMS针对这条消息下发通知【阅后即焚】 , </br>6：UMS已经将这条消息更新为 【空消息】
 
 
-## 终端业务接口
+## 接口定义
+### 终端业务接口
 
-### 用户设备通道消息注册
+#### 用户设备通道消息注册
 
-> 通道注册用于发送接受业务消息</br>
+> 通道注册用于发送接收业务消息</br>
 此函数接口UAG安全过滤，如果是UGW（如智能音箱）clientId（包括header中clientId）、deviceId、pushId统一填写为deviceId即可
 
 APP在如下两种情况下需要注册消息通道：
@@ -76,7 +74,7 @@ APP在如下两种情况下需要注册消息通道：
 2、登录APP：用户登录APP后，需再次注册消息通道，必填参数：userId, clientId , deviceId, pushId；
 
 
-#### 1、接口定义
+##### 1、接口定义
 ?> **接入地址：** `https://uws.haier.net/ums/v2/register`</br>
 **HTTP Method：** POST
 
@@ -102,319 +100,337 @@ retCode|String|Body|是|返回码
 retInfo|String|Body|是|返回信息
 data|String|Body|是|返回数据
 
-#### 2、请求错误码
+##### 2、请求错误码
 
 > B00001、00004、D00008、H32004、H32005、C00006
 
 
 
-### 用户设备消息通道注销
-
-
-#### 用户登录后注册消息通道
-> 用户登录成功后，注册消息通道
+#### 用户设备消息通道注销
+> 当设备不再需要推送功能或者此设备授权已移交他人
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/userReg`</br>
+?> **接入地址：** `https://uws.haier.net/ums/v2/unreg`</br>
 **HTTP Method：** POST
 
-**输入参数**
+**输入参数：**
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
-pushId|String|长度为1到100|Body|必填|极光返回的推送id
-deviceName|String|长度为1到100|Body|非必填|设备昵称
-deviceType|String|长度为1到100|Body|必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
-typeId|String|长度为1到64|Body|非必填|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
-appPackage|String|长度1到100|Body|是|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
-collab3th|int|长度为1|Body|必填|0：极光 ；</br>1：haier-M2M
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+appPackage|String|Body|必填|
 
+**输出参数：**
 
-**输出参数:** 输出标准应答参数
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据
 
-##### 2、请求样例
-**请求样例**
-```
-请求地址：https://uws.haier.net/ums/v3/userReg
-{
-    "clientId":"******",
-    "pushId":"pushId",
-    "deviceType":"01",
-    "appPackage":"com.a.b",
-    "collab3th":0
-}
-```
-**请求应答**
-```
-{
-  "retCode":"00000",
-  "retInfo":"success"
-}
-```
+##### 2、错误码
+>B00001、H32005、B00004、A00004、D00008、H32006
 
-##### 3、请求错误码
-
-
-
-#### 用户注销消息通道
-> 当设备不再需要推送功能或者此设备授权已经移交给他人，可注销消息通道
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/unRegister`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
-appPackage|String|长度1到100|Body|是|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
-
-##### 2、请求样例
-**请求样例**
-```
-请求地址：https://uws.haier.net/ums/v3/unRegister
-{
-    "clientId":"****",
-    "appPackage":"com.a.b"
-}
-
-```
-**请求应答**
-```
-{
-  "retCode":"00000",
-  "retInfo":"success"
-}
-```
-##### 3、请求错误码
-
-
-#### 用户注销消息通道
-> 当设备不再需要推送功能或者此设备授权已经移交给他人，可注销消息通道
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/unRegister`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-clientId|String|长度为1到100|Body|必填|带屏设备终端的唯一标识，</br>建议：如果能直接从uSDK中获取则需要从uSDK中获取；</br>如果没有uSDK，则可以取设备mac地址，并且尽量与header中保持统一
-appPackage|String|长度1到100|Body|必填|终端标识，依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名</br>IOS = Bundle ID</br>Linux =服务名称</br>Window = 服务名称</br>为避免重复，接入前需要和UMS做好沟通
-
-**输出参数:** 输出标准应答参数
-
-##### 2、请求样例
-**请求样例**
-```
-请求地址：https://uws.haier.net/ums/v3/unRegister
-{
-    "clientId":"****",
-    "appPackage":"com.a.b"
-}
-```
-
-**请求应答**
-```
-{
-  "retCode":"00000",
-  "retInfo":"success"
-}
-```
-
-##### 3、请求错误码
-
-
-### 获取用户注册设备列表
-
-#### 获取用户注册消息通道的设备列表
+#### 终端获取用户已注册通道设备列表
 > 获取当前账号下已经注册过消息通道的带屏设备列表
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/deviceList`</br>
+?> **接入地址：** `https://uws.haier.net/ums/v2/devlist`</br>
 **HTTP Method：** POST
 
-**输入参数**
+**输入参数：**  无，填写空字符串
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+**输出参数：**
 
-**输出参数**
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-deviceList|UserRegInfo[]|Body|非必填|用户注册设备列表
+##### 2、错误码
+> B00004、A00004
 
-##### 2、请求样例
-**请求样例**
-```
-请求地址：https://uws.haier.net/ums/v3/deviceList
-{
-    "appPackage":"com.a.b"
-}
-```
-
-**请求应答**
-```
-{
-  "retCode":"00000",
-  "retInfo":"success",
-   "deviceList":[]
-}
-```
-
-##### 3、请求错误码
-
-### 端-端消息推送
-
-#### 按设备向自己发送消息
-> 用户按设备发送消息，可指定发送给某几个app
+#### 终端消息推送
+> dst 中 type：0，到端的消息推送，不限于当前账户；</br>
+> dst 中 type：1，2，3，一个用户的多屏互动场景。
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByDev</br>
-**HTTP Method：** POST
+?> **接入地址：** `https://uws.haier.net/ums/v2/msgPush`</br>
+**HTTP Method：** POST </br>
+**说明：** 严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
 
-**输入参数**
+?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushtry`</br>
+**HTTP Method：** POST </br>
+**说明：** 最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-deviceId|String[]|数组最大支持200个|Body|必填|设备标识
-deviceType|String[]|数组最大支持200个|Body|非必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
-appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+**输入参数：**
 
-**输出参数**
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+expires|int|Body|非必填|消息有效期，单位秒
+dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"devType":["01","02"]}</br> {"type":3,"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2按照设备类型发送，例如：用户发给用户下是当前用户下（header中token）的appPackage_A、appPackage_B</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
+message|Json-obj|Body|否|业务基础信息
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-msgId|String|Body|必填|消息ID
-
-##### 2、请求样例
-**请求样例**
+**message示例**
 ```
-请求地址：https://uws.haier.net/ums/v3/msg/pushByDev
-{
-    "isTry": 1,
-    "priority": 0, 
-    "expires": 3600,
-    "isLong": 0,
-    "message": {},
-    "deviceIds": ["dev001","dev002"],
-    "deviceTypes": [ "01"],
-    "appPackages": ["com.a.b"]
+海尔成套定义 message 业务大概分为三部分
+1.msgName   2.msgType  3. body
+{  
+"msgName": "msg-name",
+  "msgType": 3,
+    body{
+      "view": {  
+         },       
+        "extData":{
+        }
+      }
 }
+此部分格式以及内容通道不会校验，只是透传
 ```
 
-**请求应答**
+**输入参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据或null
+
+**data示例**
 ```
-{
-  "retCode":"00000",
-  "retInfo":"success",
-   "msgId":"xxx"
-}
+data: {'msgId':”2345345345”}
+msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
+msgId产生原则:时间戳+消息源信息
 ```
 
-##### 3、接口错误码
-
-
-#### 按终端向自己发送消息
-> 用户按终端类型发送消息
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByDevType</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-deviceType|String[]|数组最大支持200个|Body|非必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
-
-
-**输出参数**
-
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-msgId|String|Body|必填|消息ID
-
-##### 2、请求样例
+##### 2、错误码
+> msgPush：B00001、B00006、B00004、D00008、H32006、A00004、B00002、B00003
  
-**请求样例**
-```
-请求地址：https://uws.haier.net/ums/v3/msg/pushByDevType
-{
-    "isTry": 1,
-    "priority": 0,
-    "expires": 3600,
-    "isLong": 0,
-    "message": {},
-    "deviceTypes": [ "01" ]
-}
-```
 
-**请求应答**
-```
-{
-  "retCode":"00000",
-  "retInfo":"success",
-   "msgId":"xxx"
-}
-```
-
-##### 3、接口错误码
+> msgPushtry:B00001、B00006、B00004、D00008、A00004、H32011、B00003、B00002
 
 
-#### 按APP向自己发送消息
-> 用户指定发送给某几个app
+#### 终端信息状态查询接口
+
+> 查询消息是否已经成功插入第三方平台，查询消息下发状态
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v3/msg/pushByApp</br>
-**HTTP Method：** POST
+?> **接入地址：** `https://uws.haier.net/ums/v2/getmsgstat`</br>
+**HTTP Method：** POST </br>
+
 
 **输入参数**
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-appPackages|String[]|数组最大支持200个|Body|非必填|app包名
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+megId|String|Body|必填|终端再推送完毕后服务端返回的消息ID
+
+**输出参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据或null
+
+##### 2、错误码
+
+> B00001、B00004、H32007
+
+
+#### 终端消息状态上报
+
+> 查询信息，终端在收到消息之后必须调用此接口上报“消息已接收”状态
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v2/report`</br>
+**HTTP Method：** POST </br>
+
+**输入参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+appPackage|String|Body|必填|APP包名
+msgId|String|Body|必填|终端在推送完毕后，服务端返回的data中的msgId
+status|int|Body|必填|2：终端已接受</br>3：终端已展示</br>4：终端已反馈（参考massageInfo结构）
+
+**输出参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据或null
+
+##### 2、错误码
+
+> B00001、H32005、B00004、A00004、D00008、H32007、H32008
+
+
+#### 终端消息推送——设备绑定者
+
+> 消息推送至设备绑定者</br>
+> 【1】根据设备的deviceId发送信息到设备的在M2M系统绑定的主人的手机</br>
+> 【2】主人的手机，即为注册消息通道时候，注册类型deviceType为“01：手机”的所有APP
+
+##### 1、接口定义
+?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushToHost`</br>
+**HTTP Method：** POST </br>
+
+**输入参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|绑定时设备的deviceId
+encryptedData|String|Body|必填|APP通过USDK获取的bindkey，获取方式详见USDK部门提供的API文档
+message|Json-obj|Body|必填|业务基础信息
+
+**message示例**
+```
+例如: 海尔成套定义 message 业务大概分为三部分
+1.msgName   2.msgType  3. body
+{  
+"msgName": "msgName",
+  "msgType": 3,
+    body{
+      "view": {  
+         },       
+        "extData":{
+        }
+      }
+}
+此部分格式以及内容通道不会校验，只是透传
+```
+
+**输出参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据或null
+
+##### 2、错误码
+
+> B00001、B00006、B00004、H32009、H32010、A00004、H32011
+
+### 云端业务接口
+
+#### 云端获取用户已注册通道设备列表
+
+> 获取当前账号下已经注册过消息通道的带屏设备列表
+
+
+##### 1、接口定义
+
+?> **接入地址：** `https://uws.haier.net/umse/v2/devlist`</br>
+**HTTP Method：** POST </br>
+
+**输入参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+userid|String|Body|必填|
 
 
 **输出参数**
 
-参数名|类型|取值范围|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-msgId|String|Body|必填|消息ID
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据
 
-##### 2、请求样例
-**请求样例**
+##### 2、错误码
+
+> B00001、B00004、A00004
+
+
+#### 云端消息推送
+
+> APP server 调用直接下发到终端，数组一次最多支持发送200个
+
+
+##### 1、接口定义
+
+?> **接入地址：** `https://uws.haier.net/umse/v2/msgPush`</br>
+**HTTP Method：** POST </br>
+**说明：**严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
+
+
+?> **接入地址：** `https://uws.haier.net/umse/v2/msgPushtry`</br>
+**HTTP Method：** POST </br>
+**说明：**最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
+
+
+**输入参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+expires|int|Body|非必填|消息有效期，单位秒
+dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"Id":["userId1","userId2"]"devType":["01","02"]}</br> {"type":3,"Id":["userId1","userId2"],"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2，ID为userId,按照设备类型发送dstType</br>type:3,ID为userId，按照应用类型appType发送</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（获取的类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
+message|Json-obj|Body|否|业务基础信息
+
+**message说明**
+
 ```
-请求地址：https://uws.haier.net/ums/v3/msg/pushMsgByApp
-{
-    "isTry": 1,
-    "priority": 0,
-    "expires": 3600,
-    "isLong": 0,
-    "message": {},
-    "appPackages": ["com.a.b"]
+例如: 海尔成套定义 message 业务大概分为三部分
+1.msgName   2.msgType  3. body
+{  
+"msgName": "msg-name",
+  "msgType": 3,
+    body{
+      "view": {  
+         },       
+        "extData":{
+        }
+      }
 }
-
+此部分格式以及内容通道不会校验，只是透传
 ```
 
-**请求应答**
+**输出参数**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据
+
+**data说明**
+
 ```
-{
-  "retCode":"00000",
-  "retInfo":"success",
-   "msgId":"xxx"
-}
+data: {'msgId' :”2345345345”}
+msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
+msgId产生原则:时间戳+消息源信息
 ```
 
-##### 3、接口错误码
+#### 云端信息状态查询接口
+
+> 查询消息是否已经成功插入第三方平台
 
 
-### 应用场景
+##### 1、接口定义
+
+?> **接入地址：** `https://uws.haier.net/umse/v2/getmsgstat`</br>
+**HTTP Method：** POST </br>
+
+**输入参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+msgId|String|Body|必填|终端在推送完毕后服务端返回的消息Id
+
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retCode|String|Body|是|返回码
+retInfo|String|Body|是|返回信息
+data|String|Body|是|返回数据
+
+
 
 ## 使用方式
 
