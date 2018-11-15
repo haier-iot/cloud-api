@@ -4,7 +4,9 @@
 
 	* [商务合作](zh-cn/Business)  
 
-	* [接入规范](zh-cn/AccessSpecification)    
+	* [接入规范](zh-cn/Standard/Basic)     
+
+	* [常用信息](zh-cn/Standard/Other)   
 
 * [账户服务](zh-cn/Account)  
 
