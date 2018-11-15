@@ -1157,12 +1157,6 @@ Header：
 
 
 
-## 使用方式
-
-### 开通流程
-![开通流程][DevicesStandard_liucheng]
-
-
 [^-^]:常用图片注释
 [DevicesStandard_type]:_media/_DevicesStandard/DevicesStandard_type.png
 [DevicesStandard_liucheng]:_media/_DevicesStandard/DevicesStandard_liucheng.png
