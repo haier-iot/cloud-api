@@ -1,8 +1,10 @@
-* [首页](zh-cn/)  
+* 快速开始 
 
-* [商务合作](zh-cn/Business)  
+	* [平台介绍](zh-cn/)  
 
-* [接入规范](zh-cn/AccessSpecification)    
+	* [商务合作](zh-cn/Business)  
+
+	* [接入规范](zh-cn/AccessSpecification)    
 
 * [账户服务](zh-cn/Account)  
 
