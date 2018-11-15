@@ -1,7 +1,7 @@
 
->  **当前版本**：[uws场景引擎服务v2.6.1]()    
+>  **当前版本**：[uws 场景引擎服务v2.6.1](zh-cn/ChangeLog/IFTTT)   
  **更新时间**：{docsify-updated}  
-[更新说明](zh-cn/ChangeLog/IFTTT) 
+
 
 
 ## 简介
