@@ -2464,9 +2464,48 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null |
 
+<!--  
+##### 2、请求样例  
 
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 51f839ee62312c41931a42d7353b4e74f50d9f03bedfcd1a227f1be2efc7a91e
+timestamp: 1542183603622 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"storeSceneIds": ["2258bce4c54d422b940167a8f30f04f3",
+	"6e5faad84ef143e9a497c310e903baa4"],
+	"familyId": "zf_platform"
+}
 
+```  
 
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": ["7fc6f082f77343e2baac4a71b26044f7",
+	"72b1f0084ead44229331e477d0de282a"]
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+-->
 
 #### 修改场景昵称
 >修改场景昵称（别名）。
@@ -2488,6 +2527,47 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 14a5736f619376ffad7d539e4540e644c711a39996ff2f4acb396d99bd3586cd
+timestamp: 1542356687190 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"sceneId": "56240541ee1848e69b672d42303b037e", "appSceneAlias":"jiayk001" 
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
+
 
 
 #### 修改场景生效时间段
@@ -2511,6 +2591,45 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 2ce8188bdad4cd5df8bfe21952469d4a34d68fc90a5fabece365e9dba5c71244
+timestamp: 1542357698903 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"sceneId": "56240541ee1848e69b672d42303b037e",
+	"activeBeginTime": "10:24:12",
+	"activeEndTime": "11:24:12"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
 
 
 
@@ -2537,6 +2656,44 @@ Body
 |  data  | Object| Body  |  必填 |显示为：null |
 
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: e7ff69d158c8faf7db9bd90b61571395e96dc4f0b3689a295c08593b830a8f65
+timestamp: 1542357835611 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"familyId": "191092663982000000",
+	"appId": "MB-AIRCONDITION1-0001",
+	"sceneIds": ["61b830e6fc3940daaca7c487ce7f288c"]
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
 
 
 
@@ -2562,6 +2719,108 @@ Body
 |  data  | Object| Body  |  必填 |返回创建成功后的场景ID |
 
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 70396b026fd234ab73c576e99bb581afd05601617f34de90049cf173a96928e6
+timestamp: 1542358010927 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+  "userSceneDto": {
+    "auto": false,
+    "familyId": "717042585118000000",
+    "isOpen": 0,
+    "rules": [
+      {
+        "then": {
+          "actions": [
+            {
+              "control": {
+                "args": [
+                  {
+                    "name": {
+                      "id": "5cb7157b972b47648fd48cadd2b03380",
+                      "required": true
+                    },
+                    "value": {
+                      "desc": "低风",
+                      "required": true,
+                      "value": "3"
+                    }
+                  }
+                ],
+                "componentId": "fd1519209d7c11e88943fa163eb273a5",
+                "object": {
+                  "required": false,
+                  "value": "DC330D630E49"
+                },
+                "operation": {
+                  "desc": "设置风速",
+                  "id": "ff58285a9e184eacb7a84d5a9e643aef",
+                  "required": false
+                }
+              },
+              "dealyTime": 0,
+              "type": "DeviceControl"
+            }
+          ]
+        },
+        "when": {
+          "conditions": [
+            {
+              "componentId": "fd1519209d7c11e88943fa163eb273a5",
+              "desc": "开关机状态设置为等于开机",
+              "key": {
+                "id": "bd0ebf1efb5f45f18beced92ebcec529",
+                "required": true
+              },
+              "object": {
+                "desc": "除湿机1",
+                "required": false,
+                "value": "DC330D630E49"
+              },
+              "operationSign": "equal",
+              "value": {
+                "desc": "开机",
+                "required": true,
+                "value": "true"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "sceneDesc": "中国版123",
+    "sceneName": "中国版123",
+    "userId": "5458199"
+  }
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+<!-- 这个应答有问题 需要从新调 -->
+##### 3、错误码  
+> 见首页公共错误码 
 
 #### 用户创建手动触发类场景
 >根据用户填写的参数保存场景。
