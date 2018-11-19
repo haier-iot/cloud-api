@@ -2728,9 +2728,9 @@ appId: MB-UZHSH-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
-accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
-sign: 70396b026fd234ab73c576e99bb581afd05601617f34de90049cf173a96928e6
-timestamp: 1542358010927 
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 8a4447bead76f47f85580b1291f36c6c59ca84415307f4ca89d1ffa3cae0b11d
+timestamp: 1542614635624 
 language: zh-cn
 timezone: +8
 appKey: f50c76fbc8271d361e1f6b5973f54585
@@ -2815,10 +2815,10 @@ Body
 {
 	"retCode": "00000",
 	"retInfo": "成功",
-	"data": null
+	"data": "6aa9a62f720d460da7293d7fc40453aa"
 }
 ```
-<!-- 这个应答有问题 需要从新调 -->
+
 ##### 3、错误码  
 > 见首页公共错误码 
 
@@ -2986,6 +2986,45 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 7ffa0beaba5480237d441ddeeb0087b85c2ce675ba551c377330623a2de14690
+timestamp: 1542618834303 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"ruleId": "eb83f2d339d644839e3f95901a0af094",
+	"name": "2.3引擎关爱场景-空调-1.0-分体jiayk"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
 
 
 #### 修改规则描述
@@ -3009,6 +3048,47 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 22f09c8c7349bda4da2d6fb3e1bad9780838b0ea780344b6ec2e4711c8e5097c
+timestamp: 1542618995204 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"ruleId": "eb83f2d339d644839e3f95901a0af094",
+	"describe": "rule_description1_jiayk"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
+
+
 
 #### 修改规则开关状态
 >修改规则开关状态接。
@@ -3030,6 +3110,44 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 5d88391974492f6ccf8dfdfb8c2ca8721f5ced9ece6e45e2523459d4edeb9093
+timestamp: 1542619171879 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{ 
+	"ruleId": "eb83f2d339d644839e3f95901a0af094", "isOpen": "1"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
 
 
 
@@ -3055,6 +3173,44 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 1655668e4ecb63ba1b6e89d12d42ba7719c3c62f3a339d6419de8f5822c1db75
+timestamp: 1542619291670 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{ 
+	"ruleActionId": "a0b2568f2c794ec4a7ec7b162029d854", "isOpen": "1"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
 
 
 #### 修改消息推送行为中消息内容
@@ -3077,6 +3233,70 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 57ed50324ef9945fa6d717e81db7386128b029b9215383fa13d44902688efd14
+timestamp: 1542619379759 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"ruleActionId":"071099dacbee41eeab4a0375ca2b0688",
+     "pushMessage":{
+        "messagePush":{
+            "pushType":"family_device",
+            "pushContent":{
+                "msgName":"",
+                "expires":"86400",
+                "msgTitle":"危险",
+                "msgContent":"海尔空小调：咳咳咳～。"
+            },
+            "showTypes":{
+                "01":"3",
+                "02":"3"
+            },
+            "msgStrategy":"null"
+        },
+        "deviceControl":{
+            "args":"null",
+            "controlBtnText":"启动空调",
+            "operation":{
+                "id":"f313ddbcb49d11e798b8fa163eb273a5_0",
+                "value":"null",
+                "desc":"空调参数设置(组命令)_测试组命令24",
+                "required":"false"
+            },
+            "componentId":"4e8a0dfb038d40fab6c5b49369240000"
+        }
+    }
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
 
 
 
@@ -3104,6 +3324,46 @@ Body
 
 
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 8bf804aa13f267a87ea4f927270290c5005a09a7edbabd0f84bfed79c4441325
+timestamp: 1542619548528 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+  "ruleConditionId": "8ad397d15ba74186932b2102c94006d9",
+  "desc": "当前室内温度 >= 28℃jia123"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
+
 
 
 #### 修改动作描述
@@ -3127,6 +3387,44 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null  |
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: c2a733ed66f5c4435d32d7677dd28ab93df9cabb2bcd7cd26f8e76ed2ac5ba7d
+timestamp: 1542619708199 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+  "ruleActionId": "a0b2568f2c794ec4a7ec7b162029d854",
+  "desc": "DESCRIPTION_jiayk11"
+}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": null
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
 
 
 
@@ -3140,7 +3438,7 @@ Body
 
 **输入参数**  
 
-标准输入，如输入参数。    
+标准输入，无输入参数。    
 
 **输出参数**  
 
@@ -3149,8 +3447,68 @@ Body
 |  data  | JSON| Body  |  必填 |[Json结构](zh-cn/IFTTT_jsonDataStructure) |
 
 
+##### 2、请求样例  
 
-#### 获取家庭下场景的操作日志
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 1ef2c702773e4da4e8e7994478f97d4d6313012c66f6437bae4f25bc8fb13980
+timestamp: 1542619838663 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": [{
+		"value": "greaterThan",
+		"desc": "大于",
+		"required": false
+	},
+	{
+		"value": "greaterThanEqual",
+		"desc": "大于等于",
+		"required": false
+	},
+	{
+		"value": "equal",
+		"desc": "等于",
+		"required": false
+	},
+	{
+		"value": "lessThan",
+		"desc": "小于",
+		"required": false
+	},
+	{
+		"value": "lessThanEqual",
+		"desc": "小于等于",
+		"required": false
+	}]
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
+
+#### 获取场景最新操作日志
 >APP下拉刷新，获取家庭下场景的操作日志。
 
 ##### 1、接口定义
@@ -3171,6 +3529,107 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | List< SceneOperationLogDto >| Body  |  必填 |返回家庭下场景的操作记录列表，根据记录产生的时间倒序排列  |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: a9a246405762255773e6d569ad65c745e265e783fafce1c880af475f809cbe12
+timestamp: 1542620093937 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{"familyId":"385062139898000000","limit":50}
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": [{
+		"id": 17074,
+		"sceneId": "98c2af1901b84eb1b4be99cedb53e96b",
+		"sceneName": "回家模式",
+		"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+		"familyId": "385062139898000000",
+		"operationType": 3,
+		"operationStatus": false,
+		"operationResult": "执行成功",
+		"time": "1542352332000",
+		"sn": "a2dfa747-9bdc-4816-b961-046e876e15a2",
+		"status": 1
+	},
+	{
+		"id": 17045,
+		"sceneId": "98c2af1901b84eb1b4be99cedb53e96b",
+		"sceneName": "回家模式",
+		"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+		"familyId": "385062139898000000",
+		"operationType": 3,
+		"operationStatus": false,
+		"operationResult": "执行成功",
+		"time": "1541833930000",
+		"sn": "71851546-6827-437d-adf2-6fb492e4cff5",
+		"status": 1
+	},
+	{
+		"id": 17042,
+		"sceneId": "98c2af1901b84eb1b4be99cedb53e96b",
+		"sceneName": "回家模式",
+		"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+		"familyId": "385062139898000000",
+		"operationType": 3,
+		"operationStatus": false,
+		"operationResult": "执行成功",
+		"time": "1541747530000",
+		"sn": "5a0ed6e4-795c-468d-8c72-c58b3909c567",
+		"status": 1
+	},
+	{
+		"id": 17003,
+		"sceneId": "98c2af1901b84eb1b4be99cedb53e96b",
+		"sceneName": "回家模式",
+		"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+		"familyId": "385062139898000000",
+		"operationType": 3,
+		"operationStatus": false,
+		"operationResult": "执行成功",
+		"time": "1541229129000",
+		"sn": "0baf1355-9a8c-4934-9ccd-286440fd7367",
+		"status": 1
+	},
+	{
+		"id": 17000,
+		"sceneId": "98c2af1901b84eb1b4be99cedb53e96b",
+		"sceneName": "回家模式",
+		"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+		"familyId": "385062139898000000",
+		"operationType": 3,
+		"operationStatus": false,
+		"operationResult": "执行成功",
+		"time": "1541142729000",
+		"sn": "d79e20f6-5321-4bca-9093-c24ef49094da",
+		"status": 1
+	}]
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
+
 
 
 #### 获取场景历史操作日志
