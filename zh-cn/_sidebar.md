@@ -12,9 +12,9 @@
 
 * 设备管理
 
-	* [设备管理服务 标准版](zh-cn/DevicesStandard)  
+	* [标准版](zh-cn/DevicesStandard)  
 
-	* [设备管理服务 企业版](zh-cn/DevicesEnterprise)   
+	* [企业版](zh-cn/DevicesEnterprise)   
 
 * [数据订阅](zh-cn/DataSubscription)  
 
