@@ -57,7 +57,7 @@
 * ChangeLog  
 
 	* [账户服务](zh-cn/ChangeLog/Account)
-	* [设备管理服务](zh-cn/ChangeLog/DevicesStandard)
+	* [设备管理](zh-cn/ChangeLog/DevicesStandard)
 	* [数据订阅](zh-cn/ChangeLog/DataSubscription)
 	* [家庭模型](zh-cn/ChangeLog/Family)
 	* [场景引擎](zh-cn/ChangeLog/IFTTT)
