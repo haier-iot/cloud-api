@@ -6,7 +6,9 @@
 
 	* [接入规范](zh-cn/Standard/Basic)     
 
-	* [常用信息](zh-cn/Standard/Other)   
+	* [常用信息](zh-cn/Standard/Other) 
+	
+	* [常见问题](zh-cn/Standard/Question)  
 
 * [账户服务](zh-cn/Account)  
 
