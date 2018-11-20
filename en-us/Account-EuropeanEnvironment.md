@@ -1,5 +1,6 @@
-!>  **current version**：UWS Accountservice V2.0.0  
- **release time**：{docsify-updated} 
+
+>  **current version**：[UWS Accountservice V2.0.0](en-us/ChangeLog/Account)  
+ **Update time**：{docsify-updated} 
 
 
 ### Introduction
@@ -9,6 +10,17 @@
 By integrating the U+IOT platform account service, the developer not only provides account management services such as registration, login, and password recovery of user accounts, but also helps developers to build unified control including device and user rights management. Consistent IOT systemic control mode.  
 
 ![账户图片][account_type]
+ 
+**Account base capability**  
+1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
+2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
+3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
+  
+**Account system association ability**  
+ 
+1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
+2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
+
 
 ### Noun explanation
 
@@ -23,16 +35,13 @@ Since Haier account has Haier Youjia account right at the same time, Gu can also
 
 Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
 
-### Function is introduced  
-**Account base capability**  
-1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
-2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
-3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-  
-**Account system association ability**  
- 
-1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
-2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
+### Application scenario
+**Account management**  
+Developers do not have an account system and can integrate U+ account related services.  
+
+**Developer account**  
+Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
+
 
 ### User privacy data security  
 #### Safety instructions  
@@ -273,7 +282,7 @@ Version: V1.0.0, uppercase V
 
 #### View user privacy agreement content  
 
-Https://uws-gea-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}
+`Https://uws-gea-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
 The lg parameter refers to the internationalized language table in the [access specification](en-us/AccessSpecification).
   
 ### Use of language templates
@@ -1368,21 +1377,8 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 | B00004  |  Parameter error|  Wrong privacy clause version number  |   
 | D00003 |  Token does not exist, failed to pass the token|  Token does not exist or the wrong token  |   
 
-## Way of use
-
-### Opening process  
-![开通流程][account_liucheng]
-
-### Application scenario
-**Account management**  
-Developers do not have an account system and can integrate U+ account related services.  
-
-**Developer account**  
-Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
 
 
-
-## common problem
 
 [^-^]:文本连接注释
 [account_document_url]:_document/_account/GEAProjectInterfaceDefinitionSpecification.docx

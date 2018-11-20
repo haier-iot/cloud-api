@@ -1,17 +1,9 @@
-!> **current version：** EquipmentManagementServiceEnterpriseEditionv1.5.1  
-**date：** {docsify-updated} 
+
+> **current version：** [UWS EquipmentManagementServiceEnterpriseEdition V1.5.2](en-us/ChangeLog/DevicesStandard)  
+**Update time：** {docsify-updated} 
 
 ## Introduction
 The enterprise version of the service can be applied to both the application-side and the enterprise-level device management from the case where the application server (ie, the app server) is directly connected to the platform. The application server uniformly obtains device information and device control capabilities.  
-
-## Noun explanation
-
-
--  **Non-standard equipment**
--  **Single command**
--  **Group command**
-
-## Function introduced  
 
 **User Token authorized device control**  
 The device is remotely controlled by the user token authorization.
@@ -23,9 +15,16 @@ Standard device attribute read and write|User reads and writes the attribute inf
 Standard equipment operation|The user operates the device by issuing the following command  
 
 
-**More advanced authorized device control**  
-If you have business needs, you can contact [Haier U+ Business BD][Business] to communicate and agree on a more advanced authorized equipment control solution.
-  
+<!-- 注释开始
+**Advanced authorization device control(Manufacturer authorized device management services)**   
+
+The device management service authorized by the manufacturer is the management and control device service specially provided by U+ cloud platform for enterprise users. It only needs to obtain the authorization code issued by U+ cloud platform, and it does not need to realize token authorization to quickly realize the device control and management function. Detailed service understanding and authorization to connect with  [Haier U+ Business BD][Business].
+注释结束  -->
+
+
+### Application scenario
+The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.
+
 
 ## Public structure description
 ### User
@@ -378,13 +377,6 @@ Body
 ##### 3、Interface error code
 > B00001、B00004、A00001、D00006、G20202、G03002
 
-## Way of use
-
-### Opening process
-![开通流程][DevicesStandard_liucheng]
-
-### Application scenario
-The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
 
 
