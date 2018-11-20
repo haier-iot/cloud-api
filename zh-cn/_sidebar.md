@@ -64,6 +64,4 @@
 	* [预约定时](zh-cn/ChangeLog/Scheduler)
 	* [设备影子](zh-cn/ChangeLog/DevicesShadow)
 	* [消息推送](zh-cn/ChangeLog/MessagePush)
-	* [天气服务](zh-cn/ChangeLog/CapacityService_Weather)
-	* [智能设备资源云存储](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)
-	
+	* [能力服务](zh-cn/ChangeLog/CapacityService_Weather)
