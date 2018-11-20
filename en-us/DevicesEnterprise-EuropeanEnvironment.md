@@ -1,5 +1,5 @@
 
-> **current version：** [UWS EquipmentManagementServiceEnterpriseEditionv1.5.2]((en-us/ChangeLog/DevicesStandard)  
+> **current version：** [UWS EquipmentManagementServiceEnterpriseEdition V1.5.2](en-us/ChangeLog/DevicesStandard)  
 **Update time：** {docsify-updated} 
 
 ## Introduction
