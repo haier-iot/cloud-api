@@ -22,6 +22,8 @@
 
 * [场景引擎](zh-cn/IFTTT)  
 
+* [场景Portal](zh-cn/IFTTTPortal)  
+
 * [预约定时](zh-cn/Scheduler)  
 
 * [设备影子](zh-cn/DevicesShadow)  
