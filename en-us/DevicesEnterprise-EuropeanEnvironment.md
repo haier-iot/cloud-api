@@ -1,17 +1,9 @@
-!> **current version：** EquipmentManagementServiceEnterpriseEditionv1.5.2  
-**date：** {docsify-updated} 
+
+> **current version：** [UWS EquipmentManagementServiceEnterpriseEditionv1.5.2]((en-us/ChangeLog/DevicesStandard)  
+**Update time：** {docsify-updated} 
 
 ## Introduction
 The enterprise version of the service can be applied to both the application-side and the enterprise-level device management from the case where the application server (ie, the app server) is directly connected to the platform. The application server uniformly obtains device information and device control capabilities.  
-
-## Noun explanation
-
-
--  **Non-standard equipment**
--  **Single command**
--  **Group command**
-
-## Function introduced  
 
 **User Token authorized device control**  
 The device is remotely controlled by the user token authorization.
@@ -26,6 +18,10 @@ Standard equipment operation|The user operates the device by issuing the followi
 **Advanced authorization device control(Manufacturer authorized device management services)**   
 
 The device management service authorized by the manufacturer is the management and control device service specially provided by U+ cloud platform for enterprise users. It only needs to obtain the authorization code issued by U+ cloud platform, and it does not need to realize token authorization to quickly realize the device control and management function. Detailed service understanding and authorization to connect with  [Haier U+ Business BD][Business].
+
+
+### Application scenario
+The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
 
 ## Public structure description
@@ -934,16 +930,6 @@ Body
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
 注释结束
 -->
-
-
-
-## Way of use
-
-### Opening process
-![开通流程][DevicesStandard_liucheng]
-
-### Application scenario
-The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
 
 

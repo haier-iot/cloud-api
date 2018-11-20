@@ -1,5 +1,6 @@
-!>  **current version**：UWS Accountservice V1.4.0  
- **release time**：{docsify-updated} 
+
+>  **current version**：[UWS Accountservice V1.4.0](en-us/ChangeLog/Account)  
+ **Update time**：{docsify-updated} 
 
 
 ### Introduction
@@ -8,7 +9,17 @@
 
 By integrating the U+IOT platform account service, the developer not only provides account management services such as registration, login, and password recovery of user accounts, but also helps developers to build unified control including device and user rights management. Consistent IOT systemic control mode.  
 
-![账户图片][account_type]
+![账户图片][account_type]  
+
+**Account base capability**  
+1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
+2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
+3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
+
+**Account system association ability**   
+ 
+1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
+2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
 ### Noun explanation
 
@@ -24,16 +35,13 @@ Since Haier account has Haier Youjia account right at the same time, Gu can also
 
 Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
 
-### Function is introduced  
-**Account base capability**  
-1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
-2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
-3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
+### Application scenario
+**Account management**  
+Developers do not have an account system and can integrate U+ account related services.  
 
-**Account system association ability**   
- 
-1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
-2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
+**Developer account**  
+Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
+
 
 ### Security of user password  
 
@@ -276,7 +284,7 @@ body
 
 | parameter name        | types          | location  | required|description|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
+| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
    
  
 
@@ -855,25 +863,7 @@ Body
 | C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
 | D00008  | Illegal user| AccessToken error |  
 
- 
 
-## Way of use
-
-### Opening process  
-![开通流程][account_callingProcess]
-
-### Application scenario
-**Account management**  
-Developers do not have an account system and can integrate U+ account related services.  
-
-**Developer account**  
-Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
-
-<!-- 
-## Documentation
-[UWS AccountService][account_document_url]
--->
-## common problem
 
 [^-^]:文本连接注释
 [account_document_url]:_document/_account/GEAProjectInterfaceDefinitionSpecificationV1.4-NorthAmericanEnvironment.docx

@@ -14,21 +14,21 @@
   
   * [European Environment](en-us/Account-EuropeanEnvironment)  
   
-* Equipment Management  
+* Equipment Management Service  
 
- * [Standard Edition](en-us/DevicesStandard)  
+ * [NorthAmericanEnvironment-Standard Edition](en-us/DevicesStandard)  
 
- * [Enterprise Edition](en-us/DevicesEnterprise) 
+ * [NorthAmericanEnvironment-Enterprise Edition](en-us/DevicesEnterprise) 
  
- * [European Environment-Standard Edition](en-us/DevicesStandard-EuropeanEnvironment)  
+ * [EuropeanEnvironment-Standard Edition](en-us/DevicesStandard-EuropeanEnvironment)  
 
- * [European Environment-Enterprise Edition](en-us/DevicesEnterprise-EuropeanEnvironment)  
+ * [EuropeanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-EuropeanEnvironment)  
 
 * [Data Subscription](en-us/DataSubscription)  
 
 * ChangeLog  
 
-	* [North American Environment](en-us/ChangeLog/Account)
-	* [European Environment](en-us/ChangeLog/DevicesStandard)
+	* [Account Service](en-us/ChangeLog/Account)
+	* [Equipment Management](en-us/ChangeLog/DevicesStandard)
 	* [Data Subscription](en-us/ChangeLog/DataSubscription)
 
