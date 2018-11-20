@@ -152,7 +152,7 @@ deviceId|String|设备ID|
 ### 绑定与解绑
 
 #### 绑定
-> 用户绑定设备的接口
+> 用户绑定设备的接口  <font color=red>单用户绑定设备数量<=100个，绑定时设备必须平台上线。</font>
 
 ##### 1、接口定义
 ?> **接入地址：** `/uds/v1/protected/bindDevice`</br>
