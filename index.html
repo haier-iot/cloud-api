@@ -18,9 +18,12 @@
 	  loadSidebar: true,
 	  autoHeader: true,   //根据sidebar自动添加标题
 	  subMaxLevel: 4,   //显示目录级别
-	 // alias: {
-    //  '/.*/_sidebar.md': '/_sidebar.md'
-    //},
+	  alias: {
+      '/.*en-us.*/_sidebar.md': '/en-us/_sidebar.md',
+	  '/.*en-us.*/_sidebar.md': '/en-us/_navbar.md',
+	   '/.*/_sidebar.md': '/zh-cn/_sidebar.md',
+	  '/.*/_sidebar.md': '/zh-cn/_navbar.md',
+    },
 	loadNavbar: true,   // 配置头部导航
 	coverpage: false ,   // 配置封面
 	auto2top: true ,    //切换页面后是否自动跳转到页面顶部。
@@ -38,7 +41,7 @@
 
     return time;
   },
-    externalLinkTarget: '_self' ,// default: '_blank',_self    //外联打开方式
+    externalLinkTarget: '_blank' ,// default: '_blank',_self    //外联打开方式
 	 notFoundPage: {    //404页面
     '/': '_404.md',
     '/zh-cn': 'zh-cn/_404.md'
