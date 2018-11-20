@@ -1,6 +1,6 @@
 **Update time**：{docsify-updated} 
 
-## Access Instructions
+## Access address
 
 1. **Access premise**  
 Before using the UWS service of Haier U+ Cloud Platform, the application developer needs to register as a developer at Haigeek(http://www.haigeek.com) and apply to create their own application products (application types include Andriod, IOS). According to the development test of the application product, the stage of the release process corresponds to the UWS service of the Haier U+ cloud platform by using the information of the appid and appkey assigned by the created application. 
@@ -22,7 +22,7 @@ When developing applications, please connect to the developer environment for de
 |Europe|`https://uws-euro.haieriot.net`|No|
 |North America|`https://uws-gea-us.haieriot.net`|No|
 
-## UWS Service Description
+## Service list
 U+ platform existing UWS service description
 
 Serial number|UWS service name|Application name|Version number (current version)

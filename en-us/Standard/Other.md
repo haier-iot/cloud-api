@@ -1,185 +1,144 @@
 
-**更新时间**：{docsify-updated} 
+**Update time**：{docsify-updated} 
 
-## 国际化处理
-对接口响应返回的retCode和retInfo不做国际化处理，由接口调用方处理。
-对于接口涉及业务数据的国际化通过在header中传递language参数来定义，具体的国际化语言代码见下。
+## Internationalization 
+The retCode and retInfo returned by the interface response are not internationalized and are processed by the interface caller.  
+The internationalization of the interface involving business data is defined by passing the language parameter in the header. The specific international language code is shown below.  
 
-|语言编码|	英文名称|	中文名称|	是否支持|
+|Language coding|	English name|	Chinese name|	Whether to support|
 |-----|----|----|----|
-|af	|Afrikaans - South Africa	|南非荷兰语|	否|
-|ar-ae	|Arabic(U.A.E.)	|阿拉伯语 - 阿拉伯联合酋长国	|否|
-|ar-bh	|Arabic(Bahrain)	|阿拉伯语 - 巴林	|否|
-|ar-dz	|Arabic(Algeria)	|阿拉伯语 - 阿尔及利亚	|否|
-|ar-eg	|Arabic(Egypt)	|阿拉伯语 - 埃及	|否|
-|ar-iq	|Arabic(Iraq)	|阿拉伯语 - 伊拉克	|否|
-|ar-jo	|Arabic(Jordan)	|阿拉伯语 - 约旦	|否|
-|ar-kw	|Arabic(Kuwait)	|阿拉伯语 - 科威特	|否|
-|ar-lb	|Arabic(Lebanon)	|阿拉伯语 - 黎巴嫩	|否|
-|ar-ly	|Arabic(Libya)	|阿拉伯语 - 利比亚	|否|
-|ar-ma	|Arabic(Morocco)	|阿拉伯语 - 摩洛哥	|否|
-|ar-om	|Arabic(Oman)	|阿拉伯语 - 阿曼	|否|
-|ar-qa	|Arabic(Qatar)	|阿拉伯语 - 卡塔尔	|否|
-|ar-sa	|Arabic(Saudi Arabia)	|阿拉伯语 - 沙特阿拉伯	|否|
-|ar-sy	|Arabic(Syria)	|阿拉伯语 - 叙利亚	|否|
-|ar-tn	|Arabic(Tunisia)	|阿拉伯语 - 突尼斯	|否|
-|ar-ye	|Arabic(Yemen)	|阿拉伯语 - 也门	|否|
-|be	|Belarusian	|白俄罗斯语	|否|
-|bg	|Bulgarian	|保加利亚语	|否|
-|ca	|Catalan	|加泰罗尼亚语	|否|
-|cs|	Czech	|捷克语|	否|
-|da	|Danish	|丹麦语	|否|
-|de	|German(Standard)	|德语 - 标准|	否|
-|de-at	|German(Austrian)	|德语 - 奥地利	|否|
-|de-ch	|German(Swiss)	|德语 - 瑞士|	否|
-|de-li	|German(Liechtenstein)	|德语 - 列支敦士登|	否|
-|de-lu	|German(Luxembourg)	|德语 - 卢森堡	|否|
-|el	|Greek	|希腊语	|否|
-|en	|English	|英语|	是|
-|en-au	|English(Australian)	|英语 - 澳大利亚	|否|
-|en-bz	|English(Belize)	|英语 - 伯利兹	|否|
-|en-ca	|English(Canadian)	|英语 - 加拿大	|否|
-|en-gb	|English(British)	|英语 - 英国	|否|
-|en-ie	|English(Ireland)	|英语 - 爱尔兰|	否|
-|en-jm	|English(Jamaica)	|英语 - 牙买加	|否|
-|en-nz	|English(New Zealand)	|英语 - 新西兰	|否|
-|en-tt	|English(Trinidad)	|英语 - 特立尼达岛	|否|
-|en-us	|English(United States)	|英语 - 美国	|否|
-|en-za	|English(South Africa)	|英语 - 南非	|否|
-|es	|Spanish(Spain - Modern Sort)	|西班牙语 - 标准|	否|
+|af	|Afrikaans - South Africa	|南非荷兰语|	no|
+|ar-ae	|Arabic(U.A.E.)	|阿拉伯语 - 阿拉伯联合酋长国	|no|
+|ar-bh	|Arabic(Bahrain)	|阿拉伯语 - 巴林	|no|
+|ar-dz	|Arabic(Algeria)	|阿拉伯语 - 阿尔及利亚	|no|
+|ar-eg	|Arabic(Egypt)	|阿拉伯语 - 埃及	|no|
+|ar-iq	|Arabic(Iraq)	|阿拉伯语 - 伊拉克	|no|
+|ar-jo	|Arabic(Jordan)	|阿拉伯语 - 约旦	|no|
+|ar-kw	|Arabic(Kuwait)	|阿拉伯语 - 科威特	|no|
+|ar-lb	|Arabic(Lebanon)	|阿拉伯语 - 黎巴嫩	|no|
+|ar-ly	|Arabic(Libya)	|阿拉伯语 - 利比亚	|no|
+|ar-ma	|Arabic(Morocco)	|阿拉伯语 - 摩洛哥	|no|
+|ar-om	|Arabic(Oman)	|阿拉伯语 - 阿曼	|no|
+|ar-qa	|Arabic(Qatar)	|阿拉伯语 - 卡塔尔	|no|
+|ar-sa	|Arabic(Saudi Arabia)	|阿拉伯语 - 沙特阿拉伯	|no|
+|ar-sy	|Arabic(Syria)	|阿拉伯语 - 叙利亚	|no|
+|ar-tn	|Arabic(Tunisia)	|阿拉伯语 - 突尼斯	|no|
+|ar-ye	|Arabic(Yemen)	|阿拉伯语 - 也门	|no
+|be	|Belarusian	|白俄罗斯语	|no|
+|bg	|Bulgarian	|保加利亚语	|no|
+|ca	|Catalan	|加泰罗尼亚语	|no|
+|cs|	Czech	|捷克语|	no|
+|da	|Danish	|丹麦语	|no|
+|de	|German(Standard)	|德语 - 标准|	no|
+|de-at	|German(Austrian)	|德语 - 奥地利	|no|
+|de-ch	|German(Swiss)	|德语 - 瑞士|	no|
+|de-li	|German(Liechtenstein)	|德语 - 列支敦士登|	no|
+|de-lu	|German(Luxembourg)	|德语 - 卢森堡	|no|
+|el	|Greek	|希腊语	|no|
+|en	|English	|英语|	yes|
+|en-au	|English(Australian)	|英语 - 澳大利亚	|no|
+|en-bz	|English(Belize)	|英语 - 伯利兹	|no|
+|en-ca	|English(Canadian)	|英语 - 加拿大	|no|
+|en-gb	|English(British)	|英语 - 英国	|no|
+|en-ie	|English(Ireland)	|英语 - 爱尔兰|	no|
+|en-jm	|English(Jamaica)	|英语 - 牙买加	|no|
+|en-nz	|English(New Zealand)	|英语 - 新西兰	|no|
+|en-tt	|English(Trinidad)	|英语 - 特立尼达岛	|no|
+|en-us	|English(United States)	|英语 - 美国	|no|
+|en-za	|English(South Africa)	|英语 - 南非	|no|
+|es	|Spanish(Spain - Modern Sort)	|西班牙语 - 标准|	no|
 
-## 安全规范
+## Safety Regulations
 
-1. **数据安全**
+1. **Data Security**
 
-App应用要保证自己接入UWS时通过海极网获取的appid、appkey等信息的使用安全，出现因外泄导致违规使用UWS服务而被平台禁用的风险由APP开发者自行承担。
-App通过UWS获取的数据等要确保存储安全。
+The App application should ensure the safe use of the appid, appkey and other information obtained through the Haiji network when accessing the UWS. The risk of being disabled by the platform due to the leakage of the UWS service due to the leakage is the responsibility of the APP developer.  
+The data acquired by the App through UWS, etc., must ensure storage security.
 
-2. **接口访问安全**
+2. **Interface access security**
 
-要严格按照UWS接口服务的使用文档调用,开发相关安全参照“海尔优家安全开发规范V1.0.pdf”执行。
-
-
-## 平台公共错误码
-|retCode错误码|	retInfo描述|可尝试解决方法|
-|---|---|---|
-|A00001|	服务不可用                                    |联系云平台检查服务是否正常
-|A00002|	网络异常                                      |联系云平台检查服务是否正常
-|A00003|	访问或操作超时                                |联系云平台检查服务是否正常
-|A00004|	系统内部错误                                  |联系云平台检查服务是否正常
-|A00005|	数据库访问异常                                |联系云平台检查服务是否正常
-|A00006|	未知异常                                      |联系云平台检查服务是否正常
-|A00007|	邮件服务异常                                  |联系云平台检查服务是否正常
-|A00008|	邮件发送失败                                  |联系云平台检查服务是否正常
-|A00009|	邮件发送次数超限                              |检查必填参数是否为有效值（非空并且不能为空字符串）
-|B00001|	缺少必填参数                                  |N/A
-|B00002|	参数类型错误                                  |N/A
-|B00003|	参数数值超出值域或不是枚举值                  |N/A
-|B00004|	参数不符合规则要求                            |N/A
-|B00006|	参数长度错误                                  |N/A
-|B00007|	参数与接口定义不匹配                          |N/A
-|C00001|	appId与appKey验证失败                         |N/A
-|C00002|	appServer无访问授权                           |N/A
-|C00003|	访问权限不足                                  |N/A
-|C00004|	操作权限不足                                  |N/A
-|C00005|	重复请求                                      |N/A
-|C00006|	未知设备类型                                  |N/A
-|C00007|	appId配置信息为空                             |N/A
-|C00008|	appKey为空                                    |N/A
-|D00001|	sign签名错误                                  |N/A
-|D00002|	账号或密码错误                                |N/A
-|D00003|	Token不存在，未通过token验证                  |N/A
-|D00004|	Token已过期，未通过token验证。                |N/A
-|D00005|	Token不是由此应用创建，未通过token验证。      |N/A
-|D00006|	会话失效                                      |N/A
-|D00007|	不是系统内部用户                              |N/A
-|D00008|	用户不合法                                    |N/A
-|D00009|	登录失败超限，需使用验证码登录                |N/A
-|D00010|	账号被锁定                                    |N/A
-|D00011|	帐号未激活                                    |N/A
-|D00012|	账号已存在                                    |N/A
-|D00013|	登录失败                                      |N/A
-|D00015|	验证码错误                                    |N/A
-|D00016|	你已退出或尚未登录                            |N/A
-|D00017|	账户不存在                                    |N/A
-|E31104|	用户不是家庭管理员                            |使用具有家庭管理员权限的用户
-|E31105|	用户已经是家庭成员                            |用户已经是家庭成员，不需要再执行相应操作。
-|E31106|	成员记录不存在                                |N/A
-|E31107|	用户不是家庭成员                              |需要用户为家庭成员才能操作接口
-|E31108|	家庭id不存在                                  |有响应权限的用户，操作存在的家庭的ID
-|E31109|	用户不是家庭管理员或者家庭成员                |使用时家庭管理员或者家庭的成员的用户操作此类接口
-|E31111|	设备不能分享给多个家庭或者不能重复分享        |先使用之前的属主用户取消设备的家庭分享，再执行分享
-|E31129|	家庭成员不是资源拥有者                        |N/A
-|E31130|	家庭管理员不能邀请自己                        |N/A
-|E31131|	邀请码不能为空                                |N/A
-|E31132|	用户没有被邀请                                |N/A
-|E31133|	邀请码错误                                    |N/A
-|E31134|	两个资源id不能相同                            |N/A
-|F31211|	用户不是家庭的创建者                          |N/A
-|F31212|	用户已经是家庭成员                            |N/A
-|F31213|	家庭的创建者不能加入家庭                      |N/A
-|F31214|	用户不是家庭成员                              |N/A
-|F31215|	用户不是设备的拥有者                          |N/A
-|F31216|	找不到对应的家庭                              |N/A
-|F31217|	设备没有被分享到家庭                          |N/A
-|F31218|	用户没有对该设备的任何权限                    |N/A
-|F31219|	设备已分享到该家庭，不要重复分享              |N/A
-|F31221|	设备已分享给该用户                            |N/A
-|F31222|	设备没有分享给该用户                          |N/A
-|F31223|	设备已绑定给该用户                            |N/A
-|F31224|	设备已绑定给其它用户                          |N/A
-|F31225|	设备不能分享给自己                            |N/A
-|F31301|	查询不到用户信息                              |N/A
-|G20003|	无法获取到适配器/应用信息                     |N/A
-|G20201|	获取用户绑定的设备列表失败                    |N/A
-|G20202|	当前用户与该设备不匹配                        |N/A
-|G20301|	设备信息查询失败                              |N/A
-|20903	|主数据访问异常                                   |N/A
-|G20904|	已超过绑定数量                                |一个用户只能绑定100个设备
-|G20908|	安全校验未通过                                |重新配网
-|G20910|	非安全设备校验失败                            |非安全设备绑定：1、设备必须在线2、设备上报版本信息时间不大于10分钟，即小于等于10分钟
-|G23401|	设备未绑定                                    |N/A
-|G23501|	用户绑定设备安全校验失败                      |N/A
-|G24001|	设备品牌型号信息为空                          |N/A
-|H00001|	邀请消息推送失败，请重新发送邀请              |N/A
-|H32004|	第三方通道暂不支持                            |collab3th传值有误，目前只能传0或1。
-|H32005|	APP类型暂不支持                               |请确定已注册了此appPackage
-|H32006|	设备重复注销或尚未注册                        |请确保此设备未被注销或已注册。
-|H32007|	本条消息不存在                                |请确保消息id是正确的。
-|H32008|	消息状态转换规则非法                          |请不要重复向同一消息更新同一个状态码。
-|H32009|	设备M2M加密信息验证失效                       |可以根据相关参数由M2M查询一下具体原因
-|H32010|	查找M2M设备主人失败                           |可以根据相应参数由M2M查询一下，为什么这个设备没有找到主人。
-|H32011|	没有注册消息通道的用户                        |请检查用户是否注册了消息通道。
-|LC0001|	组件信息不存在                                |N/A
-|LS0001|	场景信息不存在                                |需APP检查传入的设备参数
-|LI0001|	手动实例化规则参数不完整                      |传入的场景id不对，确定场景ID是否正确
-|LG0001|	组命令功能信息不存在                          |传入的场景id不对，确定场景ID是否正确
-|S00001|	CRON表达式冲突                                |定时任务表达式已经存在，更换任务表达式
-|S00002|	task记录不存在                                |N/A
-|S00003|	task操作失败                                  |N/A
-|S00004|	设备类型任务超出上限                          |N/A
-|Y00001|	设备云端影子未开启或已关闭。                  |N/A
-|Y00002|	历史设备，没有建立标准模型转换关系。          |N/A
-|Y00003|	历史设备，上报数据无法识别。转换标准模型失败。|N/A
+It must be executed in strict accordance with the usage documentation of the UWS interface service.
 
 
-## 常见HTTP状态码
+## Common HTTP Status Code Commentary
 
-状态码|含义|解决思路
+Status Code|Meaning|Solutions
 :-:|:-|:-
-200|（成功）</br>请求已成功，请求所希望的响应头或数据体将随此响应返回|
-400|（错误请求）</br>1、语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。</br>2、请求参数有误。|对照接口文档，检查请求参数、方法等是否正确
-401|（身份验证错误）</br>请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。|对照接口文档，检查请求参数、方法等是否正确
-403|（禁止）</br>服务器已经理解请求，但是拒绝执行它。与401响应不同的是，身份验证并不能提供任何帮助，而且这个请求也不应该被重复提交。|对照接口文档，检查请求参数、方法等是否正确
-404|（未找到）</br>请求失败，请求所希望得到的资源未被在服务器上发现。|对照接口文档，检查请求参数、方法等是否正确
-500|（服务器内部错误）</br>服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。一般来说，这个问题都会在服务器的程序码出错时出现。|排查对应的服务端出错情况或异常
-501|（尚未实施）</br>服务器不具备完成请求的功能。例如，当服务器无法识别请求方法时，服务器可能会返回此代码。 |排查对应的服务端出错情况或异常
-502|（错误网关)</br>服务器作为网关或代理，从上游服务器收到了无效的响应。 |排查对应的服务端出错情况或异常
-503|（服务不可用）</br>由于临时的服务器维护或者过载，服务器当前无法处理请求。|排查对应的服务端出错情况或异常
-504|（网关超时）</br>作为网关或者代理工作的服务器尝试执行请求时，未能及时从上游服务器（URI标识出的服务器，例如HTTP、FTP、LDAP）或者辅助服务器（例如DNS）收到响应。|排查对应的服务端出错情况或异常
+200|(success)</br>The request has been successful, and the response header or data body that the request expects will be returned with this response.|
+400|（Wrong request）</br>1. The semantics are incorrect and the current request cannot be understood by the server. The client should not submit this request repeatedly unless it is modified. </br>2, the request parameters are incorrect.|Check the request parameters, methods, etc. correctly against the interface documentation.
+401|(authentication error)</br> The request requires authentication. The server may return this response for web pages that require login.|Check the request parameters, methods, etc. correctly against the interface documentation.
+403|(prohibited)</br> The server has understood the request but refused to execute it. Unlike the 401 response, authentication does not provide any help, and this request should not be submitted repeatedly.|Check the request parameters, methods, etc. correctly against the interface documentation.
+404|(Not found)</br> The request failed, and the requested resource was not found on the server.|Check the request parameters, methods, etc. correctly against the interface documentation.
+500|(Intra-server error)</br> The server encountered an unexpected condition that prevented it from completing the processing of the request. In general, this problem will occur when the server's code is wrong.|Troubleshoot the corresponding server error or exception
+501|(Not yet implemented)</br> The server does not have the ability to complete the request. For example, the server might return this code when the server does not recognize the request method. |Troubleshoot the corresponding server error or exception
+502|(Error Gateway)</br> The server received an invalid response from the upstream server as a gateway or proxy. |Troubleshoot the corresponding server error or exception
+503|(Service not available)</br> The server is currently unable to process the request due to temporary server maintenance or overload.|Troubleshoot the corresponding server error or exception
+504|(Gateway timeout)</br> When a server working as a gateway or proxy attempts to execute a request, it fails to receive a response from the upstream server (the server identified by the URI, such as HTTP, FTP, LDAP) or the secondary server (for example, DNS).|Troubleshoot the corresponding server error or exception
 
-## 国际时区说明
-|时区 TimeZone ID|
+
+## Public Error Code
+|retCode|	retInfo|Try a solution|
+|---|---|---|  
+|10000|The login was successful, but the password security level was improved. Please change the password|User uses weak password, please change password|
+|00001|The login was successful but the latest version of the privacy agreement was not accepted|Please accept the latest privacy agreement for the old account|
+|A00001|	service is not available           |Contact the cloud platform to check if the service is normal|
+|A00002|	Network exception                  |Contact the cloud platform to check if the service is normal|
+|A00003|	Access or operation timeout        |Contact the cloud platform to check if the service is normal|
+|A00004|	Internal System Error              |Contact the cloud platform to check if the service is normal|
+|A00005|	Database access exception          |Contact the cloud platform to check if the service is normal|
+|A00006|	Unknown exception                  |Contact the cloud platform to check if the service is normal|
+|A00007|	Mail service exception             |Contact the cloud platform to check if the service is normal|
+|A00008|	Mail failed to send                |Contact the cloud platform to check if the service is normal|
+|A00009|	The number of emails sent exceeded |Check whether the required parameter is a valid value (non-null and cannot be an empty string)|
+|B00001|	Missing required parameters        |N/A|
+|B00002|	Incorrect parameter type           |N/A|
+|B00003|	Parameter value is out of range or not enumerated   |N/A|
+|B00004|	The parameter does not meet the rule requirements   |N/A|
+|B00006|	Incorrect parameter length                          |N/A|
+|B00007|	The parameter does not match the interface definition   |N/A|
+|C00001|	appId and appKey validation failed                      |N/A|
+|C00002|	appServer no access authorization                       |N/A|
+|C00003|	Insufficient access                                |N/A|
+|C00004|	Insufficient authority                             |N/A|
+|C00005|	Repeat request                                     |N/A|
+|C00006|	Unknown device type                                 |N/A|
+|C00007|	appId configuration information is empty           |N/A|
+|C00008|	appKey is empty                                    |N/A|
+|D00001|	Sign signature error                               |N/A|
+|D00002|	Incorrect username or password                        |N/A|
+|D00003|	Token does not exist, not verified by token               |N/A|
+|D00004|	Token has expired and has not been verified by token        |N/A|
+|D00005|	Token is not created by this application, not verified by token  |N/A|
+|D00006|	Session invalidation                                    |N/A|
+|D00007|	Not an internal user                              |N/A|
+|D00008|	User is not legal                                    |N/A|
+|D00009|	Login Failure Number More than Limit, Need Verification Code|N/A|
+|D00010|	Account Locked| N/A|
+|D00011|	Account Not Activated|  N/A|
+|D00012|	Account Already Excit|N/A|
+|D00015|	Wrong Verification Code|N/A|
+|D00016|Already Logout or Havn't Login|N/A|
+|D00017|Account Not Excit|N/A|
+|G20003|Unable to get adapter/Application information|N/A|
+|G20201|Failed to get the user bound device list|N/A|
+|G20202|User Doesn't match the Device| Check if the device id matches the user| 
+|G20904|The number of bindings has been exceeded| A user can only bind to 100 devices |
+|G20908|Safety check failed| Please re-distribute the network |
+|G20910|The non-safety device failed to check|Non-secure device binding:</br>1. Equipment must be online</br>2. The time for reporting version information of the equipment shall be no more than 10 minutes, that is, less than or equal to 10 minutes|
+|G20301|Device information query failed|N/A|
+|G23401|Device unbound|N/A|
+|G23501|User - bound device security verification failed|N/A|
+|G24001|The equipment brand model information is empty|N/A|  
+|20903|Master data access exception|N/A|
+
+
+
+
+
+
+## International Time Zone Description
+
+|Time zone / TimeZone ID|
 |---|
 |Etc/GMT+12
 |Etc/GMT+11
