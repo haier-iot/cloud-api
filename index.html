@@ -115,7 +115,9 @@
     admin: ['tbdream'],
     // facebook-like distraction free mode
     distractionFreeMode: false,
-	id:md5(location.href)
+	id:location.href.replace(/^https:\/\/[^/]+/, ""),
+	labels:'question',
+	title:document.title,
   })
 </script>
 </body>
