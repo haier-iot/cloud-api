@@ -102,6 +102,8 @@
 
 <script src="//unpkg.com/docsify-copy-code"></script>
 
+<script src="/md5.min.js"></script>
+
 <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
 <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
 <script>
@@ -112,7 +114,8 @@
     owner: 'haier-iot',
     admin: ['tbdream'],
     // facebook-like distraction free mode
-    distractionFreeMode: false
+    distractionFreeMode: false,
+	id:md5(location.href)
   })
 </script>
 </body>
