@@ -2438,7 +2438,139 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | SceneDto[]| Body  |  必填 |显示场景Store中的描述信息，规则rules中带有规则Id和规则名称 |   
 
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: ea50f7047b241e947c068adf1b6996ee9ea3cc7079923c51f5dd5acf66dcb71d
+timestamp: 1543314284096 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"familyId": "461066634104000000",
+	"ids": ["98ee4c4936924dd28517189dd9af0264",
+	"b06bdda15deb4ee3825a9490124ddc87",
+	"feb4480bc3a545a7bc250c63819e60a3",
+	"8bd88d682f2241d59aa6ab9a15a71511"]
+}
 
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功",
+  "data": [
+    {
+      "id": "98ee4c4936924dd28517189dd9af0264",
+      "familyId": "461066634104000000",
+      "sceneName": "智慧调温B",
+      "sceneDesc": "当温度过高或过低时，开启柜式空调调温。",
+      "isOpen": 0,
+      "rules": [
+        {
+          "id": "fa3540fd15ff49f5882aa50b314748a0",
+          "rule": "柜机空调调温"
+        }
+      ],
+      "createTime": "2018-10-24 16:09:50",
+      "updateTime": "2018-10-24 16:09:50",
+      "sourceId": "ab7bc975991d4c0e848dcb557f88e7a2",
+      "type": "deviceFamily",
+      "fromType": "download",
+      "status": "publish",
+      "auto": false,
+      "canAppTrigger": false,
+      "banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
+      "icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
+      "appId": "MB-UZHSH-0000"
+    },
+    {
+      "id": "b06bdda15deb4ee3825a9490124ddc87",
+      "familyId": "461066634104000000",
+      "sceneName": "一键离家（旧版）",
+      "sceneDesc": "IFTTT1.0_场景38_一键离家 ",
+      "isOpen": 0,
+      "rules": [
+        {
+          "id": "ed6fd4aca4e942d4b653b8be1ef4a5e7",
+          "rule": "IFTTT1.0_场景38_一键离家"
+        }
+      ],
+      "createTime": "2018-10-18 17:07:30",
+      "updateTime": "2018-10-18 17:07:30",
+      "sourceId": "22f86c65748d4a4aa362627cffae82a0",
+      "type": "deviceFamily",
+      "fromType": "download",
+      "status": "publish",
+      "auto": false,
+      "canAppTrigger": true,
+      "banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E7%A6%BB%E5%AE%B6-0815_20180815131404444.png",
+      "icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
+      "appId": "MB-UZHSH-0001"
+    },
+    {
+      "id": "feb4480bc3a545a7bc250c63819e60a3",
+      "familyId": "461066634104000000",
+      "sceneName": "智慧除湿",
+      "sceneDesc": "当湿度过高时，开启除湿机除湿",
+      "isOpen": 0,
+      "rules": [
+        {
+          "id": "6cd5fae3b4124e04bd45aab95a7bb512",
+          "rule": "除湿机自动除湿"
+        }
+      ],
+      "createTime": "2018-10-19 15:56:56",
+      "updateTime": "2018-10-19 15:57:26",
+      "sourceId": "51f01c4fff194b838fac465d43c0acc2",
+      "appSceneAlias": "智慧除湿2",
+      "type": "deviceFamily",
+      "fromType": "download",
+      "status": "publish",
+      "auto": false,
+      "canAppTrigger": false,
+      "banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF-0815_20180815131452956.png",
+      "icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF2_20180730134826251.png",
+      "appId": "MB-UZHSH-0001"
+    },
+    {
+      "id": "8bd88d682f2241d59aa6ab9a15a71511",
+      "familyId": "461066634104000000",
+      "sceneName": "空调净化",
+      "sceneDesc": "当空气质量差时，开启空调净化模式。",
+      "isOpen": 0,
+      "rules": [
+        {
+          "id": "2879bca6b3864746ad233c1757964c2f",
+          "rule": "空调净化模式"
+        }
+      ],
+      "createTime": "2018-09-19 15:04:47",
+      "updateTime": "2018-09-19 15:04:47",
+      "sourceId": "62597cd68cb34413b00b9408d55b17a4",
+      "type": "deviceFamily",
+      "fromType": "download",
+      "status": "publish",
+      "auto": false,
+      "canAppTrigger": false,
+      "appId": "MB-UZHSH-0001"
+    }
+  ]
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
 
 
 
@@ -2464,7 +2596,7 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | Object| Body  |  必填 |显示为：null |
 
-<!--  
+<!--  注释开始
 ##### 2、请求样例  
 
 **用户请求**
@@ -2504,7 +2636,7 @@ Body
 
 ##### 3、错误码  
 > 见首页公共错误码 
-
+注释结束
 -->
 
 #### 修改场景昵称
