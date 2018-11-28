@@ -42,8 +42,8 @@
 
 **如软件构成图，说明如下：**  
 
-?> 1、用户端交互由自第三方APP发起，设备配置绑定操作通过U+ APP直连U+ IOT平台；  
-?> 2、第三方企业账号使用Oauth方式登陆Haier用户中心，实现快速授权与云云互联；  
+?> 1、用户端交互由自第三方APP发起，设备配置绑定操作通过U+ APP直连U+ IOT平台；    
+?> 2、第三方企业账号使用Oauth方式登陆Haier用户中心，实现快速授权与云云互联；    
 ?> 3、第三方用户端自行维护账户体系，包括企业账号设别权限授权、自定义协议控制指令维护与转发等；  
 ?> 4、智能互联设备直连U+ IOT云平台，设备属性状态信息直接上报到U+ IOT平台，第三方云通过接口和数据订阅获取设备数据；  
 ?> 5、红色部分是需要第三方实现的，包括第三方应用开发、协议转换控制与接收设备推送数据等；  
@@ -67,5 +67,5 @@
 
 
 [^-^]:常用图片注释
-[sl1_ztfa]:zh-cn/_media/_Solutions/sl1ztfa.png  
-[sl1_rjgc]:zh-cn/_media/_Solutions/sl1rjgc.png
+[sl1_ztfa]:_media/_Solutions/sl1ztfa.png  
+[sl1_rjgc]:_media/_Solutions/sl1rjgc.png
