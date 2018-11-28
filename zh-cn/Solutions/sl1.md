@@ -67,5 +67,5 @@
 
 
 [^-^]:常用图片注释
-[sl1_ztfa]:_media/_Solutions/sl1ztfa.png  
-[sl1_rjgc]:_media/_Solutions/sl1rjgc.png
+[sl1_ztfa]:zh-cn/_media/_Solutions/sl1ztfa.png  
+[sl1_rjgc]:zh-cn/_media/_Solutions/sl1rjgc.png
