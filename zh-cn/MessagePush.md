@@ -1,5 +1,5 @@
 
->**当前版本：** [UWS 消息推送服务标准版v3.0.3](zh-cn/ChangeLog/MessagePush)   
+>**当前版本：** [UWS 消息推送服务标准版 V3.0.3](zh-cn/ChangeLog/MessagePush)   
 **更新时间：** {docsify-updated} 
 
 ## 简介

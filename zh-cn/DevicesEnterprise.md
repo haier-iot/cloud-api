@@ -1,5 +1,5 @@
 
-> **当前版本：** [UWS 设备管理服务企业版v1.5.2](zh-cn/ChangeLog/DevicesEnterprise)  
+> **当前版本：** [UWS 设备管理服务企业版 V1.5.2](zh-cn/ChangeLog/DevicesEnterprise)  
 **更新时间**：{docsify-updated} 
 
 ## 简介

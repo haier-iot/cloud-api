@@ -1,5 +1,5 @@
 
->  **当前版本**：[UWS 智能设备资源云存储V1.0.0](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)  
+>  **当前版本**：[UWS 智能设备资源云存储 V1.0.0](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)  
  **更新时间**：{docsify-updated}  
 
 ### 简介

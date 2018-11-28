@@ -1,5 +1,5 @@
 
-> **当前版本：** [UWS 设备管理服务标准版v2.0.2](zh-cn/ChangeLog/DevicesStandard)  
+> **当前版本：** [UWS 设备管理服务标准版 V2.0.2](zh-cn/ChangeLog/DevicesStandard)  
 **更新时间**：{docsify-updated}  
 
 ## 简介 
