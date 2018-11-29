@@ -2999,6 +2999,139 @@ Body
 |  data  | Object| Body  |  必填 |返回创建成功后的场景ID |
 
 
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-UZHSH-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
+sign: 088084235118c25106051fc3f13aa6de67fa3a4cd3f17246541f157476d4eec8
+timestamp: 1543460486091 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"userSceneDto": {
+		"sceneName": "质量部定时执行场景guy_001_081210:31",
+		"sceneAlias": "zhiliangbuscene alias",
+		"sceneDesc": "scene descrition",
+		"userId": "100013957366157121",
+		"familyId": "aabbccdd1234567890",
+		"type": "deviceUser",
+		"type": "User",
+		"triggerType": "platform",
+		"isOpen": 0,
+		"weight": 2,
+		"aiKeyword": "ai keyword",
+		"taskInfo": {
+			"type": 1,
+			"cron": {
+				"minutes": "15",
+				"hours": "10",
+				"day": "?",
+				"month": "*",
+				"week": "MON,FRI",
+				"year": "*"
+			},
+			"status": true,
+			"activeBeginTime": "09:00:00",
+			"activeEndTime": "19:00:00"
+		},
+		"rules": [{
+			"rule": "质量部定时执行场景片段一_081210:31",
+			"salience": 1,
+			"when": {
+				"desc": "lyx0525条件描述",
+				"conditions": [{
+					"desc": "室内温度过高",
+					"key": {
+						"id": "d0c2d17a894711e7ba2bfa163eb273a5",
+						"value": "onOffStatus",
+						"desc": "运行状态",
+						"scope": {
+							"value": "{\"onOffStatus\":\"false\",\"onOffStatus\":\"true\"}",
+							"type": "bool"
+						}
+					},
+					"operationSign": "equal",
+					"value": {
+						"value": "false",
+						"desc": "1",
+						"required": "true"
+					},
+					"object": {
+						"value": "DC330D000038",
+						"desc": "deviceMacDescription",
+						"required": "false"
+					},
+					"componentId": "4e8a0dfb038d40fab6c5b49369240000"
+				}]
+			},
+			"then": {
+				"actions": [{
+					"control": {
+						"operation": {
+							"id": "029c006ccb754681a59ee43cc7c61b9e",
+							"desc": "2.3引擎关爱场景-空调-1.0-分体",
+							"scope": {
+								"value": "{\"onOffStatus\":\"false\",\"onOffStatus\":\"true\"}",
+								"type": "int"
+							},
+							"value": 20,
+							"required": true
+						},
+						"args": null,
+						"object": {
+							"value": "DC330D000038",
+							"desc": "deviceMacDescription",
+							"required": "false"
+						},
+						"controlBtnText": null,
+						"componentId": "4e8a0dfb038d40fab6c5b49369240000"
+					},
+					"dealyTime": null,
+					"desc": "",
+					"pushMessage": null,
+					"type": "DeviceControl",
+					"isOpen": 0
+				}]
+			},
+			"isOpen": 0
+		}],
+		"sortList": [{
+			"id": "1",
+			"name": "分类1"
+		}],
+		"tagList": [{
+			"id": "1",
+			"name": "标签1"
+		}]
+	}
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": "3f0c17a6073245cda7bee7d2b2dea674"
+}
+```
+
+##### 3、错误码  
+> 见首页公共错误码 
+
+
 
 #### 修改用户平台触发类场景
 >修改用户平台触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。</br>说明：1、更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。</br>2、如果要修改场景的规则信息，必须传入原有场景的ruleId;
@@ -4165,8 +4298,6 @@ cursor|Int|N/A|Body|必填|从0开始
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|Pagination<SceneDto>|Body|必填|显示场景Store中的描述信息，规则rules中带有规则Id和规则名称
 
 #### 按应用标识查询场景列表（V2.4）
@@ -4187,8 +4318,6 @@ cursor|Int|N/A|Body|必填|从0开始
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|Pagination<SceneDto>|Body|必填|场景列表信息，其中每个场景详情中的规则rules中只带有规则Id和规则名称以及规则描述,同时场景记录按照创建时间倒序
 
 #### 根据appSceneId查询场景基本信息（V2.4）
@@ -4207,8 +4336,6 @@ appSceneId|String|32|Body|必填|应用场景Id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|String|Body|必填|应用场景详情，其中的规则rules中带有规则Id和规则名称以及规则描述
 
 #### 根据关键字查询相关场景（本期不实现）
@@ -4227,8 +4354,6 @@ keyword|String|255|Body|必填|关键字，根据关键字模糊查询相关场�
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|String|Body|必填|显示场景Stroe中的描述信息，不太有规则详情
 
 #### 应用场景标签列表查询（v2.4）
@@ -4247,8 +4372,6 @@ sceneId|String|32|Body|必填|应用场景id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 Data|Object|Body|必填|应用场景相关标签列表
 
 #### 根据应用标识查询标签列表（v2.4）
@@ -4263,8 +4386,6 @@ Data|Object|Body|必填|应用场景相关标签列表
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 Data|Object|Body|必填|标签列表
 
 
@@ -4280,8 +4401,6 @@ Data|Object|Body|必填|标签列表
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 Data|Object|Body|必填|分类列表
 
 
@@ -4301,8 +4420,6 @@ ruleId|String|32|Body|必填|规则id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|RuleTemplateDto|Body|必填|
 
 
@@ -4323,8 +4440,6 @@ typeId|String[]||Body|必填|typeIds:["typeId1"," typeId2"," typeId3"," typeId4"
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 Data|Object|Body|必填|true/false
 
 
@@ -4348,8 +4463,6 @@ id|String|32|Body|必填|组件Id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|ComponentDto|Body|必填|
 
 #### 根据设备型号查询功能列表（V2.新增）
@@ -4372,8 +4485,6 @@ typeId|String|32|Body|必填|
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|funsionsDto|Body|必填|
 
 data 说明：
@@ -4465,8 +4576,6 @@ propId|String||Body|必填|组件属性id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
 data|PropOfComponentDto|Body|必填|
 
 data 说明：
@@ -4484,6 +4593,58 @@ data 说明：
 "variants"，"",取值范围	存储取值范围的json字符串
 "splitFunc"，"",拆分标识   0：不拆，1：拆分后属性，2：被拆分属性；
 }
+```
+
+#### 据根据中类组件属性ID列表批量查询属性信息
+
+
+##### 1、接口定义
+?> **接入地址：** `/iftttscene/component/getPropByIds`</br>
+**HTTP Method：** POST
+
+**输入参数** 
+
+参数名|类型|最大长度|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+propIds|List||Body|必填|组件属性id
+
+
+**输出参数:** 
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+data|PropOfComponentDto|Body|必填|
+
+data 说明：
+```
+[
+{
+"id":"",//组件主键
+"propName"，"",//标识名称	必填；硬件属性的标识名称，程序读的
+"propClass"，"",//属性类别	可取值： property(属性) alarm（告警） operation(操作类属性)，group（组命令）
+"functionName"，"",//功能标识名称	程序读的
+"description"，"",//显示名称	选填；人读的
+"functionDesc"，"",//功能显示名称	人读的
+"propValType"，"",//属性值类型 可取值：prop_class为property或者为operation时，可取double,int,bool, string,enum；prop_class为alarm,该字段为null
+"readable"，"",是否可读	
+"writable"，"",	是否可写
+"variants"，"",取值范围	存储取值范围的json字符串
+"splitFunc"，"",拆分标识   0：不拆，1：拆分后属性，2：被拆分属性；
+}，
+{
+"id":"0021ba83f2314d0b9b9702791193b22d",
+"propName":"grSetTank",
+"propClass":"group",
+"functionName":"grSetTank",
+"functionDesc":"浴缸设置",
+"propType":"GROUP",
+"readable":false,
+"writable":true,
+"description":"浴缸设置",
+"splitFunc":0
+},
+]
+
 ```
 
 
