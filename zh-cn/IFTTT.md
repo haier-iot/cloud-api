@@ -76,7 +76,7 @@
 |uVersion| String | 用户场景版本号 |最大32位|
 |bVersion| String | 基础场景版本号 |&emsp;|
 |dType| String | 下载类型</br>Basis：基础场景；</br>App：应用场景；</br>User：用户自建 |最大16位|
-
+|triggerType| String | 是否支持App手动触发执行 |选填，用户自建场景忽略 目前取值：</br>platform：平台触发，manually：手动触发，timerTrigger：时间触发；</br>注释：该字段由app定义，app可根据该字段配合手动触发机制实现地图围栏，天气等业务|
 
 ### BasisSceneDto  
 基础场景对象  
@@ -226,7 +226,7 @@
 | ------------- |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
 |id          |String                |行为ID                   |主键ID      UUID|                                                                              
-|desc        |String                |行为动作描述             |必填|
+|desc        |String                |行为动作描述             |选填|
 |type        |ActionEnum            |需要触发的动作类型枚举类 |取值如下：DeviceControl：设备控制 MessagePush：消息推送 MessagePushWithControl：带小循环控制的消息|
 |dealyTime   |Integer               |动作延迟执行时间         |选填；取值为数字 单位为秒 说明该动作需要在触发执行后多少秒后触发 如果不填或者0则认为不延迟 用户自建场景忽略|
 |control     |RuleThenDeviceControl |设备控制动作             |选填；如果type值为：DeviceControl control必填，pushMessage为空；如果type为MessagePushWithControl 则control和pushMessage都必填|
@@ -523,14 +523,13 @@ Cron表达式说明
 |sceneDesc       |String¬              |场景描述          |必填；最大长度600                                                                           |
 |userId          |String               |用户ID            |选填；最大长度32                                                                            |
 |familyId        |String               |家庭ID            |必填；最大长度32                                                                            |
-|operationType   |Int                  |操作类型          |必填；</br>1： 开启场景</br>2： 关闭场景</br>3： 触发场景                                   |
-|operationStatus |Boolean              |操作状态          |必填；true : 成功   false: 失败                                                             |
-|operationResult |String               |操作结果          |必填；最大长度32</br>打开成功 打开失败</br>关闭成功 关闭失败</br>执行成功 执行失败          |
-|time            |Long                 |操作时间          |必填；时间戳</br>例如： 1530467982731                                                       |
+|operationType<font color="#FF0000">(弃用)</font>   |Int                  |操作类型          |必填；</br>1： 开启场景</br>2： 关闭场景</br>3： 触发场景                                   |
+|operationStatus<font color="#FF0000">(弃用)</font> |Boolean              |操作状态          |必填；true : 成功   false: 失败                                                             |
+|operationResult |String               |执行结果       |必填；最大长度32</br>执行成功 </br>执行中 </br>执行失败          |
+|time            |String                |操作时间          |必填；时间戳</br>例如： 1530467982731                                                       |
 |sn              |String               |sn号              |选填；默认值为0                                                                             |
-|triggerType     |String               |场景类型          |场景类型分为:（必填）</br>开关类:platform</br>执行类:manually                               |
-|status          |Int                  |场景状态          |场景分三个状态:（必填）</br>0:成功</br>1:处理中</br>2:失败                                  |
-|actionResultList|List<ActionResultDto>|动作执行结果信息  |场景执行失败的原因列表（选填）</br>（执行成功不需要显示执行信息，执行失败列表显示失败原因） |
+|status          |Int                  |场景状态          |场景分三个状态:（必填）</br>0:失败</br>1:成功</br>2:执行中                                  |
+|actionResultList|List<ActionResultDto>|动作执行结果信息  |场景动作执行结果列表（选填）</br>执行成功：显示具体动作执行成功的信息；</br>执行失败：显示具体动作执行失败的信息及失败的原因；</br>执行中：显示已经处理完毕的动作（成功或者失败）动作未处理完毕的动作不显示 |
 
 
 
@@ -540,9 +539,29 @@ Cron表达式说明
 | **名称** | 动作执行结果信息 |&emsp;| ActionResultDto |   
 | ------------- |:----------:|:-----:|:-----:|  
 |**字段名**|**类型**|**说明**|**备注**|
-|errorCode |String   |错误码 |必填：场景动作执行返回的错误码信息|
-|errorMessage |String   |错误信息 |必填; 场景动作执行失败原因 |
+|code |String   |动作执行状态 |必填：</br>场景动作执行返回的结果状态:</br>00000:执行成功</br>00001:执行失败</br>00002:执行中|
+|info |Object   |动作执行结果信息 |必填; 场景动作执行失败原因 |
+|param |RuleThenAction   |动作详细信息 |必填；动作的详细信息</br>param参数跟动作详情RuleThenAction的结构一致 |
 
+`info`字段说明：</br>  
+场景动作执行结果信息</br>  
+如果动作是执行中.返回处理中的”执行中”字符串信息,如果动作处理有结果,显示动作处理结果信息，具体结构如下：</br>  
+```
+[{
+        “execResult”:false,
+		"execResultCode": "S03002", 
+		"execResultInfo": "设备离线",
+		"deviceId": DC330DC51955
+}]
+```
+目前领域模型提供的设备控制返回的错误码和错误信息有四类：</br> 
+00000（成功）、S03002（设备离线）、S03001（不支持的命令）、S00001（未知异常）</br> 
+一个动作下单条指令执行结果由字段execResult判断；</br> 
+成功为true，对应的execResultCode：00000，execResultInfo：“成功”；</br> 
+失败为false；对应的execResultCode为S03002,S03001,S00001（目前就这三种）</br> 
+execResultinfo在上面对应</br> 
+如果动作为消息推送，则成功码为00000，其它对应详细失败吗，码表由UMS统一提供，后续会附带；</br> 
+动作是何种类型取决于下面的param字段的动作类型</br> 
 
 ## 接口清单
 
@@ -557,7 +576,6 @@ Cron表达式说明
 | 查询家庭下场景列表| 包括用户自建场景和通过模板下载的场景 | 是| 无|  
 | 获取家庭下应用场景列表| 需要区分具体的终端(AppId区分) | 是| 无|  
 | 根据家庭下的场景Id批量查询场景列表| 根据家庭下的场景Id批量查询场景列表 | 是| 无| 
-| 修改基础场景昵称| 修改基础场景昵称 | 是| 无| 
 | 修改场景昵称| 修改场景昵称（别名） | 是| 无| 
 | 修改场景生效时间段| 修改场景生效时间段 | 是| 无| 
 | 删除用户下载的场景| 删除用户下载的场景 | 是| 无| 
@@ -2574,71 +2592,6 @@ Body
 
 
 
-
-#### 修改基础场景昵称
->修改基础场景昵称。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/store/updateStoreSceneAlias`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|
-| sceneId| String |32| Body| 必填|场景id|  
-| basicSceneAlias| String|64| Body| 必填|基础场景昵称|   
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null |
-
-<!--  注释开始
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-UZHSH-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
-sign: 51f839ee62312c41931a42d7353b4e74f50d9f03bedfcd1a227f1be2efc7a91e
-timestamp: 1542183603622 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-	"storeSceneIds": ["2258bce4c54d422b940167a8f30f04f3",
-	"6e5faad84ef143e9a497c310e903baa4"],
-	"familyId": "zf_platform"
-}
-
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": ["7fc6f082f77343e2baac4a71b26044f7",
-	"72b1f0084ead44229331e477d0de282a"]
-}
-```
-
-##### 3、错误码  
-> 见首页公共错误码 
-注释结束
--->
-
 #### 修改场景昵称
 >修改场景昵称（别名）。
 
@@ -3898,7 +3851,7 @@ Body
 
 
 #### 获取场景历史操作日志
->APP上拉加载，获取家庭下场景的操作日志。
+>上拉加载，获取家庭下场景的操作日志</br>APP下拉刷新，获取家庭下场景的执行日志，精确到动作级别。
 
 ##### 1、接口定义
 
