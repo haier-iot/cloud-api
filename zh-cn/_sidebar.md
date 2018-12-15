@@ -41,19 +41,19 @@
 
 *  uSDK_IOS 开发指南  
 
-	* [uSDK使用说明](zh-cn/uSDK_Phone_iOS_USE_GUIDE)   
+	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
 	
-	* [uSDK接口说明](zh-cn/uSDK_Phone_iOS_API_GUIDE)  
+	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_GUIDE)  
 
 *  uSDK_Android 开发指南  
 
-	* [uSDK使用说明](zh-cn/uSDK_Phone_Android)  
+	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_Android)  
 	
-	* [uSDK接口说明](zh-cn/uSDK_Phone_Android)  
+	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_Android)  
 
  
 
-* [设备端SDK](zh-cn/SmartDeviceSDK)
+* [设备端SDK](zh-cn/USDK/SmartDeviceSDK)
 
 
 * ChangeLog  
