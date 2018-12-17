@@ -1,4 +1,3 @@
-## Platform Introduction
 
 ### Haier U+ {docsify-ignore}
 ?>U+ Smart Life Platform (U+ platform for short) is Haier's world's first smart home platform with full openness, full compatibility and full interaction.

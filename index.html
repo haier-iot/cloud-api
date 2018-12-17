@@ -2,48 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>U+ IOT 智能云服务 在线文档</title>
+  <title>U+ IOT 云服务使用手册</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <style>
+  .tool-docs-header{position:absolute;top:50px;right:0}.tool-tip{display:inline-block;position:relative}.tool-tip::after{background-color:#323a45;border-radius:2px;color:#fff;content:attr(data-tooltip-title) " ";font-weight:normal;min-width:106px;padding:4px 6px;text-align:center;text-transform:none}.tool-tip::before{width:0;height:0;content:""}.tool-tip::before,.tool-tip::after{position:absolute;transition:opacity 250ms ease 0ms, transform 250ms ease 0ms;transform-style:preserve-3d;opacity:0;z-index:-1}.tool-tip[data-tooltip-position="top"]::after{left:50%}.tool-tip[data-tooltip-position="top"]::after{transform:translate3d(-50%, 10px, 0)}.tool-tip[data-tooltip-position="top"]::after{bottom:calc(100% + 10px)}.tool-tip[data-tooltip-position="top"]::before{border-left:7px solid transparent;border-right:7px solid transparent;left:50%}.tool-tip[data-tooltip-position="top"]::before{transform:translate3d(-50%, 10px, 0)}.tool-tip[data-tooltip-position="top"]::before{border-top:7px solid #323a45;bottom:calc(100% + 3px)}.tool-tip:hover::before,.tool-tip:hover::after{opacity:1;z-index:100}.tool-tip[data-tooltip-position="top"]:hover::before,.tool-tip[data-tooltip-position="bottom"]:hover::before,.tool-tip[data-tooltip-position="top"]:hover::after,.tool-tip[data-tooltip-position="bottom"]:hover::after{transform:translate3d(-50%, 0, 0)}
+  </style>
 </head>
 <body>
   <div id="app">loading</div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: '',
-	  loadSidebar: true,
-	  autoHeader: true,   //根据sidebar自动添加标题
-	  subMaxLevel: 4,   //显示目录级别
-	 // alias: {
-    //  '/.*/_sidebar.md': '/_sidebar.md'
-    //},
-	loadNavbar: true,   // 配置头部导航
-	coverpage: true ,   // 配置封面
-	auto2top: true ,    //切换页面后是否自动跳转到页面顶部。
-	name: 'U+ IOT',
-	 nameLink: {       //点击文档标题后跳转的链接地址。
+      name: 'U+ IOT 云服务',
+	  nameLink: {       //点击文档标题后跳转的链接地址。
 	 '/zh-cn/': '/zh-cn/',
      '/': '/'
     },
+      repo: 'https://github.com/haier-iot/guide',
+	  loadSidebar: true,
+	  autoHeader: true,   //根据sidebar自动添加标题
+	  subMaxLevel: 4,   //显示目录级别
+	  //logo: '/_media/icon.png',
+	  alias: {
+      '/.*en-us.*/_sidebar.md': '/en-us/_sidebar.md',
+	  '/.*en-us.*/_navbar.md': '/en-us/_navbar.md',
+	   '/.*/_sidebar.md': '/zh-cn/_sidebar.md',
+	  '/.*/_navbar.md': '/zh-cn/_navbar.md',
+    },
+	loadNavbar: true,   // 配置头部导航
+	coverpage: false ,   // 配置封面
+	// coverpage: ['/', '/zh-cn/'],   //配置封面
+	auto2top: true ,    //切换页面后是否自动跳转到页面顶部。
+	themeColor:'#2283e2',
 	// themeColor: '#3F51B5',   //主题颜色
 	//executeScript: true,  //配置可执行js脚本
 	//mergeNavbar: true,  //小屏设备下合并导航栏到侧边栏。
 	formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',    
-	 formatUpdated: function(time) {   //可以显示文档更新日期通过 {docsify-updated} 变量. 并且格式化日期通过 formatUpdated
-    // ...
 
-    return time;
-  },
-    externalLinkTarget: '_self' ,// default: '_blank',_self    //外联打开方式
+    externalLinkTarget: '_blank' ,// default: '_blank',_self    //外联打开方式
 	 notFoundPage: {    //404页面
     '/': '_404.md',
     '/zh-cn': 'zh-cn/_404.md'
     },
 	
-	    search: 'auto', // 默认值
+	search: 'auto', // 默认值
     // 以下为serch完整配置参数
     search: {
       maxAge: 86400000, // 过期时间，单位毫秒，默认一天
@@ -67,8 +72,23 @@
       // 搜索标题的最大程级, 1 - 6
       depth: 2
     },
-	formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}:{ss}'
-	
+	 plugins: [
+            function (hook, vm) {
+                hook.beforeEach(function (html) {
+                    var url = 'https://github.com/haier-iot/guide/blob/master/' + vm.route.file;
+                    var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
+                    var github = "<div  data-tooltip-title=\"Star it if you like\" data-tooltip-position=\"top\" class=\"tool-tip\"><iframe src=\"https://ghbtns.com/github-btn.html?user=haier-iot&amp;repo=guide&amp;type=watch&amp;count=true\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"0\" width=\"110\" height=\"20\" style='margin:0 10px -6px'></iframe></div>";
+          var editHtml = '<a href='+ url +' data-tooltip-title=\"Correct this doc\" data-tooltip-position=\"top\" class=\"tool-tip\" target=\"_blank\"><img class=\"emoji\" src=\"https://img.alicdn.com/tfs/TB1ica2lcLJ8KJjy0FnXXcFDpXa-128-128.png\" alt=\"Edit\"></a>';
+          return "<div class=\"tool-docs-header\">"
+		  + editHtml
+            + github
+            + "</div>"
+            + '\n\n'
+            + html
+            + '\n----\n'
+                });
+            }
+        ]
 	}
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
@@ -84,5 +104,24 @@
 </script>
 
 <script src="//unpkg.com/docsify-copy-code"></script>
+
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'e6c7f3bde76e9040afc4',
+    clientSecret: '20096fe6a5b800eb53f0511f27b3488ddc283b96',
+    repo: 'guide',
+    owner: 'haier-iot',
+    admin: ['tbdream'],
+    // facebook-like distraction free mode
+    distractionFreeMode: false,
+	id:md5(location.href),
+	labels:['question'],
+	title:document.title,
+  })
+</script>
 </body>
 </html>
