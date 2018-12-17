@@ -448,9 +448,9 @@ SDK具备如下特点：
 
 [^-^]:常用图片注释  
 [SmartDeviceSDK_1]:../_media/_SmartDeviceSDK/SmartDeviceSDK_1.png
-[SmartDeviceSDK_2]:_https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_2.png
-[SmartDeviceSDK_3]:__https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_3.png
-[SmartDeviceSDK_4]:__https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_4.png
-[SmartDeviceSDK_5]:__https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_5.png
-[SmartDeviceSDK_6]:__https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_6.png
-[SmartDeviceSDK_7]:__https://haier-iot.github.io/guide/zh-cn/_media/_SmartDeviceSDK/SmartDeviceSDK_7.png
+[SmartDeviceSDK_2]:../_media/_SmartDeviceSDK/SmartDeviceSDK_2.png
+[SmartDeviceSDK_3]:../_media/_SmartDeviceSDK/SmartDeviceSDK_3.png
+[SmartDeviceSDK_4]:../_media/_SmartDeviceSDK/SmartDeviceSDK_4.png
+[SmartDeviceSDK_5]:../_media/_SmartDeviceSDK/SmartDeviceSDK_5.png
+[SmartDeviceSDK_6]:../_media/_SmartDeviceSDK/SmartDeviceSDK_6.png
+[SmartDeviceSDK_7]:../_media/_SmartDeviceSDK/SmartDeviceSDK_7.png
