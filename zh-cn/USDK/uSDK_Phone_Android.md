@@ -1290,9 +1290,9 @@ ID文档定义的一个指令属性。单命令发送时只发送命令本身，
 
 
 [^-^]:常用图片注释  
-[router_setting1]:_media/_usdk/router_setting1.png
-[router_setting2]:_media/_usdk/router_setting2.png
-[router_dns_setting]:_media/_usdk/router_dns_setting.jpg
+[router_setting1]:../_media/_usdk/router_setting1.png
+[router_setting2]:../_media/_usdk/router_setting2.png
+[router_dns_setting]:../_media/_usdk/router_dns_setting.jpg
 [iOS_uSDK_Pone_haigeek_down_address]:_media/_usdk/iOS_uSDK_Pone_haigeek_down_address.png
 [ios_infoplist_setting]:_media/_usdk/ios_infoplist_setting.png
 [ios_demo_func_desc]:_media/_usdk/ios_demo_func_desc.png
