@@ -1289,21 +1289,21 @@ ID文档定义的一个指令属性。单命令发送时只发送命令本身，
 在使用uSDK及相关系统进行开发过程当中，可能会听到或看到两个词小循环、大循环，它们是两种情景的描述。小循环指的是移动应用程序与智能设备在同一无线局域网。大循环是说移动应用程序与智能设备不在同一无线局网，数据通路需要完全借助于U+云平台设备接入网关的情景。
 
 
-[^-^]:常用图片注释
-[router_setting1]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/router_setting1.png
-[router_setting2]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/router_setting2.png
-[router_dns_setting]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/router_dns_setting.jpg
-[iOS_uSDK_Pone_haigeek_down_address]:___https://haier-iot.github.io/guide/zh-cn/media/_usdk/iOS_uSDK_Pone_haigeek_down_address.png
-[ios_infoplist_setting]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/ios_infoplist_setting.png
-[ios_demo_func_desc]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/ios_demo_func_desc.png
-[devleop_step_simple]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/devleop_step_simple.png
-[public_config_step]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/public_config_step.png
-[devleop_step_detail]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/devleop_step_detail.png
-[connectstatus_change_step]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/connectstatus_change_step.png
-[public_single_cmd]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/public_single_cmd.png
-[public_group_cmd_sixcode]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/public_group_cmd_sixcode.png
-[public_group_cmd_stand]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/public_group_cmd_stand.png
-[public_op_attr_stand]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/public_op_attr_stand.png
+[^-^]:常用图片注释  
+[router_setting1]:_media/_usdk/router_setting1.png
+[router_setting2]:_media/_usdk/router_setting2.png
+[router_dns_setting]:_media/_usdk/router_dns_setting.jpg
+[iOS_uSDK_Pone_haigeek_down_address]:_media/_usdk/iOS_uSDK_Pone_haigeek_down_address.png
+[ios_infoplist_setting]:_media/_usdk/ios_infoplist_setting.png
+[ios_demo_func_desc]:_media/_usdk/ios_demo_func_desc.png
+[devleop_step_simple]:_media/_usdk/devleop_step_simple.png
+[public_config_step]:_media/_usdk/public_config_step.png
+[devleop_step_detail]:_media/_usdk/devleop_step_detail.png
+[connectstatus_change_step]:_media/_usdk/connectstatus_change_step.png
+[public_single_cmd]:_media_usdk/public_single_cmd.png
+[public_group_cmd_sixcode]:_media/_usdk/public_group_cmd_sixcode.png
+[public_group_cmd_stand]:_media/_usdk/public_group_cmd_stand.png
+[public_op_attr_stand]:_media/_usdk/public_op_attr_stand.png
 
 
 
