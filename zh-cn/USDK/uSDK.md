@@ -55,10 +55,10 @@ SoftAP配置方式是将智能设备设置为WIFI热点，通过移动端SDK连�
 
 
 [^-^]:常用图片注释
-[usdk_1]:_media/_usdk/usdk_1.png
-[usdk_2]:_media/_usdk/usdk_2.png
-[usdk_3]:_media/_usdk/usdk_3.png
-[usdk_4]:_media/_usdk/usdk_4.png
+[usdk_1]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/usdk_1.png
+[usdk_2]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/usdk_2.png
+[usdk_3]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/usdk_3.png
+[usdk_4]:__https://haier-iot.github.io/guide/zh-cn/_media/_usdk/usdk_4.png
 
 [^-^]:文本连接注释
 [usdk_document_url]:_document/_usdk/uSDK5.0_Phone_Android开发手册_20180717173928794.pdf
