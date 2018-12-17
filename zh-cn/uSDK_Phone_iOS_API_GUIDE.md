@@ -926,6 +926,8 @@ result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下
 
     网关地址：gw-gea-euro.haieriot.net
     网关端口：56815
+    
+
 ####  执行连接海外用户网关  
 示例代码：
 
@@ -947,15 +949,12 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
 
 
 ### 15.3 设置uPlug模块主网关地址
-已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址，来更改模块连接的数据中心。<br>
+已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址，来更改模块连接的数据中心。如有需要，可以在softap配置时设置模块的主网关地址和端口。<br>
 
-目前有两种方法设置模块的主网关地址；1、softap时设置模块的主网关地址。2、使用uSDKDevice对象设置模块的主网关地址
-
-#### 15.3.1 softap时设置模块的主网关地址
+#### softap配置时设置模块的主网关地址
 SoftAp配置接口，开发者无需再调用getSoftapDeviceConfigInfo接口。该接口整合了获取配置信息(getSoftapDeviceConfigInfo)和发送配置命令两个步骤，并且两个步骤均提供了重试功能，方便开发者使用。该接口可在softApConfigInfo参数中配置超时时间在APP进入后台时是否计时。 uSDK 4.5.01新增。<br>
 示例代码：
 
-    [self.view endEditing:YES]; //实现该方法是需要注意view需要是继承UIControl而来的
     uSDKSoftApConfigInfo *cfgInfo = [uSDKSoftApConfigInfo init];
     cfgInfo.mainGatewayDomain = usMainGatewayDomain;
     cfgInfo.mainGatewayPort = usMainGatewayPort;
@@ -984,21 +983,7 @@ oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密�
 代码块sendConfigInfoSuccess，向设备发送配置信息成功时触发，开发者需要连接到配置的目标网络，然后等待设备上线。<br>
 代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
-#### 15.3.2 通过SDKDevice对象设置模块的主网关地址
-当App端配置设备成功后10分钟内，且使设备处于连接成功或就绪状态时，开发者才可以调用SDKDevice对象设置模块主网关地址和端口方法，发送主网关域名和端口到设备模块中，使设备能够连接到指定的海外数据中心。配置设备成功10分钟内后，该方法调用返回失败结果。<br>
-示例代码：
 
-    if(self.currentDevice.state == uSDKDeviceStateConnected ||self.currentDevice.state == uSDKDeviceStateReady){
-        [device setDeviceGatewayWithDomain:mainGatewayDomain port:mainGatewayPort success:^{
-            
-        } failure:^(NSError *error) {
-            
-        }];
-    }
-mainGatewayDomain：模块主网关地址<br>
-mainGatewayPort：网关端口<br>
-代码块success，执行成功时触发<br>
-代码块failure执行失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 
 ##  16.   极路由相关业务指引
