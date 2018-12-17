@@ -1293,17 +1293,17 @@ ID文档定义的一个指令属性。单命令发送时只发送命令本身，
 [router_setting1]:../_media/_usdk/router_setting1.png
 [router_setting2]:../_media/_usdk/router_setting2.png
 [router_dns_setting]:../_media/_usdk/router_dns_setting.jpg
-[iOS_uSDK_Pone_haigeek_down_address]:_media/_usdk/iOS_uSDK_Pone_haigeek_down_address.png
-[ios_infoplist_setting]:_media/_usdk/ios_infoplist_setting.png
-[ios_demo_func_desc]:_media/_usdk/ios_demo_func_desc.png
-[devleop_step_simple]:_media/_usdk/devleop_step_simple.png
-[public_config_step]:_media/_usdk/public_config_step.png
-[devleop_step_detail]:_media/_usdk/devleop_step_detail.png
-[connectstatus_change_step]:_media/_usdk/connectstatus_change_step.png
-[public_single_cmd]:_media_usdk/public_single_cmd.png
-[public_group_cmd_sixcode]:_media/_usdk/public_group_cmd_sixcode.png
-[public_group_cmd_stand]:_media/_usdk/public_group_cmd_stand.png
-[public_op_attr_stand]:_media/_usdk/public_op_attr_stand.png
+[iOS_uSDK_Pone_haigeek_down_address]:../_media/_usdk/iOS_uSDK_Pone_haigeek_down_address.png
+[ios_infoplist_setting]:../_media/_usdk/ios_infoplist_setting.png
+[ios_demo_func_desc]:../_media/_usdk/ios_demo_func_desc.png
+[devleop_step_simple]:../_media/_usdk/devleop_step_simple.png
+[public_config_step]:../_media/_usdk/public_config_step.png
+[devleop_step_detail]:../_media/_usdk/devleop_step_detail.png
+[connectstatus_change_step]:../_media/_usdk/connectstatus_change_step.png
+[public_single_cmd]:../_media_usdk/public_single_cmd.png
+[public_group_cmd_sixcode]:../_media/_usdk/public_group_cmd_sixcode.png
+[public_group_cmd_stand]:../_media/_usdk/public_group_cmd_stand.png
+[public_op_attr_stand]:../_media/_usdk/public_op_attr_stand.png
 
 
 
