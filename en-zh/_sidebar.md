@@ -1,4 +1,4 @@
-* Quick Start 
+* 快速开始
 
 	* [平台介绍](en-zh/)  
 
@@ -10,13 +10,13 @@
 	
     * [常见问题](en-zh/Standard/Question)  
 
-* Account Service  
+* 账号服务
 
   * [北美环境](en-zh/Account-NorthAmericanEnvironment)  
   
   * [欧洲环境](en-zh/Account-EuropeanEnvironment)  
   
-* Equipment Management Service  
+* 设备管理服务
 
  * [北美环境-标准版](en-zh/DevicesStandard-NA)  
 
