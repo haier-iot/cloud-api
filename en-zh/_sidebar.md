@@ -18,15 +18,17 @@
   
 * Equipment Management Service  
 
- * [NorthAmericanEnvironment-Standard Edition](en-us/DevicesStandard)  
+ * [NorthAmericanEnvironment-Standard Edition](en-us/DevicesStandard-NA)  
 
- * [NorthAmericanEnvironment-Enterprise Edition](en-us/DevicesEnterprise) 
+ * [NorthAmericanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-NA) 
  
- * [EuropeanEnvironment-Standard Edition](en-us/DevicesStandard-EuropeanEnvironment)  
+ * [EuropeanEnvironment-Standard Edition](en-us/DevicesStandard-Euro)  
 
- * [EuropeanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-EuropeanEnvironment)  
+ * [EuropeanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-Euro)  
 
-* [Data Subscription](en-us/DataSubscription)  
+* Data Subscription Service 
+
+ * [EuropeanEnvironment-Data Subscription](en-us/DataSubscription)  
 
 * ChangeLog  
 

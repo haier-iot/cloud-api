@@ -1,4 +1,4 @@
-* Translations  
+* 版本选择  
 
   * [国内版](zh-cn/)
 
