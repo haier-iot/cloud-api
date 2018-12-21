@@ -26,9 +26,8 @@
 
  * [EuropeanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-Euro)  
 
-* Data Subscription Service 
+* [Data Subscription Service](en-us/DataSubscription)  
 
- * [EuropeanEnvironment-Data Subscription](en-us/DataSubscription)  
 
 * ChangeLog  
 

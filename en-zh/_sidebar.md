@@ -1,38 +1,37 @@
 * Quick Start 
 
-	* [Platform Introduction](en-us/)  
+	* [平台介绍](en-zh/)  
 
-	* [Business Cooperation](en-us/Business)  
+	* [商务合作](en-zh/Business)  
 
-	* [Access Specification](en-us/Standard/Basic)     
+	* [介入规范](en-zh/Standard/Basic)     
 
-	* [General Information](en-us/Standard/Other)   
+	* [常用信息](en-zh/Standard/Other)   
 	
-    * [Common Problems](en-us/Standard/Question)  
+    * [常见问题](en-zh/Standard/Question)  
 
 * Account Service  
 
-  * [North American Environment](en-us/Account-NorthAmericanEnvironment)  
+  * [北美环境](en-zh/Account-NorthAmericanEnvironment)  
   
-  * [European Environment](en-us/Account-EuropeanEnvironment)  
+  * [欧洲环境](en-zh/Account-EuropeanEnvironment)  
   
 * Equipment Management Service  
 
- * [NorthAmericanEnvironment-Standard Edition](en-us/DevicesStandard-NA)  
+ * [北美环境-标准版](en-zh/DevicesStandard-NA)  
 
- * [NorthAmericanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-NA) 
+ * [北美环境-企业版](en-zh/DevicesEnterprise-NA) 
  
- * [EuropeanEnvironment-Standard Edition](en-us/DevicesStandard-Euro)  
+ * [欧洲环境-标准版](en-zh/DevicesStandard-Euro)  
 
- * [EuropeanEnvironment-Enterprise Edition](en-us/DevicesEnterprise-Euro)  
+ * [欧洲环境-企业版](en-zh/DevicesEnterprise-Euro)  
 
-* Data Subscription Service 
+* [数据推送](en-zh/DataSubscription) 
 
- * [EuropeanEnvironment-Data Subscription](en-us/DataSubscription)  
 
-* ChangeLog  
+* 修改记录  
 
-	* [Account Service](en-us/ChangeLog/Account)
-	* [Equipment Management](en-us/ChangeLog/DevicesStandard)
-	* [Data Subscription](en-us/ChangeLog/DataSubscription)
+	* [账号服务](en-zh/ChangeLog/Account)
+	* [设备管理](en-zh/ChangeLog/DevicesStandard)
+	* [数据推送](en-zh/ChangeLog/DataSubscription)
 
