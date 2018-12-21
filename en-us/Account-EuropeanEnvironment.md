@@ -282,7 +282,7 @@ Version: V1.0.0, uppercase V
 
 #### View user privacy agreement content  
 
-`Https://uws-gea-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
+`Https://uws-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
 The lg parameter refers to the internationalized language table in the [access specification](en-us/AccessSpecification).
   
 ### Use of language templates
@@ -317,14 +317,14 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 | User accepts privacy policy v1  | User accepts the privacy policy and records the privacy policy version number |  yes| no|    
 
 #### User registration 
-> Register new user  
+> Use your email address to register a new   
 
 
 ##### 1、Interface definition
 
 ?> **Access address：**  `/uam/v2/user/registerEmailAcounnt`  
  **HTTP Method：** POST  
- **Preconditions:** Get the verification code interface  
+ **Preconditions:** Use your email address to register a new account  
  **Token authentication：** No  
 
 **Input parameters**  
@@ -351,7 +351,7 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
+https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
 ```  
 
 **User request**
@@ -367,7 +367,6 @@ sign: 5a46d3ca2a7f4589e97fbf4f2eae4b74c56eeb685884d91f136d339ea523dd0a
 timestamp: 1533868371182 
 language: en
 timezone: +8
-appKey: dg00ad3ea782c34aa86c656f2a401d8e
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -410,7 +409,7 @@ Body:
 |D00022 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
 |D00009 |  The number of attempts exceeds the limit, the number of failed attempts is exceeded, and a graphic verification code is required.|  msgCode verification failed more than three times |  
 |B00010 |  Public key error|  Server decryption failed  |  
-|B00004 | Incorrect mailbox and password| Parameter error handling  |  
+|B00004 | Incorrect mailbox and password| Input parameter error  |  
    
 
 
@@ -425,7 +424,7 @@ Body:
 
 ?> **Access address：**  `/uam/v2/user/loginEmailAcounnt`  
  **HTTP Method：** POST  
- **Preconditions:** Use email registration  
+ **Preconditions:** Use email registration(User registration)  
  **Token authentication：** No  
 
 **Input parameters**  
@@ -441,15 +440,16 @@ Body:
 
 |   name      |     types      | location  |required |description|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| accessToken   |   String |  Header   |  yes   |  Security token  |  
-
-
+| accessToken   |   String |  Body   |  yes   |  Security token  |  
+| refreshToken   |   String |  Body   |  yes   |  The refresh token  |  
+| scope   |   String |  Body   |  yes   | Scope of access to resources  |  
+| expire   |   String |  Body   |  yes   |  The period of validity. Unit s  |  
 
 ##### 2、Request sample  
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
+https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
 ```
 
 **User request**
@@ -542,7 +542,7 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/applyVerificationCode
+https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
 ```  
 
 **User request**
@@ -603,7 +603,7 @@ Body:
 
 ?> **Access address：**  `/uam/v2/user/resetPassword`  
  **HTTP Method：** POST  
- **Preconditions:** Registered,Application verification code 
+ **Preconditions:** Registered(User registration),Get verification code 
  **Token authentication：** No  
 
 **Input parameters**  
@@ -628,7 +628,7 @@ Body:
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/resetPassword
+https://uws-euro.haieriot.net/uam/v2/user/resetPassword
 ```
 
 **User request**
@@ -694,7 +694,7 @@ Body:
 
 ?> **Access address：**  `/uam/v2/user/changePassword`  
  **HTTP Method：** POST  
- **Preconditions:** Login  
+ **Preconditions:** Email Login  
  **Token authentication：** Yes  
 
 **Input parameters**  
@@ -720,7 +720,7 @@ Body:
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/changePassword
+https://uws-euro.haieriot.net/uam/v2/user/changePassword
 ```  
 
 **User request**
@@ -821,7 +821,7 @@ publicKey
 ##### 2、Request sample  
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/mgr/getPublicKey
+https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
 ```  
 
 **User request**
@@ -891,7 +891,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
+https://uws-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
 ```  
 
 **User request**
@@ -943,7 +943,7 @@ Body:
 | B00002  |Parameter verification failed|verification failed  |    
 
 #### Get image verification code
->Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.     
+>Get the graphic verification code, and V1 interface is different from the increase in the limit, tomorrow each terminal 20 requests limit.    
  
 
 ##### 1、Interface definition
@@ -969,7 +969,7 @@ Content-Type: image/png;charset=UTF-8
 ##### 2、Request sample  
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/captcha
+https://uws-euro.haieriot.net/uam/v2/user/captcha
 ```  
 
 **User request**
@@ -1038,7 +1038,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java  
-POST https://uws-gea-euro.haieriot.net/uam/v2/user/applyDeleteAccount
+POST https://uws-euro.haieriot.net/uam/v2/user/applyDeleteAccount
 
 POST data:
 {"msgCode":"123333"}
@@ -1085,7 +1085,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 ###	Log out v1
-> Mobile APP users exit Haier U+ cloud platform interface
+> Account logout, session accessToken invalid
 
 ##### 1、Interface definition
 
@@ -1113,8 +1113,10 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java  
+POST https://uws-euro.haieriot.net/uam/v1/security/logout
+
 Header：
-appId:MB-ABC-0000
+appId:MB-TEST-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1146,12 +1148,12 @@ Content-type: application/json
 
  
 
-#### Query user information v1
+#### Query user information v2
 > Get the user information according to the login token     
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/users/get`  
+?> **Access address：**  `/uam/v2/users/get`  
  **HTTP Method：** POST  
  **Token authentication：** Yes  
 
@@ -1166,7 +1168,9 @@ Content-type: application/json
 **Output parameters**  
 
 |   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ------------- |:----------:|:-----:|:--------:|:---------:|  
+| userId     | String | Body| yes|Unique id of account|
+| email     | String | Body| yes|Account email address, desensitization as required|
 | userProfile     | Map | Body| no|User extension information, including nicknames, avatars, etc|  
 
 
@@ -1174,8 +1178,10 @@ Content-type: application/json
 
 **User request**
 ```java  
+POST https://uws-euro.haieriot.net/uam/v2/users/get
+
 Header：
-appId:MB-ABC-0000
+appId:MB-TEST-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1192,33 +1198,13 @@ Content-type:application/json
 
 ```java
 {
-  “retCode”: “00000”,
-  “retInfo”: “正确”,
-  “userProfile”: {
-       “nickName”: ,
-       “avatar”: ,
-       “phone”: ,
-       “updateTime”: “20141115”,
-       “status”: null,
-       “tel”: “0596”,
-       “applyTime”: null,
-       “idcard”: null,
-       “companyName”: null,
-       “type”: null,
-       “postcode”: null,
-       “legalPerson”: null,
-       “contacts”: null,
-       “companyCode”: 333,
-       “businessLicense”: null,
-       “address”: “china”,
-       “contactsPhone”: null,
-       “email”: “848421322@qq.com”,
-       “QQ”: “848421322”,
-       “name”: “test”,
-       “realname”: “test”,
-       “idcardPhoto”: null
-  }
+ "retCode":"00000",
+ "retInfo":"成功",
+ "userId":"1027887557792235520",
+ "email":"bu***i@126.com"，
+ "userProfile":{"birthday":null,"country":null,"address":null,"serviceEmail":null,"avatarUrl":"http://uhome.haieriot.net:6410/resource/enabling/hkqhwbbscb/19002243/1517816146943.jpg","nickName":"","hotline":"12345678","sex":null,"weight":null,"phone":null,"name":"test","serviceProviders":null,"height":null}}
 }
+
 
 
 ```
@@ -1260,8 +1246,10 @@ Content-type:application/json
 
 **User request**
 ```java  
+POST https://uws-euro.haieriot.net/uam/v1/users/update
+
 Header：
-appId:MB-ABC-0000
+appId: MB-TEST-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1351,7 +1339,6 @@ sign: aa97d5db9989d6f4b37659d2eb679c4e873533d280413fa2f04f9dcb2f44279c
 timestamp: 1533901887123 
 language: en
 timezone: +8
-appKey: d44625bb0556fb0b1611ad6a073fb6f5
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
