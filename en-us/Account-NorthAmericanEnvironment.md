@@ -54,7 +54,7 @@ In order to effectively protect users' privacy and optimize user experience, hai
 
 In the case of user registration, download and update, login and access, the content of the privacy policy must be provided or pointed to the page, and the user needs to click to "agree" to the privacy policy. The default "agree" cannot be too hidden.After obtaining the user's "consent", it is also necessary to ensure that users can easily view the full text of the privacy policy in the process of use, and cannot hide it from display.  
 
-**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business))**. We will configure the corresponding privacy policy and service agreement terms for the application**
+**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business)**. We will configure the corresponding privacy policy and service agreement terms for the application**
 
 
 ### Security of user password  
