@@ -76,7 +76,7 @@ APP在如下两种情况下需要注册消息通道：
 
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/register`</br>
+?> **接入地址：** `/ums/v2/register`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -111,7 +111,7 @@ data|String|Body|是|返回数据
 > 当设备不再需要推送功能或者此设备授权已移交他人
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/unreg`</br>
+?> **接入地址：** `/ums/v2/unreg`</br>
 **HTTP Method：** POST
 
 **输入参数：**
@@ -135,7 +135,7 @@ data|String|Body|是|返回数据
 > 获取当前账号下已经注册过消息通道的带屏设备列表
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/devlist`</br>
+?> **接入地址：** `/ums/v2/devlist`</br>
 **HTTP Method：** POST
 
 **输入参数：**  无，填写空字符串
@@ -156,11 +156,11 @@ data|String|Body|是|返回数据
 > dst 中 type：1，2，3，一个用户的多屏互动场景。
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPush`</br>
+?> **接入地址：** `/ums/v2/msgPush`</br>
 **HTTP Method：** POST </br>
 **说明：** 严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
 
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushtry`</br>
+?> **接入地址：** `/ums/v2/msgPushtry`</br>
 **HTTP Method：** POST </br>
 **说明：** 最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
 
@@ -216,7 +216,7 @@ msgId产生原则:时间戳+消息源信息
 > 查询消息是否已经成功插入第三方平台，查询消息下发状态
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/getmsgstat`</br>
+?> **接入地址：** `/ums/v2/getmsgstat`</br>
 **HTTP Method：** POST </br>
 
 
@@ -244,7 +244,7 @@ data|String|Body|是|返回数据或null
 > 查询信息，终端在收到消息之后必须调用此接口上报“消息已接收”状态
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/report`</br>
+?> **接入地址：** `/ums/v2/report`</br>
 **HTTP Method：** POST </br>
 
 **输入参数**
@@ -275,7 +275,7 @@ data|String|Body|是|返回数据或null
 > 【2】主人的手机，即为注册消息通道时候，注册类型deviceType为“01：手机”的所有APP
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushToHost`</br>
+?> **接入地址：** `/ums/v2/msgPushToHost`</br>
 **HTTP Method：** POST </br>
 
 **输入参数**
@@ -324,7 +324,7 @@ data|String|Body|是|返回数据或null
 
 ##### 1、接口定义
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/devlist`</br>
+?> **接入地址：** `/umse/v2/devlist`</br>
 **HTTP Method：** POST </br>
 
 **输入参数**
@@ -354,12 +354,12 @@ data|String|Body|是|返回数据
 
 ##### 1、接口定义
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/msgPush`</br>
+?> **接入地址：** `/umse/v2/msgPush`</br>
 **HTTP Method：** POST </br>
 **说明：**严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
 
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/msgPushtry`</br>
+?> **接入地址：** `/umse/v2/msgPushtry`</br>
 **HTTP Method：** POST </br>
 **说明：**最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
 
@@ -413,7 +413,7 @@ msgId产生原则:时间戳+消息源信息
 
 ##### 1、接口定义
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/getmsgstat`</br>
+?> **接入地址：** `/umse/v2/getmsgstat`</br>
 **HTTP Method：** POST </br>
 
 **输入参数：**

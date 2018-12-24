@@ -183,7 +183,7 @@ data|String|body|必填|绑定加密数据
 请求地址：/uds/v1/protected/bindDevice
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -237,7 +237,7 @@ deviceId|String|url|必填|设备ID
 ```
 请求地址：/uds/v1/protected/B00000000002/unbindDevice
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -289,7 +289,7 @@ deviceId|String|body|必填|设备ID
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/aliasName
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -345,7 +345,7 @@ deviceId|String|body|必填|设备ID
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/location
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -407,7 +407,7 @@ deviceVersion|DeviceVersion|body|必填|设备信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/deviceInfo
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -505,7 +505,7 @@ loc|Location|body|必填|位置信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/location
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -566,7 +566,7 @@ aliasName|String|body|必填|设备新别名
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/aliasName
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -623,7 +623,7 @@ deviceinfos|DeviceInfo|body|必填|设备信息
 ```
 请求地址：/uds/v1/protected/deviceinfos
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -755,7 +755,7 @@ isOnline|String|Body|必填|状态信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/isOnline
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -811,7 +811,7 @@ deviceNetQuality|DeviceNetQualityDto|Body|必填|设备ID
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/deviceNetQuality
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -874,7 +874,7 @@ DeviceStatus|DeviceStatus|Body|必填|设备状态
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/lastReportStatus
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -936,7 +936,7 @@ room|String|body|必填|设备房间位置信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/saveDeviceRoom
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -993,7 +993,7 @@ deviceRoomInfoDtos|DeviceRoomInfo[]|body|必填|房间位置信息
 ```
 请求地址：/uds/v1/protected/deviceAndRoom
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -1066,7 +1066,7 @@ brantInfo|BrandInfo|body|必填|设备品牌信息
 ```
 请求地址：/uds/v1/protected/deviceAndRoom
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -1130,7 +1130,7 @@ brantInfo|BrandInfo|body|必填|设备品牌信息
 ```
 请求地址：/uds/v1/protected/0007A8947C62/deviceBrand
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010

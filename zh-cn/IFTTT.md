@@ -627,7 +627,7 @@ execResultinfo在上面对应</br>
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -693,7 +693,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -756,7 +756,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: DC330DD270F6
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -821,7 +821,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -870,7 +870,7 @@ Body
 			"sourceId": "1c10d415fa3444dd9f900a53a70964cb",
 			"type": "deviceFamily",
 			"triggerType": "manually",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"taskInfo": {
 				"type": 1,
 				"cron": {
@@ -909,7 +909,7 @@ Body
 			"sourceId": "78f95e4f59854dd1aea0b5d4dea281be",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"taskInfo": {
 				"type": 2,
 				"cron": {
@@ -949,7 +949,7 @@ Body
 			"sourceId": "78f95e4f59854dd1aea0b5d4dea281be",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"taskInfo": {
 				"type": 2,
 				"cron": {
@@ -989,7 +989,7 @@ Body
 			"sourceId": "a6d833905bd64493ac35ec04be65ad3d",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E5%87%80-0815_20180815131434035.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E5%87%802_20180730134743357.png",
 			"createType": "Basis",
@@ -1079,7 +1079,7 @@ Body
 			"sourceId": "ddbad81f41a64fdcb7d787c3ebb12a10",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"taskInfo": {
 				"type": 2,
 				"status": true,
@@ -1129,7 +1129,7 @@ Body
 			"sourceId": "f4e402aa72244ce9a6dc165e64e28e17",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"taskInfo": {
 				"type": 2,
 				"cron": {
@@ -1189,7 +1189,7 @@ Body
 			"sourceId": "f4e402aa72244ce9a6dc165e64e28e17",
 			"type": "deviceFamily",
 			"triggerType": "platform",
-			"appId": "MB-UZHSH-0000",
+			"appId": "MB-****-0000",
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
 			"createType": "Basis",
@@ -1233,7 +1233,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -1281,7 +1281,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": true,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "a1db6d649bb9485aa94da38a1d00485a",
@@ -1298,7 +1298,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "17b205eb69db4d8db50abdd50f972101",
@@ -1315,7 +1315,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "3168bb73f39a4c748916afc95b55c817",
@@ -1332,7 +1332,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "d1113194dd4b416bb6af650631594cd2",
@@ -1349,7 +1349,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "f00def1e625049c5bdfc244a96d3e307",
@@ -1366,7 +1366,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "a0740fdcb08f4720bdc901201feefd50",
@@ -1473,7 +1473,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "f794cdb0dffd42fe83ad231dab061009",
@@ -1490,7 +1490,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": true,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "9700d05885e34cb19542d5f0c7abf60d",
@@ -1507,7 +1507,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "79c0c611afd84cb991c345d197b984e0",
@@ -1524,7 +1524,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "c9fbaa76d4d04a72944e8517782f2087",
@@ -1541,7 +1541,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": false,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "e5dd31d021274b1b8fcea3835a322057",
@@ -1558,7 +1558,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": true,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "acb3711fef65490782a5de36225c9bbd",
@@ -1575,7 +1575,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": true,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "e5c1654900f84b73b22eba577ed2de6d",
@@ -1592,7 +1592,7 @@ Body
 			"status": "publish",
 			"auto": false,
 			"canAppTrigger": true,
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "47e20f6f5a8149e09e9cbe7dd8a5bc82",
@@ -1754,7 +1754,7 @@ Body
 			"canAppTrigger": true,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E5%B0%B1%E5%AF%9D-0815_20180815131543427.png",
 			"icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "343938fba00445308cd2e7125df8b530",
@@ -1798,7 +1798,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF-0815_20180815131452956.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF2_20180730134826251.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "44371623ef5f4b67b79875d000e88aed",
@@ -1929,7 +1929,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF-0815_20180815131452956.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B9%BF2_20180730134826251.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "feb4480bc3a545a7bc250c63819e60a3",
@@ -2010,7 +2010,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "71da2b99fb3249c08e03c682b3910b43",
@@ -2031,7 +2031,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "0c61e696355940fd987f7cc2f3d6bfbe",
@@ -2053,7 +2053,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "e493c8fa99aa41baa6a5a8ac92f15e74",
@@ -2075,7 +2075,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "26ff085323854153b51635ec3e98f885",
@@ -2097,7 +2097,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "fefe5c439a394a4291fd15d635c214db",
@@ -2119,7 +2119,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "a5c15fa7624e4f308fe3d8c497c7fc22",
@@ -2232,7 +2232,7 @@ Body
 			"activeEndTime": "01:59:00",
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "98ee4c4936924dd28517189dd9af0264",
@@ -2253,7 +2253,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "13979a4b7d924338b3db468de70ec084",
@@ -2274,7 +2274,7 @@ Body
 			"canAppTrigger": false,
 			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
 			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-			"appId": "MB-UZHSH-0000"
+			"appId": "MB-****-0000"
 		},
 		{
 			"id": "0e49aef8d37e4aea9242acda205cfbce",
@@ -2458,7 +2458,7 @@ Body
 
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -2510,7 +2510,7 @@ Body
       "canAppTrigger": false,
       "banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
       "icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
-      "appId": "MB-UZHSH-0000"
+      "appId": "MB-****-0000"
     },
     {
       "id": "b06bdda15deb4ee3825a9490124ddc87",
@@ -2618,7 +2618,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -2683,7 +2683,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -2746,7 +2746,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -2761,7 +2761,7 @@ Content-type: application/json
 Body
 {
 	"familyId": "191092663982000000",
-	"appId": "MB-AIRCONDITION1-0001",
+	"appId": "MB-****-0001",
 	"sceneIds": ["61b830e6fc3940daaca7c487ce7f288c"]
 }
 ```  
@@ -2809,7 +2809,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -2957,7 +2957,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3209,7 +3209,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3271,7 +3271,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3335,7 +3335,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3396,7 +3396,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3457,7 +3457,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3547,7 +3547,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3610,7 +3610,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3670,7 +3670,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -3753,7 +3753,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 3.3.0
 clientId: 123456
 sequenceId: 20161020153428000015
