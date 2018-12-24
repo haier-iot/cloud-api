@@ -16,6 +16,11 @@ By integrating the U+IOT platform account service, the developer not only provid
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
 
+**Account information related ability** 
+1. Query IOT platform account information and request to obtain user information (including id, loginName, email, mobile and other user attributes).     
+2. To modify the account information of the IOT platform, users should actively modify their application property information, user basic properties, etc., which requires permission authentication.   
+
+
 **Account system association ability**   
  
 1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
@@ -25,15 +30,15 @@ By integrating the U+IOT platform account service, the developer not only provid
 
 
 - **Haier U+ OAuth**
-> Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
+> Refers to the OAuth service provided by Haier U+, which requires the use of Haier U+ account for login authorization.  
 
-Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
+Since Haier account has Haier U+ account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier U+ account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
 
 
 - **Haier U+  Developer Account Login**
-> It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
+> It means that the developer has an account system and wants to use the own account system to log in to the Haier U+ platform. 
 
-Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
+Haier U+ provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier U+ Business BD feedback.  
 
 ### Application scenario
 **Account management**  
@@ -41,6 +46,15 @@ Developers do not have an account system and can integrate U+ account related se
 
 **Developer account**  
 Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
+
+### User privacy rights  
+
+In order to effectively protect users' privacy and optimize user experience, haier U+ has formulated haier household appliance privacy policy in accordance with existing laws and policies.Haier understands the importance of personal information to customers, and we strive to clarify our policies and measures to obtain, manage and protect users' personal information.  
+
+
+In the case of user registration, download and update, login and access, the content of the privacy policy must be provided or pointed to the page, and the user needs to click to "agree" to the privacy policy. The default "agree" cannot be too hidden.After obtaining the user's "consent", it is also necessary to ensure that users can easily view the full text of the privacy policy in the process of use, and cannot hide it from display.  
+
+**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business))**. We will configure the corresponding privacy policy and service agreement terms for the application**
 
 
 ### Security of user password  

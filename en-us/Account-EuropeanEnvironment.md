@@ -1,5 +1,5 @@
 
->  **current version**：[UWS Accountservice V2.0.0](en-us/ChangeLog/Account)  
+>  **current version**：[UWS Accountservice V2.1.0](en-us/ChangeLog/Account)  
  **Update time**：{docsify-updated} 
 
 
@@ -16,24 +16,29 @@ By integrating the U+IOT platform account service, the developer not only provid
 2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
 3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
   
+**Account information related ability** 
+1. Query IOT platform account information and request to obtain user information (including id, loginName, email, mobile and other user attributes).     
+2. To modify the account information of the IOT platform, users should actively modify their application property information, user basic properties, etc., which requires permission authentication.   
+
+
 **Account system association ability**  
  
-1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
+1. Third-party social account login, support Google, Amazon, etc account login.   
 2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
 
 
 ### Noun explanation
 
 - **Haier U+ OAuth**
-> Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
+> Refers to the OAuth service provided by Haier U+, which requires the use of Haier U+ account for login authorization.  
 
-Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
+Since Haier account has Haier U+ account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier U+ account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
 
 
 - **Haier U+  Developer Account Login**
-> It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
+> It means that the developer has an account system and wants to use the own account system to log in to the Haier U+ platform. 
 
-Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
+Haier U+ provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier U+ Business BD feedback.  
 
 ### Application scenario
 **Account management**  
@@ -42,6 +47,15 @@ Developers do not have an account system and can integrate U+ account related se
 **Developer account**  
 Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
 
+
+### User privacy rights  
+
+In order to effectively protect users' privacy and optimize user experience, haier U+ has formulated haier household appliance privacy policy in accordance with existing laws and policies.Haier understands the importance of personal information to customers, and we strive to clarify our policies and measures to obtain, manage and protect users' personal information.  
+
+
+In the case of user registration, download and update, login and access, the content of the privacy policy must be provided or pointed to the page, and the user needs to click to "agree" to the privacy policy. The default "agree" cannot be too hidden.After obtaining the user's "consent", it is also necessary to ensure that users can easily view the full text of the privacy policy in the process of use, and cannot hide it from display.  
+
+**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business))**. We will configure the corresponding privacy policy and service agreement terms for the application**
 
 ### User privacy data security  
 #### Safety instructions  
@@ -314,8 +328,13 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 | Log out v1   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
 | Query user information v1 | Obtain user information based on the registrant token | yes| no|  
 | User information modification v1   | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|     
-| User accepts privacy policy v1  | User accepts the privacy policy and records the privacy policy version number |  yes| no|    
-
+| User accepts privacy policy v1  | User accepts the privacy policy and records the privacy policy version number |  yes| no|
+| Session to refresh  | Get the new accessToken |  yes| no|  
+|Gets the session sharing captcha  | Gets the session sharing captcha  |  yes| no|
+|Session sharing | AccessToken requests the Shared appId and clientId gets the session Shared verification code  |  yes| no|
+|Third-party social accounts get token of IOT platform  | GObtain accessToken of haier iot platform through token of third-party account  |  yes| no|     
+| Third-party social accounts are bound to IOT's own account interface | Third-party social accounts bind IOT own accounts|  yes| no|  
+|Bind accounts into groups by token query |Query the information of all the third-party accounts bound under their own accounts  |  yes| no|
 #### User registration 
 > Use your email address to register a new   
 
@@ -1008,7 +1027,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 | C00001  |appId and appKey validation failed|Use invalid appId  |    
 
 
-###	Apply to cancel account and device information  
+####	Apply to cancel account and device information  
 > The user applies to delete the account information and device binding relationship, and sends an email notification. After the user successfully applies, the account cannot be logged in, and the login returns the password error  
 
 ##### 1、Interface definition
@@ -1084,7 +1103,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 
-###	Log out v1
+####	Log out v1
 > Account logout, session accessToken invalid
 
 ##### 1、Interface definition
@@ -1364,6 +1383,501 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 | B00004  |  Parameter error|  Wrong privacy clause version number  |   
 | D00003 |  Token does not exist, failed to pass the token|  Token does not exist or the wrong token  |   
 
+
+
+
+#### Session to refresh
+> When accessToken expires, you can use the corresponding refreshToken to get the new accessToken   
+
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/auth/token`  
+ **HTTP Method：** POST  
+ **Preconditions:** Use mailbox login to get refreshToken
+ **Token authentication：** No  
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| refreshToken    | String | Body| yes|App side holds refreshToken for session accessToken extension, which will generate new refreshToken and accessToken|    
+| grantType    | String | Body| yes|Authorization mode, currently default is refresh_token|
+
+**Output parameters**  
+
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  | String |Body |yes|Security token| 
+|  refreshToken  | String |Body |yes|The refresh token| 
+|  scope  | String |Body |yes|Scope of access to resources| 
+|  expire  | String |Body |yes|The period of validity,Unit s| 
+
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v2/auth/token
+
+POST data:
+{"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","grantType":"refresh_token"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+```java
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00","scope":"auth_app","expire":"2160000"
+}
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| 00001  | Login succeeded but did not accept the latest version of privacy agreement|Historical accounts that do not accept privacy terms|   
+| D00025 |  refreshToken不存在或已过期|&emsp;|   
+
+
+
+#### Gets the session sharing captcha  
+> Through accessToken, the appId that requests to be Shared is obtained, and clientId gets the authentication code that is Shared by the session. The authentication code can be used to generate the session that requests to be Shared by the terminal, that is, the process that the same account logs in to other application terminals through an application authorization
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/auth/shareCode`  
+ **HTTP Method：** POST  
+ **Preconditions:** Login to the app to get appId and clientId of other terminal applications
+ **Token authentication：** Yes 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| shareAppId    | String | Body| yes|Request the appId of the sharing session|    
+| shareClientId  | String | Body| yes|Request clientId for the share session|  
+| accessToken  | String | Body| yes|AccessToken for sharing sessions|
+
+**Output parameters**  
+
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  code  | String |Body |yes|Session sharing captcha| 
+
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
+
+POST data:
+{"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","shareClientId":"MB-TEST2-0000","shareClientId":"456FEW334DD" }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```  
+
+**Request response**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"code": 72f7b235dd3afee2c77907d160c66539850b3224da60cb6e6638809005f48ec5"
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| B00004  |The parameters do not conform to the rules|&emsp;|   
+| D00004 | AccessToken does not exist or has expired|The accessToken used to share the session is expired or does not exist|  
+| D00026  |Do not share this session|AccessToken for the Shared session cannot be Shared to other terminals|  
+
+
+#### Session sharing   
+> Through accessToken, the appId that requests to be Shared is obtained, and clientId gets the authentication code that is Shared by the session. The authentication code can be used to generate the session that requests to be Shared by the terminal, that is, the process that the same account logs in to other application terminals through an application authorization
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v2/auth/shareToken`  
+ **HTTP Method：** POST  
+ **Preconditions:** Gets the authentication code Shared by the session
+ **Token authentication：** No 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| code    | String | Body| yes|Session sharing captcha|    
+
+
+**Output parameters**  
+
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  | String |Body |yes|Security token| 
+|  refreshToken  | String |Body |yes|The refresh token| 
+|  scope  | String |Body |yes|Scope of access to resources| 
+|  expire  | String |Body |yes|The period of validity,Unit s| 
+
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
+
+POST data: 
+{"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","shareClientId":"MB-TEST2-0000","shareClientId":"456FEW334DD" }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"scope":"auth_app",
+"expire":"2160000"
+}
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|  
+| B00004  |The parameters do not conform to the rules|&emsp;|   
+| 00001 |Login succeeded but did not accept the latest version of privacy agreement|The old account did not accept the privacy policy|  
+| B00001  |Missing required parameters|Code does not exist|  
+| B00002  |Parameter type error|Data format error| 
+
+
+
+
+#### Third-party social accounts get token of IOT platform   
+> Users log into haier app with third-party social accounts and obtain accessToken of haier iot platform through token of third-party accounts
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v1/thirdpart/social/getAccessToken`  
+ **HTTP Method：** POST  
+ **Preconditions:** App gets token of third-party social account
+ **Token authentication：** No 
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| thirdpartAccessToken    | String | Body| yes|Token for third-party social accounts, notes obtained through SDK of third-party social accounts|    
+| socialType    | String | Body| yes|Category:facebook twitter amazon|    
+| thirdpartOpenId    | String | Body| no|Currently, to access Facebook, Twitter and Amazon, you need to pass openId. This parameter is not required to define a mode compatible with no openId at a later stage|    
+
+**Output parameters**  
+
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  | String |Body |yes|Security token| 
+|  scope  | String |Body |yes|Scope of access to resources| 
+|  expire  | String |Body |yes|The period of validity,Unit s| 
+
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getAccessToken
+
+POST data:
+{"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4","socialType":"amazon","thirdpartOpenId":"110347635"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```  
+
+**Request response**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"refreshToken":null,
+"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"scope":"auth_app",
+"expire":"2160000"
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|    
+| 00001 |Login succeeded but did not accept the latest version of privacy agreement|The old account did not accept the privacy policy|  
+| B00010  |Public key error|Server decryption failed|  
+| A00006  |The callback to the third-party validation interface failed|Returns an error message for a third-party validation interface| 
+
+
+
+
+#### Third-party social accounts are bound to IOT's own account interface  
+> Users log into the iot platform with their own accounts. After successful login, they log into the third-party accounts and bind them into groups with their own accounts. The device relationship of the original third-party account is copied to its own account
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v1/thirdpart/social/bindGroup`  
+ **HTTP Method：** POST  
+ **Preconditions:** The app supports self-account login and third-party account login
+ **Token authentication：** Yes
+
+**Input parameters**  
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| uhomeAccessToken    | String | Body| yes|Iot platform for private account login accessToken|    
+| thirdpartUhomeAccessToken    | String | Body| yes|CIot platform token for third-party account login|    
+  
+
+**Output parameters**  
+
+**Output standard output parameters**
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|    |  | ||&emsp;| 
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
+
+POST data:
+{"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4","accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+```java
+{"retCode":"00000","retInfo":"成功"}
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|    
+| D00004 |Token expired and not validated with Token|Token passed in when binding is invalid or does not exist|  
+| A00005  |Database access exception|Storage binding relationship failed|  
+| D00024  |The binding failed to group or a binding relationship already exists|The third-party account has been bound to haier's own account| 
+
+
+#### Bind accounts into groups by token query  
+> Query the information of all the third-party accounts bound
+
+##### 1、Interface definition
+
+?> **Access address：**  `/uam/v1/thirdpart/social/getBindingGroup`  
+ **HTTP Method：** POST  
+ **Preconditions:** App login
+ **Token authentication：** Yes
+
+**Input parameters**  
+
+**Input standard output parameters**
+
+| parameter name        | types          | location  | requierd|description|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+|    |  | ||&emsp;|   
+  
+
+**Output parameters**  
+
+
+|   name      |     types      | location  |requierd |description|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  groups  |String|Body |yes|Example|   
+Example:
+
+```
+{
+    "retCode": "00000",
+    "retInfo": "成功",
+    " groups": [
+        {
+            "userId": "1234",
+            "openId": "11098764",
+            "socialType":amazon"
+        },
+        {
+            "userId": "4567",
+            "openId": "112098764",
+            " socialType ":amazon"
+        }
+    ]
+} 
+
+```
+##### 2、Request sample  
+
+**User request**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getBindingGroup
+
+POST data:
+{}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**Request response**
+
+```java
+{
+    "retCode": "00000",
+    "retInfo": "成功",
+    " groups": [
+        {
+            "userId": "1234",
+            "openId": "11098764",
+            "socialType":amazon"
+        },
+        {
+            "userId": "4567",
+            "openId": "112098764",
+            " socialType ":amazon"
+        }
+    ]
+}
+
+
+```
+
+##### 3、error code  
+|   errorcode      |     description      | scenario  |  
+| ------------- |:----------:|:-----:|    
+| B00004 |The parameters do not conform to the rules|&emsp;|  
+| A00005  |Database access exception|Storage binding relationship failed|  
+ 
 
 
 
