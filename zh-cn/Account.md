@@ -159,7 +159,7 @@
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -242,7 +242,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -312,7 +312,7 @@ accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -377,7 +377,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -434,7 +434,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -498,7 +498,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -567,7 +567,7 @@ Body
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -644,7 +644,7 @@ Body
 **用户请求**
 ```java  
 header:
-appId MB-DEVELOPERSITE-0000
+appId MB-****-0000
 sequenceId 20140730112234000001
 Content-Type application/json;charset=UTF-8
 appKey 0b6d09518p152c9aj09cf6d80ee657c9
@@ -668,7 +668,7 @@ body:
 
 ```java
 header:
-appId MB-DEVELOPERSITE-0000
+appId MB-****-0000
 sequenceId 20140730112234000001
 Content-Type application/json;charset=UTF-8
 appKey 0b6d09518p152c9aj09cf6d80ee657c9

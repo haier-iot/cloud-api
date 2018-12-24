@@ -110,7 +110,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/devicesOperate
 Header：
-	appId:MB-ABC-0000
+	appId:SV-ABC-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -188,7 +188,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/propertyRead
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -263,7 +263,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/propertyWrite
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -338,7 +338,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/operate
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
