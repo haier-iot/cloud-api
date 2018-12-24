@@ -28,7 +28,7 @@ U+ platform existing UWS service description
 Serial number|UWS service name|Application name|Version number (current version)
 :-:|:-:|:-:|:-:
 1|[Account Service-NorthAmericanEnvironment](en-us/Account-NorthAmericanEnvironment)|uam|v1.4.0  
-2|[Account Service-EuropeanEnvironment](en-us/Account-EuropeanEnvironment)|uam|v2.0.0
+2|[Account Service-EuropeanEnvironment](en-us/Account-EuropeanEnvironment)|uam|v2.1.0
 3|[Equipment Management Standard Edition-NorthAmericanEnvironment](en-us/DevicesStandard)|uds|v1.4.0
 4|[Equipment Management Enterprise Edition-NorthAmericanEnvironment](en-us/DevicesEnterprise)|udse|v1.5.2
 5|[Equipment Management Standard Edition-EuropeanEnvironment](en-us/DevicesStandard-EuropeanEnvironment)|uds|v2.0.2
