@@ -99,7 +99,7 @@ result|String|Operation response result|Is a base64 code, </br> the result of de
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -177,7 +177,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -251,7 +251,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -329,7 +329,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001

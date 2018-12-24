@@ -142,7 +142,7 @@ No input parameters
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -151,7 +151,6 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -364,7 +363,7 @@ Output standard response parameters
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -373,7 +372,6 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body
@@ -418,7 +416,7 @@ Output standard response parameters
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -427,7 +425,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -465,7 +462,7 @@ Output standard output parameters.
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -474,7 +471,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body:
@@ -519,7 +515,7 @@ Output standard output parameters
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -528,7 +524,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 body：
@@ -582,7 +577,7 @@ body：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -591,7 +586,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -636,7 +630,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -645,7 +639,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -697,7 +690,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -706,7 +699,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -811,7 +803,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -820,7 +812,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```

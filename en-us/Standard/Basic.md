@@ -153,7 +153,7 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 |parameter name|	Description|
 |:-----|-----|
 |Signature string|Url string + Body string +appId+appKey +timestamp;|
-|url |Refers to the path part of the requested interface address after removing https://uws-gea-euro.haieriot.net or https://uws-gea-us.haieriot.net;|
+|url |Refers to the path part of the requested interface address after removing `https://uws-euro.haieriot.net` or `https://uws-gea-us.haieriot.net`;|
 |Body|Refers to the JSON string after the body part of the application sends the request to remove all whitespace characters. If there is no body, it is an empty string (not null);|
 |appId|The attributes in the Header header (see the public section);|
 |appKey|The appKey applied to the application on the Haigeek cannot be sent in clear text;|

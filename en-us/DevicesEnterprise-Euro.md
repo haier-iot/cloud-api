@@ -97,7 +97,7 @@ result|String|Operation response result|Is a base64 code, </br> the result of de
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -184,7 +184,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -267,7 +267,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -354,7 +354,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -450,7 +450,7 @@ For specific interface service understanding and authorization, please contact [
 **User request**
 ```
 Header：
-appId: SV-GEHWHKQ-0000
+appId: SV-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 20161020153428000015
@@ -459,7 +459,6 @@ sign: 139854d169436e6d91c7b11701b0e2a4bd9152c2005a1fab95dcd60639c3c17d
 timestamp: 1490253051551 
 language: zh-cn
 timezone: +8
-appKey: 961c447171c19efd78beaef9abc72e7d
 Content-Encoding: utf-8
 Content-type: application/json 
 Body
@@ -533,7 +532,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -617,7 +616,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -694,7 +693,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -776,7 +775,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -863,7 +862,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001

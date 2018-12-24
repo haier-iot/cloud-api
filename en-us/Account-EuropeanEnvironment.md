@@ -55,7 +55,7 @@ In order to effectively protect users' privacy and optimize user experience, hai
 
 In the case of user registration, download and update, login and access, the content of the privacy policy must be provided or pointed to the page, and the user needs to click to "agree" to the privacy policy. The default "agree" cannot be too hidden.After obtaining the user's "consent", it is also necessary to ensure that users can easily view the full text of the privacy policy in the process of use, and cannot hide it from display.  
 
-**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business)**. We will configure the corresponding privacy policy and service agreement terms for the application**
+**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact**[ **haier U+ business BD**](en-us/Business)**. We will configure the corresponding privacy policy and service agreement terms for the application**
 
 ### User privacy data security  
 #### Safety instructions  
@@ -368,16 +368,11 @@ OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
 
 ##### 2、Request sample  
 
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
-```  
-
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -390,7 +385,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 434
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 [no cookies]
@@ -466,16 +460,12 @@ Body:
 
 ##### 2、Request sample  
 
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
-```
 
 **User request**
 ```java  
 Header：  
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -484,12 +474,10 @@ sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
 timestamp: 1533882163013 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 [no cookies]
@@ -559,16 +547,12 @@ accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
 |    |    |     |     |  &emsp;   |
 
 ##### 2、Request sample  
-**Request address**  
-```
-https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
-```  
 
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -577,12 +561,10 @@ sign: 0cdb49b20d552b6f99384373b1e7f3c34136237b7a39d91ab63b35035f54f8d0
 timestamp: 1533886290915 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 194
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 [no cookies]
@@ -645,16 +627,12 @@ Body:
 |    |  | ||&emsp;| 
 
 ##### 2、Request sample  
-**Request address**  
-```
-https://uws-euro.haieriot.net/uam/v2/user/resetPassword
-```
 
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -663,12 +641,10 @@ sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
 timestamp: 1533886628775 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 404
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 [no cookies]
@@ -737,16 +713,12 @@ Body:
 
 
 ##### 2、Request sample  
-**Request address**  
-```
-https://uws-euro.haieriot.net/uam/v2/user/changePassword
-```  
 
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -755,12 +727,10 @@ sign: 52b96f85e392ab0172d98f3ac1d7a5f7a284c387d4eeb1ea0d428df73aa55fe7
 timestamp: 1533880044559 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 391
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 [no cookies]
@@ -837,11 +807,7 @@ Body:
 
 publicKey
 
-##### 2、Request sample  
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
-```  
+##### 2、Request sample    
 
 **User request**
 ```java  
@@ -849,7 +815,7 @@ https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -858,12 +824,10 @@ sign: 9972aec958ec085bf5305f81ff135b933def3bde65fdb59cb12bc6caa0ccb17a
 timestamp: 1533894864095 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 0
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -908,16 +872,12 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
  
 
 ##### 2、Request sample  
-**Request address**  
-```
-https://uws-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
-```  
 
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -926,12 +886,10 @@ sign: 2a2aa21216e50ab61f6b846658356a88e827fbba0fadb40bc2c6e7ec647f66d7
 timestamp: 1533895007298 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 180
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -986,10 +944,6 @@ Content-Type: image/png;charset=UTF-8
 
 
 ##### 2、Request sample  
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/captcha
-```  
 
 **User request**
 ```java  
@@ -997,7 +951,7 @@ https://uws-euro.haieriot.net/uam/v2/user/captcha
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1006,12 +960,10 @@ sign: cf328601c6a2249f38fc0055b00ff781c4cc357745fe6ff0302e113a810a7c89
 timestamp: 1533884947784 
 language: en
 timezone: +8
-appKey: dg11ad3ea78cc19aa86c656f2a401d7e
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 0
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
@@ -1057,7 +1009,6 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java  
-POST https://uws-euro.haieriot.net/uam/v2/user/applyDeleteAccount
 
 POST data:
 {"msgCode":"123333"}
@@ -1066,7 +1017,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-HKQHWBB-0001
+appId: MB-****-0001
 appVersion: 2.4.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -1075,12 +1026,10 @@ sign: 2cb6c701bcad8e141972e44afa58b5b12d920b5303b8429cd3880b9499375d06
 timestamp: 1534215683804 
 language: en
 timezone: +8
-appKey: d44625bb0556fb0b1611ad6a073fb6f5
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 20
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
@@ -1104,7 +1053,13 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 ####	Log out v1
-> Account logout, session accessToken invalid
+> Account logout, 
+> 
+> 
+> 
+> 
+> 
+>  accessToken invalid
 
 ##### 1、Interface definition
 
@@ -1113,6 +1068,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
  **Token authentication：** Yes  
 
 **Input parameters**  
+**Intput standard output parameters.**
 
 | parameter name        | types          | location  | requierd|description|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
@@ -1132,10 +1088,9 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java  
-POST https://uws-euro.haieriot.net/uam/v1/security/logout
 
 Header：
-appId:MB-TEST-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1195,12 +1150,12 @@ Content-type: application/json
 
 ##### 2、Request sample  
 
+
 **User request**
 ```java  
-POST https://uws-euro.haieriot.net/uam/v2/users/get
 
 Header：
-appId:MB-TEST-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1262,13 +1217,13 @@ Content-type:application/json
 |    |  | ||&emsp;| 
 
 ##### 2、Request sample  
+  
 
 **User request**
 ```java  
-POST https://uws-euro.haieriot.net/uam/v1/users/update
 
 Header：
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1349,7 +1304,7 @@ Body:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-HKQHWBB-0001
+appId: MB-****-0001
 appVersion: 2.4.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -1362,7 +1317,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 27
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
@@ -1414,11 +1368,11 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 |  scope  | String |Body |yes|Scope of access to resources| 
 |  expire  | String |Body |yes|The period of validity,Unit s| 
 
-##### 2、Request sample  
+##### 2、Request sample 
+  
 
 **User request**
 ```java
-POST https://uws-euro.haieriot.net/uam/v2/auth/token
 
 POST data:
 {"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","grantType":"refresh_token"}
@@ -1427,7 +1381,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1439,7 +1393,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
@@ -1489,10 +1442,10 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 |  code  | String |Body |yes|Session sharing captcha| 
 
 ##### 2、Request sample  
+   
 
 **User request**
 ```java
-POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
 
 POST data:
 {"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","shareClientId":"MB-TEST2-0000","shareClientId":"456FEW334DD" }
@@ -1501,7 +1454,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1513,7 +1466,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -1570,18 +1522,17 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java
-POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
 
 POST data: 
-{"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","shareClientId":"MB-TEST2-0000","shareClientId":"456FEW334DD" }
+{"code":" da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " }
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
-clientId: 123
+clientId: 456FEW334DD
 sequenceId: 20161020153428000015
 sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
 timestamp: 1533882163013 
@@ -1591,8 +1542,8 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
 
 ```  
 
@@ -1602,7 +1553,8 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 {
 "retCode":"00000",
 "retInfo":"成功",
-"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
+"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
 "scope":"auth_app",
 "expire":"2160000"
 }
@@ -1651,7 +1603,6 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **User request**
 ```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getAccessToken
 
 POST data:
 {"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4","socialType":"amazon","thirdpartOpenId":"110347635"}
@@ -1660,7 +1611,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1672,7 +1623,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -1729,10 +1679,8 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |    |  | ||&emsp;| 
 ##### 2、Request sample  
-
 **User request**
 ```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
 
 POST data:
 {"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4","accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"}
@@ -1741,7 +1689,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1753,7 +1701,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
@@ -1821,9 +1768,9 @@ Example:
 ```
 ##### 2、Request sample  
 
+
 **User request**
-```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getBindingGroup
+```java  
 
 POST data:
 {}
@@ -1832,7 +1779,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1844,7 +1791,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  

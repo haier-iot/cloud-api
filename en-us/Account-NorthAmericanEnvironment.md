@@ -54,7 +54,7 @@ In order to effectively protect users' privacy and optimize user experience, hai
 
 In the case of user registration, download and update, login and access, the content of the privacy policy must be provided or pointed to the page, and the user needs to click to "agree" to the privacy policy. The default "agree" cannot be too hidden.After obtaining the user's "consent", it is also necessary to ensure that users can easily view the full text of the privacy policy in the process of use, and cannot hide it from display.  
 
-**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[**haier U+ business BD**](en-us/Business)**. We will configure the corresponding privacy policy and service agreement terms for the application**
+**If the developer needs to provide the user service agreement terms for using the service application of haier U+ account, please contact **[ **haier U+ business BD**](en-us/Business)**. We will configure the corresponding privacy policy and service agreement terms for the application**
 
 
 ### Security of user password  
@@ -154,7 +154,7 @@ public class AESUtil {
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -163,7 +163,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -238,7 +237,7 @@ Body
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -247,7 +246,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -315,7 +313,7 @@ body
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -324,7 +322,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -380,7 +377,7 @@ Body
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -389,7 +386,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -446,7 +442,7 @@ Content-type: application/json
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -455,7 +451,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -531,7 +526,7 @@ Content-type: application/json
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -540,7 +535,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -608,7 +602,7 @@ Body
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -617,7 +611,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -670,7 +663,7 @@ response.setContentType("image/png");
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -679,7 +672,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -747,7 +739,7 @@ Content-Length: 1381
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -756,7 +748,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
@@ -826,7 +817,7 @@ Body
 **User request**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -835,7 +826,6 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body
