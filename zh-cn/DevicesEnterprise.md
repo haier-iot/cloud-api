@@ -110,7 +110,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/devicesOperate
 Header：
-	appId:SV-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -430,7 +430,7 @@ users|User[]|Body|必填|用户列表
 ```
 请求地址：/udse/v1/devBindUsers
 Header：
-appId: SV-GEHWHKQ-0000
+appId: SV-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 20161020153428000015
@@ -510,7 +510,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/devOp
 Header：
-appId:MB-ABC-0000
+appId:SV-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -588,7 +588,7 @@ timestamp|long|Body|必填|操作时间戳
 ```
 请求地址：/udse/v1/devOpStatus
 Header：
-appId:MB-ABC-0000
+appId:SV-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -660,7 +660,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/stdDevPropertyRead
 Header：
-appId:MB-ABC-0000
+appId:SV-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -737,7 +737,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/stdDevPropertyWrite
 Header：
-appId:MB-ABC-0000
+appId:SV-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -816,7 +816,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/stdDevOperate
 Header：
-appId:MB-ABC-0000
+appId:SV-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
