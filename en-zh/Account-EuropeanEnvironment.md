@@ -1,65 +1,83 @@
 
->  **current version**：[UWS Accountservice V2.0.0](en-us/ChangeLog/Account)  
- **Update time**：{docsify-updated} 
+>  **当前版本**：[UWS 账户服务 V1.0.0](zh-cn/ChangeLog/Account)  
+ **更新时间**：{docsify-updated}  
 
+### 简介
 
-### Introduction
+> 账号服务旨在提供涵盖物联全流程的访问控制服务，为开发者搭建统一的用户登录系统。  
 
-> The account service is designed to provide access control services covering the entire process of the IoT, and to build a unified user login system for developers.   
-
-By integrating the U+IOT platform account service, the developer not only provides account management services such as registration, login, and password recovery of user accounts, but also helps developers to build unified control including device and user rights management. Consistent IOT systemic control mode.  
+开发者通过集成U+IOT平台账号服务，不仅提供用户账号的注册、登录、找回密码等账户管理服务，同时帮助开发者构建包括物联设备的统一控制、设备与用户权限管理等在内的一致性的IOT系统化管控模式。
 
 ![账户图片][account_type]
  
-**Account base capability**  
-1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
-2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
-3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-  
-**Account system association ability**  
+**账号基础能力**  
+1、	IOT平台账号注册：使用此接口用户可以使用手机或邮箱注册IOT账号，并调用验证码接口获取验证码，进行注册激活  
+2、	IOT平台账号登录与退出，进行登录验证获取系统创建的安全令牌（accessToken），系统校验accessToken进行用户退出登录。  
+3、	IOT账号验证码申请与验证，使用此接口可以申请和验证手机或邮箱的验证码保证注册、登录的安全性。  
+
+**账号信息相关能力**  
+1、	查询IOT平台账号信息，请求获取用户信息（包括id、loginName、email、mobile等用户属性）。
+2、	修改IOT平台账号信息，用户主动修改其应用属性信息、用户基础属性等，需要进行权限认证。  
+
+**账号体系关联能力**  
+1、	第三方社交账号登录，支持QQ、微信、微博、豆瓣、人人网账号登录。
+2、	开发者的自有账号登录，在U+IOT平台生成对应的暗账号并以U+账号身份进行用户授权登录到U+平台，开发者可建立其独立的开发者账号体系。
+
+
+### 名词解释
+
+- **海尔优家 OAuth**
+> 指海尔优家对外提供的OAuth服务，需要使用海尔优家账号进行登录授权；
+
+
+- **海尔优家 第三方登录**
+> 指使用第三方平台账号登录海尔优家平台，如微信、京东、淘宝等；
+
+
+- **海尔优家 开发者自有账号登录**
+> 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台；  
+该种对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈； 
+
+## 应用场景
+**账号管理**  
+开发者没有账户系统，可集成U+账号的相关服务。  
+
+**开发者账号**  
+开发者有自己的账户系统，通过云云对接互联方式接入U+账户服务。  
+
+
+## 用户隐私权限
+
+为切实保护用户隐私权，优化用户体验，海尔优家根据现行法规及政策，制定了海尔家电隐私权政策。海尔了解个人信息对客户的重要性，我们力求明确说明我们获取、管理及保护用户个人信息的政策及措施。
+
+在用户注册、下载更新、登录访问等情况下必须提供隐私权政策的内容或指向所在页面，且需要用户点击表示“同意”隐私权政策，不能太过隐蔽、不能设置默认“同意”；
+在获得用户“同意”之后，也要确保用户在使用的过程中可以随时便利查看到隐私权政策全文，不能隐藏起来不展示。
+
+ **开发者需提供使用海尔优家账号服务应用的用户服务协议条款请联系**[**海尔优家商务BD**](zh-cn/Business)，**我们为应用配置对应的隐私权政策及服务协议条款**
+
+### 用户隐私数据的安全性
+#### 安全性说明
+用户隐私数据项目 
  
-1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
-2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
-
-
-### Noun explanation
-
-- **Haier U+ OAuth**
-> Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
-
-Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
-
-
-- **Haier U+  Developer Account Login**
-> It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
-
-Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
-
-### Application scenario
-**Account management**  
-Developers do not have an account system and can integrate U+ account related services.  
-
-**Developer account**  
-Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
-
-
-### User privacy data security  
-#### Safety instructions  
-User privacy data item.  
- 
-| **Field** | **Encryption processing**  |  **Interface** |   
+| **字段** | **加密处理**  |  **接口** |   
 | ------------- |:----------:|:-----:|  
-|email    |	RSA encryption	|Register, login, reset password, change password|    
-|password |	RSA encryption	|Register, login, reset password, change password|  
+|email    |	RSA 加密	|注册, 登录, 重置密码, 修改密码|    
+|password |	RSA 加密	|注册, 登录, 重置密码, 修改密码|  
  
-#### Secret key usage process  
+#### 秘钥使用流程  
 ![密码传输流程图片][account_PasswordFlow1]  
+
 ![密码传输流程图片][account_PasswordFlow2]  
-#### Cipher encryption and decryption algorithm  
-algorithm:RSA  
-Secret key length: 1024  
-secret key:The app side holds the public key, the server side holds the private key, the public key private key is a pair of secret keys, the public key is encrypted, and the private key is decrypted.  
-algorithm code:  
+
+#### 加密和解密算法
+算法：RSA
+
+秘钥长度:1024
+
+秘钥：app端持有公钥，服务端持有私钥，公钥私钥为一对秘钥，公钥加密，私钥解密
+
+算法代码：
+
 
 ```java
 package com.hshbic.cloud.user.util.encrypt;
@@ -79,17 +97,22 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.crypto.Cipher;
+
 import org.apache.commons.codec.binary.Base64;
+
 import com.hshbic.cloud.user.model.AppRsaKeys;
 
 public class RSAUtil {
 
 	public static final String CHARSET = "UTF-8";
 	public static final String RSA_ALGORITHM = "RSA";
+	
 	public static Map<String, AppRsaKeys> KEYSMAP = new ConcurrentHashMap<String, AppRsaKeys>();
+
 	public static Map<String, String> createKeys(int keySize) {
-		// Create a KeyPairGenerator object for the RSA algorithm
+		// 为RSA算法创建一个KeyPairGenerator对象
 		KeyPairGenerator kpg;
 		try {
 			kpg = KeyPairGenerator.getInstance(RSA_ALGORITHM);
@@ -97,33 +120,36 @@ public class RSAUtil {
 			throw new IllegalArgumentException("No such algorithm-->["
 					+ RSA_ALGORITHM + "]");
 		}
-		// Initialize the KeyPairGenerator object, key length
+
+		// 初始化KeyPairGenerator对象,密钥长度
 		kpg.initialize(keySize);
-		// Generate key pair
+		// 生成密匙对
 		KeyPair keyPair = kpg.generateKeyPair();
-		// Get the public key
+		// 得到公钥
 		Key publicKey = keyPair.getPublic();
 		String publicKeyStr = Base64.encodeBase64URLSafeString(publicKey
 				.getEncoded());
-		// Get the private key
+		// 得到私钥
 		Key privateKey = keyPair.getPrivate();
 		String privateKeyStr = Base64.encodeBase64URLSafeString(privateKey
 				.getEncoded());
 		Map<String, String> keyPairMap = new HashMap<String, String>();
 		keyPairMap.put("publicKey", publicKeyStr);
 		keyPairMap.put("privateKey", privateKeyStr);
+
 		return keyPairMap;
 	}
+
 	/**
-	 * Get the public key
+	 * 得到公钥
 	 * 
 	 * @param publicKey
-	 *  Key string (base64 encoded)
+	 *            密钥字符串（经过base64编码）
 	 * @throws Exception
 	 */
 	public static RSAPublicKey getPublicKey(String publicKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		// Get the public key object by X509 encoded Key instruction
+		// 通过X509编码的Key指令获得公钥对象
 		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
 		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(
 				Base64.decodeBase64(publicKey));
@@ -131,16 +157,17 @@ public class RSAUtil {
 				.generatePublic(x509KeySpec);
 		return key;
 	}
+
 	/**
-	 * Get the private key
+	 * 得到私钥
 	 * 
 	 * @param privateKey
-	 *   Key string (base64 encoded)
+	 *            密钥字符串（经过base64编码）
 	 * @throws Exception
 	 */
 	public static RSAPrivateKey getPrivateKey(String privateKey)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		// Obtain the private key object by the Key instruction encoded by PKCS#8
+		// 通过PKCS#8编码的Key指令获得私钥对象
 		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
 		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(
 				Base64.decodeBase64(privateKey));
@@ -148,8 +175,9 @@ public class RSAUtil {
 				.generatePrivate(pkcs8KeySpec);
 		return key;
 	}
+
 	/**
-	 * Public key encryption
+	 * 公钥加密
 	 * 
 	 * @param data
 	 * @param publicKey
@@ -163,16 +191,18 @@ public class RSAUtil {
 					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), publicKey
 							.getModulus().bitLength()));
 		} catch (Exception e) {
-			throw new RuntimeException("Encountered an exception while encrypting the string [" + data + "] ", e);
+			throw new RuntimeException("加密字符串[" + data + "]时遇到异常", e);
 		}
 	}
+
 	/**
-	 * Private key decryption
+	 * 私钥解密
 	 * 
 	 * @param data
 	 * @param privateKey
 	 * @return
 	 */
+
 	public static String privateDecrypt(String data, RSAPrivateKey privateKey) {
 		try {
 			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
@@ -181,16 +211,18 @@ public class RSAUtil {
 					Base64.decodeBase64(data), privateKey.getModulus()
 							.bitLength()), CHARSET);
 		} catch (Exception e) {
-			throw new RuntimeException("Encountered an exception while decrypting the string [" + data + "] ", e);
+			throw new RuntimeException("解密字符串[" + data + "]时遇到异常", e);
 		}
 	}
+
 	/**
-	 * Private key encryption
+	 * 私钥加密
 	 * 
 	 * @param data
 	 * @param privateKey
 	 * @return
 	 */
+
 	public static String privateEncrypt(String data, RSAPrivateKey privateKey) {
 		try {
 			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
@@ -199,16 +231,18 @@ public class RSAUtil {
 					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), privateKey
 							.getModulus().bitLength()));
 		} catch (Exception e) {
-			throw new RuntimeException("Encountered an exception while encrypting the string [" + data + "] ", e);
+			throw new RuntimeException("加密字符串[" + data + "]时遇到异常", e);
 		}
 	}
+
 	/**
-	 * Public key decryption
+	 * 公钥解密
 	 * 
 	 * @param data
 	 * @param publicKey
 	 * @return
 	 */
+
 	public static String publicDecrypt(String data, RSAPublicKey publicKey) {
 		try {
 			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
@@ -217,9 +251,10 @@ public class RSAUtil {
 					Base64.decodeBase64(data), publicKey.getModulus()
 							.bitLength()), CHARSET);
 		} catch (Exception e) {
-			throw new RuntimeException("Encountered an exception while decrypting the string [" + data + "] ", e);
+			throw new RuntimeException("解密字符串[" + data + "]时遇到异常", e);
 		}
 	}
+
 	private static byte[] rsaSplitCodec(Cipher cipher, int opmode,
 			byte[] datas, int keySize) {
 		int maxBlock = 0;
@@ -243,10 +278,13 @@ public class RSAUtil {
 				i++;
 				offSet = i * maxBlock;
 			}
+
 			byte[] resultDatas = out.toByteArray();
+
 			return resultDatas;
+
 		} catch (Exception e) {
-			throw new RuntimeException("An exception occurs when the encryption/decryption threshold is [" + maxBlock + "] ", e);
+			throw new RuntimeException("加解密阀值为[" + maxBlock + "]的数据时发生异常", e);
 		} finally {
 			try {
 				out.close();
@@ -255,103 +293,92 @@ public class RSAUtil {
 			}
 		}
 	}
+
 	public static void main(String[] args) throws Exception {
 		Map<String, String> keyMap = RSAUtil.createKeys(1024);
 		String publicKey = keyMap.get("publicKey");
 		String privateKey = keyMap.get("privateKey");
-		System.out.println("Public key: \n\r" + publicKey);
-		System.out.println("Private key: \n\r" + privateKey);
+		System.out.println("公钥: \n\r" + publicKey);
+		System.out.println("私钥： \n\r" + privateKey);
+
 		String str = "123";
-		System.out.println("\r Clear text：\r\n" + str);
-		System.out.println("\r Clear text size：\r\n" + str.getBytes().length);
+		System.out.println("\r明文：\r\n" + str);
+		System.out.println("\r明文大小：\r\n" + str.getBytes().length);
 		String encodedData = RSAUtil.publicEncrypt(str,
 				RSAUtil.getPublicKey(publicKey));
-		System.out.println("Ciphertext：\r\n" + encodedData);
+		System.out.println("密文：\r\n" + encodedData);
 		String decodedData = RSAUtil.privateDecrypt(encodedData,
 				RSAUtil.getPrivateKey(privateKey));
-		System.out.println("Decrypted text: \r\n" + decodedData);
+		System.out.println("解密后文字: \r\n" + decodedData);
+
 	}
 }
 
 ```  
-### User privacy agreement  
+### 用户隐私协议
 
-#### User privacy agreement version  
+#### 用户隐私协议版本
 
-Version: V1.0.0, uppercase V  
+版本：V1.0.0，大写V
 
-#### View user privacy agreement content  
+#### 查看用户隐私协议内容
 
-`Https://uws-gea-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
-The lg parameter refers to the internationalized language table in the [access specification](en-us/AccessSpecification).
+`Https://uws-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
+lg参数参考附录章节国际语言代码表[access specification](en-zh/AccessSpecification).
   
-### Use of language templates
-#### Support for overseas oem version app  
-The appId in the header is oem type, and the oem template is used to register, activate, and reset the password.  
-OEM APPID is limited to MB-OEM-0000, MB-OEM-0001
+### 国际化处理
 
-### Public structure  
+对接口响应返回的retCode和retInfo不做国际化处理，由接口调用方处理。
 
-#### no  
+对于接口涉及业务数据的国际化通过在header中传递language参数来定义，具体的国际化语言代码见附录。
 
-## Interface list
+### 语言模板的使用
 
+#### 邮件内容
 
-### Haier U+ User class interface
-> API interface overview
+注册，激活，重置密码时根据header中的据语言类型（language字段）发送对应语言的邮件内容。
 
-| API name        | effect          | Whether open | Special Note|
-| ------------- |:-------------:|:-----:|:-------------:|
-| User registration     | Register new user | yes|  no |  
-| Email Login     | User login to get accessToken | yes| no|  
-| Get verification code     | Apply for a verification code before registration to verify the user's real email address | yes| no|  
-| Use email to reset the password    | To reset the password, you need to apply for a verification code first. | yes| no|  
-| Change password | To reset the password, you need to apply for a verification code first. | yes| no|  
-|Get the public key | Get the public key | yes| no|  
-|Verify the public key |Provide the front-end application with an interface to verify the validity of the local public key| yes| no|  
-|Get graphic verification code |Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.| yes| no|  
-|	Apply to cancel account and device information|The user requests to delete the account information and the device binding relationship, and send an email notification.|yes|no|  
-| Log out v1   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
-| Query user information v1 | Obtain user information based on the registrant token | yes| no|  
-| User information modification v1   | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|     
-| User accepts privacy policy v1  | User accepts the privacy policy and records the privacy policy version number |  yes| no|    
-
-#### User registration 
-> Register new user  
+#### 对还往外oem版本app的支持
+  
+请求头（header）中的appId为oem类型，注册、激活、重置密码的邮件内容使用oem模板。
+OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
 
 
-##### 1、Interface definition
 
-?> **Access address：**  `/uam/v2/user/registerEmailAcounnt`  
+
+## 接口列表
+
+
+#### 用户注册
+> 使用邮箱地址注册新账号
+
+
+##### 1、接口定义
+
+?> **接入地址：**  `/uam/v2/user/registerEmailAcounnt`  
  **HTTP Method：** POST  
- **Preconditions:** Get the verification code interface  
- **Token authentication：** No  
+ **前置条件:** 获取验证码
+ **Token 验证：** 否  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types         | location  | required|description|
+| 参数名        | 类型         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
-|password|String|Body|Yes|	Password: Use public key encryption. The long backend service decrypts and verifies the rules. See section User privacy data security  for details. Server verification rules: uppercase and lowercase letters, numbers, special characters, three or more `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
-|captcha|	String|	Body|	Yes	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. According to the requirement, msgCode fails to verify more than three times, and the user is required to input the graphic verification code.|
-|userProfile|Map|Body|No|Added to meet the user information needs of different applications. When the application needs to extend user attributes, it can apply to the cloud platform user system. The attributes that need to be extended are listed in the application, and the key, type and length corresponding to each attribute are also listed.|
-|msgCode|String|	Body|	yes	|Verification code, the user applies for verification before registration, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|
+|email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|	密码需使用公钥加密，后端服务解密并校验规则。</br>服务端校验规则：大小写字母、数字、特殊字符三种或三种以上</br> `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
+|captcha|	String|	Body|	Yes	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。</br>根据需求msgCode验证失败超过三次需强制用户输入图形验证码|
+|userProfile|Map|Body|否|添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。|
+|msgCode|String|	Body|	是	| 验证码,注册前用户申请验证,发送至用户邮箱，注册时需填写此验证码，6位随机数字|
 
 
 
-**Output parameters**  
 
-**Output standard output parameters.**
 
-|   name      |     types      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
-
-##### 2、Request sample  
+##### 2、请求样例  
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
+https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
 ```  
 
 **User request**
@@ -402,54 +429,47 @@ Body:
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00012   |  The mailbox already exists|  &emsp;  |   
-|D00015  |  Graphic verification code error|  &emsp;  |   
-|D00022 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
-|D00009 |  The number of attempts exceeds the limit, the number of failed attempts is exceeded, and a graphic verification code is required.|  msgCode verification failed more than three times |  
-|B00010 |  Public key error|  Server decryption failed  |  
-|B00004 | Incorrect mailbox and password| Parameter error handling  |  
-   
+##### 3、错误码   
 
+>  D00012、D00015、D00022、D00009、B00010、B00004
+   
 
  
 
-#### Email Login
-> User login to get accessToken  
+#### 邮箱登录
+> 用户使用邮箱登录获取accessToken
   
 
+##### 1、接口定义
 
-##### 1、Interface definition
-
-?> **Access address：**  `/uam/v2/user/loginEmailAcounnt`  
+?> **接入地址：**  `/uam/v2/user/loginEmailAcounnt`  
  **HTTP Method：** POST  
- **Preconditions:** Use email registration  
- **Token authentication：** No  
+ **前置条件:** 用户使用邮箱注册账号
+ **Token 验证：** 否  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types        | location  | required|description|
+| 参数名       | 类型        | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
-| password     | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules |  
-| captcha     | String | Body| no |Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. Log in to enter the wrong password. You must enter the graphic verification code when the number of times is greater than or equal to three.When the user enters the wrong password 5 times, the account is locked for 5 hours.|  
+| email    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
+| password     | String | Body| 是|需使用公钥加密，后端服务解密并校验规则 |  
+| captcha     | String | Body| no |图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。登录输入错误的密码，次数大于等于三次时必须输入图形验证码。当用户输入错误密码5次时,锁定账号5小时|  
 
 
-**Output parameters**  
+**输出参数 **  
 
-|   name      |     types      | location  |required |description|
+|   参数名      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| accessToken   |   String |  Header   |  yes   |  Security token  |  
+| accessToken   |   String |  Body   |  是   |   安全令牌  |  
+| refreshToken   |   String |  Body   |  是   |   刷新令牌 |  
+| scope   |   String |  Body   |  是   |   访问资源的范围 |  
+| expire   |   String |  Body   |  是   |   有效期 |  
 
-
-
-##### 2、Request sample  
+##### 2、请求样例 
 
 **Request address**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
+https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
 ```
 
 **User request**
@@ -488,64 +508,49 @@ Body:
 **Request response**
 
 ```java
-header:
-accessToken: TGT2SI3VVPHX630U2VWJRYV3K25MM0
-
 {
-  "retCode": "00000",
-  "retInfo": "成功", 
-  "userId ": "1234567",
-  "status":"0"
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken":null,
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"auth_app",
+	"expire":"2160000"
 }
-
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| 10000   | The login is successful, but the password security level is increased. Please change the password.| User uses weak password  |   
-| 00001   | Successful login but did not accept the latest version of the privacy agreement| Old account does not accept the privacy policy  |   
-|D00002 |  Account or password error| User uses wrong password  |   
-|D00009 | Msgcode verification code error| 6-digit random number requested by the user before registration  |  
-|D00009 | Logon failure exceeded limit, need to use authentication code login| After the login fails 3 times, the verification code is started. |  
-|D00010 |  Account locked| After 5 failed login attempts, lock the account  |  
-|D00015 | Verification code error| &emsp;  |  
-|B00010 | Public key error| Server decryption failed  | 
+##### 3、错误码  
+
+> 10000、00001、D00002、D00009、D00010、D00015、B00010
  
 
-#### Get verification code
-> Apply for a verification code before registration to verify the user's real email address.  
+#### 获取验证码
+> 在注册前申请验证码，用于验证用户的真实邮箱
 
-##### 1、Interface definition
+##### 1、接口描述
 
-?> **Access address：**  `/uam/v2/user/applyVerificationCode`  
+?> **接入地址：**  `/uam/v2/user/applyVerificationCode`  
  **HTTP Method：** POST  
- **Preconditions:** Registered  
- **Token authentication：** No  
+ **前置条件:** 注册  
+ **Token 验证：** 否
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | required|description|
+|  参数名        | 类型      | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| email    | String | Body| yes|Public key encryption is required, the backend service decrypts and verifies the rules|  
-| type    | String | Body| yes|1: Registration  2: Retrieve password 5: cancel account|  
+| email    | String | Body| yes|需使用公钥加密，后端服务解密并校验规则|  
+| type    | String | Body| yes|1: 注册  2: 找回密码  5: 注销账号|  
    
 
-**Output Parameters**  
-**Output standard output parameters.**  
+**输出参数：** 标准输出参数  
 
 
-|   name      |     types      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
-
-##### 2、Request sample  
-**Request address**  
+##### 2、请求样例   
+**请求地址**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/applyVerificationCode
+https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
 ```  
 
-**User request**
+**请求明细**
 ```java  
 Header：
 Connection: keep-alive
@@ -576,7 +581,7 @@ Body:
 
 ```  
 
-**Request response**
+**返回结果**
 
 ```java
 {
@@ -587,55 +592,46 @@ Body:
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00017   | Account does not exist| Unregistered user reset password,Return when input parameter type is 2 |   
-| D00012 |  Account already exists| Registered users apply for registration verification code,Return when the input parameter type is 1.  |   
-|B00010 | Public key error| Server decryption failed  | 
+
+> D00017、D00012、B00010
   
  
 
-#### Use email to reset the password
->To reset the password, you need to apply for a verification code first.  
+#### 使用邮箱重置密码
+> 重置密码，需要先申请验证码
 
   
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v2/user/resetPassword`  
+?> **接入地址：**  `/uam/v2/user/resetPassword`  
  **HTTP Method：** POST  
- **Preconditions:** Registered,Application verification code 
- **Token authentication：** No  
+ **前置条件:** 用户注册，获取验证码
+ **Token 验证：** 否  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名         | 类型          | 位置  |必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
-|password|String|Body|Yes|	New password: Public key encryption is required. The long backend service decrypts and verifies the rules.See section User privacy data security  for details.|  
-|captcha|	String|	Body|	No	|Graphic verification code, a combination of 4 letters and numbers. Each verification code can only be used once. It will be invalid after use or expired and needs to be re-acquired. For the same App, the same mobile phone terminal mailbox verification code fails to verify the authentication 3 times, you need to enable the graphic verification code for verification, 3 times configurable, the default is 3 times. After the verification of the mailbox verification code is successful, the number of allowed failures is restored to 0.|  
-|msgCode|String|Body|yes|Verification code, the user applies for the verification code to reset the password, and sends it to the user's mailbox. You need to fill in this verification code when registering, 6 random numbers.|  
+|email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|新密码：需使用公钥加密。长后端服务解密并校验规则，|  
+|captcha|	String|	Body|	否	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。对于同一App、同一手机终端邮箱验证码连续校验失败3次后需启用图形验证码进行验证，3次可配置，默认为3次。邮箱验证码校验成功后，允许失败次数重新恢复为0|  
+|msgCode|String|Body|是|验证码,用户申请验证码用于重置密码,发送至用户邮箱，注册时需填写此验证码，6位随机数字|  
    
- 
 
 
-**Output parameters**  
-**Output standard output parameters.**
+**输出参数：**标准输出参数  
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
-
-##### 2、Request sample  
-**Request address**  
+##### 2、请求样例  
+**请求地址 **  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/resetPassword
+https://uws-euro.haieriot.net/uam/v2/user/resetPassword
 ```
 
-**User request**
+**请求明细**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -644,7 +640,6 @@ sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
 timestamp: 1533886628775 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -665,7 +660,7 @@ Body:
 
 ```  
 
-**Request response**
+**请求应答 **
 
 ```java
 {
@@ -676,58 +671,47 @@ Body:
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00017   | Account does not exist| Unregistered user reset password  |   
-| B00010   |Public key error| Server decryption failed  |   
-| D00009   | Login failed to exceed the limit, you need to use the graphical verification code to log in| After the login fails 3 times, the verification code is started.  |   
-| D00022   | msgCode verification code error| 6-digit random number requested by the user before resetting the password  |   
+##### 3、错误码
 
-#### Change password
->To reset the password, you need to apply for a verification code first.
-
+> D00017、B00010、D00009、D00022
   
 
+#### 修改密码 
+> 用户在登录状态可修改密码
 
-##### 1、Interface definition
 
-?> **Access address：**  `/uam/v2/user/changePassword`  
+##### 1、接口定义
+
+?> **接入地址：**  `/uam/v2/user/changePassword`  
  **HTTP Method：** POST  
- **Preconditions:** Login  
- **Token authentication：** Yes  
+ **前置条件:** 邮箱登录  
+ **Token验证：** 是  
 
-**Input parameters**  
+**输入参数 **  
 
-| parameter name        | types          | location  | requierd|description|
+|  参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|  
-|email	|String	|Body|	Yes|	Public key encryption is required, the backend service decrypts and verifies the rules|  
-|newPassword|String|Body|Yes|	New password: Public key encryption is required. Long backend service decryption and verification rules|  
-|captcha|	String|	Body|	Yes	|Graphic verification code, for the same App, the same mobile phone terminal to modify the password when the continuous verification fails m times, you need to enable the graphic verification code for verification, m configurable, the default is 3 times. After the verification code is enabled, if the graphic verification code is entered correctly, the corresponding account will be locked for n times after the same day, and n can be configured. The default is 10 times.|  
+|email	|String	|Body|	是|	旧密码：需使用公钥加密。长后端服务解密并校验规则 |  
+|newPassword|String|Body|是|	新密码：需使用公钥加密。长后端服务解密并校验规则|  
+|captcha|	String|	Body|	是	|图形验证码，对于同一App、同一手机终端修改密码时连续校验失败m次后需启用图形验证码进行验证，m可配置，默认为3次。</br>在启用验证码后，如果图形验证码输入正确的情况下，同一天对同一账户的错误尝试达到n次后将对应的账户锁定，n可配置，默认为10次。|  
      
 
 
 
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
+**输出参数： **标准输出参数  
 
 
 ##### 2、Request sample  
 **Request address**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/user/changePassword
+https://uws-euro.haieriot.net/uam/v2/user/changePassword
 ```  
 
 **User request**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -736,7 +720,6 @@ sign: 52b96f85e392ab0172d98f3ac1d7a5f7a284c387d4eeb1ea0d428df73aa55fe7
 timestamp: 1533880044559 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -747,81 +730,49 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 [no cookies]
 
 Body:
-{"password":"M86jq-ZxErDwBcy_p2gztuBKVbk_nlrHTvePtQP2YGqzXW5q6zbY-a5sV7rltbLD8Kl4Jc8O6emWz3zEOeANJfVQkIbjq2wPc4XEeHls3AwVqnDR6GB2ncljRvX-ZlD2UHcM4AzuJk3I-stOYLnbTPVoDTSxbyNfxEREXq2e2ZI","newPassword":"MrGIHA_edrlvBIvxYSn5Kstp7pj89ccQ_UFYQNVHQPuulIfJ1QRoEoi-Oq8mpYX-58BU2eglmfPcV8bpQRXH9ILRXbiVLaU0ZhCStkv68l9Q_GuSYrjEISAKK62naHwbMQrzb_seUnmQsGtCwrJx8WtQdnm6Gcz7aGZ7DGWzLC8","captcha":"73ll"}
-
-
+{
+	"password":"M86jq-ZxErDwBcy_p2gztuBKVbk_nlrHTvePtQP2YGqzXW5q6zbY-a5sV7rltbLD8Kl4Jc8O6emWz3zEOeANJfVQkIbjq2wPc4XEeHls3AwVqnDR6GB2ncljRvX-ZlD2UHcM4AzuJk3I-stOYLnbTPVoDTSxbyNfxEREXq2e2ZI",
+	"newPassword":"MrGIHA_edrlvBIvxYSn5Kstp7pj89ccQ_UFYQNVHQPuulIfJ1QRoEoi-Oq8mpYX-58BU2eglmfPcV8bpQRXH9ILRXbiVLaU0ZhCStkv68l9Q_GuSYrjEISAKK62naHwbMQrzb_seUnmQsGtCwrJx8WtQdnm6Gcz7aGZ7DGWzLC8",
+	"captcha":"73ll"
+}
 ```  
 
-**Request response**
+**请求应答 **
 
 ```java
 {
   “retCode”: “00000”,
-  “retInfo”: “正确”,
-  “userProfile”: {
-“nickName”: ,
-“avatar”: ,
-       “phone”: ,
-       “updateTime”: “20141115”,
-       “status”: null,
-       “tel”: “0596”,
-       “applyTime”: null,
-       “idcard”: null,
-       “companyName”: null,
-       “type”: null,
-       “postcode”: null,
-       “legalPerson”: null,
-       “contacts”: null,
-       “companyCode”: 333,
-       “businessLicense”: null,
-       “address”: “china”,
-       “contactsPhone”: null,
-       “email”: “848421322@qq.com”,
-       “QQ”: “848421322”,
-       “name”: “test”,
-       “realname”: “test”,
-       “idcardPhoto”: null
-  }
+  “retInfo”: “成功”,
 }
 
 
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00003   |Token does not exist|User not logged in  |   
-| D00002   |The original password is wrong|Enter the wrong original password when changing the password  |  
-| B00010   |Public key error| Server decryption failed  |   
-| D00009   | Login failed to exceed the limit, you need to use the graphical verification code to log in| After the login fails 3 times, the verification code is started.  |  
-| B00004   |The parameter does not meet the rule requirements|Wrong password format  |  
 
-#### Get the public key  
->Get the public key  
+> D00003、D00002、B00004、 
+
+#### 获取公钥
+> 获取公钥
   
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v2/mgr/getPublicKey`  
+?> **接入地址：**  `/uam/v2/mgr/getPublicKey`  
  **HTTP Method：** POST  
- **Preconditions:** Use a valid appId  
- **Token authentication：** No 
+ **编制条件:** 使用有效的appid
+ **Token 验证：** 否 
 
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|     |  | | |&emsp;|    
+**输入参数：** 无输入参数  
 
 
-**Output parameters**  
+**输出参数：** 输出公钥 publicKey 
 
-publicKey
 
-##### 2、Request sample  
-**Request address**  
+##### 2、请求样例   
+**请求地址**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/mgr/getPublicKey
+https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
 ```  
 
 **User request**
@@ -830,7 +781,7 @@ https://uws-gea-euro.haieriot.net/uam/v2/mgr/getPublicKey
 
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -839,7 +790,6 @@ sign: 9972aec958ec085bf5305f81ff135b933def3bde65fdb59cb12bc6caa0ccb17a
 timestamp: 1533894864095 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -847,58 +797,54 @@ Content-Length: 0
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
-{"retCode":"00000","retInfo":"成功","publicKey":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7jrpGqqsUERuS3RhjKGoKSFaoUyfk5eKwjxSq3ARW5sMg8hsnuC0dmLEOrUoaJYSoaLOn7V1uvpX4PYVJ89BjnDJtjbFoYAsk3VMVsTiJ8RBEp4bCaX9bfHqs4f04Ii_U3IeodHnHL2XKzjdNFv7M1g27Y-Ao-HZVbQJm8d-0PwIDAQAB"}
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"publicKey":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7jrpGqqsUERuS3RhjKGoKSFaoUyfk5eKwjxSq3ARW5sMg8hsnuC0dmLEOrUoaJYSoaLOn7V1uvpX4PYVJ89BjnDJtjbFoYAsk3VMVsTiJ8RBEp4bCaX9bfHqs4f04Ii_U3IeodHnHL2XKzjdNFv7M1g27Y-Ao-HZVbQJm8d-0PwIDAQAB"
+}
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| C00001  |appId and appKey validation failed|Use the invalid appId to get the public key  |   
+##### 3、错误码
 
-#### Verify the public key
->Provide the front-end application with an interface to verify the validity of the local public key.      
+> C00001
+
+#### 验证公钥
+> 给前端应用提供本地公钥合法性的接口  
  
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v2/mgr/verifyPublicKey`  
+?> **接入地址：**  `/uam/v2/mgr/verifyPublicKey`  
  **HTTP Method：** POST  
- **Preconditions:** Get the public key interface 
- **Token authentication：** No 
+ **前置条件:** 获取公钥
+ **Token 验证：** 否 
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|   sn   | String | body | yes | The public key is used to encrypt the timestamp, and the backend service decrypts successfully. The timestamp number is correct.|      
+|   sn   | String | body | 是 | 需使用公钥加密时间戳，后端服务解密成功，验证为时间戳数字即正确|      
 
 
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;  |  
+**输出参数：** 标准输出参数  
  
 
-##### 2、Request sample  
-**Request address**  
+##### 2、请求样例   
+**请求地址**  
 ```
-https://uws-gea-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
+https://uws-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
 ```  
 
-**User request**
+**请求明细**
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -907,7 +853,6 @@ sign: 2a2aa21216e50ab61f6b846658356a88e827fbba0fadb40bc2c6e7ec647f66d7
 timestamp: 1533895007298 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -920,7 +865,9 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 Body:
-{"sn":"V3O5gPCk9JQm_lPiScTeyDXpf-6pIb4Vl0mR9fB7cUocn_RQizg0ica0bJ0-65fJpLolkCNiVZ78jTDfTlj6o_HraGUiIpz-sBp5UZrO6ffBIPr4LhPL1Aew3XNrThIQNlleVKDkLHrHq2hMXxLx9M6BQro_SfrrGdInxk9Fu8Y"}
+	{
+	"sn":"V3O5gPCk9JQm_lPiScTeyDXpf-6pIb4Vl0mR9fB7cUocn_RQizg0ica0bJ0-65fJpLolkCNiVZ78jTDfTlj6o_HraGUiIpz-sBp5UZrO6ffBIPr4LhPL1Aew3XNrThIQNlleVKDkLHrHq2hMXxLx9M6BQro_SfrrGdInxk9Fu8Y"
+	}
 
 ```  
 
@@ -937,48 +884,39 @@ Body:
 ```
 
 ##### 3、error code    
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| A00005  |Database exception|verification failed  |    
-| B00002  |Parameter verification failed|verification failed  |    
 
-#### Get image verification code
->Obtaining a graphics verification code, unlike the V1 interface, is to increase the limit, and tomorrow 20 requests per application limit.     
- 
+> A00005、B00002    
 
-##### 1、Interface definition
+#### 获取图形验证码
+> 获取图形验证，限制每天每个终端20次请求限制。
 
-?> **Access address：**  `/uam/v2/user/captcha`  
+##### 1、接口定义 
+
+?> **接入地址：**  `/uam/v2/user/captcha`  
  **HTTP Method：** POST  
- **Preconditions:** Use a valid appId, and clientId 
- **Token authentication：** No 
+ **前置条件:** 使用有效的appId、clientId
+ **Token 验证：** 否 
 
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|    |    |     |     |  &emsp;  |  
-      
+**输入参数：** 无输入参数  
+     
 
 
-**Output parameters**  
+**输出参数：**  
 
 Content-Type: image/png;charset=UTF-8
 
 
-##### 2、Request sample  
-**Request address**  
+##### 2、 请求样例  
+**请求地址**  
 ```  
-https://uws-gea-euro.haieriot.net/uam/v2/user/captcha
+https://uws-euro.haieriot.net/uam/v2/user/captcha
 ```  
 
-**User request**
+**请求明细 **
 ```java  
-[no cookies]
-
 Request Headers:
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -987,7 +925,6 @@ sign: cf328601c6a2249f38fc0055b00ff781c4cc357745fe6ff0302e113a810a7c89
 timestamp: 1533884947784 
 language: en
 timezone: +8
-appKey: dg11ad3ea78cc19aa86c656f2a401d7e
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -1002,52 +939,42 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 ![验证码图片][account_captcha] 
 
 
-##### 3、error code    
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| C00001  |appId and appKey validation failed|Use invalid appId  |    
+##### 3、error code   
+
+> C00001
 
 
-###	Apply to cancel account and device information  
-> The user applies to delete the account information and device binding relationship, and sends an email notification. After the user successfully applies, the account cannot be logged in, and the login returns the password error  
+###	申请注销账号和设备信息
+> 用户申请删除账号信息和设备绑定关系，并发邮件通知，用户申请成功后，账号不能登录，登录返回密码错误 
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v2/user/applyDeleteAccount`  
+?> **接入地址：**  `/uam/v2/user/applyDeleteAccount`  
  **HTTP Method：** POST  
- **Preconditions:** Login and apply for dynamic verification code   
- **Token authentication：** Yes  
+ **前置条件:** 用户登录，申请动态验证码 
+ **Token 验证：** 是  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| msgCode   | String |Body |Yes|Verification code, the user applies for the verification code to cancel the account, the verification code is sent to the user's mailbox, and the verification code is required before the logout, 6 random numbers. Application type type=5|   
+| msgCode   | String |Body |是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|   
    
  
+**输出参数： ** 标准输出参数  
 
 
-**Output parameters**  
-**Output standard output parameters.**
+##### 2、请求样例  
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
-
-##### 2、Request sample  
-
-**User request**
+**请求地址**
 ```java  
-POST https://uws-gea-euro.haieriot.net/uam/v2/user/applyDeleteAccount
-
-POST data:
-{"msgCode":"123333"}
-
-[no cookies]
-
+POST https://uws-euro.haieriot.net/uam/v2/user/applyDeleteAccount
+```
+**请求明细**
+```java
 Request Headers:
 Connection: keep-alive
-appId: MB-HKQHWBB-0001
+appId: MB-****-0001
 appVersion: 2.4.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -1056,7 +983,6 @@ sign: 2cb6c701bcad8e141972e44afa58b5b12d920b5303b8429cd3880b9499375d06
 timestamp: 1534215683804 
 language: en
 timezone: +8
-appKey: d44625bb0556fb0b1611ad6a073fb6f5
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -1064,9 +990,14 @@ Content-Length: 20
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
+
+POST data:
+	{
+		"msgCode":"123333"
+	}
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
@@ -1077,44 +1008,39 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00022   |  Verification code is incorrect or has expired| User enters wrong verification code  |    
+##### 3、错误码
+
+> D00022
 
 
+###	退出登录 V1
+> 账号退出登录，会话accessToken失效
 
-###	Log out v1
-> Mobile APP users exit Haier U+ cloud platform interface
+##### 1、接口定义
 
-##### 1、Interface definition
-
-?> **Access address：**  `/uam/v1/security/logout`  
+?> **接入地址 ：**  `/uam/v1/security/logout`  
  **HTTP Method：** POST  
- **Token authentication：** Yes  
+ **Token 验证：** 是  
 
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|    |  | ||&emsp;|   
+**输入参数：** 无输入参数  
    
  
 
 
-**Output parameters**  
-**Output standard output parameters.**
+**输出参数：** 标准输出参数 
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
 
-##### 2、Request sample  
+##### 2、请求样例   
 
-**User request**
+**请求地址 **
+```java  
+POST  https://uws-euro.haieriot.net/uam/v1/security/logout
+```
+
+**请求明细 **
 ```java  
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1127,7 +1053,7 @@ Content-type: application/json
 
 ```  
 
-**Request response**
+**请求应答：**
 
 ```java
 {
@@ -1138,44 +1064,43 @@ Content-type: application/json
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00005   |  The Token is not created by this application and does not pass Token validation.|  Operation is successful  |    
-| D00016   |  You are logged out or not logged in |  &emsp;  |   
+##### 3、错误码  
+
+> D00005、D00016  
 
  
 
-#### Query user information v1
-> Get the user information according to the login token     
+#### 查询用户信息V2
+> 根据登录者token，获取用户信息     
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/users/get`  
+?> **接入地址：**  `/uam/v1/users/get`  
  **HTTP Method：** POST  
- **Token authentication：** Yes  
+ **Token 验证：** 是  
 
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|  
-|    |    |     |     |  &emsp;   |   
+**输入参数：** 无输入参数  
 
 
 
-**Output parameters**  
+**输出参数：**  
 
-|   name      |     types      | location  |requierd |description|
+|   参数名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| userProfile     | Map | Body| no|User extension information, including nicknames, avatars, etc|  
+userId|String|Body|是|账号唯一标示
+email|String|Body|是|账号邮箱地址，按需求进行脱敏处理
+| userProfile     | Map | Body| 否|用户扩展信息,包括昵称、头像等。|  
 
 
-##### 2、Request sample  
-
-**User request**
+##### 2、请求样例  
+**请求地址**
+```java  
+POST  https://uws-euro.haieriot.net/uam/v1/users/get
+```
+**请求明细**
 ```java  
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1188,13 +1113,14 @@ Content-type:application/json
 
 ```  
 
-**Request response**
+**返回结果**
 
 ```java
 {
   “retCode”: “00000”,
   “retInfo”: “正确”,
-  “userProfile”: {
+  “userProfile”:
+	 {
        “nickName”: ,
        “avatar”: ,
        “phone”: ,
@@ -1224,44 +1150,41 @@ Content-type:application/json
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00008   |  Illegal user|  AccessToken error  |    
+
+> D00008   
 
 
  
 
-#### User information modification v1
-> Modify the extended properties of the current logged in user according to the token of the logged in person  
+#### 用户信息修改
+> 根据登录人员token，修改当前登录用户的拓展属性
 
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/users/update`  
+?> **接入地址 ：**  `/uam/v1/users/update`  
  **HTTP Method：** POST  
- **Token authentication：** Yes  
+ **Token 验证：** Yes  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| userProfile     | Map | Body| yes|User extension information, including nicknames, avatars, etc.|    
+| userProfile     | Map | Body| 是|用户扩展信息,包括昵称、头像等|    
 
 
-**Output parameters**  
+**输出参数：** 标准输出参数  
 
-**Output standard output parameters.**
+##### 2、请求样例
+**请求地址**
+```java  
+POST  https://uws-euro.haieriot.net/uam/v1/users/update
+```
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
-
-##### 2、Request sample  
-
-**User request**
+**请求明细**
 ```java  
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1274,9 +1197,10 @@ Content-type:application/json
 
 Body:
 {
-  "userProfile": {
-"nickName": ,
-"avatar": ,
+ 	"userProfile": 
+	{
+		"nickName": ,
+		"avatar": ,
        "updateTime": "20141115",
        "tel": "0596",
        "companyCode": 333,
@@ -1290,7 +1214,7 @@ Body:
 
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
@@ -1300,49 +1224,42 @@ Body:
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00008   |  Illegal user|  AccessToken error  |   
- 
-#### Accept the privacy policy v1
-> User accepts the privacy policy and records the privacy policy version number   
+##### 3、错误码
+
+> D00008
 
 
-##### 1、Interface definition
+#### 接受隐私条款V1
+> 用户接受隐私条款，记录隐私条款版本号 
 
-?> **Access address：**  `/uam /v1/security/acceptUserPrivacy`  
+
+##### 1、接口定义
+
+?> **接入地址：**  `/uam /v1/security/acceptUserPrivacy`  
  **HTTP Method：** POST  
- **Preconditions:** Login status  
- **Token authentication：** Yes  
+ **前置条件:** 登录状态 
+ **Token 验证：** 是  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| privacyVersion    | String | Body| yes|Privacy Policy Version Number|    
+| privacyVersion    | String | Body| 是|隐私条款版本号|    
 
 
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
+**输出参数：** 标准输出参数  
 
 ##### 2、Request sample  
+**请求地址**
+```java  
+POST  https://uws-euro.haieriot.net/uam/v1/security/acceptUserPrivacy
+```
 
 **User request**
 ```java
-  
-{"privacyVersion":"V1.0.0"}
-
-[no cookies]
-
 Request Headers:
 Connection: keep-alive
-appId: MB-HKQHWBB-0001
+appId: MB-****-0001
 appVersion: 2.4.0
 clientId: 123456
 sequenceId: 20161020153428000015
@@ -1351,17 +1268,22 @@ sign: aa97d5db9989d6f4b37659d2eb679c4e873533d280413fa2f04f9dcb2f44279c
 timestamp: 1533901887123 
 language: en
 timezone: +8
-appKey: d44625bb0556fb0b1611ad6a073fb6f5
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 27
 Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5) 
+
+POST Data：
+ 
+	{"privacyVersion":"V1.0.0"}
+
+
 
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
@@ -1371,11 +1293,416 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| B00004  |  Parameter error|  Wrong privacy clause version number  |   
-| D00003 |  Token does not exist, failed to pass the token|  Token does not exist or the wrong token  |   
+##### 3、错误码  
+
+> B00004、D00003
+
+### 会话刷新
+
+> accessToken过期后，可以使用对应的refreshToken获取新的accessToken
+
+#### 1、接口定义
+**接入地址：**`/uam/v2/auth/token`
+**HTTP Method:** POST
+**前置条件：**使用邮箱登录获取refreshToken
+**Token 验证：** 否
+
+**输入参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+refreshToken|String|Body|是|app端持有refreshToken，用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken
+grantType|String|Body|是|授权方式，当前默认为refresh_token
+
+**输出参数：**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+accessToken|String|Body|是|安全令牌
+refershToken|String|Body|是|刷新令牌
+scope|String|Body|是|访问资源的范围
+expire|String|Body|是|有效期，单位秒
+
+#### 2、请求样例
+
+**请求明细**
+```java
+请求地址： POST   https://uws-euro.haieriot.net/uam/v2/auth/token
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+POST data:
+{
+	"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+	"grantType":"refresh_token"
+}
+```
+**请求应答**
+```java
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"auth_app",
+	"expire":"2160000"}
+
+```
+#### 3、错误码
+
+> D00005、D00025、D00005
+
+
+### 获取会话分享验证码
+> 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
+
+#### 1、接口定义
+**接入地址：**`/uam/v2/auth/shareCode`
+**HTTP Method:** POST
+**前置条件：** 登录app，可获取其他终端应用的appId和clientId
+**Token 验证：** 是
+
+**输入参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+shareAppId|String|Body|是|请求分享会话的appId
+shareClientId|String|Body|是|请求分享的clientId
+accessToken|String|Body|是|请求分享会话的accessToken
+
+
+**输出参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+code|String|Body|是|会话分享验证码
+
+#### 2、请求样例
+**请求明细**
+```java
+
+POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+POST data:
+{
+	"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+	"shareClientId":"MB-TEST2-0000",
+	"shareClientId":"456FEW334DD" 
+}
+
+```
+**输出明细**
+```java
+{"
+	retCode":"00000",
+	"retInfo":"成功",
+	"code": 72f7b235dd3afee2c77907d160c66539850b3224da60cb6e6638809005f48ec5"
+}
+
+```
+
+
+### 会话分享
+
+> 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
+
+#### 1、接口定义
+**接入地址：**`/uam/v2/auth/sharToken`
+**HTTP Method:** POST
+**前置条件：** 获取会发分享的验证码
+**Token 验证：** 否
+
+**输入参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+code|String|Body|是|会话分享验证码
+
+**输出参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+accessToken|String|Body|是|安全令牌
+refreshToken|String|Body|是|刷新令牌
+scope|String|Body|是|访问资源的范围
+expire|String|Body|是|有效期，单位秒
+
+#### 2、代码样例
+**请求明细**
+```java
+POST https://uws-euro.haieriot.net/uam/v2/auth/shareToken
+
+POST data: 
+{
+	"code":" da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " 
+}
+
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 456FEW334DD
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+```
+**返回结果**
+```java
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken":"TGTV5FR3XH20S0B2E7G56V1CMQ4T67",
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"auth_app",
+	"expire":"2160000"
+}
+```
+#### 3、错误码
+
+> B00004、00001、B00001、B00002
+
+
+### 第三方社交账号获取IOT平台token
+
+> 用户使用第三方社交账号登录海尔app，通过第三方账号token获取海尔iot平台accessToken
+
+#### 1、接口定义
+**接入地址：**`/uam/v1/thirdpart/social/getAccessToken`
+**HTTP Method:** POST
+**前置条件：** APP获取第三方社交账号的token
+**Token 验证：** 否
+
+**输入参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+thirdpartAccessToken|String|Body|是|第三方社交账号的token，通过第三方社交账号SDK获取的票据
+socialType|String|Body|是|类别：facebook，twitter，amazon
+thirdpartOpenId|String|Body|否|当前接入Facebook，Twitter，Amazon需传openId，此参数非必填定义兼容后期无openId 的模式
+
+**输出参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+accessToken|String|Body|是|安全令牌
+scope|String|Body|是|访问资源的范围
+expire|String|Body|是|有效期，单位秒
+
+#### 2、请求样例
+
+**请求明细**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getAccessToken
+
+POST data:
+{
+	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"socialType":"amazon","
+	thirdpartOpenId":"110347635"
+}
+
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```
+
+**返回结果**
+
+```java
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken":null,
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"auth_app",
+	"expire":"2160000"
+}
+```
+
+#### 3、错误码
+
+> 00001、B00010、A00006
+
+### 第三方社交账号绑定IOT自有账号
+
+> 用户使用自有账号登录iot平台，成功后登录第三方账号，与自有账号绑定成组；原第三方账号暗账号设备关系拷贝至自有账号下
+
+#### 1、接口定义
+**接入地址：**`/uam/v1/thirdpart/social/bindGroup`
+**HTTP Method:** POST
+**前置条件：** APP支持自有账号登录，和支持第三方账号登录
+**Token 验证：** 是
+
+**输入参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+uhomeAccessToken|String|Body|是|自有账号登录的IOT平台accessToken
+thirdpartUhomeAccessToken|String|Body|是|第三方账号登录的iot平台token
+
+**输出参数** 标准输出参数
+
+#### 2、请求样例
+**请求明细**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
+
+POST data:
+{
+	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"
+}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+```
+**输出结果**
+```java
+{
+	"retCode":"00000",
+	"retInfo":"成功"
+}
+```
+
+#### 3、错误码
+
+> D00004、A00005、D00024
+
+
+### 查询账号绑定成组管理
+
+> 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息
+
+#### 1、接口定义
+**接入地址：**`/uam/v1/thirdpart/social/getBindingGroup`
+**HTTP Method:** POST
+**前置条件：** APP登录
+**Token 验证：** 是
+
+**输入参数：**无输入参数
+
+**输出参数**
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+group|String|Body|是|详见代码样例
+
+#### 2、请求样例
+
+**请求明细**
+```java
+POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getBindingGroup
+
+POST data:
+{
+	
+}
+
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+```
+
+**返回结果**
+
+```java
+{
+    "retCode": "00000",
+    "retInfo": "成功",
+    " groups": [
+        {
+            "userId": "1234",
+            "openId": "11098764",
+            "socialType":amazon"
+        },
+        {
+            "userId": "4567",
+            "openId": "112098764",
+            " socialType ":amazon"
+        }
+    ]
+}
+```
+
+### 3、错误码
+
+> B00004、A00005
 
 
 
