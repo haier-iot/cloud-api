@@ -38,7 +38,7 @@
 > 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台；  
 该种对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈； 
 
-## 应用场景
+### 应用场景
 **账号管理**  
 开发者没有账户系统，可集成U+账号的相关服务。  
 
@@ -46,7 +46,7 @@
 开发者有自己的账户系统，通过云云对接互联方式接入U+账户服务。  
 
 
-## 用户隐私权限
+### 用户隐私权限
 
 为切实保护用户隐私权，优化用户体验，海尔优家根据现行法规及政策，制定了海尔家电隐私权政策。海尔了解个人信息对客户的重要性，我们力求明确说明我们获取、管理及保护用户个人信息的政策及措施。
 
@@ -55,8 +55,8 @@
 
  **开发者需提供使用海尔优家账号服务应用的用户服务协议条款请联系**[**海尔优家商务BD**](zh-cn/Business)，**我们为应用配置对应的隐私权政策及服务协议条款**
 
-### 用户隐私数据的安全性
-#### 安全性说明
+#### 用户隐私数据的安全性
+##### 安全性说明
 用户隐私数据项目 
  
 | **字段** | **加密处理**  |  **接口** |   
@@ -64,12 +64,12 @@
 |email    |	RSA 加密	|注册, 登录, 重置密码, 修改密码|    
 |password |	RSA 加密	|注册, 登录, 重置密码, 修改密码|  
  
-#### 秘钥使用流程  
+##### 秘钥使用流程  
 ![密码传输流程图片][account_PasswordFlow1]  
 
 ![密码传输流程图片][account_PasswordFlow2]  
 
-#### 加密和解密算法
+##### 加密和解密算法
 算法：RSA
 
 秘钥长度:1024
@@ -315,15 +315,16 @@ public class RSAUtil {
 }
 
 ```  
-### 用户隐私协议
+#### 用户隐私协议
 
-#### 用户隐私协议版本
+##### 用户隐私协议版本
 
 版本：V1.0.0，大写V
 
-#### 查看用户隐私协议内容
+##### 查看用户隐私协议内容
 
 `Https://uws-euro.haieriot.net/userweb/agreement?v=v1.0.0&lg={language}`
+
 lg参数参考附录章节国际语言代码表[access specification](en-zh/AccessSpecification).
   
 ### 国际化处理
@@ -338,7 +339,7 @@ lg参数参考附录章节国际语言代码表[access specification](en-zh/Acce
 
 注册，激活，重置密码时根据header中的据语言类型（language字段）发送对应语言的邮件内容。
 
-#### 对还往外oem版本app的支持
+#### 对海外oem版本app的支持
   
 请求头（header）中的appId为oem类型，注册、激活、重置密码的邮件内容使用oem模板。
 OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
@@ -346,7 +347,7 @@ OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
 
 
 
-## 接口列表
+### 接口列表
 
 
 #### 用户注册
@@ -944,7 +945,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 > C00001
 
 
-###	申请注销账号和设备信息
+####	申请注销账号和设备信息
 > 用户申请删除账号信息和设备绑定关系，并发邮件通知，用户申请成功后，账号不能登录，登录返回密码错误 
 
 ##### 1、接口定义
@@ -1013,7 +1014,7 @@ POST data:
 > D00022
 
 
-###	退出登录 V1
+####	退出登录 V1
 > 账号退出登录，会话accessToken失效
 
 ##### 1、接口定义
@@ -1297,11 +1298,11 @@ POST Data：
 
 > B00004、D00003
 
-### 会话刷新
+#### 会话刷新
 
 > accessToken过期后，可以使用对应的refreshToken获取新的accessToken
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v2/auth/token`
 **HTTP Method:** POST
 **前置条件：**使用邮箱登录获取refreshToken
@@ -1321,7 +1322,7 @@ refershToken|String|Body|是|刷新令牌
 scope|String|Body|是|访问资源的范围
 expire|String|Body|是|有效期，单位秒
 
-#### 2、请求样例
+##### 2、请求样例
 
 **请求明细**
 ```java
@@ -1361,15 +1362,15 @@ POST data:
 	"expire":"2160000"}
 
 ```
-#### 3、错误码
+##### 3、错误码
 
 > D00005、D00025、D00005
 
 
-### 获取会话分享验证码
+#### 获取会话分享验证码
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v2/auth/shareCode`
 **HTTP Method:** POST
 **前置条件：** 登录app，可获取其他终端应用的appId和clientId
@@ -1388,7 +1389,7 @@ accessToken|String|Body|是|请求分享会话的accessToken
 :-:|:-:|:-:|:-:|:-
 code|String|Body|是|会话分享验证码
 
-#### 2、请求样例
+##### 2、请求样例
 **请求明细**
 ```java
 
@@ -1430,11 +1431,11 @@ POST data:
 ```
 
 
-### 会话分享
+#### 会话分享
 
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v2/auth/sharToken`
 **HTTP Method:** POST
 **前置条件：** 获取会发分享的验证码
@@ -1453,7 +1454,7 @@ refreshToken|String|Body|是|刷新令牌
 scope|String|Body|是|访问资源的范围
 expire|String|Body|是|有效期，单位秒
 
-#### 2、代码样例
+##### 2、代码样例
 **请求明细**
 ```java
 POST https://uws-euro.haieriot.net/uam/v2/auth/shareToken
@@ -1492,16 +1493,16 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 	"expire":"2160000"
 }
 ```
-#### 3、错误码
+##### 3、错误码
 
 > B00004、00001、B00001、B00002
 
 
-### 第三方社交账号获取IOT平台token
+#### 第三方社交账号获取IOT平台token
 
 > 用户使用第三方社交账号登录海尔app，通过第三方账号token获取海尔iot平台accessToken
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v1/thirdpart/social/getAccessToken`
 **HTTP Method:** POST
 **前置条件：** APP获取第三方社交账号的token
@@ -1521,7 +1522,7 @@ accessToken|String|Body|是|安全令牌
 scope|String|Body|是|访问资源的范围
 expire|String|Body|是|有效期，单位秒
 
-#### 2、请求样例
+##### 2、请求样例
 
 **请求明细**
 ```java
@@ -1567,15 +1568,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 }
 ```
 
-#### 3、错误码
+##### 3、错误码
 
 > 00001、B00010、A00006
 
-### 第三方社交账号绑定IOT自有账号
+#### 第三方社交账号绑定IOT自有账号
 
 > 用户使用自有账号登录iot平台，成功后登录第三方账号，与自有账号绑定成组；原第三方账号暗账号设备关系拷贝至自有账号下
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v1/thirdpart/social/bindGroup`
 **HTTP Method:** POST
 **前置条件：** APP支持自有账号登录，和支持第三方账号登录
@@ -1589,7 +1590,7 @@ thirdpartUhomeAccessToken|String|Body|是|第三方账号登录的iot平台token
 
 **输出参数** 标准输出参数
 
-#### 2、请求样例
+##### 2、请求样例
 **请求明细**
 ```java
 POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
@@ -1627,16 +1628,16 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 }
 ```
 
-#### 3、错误码
+##### 3、错误码
 
 > D00004、A00005、D00024
 
 
-### 查询账号绑定成组管理
+#### 查询账号绑定成组管理
 
 > 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息
 
-#### 1、接口定义
+##### 1、接口定义
 **接入地址：**`/uam/v1/thirdpart/social/getBindingGroup`
 **HTTP Method:** POST
 **前置条件：** APP登录
@@ -1649,7 +1650,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 :-:|:-:|:-:|:-:|:-
 group|String|Body|是|详见代码样例
 
-#### 2、请求样例
+##### 2、请求样例
 
 **请求明细**
 ```java
@@ -1700,7 +1701,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 }
 ```
 
-### 3、错误码
+##### 3、错误码
 
 > B00004、A00005
 
