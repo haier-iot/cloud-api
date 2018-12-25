@@ -155,7 +155,7 @@ address为null时，address属性不返回
 |参数名称|	描述|
 |:-----|-----|
 |待签名字符串|url字符串 + Body字符串+appId+appKey +timestamp|
-|url字符串 |指请求的接口地址去除https://uws-euro.haieriot.net或https://uws-gea-us.haieriot.net后剩余的路径部分 |
+|url字符串 |指请求的接口地址去除`https://uws-euro.haieriot.net`或`https://uws-gea-us.haieriot.net`后剩余的路径部分 |
 |Body字符串|指应用发送请求的Body部分去除所有空白字符后的JSON字符串，没有body时为空字符串（不是null）|
 |appId|Header头中的属性（见公共部分说明）|
 |appKey|在海极网给应用申请的appKey，不能明文发送|
