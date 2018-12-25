@@ -52,7 +52,7 @@ The public field describes the public fields that should be included for each re
 |privacyVersion	|String|Header|	yes(Only for the European environment)|Latest Privacy Agreement Version|  
 |timestamp	|String	|Header	|yes|Long timestamp, accurate to milliseconds, this parameter provides support for multi-country regions. The user's location timestamp should be passed in.|
 |language	|String	|Header|	yes	|This parameter provides support for multi-language versions. By default, you can fill in zh-cn.|
-|timezone	|String|	Header|	yes	|Represents the time zone used by the client. Pass in the user's time zone ID, referring to the list of [international time zone ids](../Other).|
+|timezone	|String|	Header|	yes	|Represents the time zone used by the client. Pass in the user's time zone ID, referring to the list of [international time zone ids](/Other).|
 |Content-Type|String|	Header|	yes	|Different parameters of this service will be different, generally "application/json; charset=UTF-8" specific reference media type|  
 
 
