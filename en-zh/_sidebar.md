@@ -4,7 +4,7 @@
 
 	* [商务合作](en-zh/Business)  
 
-	* [介入规范](en-zh/Standard/Basic)     
+	* [接入规范](en-zh/Standard/Basic)     
 
 	* [常用信息](en-zh/Standard/Other)   
 	
