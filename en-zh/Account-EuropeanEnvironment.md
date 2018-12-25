@@ -386,7 +386,7 @@ https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -395,7 +395,6 @@ sign: 5a46d3ca2a7f4589e97fbf4f2eae4b74c56eeb685884d91f136d339ea523dd0a
 timestamp: 1533868371182 
 language: en
 timezone: +8
-appKey: dg00ad3ea782c34aa86c656f2a401d8e
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -477,7 +476,7 @@ https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
 ```java  
 Header：  
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -486,7 +485,6 @@ sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
 timestamp: 1533882163013 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
@@ -555,7 +553,7 @@ https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-TEST-0000
+appId: MB-****-0000
 appVersion: 2.4.0
 clientId: 123
 sequenceId: 20161020153428000015
@@ -564,7 +562,6 @@ sign: 0cdb49b20d552b6f99384373b1e7f3c34136237b7a39d91ab63b35035f54f8d0
 timestamp: 1533886290915 
 language: en
 timezone: +8
-appKey: d4tg0ad3ea78cc23fa86c656f2a401d8r
 Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
