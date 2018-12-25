@@ -161,7 +161,7 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 
 
 
-3. **Signature algorithm**
+3. **Signature algorithm**  
 The signature algorithm is to calculate the 32-bit lowercase SHA-256 value for the signature string. See the following example for details:  
  
 ```java

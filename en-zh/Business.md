@@ -1,15 +1,17 @@
 
 
+**商务经理**：[wangzheng@haier.com]()
 
-**Business manager**：[wangzheng@haier.com]()
-
-**Technical support QQ group**：[457841032]()
-
+**技术支持QQ群**：[457841032]()
 
 
-We believe that only by hearing more of your voice can we do better.  
 
-Our email address:[haijiwang@haierubic.com]() 
+我们相信，只有听到更多您的声音，才能让我们做得更好。
 
-We look forward to hearing from you every suggestion and encouragement, every complaint and spit slot.  
+
+我们的邮箱地址：[haijiwang@haierubic.com]() 
+
+
+我们期待在这里听到你的每个建议和鼓励，每个抱怨和吐槽。
+
 

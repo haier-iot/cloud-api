@@ -1,73 +1,75 @@
-**Update time**：{docsify-updated} 
+**更新时间**：{docsify-updated} 
 
-## Access address
+## 接入地址
 
-1. **Access premise**  
-Before using the UWS service of Haier U+ Cloud Platform, the application developer needs to register as a developer at Haigeek(http://www.haigeek.com) and apply to create their own application products (application types include Andriod, IOS). According to the development test of the application product, the stage of the release process corresponds to the UWS service of the Haier U+ cloud platform by using the information of the appid and appkey assigned by the created application. 
+1. **接入前提**  
+应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品（应用类型包括Andriod、IOS）。
+按照应用产品的开发测试、发布上线的阶段步骤对应使用所创建应用分配的appid、appkey的信息接入海尔U+云平台的UWS服务。
 
-2. **Access method**  
-The interactive interface between the cloud platform UWS and the application is unified into a JSON-based REST interface. The request parameter of the GET and DELETE primitives is the QueryParam of the url, and the URLEncode needs to be performed. The user of UWS should make the following assumptions:  
->   1.	The cloud platform will strongly check the parameters of the sending request. If there is any inconsistency with the interface specification, the interface call will be wrong.  
->   2.	When the cloud platform expands the interface function in the future, it may increase the number of parameters when the interface response returns. The interface consumer should be able to do this.  
+2. **接入方式**  
+云平台UWS与应用的交互接口统一为基于JSON的REST接口。
+GET、DELETE原语的请求参数为url的QueryParam，需要进行URLEncode。
+UWS的使用方应做如下假设：
+>   1.	云平台将强校验发送请求的参数，如果有与接口规范不一致的情况，接口调用将出错。
+>   2.	云平台未来扩展接口功能时可能会增加接口应答返回时的参数数量。接口使用方应能对此兼容。
 
-3. **Access protocol**  
-The externally provided services use the HTTPS protocol uniformly. By default, port 443 is used, and the server uses TSL for one-way encryption and decryption. The service caller does not need to download or install a certificate when making a call.  
+3. **接入协议**  
+对外提供的服务统一使用HTTPS协议，默认使用443端口， 在服务端使用TSL进行单向加解密处理。服务调用方在进行调用时，无需下载或安装证书。
 
-4. **Access address** 
-When developing applications, please connect to the developer environment for development and testing;
+4. **接入地址**  
+应用开发时，请连接开发者环境进行开发、测试；
 
-|Connection area|Production environment address|Production environment address|
+|连接区域|	生产环境地址	|开发者环境地址|
 |---|---|---|
-|China|`https://uws.haier.net`|	`https://dev-uws.haigeek.com`	|
-|Europe|`https://uws-euro.haieriot.net`|No|
-|North America|`https://uws-gea-us.haieriot.net`|No|
+|中国|`https://uws.haier.net`|	`https://dev-uws.haigeek.com`	|
+|欧洲|`https://uws-euro.haieriot.net`|	无|
+|北美|`https://uws-gea-us.haieriot.net`|无|  
 
-## Service list
-U+ platform existing UWS service description
+## 服务清单
+U+平台现有的UWS服务说明
 
-Serial number|UWS service name|Application name|Version number (current version)
-:-:|:-:|:-:|:-:
-1|[Account Service-NorthAmericanEnvironment](en-us/Account-NorthAmericanEnvironment)|uam|v1.4.0  
-2|[Account Service-EuropeanEnvironment](en-us/Account-EuropeanEnvironment)|uam|v2.0.0
-3|[Equipment Management Standard Edition-NorthAmericanEnvironment](en-us/DevicesStandard)|uds|v1.4.0
-4|[Equipment Management Enterprise Edition-NorthAmericanEnvironment](en-us/DevicesEnterprise)|udse|v1.5.2
-5|[Equipment Management Standard Edition-EuropeanEnvironment](en-us/DevicesStandard-EuropeanEnvironment)|uds|v2.0.2
-6|[Equipment Management Enterprise Edition-EuropeanEnvironment](en-us/DevicesEnterprise-EuropeanEnvironment)|udse|v1.5.2
-7|[Data Subscription](en-us/DataSubscription)|udp|v1.0.0
+序号|UWS服务名|应用名|版本号（当前版本）
+:-:|:-:|:-:|:-:  
+1|[账户服务-北美环境](en-zh/Account-NorthAmericanEnvironment)|uam|v1.4.0  
+2|[账户服务-欧洲环境](en-zh/Account-EuropeanEnvironment)|uam|v2.1.0
+3|[设备管理标准版-北美环境](en-zh/DevicesStandard)|uds|v1.4.0
+4|[设备管理企业版-北美环境](en-zh/DevicesEnterprise)|udse|v1.5.2
+5|[设备管理标准版-欧洲环境](en-zh/DevicesStandard-EuropeanEnvironment)|uds|v2.0.2
+6|[设备管理企业版-欧洲环境](en-zh/DevicesEnterprise-EuropeanEnvironment)|udse|v1.5.2
+7|[数据订阅](en-zh/DataSubscription)|udp|v1.0.0
 
 
-##  Public Field
-The public field describes the public fields that should be included for each request and response. These fields have no special conditions and are not repeated in the service class interface message definition.  
+##  公共参数
+公共字段说明了每个请求、应答应包含的公共字段。这些字段无特殊情况，不在业务类接口报文定义中重复说明。
 
-**Input parameters**    
+**输入参数**  
 
-|parameter name|	types |location|required or not|description|  
+|参数名|	类型|位置|是否必填|说明|  
 |:-----:|:-----:|:-----:|:-----:|--|
-|appId|	String|	Header	|yes	|With the ID 40 characters or less, the Haier uHome cloud platform is globally unique. Developers apply through the Haigeek.|
-|appVersion	|String	|Header	|yes	|With the application version 32-bit characters, the Haier uHome cloud platform is globally unique.|
-|clientId	|String	|Header	|yes	|The client ID is 27 characters, and the client code is combined with the client MAC address to form a unique client ID. The primary purpose is to uniquely identify the client (for example, a mobile phone). The mobile phone is coded as an IMEI code. The phone MAC is a 12-bit address. Naming convention: client machine code (15 bit) - client MAC address (12 bit) format: XXXXXXXXXXXXXXX-XXXXXXXXXXXX Example: 356877020056553-08002700DC94|
-|sequenceId	|String	|Header|yes	|Message flow (client only) client transaction serial number. 20-bit, first 14-bit timestamp (format: yyyyMMddHHmmss), last 6-digit serial number. When a transaction occurs, it is incremented according to the number of transactions. App applications must ensure that each request is unique and cannot be repeated when accessing the uws interface.|
-|accessToken	|String	|Header|yes|（Not vacant after login, can be empty before login) Request token (after user login) security token token. 30 characters. The user logs in to the Haier uHome cloud platform, which is created by the system. The user quits the Haier uHome cloud platform and is destroyed by the system.|
-|sign	|String|	Header|	yes|(Not empty after login, can be empty before login) See the signature certification section for details.|  
-|privacyVersion	|String|Header|	yes(Only for the European environment)|Latest Privacy Agreement Version|  
-|timestamp	|String	|Header	|yes|Long timestamp, accurate to milliseconds, this parameter provides support for multi-country regions. The user's location timestamp should be passed in.|
-|language	|String	|Header|	yes	|This parameter provides support for multi-language versions. By default, you can fill in zh-cn.|
-|timezone	|String|	Header|	yes	|Time zone, -11 to 13. In the time zone of the incoming user, you can fill in 8 by default.|
-|Content-Type|String|	Header|	yes	|Different parameters of this service will be different, generally "application/json; charset=UTF-8" specific reference media type|  
+|appId|	String|	Header	|必填	|应用ID40位以内字符,Haier uHome 云平台全局唯一。开发者通过海极网申请获得。|
+|appVersion	|String	|Header	|必填	|应用版本32 位字符,Haier uHome 云平台全局唯一。|
+|clientId	|String	|Header	|必填	|客户端ID27 位字符,客户端机编码与客户端 MAC 地址 拼合成唯一的客户端标识。 主要用途为唯一标识客户端 (例如,手机)。手机机编码为 IMEI 码。 手机 MAC 为 12 位地址。命名规范:客户端机编码(15 位)-客户 端 MAC 地址(12 位)格式:`XXXXXXXXXXXXXXX-XXXXXXXXXXXX` 举例: `356877020056553-08002700DC94`。APP端可调用usdk获取，其他服务端自定义标识，不能为空。 |
+|sequenceId	|String	|Header|必填	|报文流水(客户端唯一)客户端交易流水号。20 位, 前 14 位时间戳（格式：`yyyyMMddHHmmss`）,后 6 位流水 号。交易发生时,根据交易 笔数自增量。App应用访问uws接口时必须确保每次请求唯一，不能重复。|
+|accessToken	|String	|Header|必填（登录后不为空，登录前可为空）|安全令牌 token，30 位字符。 用户登录 Haier U+ 云平台,由系统创建。用户退出 Haier U+ 云平台,由系统销毁。未登录时，访问不需要登录的平台接口，仍然需要传入本参数，参数值可为空或任意值（不超过30字符）|
+|sign	|String|	Header|	必填|对请求进行签名运算产生的签名,签名算法见附录。|
+|timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
+|language	|String	|Header|	必填	|该参数为多语言版提供支持。默认填写zh-cn即可。|
+|timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，具体参照[国际时区](en-zh/Standard/Other)ID列表。|
+|Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为"`application/json;charset=UTF-8`" 具体参照媒体类型|
 
 
-**Output parameters**
+**输出参数**
 
-|parameter name|	types|location|Whether to return|description|  
+|参数名|	类型|位置|是否返回|说明|  
 |:-----:|:-----:|:-----:|:-----:|--|
-|retCode|	String	|Body|	yes	|Return code (where 00000 means the request is successful, others represent errors, error codes and descriptions are listed in the Appendix Error Code Table)|
-|retInfo	|String	|Body	|yes	|Return information (return information for debugging, does not support internationalization, and cannot be directly displayed on the UI)|
+|retCode|	String	|Body|	是	|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见附录错误码表）|
+|retInfo	|String	|Body	|是	|返回信息（用于调试的返回信息，不支持国际化，也不能直接显示在UI上）|
 
-##  Media Type
-The following three Content-Type media types are specified for requesting UWS:  
+##  媒体类型
+对于请求UWS规定用以下三种Content-Type媒体类型：
 
 1.Content-Type: application/json
-The interactive data interface between the UWS service and the application is unified into a JSON-based REST-RPC interface.  
+UWS服务与应用的交互数据接口统一为基于JSON的REST-RPC接口
 ```
 POST /v1/animal HTTP/1.1
 Host: uws.haier.net
@@ -81,88 +83,88 @@ Content-Length: 24
 }
 ```
 
-2.Content-Type: multipart/form-data
-Suitable for form file upload  
+2.Content-Type: multipart/form-data 适用于表单文件上传
 
-3.Content-Type:application/octet-stream
-Applicable to file upload and download 
+3.Content-Type:application/octet-stream 适用于文件的上传下载
 
-## Data Type Qualification
+## 数据类型
 
-1. **Field type description**
+1. **字段类型说明**
 
-|Limited type|	Description|	format|	Json example|
+|限定类型|	说明|	格式|	json示例|
 |---|---|---|---|
-|DateTime	|Date time type string|	`yyyy-MM-dd hh:mm:ss`| `	{“lgTime”:“2013-10-08 08:00:00”}`|
-|Date	|Date type string	|`yyyy-MM-dd` 	|`{“lgDate”:“2013-10-08”}`|
-|String	|String		||`{“address”:“street 123”}`|
-|int	|int	||	`{“age”:1234}`|
-|long	|long	||	`{“oid”:1234567890123}`|
-|double	|double	||	`{“price”:12.35}`|
-|boolean	|boolean（true or false）	||	`{“idOld”:true}`|
+|DateTime	|日期时间类型的字符串|	`yyyy-MM-dd hh:mm:ss`| `	{“lgTime”:“2013-10-08 08:00:00”}`|
+|Date	|日期类型的字符串	|`yyyy-MM-dd` 	|`{“lgDate”:“2013-10-08”}`|
+|String	|字符串		|&nbsp;|`{“address”:“street 123”}`|
+|int	|整形数字	|&nbsp;|	`{“age”:1234}`|
+|long	|长整形数字	|&nbsp;|	`{“oid”:1234567890123}`|
+|double	|浮点数数字	|&nbsp;|	`{“price”:12.35}`|
+|boolean	|布尔型（true或false）	|&nbsp;|	`{“idOld”:true}`|
 
-2.**Null value description**  
+2.**null值说明**  
 
-To avoid parsing errors, the return parameters of each interface of uws do not return a null value.Required parameters, whether input or output, must have a value, cannot be null Non-required parameters are as follows:  
-Numeric type data (int, long, double) only returns numbers, including positive numbers, zeros, and negative numbers.  
-Boolean type data (boolean) only returns true and false.The above basic types do not themselves contain null values.   
+为避免解析错误， uws各接口的返回参数，不返回null值。
+必填参数，无论输入还是输出，必须有值，不能为null
+非必填参数，则说明如下：
+数值类型数据（int、long、double）只会返回数字，包括正数、零及负数。
+布尔类型数据（boolean）只返回true和false
+以上基本类型本身不包含null值。
 
-DateTime, Date, String, and structure type data. If it is null, the corresponding attribute will not be returned.  
+DateTime、Date、String及结构体类型的数据，如果为null时，所对应的属性将不返回。
 
-**DateTime type**  
+**DateTime类型**  
 
-Birthday is a DateTime type, not null:
+birthday为DateTime类型，不为null时：
 
     {"name":"Tom","age":23,"birthday":"2013-10-08 08:00:00","address":{"city":"beijing","street":"haidian"} }
 
-When birthday is null, the birthday attribute is not returnd.  
+birthday为null时，则birthday属性不返回
 
     {"name":"Tom","age":23, "address":{"city":"beijing","street":"haidian"} }  
 
-**String type**    
+**String类型**  
 
-Name is a String type, not null:  
+name是String类型，不为null时：
 
     {"name":"Tom","age":23,"birthday":"2013-10-08 08:00:00","address":{"city":"beijing","street":"haidian"} }
 
-When name is null, the name attribute is not returned.
+name为null时，则name属性不返回
 
     {"age":23,"birthday":"2013-10-08 08:00:00","address":{"city":"beijing","street":"haidian"} }
 
 
+**结构体类型**
 
-**Structure type**
-
-Address is a struct type, not null:
+address为结构体类型，不为null时：
   
     {"name":"Tom","age":23,"birthday":"2013-10-08 08:00:00","address":{"city":"beijing","street":"haidian"} }
 
-When address is null, the address attribute does not return:
+address为null时，address属性不返回
 
 	{"name":"Tom","age":23,"birthday":"2013-10-08 08:00:00" }
 
-## Signature Authentication
+## 签名算法
 
-1. **Description**
+1. **说明**
 
 
-The caller needs to sign the request sent to uws, and then assign it to the sign attribute in the header of the header (see the public section) for the server to perform signature verification.
+调用方需要对发送到uws的请求进行签名，签名后赋值到Header头中的sign属性（见公共部分说明），以便服务端进行签名验证。
 
-2. **Parameter introduction**
+2. **参数介绍**
 
-|parameter name|	Description|
+|参数名称|	描述|
 |:-----|-----|
-|Signature string|Url string + Body string +appId+appKey +timestamp;|
-|url |Refers to the path part of the requested interface address after removing https://uws-gea-euro.haieriot.net or https://uws-gea-us.haieriot.net;|
-|Body|Refers to the JSON string after the body part of the application sends the request to remove all whitespace characters. If there is no body, it is an empty string (not null);|
-|appId|The attributes in the Header header (see the public section);|
-|appKey|The appKey applied to the application on the Haigeek cannot be sent in clear text;|
-|timestamp|The attributes in the Header header (see the public section);|
+|待签名字符串|url字符串 + Body字符串+appId+appKey +timestamp|
+|url字符串 |指请求的接口地址去除https://uws-euro.haieriot.net或https://uws-gea-us.haieriot.net后剩余的路径部分 |
+|Body字符串|指应用发送请求的Body部分去除所有空白字符后的JSON字符串，没有body时为空字符串（不是null）|
+|appId|Header头中的属性（见公共部分说明）|
+|appKey|在海极网给应用申请的appKey，不能明文发送|
+|timestamp|Header头中的属性（见公共部分说明）|
 
 
 
-3. **Signature algorithm**
-The signature algorithm is to calculate the 32-bit lowercase SHA-256 value for the signature string. See the following example for details:  
+3. **算法**  
+签名算法就是对待签名字符串计算32位小写SHA-256值，算法示例如下。 
  
 ```java
 String getSign(String appId, String appKey, String timestamp, String body,String url){：
