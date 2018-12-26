@@ -18,6 +18,14 @@ The Device Management Service Standard Edition provides developers with a basic 
 **Device information modification**</br>
 1、The device management service standard version can be used to modify device-related attributes and information, including updating location information, adding device brand information, and updating device aliases.</br>
 
+## Rules and constraints
+
+1、A user can bind multiple devices, and bind device data <=100.</br>
+2、A device can only be bound by one user.</br>
+3、When making a request to bind the device, the device must be online on the platform, and the time for the device to submit version information shall not be more than 10 minutes, that is, less than or equal to 10 minutes.</br>
+
+
+
 ### Application scenario
 The device management service (standard version) mainly implements the basic management services related to the smart connected device, such as binding the user to the device, unbinding the device, and obtaining the user device list for the developed application.
 
@@ -608,7 +616,7 @@ Header：
 #### Get device location information
 > Query device location information
 
-##### 1、Query device location information
+##### 1、Interface definition
 ?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 

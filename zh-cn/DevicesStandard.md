@@ -62,8 +62,8 @@ deviceId|String|设备ID|
 wifiType|String|设备wifi|
 deviceType|String|设备类型|
 totalPermission|AuthInfo|权限和，权限信息的综合|
-permissions|String|权限信息|
-online|String|是否在线|
+permissions|Permission[]|权限信息|
+online|Boolean|是否在线|
 
 ### BaseProperty
 基础属性

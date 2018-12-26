@@ -32,10 +32,10 @@ U+平台现有的UWS服务说明
 :-:|:-:|:-:|:-:  
 1|[账户服务-北美环境](en-zh/Account-NorthAmericanEnvironment)|uam|v1.4.0  
 2|[账户服务-欧洲环境](en-zh/Account-EuropeanEnvironment)|uam|v2.1.0
-3|[设备管理标准版-北美环境](en-zh/DevicesStandard)|uds|v1.4.0
-4|[设备管理企业版-北美环境](en-zh/DevicesEnterprise)|udse|v1.5.2
-5|[设备管理标准版-欧洲环境](en-zh/DevicesStandard-EuropeanEnvironment)|uds|v2.0.2
-6|[设备管理企业版-欧洲环境](en-zh/DevicesEnterprise-EuropeanEnvironment)|udse|v1.5.2
+3|[设备管理标准版-北美环境](en-zh/DevicesStandard-NA)|uds|v1.4.0
+4|[设备管理企业版-北美环境](en-zh/DevicesEnterprise-NA)|udse|v1.5.2
+5|[设备管理标准版-欧洲环境](en-zh/DevicesStandard-Euro)|uds|v2.0.2
+6|[设备管理企业版-欧洲环境](en-zh/DevicesEnterprise-Euro)|udse|v1.5.2
 7|[数据订阅](en-zh/DataSubscription)|udp|v1.0.0
 
 

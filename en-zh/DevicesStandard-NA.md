@@ -1,148 +1,157 @@
 
-> **current version：** [UWS EquipmentManagementServiceStandardEdition V1.4.0](en-us/ChangeLog/DevicesStandard)  
-**Update time** {docsify-updated} 
+> **当前版本：** [UWS 设备管理服务标准版-北美环境 V1.4.0](en-zh/ChangeLog/DevicesStandard)  
+**更新时间**：{docsify-updated} 
 
-## Introduction  
-The Device Management Service Standard Edition provides developers with a basic capability service for the management of intelligent terminal device information. By integrating this service module, the developer can provide the basic maintenance capability of binding the user to the device, presenting the device status, location, and other attributes of the device, and realize rapid development of the basic capability integration related to the smart device.  
+
+## 简介 
+设备管理服务标准版为开发者提供对智能终端设备信息的管控的基础能力服务。开发者通过集成此服务模块，可提供用户与设备绑定、展现设备状态、位置等信息以及设备部分属性的基础维护能力，实现智能设备相关的基础能力集成的快速开发。  
 ![设备管理标准版图片][DevicesStandard_type]
 
-**Binding and unbinding**</br>
-1、Bind device: The user associates with the device to form a binding relationship. The binding user becomes the device administrator.  
-2、Unbind the device: The user unbinds the device and the related sharing of the device is also released.</br>
-3、My device list: Used to query all smart connected devices that are bound to a single user.</br>
+**绑定与解绑**</br>
+1、绑定设备：用户与设备建立关联，形成绑定关系，绑定用户成为设备管理员；
+2、解绑设备：用户与设备解除绑定关系，同时用户关于此设备的相关分享也解除；</br>
+3、我的设备列表：用于查询与某单一用户绑定的所有智能互联设备。</br>
 
-**Query and obtain device information**</br>
-1、Information inquiry: including the ability to query whether the device is online, query the brand information of the device, and query the location of the room where the device is located.</br>
-2、Obtain device attribute information: including obtaining device alias, acquiring device location new information, device detail information, device signal strength, and other related information for application presentation or other service operations based on device information.</br>
+**查询与获取设备信息**</br>
+1、信息查询：包括查询设备是否在线、查询设备的品牌信息、查询设备所在房间位置等实时查询的能力服务。</br>
+2、获取设备属性信息：包括获取设备别名、获取设备位置新信息、设备详细信息、设备信号强度等相关信息用于应用的展现或基于设备信息的其他业务操作。</br>
 
-**Device information modification**</br>
-1、The device management service standard version can be used to modify device-related attributes and information, including updating location information, adding device brand information, and updating device aliases.</br>
+**设备信息修改**</br>
+1、可以通过设备管理服务标准版进行包括更新位置信息、添加设备品牌信息、更新设备别名等在内的对于设备相关属性、信息的修改操作。</br>
 
-### Application scenario
-The device management service (standard version) mainly implements the basic management services related to the smart connected device, such as binding the user to the device, unbinding the device, and obtaining the user device list for the developed application.
+## 规则与约束
+
+1、一个用户可绑定多个设备,绑定设备数据<=100个。</br>
+2、一个设备只能被一个用户绑定。</br>
+3、发起请求绑定设备时，设备必须在平台上线，且设备上报版本信息时间不大于10分钟，即小于等于10分钟。</br>
 
 
-## Public structure description  
+## 应用场景
+设备管理服务（标准版）主要为开发的应用程序实现用户与设备绑定、解绑设备、获取用户设备列表等与智能互联设备相关的基础管理服务。
+
+
+## 公共结构说明
 
 ### DeviceInfo  
-Bind device information  
+绑定设备信息
 
-Field name|Types|Description|Remarks
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-deviceName|String|Device name, equivalent to an alias|
-deviceId|String|Device ID|
-wifiType|String|Device wifitype| typeId
-deviceType|String|Equipment type|8-digit code consisting of large, medium and small categories  
-totalPermission|AuthInfo|Integration of permissions and permissions information|
-permissions|String|Permission information|
-online|String|Whether online|  
-deviceVersion|DeviceVersion|Device version information|    
+deviceName|String|设备名称，等同于别名|
+deviceId|String|设备ID|
+wifiType|String|设备wifi|指typeId
+deviceType|String|设备类型|大中小类别组成的8位码
+totalPermission|AuthInfo|权限和权限信息的综合|
+permissions|Permission[]|权限信息|
+online|Boolean|是否在线|   
+deviceVersion|DeviceVersion|设备版本信息| 
 
 ### AuthInfo
-Permission content, at least one of which is ture
+权限内容，其中至少一项为ture
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-view|Boolean|Is there a right to view?|
-set|Boolean|Is there a configuration permission?|
-control|Boolean|Is there control?|
+view|Boolean|是否有查看权限|
+set|Boolean|是否有配置权限|
+control|Boolean|是否有控制权限|
 
 ### Permission
-Permission information
+权限信息
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-auth|AuthInfo|Permission content|
-authType|String|Permission type|Home: family sharing</br>share: personal sharing</br>owener: device owner</br>server: permissions to appserver  
+auth|AuthInfo|权限内容|
+authType|String|权限类型|home：家庭分享</br>share：个人分享</br>owener：设备主人</br>server：给appserver的权限
 
 ### Location
-Location information
+定位信息
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-longitude|Double|longitude|
-latitude|Double|Dimension|
-cityCode|String|City code|
+longitude|Double|经度|
+latitude|Double|维度|
+cityCode|String|城市编码|
 
 ### BaseProperty
-Basic attribute  
+基础属性
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-brand|String|Equipment brand|
-model|String|Equipment model|
-others|Map<String,Strng>|Other attributes|
+brand|String|设备品牌|
+model|String|设备型号|
+others|Map<String,Strng>|其他属性|
 
 ### Deviceversion
-Device details  
+设备详细信息
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-deviceId|String|Device ID|
-modules|Set<Module>|Module information|
-wifiType|String|Wifi type|
-deviceType|String|Equipment type| 8-bit code, typeId  
-baseProperty|BaseProperty|Brand information|
-location|Location|location information|
+deviceId|String|设备ID|
+modules|Set<Module>|模块信息|
+wifiType|String|wifi类型|
+deviceType|String|设备类型|8位码，typeId
+baseProperty|BaseProperty|品牌信息|见BaseProperty的定义
+location|Location|位置信息|
 
 ### Module
-Module information
+模块信息
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-moduleId|String|Module ID|
-moduleType|String|Module type|
-ModuleInfos|Map<String,String>|Module other information|Collection of attributes and values  
+moduleId|String|模块ID|
+moduleType|String|模块类型|
+ModuleInfos|Map<String,String>|模块其他信息|属性和值的集合 
 
 
-## Interface list
+## 接口清单
 
-### Device class interface
+### 设备类接口
 
-> API interface overview
+> API接口总览
 
 
-| API name        | effect          | Whether open | Special Note|
+| API名称        | 作用          | 是否开放  | 特别说明|  
 | ------------- |:-------------:|:-----:|:-------------:|
-| Query user device list   | Get a list of devices that users bind themselves to and share with others| yes|  no |  
-|Binding device   | Establish a binding relationship between the user and the device| yes|  no |  
-| Unbind device  | Unbind the user from the device| yes|  no |  
-| Modify device alias   | Update device alias| yes|  no |  
-|Edit device location information  | Modify device latitude and longitude, city code information| yes|  no |  
-| Get device alias   | Query device alias| yes|  no |  
-| Get device location information  | Query device location information| yes|  no |  
-| Get device details  | Query device details| yes|  no |  
-| Query whether the device is online  | Users can check if the device is online| yes|  no |  
+| 查询用户设备列表  | 获取用户自己绑定和别人分享的设备列表|是|  无 |  
+|绑定设备 | 建立用户与设备之间的绑定关系| 是|  无 |  
+| 解绑设备 | 解除用户与设备之间的绑定关系|是|  无 |  
+| 修改设备别名  |更新设备别名| 是|  无 |   
+|修改设备位置信息 | 修改设备经纬度、城市代码信息| 是|  无 |   
+|获取设备别名 | 查询设备别名| 是|  无 |  
+|获取设备位置信息  | 查询设备位置信息| 是|  无 |   
+| 获取设备详细信息  | 查询设备详细信息 | 是|  无 |   
+|查询设备是否在线  | 用户可以查看设备是否在线| 是|  无 |   
 
 
-#### Query user device list 
-> Get a list of devices that users bind themselves to and share with others. You can get your own bound device by authType=owner filtering.  
+#### 查询用户设备列表
+> 获取用户自己绑定和别人分享的设备列表。可通过authType=owner过滤获取自己绑定的设备。  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/deviceinfos`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/deviceinfos`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
-No input parameters  
+**输入参数**  
+
+标准输入
    
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
+|参数名|类型|位置|必填|说明 |  
+| ------ |:---------:|:-----:|:--------:|:------:|  
 | | | | |&emsp;|  
 
 
-**Output parameters:**  
+**输出参数:**  
   
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceinfos| DeviceInfo[]| Body|yes | Device information list  |  
+|deviceinfos| DeviceInfo[]| Body|是 | 设备信息列表 |  
 
 
-##### 2、Request sample
-**User request**  
+##### 2、请求示例
+**用户请求**  
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -151,11 +160,10 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
-**Request response**  
+**请求应答**  
 ```
 {
   "deviceinfos": [
@@ -337,34 +345,34 @@ Header：
   "retInfo": "成功"
 }
 ```
-##### 3、Interface error code
+##### 3、错误码
 > G20202
 
-#### Binding device
-> Establish a binding relationship between the user and the device.<font color=red>(Single user binding equipment number < = 100, binding equipment must platform online.)</font> 
+#### 绑定设备
+> 用户绑定设备的接口  <font color=red>（单用户绑定设备数量<=100个，绑定时设备必须平台上线。）</font> 
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/bindDevice`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/bindDevice`</br>
 **HTTP Method：** POST
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|body|yes|Device ID |
-|name|String|body|yes|Device name |   
-|bindReqSn|String|body|yes|Random number generated by uSDK|  
-|data|String|body|yes|Bind encrypted data (get encrypted string from sdk)|  
+|参数名|类型|位置|必填|说明 |  
+| --------- |:--------:|:-----:|:---------:|:--------:|  
+|deviceId|String|body|是|设备id |
+|name|String|body|是|设备名称 |   
+|bindReqSn|String|body|是|uSDK生成的随机数|  
+|data|String|body|是|绑定加密数据（从sdk获取加密字符串）|  
 
-**Output parameters**    
-Output standard response parameters  
+**输出参数**    
+输出标准输出参数  
 
-##### 2、Request sample
-**User request**
+##### 2、请求示例
+**用户请求**
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -373,7 +381,6 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body
@@ -383,42 +390,42 @@ Body
     "data": "5f10bf4f5af08db934c8165c32140227"
 }
 ```
-**Request response**
+**请求应答**
 ```
 {
     "retCode":"00000",
     "retInfo":"成功"
 }
 ```
-##### 3、Interface error code
+##### 3、错误码
 > G20202、G20904、G20908
 
 
 
 
-#### Unbind device
-> Unbind the user from the device
+#### 解绑设备
+> 解除用户与设备之间的绑定关系
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
 **HTTP Method：** POST
 
-**Input parameters**  
-  
-|parameter name|types|location|required|description |  
+**输入参数**  
+
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|Device ID  |
+|deviceId|String|url|是|设备id |
 
-**Output parameters**    
-Output standard response parameters
+**输出参数**    
+输出标准输出参数
 
-##### 2、Request sample
+##### 2、请求示例  
 
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -427,41 +434,41 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
-**Request response**
+**请求应答**
 ```
 {
     "retCode":"00000",
     "retInfo":"成功！"
 }
 ```
-##### 3、Interface error code
+##### 3、错误码
 > G20202
 
 
 
-#### Modify device alias
-> Update device alias
+#### 修改设备别名
+> 更新设备别名
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/updateAliasName`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/updateAliasName`</br>
 **HTTP Method：** PUT
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |   
+|参数名|类型|位置|必填|说明 |    
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|Device ID|    
-|aliasName|String|Body|yes|A new alias for the device, up to 50 characters, cannot have special characters|     
+|deviceId|String|url|是|设备id|    
+|aliasName|String|Body|是|设备新别名，50字符以内，不能有特殊字符|     
 
-**Output parameters**  
-Output standard output parameters.  
+**输出参数**  
+输出标准输出参数.  
 
-##### 2、Request sample
-**User request**
+##### 2、请求示例  
+
+**用户请求**
 
 ```
 Header：
@@ -484,7 +491,7 @@ Body:
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -494,32 +501,35 @@ Body:
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 >G20202  
 
 
-#### Edit device location information
-> Modify device latitude and longitude, city code information  
+#### 修改设备位置信息
+> 修改设备经纬度、城市代码信息  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/updateLocation`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/updateLocation`</br>
 **HTTP Method：** PUT
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID  |
-|loc|Location|body|yes|location information  |  
+|参数名|类型|位置|必填|说明 |   
+| --------- |:--------:|:-----:|:----------:|:--------:|  
+|deviceId|String|url|是|设备id  |
+|loc|Location|body|是|位置信息  |  
 
-**Output parameters**  
-Output standard output parameters  
-##### 2、Request sample
-**User request**
+**输出参数**  
+输出标准输出参数  
+
+ 
+##### 2、请求示例
+
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -528,7 +538,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 body：
@@ -542,7 +551,7 @@ body：
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -552,37 +561,37 @@ body：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > G20202  
 
 
 
-#### Get device alias
-> Query device alias  
+#### 获取设备别名
+> 查询设备别名s  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/aliasName`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID|  
+|deviceId|String|url|是|设备id|  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|alisaName|String|body|yes|Device alias  |
+|alisaName|String|body|是|设备别名 |
 
 
-##### 2、Request sample
-**User request**
+##### 2、请求示例
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -591,12 +600,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -606,37 +614,38 @@ Header：
 }
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > G20202  
 
 
 
-#### Get device location information
-> Query device location information
+#### 获取设备位置信息
+> 查询设备位置信息
 
-##### 1、Query device location information
-?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID|  
+|deviceId|String|url|是|设备id|  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|loc|Lociation|body|yes|Device location information|      
+|loc|Lociation|body|是|位置信息|      
 
 
-##### 2、Request sample
-**User request**
+##### 2、请求示例  
+
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -645,12 +654,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -665,39 +673,39 @@ Header：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > G20202  
 
 
 
 
-#### Get device details  
-> Query device details  
+#### 获取设备详细信息 
+> 查询设备详细信息 
 
-##### 1、Interface definition  
+##### 1、接口定义 
 
-?> **Access address：** `/uds/v1/protected/{deviceId}/deviceInfo`</br>
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceInfo`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
+| --------- |:---------:|:-----:|:--------:|:------:|  
+|deviceId|String|url|是|设备id  |  
+
+**输出参数**  
+
+|参数名|类型|位置|必填|说明 |     
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID  |  
+|deviceVersion|DeviceVersion|body|是|设备信息 |   
 
-**Output parameters**  
+##### 2、请求示例
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceVersion|DeviceVersion|body|yes|Device Information |   
-
-##### 2、Request sample
-
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -706,12 +714,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -781,37 +788,37 @@ Header：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 
 > G20202
 
 
-#### Query whether the device is online  
-> Users can check if the device is online  
+#### 查询设备是否在线  
+> 用户可以查看设备是否在线  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/isOnline`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/isOnline`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |     
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID |  
+|deviceId|String|url|是|设备id |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|isOnline|String|Body|yes|status information|  
+|isOnline|String|Body|是|状态信息|  
 
-##### 2、Request sample
+##### 2、请求示例
 
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -820,12 +827,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -835,7 +841,7 @@ Header：
 }
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > G20202  
 
 
