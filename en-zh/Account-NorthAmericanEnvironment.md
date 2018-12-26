@@ -102,62 +102,44 @@ public class AESUtil {
 
 ```  
 
-### Public structure  
-
-#### no  
-
-## Interface list
+### 接口列表
 
 
-### Haier U+ User class interface
-> API interface overview
-
-| API name        | effect          | Whether open | Special Note|
-| ------------- |:-------------:|:-----:|:-------------:|
-| User registration     | Register new user | yes|  no |  
-| User login     | User login to get accessToken and openId | yes| no|  
-| Resend activation email | After the registration is successful, but the user failed to receive the activation email due to the mail network, etc. | yes| no|  
-| sign out   |Mobile APP users exit the Haier U+ cloud platform interface| yes| no|  
-| Query user information | Obtain user information based on the registrant token | yes| no|  
-| User information modification    | Modify the extended attribute of the currently logged in user according to the token of the logged in person |  yes| no|  
-| Request a reset password     | When the user requests to reset the password, the user will send a link to reset the password in the user's mailbox, and the user clicks the link to reset the password. |  yes| no|    
-| Get image verification code    | Get image verification code |  yes| no|    
-
-#### User registration 
-> Register new user    
+#### 用户注册 
+> 注册新用户
 
 
 
-##### 1、Interface definition
+##### 1、接口定义
 
 ?> **Access address：**  `/uam/v1/security/register`  
- **HTTP Method：** POST  
- **Token authentication：** No (header can not pass accessToken)  
+ **HTTP Method：** POST   </br>
+ **Token验证：** 否 (header可以不传入accessToken)  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types         | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
-| password     | String | Body| yes |Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits.|  
-| captcha     | String | Body| yes |Verification code, a combination of 4 letters and numbers.|  
-| userProfile     | Map | Body| no |Added to meet the different needs of user information for different applications.|  
+| 参数名        | 类型         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+| loginId     | String | Body| 是|邮箱，需要符合邮箱格式
+使用如下正则表达式:`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
+| password     | String | Body| 是 |密码：长度：6 – 16个字符之间 ，即最少6位，最大16位</br>必须包含如下至少两种字符的组合:小写字母、大写字母、数字、特殊字符（`~!@#$%^&*()-_=+\|[{}];:'",<.>/?`）和空格</br>密码不能和帐号或者帐号的倒写一样；</br>注：密码强度是app的要求，传入服务端为 密文， 密文= `aes（sha256（password））`,aes的秘钥本文档不提供，开发时再由双发约定|  
+| captcha     | String | Body| 是 |验证码，4位字母和数字组合|  
+| userProfile     | Map | Body| 否 |添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度|  
 
 
-**Output parameters**  
+**输出参数**  输出标准输出参数 
 
-**Output standard output parameters.**
 
-|   name      |     types      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
+##### 2、请求样例  
 
-##### 2、Request sample  
-
-**User request**
+**请求明细**
 ```java  
+POST
+
+https://uws-gea-euro.haieriot.net/uam/v1/security/register
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -166,9 +148,9 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+
 Body
 {
   "loginId": "14759167292@qq.com",
@@ -184,9 +166,6 @@ Body
     "realname": "test"
   }
 }
-
-
-
 ```  
 
 **Request response**
@@ -200,13 +179,11 @@ Body
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00012   |   Account already exists |  &emsp;   |    
-| D00015   |   Verification code error |  &emsp;   |  
- 
 
-#### User login
+> D00012、D00015
+
+
+#### 用户登录
 > User login to get accessToken and openId.   
   
 
