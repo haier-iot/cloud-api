@@ -9,7 +9,7 @@
 
 
 **绑定与解绑**</br>
-1、绑定设备：用户与设备建立关联，形成绑定关系，绑定用户成为设备管理员；
+1、绑定设备：用户与设备建立关联，形成绑定关系，绑定用户成为设备管理员；</br>
 2、解绑设备：用户与设备解除绑定关系，同时用户关于此设备的相关分享也解除；</br>
 3、我的设备列表：用于查询与某单一用户绑定的所有智能互联设备。</br>
 
@@ -248,29 +248,29 @@ Body
 > A00001、B00001、G20202、A00004、B00001、D00006、G20904、G20908、G20910
 
 
-#### Unbind device
-> The user unbundles the device and unshares the device
+#### 解绑设备
+> 解除用户与设备之间的绑定关系
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/unbindDevice` </br>
 **HTTP Method：** POST
 
-**Input parameters**  
-  
-|parameter name|types|location|required|description |  
+**输入参数**  
+
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|Device ID  |
+|deviceId|String|url|是|设备id |
 
-**Output parameters**    
-Output standard response parameters
+**输出参数**    
+输出标准输出参数
 
-##### 2、Request sample
+##### 2、请求示例  
 
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -279,46 +279,45 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
-**Request response**
+**请求应答**
 ```
 {
     "retCode":"00000",
     "retInfo":"成功！"
 }
 ```
-##### 3、Interface error code
-> A00001、B00001、G20202、A00004、B00001、D00006
+##### 3、错误码
+> A00001、B00001、G20202、A00004、B00001、D00006  
 
-#### Get device alias
-> Query device alias  
+#### 获取设备别名
+> 查询设备别名  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/aliasName`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID|  
+|deviceId|String|url|是|设备id|  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|alisaName|String|body|yes|Device alias  |
-|deviceId|String|body|yes|DeviceID  |  
+|alisaName|String|body|是|设备别名 |
 
-##### 2、Request sample
-**User request**
+
+##### 2、请求示例
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -327,53 +326,52 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
     "aliasName": "test002",
-    "deviceId": "DC330D01FBF1",
     "retCode": "00000",
     "retInfo": "成功!"
 }
-
 ```
 
-##### 3、Interface error code
+##### 3、错误码  
 > A00001、B00001、G20202、A00004、B00001、D00006  
 
 
 
-#### Get device location information
-> Query device location information
+#### 获取设备位置信息
+> 查询设备位置信息
 
-##### 1、Query device location information
-?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID|  
+|deviceId|String|url|是|设备id|  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|loc|Lociation|body|yes|Device location information|      
+|loc|Lociation|body|是|位置信息|      
 
-##### 2、Request sample
-**User request**
+
+##### 2、请求示例  
+
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -382,12 +380,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -402,39 +399,39 @@ Header：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > A00001、B00001、G20202、A00004、B00001、D00006 
 
 
 
 
-#### Get device details  
-> Have device view and above users, inquiry device information 
+#### 获取设备详细信息 
+> 查询设备详细信息 
 
-##### 1、Interface definition  
+##### 1、接口定义 
 
-?> **Access address：** `/uds/v1/protected/{deviceId}/deviceInfo`</br>
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceInfo`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |   
+| --------- |:---------:|:-----:|:--------:|:------:|  
+|deviceId|String|url|是|设备id  |  
+
+**输出参数**  
+
+|参数名|类型|位置|必填|说明 |     
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID  |  
+|deviceVersion|DeviceVersion|body|是|设备信息 |   
 
-**Output parameters**  
+##### 2、请求示例
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceVersion|DeviceVersion|body|yes|Device Information |   
-
-##### 2、Request sample
-
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -443,12 +440,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -518,36 +514,38 @@ Header：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 
 > A00001、B00001、G20202、A00004、B00001、D00006
 
 
 
-#### Update location information
-> Users with configuration privileges change the device's location information 
+#### 更新位置信息  
+> 有配置权限的用户更改设备的位置信息  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
- **Historical reasons for the European environment old version App uses the following address:**  
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
+ **历史原因致欧洲环境老版本App使用如下地址:**  
 `/uds/v1/protected/{deviceId}/updateLocation`  
 **HTTP Method：** PUT
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID  |
-|loc|Location|body|yes|location information  |  
+|参数名|类型|位置|必填|说明 |   
+| ------- |:-------:|:-----:|:--------:|:--------:|  
+|deviceId|String|url|是|设备id  |
+|loc|Location|body|是|位置信息  |  
 
-**Output parameters**  
-Output standard output parameters  
-##### 2、Request sample
-**User request**
+**输出参数**  
+输出标准参数  
+ 
+##### 2、请求样例  
+
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -556,7 +554,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 body：
@@ -570,7 +567,7 @@ body：
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -580,35 +577,36 @@ body：
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > A00001、B00001、G20202、A00004、B00001、D00006  
 
 
-#### Update device alias
-> Users with configuration privileges change the device alias
+#### 更新设备别名
+> 有配置权限的用户更改设备别名  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/aliasName`</br>
- **Historical reasons for the European environment old version App uses the following address:**  
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
+ **历史原因致欧洲环境老版本App使用如下地址:**  
 `/uds/v1/protected/{deviceId}/updateAliasName`  
 **HTTP Method：** PUT
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |   
+
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|Device ID|    
-|aliasName|String|Body|yes|A new alias for the device, up to 50 characters, cannot have special characters|     
+|deviceId|String|url|是|设备id|    
+|aliasName|String|Body|是|设备新别名|     
 
-**Output parameters**  
-Output standard output parameters.  
+**输出参数**  
+输出标准参数  
 
 ##### 2、Request sample
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -617,7 +615,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body:
@@ -627,7 +624,7 @@ Body:
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -637,39 +634,42 @@ Body:
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 >A00001、B00001、G20202、A00004、B00001、D00006  
 
 
 
-#### Query user device list 
-> Query all my devices, including my devices, personal sharing to my devices, family sharing to my devices.  
+#### 查询用户设备列表   
+> 查询我所有的设备,包含我的设备,个人分享给我的设备,家庭分享给我的设备。  
+  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/deviceinfos`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/deviceinfos`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
-No input parameters  
+**输入参数**  
+标准输入  
    
-|parameter name|types|location|required|description |  
+
+|参数名|类型|位置|必填|说明 |   
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
 | | | | |&emsp;|  
 
 
-**Output parameters:**  
+**输出参数:**  
   
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceinfos| DeviceInfo[]| Body|yes | Device information list  |  
+|deviceinfos| DeviceInfo[]| Body|yes | 共享设备信息 |  
 
 
-##### 2、Request sample
-**User request**  
+##### 2、请求样例  
+
+**用户请求**  
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -678,11 +678,10 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
-**Request response**  
+**请求应答**  
 ```
 {
   "deviceinfos": [
@@ -864,35 +863,36 @@ Header：
   "retInfo": "成功"
 }
 ```
-##### 3、Interface error code
+##### 3、错误码  
 > A00001、B00001、G20202、A00004、B00001、D00006  
 
-#### Query whether the device is online  
-> Users can check if the device is online  
+#### 查询设备是否在线  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/isOnline`</br>
+> 用户可以查看设备是否在线    
+
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/isOnline`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID |  
+|deviceId|String|url|是|设备id |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|isOnline|String|Body|yes|status information|  
+|isOnline|String|Body|是|状态信息|  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -901,12 +901,11 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -916,36 +915,36 @@ Header：
 }
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > A00001、B00001、G20202、A00004、B00001、D00006 
 
 
-#### Obtain the signal strength of the device  
-> Obtain the signal strength of the device   
+#### 获取设备的信号强度 
+> 获取设备的信号强度  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/deviceNetQuality`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceNetQuality`</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID |  
+|deviceId|String|url|是|设备id |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceNetQualityDto|DeviceNetQualityDto|Body|yes|Signal strength|  
+|deviceNetQualityDto|DeviceNetQualityDto|Body|是|信号强度|  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -954,13 +953,12 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -971,37 +969,37 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、请求应答
 > A00001、B00001、G20202、A00004、D00006
 
 
 
-#### Get the latest status of the device  
-> Get the latest status of the device    
+#### 获取设备最新状态 
+> 获取设备最新状态   
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/lastReportStatus `</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/lastReportStatus `</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|url|yes|DeviceID |  
+|deviceId|String|url|是|设备id |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|DeviceStatus|DeviceStatus|Body|yes|Device status|  
+|DeviceStatus|DeviceStatus|Body|是|设备状态|  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1010,13 +1008,12 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -1028,32 +1025,32 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > A00001、B00001、G20202、A00004、D00006  
 
 
-####  Save device room location information  
-> Save device room location information    
+####  保存房间位置信息 
+> 保存房间位置信息      
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/saveDeviceRoom`</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/saveDeviceRoom`</br>
 **HTTP Method：** POST
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|token|String|Context|yes|user token |  
-|deviceId|String|url|yes|DeviceID |  
-|room|String|body|yes|Device  room location information |  
+|token|String|Context|是|用户token |  
+|deviceId|String|url|是|设备id |  
+|room|String|body|是|设备房间位置信息 |  
 
 
-**Output parameters**  
-Output standard response parameters
+**输出参数**  
+输出标准参数  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 POST data:
@@ -1064,7 +1061,7 @@ POST data:
 [no cookies]
 Request Headers:
 Connection: keep-alive
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 2
 sequenceId: 2014022801010
@@ -1073,13 +1070,12 @@ sign: ebcd5fc1387d647fa890cfa0ea91fc2d3c382316d9ae24ddf762cbbe76175aca
 timestamp: 1503395034831 
 language: zh-cn
 timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
 Content-Encoding: utf-8
 Content-type: application/json
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -1089,37 +1085,37 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码  
 > A00001、B00001、G20202、A00004、D00006
 
 
 
-#### Query device room location information  
-> Query device room location information    
+#### 获取设备房间位置信息    
+> 获取设备房间位置信息     
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/deviceAndRoom `</br>
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/deviceAndRoom `</br>
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|token|String|Context|yes|user token |  
+|token|String|Context|是|用户token |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceRoomInfos|DeviceRoomInfoDto[]|Body|yes|Device room location information|  
+|deviceRoomInfos|DeviceRoomInfoDto[]|Body|是|设备房间位置信息|  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1128,13 +1124,12 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -1164,33 +1159,33 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码
 > A00001、B00001、G20202、A00004、D00006  
 
 
 
-#### Add device brand information  
-> Add device brand information     
+#### 添加设备品牌信息    
+> 添加设备品牌信息      
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/saveDeviceBrand `</br>
-**precondition:** User has bound the device  
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/saveDeviceBrand `</br>
+**前提条件:** 用户已经绑定该设备  
 **HTTP Method：** POST
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|token|String|Header|yes|user token |  
-|brandInfo|BrandInfo|Body|yes|Brand information |  
+|token|String|Header|是|用户token |  
+|brandInfo|BrandInfo|Body|是|品牌信息|  
 
-**Output parameters**  
+**输出参数**  
 
-Output standard output parameters.  
+输出标准参数  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 POST data:
@@ -1207,7 +1202,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1216,14 +1211,13 @@ sign: 116639d4405230df33486ceb5ea68bd2c685549c48cf83ce1cafd8dfaa336c7a
 timestamp: 1506061471587 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json 
 
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -1234,40 +1228,40 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码  
 > A00001、B00001、G20202、20903、D00006
 
 
 
-#### Query device brand information 
-> Query device brand information   
+#### 查询设备品牌信息
+> 查询设备品牌信息  
 
-##### 1、Interface definition
-?> **Access address：** `/uds/v1/protected/{deviceId}/deviceBrand`</br>
-**precondition:** User and device are related  
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceBrand`</br>
+**前提条件:** 用户和设备有关系  
 **HTTP Method：** GET
 
-**Input parameters**  
+**输入参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|token|String|Header|yes|user token |  
-|deviceId|String|url|yes|deviceId |  
+|token|String|Header|是|用户token |  
+|deviceId|String|url|是|设备Id |  
 
-**Output parameters**  
+**输出参数**  
 
-|parameter name|types|location|required|description |  
+|参数名|类型|位置|必填|说明 |  
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|brandInfo|BrandInfo|Body|yes|Device brand information|  
+|brandInfo|BrandInfo|Body|是|设备品牌信息|  
 
-##### 2、Request sample
+##### 2、请求样例
 
-**User request**
+**用户请求**
 
 ```
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1276,14 +1270,13 @@ sign: 384a9e720d4e218c7d7d44d81f88c8b8c198bb660b900f8679607aaeba198a61
 timestamp: 1506061897331 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8 
 Content-type: application/json
 
 
 ```
 
-**Request response**
+**请求应答**
 
 ```
 {
@@ -1299,7 +1292,7 @@ Content-type: application/json
 
 ```
 
-##### 3、Interface error code
+##### 3、错误码  
 > A00001、B00001、G20202、20903、D00006、G24001
 
 
