@@ -191,7 +191,7 @@ String getSign(String appId, String appKey, String timestamp, String body,String
 		body = body.trim();
 	}
 	if (!body.equals("")) {
-		body = body.replaceAll("", "");
+		body = body.replaceAll(" ", "");
 		body = body.replaceAll("\t", "");
 		body = body.replaceAll("\r", "");
 		body = body.replaceAll("\n", "");
