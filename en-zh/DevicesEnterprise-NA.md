@@ -1,18 +1,20 @@
 
-> **current version：** [UWS EquipmentManagementServiceEnterpriseEdition V1.5.2](en-us/ChangeLog/DevicesStandard)  
-**Update time：** {docsify-updated} 
+> **当前版本：** [UWS 设备管理服务企业版-北美环境 V1.5.2](en-us/ChangeLog/DevicesStandard)  
+**更新时间：** {docsify-updated} 
 
-## Introduction
-The enterprise version of the service can be applied to both the application-side and the enterprise-level device management from the case where the application server (ie, the app server) is directly connected to the platform. The application server uniformly obtains device information and device control capabilities.  
+## 简介  
 
-**User Token authorized device control**  
-The device is remotely controlled by the user token authorization.
+设备管理企业版为Haier U+云平台提供的对智能互联设备的操作设备进行命令下发、读写等相关设备的操作能力，可以通过应用服务器直接对设备进行操作。  
 
-ability|Capability brief|
+**用户Token授权设备控制**  
+通过用户Token授权来对设备进行远程控制操作。
+
+能力|能力描述
 :-:|:-
-Non-standard device operation|User manages and operates the bound non-standardized device (device 6-bit code)
-Standard device attribute read and write|User reads and writes the attribute information of the tied device   
-Standard equipment operation|The user operates the device by issuing the following command  
+非标准设备操作|用户对绑定的非标准化设备(设备6位码)进行管理与操作
+标准设备属性读写|用户对已绑设备属性信息的读取与写入
+标准设备操作|用户以下发命令的方式对设备进行操作  
+
 
 
 <!-- 注释开始
@@ -21,85 +23,91 @@ Standard equipment operation|The user operates the device by issuing the followi
 The device management service authorized by the manufacturer is the management and control device service specially provided by U+ cloud platform for enterprise users. It only needs to obtain the authorization code issued by U+ cloud platform, and it does not need to realize token authorization to quickly realize the device control and management function. Detailed service understanding and authorization to connect with  [Haier U+ Business BD][Business].
 注释结束  -->
 
+## 规则与约束
+1、设备管理企业服务是针对服务器端进行授权，需提供部署服务器的外网IP地址，在云平台配置IP白名单才可以访问。</br>
+2、公共header请求头中的appId传值需是申请企业级应用systemId，签名算法使用对应的systemKey。</br>
+3、deviceId 设备Id为发起请求的accessToken安全令牌 token所有拥有控制权限的设备。</br>
 
-### Application scenario
-The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.
+## 应用场景
+企业版服务既可应用于应用端发起，也可以从应用服务端（即app server）与平台直接互联的情况，进行企业级别的设备管理。应用服务器统一获取设备信息与设备控制能力。
 
 
-## Public structure description
+## 公共结构说明
 ### User
-User Info
+用户信息
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-loginId|String|user name (mailbox)|
-userId|String|User ID|
-userProflie|Map|User extended attribute|
+loginId|String|用户名（邮箱）|
+userId|String|用户Id|
+userProflie|Map|用户拓展属性|  
+
 
 ### OpPropertyValue
-Attribute operation
+属性操作
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-name|String|Attributes|
-value|String|value|
+name|String|属性|
+value|String|值|  
 
 ### OpResult 
-Operation result
+操作结果
 
-Field name|Types|Description|Remarks  
+参数名|类型|说明|备注
 :-|:-:|:-:|:-
-usn|String|Operation serial number|
-deviceId|String|Operating device ID
-result|String|Operation response result|Is a base64 code, </br> the result of decrypting the standard model device is:</br>`{"extData":{},"args":[]}`, where the data in [] is multiple by name, The key-value pair consisting of value;</br> The result of decrypting the non-standard model device is:</br> `{"extData":{},"statuses":[]}`, where the data in [] is multiple a key-value pair consisting of name, value  
+usn|String|操作序列号|
+deviceId|String|操作设备ID
+result|String|操作应答结果|是一个base64码，标准模型设备解密后的结果为：`{"extData":{},"args":[]}`，其中[]中的数据为多个由name,value组成的键值对；</br>非标准模型设备解密后的结果为:`{"extData":{},"statuses":[]}`，其中[]中的数据为多个由name,value组成的键值对  
 
 
-## Interface list
-### User Token authorized device control    
+## 接口清单
+
+### 用户Token授权设备控制  
 
 
-> API interface overview  
+> API接口总览  
 
-
-| API name        | effect          | Whether open | Special Note|
+| API名称        | 作用          | 是否开放  | 特别说明|
 | ------------- |:-------------:|:-----:|:-------------:|
-| User Equipment Operation - Control Channel - Non-Standard Model   |User equipment operation - control channel, support for operation of non-standard model (6-bit code device) devices| yes|  no |  
-|User Read Attribute - Asynchronous Interface - Standard Model | User read attribute-asynchronous interface, support attribute reading of standard model| yes|  no |  
-| User write attribute - asynchronous interface - standard model | User write attribute - asynchronous interface, support attribute writing of standard model| yes|  no |  
-| User Equipment Operation - Asynchronous Interface - Standard Model | User device operation - asynchronous interface, supports standard model device operation| yes|  no |  
+| 用户设备操作-控制通道-非标准模型| 用户设备操作-控制通道，支持非标准模型（6位码设备）设备的操作| 是| 无| 
+| 用户读属性-异步接口-标准模型  | 用户读属性-异步接口，支持标准模型的属性读| 是| 无| 
+| 用户写属性-异步接口-标准模型 | 用户写属性-异步接口，支持标准模型的属性写| 是| 无| 
+|用户设备操作-异步接口-标准模型 | 用户设备操作-异步接口，支持标准模型设备操作| 是| 无| 
 
-####  User Equipment Operation - Control Channel - Non-Standard Model 
-> ser equipment operation - control channel, support for operation of non-standard model (6-bit code device) devices  
 
-##### 1、Interface definition    
+#### 用户设备操作-控制通道-非标准模型
+> 用户设备操作-控制通道，支持非标准模型（6位码设备）设备的操作
 
-?> **Access address：** `/udse/v1/devicesOperate`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/devicesOperate`</br>
 **HTTP Method：** POST
 
-**Input parameters**
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|Body|yes|Device ID|
-|sn|String|Body|yes|Operation serial number, must be unique|
-|category|String|Body|yes|Classification of operations</br> single command: "AttrOp"; group command: "GroupOp"|
-|name|String|Body|yes|Operation name|
-|operateCodes|String|Body|yes|Operation command Base64 encrypted value|
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token|   
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+category|String|Body|必填|操作的分类</br>单命令："AttrOp";组命令："GroupOp"
+name|String|Body|必填|操作名称
+operateCodes|String|Body|必填|操作命令Base64加密值
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
 
+**输出参数**
 
-**Output parameters**  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:| 
-|usn|String|Body|yes|Operation serial number|
+##### 2、请求示例
 
-##### 2、Request sample
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/devicesOperate
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -119,17 +127,17 @@ Body
 	"callbackUrl": "https://www.uhome.haier.net/callback.html"
 }
 ```
-**Request response**
+
+**请求应答**
 ```
 {
 	"retCode": "00000",
 	"retInfo": "成功!",
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
 }
+```
 
-```  
-
-**Operational response**
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -140,44 +148,43 @@ Body
 	"resCode":0
 }
 ```
-##### 3、Interface error code
+
+##### 3、接口错误码
 > B00001、B00004、A00001、D00006、G20202、G03002
 
 
 
-#### User Read Attribute - Asynchronous Interface - Standard Model
-> User read attribute-asynchronous interface, support attribute reading of standard model   
+#### 用户读属性-异步接口-标准模型
+> 用户读属性-异步接口，支持标准模型的属性读
 
-
-##### 1、Interface definition    
-
-?> **Access address：** `/udse/v1/propertyRead`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/propertyRead`</br>
 **HTTP Method：** POST
 
-**Input parameters**
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|deviceId|String|Body|yes|Device id|
-|sn|String|Body|yes|Operation serial number. Must be unique|
-|property|String|Body|yes|The attribute name of the device read attribute|   
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token |  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+property|String|Body|必填|设备读属性的属性名
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
 
-**Output parameters**  
+##### 2、请求示例
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|usn|String|Body|yes|Operation serial number|  
-
-
-##### 2、Request sample
-
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/propertyRead
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -194,18 +201,18 @@ Body
 	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
 	"callbackUrl": "https://www.uhome.haier.net/callback.html"
 }
-
 ```
 
-**Request response**
+**请求应答**
 ```
 {
 	"retCode": "00000",
 	"retInfo": "成功!",
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
-}  
+}
 ```
-**Operational response**
+
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -214,44 +221,46 @@ Body
 	"deviceId": "0007A893C119",
 	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0="
 }
-
 ```
-##### 3、Interface error code
-> B00001、B00004、A00001、D00006、G20202、G03002 
+
+
+##### 3、请求错误码
+> B00001、B00004、A00001、D00006、G20202、G03002
 
 
 
-#### User write attribute - asynchronous interface - standard model  
-> User write attribute - asynchronous interface, support attribute writing of standard model   
+#### 用户写属性-异步接口-标准模型
+> 用户写属性-异步接口，支持标准模型的属性写
 
-##### 1、Interface definition  
-
-?> **Access address：** `/udse/v1/propertyWrite`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/propertyWrite`</br>
 **HTTP Method：** POST
 
-**Input parameters**
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|   
-|deviceId|String|Body|yes|Device id|
-|sn|String|Body|yes|Operation serial number. Must be unique|
-|property|String|Body|yes|The attribute name of the device write attribute|  
-|value|String|Body|yes|The attribute name of the device write attribute|   
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token |  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+property|String|Body|必填|设备写属性的属性名
+value|String|Body|必填|设备写属性的属性名
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
 
-**Output parameters** 
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|usn|String|Body|yes|Operation serial number|  
+##### 2、请求示例
 
-##### 2、Request sample
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/propertyWrite
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -268,20 +277,18 @@ Body
 	"value": "value",
 	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
 	"callbackUrl": "https://www.uhome.haier.net/callback.html"
-}  
-
+}
 ```
-**Request response**
+**请求应答**
 ```
 {
 	"retCode": "00000",
 	"retInfo": "成功!",
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
 }
+```
 
-```  
-
-**Operational response**
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -291,45 +298,43 @@ Body
 	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
 	"resCode":0
 }
-
 ```
+##### 3、接口错误码
+> B00001、G20202、B00004、A00001、D00006、G03002 
 
-##### 3、Interface error code  
-> B00001、G20202、B00004、A00001、D00006、G03002  
 
+#### 用户设备操作-异步接口-标准模型
+> 用户设备操作-异步接口，支持标准模型设备操作
 
-#### User Equipment Operation - Asynchronous Interface - Standard Model  
-> User device operation - asynchronous interface, supports standard model device operation  
-
-##### 1、Interface definition
-?> **Access address：** `/udse/v1/operate`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/operate`</br>
 **HTTP Method：** POST
 
-**Input parameters**  
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|   
-|deviceId|String|Body|yes|Device id|
-|sn|String|Body|yes|Operation serial number. Must be unique|
-|operationName|String|Body|yes|Operation name|  
-|operationValue|List<OpPropertyValue>|Body|yes|A list of attribute values, determined by the model documentation, and required|  
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token | 
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|设备操作请求序列号
+operationName|String|Body|必填|操作名称
+operationValue|List<OpPropertyValue>|Body|必填|属性值的列表，由模型文档决定是否必填及如何填
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
 
-**Output parameters**
+**输出参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|usn|String|Body|yes|Operation serial number|  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
 
+##### 2、请求示例
 
-##### 2、Request example
-
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/operate
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -354,7 +359,7 @@ Body
 ```
 
 
-**Request response**
+**请求应答**
 ```
 {
 	"retCode": "00000",
@@ -362,7 +367,7 @@ Body
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
 }
 ```
-**Operational response**
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -373,8 +378,7 @@ Body
 	"resCode":0
 }
 ```
-
-##### 3、Interface error code
+##### 3、接口错误码
 > B00001、B00004、A00001、D00006、G20202、G03002
 
 
