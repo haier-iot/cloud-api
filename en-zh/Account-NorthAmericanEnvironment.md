@@ -123,7 +123,7 @@ public class AESUtil {
 | loginId     | String | Body| 是|邮箱，需要符合邮箱格式
 使用如下正则表达式:`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
 | password     | String | Body| 是 |密码：长度：6 – 16个字符之间 ，即最少6位，最大16位</br>必须包含如下至少两种字符的组合:小写字母、大写字母、数字、特殊字符（`~!@#$%^&*()-_=+\|[{}];:'",<.>/?`）和空格</br>密码不能和帐号或者帐号的倒写一样；</br>注：密码强度是app的要求，传入服务端为 密文， 密文= `aes（sha256（password））`,aes的秘钥本文档不提供，开发时再由双发约定|  
-| captcha     | String | Body| 是 |验证码，4位字母和数字组合|  
+| captcha     | String | Body| 是 |验证码，4位字母和数字组合。当密码输入错误三次及以上，强制用户输入验证码，如输入5次，锁定账号5小时|  
 | userProfile     | Map | Body| 否 |添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度|  
 
 
@@ -134,9 +134,7 @@ public class AESUtil {
 
 **请求明细**
 ```java  
-POST
-
-https://uws-gea-euro.haieriot.net/uam/v1/security/register
+POST	/uam/v1/security/register
 
 Header：
 appId: MB-****-0000
@@ -178,47 +176,49 @@ Body
 
 ```
 
-##### 3、error code  
+##### 3、错误码  
 
 > D00012、D00015
 
 
 #### 用户登录
-> User login to get accessToken and openId.   
+> 用户获取登录accessToken和openId
   
 
+##### 1、接口定义
 
-##### 1、Interface definition
+?> **接入地址：**  `/uam/v1/security/login`  
+ **HTTP Method：** POST   </br>
+ **Token验证：** 否  
 
-?> **Access address：**  `/uam/v1/security/login`  
- **HTTP Method：** POST  
- **Token authentication：** No  
+**输入参数**  
 
-**Input parameters**  
-
-| parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|  
-| password     | String | Body| yes|Password: Length: 6 – 16 characters, ie a minimum of 6 digits, a maximum of 16 digits. |  
-| captcha     | String | Body| no |Verification code, a combination of 4 letters and numbers.|  
+| 参数名        | 类型        | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----
+| loginId     | String | Body| yes|邮箱，需要符合邮箱格式
+使用如下正则表达式：`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
+| password     | String | Body| 是|P|密码：长度：6 – 16个字符之间 ，即最少6位，最大16位</br>必须包含如下至少两种字符的组合:小写字母、大写字母、数字、特殊字符（`~!@#$%^&*()-_=+\|[{}];:'",<.>/?`）和空格</br>密码不能和帐号或者帐号的倒写一样；</br>注：密码强度是app的要求，传入服务端为 密文， 密文= `aes（sha256（password））`,aes的秘钥本文档不提供，开发时再由双发约定|  
+| captcha     | String | Body| no |验证码，4位字母和数字组合。</br>当密码输入错误三次及以上，强制用户输入验证码，如输入5次，锁定账号5小时|  
 
 
-**Output parameters**  
+**输出参数**  
 
-|   name      |     types      | location  |required |description|
+|   参数名      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| accessToken   |   String |  Header   |  yes   |  Security token  |  
-| userId   |   String |  Body   |  yes   | User id, user ID   |
-| status   |   String |  Body   |  yes   | 0:activation   1:inactivation   |  
+| accessToken   |   String |  Header   |  是   |  安全令牌  |  
+| userId   |   String |  Body   |  是   | 用户标识  |
+| status   |   String |  Body   |  是   | 0:激活   1:未激活   |  
 
 
 
-##### 2、Request sample  
+##### 2、请求样例  
 
-**User request**
+**请求明细**
 ```java  
+POST	/uam/v1/security/login
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -227,19 +227,17 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+
 Body
 {
   "loginId": "14759167292@qq.com",
   "password": " Abcd!123456"
 }
-
-
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 Header：
@@ -249,53 +247,49 @@ body
   "retCode": "00000",
   "retInfo": "成功", 
   "userId ": "1234567",
-"status":"0"
+  "status":"0"
 }
-
-
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00002   |  Account or password error|  &emsp;   |    
-| D00009   |   Logon failure exceeded limit, need to use authentication code login |  After the login failed twice, start the verification code login  |   
-| D00010   |  Account locked|  After 5 failed login attempts, lock the account   |  
-| D00015   |  Verification code error|   &emsp;   |  
+##### 3、错误码 
 
-#### Resend activation email
-> After the registration is successful, but the user fails to receive the activation email due to the mail network, etc., and the user receives the activation email but does not perform the activation, and the activation email expires, the user can resend the activation through the interface. mail. The prerequisite for using this interface is that the user has already registered but is not activated. The activation time for the activation email is 120 minutes. Can be accessed without login.     
+> D00002、D00009、D00010、D00015
+ 
+
+#### 发送激活邮件
+> 在注册成功后，但因邮件网络等原因，用户未能收到激活邮件的情况，以及用户收到激活邮件但没有执行激活，导致激活邮件过期等情况下，可通过本接口向用户重新发送激活邮件。</br>
+> 使用本接口的前提条件是用户已经注册，但未激活。激活邮件的有效时间为120分钟。不需登录可以访问。   
   
 
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/security/sendActiveMail`  
+?> **接入地址：**  `/uam/v1/security/sendActiveMail`  
  **HTTP Method：** POST  
  **Token authentication：** No  
 
 **Input parameters**  
 
-| parameter name        | types          | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| loginId     | String | Body| yes|Mailbox, need to match the mailbox format Use the following regular expression:`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+| loginId     | String | Body| yes|邮箱，需要符合邮箱格式，使用如下正则表达式：`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|  
    
  
 
 
-**Output Parameters**  
-**Output standard output parameters.**
+**输出参数** 标准输出参数  
 
-|   name      |     types      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
 
-##### 2、Request sample  
+##### 2、请求样例  
 
 **User request**
 ```java  
+POST
+
+/uam/v1/security/sendActiveMail`
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -304,63 +298,54 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+
 Body
 {
   "loginId": "14759167292@qq.com"
 }
-
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
     "retCode": "00000",
     "retInfo": "成功!"
 }
-
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00011   |  Account not activated|  &emsp;   |    
-| D00017   |  Account does not exist |  &emsp;  |   
 
-#### Log out
->Mobile APP users exit the Haier U+ cloud platform interface  
+> D00011、D00017
 
-##### 1、Interface definition
+#### 退出登录
 
-?> **Access address：**  `/uam/v1/security/logout`  
- **HTTP Method：** POST  
- **Token authentication：** Yes  
+> 移动APP用户退出Haier U+ 云平台接口
 
-**Input parameters**  
+##### 1、接口定义
 
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|    |  | ||&emsp;|   
+?> **接入地址：**  `/uam/v1/security/logout`  
+ **HTTP Method：** POST   </br>
+ **Token验证：** 是  
+
+**输入参数** 无输入参数  
+
    
- 
+**输出参数**  输出标准输出参数
 
+##### 2、请求样例  
 
-**Output parameters**  
-**Output standard output parameters.**
+**请求明细**
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
+```java
+POST
 
-##### 2、Request sample  
+/uam/v1/security/logout
 
-**User request**
-```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -369,10 +354,8 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-
 ```  
 
 **Request response**
@@ -382,51 +365,44 @@ Content-type: application/json
   "retCode": "00000",
   "retInfo": "成功"
 }
-
-
 ```
 
 ##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00005   |  The Token is not created by this application and does not pass Token validation.|  Operation is successful  |    
-| D00016   |  You are logged out or not logged in |  &emsp;  |   
+
+> D00005、D00016
 
 
-#### Query user information
->Obtain user information based on the registrant token.  
-
-
-  
+#### 查询用户信息
+> 根据登录者token，获取用户信息
 
 
 ##### 1、Interface definition
 
-?> **Access address：**  `/uam/v1/users/get`  
+?> **接入地址：**  `/uam/v1/users/get`  
  **HTTP Method：** POST  
- **Token authentication：** Yes  
+ **Token验证：** 是  
 
-**Input parameters**  
-
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|    |    |     |     |  &emsp;   |   
+**输入参数** 无输入参数  
 
 
 
-**Output parameters**  
+**输出参数**  
 
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-| userProfile     | Map | Body| no|User extension information, including nicknames, avatars, etc|  
+|   参数名      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------|
+| userProfile     | Map | Body| 否|用户扩展信息,包括昵称、头像等。|  
 
 
-##### 2、Request sample  
+##### 2、请求样例
 
-**User request**
+**请求明细**
 ```java  
+POST
+
+/uam/v1/users/get
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -435,83 +411,80 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 {
-  “retCode”: “00000”,
-  “retInfo”: “正确”,
-  “userProfile”: {
-“nickName”: ,
-“avatar”: ,
-       “phone”: ,
-       “updateTime”: “20141115”,
-       “status”: null,
-       “tel”: “0596”,
-       “applyTime”: null,
-       “idcard”: null,
-       “companyName”: null,
-       “type”: null,
-       “postcode”: null,
-       “legalPerson”: null,
-       “contacts”: null,
-       “companyCode”: 333,
-       “businessLicense”: null,
-       “address”: “china”,
-       “contactsPhone”: null,
-       “email”: “848421322@qq.com”,
-       “QQ”: “848421322”,
-       “name”: “test”,
-       “realname”: “test”,
-       “idcardPhoto”: null
+	“retCode”: “00000”,
+	“retInfo”: “正确”,
+	“userProfile”: 
+	{
+		“nickName”: ,
+		“avatar”: ,
+		“phone”: ,
+		“updateTime”: “20141115”,
+		“status”: null,
+		“tel”: “0596”,
+		“applyTime”: null,
+		“idcard”: null,
+		“companyName”: null,
+		“type”: null,
+		“postcode”: null,
+		“legalPerson”: null,
+		“contacts”: null,
+		“companyCode”: 333,
+		“businessLicense”: null,
+		“address”: “china”,
+		“contactsPhone”: null,
+		“email”: “848421322@qq.com”,
+		“QQ”: “848421322”,
+		“name”: “test”,
+		“realname”: “test”,
+		“idcardPhoto”: null
   }
 }
-
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00008   |  Illegal user|  AccessToken error  |    
+##### 3、错误码
+
+> D00008
   
 
-#### User information modification
->Modify the extended attribute of the currently logged in user according to the token of the logged in person  
+#### 用户信息修改
+
+> 根据登录人员的token，修改当前登录用户的扩展属性
   
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/users/update`  
+?> **接入地址：**  `/uam/v1/users/update`  
  **HTTP Method：** POST  
- **Token authentication：** Yes  
+ **Token验证：** Yes  
 
-**Input parameters**  
+**输入参数**  
 
-| parameter name        | types          | location  | requierd|description|
+| 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| userProfile     | Map | Body| yes|User extension information, including nicknames, avatars, etc.|    
+| userProfile     | Map | Body| 是|用户拓展信息，包括昵称、头像等|    
 
 
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |  | ||&emsp;| 
+**输出参数**  标准输出参数
 
 ##### 2、Request sample  
 
 **User request**
 ```java  
+POST
+
+/uam/v1/users/update
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -520,29 +493,28 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+
 Body
 {
-  "userProfile": {
-"nickName": ,
-"avatar": ,
-       "updateTime": "20141115",
-       "tel": "0596",
-       "companyCode": 333,
-       "address": "china",
-       "email": "848421322@qq.com",
-       "QQ": "848421322",
-       "name": "test",
-       "realname": "test"
+	"userProfile": 
+	{
+		"nickName": ,
+		"avatar": ,
+		"updateTime": "20141115",
+		"tel": "0596",
+		"companyCode": 333,
+		"address": "china",
+		"email": "848421322@qq.com",
+		"QQ": "848421322",
+		"name": "test",
+		"realname": "test"
   }
 }
-
-
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 {
@@ -552,43 +524,40 @@ Body
 
 ```
 
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00008   |  Illegal user|  AccessToken error  |   
+##### 3、错误码
+
+> D00008
+ 
     
-#### Apply for reset password
->When the user requests to reset the password, the user will send a link to reset the password in the user's mailbox, and the user clicks the link to reset the password.      
+#### 申请重置密码
+> 用户申请重置密码，会往用户邮箱中发送重置密码的链接，用户点击链接进行重置密码操作。     
  
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/security/pwd/applyReset`  
+?> **接入地址：**  `/uam/v1/security/pwd/applyReset`  
  **HTTP Method：** POST  
- **Token authentication：** No  
+ **Token验证：** 否  
 
 **Input parameters**  
 
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|   loginId   | String | body | yes | Mailbox, need to match the mailbox format Use the following regular expression:^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$|      
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+|   loginId   | String | body | 是 | 邮箱地址，需要符合邮箱格式,使用如下正则表达式：`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|      
 
 
-**Output parameters**  
-
-**Output standard output parameters.**
-
-|   name      |     types      | location  |requierd |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;  |  
- 
+**输出参数** 标准输出参数 
 
 ##### 2、Request sample  
 
-**User request**
+**请求明细**
 ```java  
+POST
+
+/uam/v1/security/pwd/applyReset
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -597,9 +566,9 @@ sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
 timestamp: 1491014447260 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+
 Body
 {
   "loginId": "13679101193@qq.com"
@@ -607,50 +576,51 @@ Body
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
-
-{"retCode":"00000","retInfo":"操作成功"}
-
+{
+	"retCode":"00000",
+	"retInfo":"操作成功"
+}
 ```
 
-##### 3、error code    
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| D00011   |  Account not activated|  &emsp;  |   
-| D00017   |  Account does not exist|  &emsp;  |   
+##### 3、错误码
 
-#### Get image verification code
->Get image verification code.      
+> D00011、D00017
+
+
+#### 获取图片验证码
+
+> 获取图片验证码   
  
 
-##### 1、Interface definition
+##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/security/captcha`  
+?> **接入地址：**  `/uam/v1/security/captcha`  
  **HTTP Method：** POST  
- **Token authentication：** No  
+ **Token验证：** 否  
 
-**Input parameters**  
 
-| parameter name        | types          | location  | requierd|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|    |    |     |     |  &emsp;  |  
       
 
 
-**Output parameters**  
+**输出参数**  
 
-File stream，image/png
+文件流，image/png
 response.setContentType("image/png");
 
 
-##### 2、Request sample  
+##### 2、青青妞样例  
 
-**User request**
+**请求明细**
 ```java  
+POST
+
+/uam/v1/security/captcha
+
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -665,7 +635,7 @@ Content-type: application/json
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 
@@ -677,186 +647,7 @@ Pragma: No-cache
 PATH=/; DOMAIN=.rd139.com;
 Content-Type: image/png
 Content-Length: 1381
-
 ```
-
-##### 3、error code    
-> See the home page public error code  
-
-
-
-### Capability class interface
-> API interface overview
-
-| API name        | effect          | Whether open | Special Note|
-| ------------- |:-------------:|:-----:|:-------------:|
-| Get app version information     | Get app version information | yes|  no |  
-| Upload resource file    | Upload resource files to the server | yes| no|   
-
- 
-
-#### Get app version information 
-> Get app version information     
-
-
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uas/v1/appVersion/getLatest`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types         | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:---------:|
-| appId     | String | Header| yes| AppId  |
-
-**Output parameters**  
-
-|   name      |     types      | location  |location |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  version |  String  |  Body  |  yes  |  Version number (format 2015110501) |  
-|  versionName |  String  |  Body  |  yes  |  Version name, which can be returned as an empty string |  
-|  description |  String  |  Body  |  yes  | Description, can return an empty string |  
-|  resId |  String  |  Body  |  yes  |  The resource number or the url of the resource store can be returned as an empty string |  
-|  status |  String  |  Body  |  yes  |  App status |  
-|  force |  String  |  Body  |  yes  |  Whether to force |  
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:    
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-" appId ":"MB-UZHSH-0000"
-}
-
-```  
-
-**Request response**
-
-```java
-{
-  "retCode": "00000",
-  "retInfo": "成功",
-  "data": {
-    "version": "20140911",
-    "versionName": "V01.10.15.09101",
-    "description": "V01.10.15.09101",
-    "resId": "/uam/v1/resource/enabling/uzhsh/100013957366155388.jpg ",
-    "status": 1,
-    "force": "true"
-  }
-}
-
-```
-
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|  
-| B00001   |  Lack of required parameters|  AppId is empty  |   
-| C00002  |  Appserver has no access|  Appserver has no access  |    
-| C00006  | Product configuration information is empty|  Product configuration   |   
-| C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
-| D00001  |  Digital signature error|  ThDigital signature error |  
-
-#### Upload resource file 
-> Upload the resource file to the server. (Note: To use this interface, you need to contact the capability administrator first, upload and authorize the APPId, and configure the file format and size of the uploaded resource. Otherwise, there is no error in returning the file configuration.)  
-  
-
-
-##### 1、Interface definition
-
-?> **Access address：**  `/uas/v1/resource/uploadFile`  
- **HTTP Method：** POST
-
-**Input parameters**  
-
-| parameter name        | types        | location  | required|description|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
-| file     | multipart/form-data | Body| yes|Uploaded file|  
-| description     | String | Body| yes|PFile description, within 255 characters |  
-| ownerType     | Integer | Body| yes |Owner type: 0: user, 1: device, 9: other|  
-
-
-**Output parameters**  
-
-|   name      |     pypes      | location  |required |description|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-| resourceInfo  |   ResourceInfo |  Body   |  yes   |  Uploaded resource information  |  
-
-
-
-
-##### 2、Request sample  
-
-**User request**
-```java  
-Header：
-appId: MB-FRIDGEGENE1-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT1OY0RUUAH5D242SB68E9WX0W930  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-"description":"Test file upload new interface",
-"ownerType":0
-}
-
-
-
-```  
-
-**Request response**
-
-```java
-{
-"retCode": "00000",
-"retInfo": "成功"，
-"resourceInfo":{
-		"id":30121,
-"createTime":"2016-09-22 16:09:14",
-"description":"Test file upload new interface",
-"fileType":"png",
-"ownerType":0,
-"fileName":"table.png",
-"systemId":"SV-UZHSH-0000",
-"url":"/uam/v1/resource/enabling/uzhsh/100013957366155388.jpg",
-"creator":"100013957366155388"
-}
-}
-```
-
-##### 3、error code  
-|   errorcode      |     description      | scenario  |  
-| ------------- |:----------:|:-----:|   
-| C00002  |  Appserver has no access|  Appserver has no access  |   
-| C00004   | Insufficient operation permission|  Size format error  |   
-| C00006  | Product configuration information is empty|  Product configuration   |   
-| C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
-| D00008  | Illegal user| AccessToken error |  
-
 
 
 [^-^]:文本连接注释
