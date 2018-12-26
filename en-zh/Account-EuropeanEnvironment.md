@@ -12,15 +12,20 @@
  
 **账号基础能力**  
 1、	IOT平台账号注册：使用此接口用户可以使用手机或邮箱注册IOT账号，并调用验证码接口获取验证码，进行注册激活  
+
 2、	IOT平台账号登录与退出，进行登录验证获取系统创建的安全令牌（accessToken），系统校验accessToken进行用户退出登录。  
+
 3、	IOT账号验证码申请与验证，使用此接口可以申请和验证手机或邮箱的验证码保证注册、登录的安全性。  
 
 **账号信息相关能力**  
+
 1、	查询IOT平台账号信息，请求获取用户信息（包括id、loginName、email、mobile等用户属性）。
+
 2、	修改IOT平台账号信息，用户主动修改其应用属性信息、用户基础属性等，需要进行权限认证。  
 
 **账号体系关联能力**  
-1、	第三方社交账号登录，支持QQ、微信、微博、豆瓣、人人网账号登录。
+1、	第三方社交账号登录，支持facebook，twitter，amazon 等社交账号登录。
+
 2、	开发者的自有账号登录，在U+IOT平台生成对应的暗账号并以U+账号身份进行用户授权登录到U+平台，开发者可建立其独立的开发者账号体系。
 
 
@@ -35,8 +40,9 @@
 
 
 - **海尔优家 开发者自有账号登录**
-> 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台；  
-该种对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈； 
+> 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台； 
+> 该对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈； 
+
 
 ### 应用场景
 **账号管理**  
@@ -51,6 +57,7 @@
 为切实保护用户隐私权，优化用户体验，海尔优家根据现行法规及政策，制定了海尔家电隐私权政策。海尔了解个人信息对客户的重要性，我们力求明确说明我们获取、管理及保护用户个人信息的政策及措施。
 
 在用户注册、下载更新、登录访问等情况下必须提供隐私权政策的内容或指向所在页面，且需要用户点击表示“同意”隐私权政策，不能太过隐蔽、不能设置默认“同意”；
+
 在获得用户“同意”之后，也要确保用户在使用的过程中可以随时便利查看到隐私权政策全文，不能隐藏起来不展示。
 
  **开发者需提供使用海尔优家账号服务应用的用户服务协议条款请联系**[**海尔优家商务BD**](zh-cn/Business)，**我们为应用配置对应的隐私权政策及服务协议条款**
@@ -377,13 +384,12 @@ OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
 
 ##### 2、请求样例  
 
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
-```  
+**请求明细**  
+```java
+POST
 
-**User request**
-```java  
+https://uws-euro.haieriot.net/uam/v2/user/registerEmailAcounnt
+
 Header：
 Connection: keep-alive
 appId: MB-****-0000
@@ -402,14 +408,14 @@ Content-Length: 434
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-[no cookies]
 
 Body:
 {
 	"email": "mzyc5-J0Cucq84wqFh7KfkWWqd3P3EagdvW2Eb8f6fqoQ3oX1Llhdt2o_YRpnu0D6xLUeocU7ckagnr5YlpNwh2OlVO6SKUNsmp9sXetFpjd9riOFeaJRqGeta8oPDMqPOnTIGt-9XaZ4nr5v2zH44eNalPSwL1kyUykVdHjbrU",
 	"password": "ZrZjvu0dpDNqKoQDUHCnyPyNw1gpvy6_b3BoVRQnpPW4Gj31Ieyr8B0DkbiayEWV2x5slwqvf4HU_b-ZF_NdMC-V_OQ5VZxZixqmH-piZ8uAMzmZaiVf5Hxn26g6w1x679Oma2xiEnRdm2YpsVKhzwHiBn0-uZxNQnUxLZ9YI6k",
 	"msgCode": "050289",
-	"userProfile": {
+	"userProfile": 
+	{
 		"name": "test"
 	},
 	"captcha": "dmpp"
@@ -419,7 +425,7 @@ Body:
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 {
@@ -442,10 +448,10 @@ Body:
 
 ##### 1、接口定义
 
-?> **接入地址：**  `/uam/v2/user/loginEmailAcounnt`  
- **HTTP Method：** POST  
- **前置条件:** 用户使用邮箱注册账号
- **Token 验证：** 否  
+?> **接入地址：**  `/uam/v2/user/loginEmailAcounnt`  </br>
+ **HTTP Method：** POST  </br>
+ **前置条件:** 用户使用邮箱注册账号 </br>
+ **Token 验证：** 否  </br>
 
 **输入参数**  
 
@@ -467,13 +473,12 @@ Body:
 
 ##### 2、请求样例 
 
-**Request address**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
-```
+**请求明细**  
+```java
+POST
 
-**User request**
-```java  
+https://uws-euro.haieriot.net/uam/v2/user/loginEmailAcounnt
+ 
 Header：  
 Connection: keep-alive
 appId: MB-****-0000
@@ -492,7 +497,6 @@ Content-Length: 385
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-[no cookies]
 
 Body:
 {
@@ -504,7 +508,7 @@ Body:
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 {

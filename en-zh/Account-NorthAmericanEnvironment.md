@@ -1,58 +1,75 @@
 
->  **current version**：[UWS Accountservice V1.4.0](en-us/ChangeLog/Account)  
- **Update time**：{docsify-updated} 
+>  **当前版本**：[UWS 账号服务 北美版 V1.4.0](en-us/ChangeLog/Account)  
+ **更新时间**：{docsify-updated} 
 
 
-### Introduction
+### 简介
 
-> The account service is designed to provide access control services covering the entire process of the IoT, and to build a unified user login system for developers.   
+> 账号服务旨在提供涵盖物联全流程的访问控制服务，为开发者搭建统一的用户登录系统。  
 
-By integrating the U+IOT platform account service, the developer not only provides account management services such as registration, login, and password recovery of user accounts, but also helps developers to build unified control including device and user rights management. Consistent IOT systemic control mode.  
+开发者通过集成U+IOT平台账号服务，不仅提供用户账号的注册、登录、找回密码等账户管理服务，同时帮助开发者构建包括物联设备的统一控制、设备与用户权限管理等在内的一致性的IOT系统化管控模式。
 
-![账户图片][account_type]  
-
-**Account base capability**  
-1. IOT platform account registration: Users can use this interface to register an IOT account with a mobile phone or email, and call the verification code interface to obtain a verification code for registration activation.    
-2. The IOT platform account login and logout, login authentication to obtain the security token (accessToken) created by the system, and the system verifies the accessToken for the user to log out.    
-3. IOT account verification code application and verification. Use this interface to apply for and verify the verification code of the mobile phone or mailbox to ensure the security of registration and login.  
-
-**Account system association ability**   
+![账户图片][account_type]
  
-1. Third-party social account login, support QQ, WeChat, Weibo, Douban, Renren account login.   
-2. The developer's own account login, generate the corresponding dark account on the U+IOT platform and authorize the user to log in to the U+ platform as the U+ account. The developer can establish its own independent developer account system.  
+**账号基础能力**  
 
-### Noun explanation
+1、	IOT平台账号注册：使用此接口用户可以使用手机或邮箱注册IOT账号，并调用验证码接口获取验证码，进行注册激活
+  
+2、	IOT平台账号登录与退出，进行登录验证获取系统创建的安全令牌（accessToken），系统校验accessToken进行用户退出登录。  
 
+3、	IOT账号验证码申请与验证，使用此接口可以申请和验证手机或邮箱的验证码保证注册、登录的安全性。  
 
-- **Haier U+ OAuth**
-> Refers to the OAuth service provided by Haier Youjia, which requires the use of Haier Youjia account for login authorization.  
+**账号信息相关能力**  
 
-Since Haier account has Haier Youjia account right at the same time, Gu can also use Haier account to log in under this kind of authorization service;Haier account and Haier Youjia account one-way interoperability, with Haier excellent home OAuth authority does not mean that Haier Group's business authority.  
+1、	查询IOT平台账号信息，请求获取用户信息（包括id、loginName、email、mobile等用户属性）。
 
+2、	修改IOT平台账号信息，用户主动修改其应用属性信息、用户基础属性等，需要进行权限认证。  
 
-- **Haier U+  Developer Account Login**
-> It means that the developer has an account system and wants to use the own account system to log in to the Haier Youjia platform. 
+**账号体系关联能力**  
 
-Haier Youjia provides inter-platform account docking solution, with standard OAuth scheme and application front-end scheme. This kind of docking method requires offline application process. If there is demand, it can be feedback in the developer community, or through Haier Youjia Business BD feedback.  
+1、	第三方社交账号登录，支持QQ、微信、微博、豆瓣、人人网账号登录。
 
-### Application scenario
-**Account management**  
-Developers do not have an account system and can integrate U+ account related services.  
-
-**Developer account**  
-Developers have their own account system, accessing U+ account services through cloud-connected interconnection.  
+2、	开发者的自有账号登录，在U+IOT平台生成对应的暗账号并以U+账号身份进行用户授权登录到U+平台，开发者可建立其独立的开发者账号体系。
 
 
-### Security of user password  
+### 名词解释
 
-#### Safety instructions  
-Since openapi USES md5+salt password processing mode, if the uws-uam interface also USES md5 mode, the app needs to transmit the password in clear text, which will reduce the security of the entire original gea environment, so the app transmission password must be encrypted. The login is encrypted as sha256, and the password is encrypted as sha256 when registering. Aes is used for encryption and base64 encoding.  
-#### Password flow  
-![密码传输流程图片][account_PasswordFlow]
-#### Cipher encryption and decryption algorithm  
-algorithm:aes  
-secret key:App encryption and server decryption use the same secret key  
-algorithm code:  
+- **海尔优家 OAuth**
+> 指海尔优家对外提供的OAuth服务，需要使用海尔优家账号进行登录授权；
+
+
+- **海尔优家 第三方登录**
+> 指使用第三方平台账号登录海尔优家平台，如微信、京东、淘宝等；
+
+
+- **海尔优家 开发者自有账号登录**
+> 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台；  
+该种对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈； 
+
+### 应用场景
+**账号管理**  
+开发者没有账户系统，可集成U+账号的相关服务。  
+
+**开发者账号**  
+开发者有自己的账户系统，通过云云对接互联方式接入U+账户服务。  
+
+### 用户密码的安全性
+#### 安全性说明
+
+由于openapi使用md5+salt 密码处理方式，如果uws-uam接口也使用md5方式，需要app将密码明文传输，此方式会降低整个原gea环境的安全性，所以app传输密码必须加密。登录加密为sha256，注册时需将密码加密为sha256，再利用aes加密为密文，base64编码。
+
+ 
+##### 密码传输流程  
+![密码传输流程图片][account_liucheng]  
+
+##### 密码加密和解密算法
+算法：RSA
+
+秘钥长度:1024
+
+秘钥：app端持有公钥，服务端持有私钥，公钥私钥为一对秘钥，公钥加密，私钥解密
+
+算法代码：
 
 ```java
 import javax.crypto.Cipher;
