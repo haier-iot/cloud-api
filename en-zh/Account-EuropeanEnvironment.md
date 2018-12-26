@@ -365,20 +365,20 @@ OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
 
 ?> **接入地址：**  `/uam/v2/user/registerEmailAcounnt`  
  **HTTP Method：** POST  
- **前置条件:** 获取验证码
+ **前置条件:** 获取验证码   </br>
  **Token 验证：** 否  
 
 **输入参数**  
 
 | 参数名        | 类型         | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 |email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
 |password|String|Body|是|	密码需使用公钥加密，后端服务解密并校验规则。</br>服务端校验规则：大小写字母、数字、特殊字符三种或三种以上</br> `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
 |captcha|	String|	Body|	Yes	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。</br>根据需求msgCode验证失败超过三次需强制用户输入图形验证码|
 |userProfile|Map|Body|否|添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。|
 |msgCode|String|	Body|	是	| 验证码,注册前用户申请验证,发送至用户邮箱，注册时需填写此验证码，6位随机数字|
 
-
+**输入参数**  标准输出参数
 
 
 
@@ -456,7 +456,7 @@ Body:
 **输入参数**  
 
 | 参数名       | 类型        | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 | email    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
 | password     | String | Body| 是|需使用公钥加密，后端服务解密并校验规则 |  
 | captcha     | String | Body| no |图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。登录输入错误的密码，次数大于等于三次时必须输入图形验证码。当用户输入错误密码5次时,锁定账号5小时|  
@@ -465,7 +465,7 @@ Body:
 **输出参数 **  
 
 |   参数名      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ------------- |:----------:|:-----:|:--------:|:---------|
 | accessToken   |   String |  Body   |  是   |   安全令牌  |  
 | refreshToken   |   String |  Body   |  是   |   刷新令牌 |  
 | scope   |   String |  Body   |  是   |   访问资源的范围 |  
@@ -548,13 +548,12 @@ Body:
 
 
 ##### 2、请求样例   
-**请求地址**  
-```
-https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
-```  
-
 **请求明细**
-```java  
+```java
+POST
+
+https://uws-euro.haieriot.net/uam/v2/user/applyVerificationCode
+
 Header：
 Connection: keep-alive
 appId: MB-****-0000
@@ -573,14 +572,11 @@ Content-Length: 194
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-[no cookies]
-
 Body:
 {
 	"email": "Vfg5EFcuBWBMhs7MkSfWkXmvNaE0uuUcF6abMJ1NrrpaWbNwD9qVndJABZeHm0OJL4Lndxih1HMuB16lWWPSupFybylkgl-ztjjKhoPc2K7QCLV0n2i73ei2LhTLIZdQ_VsPUhtM9jET50MFNRDAUpnBHwQwrj2JUDi0SAztMbg",
 	"type": "2"
 }
-
 ```  
 
 **返回结果**
@@ -601,19 +597,18 @@ Body:
 
 #### 使用邮箱重置密码
 > 重置密码，需要先申请验证码
-
-  
+ 
 ##### 1、接口定义
 
 ?> **接入地址：**  `/uam/v2/user/resetPassword`  
  **HTTP Method：** POST  
- **前置条件:** 用户注册，获取验证码
+ **前置条件:** 用户注册，获取验证码  </br>
  **Token 验证：** 否  
 
 **输入参数**  
 
 | 参数名         | 类型          | 位置  |必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 |email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
 |password|String|Body|是|新密码：需使用公钥加密。长后端服务解密并校验规则，|  
 |captcha|	String|	Body|	否	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。对于同一App、同一手机终端邮箱验证码连续校验失败3次后需启用图形验证码进行验证，3次可配置，默认为3次。邮箱验证码校验成功后，允许失败次数重新恢复为0|  
@@ -624,13 +619,14 @@ Body:
 **输出参数：**标准输出参数  
 
 ##### 2、请求样例  
-**请求地址 **  
-```
-https://uws-euro.haieriot.net/uam/v2/user/resetPassword
-```
 
 **请求明细**
-```java  
+
+```java
+POST
+
+https://uws-euro.haieriot.net/uam/v2/user/resetPassword
+ 
 Header：
 Connection: keep-alive
 appId: MB-****-0000
@@ -649,8 +645,6 @@ Content-Length: 404
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-[no cookies]
-
 Body:
 {
 	"email": "qra5hNX9V5c57aj4mbjaxqnfcWbCBXncyNocZLvWfWRsMc1mJ2rnqUpELkgJ8qHJbKMkQgNUnDpvGN9Sj24LbvcL4a9UosZtpLRF4ZSGSiuXbpL75U0mSrkQvB8QulmW_tk9rLZP_cRPkImI_OS0ar24ZkO1yNnAA7y0XgsFXZs",
@@ -662,7 +656,7 @@ Body:
 
 ```  
 
-**请求应答 **
+**应答明细**
 
 ```java
 {
@@ -700,17 +694,16 @@ Body:
 
 
 
-**输出参数： **标准输出参数  
+**输出参数：**标准输出参数  
 
 
 ##### 2、Request sample  
-**Request address**  
-```
-https://uws-euro.haieriot.net/uam/v2/user/changePassword
-```  
 
-**User request**
-```java  
+**请求明细**  
+
+```java
+https://uws-euro.haieriot.net/uam/v2/user/changePassword
+
 Header：
 Connection: keep-alive
 appId: MB-****-0000
@@ -729,8 +722,6 @@ Content-Length: 391
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-[no cookies]
-
 Body:
 {
 	"password":"M86jq-ZxErDwBcy_p2gztuBKVbk_nlrHTvePtQP2YGqzXW5q6zbY-a5sV7rltbLD8Kl4Jc8O6emWz3zEOeANJfVQkIbjq2wPc4XEeHls3AwVqnDR6GB2ncljRvX-ZlD2UHcM4AzuJk3I-stOYLnbTPVoDTSxbyNfxEREXq2e2ZI",
@@ -739,15 +730,13 @@ Body:
 }
 ```  
 
-**请求应答 **
+**应答明细 **
 
 ```java
 {
   “retCode”: “00000”,
   “retInfo”: “成功”,
 }
-
-
 ```
 
 ##### 3、error code  
@@ -762,7 +751,7 @@ Body:
 
 ?> **接入地址：**  `/uam/v2/mgr/getPublicKey`  
  **HTTP Method：** POST  
- **编制条件:** 使用有效的appid
+ **编制条件:** 使用有效的appid  </br>
  **Token 验证：** 否 
 
 **输入参数：** 无输入参数  
@@ -773,13 +762,10 @@ Body:
 
 ##### 2、请求样例   
 **请求地址**  
-```  
-https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
-```  
+```java
+POST
 
-**User request**
-```java  
-[no cookies]
+https://uws-euro.haieriot.net/uam/v2/mgr/getPublicKey
 
 Request Headers:
 Connection: keep-alive
@@ -801,7 +787,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
-**请求应答**
+**应答明细**
 
 ```java
 {
@@ -823,13 +809,13 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ?> **接入地址：**  `/uam/v2/mgr/verifyPublicKey`  
  **HTTP Method：** POST  
- **前置条件:** 获取公钥
+ **前置条件:** 获取公钥  </br>
  **Token 验证：** 否 
 
 **输入参数**  
 
 | 参数名        | 类型          | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 |   sn   | String | body | 是 | 需使用公钥加密时间戳，后端服务解密成功，验证为时间戳数字即正确|      
 
 
@@ -837,13 +823,12 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
  
 
 ##### 2、请求样例   
-**请求地址**  
-```
-https://uws-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
-```  
-
 **请求明细**
 ```java  
+POST
+
+https://uws-euro.haieriot.net/uam/v2/mgr/verifyPublicKey
+
 Header：
 Connection: keep-alive
 appId: MB-****-0000
@@ -862,10 +847,6 @@ Content-Length: 180
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
-
-[no cookies]
-
-
 Body:
 	{
 	"sn":"V3O5gPCk9JQm_lPiScTeyDXpf-6pIb4Vl0mR9fB7cUocn_RQizg0ica0bJ0-65fJpLolkCNiVZ78jTDfTlj6o_HraGUiIpz-sBp5UZrO6ffBIPr4LhPL1Aew3XNrThIQNlleVKDkLHrHq2hMXxLx9M6BQro_SfrrGdInxk9Fu8Y"
@@ -873,7 +854,7 @@ Body:
 
 ```  
 
-**Request response**
+**应答明细**
 
 ```java
 
@@ -885,7 +866,7 @@ Body:
 
 ```
 
-##### 3、error code    
+##### 3、错误码    
 
 > A00005、B00002    
 
@@ -896,7 +877,7 @@ Body:
 
 ?> **接入地址：**  `/uam/v2/user/captcha`  
  **HTTP Method：** POST  
- **前置条件:** 使用有效的appId、clientId
+ **前置条件:** 使用有效的appId、clientId  </br>
  **Token 验证：** 否 
 
 **输入参数：** 无输入参数  
@@ -909,13 +890,13 @@ Content-Type: image/png;charset=UTF-8
 
 
 ##### 2、 请求样例  
-**请求地址**  
-```  
-https://uws-euro.haieriot.net/uam/v2/user/captcha
-```  
 
 **请求明细 **
 ```java  
+POST
+
+https://uws-euro.haieriot.net/uam/v2/user/captcha
+
 Request Headers:
 Connection: keep-alive
 appId: MB-****-0000
@@ -936,30 +917,30 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
-**Request response**
+**应答明细**
 
 ![验证码图片][account_captcha] 
 
 
-##### 3、error code   
+##### 3、错误码   
 
 > C00001
 
 
-####	申请注销账号和设备信息
+####  申请注销账号和设备信息
 > 用户申请删除账号信息和设备绑定关系，并发邮件通知，用户申请成功后，账号不能登录，登录返回密码错误 
 
 ##### 1、接口定义
 
 ?> **接入地址：**  `/uam/v2/user/applyDeleteAccount`  
  **HTTP Method：** POST  
- **前置条件:** 用户登录，申请动态验证码 
+ **前置条件:** 用户登录，申请动态验证码  </br>
  **Token 验证：** 是  
 
 **输入参数**  
 
 | 参数名        | 类型          | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 | msgCode   | String |Body |是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|   
    
  
@@ -968,12 +949,12 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ##### 2、请求样例  
 
-**请求地址**
-```java  
-POST https://uws-euro.haieriot.net/uam/v2/user/applyDeleteAccount
-```
 **请求明细**
 ```java
+POST
+
+POST https://uws-euro.haieriot.net/uam/v2/user/applyDeleteAccount
+
 Request Headers:
 Connection: keep-alive
 appId: MB-****-0001
@@ -994,19 +975,18 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 POST data:
-	{
-		"msgCode":"123333"
-	}
+{
+	"msgCode":"123333"
+}
 ```  
 
-**请求应答**
+**应答明细**
 
 ```java
 {
   "retCode": "00000",
   "retInfo": "成功"
 }
-
 
 ```
 
@@ -1034,13 +1014,13 @@ POST data:
 
 ##### 2、请求样例   
 
-**请求地址 **
-```java  
-POST  https://uws-euro.haieriot.net/uam/v1/security/logout
-```
-
 **请求明细 **
-```java  
+
+```java 
+POST  
+
+https://uws-euro.haieriot.net/uam/v1/security/logout
+ 
 Header：
 appId:MB-****-0000
 appVersion:2015110401
@@ -1052,18 +1032,15 @@ timestamp:1446639090139
 language:zh-cn
 timezone:8
 Content-type: application/json
-
 ```  
 
-**请求应答：**
+**应答明细**
 
 ```java
 {
   "retCode": "00000",
   "retInfo": "成功"
 }
-
-
 ```
 
 ##### 3、错误码  
@@ -1088,19 +1065,20 @@ Content-type: application/json
 **输出参数：**  
 
 |   参数名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
+| ------------- |:----------:|:-----:|:--------:|:---------|
 userId|String|Body|是|账号唯一标示
 email|String|Body|是|账号邮箱地址，按需求进行脱敏处理
 | userProfile     | Map | Body| 否|用户扩展信息,包括昵称、头像等。|  
 
 
 ##### 2、请求样例  
-**请求地址**
-```java  
-POST  https://uws-euro.haieriot.net/uam/v1/users/get
-```
+
 **请求明细**
 ```java  
+POST  
+
+https://uws-euro.haieriot.net/uam/v1/users/get
+
 Header：
 appId:MB-****-0000
 appVersion:2015110401
@@ -1115,7 +1093,7 @@ Content-type:application/json
 
 ```  
 
-**返回结果**
+**应答明细**
 
 ```java
 {
@@ -1151,7 +1129,7 @@ Content-type:application/json
 
 ```
 
-##### 3、error code  
+##### 3、错误码
 
 > D00008   
 
@@ -1166,25 +1144,25 @@ Content-type:application/json
 
 ?> **接入地址 ：**  `/uam/v1/users/update`  
  **HTTP Method：** POST  
- **Token 验证：** Yes  
+ **Token 验证：** 是  
 
 **输入参数**  
 
 | 参数名        | 类型          | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 | userProfile     | Map | Body| 是|用户扩展信息,包括昵称、头像等|    
 
 
 **输出参数：** 标准输出参数  
 
 ##### 2、请求样例
-**请求地址**
-```java  
-POST  https://uws-euro.haieriot.net/uam/v1/users/update
-```
 
 **请求明细**
 ```java  
+POST  
+
+https://uws-euro.haieriot.net/uam/v1/users/update
+
 Header：
 appId:MB-****-0000
 appVersion:2015110401
@@ -1215,15 +1193,13 @@ Body:
 }
 
 ```  
-
-**请求应答**
+**应答明细**
 
 ```java
 {
   "retCode": "00000",
   "retInfo": "成功"
 }
-
 ```
 
 ##### 3、错误码
@@ -1234,31 +1210,30 @@ Body:
 #### 接受隐私条款V1
 > 用户接受隐私条款，记录隐私条款版本号 
 
-
 ##### 1、接口定义
 
 ?> **接入地址：**  `/uam /v1/security/acceptUserPrivacy`  
  **HTTP Method：** POST  
- **前置条件:** 登录状态 
+ **前置条件:** 登录状态  </br>
  **Token 验证：** 是  
 
 **输入参数**  
 
 | 参数名        | 类型          | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
 | privacyVersion    | String | Body| 是|隐私条款版本号|    
 
 
 **输出参数：** 标准输出参数  
 
-##### 2、Request sample  
-**请求地址**
-```java  
-POST  https://uws-euro.haieriot.net/uam/v1/security/acceptUserPrivacy
-```
-
-**User request**
+##### 2、请求样例
+  
+**请求明细**
 ```java
+POST  
+
+https://uws-euro.haieriot.net/uam/v1/security/acceptUserPrivacy
+
 Request Headers:
 Connection: keep-alive
 appId: MB-****-0001
@@ -1278,14 +1253,12 @@ Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5) 
 
 POST Data：
- 
-	{"privacyVersion":"V1.0.0"}
-
-
-
+{
+	"privacyVersion":"V1.0.0"
+}
 ```  
 
-**请求应答**
+**应答明细**
 
 ```java
 {
@@ -1304,18 +1277,20 @@ POST Data：
 > accessToken过期后，可以使用对应的refreshToken获取新的accessToken
 
 ##### 1、接口定义
-**接入地址：**`/uam/v2/auth/token`
-**HTTP Method:** POST
-**前置条件：**使用邮箱登录获取refreshToken
+?>**接入地址：**`/uam/v2/auth/token` </br>
+**HTTP Method:** POST  </br>
+**前置条件：**使用邮箱登录获取refreshToken   </br>
 **Token 验证：** 否
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 refreshToken|String|Body|是|app端持有refreshToken，用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken
 grantType|String|Body|是|授权方式，当前默认为refresh_token
 
 **输出参数：**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 accessToken|String|Body|是|安全令牌
@@ -1327,7 +1302,9 @@ expire|String|Body|是|有效期，单位秒
 
 **请求明细**
 ```java
-请求地址： POST   https://uws-euro.haieriot.net/uam/v2/auth/token
+POST  
+
+https://uws-euro.haieriot.net/uam/v2/auth/token
 
 Request Headers:
 Connection: keep-alive
@@ -1360,7 +1337,8 @@ POST data:
 	"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
 	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
 	"scope":"auth_app",
-	"expire":"2160000"}
+	"expire":"2160000"
+}
 
 ```
 ##### 3、错误码
@@ -1372,12 +1350,13 @@ POST data:
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
 
 ##### 1、接口定义
-**接入地址：**`/uam/v2/auth/shareCode`
-**HTTP Method:** POST
-**前置条件：** 登录app，可获取其他终端应用的appId和clientId
+?>**接入地址：**`/uam/v2/auth/shareCode`  </br>
+**HTTP Method:** POST		</br>
+**前置条件：** 登录app，可获取其他终端应用的appId和clientId		</br>
 **Token 验证：** 是
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 shareAppId|String|Body|是|请求分享会话的appId
@@ -1386,6 +1365,7 @@ accessToken|String|Body|是|请求分享会话的accessToken
 
 
 **输出参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 code|String|Body|是|会话分享验证码
@@ -1394,7 +1374,9 @@ code|String|Body|是|会话分享验证码
 **请求明细**
 ```java
 
-POST https://uws-euro.haieriot.net/uam/v2/auth/shareCode
+POST 
+
+https://uws-euro.haieriot.net/uam/v2/auth/shareCode
 
 Request Headers:
 Connection: keep-alive
@@ -1437,17 +1419,19 @@ POST data:
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程
 
 ##### 1、接口定义
-**接入地址：**`/uam/v2/auth/sharToken`
-**HTTP Method:** POST
-**前置条件：** 获取会发分享的验证码
+?>**接入地址：**`/uam/v2/auth/sharToken`  </br>
+**HTTP Method:** POST		</br>
+**前置条件：** 获取会发分享的验证码    </br>
 **Token 验证：** 否
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 code|String|Body|是|会话分享验证码
 
 **输出参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 accessToken|String|Body|是|安全令牌
@@ -1458,7 +1442,9 @@ expire|String|Body|是|有效期，单位秒
 ##### 2、代码样例
 **请求明细**
 ```java
-POST https://uws-euro.haieriot.net/uam/v2/auth/shareToken
+POST 
+
+https://uws-euro.haieriot.net/uam/v2/auth/shareToken
 
 POST data: 
 {
@@ -1504,12 +1490,13 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 > 用户使用第三方社交账号登录海尔app，通过第三方账号token获取海尔iot平台accessToken
 
 ##### 1、接口定义
-**接入地址：**`/uam/v1/thirdpart/social/getAccessToken`
-**HTTP Method:** POST
-**前置条件：** APP获取第三方社交账号的token
-**Token 验证：** 否
+?>**接入地址：**`/uam/v1/thirdpart/social/getAccessToken`  </br>
+**HTTP Method:** POST  </br>
+**前置条件：** APP获取第三方社交账号的token   </br>
+**Token 验证：** 否   </br>
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 thirdpartAccessToken|String|Body|是|第三方社交账号的token，通过第三方社交账号SDK获取的票据
@@ -1517,6 +1504,7 @@ socialType|String|Body|是|类别：facebook，twitter，amazon
 thirdpartOpenId|String|Body|否|当前接入Facebook，Twitter，Amazon需传openId，此参数非必填定义兼容后期无openId 的模式
 
 **输出参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 accessToken|String|Body|是|安全令牌
@@ -1527,15 +1515,9 @@ expire|String|Body|是|有效期，单位秒
 
 **请求明细**
 ```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getAccessToken
+POST 
 
-POST data:
-{
-	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
-	"socialType":"amazon","
-	thirdpartOpenId":"110347635"
-}
-
+https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getAccessToken
 
 Request Headers:
 Connection: keep-alive
@@ -1554,9 +1536,16 @@ Content-Length: 385
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
+POST data:
+{
+	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"socialType":"amazon","
+	thirdpartOpenId":"110347635"
+}
+
 ```
 
-**返回结果**
+**应答明细**
 
 ```java
 {
@@ -1577,13 +1566,14 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 > 用户使用自有账号登录iot平台，成功后登录第三方账号，与自有账号绑定成组；原第三方账号暗账号设备关系拷贝至自有账号下
 
-##### 1、接口定义
-**接入地址：**`/uam/v1/thirdpart/social/bindGroup`
-**HTTP Method:** POST
-**前置条件：** APP支持自有账号登录，和支持第三方账号登录
+##### 1、接口定义 
+?>**接入地址：**`/uam/v1/thirdpart/social/bindGroup` </br>
+**HTTP Method:** POST </br>
+**前置条件：** APP支持自有账号登录，和支持第三方账号登录 </br>
 **Token 验证：** 是
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 uhomeAccessToken|String|Body|是|自有账号登录的IOT平台accessToken
@@ -1594,15 +1584,9 @@ thirdpartUhomeAccessToken|String|Body|是|第三方账号登录的iot平台token
 ##### 2、请求样例
 **请求明细**
 ```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
+POST 
 
-POST data:
-{
-	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
-	"accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"
-}
-
-[no cookies]
+https://uws-euro.haieriot.net/uam/v1/thirdpart/social/bindGroup
 
 Request Headers:
 Connection: keep-alive
@@ -1620,6 +1604,12 @@ privacyVersion: V1.0.0
 Content-Length: 385
 Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+POST data:
+{
+	"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"
+}
 ```
 **输出结果**
 ```java
@@ -1639,14 +1629,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 > 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息
 
 ##### 1、接口定义
-**接入地址：**`/uam/v1/thirdpart/social/getBindingGroup`
-**HTTP Method:** POST
-**前置条件：** APP登录
+?>**接入地址：**`/uam/v1/thirdpart/social/getBindingGroup` </br>
+**HTTP Method:** POST  </br>
+**前置条件：** APP登录  </br>
 **Token 验证：** 是
 
 **输入参数：**无输入参数
 
 **输出参数**
+
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 group|String|Body|是|详见代码样例
@@ -1655,13 +1646,9 @@ group|String|Body|是|详见代码样例
 
 **请求明细**
 ```java
-POST https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getBindingGroup
+POST 
 
-POST data:
-{
-	
-}
-
+https://uws-euro.haieriot.net/uam/v1/thirdpart/social/getBindingGroup
 
 Request Headers:
 Connection: keep-alive
@@ -1687,7 +1674,8 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 {
     "retCode": "00000",
     "retInfo": "成功",
-    " groups": [
+    " groups": 
+	[
         {
             "userId": "1234",
             "openId": "11098764",
