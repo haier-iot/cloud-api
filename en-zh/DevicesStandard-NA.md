@@ -567,7 +567,7 @@ body：
 
 
 #### 获取设备别名
-> 查询设备别名s  
+> 查询设备别名  
 
 ##### 1、接口定义
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
