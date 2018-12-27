@@ -238,46 +238,47 @@ Body
 |   错误码      |     描述      | 情景  |  
 | ------------- |:----------:|:-----:|   
 | B00001   | 缺少必填参数| 参数填写不全   |   
-| B00004   | The parameters do not conform to the rules | Parameter format error   |   
-| A00001   |  Service unavailable | Service unavailable  |   
-| D00006   | Session invalidation |  User session state does not exist  |    
-| G03002  | Equipment offline | The device cannot issue commands without being online |      
-| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+| B00004   | 参数不符合规则要求 |参数格式错误 |   
+| A00001   | 服务不可用 | 服务不可用  |   
+| D00006   | 会话失效|  用户会话状态不存在 |    
+| G03002  | 设备不在线 | 设备不在线无法下发命令|      
+| G20202  |当前用户与该设备不匹配 | 当前用户与该设备不匹配   |  
  
 
 
 
-#### User write attribute - asynchronous interface - standard model  
-> User write attribute - asynchronous interface, support attribute writing of standard model   
+#### 用户写属性-异步接口-标准模型
+> 用户写属性-异步接口，支持标准模型的属性写
 
-##### 1、Interface definition  
-
-?> **Access address：** `/udse/v1/propertyWrite`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/propertyWrite`</br>
 **HTTP Method：** POST
 
-**Input parameters**
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|   
-|deviceId|String|Body|yes|Device id|
-|sn|String|Body|yes|Operation serial number. Must be unique|
-|property|String|Body|yes|The attribute name of the device write attribute|  
-|value|String|Body|yes|The attribute name of the device write attribute|   
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token |  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|操作流水号，必须唯一
+property|String|Body|必填|设备写属性的属性名
+value|String|Body|必填|设备写属性的属性名
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
 
-**Output parameters** 
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|usn|String|Body|yes|Operation serial number|  
+##### 2、请求示例
 
-##### 2、Request sample
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/propertyWrite
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -294,20 +295,18 @@ Body
 	"value": "value",
 	"sn": "FJIJ2L3-FSFRFGRTWT-HYRH"",
 	"callbackUrl": "https://www.uhome.haier.net/callback.html"
-}  
-
+}
 ```
-**Request response**
+**请求应答**
 ```
 {
 	"retCode": "00000",
 	"retInfo": "成功!",
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
 }
+```
 
-```  
-
-**Operational response**
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -317,54 +316,52 @@ Body
 	"result": "ewogICAgImV4dERhdGEiOiB7fSwKICAgICJhcmdzIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiKioqIiwKICAgICAgICAgICAgInZhbHVlIjogIioqKiIKICAgICAgICB9CiAgICBdCn0=",
 	"resCode":0
 }
-
 ```
+##### 3、接口错误码  
 
-##### 3、Interface error code  
-
-|   errorcode      |     description      | scenario  |  
+|   错误码      |     描述      | 情景  |  
 | ------------- |:----------:|:-----:|   
-| B00001   |  Lack of required parameters| AppId is empty   |   
-| B00004   | The parameters do not conform to the rules | Parameter format error   |   
-| A00001   |  Service unavailable | Service unavailable  |   
-| D00006   | Session invalidation |  User session state does not exist  |    
-| G03002  | Equipment offline | The device cannot issue commands without being online |      
-| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+| B00001   |  缺少必填参数|appId为空  |   
+| B00004   | 参数不符合规则要求 | 回调地址格式不正确   |   
+| A00001   | 服务不可用 | 服务不可用  |   
+| D00006   |会话失效 | 用户会话状态不存在 |    
+| G03002  | 设备不在线| 设备不在线，不能发送命令 |      
+| G20202  | 当前用户与该设备不匹配|  当前用户与该设备不匹配 |  
  
 
 
-#### User Equipment Operation - Asynchronous Interface - Standard Model  
-> User device operation - asynchronous interface, supports standard model device operation  
+#### 用户设备操作-异步接口-标准模型
+> 用户设备操作-异步接口，支持标准模型设备操作
 
-##### 1、Interface definition
-?> **Access address：** `/udse/v1/operate`</br>
+##### 1、接口定义
+?> **接入地址：** `/udse/v1/operate`</br>
 **HTTP Method：** POST
 
-**Input parameters**  
+**输入参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|   
-|deviceId|String|Body|yes|Device id|
-|sn|String|Body|yes|Operation serial number. Must be unique|
-|operationName|String|Body|yes|Operation name|  
-|operationValue|List<OpPropertyValue>|Body|yes|A list of attribute values, determined by the model documentation, and required|  
-|callbackUrl|String|Body|yes|Operation response callback address, only supports http protocol|
-|accessToken|String|Header|yes|User token | 
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|必填|设备ID
+sn|String|Body|必填|设备操作请求序列号
+operationName|String|Body|必填|操作名称
+operationValue|List<OpPropertyValue>|Body|必填|属性值的列表，由模型文档决定是否必填及如何填
+callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
+accessToken|String|Header|必填|用户token
 
-**Output parameters**
+**输出参数**
 
-|parameter name|types|location|required|description |  
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|  
-|usn|String|Body|yes|Operation serial number|  
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|必填|操作序列号
 
 
+##### 2、请求示例
 
-##### 2、Request example
-
-**User request**
+**请求示例**
 ```
+请求地址：/udse/v1/operate
 Header：
-	appId:MB-ABC-0000
+	appId:SV-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -389,7 +386,7 @@ Body
 ```
 
 
-**Request response**
+**请求应答**
 ```
 {
 	"retCode": "00000",
@@ -397,7 +394,7 @@ Body
 	"usn": "600ce95da3e14fc7a68f483dd14db864"
 }
 ```
-**Operational response**
+**操作应答**
 ```
 {
 	"retCode": "00000",
@@ -408,24 +405,24 @@ Body
 	"resCode":0
 }
 ```
+##### 3、接口错误码 
 
-##### 3、Interface error code  
 
-|   errorcode      |     description      | scenario  |  
+|   错误码      |     描述      | 情景  |  
 | ------------- |:----------:|:-----:|   
-| B00001   |  Lack of required parameters| AppId is empty   |   
-| B00004   | The parameters do not conform to the rules | Parameter format error   |   
-| A00001   |  Service unavailable | Service unavailable  |   
-| D00006   | Session invalidation |  User session state does not exist  |    
-| G03002  | Equipment offline | The device cannot issue commands without being online |      
-| G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
+| B00001   |  缺少必填参数|appId为空  |   
+| B00004   | 参数不符合规则要求 | 回调地址格式不正确   |   
+| A00001   | 服务不可用 | 服务不可用  |   
+| D00006   |会话失效 | 用户会话状态不存在 |    
+| G03002  | 设备不在线| 设备不在线，不能发送命令 |      
+| G20202  | 当前用户与该设备不匹配|  当前用户与该设备不匹配 |  
  
-### UAdvanced authorization device control(Manufacturer authorized device management services)   
+### 高级授权设备控制(厂商授权设备管理服务)   
 
 
-> API interface overview  
+> API接口总览
 
-For specific interface service understanding and authorization, please contact [Haier U+ Business BD][Business].  
+详细服务了解和授权开通请联系[海尔优家商务BD][Business]。
 
 
 <!--  注释开始

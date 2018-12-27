@@ -415,7 +415,7 @@ Body
 | G03002  | Equipment offline | The device cannot issue commands without being online |      
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
  
-### UAdvanced authorization device control(Manufacturer authorized device management services)   
+### Advanced authorization device control(Manufacturer authorized device management services)   
 
 
 > API interface overview  
