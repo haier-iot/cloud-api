@@ -384,7 +384,7 @@ OEM APPID 限定为MB-OEM-0000,MB-OEM-0001
 
 ##### 2、请求样例  
 
-**请求明细**  
+**用户请求**  
 ```java
 POST
 
@@ -405,7 +405,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 434
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -425,7 +424,7 @@ Body:
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -473,7 +472,7 @@ Body:
 
 ##### 2、请求样例 
 
-**请求明细**  
+**用户请求**  
 ```java
 POST
 
@@ -494,7 +493,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -508,7 +506,7 @@ Body:
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -548,7 +546,7 @@ Body:
 
 
 ##### 2、请求样例   
-**请求明细**
+**用户请求**
 ```java
 POST
 
@@ -569,7 +567,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 194
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 Body:
@@ -620,7 +617,7 @@ Body:
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 
 ```java
 POST
@@ -642,7 +639,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 404
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 Body:
@@ -656,7 +652,7 @@ Body:
 
 ```  
 
-**应答明细**
+**用户请求**
 
 ```java
 {
@@ -683,7 +679,7 @@ Body:
  **前置条件:** 邮箱登录  
  **Token验证：** 是  
 
-**输入参数 **  
+**输入参数**  
 
 |  参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|  
@@ -694,12 +690,14 @@ Body:
 
 
 
-**输出参数：**标准输出参数  
+**输出参数：**  
+
+标准输出参数  
 
 
-##### 2、Request sample  
+##### 2、请求样例  
 
-**请求明细**  
+用户请求  
 
 ```java
 https://uws-euro.haieriot.net/uam/v2/user/changePassword
@@ -719,7 +717,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 391
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 Body:
@@ -730,7 +727,7 @@ Body:
 }
 ```  
 
-**应答明细 **
+**请求应答**
 
 ```java
 {
@@ -754,7 +751,9 @@ Body:
  **编制条件:** 使用有效的appid  </br>
  **Token 验证：** 否 
 
-**输入参数：** 无输入参数  
+**输入参数：** 
+
+标准输入入参数  
 
 
 **输出参数：** 输出公钥 publicKey 
@@ -782,12 +781,11 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 0
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -823,7 +821,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
  
 
 ##### 2、请求样例   
-**请求明细**
+**用户请求**
 ```java  
 POST
 
@@ -844,7 +842,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 180
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 Body:
@@ -854,7 +851,7 @@ Body:
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 
@@ -880,7 +877,9 @@ Body:
  **前置条件:** 使用有效的appId、clientId  </br>
  **Token 验证：** 否 
 
-**输入参数：** 无输入参数  
+**输入参数：** 
+
+标准输入参数    
      
 
 
@@ -891,7 +890,7 @@ Content-Type: image/png;charset=UTF-8
 
 ##### 2、 请求样例  
 
-**请求明细 **
+**用户请求 **
 ```java  
 POST
 
@@ -912,12 +911,11 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 0
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ![验证码图片][account_captcha] 
 
@@ -944,12 +942,14 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 | msgCode   | String |Body |是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|   
    
  
-**输出参数： ** 标准输出参数  
+**输出参数：**   
+
+标准输出参数  
 
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java
 POST
 
@@ -970,7 +970,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 20
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
@@ -980,7 +979,7 @@ POST data:
 }
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1004,17 +1003,21 @@ POST data:
  **HTTP Method：** POST  
  **Token 验证：** 是  
 
-**输入参数：** 无输入参数  
+**输入参数：** 
+
+标准输入参数  
    
  
 
 
-**输出参数：** 标准输出参数 
+**输出参数：** 
+
+标准输出参数 
 
 
 ##### 2、请求样例   
 
-**请求明细 **
+**用户请求 **
 
 ```java 
 POST  
@@ -1034,7 +1037,7 @@ timezone:8
 Content-type: application/json
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1058,7 +1061,9 @@ Content-type: application/json
  **HTTP Method：** POST  
  **Token 验证：** 是  
 
-**输入参数：** 无输入参数  
+**输入参数：** 
+
+标准输入参数  
 
 
 
@@ -1073,7 +1078,7 @@ email|String|Body|是|账号邮箱地址，按需求进行脱敏处理
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java  
 POST  
 
@@ -1093,7 +1098,7 @@ Content-type:application/json
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1157,7 +1162,7 @@ Content-type:application/json
 
 ##### 2、请求样例
 
-**请求明细**
+**用户请求**
 ```java  
 POST  
 
@@ -1193,7 +1198,7 @@ Body:
 }
 
 ```  
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1224,11 +1229,13 @@ Body:
 | privacyVersion    | String | Body| 是|隐私条款版本号|    
 
 
-**输出参数：** 标准输出参数  
+**输出参数：** 
+
+标准输出参数  
 
 ##### 2、请求样例
   
-**请求明细**
+**用户请求**
 ```java
 POST  
 
@@ -1249,7 +1256,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 27
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5) 
 
 POST Data：
@@ -1258,7 +1264,7 @@ POST Data：
 }
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1300,7 +1306,7 @@ expire|String|Body|是|有效期，单位秒
 
 ##### 2、请求样例
 
-**请求明细**
+**用户请求**
 ```java
 POST  
 
@@ -1320,7 +1326,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 POST data:
@@ -1371,7 +1376,7 @@ accessToken|String|Body|是|请求分享会话的accessToken
 code|String|Body|是|会话分享验证码
 
 ##### 2、请求样例
-**请求明细**
+**用户请求**
 ```java
 
 POST 
@@ -1392,7 +1397,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 POST data:
@@ -1440,7 +1444,7 @@ scope|String|Body|是|访问资源的范围
 expire|String|Body|是|有效期，单位秒
 
 ##### 2、代码样例
-**请求明细**
+**用户请求**
 ```java
 POST 
 
@@ -1466,7 +1470,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 ```
 **返回结果**
@@ -1513,7 +1516,7 @@ expire|String|Body|是|有效期，单位秒
 
 ##### 2、请求样例
 
-**请求明细**
+**用户请求**
 ```java
 POST 
 
@@ -1533,7 +1536,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 POST data:
@@ -1545,7 +1547,7 @@ POST data:
 
 ```
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -1579,10 +1581,12 @@ POST data:
 uhomeAccessToken|String|Body|是|自有账号登录的IOT平台accessToken
 thirdpartUhomeAccessToken|String|Body|是|第三方账号登录的iot平台token
 
-**输出参数** 标准输出参数
+**输出参数** 
+
+标准输出参数
 
 ##### 2、请求样例
-**请求明细**
+**用户请求**
 ```java
 POST 
 
@@ -1602,7 +1606,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 POST data:
@@ -1634,7 +1637,9 @@ POST data:
 **前置条件：** APP登录  </br>
 **Token 验证：** 是
 
-**输入参数：**无输入参数
+**输入参数：**
+
+标准输入参数  
 
 **输出参数**
 
@@ -1644,7 +1649,7 @@ group|String|Body|是|详见代码样例
 
 ##### 2、请求样例
 
-**请求明细**
+**用户请求**
 ```java
 POST 
 
@@ -1664,7 +1669,6 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 385
-Host: 10.2.0.16:6353
 User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 ```
 
