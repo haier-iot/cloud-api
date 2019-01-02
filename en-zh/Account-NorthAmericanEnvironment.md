@@ -112,7 +112,7 @@ public class AESUtil {
 
 ##### 1、接口定义
 
-?> **Access address：**  `/uam/v1/security/register`  
+?> **请求地址：**  `/uam/v1/security/register`  
  **HTTP Method：** POST   </br>
  **Token验证：** 否 (header可以不传入accessToken)  
 
@@ -126,12 +126,14 @@ public class AESUtil {
 | userProfile     | Map | Body| 否 |添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度|  
 
 
-**输出参数**  输出标准输出参数 
+**输出参数**  
+
+输出标准输出参数 
 
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java  
 POST	
 
@@ -167,7 +169,7 @@ Body
 }
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
@@ -213,7 +215,7 @@ Body
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java  
 POST	
 
@@ -239,7 +241,7 @@ Body
 }
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 Header：
@@ -268,7 +270,7 @@ body
 
 ?> **接入地址：**  `/uam/v1/security/sendActiveMail`  
  **HTTP Method：** POST  
- **Token authentication：** No  
+ **token验证：** 否 
 
 **Input parameters**  
 
@@ -284,7 +286,7 @@ body
 
 ##### 2、请求样例  
 
-**User request**
+**用户请求**
 ```java  
 POST
 
@@ -332,14 +334,18 @@ Body
  **HTTP Method：** POST   </br>
  **Token验证：** 是  
 
-**输入参数** 无输入参数  
+**输入参数** 
+
+输入标准输入参数 
 
    
-**输出参数**  输出标准输出参数
+**输出参数**    
+
+输出标准输出参数
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 
 ```java
 POST
@@ -360,7 +366,7 @@ Content-Encoding: utf-8
 Content-type: application/json
 ```  
 
-**Request response**
+**请求应答**
 
 ```java
 {
@@ -384,7 +390,9 @@ Content-type: application/json
  **HTTP Method：** POST  
  **Token验证：** 是  
 
-**输入参数** 无输入参数  
+**输入参数** 
+
+输入标准输入参数  
 
 
 
@@ -397,7 +405,7 @@ Content-type: application/json
 
 ##### 2、请求样例
 
-**请求明细**
+**用户请求**
 ```java  
 POST
 
@@ -418,7 +426,7 @@ Content-type: application/json
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -466,7 +474,7 @@ Content-type: application/json
 
 ?> **接入地址：**  `/uam/v1/users/update`  
  **HTTP Method：** POST  
- **Token验证：** Yes  
+ **Token验证：** 是  
 
 **输入参数**  
 
@@ -475,11 +483,13 @@ Content-type: application/json
 | userProfile     | Map | Body| 是|用户拓展信息，包括昵称、头像等|    
 
 
-**输出参数**  标准输出参数
+**输出参数** 
 
-##### 2、Request sample  
+标准输出参数
 
-**User request**
+##### 2、请求样例 
+
+**用户请求**
 ```java  
 POST
 
@@ -516,7 +526,7 @@ Body
 }
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -548,11 +558,13 @@ Body
 |   loginId   | String | body | 是 | 邮箱地址，需要符合邮箱格式,使用如下正则表达式：`^\w+([.+-]\w+)*@\w+([.-]\w+)*(\.\w{2,5})+$`|      
 
 
-**输出参数** 标准输出参数 
+**输出参数** 
+
+标准输出参数 
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java  
 POST
 
@@ -578,7 +590,7 @@ Body
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 {
@@ -615,7 +627,7 @@ response.setContentType("image/png");
 
 ##### 2、请求样例  
 
-**请求明细**
+**用户请求**
 ```java  
 POST
 
@@ -637,7 +649,7 @@ Content-type: application/json
 
 ```  
 
-**应答明细**
+**请求应答**
 
 ```java
 

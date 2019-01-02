@@ -19,8 +19,13 @@ Standard equipment operation|The user operates the device by issuing the followi
 
 The device management service authorized by the manufacturer is the management and control device service specially provided by U+ cloud platform for enterprise users. It only needs to obtain the authorization code issued by U+ cloud platform, and it does not need to realize token authorization to quickly realize the device control and management function. Detailed service understanding and authorization to connect with  [Haier U+ Business BD][Business].
 
+## Rules and constraints  
+1、The device management enterprise service is the authorization for the server side. It needs to provide the IP address of the external network where the server is deployed and configure the IP white list in the cloud platform to be accessible.</br>
+2、The appId passing value in the request header of the public header should be applied to the enterprise application systemId, and the signature algorithm should use the corresponding systemKey.</br>
+3、DeviceId is the accessToken security token token that initiates the request for all devices with control rights.</br>
 
-### Application scenario
+
+## Application scenario
 The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
 
@@ -410,7 +415,7 @@ Body
 | G03002  | Equipment offline | The device cannot issue commands without being online |      
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
  
-### UAdvanced authorization device control(Manufacturer authorized device management services)   
+### Advanced authorization device control(Manufacturer authorized device management services)   
 
 
 > API interface overview  
