@@ -1,5 +1,5 @@
 
->**当前版本：** [UWS 消息推送服务标准版 V3.0.3](zh-cn/ChangeLog/MessagePush)   
+>**当前版本：** [UWS 消息推送服务标准版 V 3.2](zh-cn/ChangeLog/MessagePush)   
 **更新时间：** {docsify-updated} 
 
 ## 简介
@@ -55,7 +55,7 @@ ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定
 options|Options|定义消息的选项设置，详见Option对象定义
 version|String|定义消息的版本，次版本为V1|
 
-### msgVlientHistoryDto
+### msgClientHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
@@ -102,6 +102,10 @@ poriorities|Integer|消息优先级|
 
 
 ## 终端功能接口列表
+
+?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>访问地址：`https://uws.haier.net/ums/v3`
+
+
 ### 账号模块
 
 #### 终端注册
@@ -160,6 +164,7 @@ retData|List<TerminalDto>|Body|是|终端信息列表
 
 
 ### 设备模块
+
 #### 设备终端免打扰
 > 设置终端能够按照业务类型、优先级、时间段进行免打扰；</br>
 > 1.以userId+appId+clientId标识唯一终端；</br>
@@ -172,6 +177,7 @@ retData|List<TerminalDto>|Body|是|终端信息列表
 ##### 1、接口定义
 ?> **接入地址：** `/config/setNotDisturb`</br>
 **HTTP Method：** POST </br>
+
 
 **输入参数：**
 
@@ -189,292 +195,290 @@ endTime|String|body|是|结束时间
 dndId|String|body|是|免打扰唯一标识
 
 
+#### 取消设备终端免打扰
+用户可以关闭免打扰功能
 
 
+##### 1、接口定义
+?> **接入地址：** `/config/cancelNotDisturb`</br>
+**HTTP Method：** POST 
 
-
-
-
-
-
-
-
-
-
-
-
-**message示例**
-```
-海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msg-name",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
-}
-此部分格式以及内容通道不会校验，只是透传
-```
 
 **输入参数：**
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-**data示例**
-```
-data: {'msgId':”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
-msgId产生原则:时间戳+消息源信息
-```
-
-##### 2、错误码
-> msgPush：B00001、B00006、B00004、D00008、H32006、A00004、B00002、B00003
- 
-
-> msgPushtry:B00001、B00006、B00004、D00008、A00004、H32011、B00003、B00002
+dndId|String|body|是|免打扰设置唯一标识
 
 
-#### 终端信息状态查询接口
-
-> 查询消息是否已经成功插入第三方平台，查询消息下发状态
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/getmsgstat`</br>
-**HTTP Method：** POST </br>
+**输出参数：**标准输出参数
 
 
-**输入参数**
+#### 查询免打扰信息
 
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-megId|String|Body|必填|终端再推送完毕后服务端返回的消息ID
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-##### 2、错误码
-
-> B00001、B00004、H32007
-
-
-#### 终端消息状态上报
-
-> 查询信息，终端在收到消息之后必须调用此接口上报“消息已接收”状态
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/report`</br>
-**HTTP Method：** POST </br>
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-appPackage|String|Body|必填|APP包名
-msgId|String|Body|必填|终端在推送完毕后，服务端返回的data中的msgId
-status|int|Body|必填|2：终端已接受</br>3：终端已展示</br>4：终端已反馈（参考massageInfo结构）
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-##### 2、错误码
-
-> B00001、H32005、B00004、A00004、D00008、H32007、H32008
-
-
-#### 终端消息推送——设备绑定者
-
-> 消息推送至设备绑定者</br>
-> 【1】根据设备的deviceId发送信息到设备的在M2M系统绑定的主人的手机</br>
-> 【2】主人的手机，即为注册消息通道时候，注册类型deviceType为“01：手机”的所有APP
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushToHost`</br>
-**HTTP Method：** POST </br>
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-deviceId|String|Body|必填|绑定时设备的deviceId
-encryptedData|String|Body|必填|APP通过USDK获取的bindkey，获取方式详见USDK部门提供的API文档
-message|Json-obj|Body|必填|业务基础信息
-
-**message示例**
-```
-例如: 海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msgName",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
-}
-此部分格式以及内容通道不会校验，只是透传
-```
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-##### 2、错误码
-
-> B00001、B00006、B00004、H32009、H32010、A00004、H32011
-
-### 云端业务接口
-
-#### 云端获取用户已注册通道设备列表
-
-> 获取当前账号下已经注册过消息通道的带屏设备列表
-
+> 获取已设定的免打扰配置列表，以userId+appId+clientId（即终端）为粒度查询
 
 ##### 1、接口定义
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/devlist`</br>
-**HTTP Method：** POST </br>
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-userid|String|Body|必填|
+?> **接入地址：** `/config/getNotDisturbs`</br>
+**HTTP Method：** POST 
 
 
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
-
-##### 2、错误码
-
-> B00001、B00004、A00004
-
-
-#### 云端消息推送
-
-> APP server 调用直接下发到终端，数组一次最多支持发送200个
-
-
-##### 1、接口定义
-
-?> **接入地址：** `/umse/v2/msgPush`</br>
-**HTTP Method：** POST </br>
-**说明：**严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
-
-
-?> **接入地址：** `/umse/v2/msgPushtry`</br>
-**HTTP Method：** POST </br>
-**说明：**最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
-
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-expires|int|Body|非必填|消息有效期，单位秒
-dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"Id":["userId1","userId2"]"devType":["01","02"]}</br> {"type":3,"Id":["userId1","userId2"],"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2，ID为userId,按照设备类型发送dstType</br>type:3,ID为userId，按照应用类型appType发送</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（获取的类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
-message|Json-obj|Body|否|业务基础信息
-
-**message说明**
-
-```
-例如: 海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msg-name",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
-}
-此部分格式以及内容通道不会校验，只是透传
-```
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
-
-**data说明**
-
-```
-data: {'msgId' :”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
-msgId产生原则:时间戳+消息源信息
-```
-
-##### 3、错误码
-
-**msgPush**
-
->B00001、B00004、D00008、B00002、A00004、H32006、B00003
-
-**msgPushtry**
-
-> B00001、B00004、A00004、B00002、B00003
-
-#### 云端信息状态查询接口
-
-> 查询消息是否已经成功插入第三方平台
-
-
-##### 1、接口定义
-
-?> **接入地址：** `https://uws.haier.net/umse/v2/getmsgstat`</br>
-**HTTP Method：** POST </br>
-
-**输入参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-msgId|String|Body|必填|终端在推送完毕后服务端返回的消息Id
-
+**输入参数：** 无
 
 **输出参数：**
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|Json-obj|Body|是|返回数据或null
+retData|List<DoNotDisturbDto>|body|是||
 
-##### 2、错误码
 
-> B00001、B00004、H32007
+### 消息模块
+
+#### 按设备推送消息
+
+> 从用户的某个终端推送消息到该用户的多个终端，消息的发送和接收终端都同属该用户（可以是不同APP）
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByClients`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+toClients|List<String>|body|是|属于该用户的clientId集合
+message|UpMsg|body|是|推送消息内容定义
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识|
+
+
+#### 上报消息的读取状态
+
+> 更新消息的读取状态为已读</br>
+> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/reprotStatus`</br>
+**HTTP Method：** POST 
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|终端收到的任务标识
+
+
+**输出参数：** 标准输出参数
+
+
+
+#### 查询历史消息
+
+> 1、用户可以查询最长1年以内的历史消息 </br>
+> 2、历史消息不支持跨APP查询 </br>
+> 3、支持按终端查询（appId+userId+clientId）、按业务类型查询(appId+userId+clientId+businessType)、标签查询（appId+userId+clientId+tag）</br>
+> 4、支持分页，按时间倒序排列</br>
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getMsgHistory`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+businessType|Integer|body|否|消息业务类型
+tag|String|body|否|自定义标签
+pageIndex|Integer|body||当前页
+pageSize|Integer|body||每页显示数量
+
+
+
+**输出参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
+
+#### 删除应用内历史消息
+
+
+>1、用户提交申请删除一条或批量删除多条应用内消息</br>
+>2、系统收到请求后，将相关消息标记为删除状态(MSG_DISPATCH表MSG_STATUS=5)
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/delMsgHistory`</br>
+**HTTP Method：** POST 
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|消息任务Id一个或多个，逗号分隔
+
+**输出参数：** 标准输出参数
+
+## 云端功能接口
+
+?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+访问地址：`https://uws.haier.net/umse/v3`  </br>
+**为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
+
+**云端应用请求Header**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+appId|String|header|是|终端应用的身份ID，通过海极网申请云应用获得appId和appKey
+appVersion|String|header|否|应用版本标识，最多32位字符
+sequenceId|String|header|是|报文流水号，6-32位；由客户端自行定义，自行生成；建议使用日期+顺序编号的方式。
+sign|String|header|是|通过该参数，对调用方进行鉴权，算法详见公共说明
+timetamp|long|header|是|Unix时间戳，精确到毫秒
+content-type|String|header|是|必须为applicationg/json;charset=UTF-8
+
+### 消息推送
+
+#### 按用户推送消息
+
+> 接收消息的用户列表必须是从指定的APP中注册的用户。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByUsers`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toUsers|List<String>|body|是|接受消息的用户ID列表
+toApps|List<String>|body|是|接受消息的APP列表
+messages|Message|body|是|推送消息内容定义
+tag|String|body|否|标签。例如家庭推送时可以存入家庭
+isBurn|Integer|body|否|是否阅后即焚
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识
+
+
+#### 按应用推送消息
+
+> 云端按应用列表给终端推送消息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByApps`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toApps|List<String>|body|是|接受消息的appId列表
+businesssType|Integer|body|是|消息业务类型
+message|Message|body|是|推送消息内容定义
+isBurn|Integer|body|否|是否是阅后即焚
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识
+
+#### 按用户推送消息（支持模板）
+
+> 接收消息的用户列表必须是从指定的APP中注册的用户。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushWithTmplByUsers`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toUsers|List<String>|body|是|接受消息的用户ID列表
+toApps|List<String>|body|是|接受消息的APP列表
+messages|Message|body|是|推送消息内容定义
+tag|String|body|否|标签。例如家庭推送时可以存入家庭
+isBurn|Integer|body|否|是否阅后即焚
+templateId|String|body|是|模板标识
+templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识
+
+#### 按应用推送消息（支持模板）
+
+> 支持给应用列表推送消息。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushWithTmplByApps`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toApps|List<String>|body|是|接受消息的appId列表
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+message|Message|body|是|推送消息内容定义
+isBurn|Integer|body|否|是否是阅后即焚
+templateId|String|body|是|模板标识
+templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识
+
+### 根据taskId查询历史消息
+
+
+> 查看某次推送任务，推送的消息列表。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getMsgHistory`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|Sting|body|否|消息标识
+
+
+
+**输出参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgCloudHistoryDto>|body|是|推送记录信息
+
+
+
 
 
 [^-^]:文本连接注释
