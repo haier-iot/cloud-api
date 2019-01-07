@@ -18,7 +18,7 @@
 消息从一个设备发送到另外一个设备的分享过程。
 例如：馨厨将菜谱分享给手机
 
-**云-端消息推送&**</br>
+**云-端消息推送**</br>
 APP server等在未登陆情况对终端进行消息下发</br>
 
 **信息状态查询** </br>
@@ -53,7 +53,7 @@ data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象�
 android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|
 ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义
 options|Options|定义消息的选项设置，详见Option对象定义
-version|String|定义消息的版本，次版本为V1|
+version|String|定义消息的版本，此版本为V1|
 
 ### msgClientHistoryDto
 
@@ -95,8 +95,8 @@ dndId|String|免打扰标识|
 beginTime|Integer|开始时间|
 endTime|Integer|结束时间|
 businessType|Integer|消息业务类型|
-priorities|Integer|消息业务类型|
-poriorities|Integer|消息优先级|
+priorities|Integer|消息优先级|
+
 
 
 

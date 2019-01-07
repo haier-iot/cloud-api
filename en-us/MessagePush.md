@@ -1,481 +1,496 @@
 
->**当前版本：** [UWS 消息推送服务标准版 V 3.0](zh-cn/ChangeLog/MessagePush)   
-**更新时间：** {docsify-updated} 
+>**Current version:** [UWS Message push service standard edition V 3.0](en-us/ChangeLog/MessagePush)   
+**Updated time:** {docsify-updated} 
 
-## 简介
-为开发者提供基于物联网的消息推送服务，消息推送支持个性化的推送服务模式，开发者可以根据应用特性或者特定场景要求通过配置自定义消息的方式给App用户推送相关信息。
-![消息推送标准版图片][MessagePush_type]
+## Introduction 
+Iot based message push service is provided for developers, which supports personalized push service mode. Developers can push relevant information to App users by configuring customized messages according to application features or specific scenarios.  
 
-**消息通道注册**</br>
-1、设备注册: 用户登录终端前，允许设备注册通道，具备接收推送能力；</br>
-2、用户注册：用户登录终端后，赋予自己登陆（或授权）的设备具有业务消息分享和接收能力，必须向UMS注册服务。</br>
 
-**获取用户注册设备列表**</br>
-1、用户登录设备并且注册设备成功后，获取可推送消息的用户注册设备列表；</br>
-2、APP server 在没有token clientId情况下获取用户注册设备列表。</br>
+**Message channel registration**</br>
+1. Device registration: before the user logs in the terminal, it allows the device to register the channel and has the ability to receive push;</br>
+2. User registration: after the user logs in the terminal, the device which gives him/her the ability to log in (or authorize) has the ability to share and receive business messages and must register the service with UMS.</br>
 
-**端-端消息推送**</br>
-消息从一个设备发送到另外一个设备的分享过程。
-例如：馨厨将菜谱分享给手机
+**Gets the user registration device list**</br>
+1. After the user logs in the device and successfully registers the device, get the list of user registered devices for pushable messages;</br>
+2. APP server gets the list of registered devices without token clientId.</br>
 
-**云-端消息推送&**</br>
-APP server等在未登陆情况对终端进行消息下发</br>
+**Client-to-client message push**</br>
+The sharing process by which messages are sent from one device to another.  
+For example, "xin chu" shares recipes with her mobile phone
+**Cloud - client message push**</br>
+APP server and others send messages to the terminal without logging in</br>
 
-**信息状态查询** </br>
-1、合法用户对消息状态查询；</br>
-2、终端消息状态上报；</br>
-3、消息终端显示后，消息已读/已处理等状态上报UMS；</br>  
+**Information status query** </br>
+1. Legitimate users query the message status;</br>
+2. Report the status of terminal messages;</br>
+3. After the display of the message terminal, the status of message read/processed shall be reported to UMS;</br>  
 
-### 应用场景
-适用于物联网的消息推送服务，包括消息从一个设备终端发送到另一个设备终端，或者从应用服务端发送到设备终端。
+### Application scenarios
+A message push service applicable to the Internet of things includes sending messages from one device terminal to another, or from the application server to the device terminal.  
 
-## 公共结构说明
+## Public structure description
 ### TerminalDto
-终端信息
+Terminal information
 
-参数名|类型|说明|备注
+Parameter names|Type|Instructions|Note  
 :-|:-:|:-|:-
-userId|String| |用户Id，唯一标识
-clientId|String|如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址
-devAlias|String|终端别名|终端别名
-appId|String| |应用ID，40位以内字符
-isOnline|Integer|1，在线；2，离线|1,代表10min内在线；</br>2,代表10min内不在线
-lastOnlineTime|Date|设备最近一次在线时间|当isOnline位1时，该字段不返回；</br>当isOnline为2，且该字段不返回时，则表示最后一次在线时间是两天之前
+userId|String| |User Id, unique identity  
+clientId|String|If you can get it directly from the uSDK you need to get it from the uSDK; If there is no uSDK, the device MAC address can be fetched  
+devAlias|String|Terminal alias|Terminal alias
+appId|String| |Apply ID, less than 40 characters
+isOnline|Integer|1, Online; 2, offline|1 represents the inner line of 10min;</br>2, means not online within 10min
+lastOnlineTime|Date|The last time the device was online|When isOnline bit 1, this field is not returned;</br> when isOnline is 2 and the field is not returned, it means that the last online time was two days ago  
 
 ### UpMsg
+Transparent fields: data, androids, ioss, please strictly follow the definition of the message model and the third party channel for the content of the three fields.  
 
-透传字段：data、androids、ioss，请严格按照消息模型定义以及第三方通道对于三者字段内容的定义
-
-字段名|类型|说明|备注
+Parameter names|Type|Instructions|Note  
 :-|:-:|:-|:-
-notification|Map<String,Object>|定义通知的内容，详见Notification对象定义|
-data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象定义|
-android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|
-ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义
-options|Options|定义消息的选项设置，详见Option对象定义
-version|String|定义消息的版本，次版本为V1|
+notification|Map<String,Object>|Define the content of the Notification, as shown in the definition of the Notification object|
+data|Map<String,Object>|Define the Data content of a custom message. See the Data object definition for details|
+android|Map<String,Object>|To define the customized content of Android system messages, see the Android object definition for details|
+ios|Map<String,Object>|To define the customized content of IOS system messages, see the definition of IOS objects for details
+options|Options|Define the Option Settings for messages, as detailed in the Option object definition
+version|String|Defines the version of the message, which is V1|
 
 ### msgClientHistoryDto
 
-字段名|类型|说明|备注
+Parameter names|Type|Instructions|Note  
 :-|:-:|:-|:-
-taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-msgId|String|消息ID|
-userId|String|用户ID|
-appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|
-message|UpMsg|消息模型|
-msgStatus|Integer|消息发送状态|
-readStatus|Integer|消息读取状态|
-pushTime|DateTime|ums通道推送时间|
+taskId|String|Message task ID|The msgId received by the terminal is the taskId of ums  
+msgId|String|Message ID|
+userId|String|The user ID|
+appId|String|Application ID|
+clientId|String|Terminal ID|
+busineeType|String|Business types|
+message|UpMsg|The message model|
+msgStatus|Integer|Message sending status|
+readStatus|Integer|Message read state|
+pushTime|DateTime|ums channel push time|
 
 
 ### MsgCloudHistoryDto
 
-字段名|类型|说明|备注
+Parameter names|Type|Instructions|Note  
 :-|:-:|:-|:-
-msgId|String|消息ID|
-userId|String|用户ID|
-appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|
-messgae|UpMsg|消息模型|
-msgStatusStatus|Integer|消息发送状态|
-raadStatus|Integer|消息读取状态|
-tag|String|标签|
-pushTime|DateTime|ums消息推送时间|
-retCode|String|返回码|
+msgId|String|Message ID|
+userId|String|The user ID|
+appId|String|Application ID|
+clientId|String|Terminal ID |
+busineeType|String|Business types|
+messgae|UpMsg|A message model|
+msgStatusStatus|Integer|Message sending status|
+raadStatus|Integer|Message read state|
+tag|String|The label|
+pushTime|DateTime|Ums message push time|
+retCode|String|Return code|
 
 ### DoNotDisturbDto
 
-字段名|类型|说明|备注
+Parameter names|Type|Instructions|Note  
 :-|:-:|:-|:-
-dndId|String|免打扰标识|
-beginTime|Integer|开始时间|
-endTime|Integer|结束时间|
-businessType|Integer|消息业务类型|
-priorities|Integer|消息业务类型|
-poriorities|Integer|消息优先级|
+dndId|String|Do not disturb sign|
+beginTime|Integer|The start time|
+endTime|Integer|The end of time|
+businessType|Integer|Message business type|
+priorities|Integer|Message priority|
 
 
 
 
-## 终端功能接口列表
 
-?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>访问地址：`https://uws.haier.net/ums/v3`
+## List of terminal function interfaces  
 
-
-### 账号模块
-
-#### 终端注册
-
-> 通过该接口，在系统中注册接收消息的终端，建立appId、userId、clientId、pushId之间的关系；该接口是使用ums和umse的先决条件。</br>
-> 在注册时，若需要注册用户信息userId，则需要在header中传递accessToken
+?>  Services are provided externally using the REST interface style, and only the HTTPS protocol is supported. </br>Access address:`https://uws.haier.net/ums/v3`
 
 
-##### 1、接口定义
-?> **接入地址：** `/account/register`</br>
+### Account module
+
+#### Terminal registration
+
+>Through this interface, the terminals receiving messages are registered in the system, and the relationship between appId, userId, clientId and pushId is established. This interface is a prerequisite for using ums and umse.</br>
+>When registering, if you want to register the user information userId, you need to pass the accessToken in the header
+
+
+##### 1、The interface definition
+?> **Access address:** `/account/register`</br>
 **HTTP Method：** POST
 
-**输入参数：**
+**Input parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note
 :-|:-:|:-:|:-:|:-
-channel|Integer|body|是|通道类型。</br>0代表极光，</br>1代表m2m通道，</br>2代表fcm通道，</br>3代表邮件，</br>4代表不使用或无通道。
-pushId|String|body|否|终端的通道推动标识。</br>当channel为4时可以为空，其它情况不能为空，fcm通道时长度应该为152。
-devAlias|String|body|否|设备别名
-msgVersion|String|body|是|消息模型版本，对应消息模型中的version
+channel|Integer|body|yes|Channel type.</br>0 is the aurora,</br>1 represents the m2m channel,</br>1 represents the m2m channel,</br>3 is mail,</br>4 means no use or no channel.
+pushId|String|body|no|Terminal channel push identification.</br>The channel can be empty when it is 4 and not otherwise, and the length of the FCM channel should be 152.  
+devAlias|String|body|no|Equipment alias  
+msgVersion|String|body|yes|Message model version, which corresponds to version in the message model  
 
 
-**输出参数:** 标准输出参数
+**Output parameters:**   
+
+Standard output parameter  
 
 
 
-#### 终端注销
-> 注销已注册的终端信息</br>
-> 一般在用户账号注销或APP卸载时滴啊用该接口
+#### Terminal logout
+> Unregister registered terminal information</br>
+> Generally, this interface is used when the user account is cancelled or the APP is uninstalled  
 
 
-##### 1、接口定义
-?> **接入地址：** `/account/logout`</br>
+##### 1、The interface definition
+?> **Access address:** `/account/logout`</br>
 **HTTP Method：** POST
 
-**输入参数：** 无参数输入
+**Input parameters:**   
 
-**输出参数：** 标准输出参数
+No-parameter input
+
+**Output parameters:**  
+
+Standard output parameter  
 
 
-#### 获取用户终端信息
-> 查询该用户下所有处于激活状态的终端</br>
-> 根据userId查询，该userId注册的所有激活状态的终端信息
+#### Get user terminal information  
+> Query all active terminals under this user</br>
+> According to the userId query, the terminal information of all active states registered by the userId  
 
-##### 1、接口定义
-?> **接入地址：** `/account/getTerminals`</br>
+##### 1、The interface definition
+?> **Access address:** `/account/getTerminals`</br>
 **HTTP Method：** POST
 
-**输入参数：**  无输入参数
+**Input parameters:** 
 
-**输出参数：** 
+ No-parameter input
 
-参数名|类型|位置|是否必填|说明
+**Output parameters:** 
+
+Parameter names|Type|Location|Required or not|Note
 :-:|:-:|:-:|:-:|:-
-retData|List<TerminalDto>|Body|是|终端信息列表
+retData|List<TerminalDto>|Body|yes|Terminal information list  
 
 
-### 设备模块
+### Equipment modules
 
-#### 设备终端免打扰
-> 设置终端能够按照业务类型、优先级、时间段进行免打扰；</br>
-> 1.以userId+appId+clientId标识唯一终端；</br>
-> 2.同一终端可以设置多条免打扰信息；</br>
-> 3.不同消息业务类型（businessType）需要分别设置免打扰；</br>
-> 4.同一终端下设置多条免打扰时时间不允许有交叉；</br>
-> 5.每条免打扰配置支持设置多个优先级</br>
+#### The device terminal is not disturbed  
+> Set the terminal to be uninterrupted according to business type, priority and time period;</br>
+> 1.Identify unique terminal with userId+appId+clientId;</br>
+> 2.Multiple uninterrupted messages can be set at the same terminal;</br>
+> 3.BusinessType (business now in business) you will need to set up the business now.</br>
+> 4.The time is not allowed to cross when multiple uninterrupted devices are set under the same terminal;</br>
+> 5.Each do-not-disturb configuration supports setting multiple priorities.</br>
 
 
-##### 1、接口定义
-?> **接入地址：** `/config/setNotDisturb`</br>
+##### 1、The interface definition
+?> **Access address:** `/config/setNotDisturb`</br>
 **HTTP Method：** POST </br>
 
 
-**输入参数：**
+**Input parameters:**
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-businessType|Integer|body|是|消息业务类型
-priority|Integer|body|是|消息优先级，priority定义见消息模型
-beginTime|String|body|是|开始时间
-endTime|String|body|是|结束时间
+businessType|Integer|body|yes|Message business type
+priority|Integer|body|yes|Message priority is defined in the message model  
+beginTime|String|body|yes|The start time
+endTime|String|body|yes|The end of time  
 
-**输出参数：**
+**Output parameters:**
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-dndId|String|body|是|免打扰唯一标识
+dndId|String|body|yes|Do not disturb unique identification  
 
 
-#### 取消设备终端免打扰
-用户可以关闭免打扰功能
+#### Cancel the device terminal to avoid interference
+Users can turn off the do not disturb feature  
 
 
-##### 1、接口定义
-?> **接入地址：** `/config/cancelNotDisturb`</br>
+##### 1、The interface definition
+?> **Access address:** `/config/cancelNotDisturb`</br>
 **HTTP Method：** POST 
 
 
-**输入参数：**
+**Input parameters:**
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note
 :-:|:-:|:-:|:-:|:-
-dndId|String|body|是|免打扰设置唯一标识
+dndId|String|body|yes|Do not disturb to set a unique identity
 
 
-**输出参数：**标准输出参数
+**Output parameters:**
+Standard output parameter
 
 
-#### 查询免打扰信息
+#### Query for don't disturb information
 
-> 获取已设定的免打扰配置列表，以userId+appId+clientId（即终端）为粒度查询
+> Gets the set list of the do-not-disturb configurations, with userId+appId+clientId (that is, terminal) as the granularity query.
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/config/getNotDisturbs`</br>
+?> **Access address:** `/config/getNotDisturbs`</br>
 **HTTP Method：** POST 
 
 
-**输入参数：** 无
+**Input parameters:** 
 
-**输出参数：**
+ No-parameter input
 
-参数名|类型|位置|是否必填|说明
+**Output parameters:**
+
+Parameter names|Type|Location|Required or not|Note
 :-:|:-:|:-:|:-:|:-
-retData|List<DoNotDisturbDto>|body|是||
+retData|List<DoNotDisturbDto>|body|yes||
 
 
-### 消息模块
+### Message module  
 
-#### 按设备推送消息
+#### Push messages by device
 
-> 从用户的某个终端推送消息到该用户的多个终端，消息的发送和接收终端都同属该用户（可以是不同APP）
+> A message is pushed from one terminal of a user to multiple terminals of the user, and the sending and receiving terminals of the message belong to the same user (it can be a different APP)   
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/pushByClients`</br>
+?> **Access address:** `/msg/pushByClients`</br>
 **HTTP Method：** POST 
 
 
-**输入参数：** 
+**Input parameters:** 
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note
 :-:|:-:|:-:|:-:|:-
-toClients|List<String>|body|是|属于该用户的clientId集合
-message|UpMsg|body|是|推送消息内容定义
+toClients|List<String>|body|yes|The clientId collection belonging to this user  
+message|UpMsg|body|yes|Push message content definition  
 
-**输出参数：**
+**Output parameters:**
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识|
+taskId|String|body|yes|The task identification of this transmission|
 
 
-#### 上报消息的读取状态
+#### Reports the read status of a message  
 
-> 更新消息的读取状态为已读</br>
-> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息。
+> The read state of the update message is read</br>
+> If the message burns after reading, the terminal will update the message to read state, and other terminals will no longer receive the same message.  
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/reprotStatus`</br>
+?> **Access address:** `/msg/reprotStatus`</br>
 **HTTP Method：** POST 
 
-**输入参数：** 
+**Input parameters:** 
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|终端收到的任务标识
+taskId|String|body|yes|The task id received by the terminal  
 
 
-**输出参数：** 标准输出参数
+**Output parameters:**   
+
+Standard output parameter
 
 
 
-#### 查询历史消息
+#### Query history messages  
 
-> 1、用户可以查询最长1年以内的历史消息 </br>
-> 2、历史消息不支持跨APP查询 </br>
-> 3、支持按终端查询（appId+userId+clientId）、按业务类型查询(appId+userId+clientId+businessType)、标签查询（appId+userId+clientId+tag）</br>
-> 4、支持分页，按时间倒序排列</br>
+> 1、Users can query historical messages up to a year old </br>
+> 2、Cross-app queries are not supported for historical messages </br>
+> 3、Support for terminal query (appId+userId+clientId), businessType query (appId+userId+clientId+businessType), tag query (appId+userId+clientId+tag)</br>
+> 4、Support for pagination in reverse chronological order</br>
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/getMsgHistory`</br>
+?> **Access address:** `/msg/getMsgHistory`</br>
 **HTTP Method：** POST 
 
 
-**输入参数：** 
+**Input parameters:** 
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-businessType|Integer|body|否|消息业务类型
-tag|String|body|否|自定义标签
-pageIndex|Integer|body||当前页
-pageSize|Integer|body||每页显示数量
+businessType|Integer|body|no|Message business type
+tag|String|body|no|Custom label
+pageIndex|Integer|body||The current page
+pageSize|Integer|body||Number per page  
 
 
 
-**输出参数：** 
+**Output parameters:** 
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
+retData|List<MsgClientHiustoryDto>|body|yes|Push record information
 
-#### 删除应用内历史消息
+#### Delete the history messages in the application  
 
 
->1、用户提交申请删除一条或批量删除多条应用内消息</br>
->2、系统收到请求后，将相关消息标记为删除状态(MSG_DISPATCH表MSG_STATUS=5)
+>1、The user submits an application to delete one or more in-app messages in bulk</br>
+>2、Upon receiving the request, the system marks the relevant message as deleted(table MSG_DISPATCH  MSG_STATUS = 5)
 
-##### 1、接口定义
 
-?> **接入地址：** `/msg/delMsgHistory`</br>
+
+
+##### 1、The interface definition
+
+?> **Access address:** `/msg/delMsgHistory`</br>
 **HTTP Method：** POST 
 
-**输入参数：** 
+**Input parameters:** 
 
-参数名|类型|位置|是否必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|消息任务Id一个或多个，逗号分隔
+taskId|String|body|yes|One or more message task ids, separated by commas
 
-**输出参数：** 标准输出参数
+**Output parameters:** 
+Standard output parameter
 
-## 云端功能接口
+## Cloud function interface  
 
-?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+?> Services are provided externally using the REST interface style, and only the HTTPS protocol is supported.</br>
 访问地址：`https://uws.haier.net/umse/v3`  </br>
-**为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
+**For access security, the cloud interface needs to set up the caller IP whitelist when it is called.**
 
-**云端应用请求Header**
+**Cloud application request Header**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-appId|String|header|是|终端应用的身份ID，通过海极网申请云应用获得appId和appKey
-appVersion|String|header|否|应用版本标识，最多32位字符
-sequenceId|String|header|是|报文流水号，6-32位；由客户端自行定义，自行生成；建议使用日期+顺序编号的方式。
-sign|String|header|是|通过该参数，对调用方进行鉴权，算法详见公共说明
-timetamp|long|header|是|Unix时间戳，精确到毫秒
-content-type|String|header|是|必须为applicationg/json;charset=UTF-8
+appId|String|header|yes|For the identity ID of terminal application, appId and appKey are obtained by applying for cloud application through hgeek network
+appVersion|String|header|no|Apply version id, up to 32 characters  
+sequenceId|String|header|yes|Message stream number, 6-32 bits; Defined and generated by the client itself; Date + sequential numbering is recommended.  
+sign|String|header|yes|Through this parameter, the caller is authenticated, and the algorithm is detailed in the public description
+timetamp|long|header|yes|Unix time stamps, accurate to milliseconds  
+content-type|String|header|yes|Must be applicationg/json;charset=UTF-8
 
-### 消息推送
+### The message push
 
-#### 按用户推送消息
+#### Push messages by user
 
-> 接收消息的用户列表必须是从指定的APP中注册的用户。
+> The list of users receiving messages must be registered from the specified APP.
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/pushByUsers`</br>
+?> **Access address:** `/msg/pushByUsers`</br>
 **HTTP Method：** POST 
 
-**输入参数**
+**Input parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-toUsers|List<String>|body|是|接受消息的用户ID列表
-toApps|List<String>|body|是|接受消息的APP列表
-messages|Message|body|是|推送消息内容定义
-tag|String|body|否|标签。例如家庭推送时可以存入家庭
-isBurn|Integer|body|否|是否阅后即焚
+toUsers|List<String>|body|yes|List of user ids to receive the message
+toApps|List<String>|body|yes|The list of apps that receive messages
+messages|Message|body|yes|Push message content definition
+tag|String|body|no|The label. For example, when the family push can be credited to the family
+isBurn|Integer|body|no|Is burn after reading  
 
-**输出参数**
+**Output parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+taskId|String|body|yes|The task identification of this transmission  
 
 
-#### 按应用推送消息
+#### Push messages by app
 
-> 云端按应用列表给终端推送消息
+> The cloud pushes messages to the terminal according to the application list  
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/pushByApps`</br>
+?> **Access address:** `/msg/pushByApps`</br>
 **HTTP Method：** POST 
 
-**输入参数**
+**Input parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-toApps|List<String>|body|是|接受消息的appId列表
-businesssType|Integer|body|是|消息业务类型
-message|Message|body|是|推送消息内容定义
-isBurn|Integer|body|否|是否是阅后即焚
+toApps|List<String>|body|yes|A list of appids that accept messages  
+businesssType|Integer|body|yes|Message business type
+message|Message|body|yes|Push message content definition
+isBurn|Integer|body|no|Is burn after reading
 
-**输出参数**
+**Output parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+taskId|String|body|yes|The task identification of this transmission
 
-#### 按用户推送消息（支持模板）
+#### Push messages by user (support template)  
 
-> 接收消息的用户列表必须是从指定的APP中注册的用户。
+> The list of users receiving messages must be registered from the specified APP.  
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/pushWithTmplByUsers`</br>
+?> **Access address:** `/msg/pushWithTmplByUsers`</br>
 **HTTP Method：** POST 
 
-**输入参数**
+**Input parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-toUsers|List<String>|body|是|接受消息的用户ID列表
-toApps|List<String>|body|是|接受消息的APP列表
-messages|Message|body|是|推送消息内容定义
-tag|String|body|否|标签。例如家庭推送时可以存入家庭
-isBurn|Integer|body|否|是否阅后即焚
-templateId|String|body|是|模板标识
-templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+toUsers|List<String>|body|yes|List of user ids to receive the message  
+toApps|List<String>|body|yes|The list of apps that receive messages  
+messages|Message|body|yes|Push message content definition  
+tag|String|body|no|The label. For example, when the family push can be credited to the family
+isBurn|Integer|body|no|Is burn after reading
+templateId|String|body|yes|The template identifier
+templateParams|Map<String,string>|body|yes|Map.Entry.key Must be the only
 
-**输出参数**
+**Output parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+taskId|String|body|yes|The task identification of this transmission  
 
-#### 按应用推送消息（支持模板）
+#### Push message by application (support template)
 
-> 支持给应用列表推送消息。
+> Support pushing messages to app lists.  
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/pushWithTmplByApps`</br>
+?> **Access address:** `/msg/pushWithTmplByApps`</br>
 **HTTP Method：** POST 
 
-**输入参数**
+**Input parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-toApps|List<String>|body|是|接受消息的appId列表
-tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
-message|Message|body|是|推送消息内容定义
-isBurn|Integer|body|否|是否是阅后即焚
-templateId|String|body|是|模板标识
-templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+toApps|List<String>|body|yes|A list of appids that accept messages  
+tag|String|body|no|Tags, such as home push, can be stored as home identifiers  
+message|Message|body|yes|Push message content definition
+isBurn|Integer|body|no|Is burn after reading
+templateId|String|body|yes|The template identifier
+templateParams|Map<String,string>|body|yes|Map.Entry.key Must be the only
 
-**输出参数**
+**Output parameters:**
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+taskId|String|body|yes|The task identification of this transmission  
 
-### 根据taskId查询历史消息
+### TaskId queries for history messages  
 
 
-> 查看某次推送任务，推送的消息列表。
+> View a push task, push the message list.  
 
-##### 1、接口定义
+##### 1、The interface definition
 
-?> **接入地址：** `/msg/getMsgHistory`</br>
+?> **Access address:** `/msg/getMsgHistory`</br>
 **HTTP Method：** POST 
 
-**输入参数**
+**Input parameters:**
 
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-taskId|Sting|body|否|消息标识
+taskId|Sting|body|no|The message identifier  
 
 
 
-**输出参数**
+**Output parameters:**
 
 
-参数名|类型|位置|必填|说明
+Parameter names|Type|Location|Required or not|Note  
 :-:|:-:|:-:|:-:|:-
-retData|List<MsgCloudHistoryDto>|body|是|推送记录信息
+retData|List<MsgCloudHistoryDto>|body|yes|Push record information  
 
 
 
