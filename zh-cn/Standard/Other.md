@@ -5,48 +5,27 @@
 对接口响应返回的retCode和retInfo不做国际化处理，由接口调用方处理。
 对于接口涉及业务数据的国际化通过在header中传递language参数来定义，具体的国际化语言代码见下。
 
-|语言编码|	英文名称|	中文名称|	是否支持|
-|-----|----|----|----|
-|af	|Afrikaans - South Africa	|南非荷兰语|	否|
-|ar-ae	|Arabic(U.A.E.)	|阿拉伯语 - 阿拉伯联合酋长国	|否|
-|ar-bh	|Arabic(Bahrain)	|阿拉伯语 - 巴林	|否|
-|ar-dz	|Arabic(Algeria)	|阿拉伯语 - 阿尔及利亚	|否|
-|ar-eg	|Arabic(Egypt)	|阿拉伯语 - 埃及	|否|
-|ar-iq	|Arabic(Iraq)	|阿拉伯语 - 伊拉克	|否|
-|ar-jo	|Arabic(Jordan)	|阿拉伯语 - 约旦	|否|
-|ar-kw	|Arabic(Kuwait)	|阿拉伯语 - 科威特	|否|
-|ar-lb	|Arabic(Lebanon)	|阿拉伯语 - 黎巴嫩	|否|
-|ar-ly	|Arabic(Libya)	|阿拉伯语 - 利比亚	|否|
-|ar-ma	|Arabic(Morocco)	|阿拉伯语 - 摩洛哥	|否|
-|ar-om	|Arabic(Oman)	|阿拉伯语 - 阿曼	|否|
-|ar-qa	|Arabic(Qatar)	|阿拉伯语 - 卡塔尔	|否|
-|ar-sa	|Arabic(Saudi Arabia)	|阿拉伯语 - 沙特阿拉伯	|否|
-|ar-sy	|Arabic(Syria)	|阿拉伯语 - 叙利亚	|否|
-|ar-tn	|Arabic(Tunisia)	|阿拉伯语 - 突尼斯	|否|
-|ar-ye	|Arabic(Yemen)	|阿拉伯语 - 也门	|否|
-|be	|Belarusian	|白俄罗斯语	|否|
-|bg	|Bulgarian	|保加利亚语	|否|
-|ca	|Catalan	|加泰罗尼亚语	|否|
-|cs|	Czech	|捷克语|	否|
-|da	|Danish	|丹麦语	|否|
-|de	|German(Standard)	|德语 - 标准|	否|
-|de-at	|German(Austrian)	|德语 - 奥地利	|否|
-|de-ch	|German(Swiss)	|德语 - 瑞士|	否|
-|de-li	|German(Liechtenstein)	|德语 - 列支敦士登|	否|
-|de-lu	|German(Luxembourg)	|德语 - 卢森堡	|否|
-|el	|Greek	|希腊语	|否|
-|en	|English	|英语|	是|
-|en-au	|English(Australian)	|英语 - 澳大利亚	|否|
-|en-bz	|English(Belize)	|英语 - 伯利兹	|否|
-|en-ca	|English(Canadian)	|英语 - 加拿大	|否|
-|en-gb	|English(British)	|英语 - 英国	|否|
-|en-ie	|English(Ireland)	|英语 - 爱尔兰|	否|
-|en-jm	|English(Jamaica)	|英语 - 牙买加	|否|
-|en-nz	|English(New Zealand)	|英语 - 新西兰	|否|
-|en-tt	|English(Trinidad)	|英语 - 特立尼达岛	|否|
-|en-us	|English(United States)	|英语 - 美国	|否|
-|en-za	|English(South Africa)	|英语 - 南非	|否|
-|es	|Spanish(Spain - Modern Sort)	|西班牙语 - 标准|	否|
+编码|语言
+:-:|:-:
+de|德语
+fr|法语
+it|意大利语
+es|西班牙语
+sv|瑞典语
+fi|芬兰语
+da|丹麦语
+no|挪威语
+nl|荷兰语
+ru|俄罗斯语
+ed|英语
+pl|波兰
+cs|捷克
+zh-cn|中文简体
+zh-tw|中国台湾-繁体
+he|希伯来语
+el|希腊语
+pt|葡萄牙语
+
 
 ## 安全规范
 
