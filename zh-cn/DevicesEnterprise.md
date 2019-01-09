@@ -43,7 +43,16 @@
 
 
 ## 应用场景
-企业版服务既可应用于应用端发起，也可以从应用服务端（即app server）与平台直接互联的情况，进行企业级别的设备管理。应用服务器统一获取设备信息与设备控制能力。 
+设备管理服务基于用户拥有对应的设备权限，即设备管理员（绑定用户）或权限用户。
+
+设备操作命令可通过业务服务上报到平台，平台将控制命令解析并下发到只能设备进行控制
+
+![设备管理企业版场景流程][DeviceE_flow]
+
+
+
+
+
 
 
 ## 公共结构说明
@@ -940,6 +949,6 @@ resCode值|说明|备注
 [^-^]:常用图片注释
 [DevicesStandard_type]:_media/_DevicesEnterprise/DevicesEnterprise_type.png
 [DevicesStandard_liucheng]:_media/_DevicesEnterprise/DevicesEnterprise_liucheng.png
-
+[DeviceE_flow]:_media/_DevicesEnterprise/DeviceE_flow.png
 [Business]:/zh-cn/Business
 
