@@ -21,11 +21,8 @@ UWS的使用方应做如下假设：
 4. **接入地址**  
 应用开发时，请连接开发者环境进行开发、测试；
 
-|连接区域|	生产环境地址	|开发者环境地址|
-|---|---|---|
-|中国|`https://uws.haier.net`|	`https://dev-uws.haigeek.com`	|
-|欧洲|`https://uws-euro.haieriot.net`|	无|
-|北美|`https://uws-gea-us.haieriot.net`|无|
+> 生产环境域名:`https://uws.haier.net`
+> 开发者环境域名：`https://dev-uws.haigeek.com`
 
 
 ## 服务清单
@@ -60,10 +57,10 @@ U+平台现有的UWS服务说明
 |sequenceId	|String	|Header|必填	|报文流水(客户端唯一)客户端交易流水号。20 位, 前 14 位时间戳（格式：yyyyMMddHHmmss）,后 6 位流水 号。交易发生时,根据交易 笔数自增量。App应用访问uws接口时必须确保每次请求唯一，不能重复。|
 |accessToken	|String	|Header|必填（登录后不为空，登录前可为空）|安全令牌 token，30 位字符。 用户登录 Haier U+ 云平台,由系统创建。用户退出 Haier U+ 云平台,由系统销毁。未登录时，访问不需要登录的平台接口，仍然需要传入本参数，参数值可为空或任意值（不超过30字符）|
 |sign	|String|	Header|	必填|对请求进行签名运算产生的签名,签名算法见附录。|
-|timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
+|timestamp	|String	|Header	|必填|	应传入用户所在地时间戳，long型时间戳,精确到毫秒|
 |language	|String	|Header|	必填	|该参数为多语言版提供支持。默认填写zh-cn即可。|
-|timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，默认填写"Asia/Shanghai"即可。具体参照国际时区ID列表。|
-|Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为"application/json;charset=UTF-8" 具体参照媒体类型|
+|timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，国内服务请填写"Asia/Shanghai"即可|
+|Content-Type|String|	Header|	必填	|互联网媒体信息，填写为"application/json;charset=UTF-8" |
 
 
 **输出参数**

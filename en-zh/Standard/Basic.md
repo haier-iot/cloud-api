@@ -17,13 +17,12 @@ UWS的使用方应做如下假设：
 对外提供的服务统一使用HTTPS协议，默认使用443端口， 在服务端使用TSL进行单向加解密处理。服务调用方在进行调用时，无需下载或安装证书。
 
 4. **接入地址**  
-应用开发时，请连接开发者环境进行开发、测试；
+应用开发时，请连接如下域名进行开发；
 
-|连接区域|	生产环境地址	|开发者环境地址|
+|连接区域|	生产环境地址	|
 |---|---|---|
-|中国|`https://uws.haier.net`|	`https://dev-uws.haigeek.com`	|
-|欧洲|`https://uws-euro.haieriot.net`|	无|
-|北美|`https://uws-gea-us.haieriot.net`|无|  
+|欧洲|`https://uws-euro.haieriot.net`|
+|北美|`https://uws-gea-us.haieriot.net`|
 
 ## 服务清单
 U+平台现有的UWS服务说明
@@ -53,9 +52,13 @@ U+平台现有的UWS服务说明
 |accessToken	|String	|Header|必填（登录后不为空，登录前可为空）|安全令牌 token，30 位字符。 用户登录 Haier U+ 云平台,由系统创建。用户退出 Haier U+ 云平台,由系统销毁。未登录时，访问不需要登录的平台接口，仍然需要传入本参数，参数值可为空或任意值（不超过30字符）|
 |sign	|String|	Header|	必填|对请求进行签名运算产生的签名,签名算法见附录。|
 |timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
-|language	|String	|Header|	必填	|该参数为多语言版提供支持。默认填写zh-cn即可。|
+|language	|String	|Header|	必填	|该参数为多语言版提供支持，根据所在地语言填写。|
 |timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，具体参照[国际时区](en-zh/Standard/Other)ID列表。|
-|Content-Type|String|	Header|	必填	|该参数不同的服务会有所不同，一般为"`application/json;charset=UTF-8`" 具体参照媒体类型|
+|Content-Type|String|	Header|	必填	|互联网媒体类型，默认填写为"`application/json;charset=UTF-8`" |
+
+> language 参数主要用于，发送客户邮件与用户消息推送，接口返回retInfo当前统一为中文
+> 
+> 
 
 
 **输出参数**
@@ -155,7 +158,7 @@ address为null时，address属性不返回
 |参数名称|	描述|
 |:-----|-----|
 |待签名字符串|url字符串 + Body字符串+appId+appKey +timestamp|
-|url字符串 |指请求的接口地址去除`https://uws-euro.haieriot.net`或`https://uws-gea-us.haieriot.net`后剩余的路径部分 |
+|url字符串 |指请求的接口地址去除`https://uws-euro.haieriot.net`后剩余的路径部分 |
 |Body字符串|指应用发送请求的Body部分去除所有空白字符后的JSON字符串，没有body时为空字符串（不是null）|
 |appId|Header头中的属性（见公共部分说明）|
 |appKey|在海极网给应用申请的appKey，不能明文发送|
