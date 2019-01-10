@@ -32,7 +32,7 @@
 
 * 能力服务  
 
-	* [天气服务](zh-cn/CapacityService_Weather)    
+	* [应用版本更新](zh-cn/AppVersionUpdate)    
 	
 	* [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)  
 
