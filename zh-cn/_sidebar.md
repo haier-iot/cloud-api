@@ -26,9 +26,9 @@
 
 * [预约定时](zh-cn/Scheduler)  
 
-* [设备影子<sup style="color:red">(new)<sup>](zh-cn/DevicesShadow)
-
 * [消息推送](zh-cn/MessagePush)  
+
+* [设备影子<sup style="color:red">(new)<sup>](zh-cn/DevicesShadow)
 
 * 能力服务  
 

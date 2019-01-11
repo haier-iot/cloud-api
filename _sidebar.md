@@ -24,15 +24,15 @@
 
 * [预约定时](zh-cn/Scheduler)  
 
-* [设备影子](zh-cn/DevicesShadow)  
-
 * [消息推送](zh-cn/MessagePush)  
+
+* [设备影子](zh-cn/DevicesShadow)  
 
 * 能力服务  
 
-	* [天气服务](zh-cn/CapacityService_Weather)    
+	* [应用版本更新](zh-cn/AppVersionUpdate)    
 	
-	* [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)  
+	* [设备云存储](zh-cn/CapacityService_DeviceCloudStorage)  
 
 
 * [uSDK能力简介](zh-cn/uSDK)   
@@ -65,7 +65,6 @@
 	* [预约定时](zh-cn/ChangeLog/Scheduler)
 	* [设备影子](zh-cn/ChangeLog/DevicesShadow)
 	* [消息推送](zh-cn/ChangeLog/MessagePush)
-	* [天气服务](zh-cn/ChangeLog/CapacityService_Weather)
-	* [智能设备资源云存储](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)
+	* [设备云存储](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)
 	
 	
