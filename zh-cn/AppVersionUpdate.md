@@ -4,7 +4,6 @@
 
 ## 简介
 
-<<<<<<< HEAD
 > 此接口可用于应用版本的更新。首先开发者需要提交App相关信息并提供后续维护(可联系海尔优家IOT运维支持)，信息包括:版本号、版本名称、描述信息、资源编号(资源存储的url)、app状态、是否强制更新等信息。其中app状态通常默认为1，资源编号可以是资源存储的url或者带有下载二维码标识的图片，开发者视情况自定义即可。  
 
 
@@ -182,5 +181,5 @@ Body
 
 
 
-[version_flow]:_media\_versionmanage/version_flow.png
+[version_flow]:_media/_versionmanage/version_flow.png
 
