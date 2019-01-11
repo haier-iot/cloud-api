@@ -61,20 +61,18 @@
 **用户请求**
 ```java  
 Header：
-appId:MB-ABC-0000
-appVersion:2015110401
-clientId:356877020056553-08002700DC94
-sequenceId:08002700DC94-15110519074300001
-sign:bd4495183b97e8133aeab2f1916fed41
-timestamp:1446639090139
-language:zh-cn
-timezone:8
+appId: MB-****-0000
+appVersion: 01.00.00.00000
+clientId: 8F5BD72F-EAC5-4A5F-9093-77328C81E1AE
+sequenceId: 123456
+accessToken: TGT2HZDYSL2E17ML1YQHYJLBRZS
+sign:b8aebde2498d0e5274d729c2494dd53267e44e53ae0dd7d3e
+timestamp: 1547194823847 
+language: zh-cn
+timezone: +8
+Content-Encoding: utf-8
 Content-type: application/json
 
-Body
-{
-" appId ":"MB-UZHSH-0000"
-}
 
 ```  
 
@@ -84,9 +82,9 @@ Body
 {
    "data":
    {
-      "description":"1.账号管理系统重大改变，安全性更高；软件不更新，可能会影响后续的登录使用。",
+      "description":"App新版本升级内容简述",
       "force":false,
-      "resId":"http://resource.haier.net/download/app/UplusTV/UplusTV_3.1.1_2018010901.apk",
+      "resId":"资源地址url",
       "status":1,
       "version":"2018010901",
       "versionName":"3.1.1"
