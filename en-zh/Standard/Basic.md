@@ -19,10 +19,10 @@ UWS的使用方应做如下假设：
 4. **接入地址**  
 应用开发时，请连接如下域名进行开发；
 
-|连接区域|	生产环境地址	|
-|---|---|---|
-|欧洲|`https://uws-euro.haieriot.net`|
-|北美|`https://uws-gea-us.haieriot.net`|
+连接区域|生产环境地址
+:-:|:-
+欧洲|`https://uws-euro.haieriot.net`
+北美|`https://uws-gea-us.haieriot.net`
 
 ## 服务清单
 U+平台现有的UWS服务说明
