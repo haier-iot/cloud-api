@@ -34,7 +34,7 @@
 
 	* [应用版本更新](zh-cn/AppVersionUpdate)    
 	
-	* [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)  
+	* [设备云存储](zh-cn/CapacityService_DeviceCloudStorage)  
 
 
 * [uSDK能力简介](zh-cn/uSDK)   
