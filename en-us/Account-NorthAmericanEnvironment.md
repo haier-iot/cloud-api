@@ -696,7 +696,7 @@ Content-Length: 1381
 > See the home page public error code  
 
 
-
+<!-- 注释开始
 ### Capability class interface
 > API interface overview
 
@@ -867,7 +867,7 @@ Body
 | C00007  |  AppKey is empty|  The appkey is empty according to the appId |  
 | D00008  | Illegal user| AccessToken error |  
 
-
+注释结束 -->
 
 [^-^]:文本连接注释
 [account_document_url]:_document/_account/GEAProjectInterfaceDefinitionSpecificationV1.4-NorthAmericanEnvironment.docx
