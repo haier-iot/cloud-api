@@ -52,7 +52,7 @@ U+平台现有的UWS服务说明
 |accessToken	|String	|Header|必填（登录后不为空，登录前可为空）|安全令牌 token，30 位字符。 用户登录 Haier U+ 云平台,由系统创建。用户退出 Haier U+ 云平台,由系统销毁。未登录时，访问不需要登录的平台接口，仍然需要传入本参数，参数值可为空或任意值（不超过30字符）|
 |sign	|String|	Header|	必填|对请求进行签名运算产生的签名,签名算法见附录。|
 |timestamp	|String	|Header	|必填|	long型时间戳,精确到毫秒，该参数为多国家地区提供支持。应传入用户所在地时间戳。|
-|language	|String	|Header|	必填	|该参数为多语言版提供支持，	所支持语言及对应ID请见[[语言代码](en-zh/Standard/Other)。|
+|language	|String	|Header|	必填	|该参数为多语言版提供支持，	所支持语言及对应ID请见[语言代码](en-zh/Standard/Other)。|
 |timezone	|String|	Header|	必填	|代表客户端使用的时区。传入用户所在时区ID，具体参照[时区说明](en-zh/Standard/Other)ID列表。|
 |Content-Type|String|	Header|	必填	|互联网媒体类型，默认填写为"`application/json;charset=UTF-8`" |
 
