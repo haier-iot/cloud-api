@@ -19,8 +19,6 @@
 * 设备管理服务
 
  * [北美环境-标准版](en-zh/DevicesStandard-NA)  
-
- * [北美环境-企业版](en-zh/DevicesEnterprise-NA) 
  
  * [欧洲环境-标准版](en-zh/DevicesStandard-Euro)  
 

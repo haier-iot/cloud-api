@@ -125,8 +125,6 @@ ModuleInfos|Map<String,String>|模块其他信息|属性和值的集合
 
 ## 接口清单
 
-### 设备类接口
-
 > API接口总览
 
 
