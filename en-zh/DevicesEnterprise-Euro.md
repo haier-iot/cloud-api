@@ -26,6 +26,7 @@
 2、公共header请求头中的appId传值需是申请企业级应用systemId，签名算法使用对应的systemKey。</br>
 3、deviceId 设备Id为发起请求的accessToken安全令牌 token所有拥有控制权限的设备。</br>
 
+
 ## 应用场景
 设备管理服务基于用户拥有对应的设备权限，即设备管理员（绑定用户）或权限用户。
 
@@ -952,7 +953,7 @@ Body
 [^-^]:[DevicesStandard_type]:_media/_devicesEnterprise/DevicesEnterprise_type.png
 [DevicesStandard_liucheng]:_media/_devicesEnterprise/DevicesEnterprise_liucheng.png
 [Business]:/en-us/Business
-[DeviceE_flow]::_media/_devicesEnterprise/DeviceE_flow.png
+[DeviceE_flow]:_media/_devicesEnterprise/DeviceE_flow.png
 
 
 
