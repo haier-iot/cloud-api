@@ -88,9 +88,15 @@
 |password |	RSA 加密	|注册, 登录, 重置密码, 修改密码|  
  
 ##### 秘钥使用流程  
-![密码传输流程图片][account_PasswordFlow1]  
+
+**获取秘钥流程**
 
 ![密码传输流程图片][account_PasswordFlow2]  
+
+**秘钥更新流程**
+
+![密码传输流程图片][account_PasswordFlow1]  
+
 
 ##### 加密和解密算法
 算法：RSA
