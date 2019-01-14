@@ -17,9 +17,21 @@
 
 ## 应用场景
 
+## 应用场景
+
 适用于第三方平台要获取在海尔平台上的设备数据（上下线，设备状态属性，设备告警，以及设备的大数据信息）用来实现某些业务逻辑。
 
 面向使用或销售海尔平台设备的第三方合作伙伴，服务支持海尔U+云平台向第三方合作商推送设备的上下线、属性、报警、大数据信息功能。实现海尔云平台向第三方平台服务的数据推送功能。
+
+![数据订阅场景流程][dataS_flow]
+
+**申请授权**
+
+设备数据权限根据设备种类进行订阅，由typeid限定订阅消息的设备类型，由消息topic限定定于的数据种类
+
+**业务处理**
+
+数据订阅放参考接口，开发消息接收端，完成测试、联调、上线。通过审核后即可在生产环境正常订阅设备消息数据
 
 
 
@@ -27,4 +39,5 @@
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
 [dataSubscription_liucheng]:_media/_dataSubscription/dataSubscription_liucheng.png
+[dataS_flow]:_media/_dataSubscription/dataS_flow.png
 
