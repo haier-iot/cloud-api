@@ -264,6 +264,7 @@ shareDevs|ShareDevice[]|Body|必填|共享设备信息
 
 **输出参数对象说明**
 
+
 参数名|类型|说明|备注
 :-:|:-:|:-:|:-:|:-
 deviceId|String|设备ID|必填
