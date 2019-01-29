@@ -266,7 +266,7 @@ shareDevs|ShareDevice[]|Body|必填|共享设备信息
 
 
 参数名|类型|说明|备注
-:-:|:-:|:-:|:-:|:-
+:-:|:-:|:-:|:-
 deviceId|String|设备ID|必填
 devName|String|设备分享名称|必填
 devOwner|String|设备Owner|必填
