@@ -20,7 +20,7 @@
 
 * [数据订阅](zh-cn/DataSubscription)  
 
-* 设备管理
+* 家庭模型
 
 	* [标准版](zh-cn/Family)  
 	
