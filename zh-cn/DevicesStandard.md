@@ -1,5 +1,5 @@
 
-> **当前版本：** [UWS 设备管理服务标准版 V2.0.2](zh-cn/ChangeLog/DevicesStandard)  
+> **当前版本：** [UWS 设备管理服务标准版 V2.0.3](zh-cn/ChangeLog/DevicesStandard)  
 **更新时间**：{docsify-updated}  
 
 ## 简介 
@@ -67,6 +67,18 @@ control|Boolean|是否有控制权限|
 :-|:-:|:-:|:-
 auth|AuthInfo|权限内容|
 authType|String|权限类型|home：家庭分享</br>share：个人分享</br>owener：设备主人</br>server：给appserver的权限
+
+### DeviceBriefInfo
+
+参数名|类型|说明|备注
+:-|:-:|:-:|:-
+deviceName|String|设备名称，等同于别名|
+deviceId|String|设备ID|
+wifiType|String|设备WiFitype|
+deviceType|String|设备类别|
+online|Boolean|是否在线|
+
+
 
 ### DeviceInfo
 
@@ -214,7 +226,7 @@ Header：
     Content-type: application/json
 Body
 {
-    "deviceId": "DC330D01FBF1",
+    "deviceId": "************",
     "name": "test002",
     "data": "5f10bf4f5af08db934c8165c32140227"
 }
@@ -354,7 +366,7 @@ deviceId|String|url|必填|设备ID
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 loc|Lociation|body|必填|设备位置信息
-deviceId|String|body|必填|设备ID
+
 
 ##### 2、请求样例
 **请求样例**
@@ -582,6 +594,10 @@ aliasName|String|body|必填|设备新别名
 
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/aliasName
+
+PUT data:
+{"aliasName":"拨测的设备"}
+
 Header：
     appId: MB-****-0000
     appVersion: 99.99.99.99990
@@ -595,10 +611,6 @@ Header：
     appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
-body
-{
-    "aliasName": "s"
-}
 ```
 
 **请求应答**
@@ -1072,7 +1084,7 @@ Header：
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-token|String|上下文|必填|用户token
+token|String|Header|必填|用户token
 brantInfo|BrandInfo|body|必填|设备品牌信息
 
 **输出参数：** 输出标准应答参数 
@@ -1095,7 +1107,7 @@ Header：
     appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
-body
+POST data
 {   
 	"brandInfo":{
 		"brand":"品牌",

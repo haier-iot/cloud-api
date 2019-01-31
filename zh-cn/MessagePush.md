@@ -351,6 +351,20 @@ sign|String|header|是|通过该参数，对调用方进行鉴权，算法详见
 timetamp|long|header|是|Unix时间戳，精确到毫秒
 content-type|String|header|是|必须为applicationg/json;charset=UTF-8
 
+### 企业版注意事项
+
+#### 权限申请
+
+企业版服务授权，使用服务IP白名单策略，需要是用此服务请联系IOT平台技术支持开通系统IP白名单
+
+#### 公共头部分
+
+Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
+
+**开通流程如下**
+
+> “海极网” -->  “开发者中心” --> “我的产品” --> “我的云应用”
+
 ### 消息推送
 
 #### 按用户推送消息
