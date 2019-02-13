@@ -31,7 +31,7 @@
 
 * [预约定时](zh-cn/Scheduler)
  
-* [标准版](zh-cn/MessagePush)   
+* [消息推送](zh-cn/MessagePush)   
 
 * [设备影子<sup style="color:red">(new)<sup>](zh-cn/DevicesShadow)
 
