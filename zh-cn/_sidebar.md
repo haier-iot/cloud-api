@@ -12,11 +12,7 @@
 
 * [账户服务](zh-cn/Account)  
 
-* 设备管理
-
-	* [标准版](zh-cn/DevicesStandard)  
-
-	* [企业版](zh-cn/DevicesEnterprise)   
+* [设备管理](zh-cn/DeviceManage)
 
 * [数据订阅](zh-cn/DataSubscription)  
 
