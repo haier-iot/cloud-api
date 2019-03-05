@@ -14,11 +14,7 @@
 
 * [数据订阅](zh-cn/DataSubscription)  
 
-* 家庭模型
-
-	* [标准版](zh-cn/Family)  
-	
-	* [企业版](zh-cn/ufme)   
+* [家庭模型](zh-cn/FamilyManage)
 
 * [场景引擎](zh-cn/IFTTT)  
 
