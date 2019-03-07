@@ -1208,7 +1208,232 @@ Header：
 ##### 3、接口错误码
 > A00001、B00001、G20202、20903、D00006、G24001
 
+
+#### 获取设备型号信息
+
+领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+
+##### 1、接口定义
+?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|是|设备id
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceBaseInfo|DeviceBaseInfo|Body|是|设备基本信息
+
+##### 2、请求示例
+
+**请求样例**
+```
+https://uws.haier.net/stdudse/v1/protected/getBaseInfo
+Body：
+{
+  “deviceId”: “DC330DC4B6EE”
+}
+
+```
+
+**请求应答**
+```
+{
+  "deviceBaseInfo": {
+"deviceId": "DC330DC4B6EE",
+    "productCodeT": "AA9Y31E00",
+    "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
+    "connectionStatus": "online"
+  },
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+```
+
+##### 3、错误码
+
+> G10001
+
+#### 修改设备型号信息
+
+领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+
+修改设备型号信息，产品编码补习已在海极网注册
+
+
+##### 1、接口定义
+?> **接入地址：** `/stdudse/v1/protected/modifyModelInfo`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceId|String|Body|是|设备id
+codeType|Integer|Body|是|1、机器编码；2、产品型号编码
+code|String|Body|是|具体编码
+modifyType|String|Body|否|修改方式：1、APP扫码更新；2、APP用户选择；3、其他，请描述
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+deviceBaseInfo|DeviceBaseInfo|Body|是|设备基本信息
+possibleList|List<ProductInfo>|Body|否|设备可能的其他型号
+
+##### 2、请求示例
+
+**请求样例**
+```
+https://uws.haier.net/stdudse/v1/protected/modifyModelInfo
+Body：
+{
+  "deviceId": "DC330DC4B6EE",
+  "codeType": 1,
+  "code": "AURGH4JIOJAVU"
+}
+
+```
+
+**请求应答**
+```
+{
+  "deviceBaseInfo": {
+"deviceId": "DC330DC4B6EE",
+    "productCodeT": "AA9Y31E00",
+    "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
+    "connectionStatus": "online"
+  },
+"possibleList": [
+  ],
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+```
+
+
+##### 3、错误码
+
+> C00003
+
+
+### 设备操作高级动能
+
+
+#### 设备指令执行操作接口（经过逻辑运算）
+
+> 领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+
+统一接收标准模型的命令，命令经过逻辑运算、转换、补偿后下发到设备
+
+
+##### 1、接口定义
+?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+accessToken|String|上下文|必填|用户token
+deviceId|String|Body|必填|设备ID
+cmdName|String|Body|否|组命令id（1、若该操作为组命令操作，则该值鼻涕那，2、否为单命令操作则不传）
+cmdArgs|Map<String,String>|Body|必填|一组命令,即属性集合（key-value）。（若该操作为单命令操作，则该值必须只有一对key-value。）
+callbackUrl|String|Body|非必填|操作应答回调地址，只支持http协议
+
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+usn|String|Body|非必填|序列号sn
+
+##### 2、请求示例
+
+**请求样例**
+
+
+```
+Header：
+appId:MB-*****-0000
+appVersion:2015110401
+clientId:356877020056553-08002700DC94
+sequenceId:08002700DC94-15110519074300001
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp: 1436236880183
+accessToken:TGT37FAT5QBI2UNO2TFWT4AASDKAF0
+language:zh-cn
+timezone:8
+Content-type: application/json
+
+Body
+{
+"deviceId": "********",
+"cmdName": "grSetDAC",
+"cmdArgs": {"pmvStatus":"true","cleaningTimeStatus":"false","cloudFilterChangeFlag":"false","electricHeatingStatus":"true","onOffStatus":"true","operationMode":"4"},
+"callbackUrl": "https://www.uhome.haier.net/callback.html"
+}
+
+```
+
+**请求应答**
+
+```
+{
+"retCode": "00000",
+"retInfo": "成功!",
+"usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+
+```
+
+**操作应答**
+
+```
+{
+  "deviceId": "0007A893C119",
+  "resCode": "0",
+  "result": "eyJhcmdzIjpbeyJuYW1lIjoidGFyZ2V0VGVtcGVyYXR1cmUiLCJ2YWx1ZSI6IjE2LjAwIn0seyJuYW1lIjoid2luZERpcmVjdGlvblZlcnRpY2FsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoib3BlcmF0aW9uTW9kZSIsInZhbHVlIjoiNCJ9LHsibmFtZSI6InNwZWNpYWxNb2RlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoid2luZFNwZWVkIiwidmFsdWUiOiIxIn0seyJuYW1lIjoidGVtcFVuaXQiLCJ2YWx1ZSI6IjEifSx7Im5hbWUiOiJwbXZTdGF0dXMiLCJ2YWx1ZSI6InRydWUifSx7Im5hbWUiOiJpbnRlbGxpZ2VuY2VTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoiaGFsZkRlZ3JlZVNldHRpbmdTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoic2NyZWVuRGlzcGxheVN0YXR1cyIsInZhbHVlIjoidHJ1ZSJ9LHsibmFtZSI6IjEwZGVncmVlSGVhdGluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJlY2hvU3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6ImxvY2tTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoic2lsZW50U2xlZXBTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoibXV0ZVN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJyYXBpZE1vZGUiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoiZWxlY3RyaWNIZWF0aW5nU3RhdHVzIiwidmFsdWUiOiJ0cnVlIn0seyJuYW1lIjoiaGVhbHRoTW9kZSIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJvbk9mZlN0YXR1cyIsInZhbHVlIjoidHJ1ZSJ9LHsibmFtZSI6InRhcmdldEh1bWlkaXR5IiwidmFsdWUiOiIzMCJ9LHsibmFtZSI6Imh1bWFuU2Vuc2luZ1N0YXR1cyIsInZhbHVlIjoiMCJ9LHsibmFtZSI6IndpbmREaXJlY3Rpb25Ib3Jpem9udGFsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoibG9jYWxGaWx0ZXJDaGFuZ2VGbGFnIiwidmFsdWUiOiJ0cnVlIn0seyJuYW1lIjoiZW5lcmd5U2F2aW5nU3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6ImxpZ2h0U3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6InNlbGZDbGVhbmluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJjaDJvQ2xlYW5pbmdTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoicG0ycDVDbGVhbmluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJodW1pZGlmaWNhdGlvblN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJmcmVzaEFpclN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJpbmRvb3JUZW1wZXJhdHVyZSIsInZhbHVlIjoiMTguNTAifSx7Im5hbWUiOiJpbmRvb3JIdW1pZGl0eSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6Im91dGRvb3JUZW1wZXJhdHVyZSIsInZhbHVlIjoiLTY0LjAwIn0seyJuYW1lIjoiYWNUeXBlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoic2Vuc2luZ1Jlc3VsdCIsInZhbHVlIjoiMCJ9LHsibmFtZSI6ImFpclF1YWxpdHkiLCJ2YWx1ZSI6IjAifSx7Im5hbWUiOiJwbTJwNUxldmVsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoiZXJyQ29kZSIsInZhbHVlIjoiNiJ9LHsibmFtZSI6IkVyckFja0ZsYWciLCJ2YWx1ZSI6InRydWUifSx7Im5hbWUiOiJvcFNyYyIsInZhbHVlIjoiMyJ9LHsibmFtZSI6InRvdGFsQ2xlYW5pbmdUaW1lIiwidmFsdWUiOiIyNjY0In0seyJuYW1lIjoiaW5kb29yUE0ycDVWYWx1ZSIsInZhbHVlIjoiNTMifSx7Im5hbWUiOiJvdXRkb29yUE0ycDVWYWx1ZSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6ImNoMm9WYWx1ZSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6InZvY1ZhbHVlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoiY28yVmFsdWUiLCJ2YWx1ZSI6IjAifV19",
+  "retCode": "00000",
+  "retInfo": "成功",
+  "usn": "600ce95da3e14fc7a68f483dd14db864"
+}
+
+```
+
+##### 3、错误码
+
+> G03002、B00001、G20202、B00004、A00001、000001、A00006、A00005、A00007、A00008、A00009
+
+
 ### 设备控制类接口
+
+设备控制类接口通过APPSERVER访问
+
+若APPSERVER部署在外网，则通过https://uws.haier.net/udse访问；
+若APPSERVER部署在内网，则通过https://internal.uws.haier.net/udse访问；
+
+
+**权限申请**
+
+设备控制类接口服务授权，使用服务IP白名单策略，需要是用此服务请联系IOT平台技术支持开通系统IP白名单
+
+**公共头部分**
+
+Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
+
+**开通流程如下**
+
+> “海极网” -->  “开发者中心” --> “我的产品” --> “我的云应用”
+
+
 
 #### 用户设备操作-控制通道-非标准模型
 > 用户设备操作-控制通道，支持非标准模型（6位码设备）设备的操作
@@ -1290,7 +1515,10 @@ Body
 
 
 #### 用户读属性-异步接口-标准模型
-> 用户读属性-异步接口，支持标准模型的属性读
+
+> 用户读属性-异步接口，支持标准模型的
+
+
 
 ##### 1、接口定义
 ?> **接入地址：** `/udse/v1/propertyRead`</br>
@@ -1517,288 +1745,6 @@ Body
 > B00001、B00004、A00001、D00006、G20202、G03002
 
 
-
-### 领域模型
-
-领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
-
-#### 属性写
-写入设备属性，统一接收标准模型的属性写命令，根据设备类型来判断是否将进行ID码和标准互转，并将补全的命令下发下去
- 
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/stdDevPropertyWrite`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-accessToken|String|上下文|必填|
-deviceId|String|Body|必填|设备ID
-property|String|Body|必填|设备写属性的属性名
-value|String|Body|必填|设备泄属性的属性值，必填
-callbackUrl|String|Body|非必填|操作应答回到地址，只支持http协议
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-usn|String|Body|非必填|序列号sn
-
-##### 2、接口错误码
-
-> G20202、G03002、B00001、01001、20905、00000
-
-#### 属性读
-
-统一接收标准模型的属性读命令，根据设备类型来判断是否将进行ID码和标准互转，并将补全的命令下发下去
-
-
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/stdDevPropertyRead `</br>
-**HTTP Method：** POST
-
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-accessToken|String|上下文|必填|
-deviceId|String|Body|必填|设备ID
-property|String|Body|必填|设备毒属性的属性名
-callbackUrl|String|Body|非必填|操作应答回调地址，只支持http协议
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-usn|String|Body|非必填|序列号sn
-
-##### 2、错误码
-
-> G20202、G03002、01001、20905、00000
-
-#### 设备操作
-
-统一接收标准模型的操作命令，根据设备类型来判断是否将进行ID码和标准互转，并将补全的命令下发下去
-
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/stdDevOperate`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-accessToken|String|上下文|必填|用户token
-deviceId|String|Body|必填|设备ID
-operateName|String|Body|必填|操作名称
-operationgValue|List<OpPorpertyValueDto>|Body|必填|属性值的列表，对象中为name和value两个值
-callbackUrl|String|Body|非必填|操作应答回调地址，只支持http协议
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-usn|String|Body|非必填|序列号sn
-
-##### 2、错误码
-
-> G20202、G03002、B00001、01001、20905、00000
-
-#### 获取设备基本信息
-
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-deviceId|String|Body|是|设备id
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-deviceBaseInfo|DeviceBaseInfo|Body|是|设备基本信息
-
-##### 2、请求示例
-
-**请求样例**
-```
-https://uws.haier.net/stdudse/v1/protected/getBaseInfo
-Body：
-{
-  “deviceId”: “DC330DC4B6EE”
-}
-
-```
-
-**请求应答**
-```
-{
-  "deviceBaseInfo": {
-"deviceId": "DC330DC4B6EE",
-    "productCodeT": "AA9Y31E00",
-    "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
-    "connectionStatus": "online"
-  },
-  "retCode": "00000",
-  "retInfo": "成功"
-}
-
-```
-
-##### 3、错误码
-
-> G10001
-
-#### 修改设备型号信息
-
-修改设备型号信息，产品编码补习已在海极网注册
-
-
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/protected/modifyModelInfo`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-deviceId|String|Body|是|设备id
-codeType|Integer|Body|是|1、机器编码；2、产品型号编码
-code|String|Body|是|具体编码
-modifyType|String|Body|否|修改方式：1、APP扫码更新；2、APP用户选择；3、其他，请描述
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-deviceBaseInfo|DeviceBaseInfo|Body|是|设备基本信息
-possibleList|List<ProductInfo>|Body|否|设备可能的其他型号
-
-##### 2、请求示例
-
-**请求样例**
-```
-https://uws.haier.net/stdudse/v1/protected/modifyModelInfo
-Body：
-{
-  "deviceId": "DC330DC4B6EE",
-  "codeType": 1,
-  "code": "AURGH4JIOJAVU"
-}
-
-```
-
-**请求应答**
-```
-{
-  "deviceBaseInfo": {
-"deviceId": "DC330DC4B6EE",
-    "productCodeT": "AA9Y31E00",
-    "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
-    "connectionStatus": "online"
-  },
-"possibleList": [
-  ],
-  "retCode": "00000",
-  "retInfo": "成功"
-}
-
-```
-
-
-##### 3、错误码
-
-> C00003
-
-
-#### 设备指令执行操作接口（经过逻辑运算）
-
-统一接收标准模型的命令，命令经过逻辑运算、转换、补偿后下发到设备
-
-
-##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-accessToken|String|上下文|必填|用户token
-deviceId|String|Body|必填|设备ID
-cmdName|String|Body|否|组命令id（1、若该操作为组命令操作，则该值鼻涕那，2、否为单命令操作则不传）
-cmdArgs|Map<String,String>|Body|必填|一组命令,即属性集合（key-value）。（若该操作为单命令操作，则该值必须只有一对key-value。）
-callbackUrl|String|Body|非必填|操作应答回调地址，只支持http协议
-
-
-**输出参数**
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-usn|String|Body|非必填|序列号sn
-
-##### 2、请求示例
-
-**请求样例**
-
-
-```
-Header：
-appId:MB-*****-0000
-appVersion:2015110401
-clientId:356877020056553-08002700DC94
-sequenceId:08002700DC94-15110519074300001
-sign:bd4495183b97e8133aeab2f1916fed41
-timestamp: 1436236880183
-accessToken:TGT37FAT5QBI2UNO2TFWT4AASDKAF0
-language:zh-cn
-timezone:8
-Content-type: application/json
-
-Body
-{
-"deviceId": "********",
-"cmdName": "grSetDAC",
-"cmdArgs": {"pmvStatus":"true","cleaningTimeStatus":"false","cloudFilterChangeFlag":"false","electricHeatingStatus":"true","onOffStatus":"true","operationMode":"4"},
-"callbackUrl": "https://www.uhome.haier.net/callback.html"
-}
-
-```
-
-**请求应答**
-
-```
-{
-"retCode": "00000",
-"retInfo": "成功!",
-"usn": "600ce95da3e14fc7a68f483dd14db864"
-}
-
-```
-
-**操作应答**
-
-```
-{
-  "deviceId": "0007A893C119",
-  "resCode": "0",
-  "result": "eyJhcmdzIjpbeyJuYW1lIjoidGFyZ2V0VGVtcGVyYXR1cmUiLCJ2YWx1ZSI6IjE2LjAwIn0seyJuYW1lIjoid2luZERpcmVjdGlvblZlcnRpY2FsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoib3BlcmF0aW9uTW9kZSIsInZhbHVlIjoiNCJ9LHsibmFtZSI6InNwZWNpYWxNb2RlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoid2luZFNwZWVkIiwidmFsdWUiOiIxIn0seyJuYW1lIjoidGVtcFVuaXQiLCJ2YWx1ZSI6IjEifSx7Im5hbWUiOiJwbXZTdGF0dXMiLCJ2YWx1ZSI6InRydWUifSx7Im5hbWUiOiJpbnRlbGxpZ2VuY2VTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoiaGFsZkRlZ3JlZVNldHRpbmdTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoic2NyZWVuRGlzcGxheVN0YXR1cyIsInZhbHVlIjoidHJ1ZSJ9LHsibmFtZSI6IjEwZGVncmVlSGVhdGluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJlY2hvU3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6ImxvY2tTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoic2lsZW50U2xlZXBTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoibXV0ZVN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJyYXBpZE1vZGUiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoiZWxlY3RyaWNIZWF0aW5nU3RhdHVzIiwidmFsdWUiOiJ0cnVlIn0seyJuYW1lIjoiaGVhbHRoTW9kZSIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJvbk9mZlN0YXR1cyIsInZhbHVlIjoidHJ1ZSJ9LHsibmFtZSI6InRhcmdldEh1bWlkaXR5IiwidmFsdWUiOiIzMCJ9LHsibmFtZSI6Imh1bWFuU2Vuc2luZ1N0YXR1cyIsInZhbHVlIjoiMCJ9LHsibmFtZSI6IndpbmREaXJlY3Rpb25Ib3Jpem9udGFsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoibG9jYWxGaWx0ZXJDaGFuZ2VGbGFnIiwidmFsdWUiOiJ0cnVlIn0seyJuYW1lIjoiZW5lcmd5U2F2aW5nU3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6ImxpZ2h0U3RhdHVzIiwidmFsdWUiOiJmYWxzZSJ9LHsibmFtZSI6InNlbGZDbGVhbmluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJjaDJvQ2xlYW5pbmdTdGF0dXMiLCJ2YWx1ZSI6ImZhbHNlIn0seyJuYW1lIjoicG0ycDVDbGVhbmluZ1N0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJodW1pZGlmaWNhdGlvblN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJmcmVzaEFpclN0YXR1cyIsInZhbHVlIjoiZmFsc2UifSx7Im5hbWUiOiJpbmRvb3JUZW1wZXJhdHVyZSIsInZhbHVlIjoiMTguNTAifSx7Im5hbWUiOiJpbmRvb3JIdW1pZGl0eSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6Im91dGRvb3JUZW1wZXJhdHVyZSIsInZhbHVlIjoiLTY0LjAwIn0seyJuYW1lIjoiYWNUeXBlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoic2Vuc2luZ1Jlc3VsdCIsInZhbHVlIjoiMCJ9LHsibmFtZSI6ImFpclF1YWxpdHkiLCJ2YWx1ZSI6IjAifSx7Im5hbWUiOiJwbTJwNUxldmVsIiwidmFsdWUiOiIwIn0seyJuYW1lIjoiZXJyQ29kZSIsInZhbHVlIjoiNiJ9LHsibmFtZSI6IkVyckFja0ZsYWciLCJ2YWx1ZSI6InRydWUifSx7Im5hbWUiOiJvcFNyYyIsInZhbHVlIjoiMyJ9LHsibmFtZSI6InRvdGFsQ2xlYW5pbmdUaW1lIiwidmFsdWUiOiIyNjY0In0seyJuYW1lIjoiaW5kb29yUE0ycDVWYWx1ZSIsInZhbHVlIjoiNTMifSx7Im5hbWUiOiJvdXRkb29yUE0ycDVWYWx1ZSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6ImNoMm9WYWx1ZSIsInZhbHVlIjoiMCJ9LHsibmFtZSI6InZvY1ZhbHVlIiwidmFsdWUiOiIwIn0seyJuYW1lIjoiY28yVmFsdWUiLCJ2YWx1ZSI6IjAifV19",
-  "retCode": "00000",
-  "retInfo": "成功",
-  "usn": "600ce95da3e14fc7a68f483dd14db864"
-}
-
-```
-
-##### 3、错误码
-
-> G03002、B00001、G20202、B00004、A00001、000001、A00006、A00005、A00007、A00008、A00009
 
 
 
