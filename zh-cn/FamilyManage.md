@@ -2348,14 +2348,17 @@ Content-type: application/json
 
 **输入参数**  
 
-| 类型         | 参数名         | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
-| ShareDevice[]  | shareDevices   | body |必填|设备信息 | 
+| 类型   | 参数名 | 位置  | 必填|说明|  
+| ---- |:-----:|:-----:|:-----:|:------:|
+| ShareDevice[]  | shareDevices   | body |必填|设备信息 |  
 | String  | familyId   | body |必填|家庭ID |   
+  
 
-**输入参数说明**   
-**名称**	|设备共享信息 |&emsp;|ShareDevice|
+**输入参数说明**  
+
+|**名称**	|设备共享信息 |&emsp;|ShareDevice|
 | ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
 |**字段名**|**类型**|**说明**|**备注**|    
 |devInfo|DeviceBriefInfo|设备简明信息|成员deviceId必填，其他字段被忽略|  
 |devName|String|设备名称|选填| 
@@ -2426,12 +2429,14 @@ Body：
 
 
 **输入参数说明**   
-**名称**	|设备共享信息 |&emsp;|ShareDevice|
+
+
+|**名称**	|设备共享信息 |&emsp;|ShareDevice|
 | ------------- |:-------------:|:-----:|:-------------:|  
 |**字段名**|**类型**|**说明**|**备注**|    
 |familyId|String|设备所属家庭|必填|  
 |devName|String|设备所属房间名称|必填| 
-|devInfo|DeviceBriefInfo|设备信息|内容中只填写deviceId，且未必填，其他字段忽略| 
+|devInfo|DeviceBriefInfo|设备信息|内容中只填写deviceId，且未必填，其他字段忽略|
 
 
 
