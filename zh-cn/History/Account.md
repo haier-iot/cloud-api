@@ -3,68 +3,60 @@
  **更新时间**：{docsify-updated}  
 
 
-### 简介
+## 简介
 
 > 账号服务旨在提供涵盖物联全流程的访问控制服务，为开发者搭建统一的用户登录系统。  
 
-开发者通过集成U+IOT平台账号服务，不仅提供用户账号的注册、登录、找回密码等账户管理服务，同时帮助开发者构建包括物联设备的统一控制、设备与用户权限管理等在内的一致性的IOT系统化管控模式。  
- 
-**账号基础能力**  
-
-1、	提供包括注册、登录、密码管理等账号基础服务能力；
-
-2、	提供权限认证与管理服务，包括用户认证与用户之间权限的分享认证管理。
-
-**账号信息相关能力**  
-
-1、	查询IOT平台账号信息，请求获取用户信息（包括id、loginName、email、mobile等用户属性）；
-
-2、	修改IOT平台账号信息，用户主动修改其应用属性信息、用户基础属性等，需要进行权限认证。
+开发者通过集成U+IOT平台账号服务，不仅提供用户账号的注册、登录、找回密码等账户管理服务，同时帮助开发者构建包括物联设备的统一控制、设备与用户权限管理等在内的一致性的IOT系统化管控模式。
 
 ![账户图片][account_type]  
 
+**账号基础能力**  
+1、	IOT平台账号注册：使用此接口用户可以使用手机或邮箱注册IOT账号，并调用验证码接口获取验证码，进行注册激活  
+2、	IOT平台账号登录与退出，进行登录验证获取系统创建的安全令牌（accessToken），系统校验accessToken进行用户退出登录。  
+3、	IOT账号验证码申请与验证，使用此接口可以申请和验证手机或邮箱的验证码保证注册、登录的安全性。  
+
+**账号信息相关能力**  
+1、	查询IOT平台账号信息，请求获取用户信息（包括id、loginName、email、mobile等用户属性）。  
+2、	修改IOT平台账号信息，用户主动修改其应用属性信息、用户基础属性等，需要进行权限认证。  
+
+**账号体系关联能力**  
+1、	第三方社交账号登录，支持QQ、微信、微博、豆瓣、人人网账号登录。  
+2、	开发者的自有账号登录，在U+IOT平台生成对应的暗账号并以U+账号身份进行用户授权登录到U+平台，开发者可建立其独立的开发者账号体系。
+
+## 名词解释
+
+- **海尔优家 账号**
+>  指海尔集团旗下海尔优家平台对外提供的自有物联网账户体系，该账户体系具备绑定/控制等操作海尔物联网家电权限；
 
 
-### 应用场景  
-
-**账户服务场景应用流程：**
-
-账号服务应用流程包括用户注册、登录、密码找回、会话分享、第三方社交账号、账号注销以及用户信息修改等相关流程。
+- **海尔优家 OAuth**
+> 指海尔优家对外提供的OAuth服务，需要使用海尔优家账号进行登录授权；
 
 
-![服务流程图片][account_liucheng] 
+- **海尔优家 第三方登录**
+> 指使用第三方平台账号登录海尔优家平台，如微信、京东、淘宝等；
 
-**注册**
 
-用户注册填写邮箱/手机号信息，获取验证码完成认证注册；
-
-用户首次注册需要同意并接受隐私协议（应用端从平台获取）。
-
-**登录**
-
-输入账号密码认证登录，当输入密码错误3次时开始需要获取图形验证码填写，密码错误超过5次时锁定账号5小时；
-
-账号密码验证无误后检测用户隐私协议版本，用户接受最新版隐私协议后完成登录流程
-
-**找回密码**
-
-忘记密码可以通过邮箱/手机验证码的方式重置
-
-**会话分享**
-
-跨应用访问提供会话分享服务，APP_1的会话可以分享给APP_2；
-
-会话分享需要会话分享验证码进行认证
-
-**第三方账号**
-
-支持第三方账号认证登录，使用oauth账号授权方式登录U+账户服务,支持google，amazon 等社交账号登录；
-
-第三方账号与U+ 账号实现绑定，并维护绑定关系与U+账号信息
+- **海尔优家 开发者自有账号登录**
+> 指开发者已有账户体系，且希望使用自有账户体系登录海尔优家平台；  
+该种对接方式需要走线下申请流程，如有需求，可在开发者社区反馈，或通过[海尔优家商务BD][Business]反馈；
 
 
 
-### 用户隐私权限  
+## 应用场景
+**账号管理**  
+开发者没有账户系统，可集成U+账号的相关服务。  
+
+**第三方登录**  
+通过主流的第三方平台，一键进行登录。  
+
+**开发者账号**  
+开发者有自己的账户系统，通过云云对接互联方式接入U+账户服务。  
+
+
+
+## 用户隐私权限
 
 为切实保护用户隐私权，优化用户体验，海尔优家根据现行法规及政策，制定了海尔家电隐私权政策。海尔了解个人信息对客户的重要性，我们力求明确说明我们获取、管理及保护用户个人信息的政策及措施。
 
@@ -73,278 +65,68 @@
 
  **开发者需提供使用海尔优家账号服务应用的用户服务协议条款请联系**[**海尔优家商务BD**](zh-cn/Business)，**我们为应用配置对应的隐私权政策及服务协议条款**
 
-#### 用户隐私数据的安全性
-##### 安全性说明
-用户隐私数据项目 
+
+
+## 公共结构  
+### UserBase  
+描述用户基础信息结构。   
+  
+| **名称** | 用户基础信息 |&emsp;| UserBase |   
+| ------------- |:----------:|:-----:|:--------:|
+|**字段名**|**类型**|**说明**|**备注**|  
+|id| String | 用户ID |由系统生成|  
+|loginName| String | 登录名 |长度为3~15位 不允许使用特殊字符|  
+|email| String | 邮箱 |需要符合邮箱格式|    
+|mobile| String | 手机号 |需要符合手机号格式|      
+|email| String | 邮箱 |0：海尔账号  99：自有账号|  
+
+### UserProfile  
+用户扩展属性。属性不固定的键值对对象，结构如下：  
+{  
+	"key1":"value1",  
+	"key2":"value2",  
+	"key3":"value3",  
+	 …  
+	"keyn":"valuen",  
+}  
+用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。  
+
+以下是烤圈应用的用户扩展属性：  
  
-| **字段** | **加密处理**  |  **规则** |   
-| ------------- |:----------:|:-----:|  
-|email    |	RSA 加密	|默认为用户名@服务器域名，用户名和服务器域名为非空字符|
-|mobile   |RSA 加密	|1开头11位数字|    
-|password |	RSA 加密	|长度为6~20位，有大写字母、小写字母、数字或特殊字符中的三种|  
  
-##### 秘钥使用流程  
+| **名称** | 用户 | &emsp; |&emsp; | UserProfile |  
+| ---- |:-----:|:----:|:----:|:-------------:|    
+|**字段名**|**类型**|**说明**|**长度**|**备注**|  
+|id|String|用户ID|20|&emsp;|  
+|nickName|String|昵称|32|&emsp;|  
+|userName|String|用户姓名|32|&emsp;|  
+|avatar|String|用户头像资源id||&emsp;|  
+|points|long|积分|8|&emsp;|  
+|focusCount|int|关注数|8|&emsp;|  
+|followCount|int|粉丝数|8|&emsp;|  
 
-**获取秘钥流程**
+### User    
+     
+| **名称** | 用户属性 |&emsp;| User |
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|  
+|userBase|UserBase|用户基本属性对象||  
+|userProfile|UserProfile|用户扩展属性|&emsp;|  
 
-![密码传输流程图片][account_PasswordFlow2]  
+## 接口清单
 
-**秘钥更新流程**
+### 海尔优家账号
+> API接口总览
 
-![密码传输流程图片][account_PasswordFlow1]  
-
-
-##### 加密和解密算法
-算法：RSA
-
-秘钥长度:1024
-
-秘钥：app端持有公钥，服务端持有私钥，公钥私钥为一对秘钥，公钥加密，私钥解密
-
-算法代码：
-
-
-```java
-package com.hshbic.cloud.user.util.encrypt;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.crypto.Cipher;
-
-import org.apache.commons.codec.binary.Base64;
-
-import com.hshbic.cloud.user.model.AppRsaKeys;
-
-public class RSAUtil {
-
-	public static final String CHARSET = "UTF-8";
-	public static final String RSA_ALGORITHM = "RSA";
-	
-	public static Map<String, AppRsaKeys> KEYSMAP = new ConcurrentHashMap<String, AppRsaKeys>();
-
-	public static Map<String, String> createKeys(int keySize) {
-		// 为RSA算法创建一个KeyPairGenerator对象
-		KeyPairGenerator kpg;
-		try {
-			kpg = KeyPairGenerator.getInstance(RSA_ALGORITHM);
-		} catch (NoSuchAlgorithmException e) {
-			throw new IllegalArgumentException("No such algorithm-->["
-					+ RSA_ALGORITHM + "]");
-		}
-
-		// 初始化KeyPairGenerator对象,密钥长度
-		kpg.initialize(keySize);
-		// 生成密匙对
-		KeyPair keyPair = kpg.generateKeyPair();
-		// 得到公钥
-		Key publicKey = keyPair.getPublic();
-		String publicKeyStr = Base64.encodeBase64URLSafeString(publicKey
-				.getEncoded());
-		// 得到私钥
-		Key privateKey = keyPair.getPrivate();
-		String privateKeyStr = Base64.encodeBase64URLSafeString(privateKey
-				.getEncoded());
-		Map<String, String> keyPairMap = new HashMap<String, String>();
-		keyPairMap.put("publicKey", publicKeyStr);
-		keyPairMap.put("privateKey", privateKeyStr);
-
-		return keyPairMap;
-	}
-
-	/**
-	 * 得到公钥
-	 * 
-	 * @param publicKey
-	 *            密钥字符串（经过base64编码）
-	 * @throws Exception
-	 */
-	public static RSAPublicKey getPublicKey(String publicKey)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		// 通过X509编码的Key指令获得公钥对象
-		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
-		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(
-				Base64.decodeBase64(publicKey));
-		RSAPublicKey key = (RSAPublicKey) keyFactory
-				.generatePublic(x509KeySpec);
-		return key;
-	}
-
-	/**
-	 * 得到私钥
-	 * 
-	 * @param privateKey
-	 *            密钥字符串（经过base64编码）
-	 * @throws Exception
-	 */
-	public static RSAPrivateKey getPrivateKey(String privateKey)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		// 通过PKCS#8编码的Key指令获得私钥对象
-		KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
-		PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(
-				Base64.decodeBase64(privateKey));
-		RSAPrivateKey key = (RSAPrivateKey) keyFactory
-				.generatePrivate(pkcs8KeySpec);
-		return key;
-	}
-
-	/**
-	 * 公钥加密
-	 * 
-	 * @param data
-	 * @param publicKey
-	 * @return
-	 */
-	public static String publicEncrypt(String data, RSAPublicKey publicKey) {
-		try {
-			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
-			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-			return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher,
-					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), publicKey
-							.getModulus().bitLength()));
-		} catch (Exception e) {
-			throw new RuntimeException("加密字符串[" + data + "]时遇到异常", e);
-		}
-	}
-
-	/**
-	 * 私钥解密
-	 * 
-	 * @param data
-	 * @param privateKey
-	 * @return
-	 */
-
-	public static String privateDecrypt(String data, RSAPrivateKey privateKey) {
-		try {
-			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
-			cipher.init(Cipher.DECRYPT_MODE, privateKey);
-			return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE,
-					Base64.decodeBase64(data), privateKey.getModulus()
-							.bitLength()), CHARSET);
-		} catch (Exception e) {
-			throw new RuntimeException("解密字符串[" + data + "]时遇到异常", e);
-		}
-	}
-
-	/**
-	 * 私钥加密
-	 * 
-	 * @param data
-	 * @param privateKey
-	 * @return
-	 */
-
-	public static String privateEncrypt(String data, RSAPrivateKey privateKey) {
-		try {
-			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
-			cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-			return Base64.encodeBase64URLSafeString(rsaSplitCodec(cipher,
-					Cipher.ENCRYPT_MODE, data.getBytes(CHARSET), privateKey
-							.getModulus().bitLength()));
-		} catch (Exception e) {
-			throw new RuntimeException("加密字符串[" + data + "]时遇到异常", e);
-		}
-	}
-
-	/**
-	 * 公钥解密
-	 * 
-	 * @param data
-	 * @param publicKey
-	 * @return
-	 */
-
-	public static String publicDecrypt(String data, RSAPublicKey publicKey) {
-		try {
-			Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
-			cipher.init(Cipher.DECRYPT_MODE, publicKey);
-			return new String(rsaSplitCodec(cipher, Cipher.DECRYPT_MODE,
-					Base64.decodeBase64(data), publicKey.getModulus()
-							.bitLength()), CHARSET);
-		} catch (Exception e) {
-			throw new RuntimeException("解密字符串[" + data + "]时遇到异常", e);
-		}
-	}
-
-	private static byte[] rsaSplitCodec(Cipher cipher, int opmode,
-			byte[] datas, int keySize) {
-		int maxBlock = 0;
-		if (opmode == Cipher.DECRYPT_MODE) {
-			maxBlock = keySize / 8;
-		} else {
-			maxBlock = keySize / 8 - 11;
-		}
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		int offSet = 0;
-		byte[] buff;
-		int i = 0;
-		try {
-			while (datas.length > offSet) {
-				if (datas.length - offSet > maxBlock) {
-					buff = cipher.doFinal(datas, offSet, maxBlock);
-				} else {
-					buff = cipher.doFinal(datas, offSet, datas.length - offSet);
-				}
-				out.write(buff, 0, buff.length);
-				i++;
-				offSet = i * maxBlock;
-			}
-
-			byte[] resultDatas = out.toByteArray();
-
-			return resultDatas;
-
-		} catch (Exception e) {
-			throw new RuntimeException("加解密阀值为[" + maxBlock + "]的数据时发生异常", e);
-		} finally {
-			try {
-				out.close();
-			} catch (IOException e) {
-				
-			}
-		}
-	}
-
-	public static void main(String[] args) throws Exception {
-		Map<String, String> keyMap = RSAUtil.createKeys(1024);
-		String publicKey = keyMap.get("publicKey");
-		String privateKey = keyMap.get("privateKey");
-		System.out.println("公钥: \n\r" + publicKey);
-		System.out.println("私钥： \n\r" + privateKey);
-
-		String str = "123";
-		System.out.println("\r明文：\r\n" + str);
-		System.out.println("\r明文大小：\r\n" + str.getBytes().length);
-		String encodedData = RSAUtil.publicEncrypt(str,
-				RSAUtil.getPublicKey(publicKey));
-		System.out.println("密文：\r\n" + encodedData);
-		String decodedData = RSAUtil.privateDecrypt(encodedData,
-				RSAUtil.getPrivateKey(privateKey));
-		System.out.println("解密后文字: \r\n" + decodedData);
-
-	}
-}
-
-```  
-
-
-### 接口清单
-
-### 用户类接口
+| API名称        | 作用          | 是否开放  | 特别说明|
+| ------------- |:-------------:|:-----:|:-------------:|
+| 账号注册     | 使用手机注册，成功后，平台向用户手机发送短信验证码 | 是| 无|  
+| 账号登录     | 用户登录成功，安全系统创建安全令牌accessToken，通过header头返回给用户 | 是| 无|  
+| 账号退出 | 系统校验请求头中的accessToken，accessToken有效，执行退出平台操作 | 是| 无|  
+| 账号查询账号信息    | 用户查询账号信息| 是| 无|  
+| 账号信息修改  | 修改用户的应用属性，其他基础属性 | 是| 无|  
+| 账号动态验证码申请     | 验证码生成后会直接发送验证码到验证手机或验证邮箱 | 是| 无|  
+| 账号动态验证码验证     | 当用户是注册时收到的激活码，那么transactionId填空字符串 | 是| 无|  
 
 #### 账号注册
 >使用手机注册的用户，注册成功后，平台根据用户填写的mobile向用户的手机发送短信验证码，用户使用短信中的验证码，调用“自有账号动态验证码验证”接口进行激活。</br>
@@ -904,9 +686,7 @@ Body:
 
 [^-^]:常用图片注释
 [account_type]:_media/_account/account_type.png
-[account_liucheng]:_media/_account/scene_flow.png
-[account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
-[account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
+[account_liucheng]:_media/_account/account_liucheng.png
 
 
 [Business]:/zh-cn/Business
