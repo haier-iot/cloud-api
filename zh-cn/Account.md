@@ -344,71 +344,71 @@ public class RSAUtil {
 
 ### 接口清单
 
-### 用户类接口
+#### 用户类接口
 
-#### 账号注册
->使用手机注册的用户，注册成功后，平台根据用户填写的mobile向用户的手机发送短信验证码，用户使用短信中的验证码，调用“自有账号动态验证码验证”接口进行激活。</br>
->使用邮箱注册的用户，注册成功后，平台根据用户填写的email向用户的邮箱发送包含激活验证码的邮件，调用“自有账号动态验证码验证”接口进行激活。</br>
-激活码的有效时间为10分钟。不需登录可以访问。   
+##### 邮箱账号注册
+> 使用邮箱地址注册新账号
 
 
+###### 1、接口定义
 
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/users/register`  
- **HTTP Method：** POST
+?> **接入地址：**  `/uaccount/v2/user/registerEmailAcounnt`  
+ **HTTP Method：** POST  
+ **前置条件:** 获取验证码   </br>
+ **Token 验证：** 否  
 
 **输入参数**  
 
-| 参数名  | 类型    | 位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|
-| user     | User | Body| id注册时不填；loginName可不填写，如不填写，则由系统自动生成；email与mobile两者必填一个；userProfile如果没有，需填写{}|用户信息，User对象中包括userBase和userProfile属性，注册自有账号时userBase中的acctype必须为99|  
-| password     | String | Body| 必填|密码，长度为6~20位|  
+| 参数名        | 类型         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+|email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|	密码需使用公钥加密，后端服务解密并校验规则。</br>服务端校验规则：大小写字母、数字、特殊字符三种或三种以上</br> `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
+|captcha|	String|	Body|	Yes	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。</br>根据需求msgCode验证失败超过三次需强制用户输入图形验证码|
+|userProfile|Map|Body|否|添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。|
+|msgCode|String|	Body|	是	| 验证码,注册前用户申请验证,发送至用户邮箱，注册时需填写此验证码，6位随机数字|
+
+**输入参数**  标准输出参数
 
 
-**输出参数**  
 
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
+###### 2、请求样例  
 
-##### 2、请求样例  
+**用户请求**  
+```java
+POST
 
-**用户请求**
-```java  
+https://uws.haier.net/uaccount/v2/user/registerEmailAcounnt
+
 Header：
+Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:    
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGT20QGFDOIY0U8S2754W0ZH3XY390
+sign: 5a46d3ca2a7f4589e97fbf4f2eae4b74c56eeb685884d91f136d339ea523dd0a
+timestamp: 1533868371182 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+privacyVersion: V1.0.0
+Content-Length: 434
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+Body:
 {
-"password":"111111",
-"user":
-{
-"userBase":{ 
-"loginName":"test",
-"email":"848421322@qq.com",
-"mobile":"18259060830",
-"accType":99
-},
-"userProfile":{
-"nickName":"test",
-"userName":"test",
-"points":"0",
-"focusCount":"0",
-"followCount":"0"
+	"email": "mzyc5-J0Cucq84wqFh7KfkWWqd3P3EagdvW2Eb8f6fqoQ3oX1Llhdt2o_YRpnu0D6xLUeocU7ckagnr5YlpNwh2OlVO6SKUNsmp9sXetFpjd9riOFeaJRqGeta8oPDMqPOnTIGt-9XaZ4nr5v2zH44eNalPSwL1kyUykVdHjbrU",
+	"password": "ZrZjvu0dpDNqKoQDUHCnyPyNw1gpvy6_b3BoVRQnpPW4Gj31Ieyr8B0DkbiayEWV2x5slwqvf4HU_b-ZF_NdMC-V_OQ5VZxZixqmH-piZ8uAMzmZaiVf5Hxn26g6w1x679Oma2xiEnRdm2YpsVKhzwHiBn0-uZxNQnUxLZ9YI6k",
+	"msgCode": "050289",
+	"userProfile": 
+	{
+		"name": "test"
+	},
+	"captcha": "dmpp"
 }
-}
-}
+
 
 
 ```  
@@ -423,131 +423,63 @@ Body
 
 ```
 
-##### 3、错误码  
-> 见首页公共错误码 
+###### 3、错误码   
 
-#### 账号登录
-> 用户登录成功，安全系统创建安全令牌accessToken，通过header头返回给用户。不需登录可以访问。  
-  
-
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/security/userlogin`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型 | 位置  | 必填|说明|
-| ---- |:----:|:----:|:----:|:----:|
-| sequenceId  | String | Body| 必填|&emsp; |  
-| loginId     | String | Body| 必填|登录用户名 |  
-| password    | String | Body| 必填|密码 |  
-| accType     | int | Body| 必填|必须为99  |   
-| loginType     | int | Body| 必填|登录类型 0：loginName ；1：手机号； 2：邮箱  |  
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-| accessToken   |   String |  Header   |  必填   |  安全令牌  |  
-| userId   |   String |  Body   |  必填   |  用户标识   |
-
-
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-"sequenceId":"20140305102633000001",
-"accType": "99",
-"loginId":"14759167292",
-"password":"123456",
-"thirdpartyAppId":"",
-"thirdpartyAccessToken":"",
-"loginType":"1"
-}
-
-
-
-
-```  
-
-**请求应答**
-
-```java
-Header：
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
-{"retCode":"00000","retInfo":"登录UHOME云平台成功","userId":"100013957366155388"}
-
-```
-
-##### 3、错误码  
-> 见首页公共错误码   
-
-#### 账号退出
-> 系统校验请求头中的accessToken，accessToken有效，执行退出平台操作     
-  
-
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/security/userlogout`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名| 类型 | 位置  | 必填|说明|
-| -----|:---:|:-----:|:-----:|:-----:|
-| sequenceId     | String | Body| 必填|&emsp; |   
+>  D00012、D00015、D00022、D00009、B00010、B00004
    
- 
+##### 手机账号注册
+> 使用手机号注册海尔自有账号
 
 
-**输出参数**  
+###### 1、接口定义
 
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |
+?> **接入地址：**  `/uaccount/v2/user/registerMobileAcounnt`  
+ **HTTP Method：** POST  
+ **前置条件:** 获取验证码   </br>
+ **Token 验证：** 否  
 
-##### 2、请求样例  
+**输入参数**  
 
-**用户请求**
-```java  
+| 参数名        | 类型         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+|mobile	|String	|Body|	是|需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|	密码需使用公钥加密，后端服务解密并校验规则。</br>服务端校验规则：大小写字母、数字、特殊字符三种或三种以上</br> `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{6,20}$`|  
+|captcha|	String|	Body|	Yes	|图形验证码，对于同一App、同一手机终端请求接口时连续失败m次后需启用图形验证码进行验证，m可配置，默认为3次。|
+|userProfile|Map|Body|否|添加用于满足各不同应用对用户信息的不同需求。当应用需要扩展用户属性时，可以向云平台用户系统申请，申请时列明需要扩展的属性，并列明每个属性对应的key、类型及长度。|
+|msgCode|String|	Body|	是	| 验证码,用户申请的验证码以短信方式发送至用户手机，6位随机数字|
+
+**输入参数**  标准输出参数
+
+
+
+###### 2、请求样例  
+
+**用户请求**  
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/applySmsCode
+
 Header：
+Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGT20QGFDOIY0U8S2754W0ZH3XY390
+sign: 5a46d3ca2a7f4589e97fbf4f2eae4b74c56eeb685884d91f136d339ea523dd0a
+timestamp: 1533868371182 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-Body
-{
-"sequenceId":"100013957366155388"
-}
+privacyVersion: V1.0.0
+Content-Length: 434
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
+Body:
+{"mobile":"mPuLONXZXYQuGHg0yM+L7PQAJRhEMgYiEseSlaVQow7FwuVjKQl08+A9ukmH QW/twZmxivfy2ELrC2vmKO7jjbp8R6GK1T//rW4O6u63uK+wvT3GC4qhzZRA TexLDpnILpE0KE2ddPz0E1m2DMAwHHA27/J8p85FaBMn66RP03s=","password":"pahJ6YE+zbBnqDBax+6r0xnBwvrIeMjhPoYWDfvmTFMr05x0p1fTY1a9sWBw oCARnR3MbPZvcWDcCAhxRAt9w+8Ei18ceQN1fbgKNcb/uRcT8eGPSsCt9SK8 Iv/cJB5dkw3kfwbTZJQsAEA7E2Q0SFa/d5NQc7trEDsZIxJz5Jo=","msgCode":"630326","userProfile":{"name":"test"},"captcha":"ekq6"}
 
 ```  
 
@@ -561,250 +493,357 @@ Body
 
 ```
 
-##### 3、错误码  
-> 见首页公共错误码  
+###### 3、错误码   
 
-#### 账号查询账号信息
->用户查询自有账号信息   
+>  D00012、D00015、D00022、D00009、B00010、B00004
 
+
+##### 邮箱账号登录
+> 用户使用邮箱登录获取accessToken
   
 
+###### 1、接口定义
 
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/users/{uid}`  
- **HTTP Method：** GET
+?> **接入地址：**  `/uaccount/v2/user/loginEmailAcounnt`  </br>
+ **HTTP Method：** POST  </br>
+ **前置条件:** 用户使用邮箱注册账号 </br>
+ **Token 验证：** 否  </br>
 
 **输入参数**  
 
-| 参数名 | 类型  | 位置  | 必填|说明|
-| ------|:----:|:-----:|:-----:|:-----:|
-| uid     | int | Url| 必填|用户id|   
+| 参数名       | 类型        | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+| email    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
+| password     | String | Body| 是|需使用公钥加密，后端服务解密并校验规则 |  
+| captcha     | String | Body| no |图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。登录输入错误的密码，次数大于等于三次时必须输入图形验证码。当用户输入错误密码5次时,锁定账号5小时|  
+
+
+**输出参数 **  
+
+|   参数名      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------|
+| accessToken   |   String |  Body   |  是   |   安全令牌  |  
+| refreshToken   |   String |  Body   |  是   |   刷新令牌 |  
+| scope   |   String |  Body   |  是   |   访问资源的范围 |  
+| expire   |   String |  Body   |  是   |   有效期 ，单位秒 |  
+
+###### 2、请求样例 
+
+**用户请求**  
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/loginEmailAcounnt
+ 
+Header：  
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTWCHUYVYMTS7L2QMJ5L6K8ERHI00
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+Body:
+{
+	"email": "cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+	"password": "hPeBKqC3OH8uG1yDM3l2CEk6zmvAzUonBxIcR6Z40IIPV8U20A_26nXX7wMn39kL5pJ-Irybmua9YUMYgmfNFZoZIyQzP6UTznuupqwZrVMr9vDH_4rLRzlcno8rBgxvWL6EUwL_ivK-Bwx6pOqIawjVTGoxGX8OSzwHcKK7Dvw",
+	"captcha": "kq6g"
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功",
+ "refreshToken": TGTNS588MLE1OHV2P04BB3Q6E54K35,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+ "scope":"auth_app",
+ "expire":"2160000"
+}
+
+```
+
+###### 3、错误码  
+
+> 10000、00001、D00002、D00009、D00010、D00015、B00010
+
+##### 手机账号登录
+> 用户使用手机登录获取accessToken
+  
+
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/loginMobileAcounnt`  </br>
+ **HTTP Method：** POST  </br>
+ **前置条件:** 用户使用手机注册账号 </br>
+ **Token 验证：** 否  </br>
+
+**输入参数**  
+
+| 参数名       | 类型        | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+| mobile    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
+| password     | String | Body| 是|需使用公钥加密，后端服务解密并校验规则 |  
+| captcha     | String | Body| no |对于同一App、同一手机终端登录时连续校验失败m次后需启用图形验证码进行验证，m可配置，默认为3次。登录成功后，允许失败次数重新恢复为m次；对于同一App、同一手机终端登录时连续校验失败m次后需启用图形验证码进行验证，m可配置，默认为3次。登录成功后，允许失败次数重新恢复为m次|  
+
+
+**输出参数 **  
+
+|   参数名      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------|
+| accessToken   |   String |  Body   |  是   |   安全令牌  |  
+| refreshToken   |   String |  Body   |  是   |   刷新令牌 |  
+| scope   |   String |  Body   |  是   |   访问资源的范围 |  
+| expire   |   String |  Body   |  是   |   有效期 ，单位秒 |  
+
+###### 2、请求样例 
+
+**用户请求**  
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/loginMobileAcounnt
+ 
+Header：  
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTWCHUYVYMTS7L2QMJ5L6K8ERHI00
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+Body:
+{"mobile":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4","password":"hPeBKqC3OH8uG1yDM3l2CEk6zmvAzUonBxIcR6Z40IIPV8U20A_26nXX7wMn39kL5pJ-Irybmua9YUMYgmfNFZoZIyQzP6UTznuupqwZrVMr9vDH_4rLRzlcno8rBgxvWL6EUwL_ivK-Bwx6pOqIawjVTGoxGX8OSzwHcKK7Dvw","captcha":"kq6g"}
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功",
+ "refreshToken": TGTNS588MLE1OHV2P04BB3Q6E54K35,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+ "scope":"auth_app",
+ "expire":"2160000"
+}
+
+```
+
+###### 3、错误码  
+
+> 10000、00001、D00002、D00009、D00010、D00015、B00010  
+
+
+
+##### 获取邮箱验证码
+> 在注册前申请验证码，用于验证用户的真实邮箱
+
+###### 1、接口描述
+
+?> **接入地址：**  `/uaccount/v2/user/applyVerificationCode`  
+ **HTTP Method：** POST  
+ **前置条件:** 邮箱注册  
+ **Token 验证：** 否
+
+**输入参数**  
+
+|  参数名        | 类型      | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| email    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
+| type    | String | Body| 是|1：邮箱账号注册 2：利用邮箱找回密码 4：修改登录的邮箱 5：注销邮箱账号|  
    
- 
+
+**输出参数：** 标准输出参数  
 
 
-**输出参数**  
-
-|  名称  |   类 | 位置  |必填 |说明|
-|-----|:----:|:-----:|:-----:|:------:|
-| user   |  User  |   Body  |  必填 userProfile可为null   | 用户信息   |
-
-##### 2、请求样例  
-
+###### 2、请求样例   
 **用户请求**
-```java  
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/applyVerificationCode
+
 Header：
+Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470 
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 0cdb49b20d552b6f99384373b1e7f3c34136237b7a39d91ab63b35035f54f8d0
+timestamp: 1533886290915 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 194
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
+Body:
+{
+	"email": "Vfg5EFcuBWBMhs7MkSfWkXmvNaE0uuUcF6abMJ1NrrpaWbNwD9qVndJABZeHm0OJL4Lndxih1HMuB16lWWPSupFybylkgl-ztjjKhoPc2K7QCLV0n2i73ei2LhTLIZdQ_VsPUhtM9jET50MFNRDAUpnBHwQwrj2JUDi0SAztMbg",
+	"type": "2"
+}
 ```  
 
 **请求应答**
 
 ```java
-{"retCode":"00000","retInfo":"正确","user":{"userBase":{"id":"100013957366155385","loginName":"zhoujie","email":"848421322@qqq.com","mobile":"18259000000","accType":"99","status":"1"},"userProfile":{"phone":null,"updateTime":null,"status":null,"tel":null,"applyTime":null,"idcard":null,"companyName":null,"type":null,"postcode":null,"legalPerson":null,"contacts":null,"companyCode":null,"businessLicense":null,"address":null,"contactsPhone":null,"email":null,"QQ":null,"name":null,"realname":null,"idcardPhoto":null}}}
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
 
 ```
 
-##### 3、错误码  
-> 见首页公共错误码 
+###### 3、错误码  
 
-#### 账号信息修改
->修改用户的应用属性，其他基础属性。验证参数传入的userId（url）与登录用户（通过accessToken获取登录用户）是否为同一用户，不是同一用户将抛出错误码。  
-
-
+> B00004、B00010
   
 
 
-##### 1、接口定义
+##### 获取手机短信验证码
+> 在注册前申请验证码，用于验证用户的真实手机号 
 
-?> **接入地 址：**  `/serviceAgent/rest/users/{userId}/profile`  
- **HTTP Method：** PUT
+###### 1、接口描述
+
+?> **接入地址：**  `/uaccount/v2/user/applySmsCode`  
+ **HTTP Method：** POST  
+ **前置条件:** 手机号码注册  
+ **Token 验证：** 否
 
 **输入参数**  
 
-| 参数名 | 类型  | 位置  | 必填|说明|
-| ------|:----:|:-----:|:-----:|:-----:|  
-| userId     | int | Url| 必填|用户id|   
-| userProfile     | UserProfile | Body| 必填|用户扩展信息|  
+|  参数名        | 类型      | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| mobile    | String | Body| 是|需使用公钥加密，后端服务解密并校验规则|  
+| type    | String | Body| 是|1：邮箱账号注册 2：利用邮箱找回密码 4：修改登录的邮箱 5：注销邮箱账号|  
+   
+
+**输出参数：** 标准输出参数  
 
 
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;   |   
-
-
-##### 2、请求样例  
-
+###### 2、请求样例   
 **用户请求**
-```java  
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/applySmsCode
+
 Header：
+Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken: TGT13OOQL5O7TEAB21WVIKCJTEL470 
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 0cdb49b20d552b6f99384373b1e7f3c34136237b7a39d91ab63b35035f54f8d0
+timestamp: 1533886290915 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-Body
-{
-"userProfile":{"phone":14759167292,"updateTime":"20141115","status":null,"tel":"0596","applyTime":null,"idcard":null,"companyName":null,"type":null,"postcode":null,"legalPerson":null,"contacts":null,"companyCode":333,"businessLicense":null,"address":"china","contactsPhone":null,"email":"848421322@qq.com","QQ":"848421322","name":"test","realname":"test","idcardPhoto":null}
-}
+privacyVersion: V1.0.0
+Content-Length: 194
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
+Body:
+{
+"mobile":"U49hyTXZzJ5PlIRBrwSSb3Y0LAdue2cXlJCGGaynQjLxJDOQM+qgz7srmEbf riFteVzUtNtC1fSwrrf6GCePfrQyYadK6SrescjlMoONIuedHB+cgznTXj9j g5L0QboWgPHMQRXgTGXIC1pSDyRYdQQEODu86PUMgbLy0EBmP2c=",
+"type":"1"
+}
 ```  
 
 **请求应答**
 
 ```java
-
 {
-    "retCode": "00000",
-    "retInfo": "成功!"
+  "retCode": "00000",
+  "retInfo": "成功"
 }
 
 ```
 
-##### 3、错误码  
-> 见首页公共错误码 
+###### 3、错误码  
 
-#### 账号动态验证码申请
->uvcs:User Verification Code 注意： 验证码生成后会直接发送验证码到验证手机或验证邮箱，以保证安全  
-  
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/uvcs`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名 | 类型  | 位置  | 必填|说明|
-| ------|:----:|:-----:|:-----:|:-----:|  
-| loginName     | String | Body| 必填|账号，本字段做了兼容，可以填写用户名，如果validateType为1，可以填注册手机号；为2，填写邮箱|   
-| validateType     | int | Body| 必填|验证方式 1：手机 2：邮箱| 
-| validateScene     | int | Body| 必填|验证场景 1：激活 2：密码重置 |  
-| sendTo     | String | Body| 必填|验证码发送到的地址（手机或邮箱），由validateType决定 |  
-| accType     | int | Body| 必填|必须填写99 |   
-
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  transactionId  |  String  | Body    | 必填    |  事物ID  |  
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
-clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT13OOQL5O7TEAB21WVIKCJTEL470
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
-timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-"tenantId":"1",
-"loginName":"test321",
-"validateType":1,
-"validateScene":2,
-"sendTo":"14759167292",
-"accType":99
-}
-
-
-
-
-```  
-
-**请求应答**
-
-```java
-{"retCode":"00000","retInfo":"正确","transactionId":"1416045701521203"}
-
-```
-
-##### 3、错误码  
-> 见首页公共错误码    
+> B00004、B00010 
     
-#### 账号动态验证码验证
->注意：当用户是注册时收到的激活码，那么transactionId填空字符串（””）     
+##### 使用邮箱重置密码
+> 重置密码，需要先申请验证码
  
+###### 1、接口定义
 
-##### 1、接口定义
-
-?> **接入地 址：**  `/serviceAgent/rest/uvcs/{uvc}/verify`  
- **HTTP Method：** POST
+?> **接入地址：**  `/uaccount/v2/user/resetPassword`  
+ **HTTP Method：** POST  
+ **前置条件:** 用户邮箱注册，获取验证码  </br>
+ **Token 验证：** 否  
 
 **输入参数**  
-  
-| 参数名 | 类型  | 位置  | 必填|说明|  
-| ------|:----:|:-----:|:-----:|:-----:|   
-|   uvc   | String | Url | 必填 | 验证码|      
-|   loginName   | String | Body | 必填 | 用户登录名或注册手机号或注册邮箱|    
-|   validateScene   | int | Body | 必填 | 验证场景 1：激活 2：密码重置|  
-|   validateType   | int | Body | 必填 | 验证方式 1：手机 2：邮件|  
-|   transactionId   | String | Body | 必填 | 事物ID|  
-|   accType   | int | Body | 必填 | 必须填写99|    
 
-**输出参数**  
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+|email	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|新密码：需使用公钥加密。后端服务解密并校验规则，|  
+|captcha|	String|	Body|	否	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。对于同一App、同一手机终端邮箱验证码连续校验失败3次后需启用图形验证码进行验证，3次可配置，默认为3次。邮箱验证码校验成功后，允许失败次数重新恢复为0|  
+|msgCode|String|Body|是|验证码,用户申请验证码用于重置密码,发送至用户邮箱，注册时需填写此验证码，6位随机数字|  
+   
 
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|    |    |     |     |  &emsp;  |  
- 
 
-##### 2、请求样例  
+**输出参数：**标准输出参数  
+
+###### 2、请求样例  
 
 **用户请求**
-```java  
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/resetPassword
+ 
 Header：
+Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: 2.4.0
 clientId: 123
-sequenceId: 2014022801010
-accessToken:TGT1OY0RUUAH5D242SB68E9WX0W930  
-sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
-timestamp: 1491014447260 
-language: zh-cn
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
-Body
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
 {
-"tenantId":"100",
-"loginName":"test321",
-"validateType":2,
-"validateScene":2,
-"accType":99,
-"transactionId":"1416045701521203"
+	"email": "qra5hNX9V5c57aj4mbjaxqnfcWbCBXncyNocZLvWfWRsMc1mJ2rnqUpELkgJ8qHJbKMkQgNUnDpvGN9Sj24LbvcL4a9UosZtpLRF4ZSGSiuXbpL75U0mSrkQvB8QulmW_tk9rLZP_cRPkImI_OS0ar24ZkO1yNnAA7y0XgsFXZs",
+	"password": "FRR_c9JhWIL5JCtZ0-lD54MbnRHxzLtdejp_45E72iWC5ARhL36R_R3XiQqpDL8LqvM11seGx86W59T8Topq_54V4z_4lTsVod7N_VuHSRsFNQLwlu3Hnaat1_OK6HWN5hhk1DPhXcAgsj8JTn8UhPAONHdPROgtr7vDpIPgxc0",
+	"msgCode": "632438",
+	"captcha": "9mf2"
 }
 
 
@@ -813,14 +852,1039 @@ Body
 **请求应答**
 
 ```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
 
-{"retCode":"00000","retInfo":"操作成功"}
 
 ```
 
-##### 3、错误码  
-> 见首页公共错误码
+###### 3、错误码
 
+> D00017、B0004、D00009、D00015、D00022  
+
+##### 使用手机号重置密码
+> 使用手机号重置密码，需先申请短信验证码
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/resetPasswordByMobile`  
+ **HTTP Method：** POST  
+ **前置条件:** 用户手机号注册，获取验证码  </br>
+ **Token 验证：** 否  
+
+**输入参数**  
+
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----|
+|mobile	|String	|Body|	是|	需使用公钥加密，后端服务解密并校验规则|  
+|password|String|Body|是|新密码：需使用公钥加密。后端服务解密并校验规则，|  
+|captcha|	String|	Body|	否	|图形验证码，4位字母和数字组合。每个验证码只能使用一次，使用后或过期即作废，需重新获取。对于同一App、同一手机终端邮箱验证码连续校验失败3次后需启用图形验证码进行验证，3次可配置，默认为3次。图形验证码校验成功后，允许失败次数重新恢复为0|  
+|msgCode|String|Body|是|验证码,用户申请验证码用于重置密码,发送至用户手机号，注册时需填写此验证码，6位随机数字|  
+   
+
+
+**输出参数：**标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/resetPasswordByMobile
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"mobile":"kiGyXcG/LpQcs871xkTIDvFVf8VdLLQtm8dkqjCJecnJYDYz1vDmkHUBxkE5 1oX6qIgglUQsY88Gex5VmjmjlqoYi448ENuUCvQc2Gfflb5AjjVoStkG3eV+ BSeHPF4JM7iiWKxFiTolntopbYEnpPVGjgP3iS/td/nO+20pBQo=",
+"password":"huFWFHP0axAa5ymUmHmJgzuwcOFZozKXvT01yiHJh51ZqBUdVteZ3dtzPFUy 6EdQS1R4ha8uN2u9qIeoogKFfEr0zvT1Kd2Q5p2OonDppzO3zV6VPdWbjPcA mRArIvVkBpL4ycZKVFoEKmhnzWDMOWqf0yNV/DApxNqNBJjHfGI=",
+"msgCode":"445780",
+"captcha":""}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00017、B0004、D00009、D00015、D00022  
+
+##### 修改账号密码
+> 用户在登录状态可修改登录密码 
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/changePassword`  
+ **HTTP Method：** POST  
+ **前置条件:** 用户登录  </br>
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----| 
+|password|String|Body|是|旧密码：需使用公钥加密。后端服务解密并校验规则| 
+|newPassword|String|Body|是|新密码：需使用公钥加密。后端服务解密并校验规则|  
+|captcha|String|Body|	否	|图形验证码，对于同一App、同一手机终端修改密码时连续校验失败m次后需启用图形验证码进行验证，m可配置，默认为3次。在启用验证码后，如果图形验证码输入正确的情况下，同一天对同一账户的错误尝试达到n次后将对应的账户锁定，n可配置，默认为10次。|  
+   
+
+
+**输出参数：**标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/changePassword
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"password":"M86jq-ZxErDwBcy_p2gztuBKVbk_nlrHTvePtQP2YGqzXW5q6zbY-a5sV7rltbLD8Kl4Jc8O6emWz3zEOeANJfVQkIbjq2wPc4XEeHls3AwVqnDR6GB2ncljRvX-ZlD2UHcM4AzuJk3I-stOYLnbTPVoDTSxbyNfxEREXq2e2ZI",
+"newPassword":"MrGIHA_edrlvBIvxYSn5Kstp7pj89ccQ_UFYQNVHQPuulIfJ1QRoEoi-Oq8mpYX-58BU2eglmfPcV8bpQRXH9ILRXbiVLaU0ZhCStkv68l9Q_GuSYrjEISAKK62naHwbMQrzb_seUnmQsGtCwrJx8WtQdnm6Gcz7aGZ7DGWzLC8",
+"captcha":"73ll"
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00003、D00002、B00004、D00009、D00015、D00010
+
+##### 修改账号邮箱
+> 用户在登录状态可修改账号的邮箱 
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/modifyEmail`  
+ **HTTP Method：** POST  
+ **前置条件:** 用户登录  </br>
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----| 
+|email|String|Body|是|需使用公钥加密，后端服务解密并校验规则| 
+|msgCode|String|Body|是|验证码；用户申请验证码,系统将验证码发送至用户邮箱，注册时需填写此验证码，6位随机数字|  
+|captcha|String|Body|	否	|图形验证码，对于同一App、同一手机终端请求接口时连续失败m次后需启用图形验证码进行验证，m可配置，默认为3次。|  
+
+
+**输出参数：** 标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/modifyEmail
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"email":"jlNMp6KDF6mvDQ6dO1oPQo8SiQd71fAm09sVhmQ7I3P742APhvcW3NrifHDc f7kY+I+Im/lEB1UgRJJ0wf14Gc+vdVxrCJZEYKmQpPXkY+ws8u8upGO5x6xJ S+Gr7YFieFwN0CwYpX0IJJDwQ1T26KQtKEy3wIsXvd5BcAvZS3U=",
+"msgCode":"946202",
+"captcha":""
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00008、B00004、D00009、D00015  
+
+
+##### 修改账号手机号
+> 用户在登录状态可修改账号的手机号
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/modifyMobile`  
+ **HTTP Method：** POST  
+ **前置条件:** 用户登录  </br>
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----| 
+|mobile|String|Body|是|需使用公钥加密，后端服务解密并校验规则| 
+|msgCode|String|Body|是|验证码,用户申请的验证码以短信方式发送至用户手机，6位随机数字|  
+|captcha|String|Body|	否	|图形验证码，对于同一App、同一手机终端请求接口时连续失败m次后需启用图形验证码进行验证，m可配置，默认为3次。|  
+
+
+**输出参数：** 标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/modifyMobile
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"mobile":"jlNMp6KDF6mvDQ6dO1oPQo8SiQd71fAm09sVhmQ7I3P742APhvcW3NrifHDc f7kY+I+Im/lEB1UgRJJ0wf14Gc+vdVxrCJZEYKmQpPXkY+ws8u8upGO5x6xJ S+Gr7YFieFwN0CwYpX0IJJDwQ1T26KQtKEy3wIsXvd5BcAvZS3U=",
+"msgCode":"946202",
+"captcha":""
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00008、B00004、D00009、D00015  
+
+##### 获取公钥
+> 获取公钥
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/mgr/getPublicKey`  
+ **HTTP Method：** POST  
+ **Token 验证：** 否  
+
+**输入参数**  无输入参数
+
+**输出参数：** publicKey  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+ https://uws.haier.net/uaccount/v2/mgr/getPublicKey
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"publicKey":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7jrpGqqsUERuS3RhjKGoKSFaoUyfk5eKwjxSq3ARW5sMg8hsnuC0dmLEOrUoaJYSoaLOn7V1uvpX4PYVJ89BjnDJtjbFoYAsk3VMVsTiJ8RBEp4bCaX9bfHqs4f04Ii_U3IeodHnHL2XKzjdNFv7M1g27Y-Ao-HZVbQJm8d-0PwIDAQAB"
+}
+```
+
+###### 3、错误码
+
+> C00001  
+
+
+##### 验证公钥
+> 给前端应用提供验证本地公钥合法性的接口
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/mgr/verifyPublicKey`  
+ **HTTP Method：** POST  
+ **前置条件:** 获取公钥  </br>
+ **Token 验证：** 否  
+
+**输入参数**  
+
+| 参数名         | 类型          | 位置  |必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----| 
+|sn|String|Body|是|需使用公钥加密时间戳，后端服务解密成功，验证为时间戳数字即正确| 
+
+
+**输出参数：** 标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/mgr/verifyPublicKey
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"sn":"V3O5gPCk9JQm_lPiScTeyDXpf-6pIb4Vl0mR9fB7cUocn_RQizg0ica0bJ0-65fJpLolkCNiVZ78jTDfTlj6o_HraGUiIpz-sBp5UZrO6ffBIPr4LhPL1Aew3XNrThIQNlleVKDkLHrHq2hMXxLx9M6BQro_SfrrGdInxk9Fu8Y"}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> A00005、B00002  
+
+
+##### 获取图形验证码
+> 获取图形验证码，与V1接口不同的是增加限制，明天每个终端20次请求限制
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/captcha`  
+ **HTTP Method：** POST  
+ **Token 验证：** 否  
+
+**输入参数**  无输入参数
+
+**输出参数：** 
+Content-Type: image/png;charset=UTF-8 
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/captcha
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+![验证码图片][account_captcha] 
+
+###### 3、错误码
+
+> C00001   
+
+
+##### 用户申请注销账号和设备信息
+> 用户申请删除账号信息和设备绑定关系，并发送邮件通知，用户申请成功后，账号不能登录，登录返回密码错误
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/applyDeleteAccount`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|msgCode|String|Body|是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|  
+
+
+**输出参数：** 标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/user/applyDeleteAccount
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{"msgCode":"123333"}
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00022     
+
+
+##### 退出登录
+> 账号退出登录，会话accessToken失效  
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/security/logout`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+
+**输出参数：** 标准输出参数  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/security/logout
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00005、D00016
+
+
+##### 查询用户信息
+> 根据登录者token，获取用户信息，不包括手机号
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/users/get`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+**输出参数：** 
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|userId|String|Body|是|账号唯一标示|  
+|email|String|Body|是|账号邮箱地址，按需求进行脱敏处理|  
+|userProfile|Map|Body|否|用户扩展信息,包括昵称、头像等|
+    
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/users/get
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"userId":"1027887557792235520",
+"email":"bu***i@126.com"，
+"userProfile":	{"birthday":null,"country":null,"address":null,"serviceEmail	":null,"avatarUrl":"http://uhome.haieriot.net:6410/resource/	enabling/	hkqhwbbscb/19002243/1517816146943.jpg","nickName":"","hotlin	e":"12345678","sex":null,"weight":null,"phone":null,"name":"	test","serviceProviders":null,"height":null
+	}
+}
+
+
+```
+
+###### 3、错误码
+
+> D00008     
+
+##### 查询用户信息
+> 根据登录者token，获取用户信息，包括手机号
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/users/get`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+**输出参数：** 
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|userId|String|Body|是|账号唯一标示|  
+|email|String|Body|是|账号邮箱地址，按需求进行脱敏处理|  
+|mobile|String|Body|是|手机号，按需求要求脱敏处理| 
+|userProfile|Map|Body|否|用户扩展信息,包括昵称、头像等|
+    
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/users/get
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"userId":"1027887557792235520",
+"email":"bu***i@126.com"，
+"mobile":"138****2",
+"userProfile":	{"birthday":null,"country":null,"address":null,"serviceEmail	":null,"avatarUrl":"http://uhome.haieriot.net:6410/resource/	enabling/	hkqhwbbscb/19002243/1517816146943.jpg","nickName":"","hotlin	e":"12345678","sex":null,"weight":null,"phone":null,"name":"	test","serviceProviders":null,"height":null
+	}
+}
+
+
+```
+
+###### 3、错误码
+
+> D00008   
+
+
+##### 用户信息修改
+> 根据登录人员的token，修改当前登录用户的扩展属性
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/users/update`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|userProfile|Map|Body|是|用户扩展信息,包括昵称、头像等|
+
+**输出参数：**  标准输出参数 
+    
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/users/update
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+  "userProfile": {
+  		"nickName": ,
+  		"avatar": ,
+        "updateTime": "20141115",
+        "tel": "0596",
+        "companyCode": 333,
+        "address": "china",
+        "email": "8****322@qq.com",
+        "QQ": "8****322",
+        "name": "test",
+        "realname": "test"
+  }
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> D00008   
+
+
+##### 用户接受隐私条款
+> 用户接受隐私条款，记录隐私条款版本号
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/security/acceptUserPrivacy`  
+ **HTTP Method：** POST   
+ **前置条件：** 登录状态  
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|privacyVersion|Map|Body|是|隐私条款版本号|
+
+**输出参数：**  标准输出参数 
+    
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/security/acceptUserPrivacy
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{"privacyVersion":"V1.0.0"}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+
+```
+
+###### 3、错误码
+
+> B00004、D00003   
+
+
+
+##### 登录会话刷新
+> accessToken过期后，可以使用对应的refreshToken获取新的accessToken  
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/auth/token`  
+ **HTTP Method：** POST     
+ **Token 验证：** 否  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|refreshToken|String|Body|是|app端持有refreshToken，用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken|  
+|grantType|String|Body|是|授权方式 ，当前默认为refresh_token|  
+
+
+
+**输出参数：**  
+ 
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|accessToken|String|Body|是|安全令牌 |  
+|refreshToken|String|Body|是|刷新令牌|    
+|scope|String|Body|是|访问资源的范围|       
+|expire|String|Body|是|有效期 ，单位秒|    
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/auth/token  
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+"grantType":"refresh_token"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
+"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"scope":"auth_app",
+"expire":"2160000"
+}
+
+
+```
+
+###### 3、错误码
+
+> 00001、D00005、D00025   
+
+
+
+##### 获取会话分享验证码
+> 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程  
+ 
+###### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/auth/shareCode`  
+ **HTTP Method：** POST     
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|shareAppId|String|Body|是|请求分享会话的appId|  
+|shareClientId|String|Body|是|请求分享会话的clientId|  
+|accessToken|String|Body|是|用于分享会话的accessToken|  
+
+
+
+**输出参数：**  
+ 
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|code|String|Body|是|会话分享验证码  |  
+  
+
+###### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/auth/shareCode  
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+"shareClientId":"MB-TEST2-0000",
+"shareClientId":"456FEW334DD"
+ }
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"code": 72f7b235dd3afee2c77907d160c66539850b3224da60cb6e6638809005f48ec5"
+}
+
+
+
+```
+
+###### 3、错误码
+
+> B00004、D00004、D00026        
 
 ### 海尔优家 OAuth
 
@@ -907,6 +1971,6 @@ Body:
 [account_liucheng]:_media/_account/scene_flow.png
 [account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
 [account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
-
+[account_captcha]:_media/_account/account_captcha.png  
 
 [Business]:/zh-cn/Business
