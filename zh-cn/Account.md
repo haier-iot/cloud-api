@@ -789,6 +789,56 @@ Body:
 
 > B00004、B00010 
 
+#### 获取图形验证码
+> 获取图形验证码，与V1接口不同的是增加限制，明天每个终端20次请求限制
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/captcha`  
+ **HTTP Method：** POST  
+ **Token 验证：** 否  
+
+**输入参数**  无输入参数
+
+**输出参数：** 
+Content-Type: image/png;charset=UTF-8 
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+
+https://uws.haier.net/uaccount/v2/user/captcha
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+![验证码图片][account_captcha] 
+
+##### 3、错误码
+
+> C00001   
+
 #### 退出登录
 > 账号退出登录，会话accessToken失效  
  
@@ -1401,56 +1451,6 @@ Body:
 
 > A00005、B00002  
 
-
-#### 获取图形验证码
-> 获取图形验证码，与V1接口不同的是增加限制，明天每个终端20次请求限制
- 
-##### 1、接口定义
-
-?> **接入地址：**  `/uaccount/v2/user/captcha`  
- **HTTP Method：** POST  
- **Token 验证：** 否  
-
-**输入参数**  无输入参数
-
-**输出参数：** 
-Content-Type: image/png;charset=UTF-8 
-
-##### 2、请求样例  
-
-**用户请求**
-
-```java
-POST
-
-https://uws.haier.net/uaccount/v2/user/captcha
- 
-Header：
-Connection: keep-alive
-appId: MB-****-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
-sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
-timestamp: 1533886628775 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 404
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
-```  
-
-**请求应答**
-
-![验证码图片][account_captcha] 
-
-##### 3、错误码
-
-> C00001   
 
 
 
