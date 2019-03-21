@@ -1,9 +1,9 @@
 
->  **当前版本**：[UWS 账户服务 V1.0.0](zh-cn/ChangeLog/Account)  
+>  **当前版本**：[UWS 账户服务 V2.1.0](zh-cn/ChangeLog/Account)  
  **更新时间**：{docsify-updated}  
 
 
-### 简介
+## 简介
 
 > 账号服务旨在提供涵盖物联全流程的访问控制服务，为开发者搭建统一的用户登录系统。  
 
@@ -25,7 +25,7 @@
 
 
 
-### 应用场景  
+## 应用场景  
 
 **账户服务场景应用流程：**
 
@@ -64,7 +64,7 @@
 
 
 
-### 用户隐私权限  
+## 用户隐私权限  
 
 为切实保护用户隐私权，优化用户体验，海尔优家根据现行法规及政策，制定了海尔家电隐私权政策。海尔了解个人信息对客户的重要性，我们力求明确说明我们获取、管理及保护用户个人信息的政策及措施。
 
@@ -73,8 +73,8 @@
 
  **开发者需提供使用海尔优家账号服务应用的用户服务协议条款请联系**[**海尔优家商务BD**](zh-cn/Business)，**我们为应用配置对应的隐私权政策及服务协议条款**
 
-#### 用户隐私数据的安全性
-##### 安全性说明
+### 用户隐私数据的安全性
+#### 安全性说明
 用户隐私数据项目 
  
 | **字段** | **加密处理**  |  **规则** |   
@@ -83,7 +83,7 @@
 |mobile   |RSA 加密	|1开头11位数字|    
 |password |	RSA 加密	|长度为6~20位，有大写字母、小写字母、数字或特殊字符中的三种|  
  
-##### 秘钥使用流程  
+#### 秘钥使用流程  
 
 **获取秘钥流程**
 
@@ -94,7 +94,7 @@
 ![密码传输流程图片][account_PasswordFlow1]  
 
 
-##### 加密和解密算法
+#### 加密和解密算法
 算法：RSA
 
 秘钥长度:1024
@@ -342,15 +342,15 @@ public class RSAUtil {
 ```  
 
 
-### 接口清单
+## 接口清单
 
-#### 用户类接口
+### 用户类接口
 
-##### 邮箱账号注册
+#### 邮箱账号注册
 > 使用邮箱地址注册新账号
 
 
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/registerEmailAcounnt`  
  **HTTP Method：** POST  
@@ -371,7 +371,7 @@ public class RSAUtil {
 
 
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**  
 ```java
@@ -423,15 +423,15 @@ Body:
 
 ```
 
-###### 3、错误码   
+##### 3、错误码   
 
 >  D00012、D00015、D00022、D00009、B00010、B00004
    
-##### 手机账号注册
+#### 手机账号注册
 > 使用手机号注册海尔自有账号
 
 
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/registerMobileAcounnt`  
  **HTTP Method：** POST  
@@ -452,7 +452,7 @@ Body:
 
 
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**  
 ```java
@@ -493,16 +493,16 @@ Body:
 
 ```
 
-###### 3、错误码   
+##### 3、错误码   
 
 >  D00012、D00015、D00022、D00009、B00010、B00004
 
 
-##### 邮箱账号登录
+#### 邮箱账号登录
 > 用户使用邮箱登录获取accessToken
   
 
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/loginEmailAcounnt`  </br>
  **HTTP Method：** POST  </br>
@@ -527,7 +527,7 @@ Body:
 | scope   |   String |  Body   |  是   |   访问资源的范围 |  
 | expire   |   String |  Body   |  是   |   有效期 ，单位秒 |  
 
-###### 2、请求样例 
+##### 2、请求样例 
 
 **用户请求**  
 ```java
@@ -574,15 +574,15 @@ Body:
 
 ```
 
-###### 3、错误码  
+##### 3、错误码  
 
 > 10000、00001、D00002、D00009、D00010、D00015、B00010
 
-##### 手机账号登录
+#### 手机账号登录
 > 用户使用手机登录获取accessToken
   
 
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/loginMobileAcounnt`  </br>
  **HTTP Method：** POST  </br>
@@ -607,7 +607,7 @@ Body:
 | scope   |   String |  Body   |  是   |   访问资源的范围 |  
 | expire   |   String |  Body   |  是   |   有效期 ，单位秒 |  
 
-###### 2、请求样例 
+##### 2、请求样例 
 
 **用户请求**  
 ```java
@@ -649,16 +649,16 @@ Body:
 
 ```
 
-###### 3、错误码  
+##### 3、错误码  
 
 > 10000、00001、D00002、D00009、D00010、D00015、B00010  
 
 
 
-##### 获取邮箱验证码
+#### 获取邮箱验证码
 > 在注册前申请验证码，用于验证用户的真实邮箱
 
-###### 1、接口描述
+##### 1、接口描述
 
 ?> **接入地址：**  `/uaccount/v2/user/applyVerificationCode`  
  **HTTP Method：** POST  
@@ -676,7 +676,7 @@ Body:
 **输出参数：** 标准输出参数  
 
 
-###### 2、请求样例   
+##### 2、请求样例   
 **用户请求**
 ```java
 POST
@@ -717,16 +717,16 @@ Body:
 
 ```
 
-###### 3、错误码  
+##### 3、错误码  
 
 > B00004、B00010
   
 
 
-##### 获取手机短信验证码
+#### 获取手机短信验证码
 > 在注册前申请验证码，用于验证用户的真实手机号 
 
-###### 1、接口描述
+##### 1、接口描述
 
 ?> **接入地址：**  `/uaccount/v2/user/applySmsCode`  
  **HTTP Method：** POST  
@@ -744,7 +744,7 @@ Body:
 **输出参数：** 标准输出参数  
 
 
-###### 2、请求样例   
+##### 2、请求样例   
 **用户请求**
 ```java
 POST
@@ -785,14 +785,14 @@ Body:
 
 ```
 
-###### 3、错误码  
+##### 3、错误码  
 
 > B00004、B00010 
     
-##### 使用邮箱重置密码
+#### 使用邮箱重置密码
 > 重置密码，需要先申请验证码
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/resetPassword`  
  **HTTP Method：** POST  
@@ -812,7 +812,7 @@ Body:
 
 **输出参数：**标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -860,14 +860,14 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00017、B0004、D00009、D00015、D00022  
 
-##### 使用手机号重置密码
+#### 使用手机号重置密码
 > 使用手机号重置密码，需先申请短信验证码
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/resetPasswordByMobile`  
  **HTTP Method：** POST  
@@ -887,7 +887,7 @@ Body:
 
 **输出参数：**标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -934,14 +934,14 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00017、B0004、D00009、D00015、D00022  
 
-##### 修改账号密码
+#### 修改账号密码
 > 用户在登录状态可修改登录密码 
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/changePassword`  
  **HTTP Method：** POST  
@@ -960,7 +960,7 @@ Body:
 
 **输出参数：**标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1007,14 +1007,14 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00003、D00002、B00004、D00009、D00015、D00010
 
-##### 修改账号邮箱
+#### 修改账号邮箱
 > 用户在登录状态可修改账号的邮箱 
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/modifyEmail`  
  **HTTP Method：** POST  
@@ -1032,7 +1032,7 @@ Body:
 
 **输出参数：** 标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1079,15 +1079,15 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00008、B00004、D00009、D00015  
 
 
-##### 修改账号手机号
+#### 修改账号手机号
 > 用户在登录状态可修改账号的手机号
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/modifyMobile`  
  **HTTP Method：** POST  
@@ -1105,7 +1105,7 @@ Body:
 
 **输出参数：** 标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1152,14 +1152,14 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00008、B00004、D00009、D00015  
 
-##### 获取公钥
+#### 获取公钥
 > 获取公钥
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/mgr/getPublicKey`  
  **HTTP Method：** POST  
@@ -1169,7 +1169,7 @@ Body:
 
 **输出参数：** publicKey  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1206,15 +1206,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 }
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > C00001  
 
 
-##### 验证公钥
+#### 验证公钥
 > 给前端应用提供验证本地公钥合法性的接口
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/mgr/verifyPublicKey`  
  **HTTP Method：** POST  
@@ -1230,7 +1230,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **输出参数：** 标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1274,15 +1274,15 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > A00005、B00002  
 
 
-##### 获取图形验证码
+#### 获取图形验证码
 > 获取图形验证码，与V1接口不同的是增加限制，明天每个终端20次请求限制
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/captcha`  
  **HTTP Method：** POST  
@@ -1293,7 +1293,7 @@ Body:
 **输出参数：** 
 Content-Type: image/png;charset=UTF-8 
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1325,15 +1325,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ![验证码图片][account_captcha] 
 
-###### 3、错误码
+##### 3、错误码
 
 > C00001   
 
 
-##### 用户申请注销账号和设备信息
+#### 用户申请注销账号和设备信息
 > 用户申请删除账号信息和设备绑定关系，并发送邮件通知，用户申请成功后，账号不能登录，登录返回密码错误
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/user/applyDeleteAccount`  
  **HTTP Method：** POST  
@@ -1348,7 +1348,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 **输出参数：** 标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1388,15 +1388,15 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00022     
 
 
-##### 退出登录
+#### 退出登录
 > 账号退出登录，会话accessToken失效  
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v1/security/logout`  
  **HTTP Method：** POST  
@@ -1407,7 +1407,7 @@ Body:
 
 **输出参数：** 标准输出参数  
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1445,15 +1445,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00005、D00016
 
 
-##### 查询用户信息
+#### 查询用户信息
 > 根据登录者token，获取用户信息，不包括手机号
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v1/users/get`  
  **HTTP Method：** POST  
@@ -1470,7 +1470,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 |userProfile|Map|Body|否|用户扩展信息,包括昵称、头像等|
     
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1512,14 +1512,14 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00008     
 
-##### 查询用户信息
+#### 查询用户信息
 > 根据登录者token，获取用户信息，包括手机号
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/users/get`  
  **HTTP Method：** POST  
@@ -1537,7 +1537,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 |userProfile|Map|Body|否|用户扩展信息,包括昵称、头像等|
     
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1580,15 +1580,15 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00008   
 
 
-##### 用户信息修改
+#### 用户信息修改
 > 根据登录人员的token，修改当前登录用户的扩展属性
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v1/users/update`  
  **HTTP Method：** POST  
@@ -1603,7 +1603,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **输出参数：**  标准输出参数 
     
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1657,15 +1657,15 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > D00008   
 
 
-##### 用户接受隐私条款
+#### 用户接受隐私条款
 > 用户接受隐私条款，记录隐私条款版本号
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v1/security/acceptUserPrivacy`  
  **HTTP Method：** POST   
@@ -1681,7 +1681,7 @@ Body:
 **输出参数：**  标准输出参数 
     
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1722,16 +1722,16 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > B00004、D00003   
 
 
 
-##### 登录会话刷新
+#### 登录会话刷新
 > accessToken过期后，可以使用对应的refreshToken获取新的accessToken  
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/auth/token`  
  **HTTP Method：** POST     
@@ -1755,7 +1755,7 @@ Body:
 |scope|String|Body|是|访问资源的范围|       
 |expire|String|Body|是|有效期 ，单位秒|    
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1803,16 +1803,16 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > 00001、D00005、D00025   
 
 
 
-##### 获取会话分享验证码
+#### 获取会话分享验证码
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程  
  
-###### 1、接口定义
+##### 1、接口定义
 
 ?> **接入地址：**  `/uaccount/v2/auth/shareCode`  
  **HTTP Method：** POST     
@@ -1835,7 +1835,7 @@ Body:
 |code|String|Body|是|会话分享验证码  |  
   
 
-###### 2、请求样例  
+##### 2、请求样例  
 
 **用户请求**
 
@@ -1882,66 +1882,517 @@ Body:
 
 ```
 
-###### 3、错误码
+##### 3、错误码
 
 > B00004、D00004、D00026        
 
-### 海尔优家 OAuth
 
-### 海尔优家 第三方登录
-
-#### 第三方用户登录
->移动APP客户端，第三方用户登录Haier uHome云平台。安全系统调用云平台用户系统的验证Validate()接口。用户系统验证成功，向安全系统返回验证成功retCode，retInfo和userId。安全系统创建安全令牌accessToken，将accessToken和userId返回移动APP。用户系统验证失败retCode和retInfo，向安全系统返回验证失败结果。安全系统向移动APP返回登录失败。  
+#### 会话分享
+> 登录会话分享 
  
-
-
-
 ##### 1、接口定义
 
-?> **接入地 址：**  `/serviceAgent/rest/security/userlogin`  
- **HTTP Method：** POST
+?> **接入地址：**  `/uaccount/v2/auth/shareToken`  
+ **HTTP Method：** POST     
+ **Token 验证：** 否  
 
 **输入参数**  
 
-| 参数名 | 类型  | 位置  | 必填|说明|
-| ------|:----:|:-----:|:-----:|:-----:|  
-| loginId     | String | Body| 必填|登录用户名|  
-| password     | String | Body| 必填|密码，如无需要，可填无意义值|  
-| loginType     | int | Body| 必填|登录类型 0：loginName 1：手机号 2：邮箱 3：动态密码|    
-| accType     | int | Body| 必填|用户类型 0: 海尔官网用户 1：QQ 2：微信 3：新浪 4：豆瓣 5：人人 99：uHome用户 8：百度用户 本字段不填默认为0|  
-| sequenceId     | String | Body| 必填||  
-| thirdpartyAppId     | String | Body| 非必填|第三方平台应用ID|  
-| thirdpartyAccessToken     | String | Body| 必填|第三方平台安全令牌|  
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|code|String|Body|是|会话分享验证码|  
 
-**输出参数**  
 
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  accessToken  |  String  |   Header  |  必填   |  安全令牌    |
-|  userId  |  String  |   Body  |  必填   |  用户标识    |  
+
+**输出参数：**  
+ 
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|accessToken|String|Body|是|安全令牌   |  
+|refreshToken|String|Body|是|刷新令牌   | 
+|scope|String|Body|是|访问资源的范围| 
+|expire|String|Body|是|有效期 ，单位秒 | 
+  
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/auth/shareToken 
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{
+"code":"da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " 
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"refreshToken":TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"scope":"auth_app",
+"expire":"2160000"
+}
+
+
+```
+
+##### 3、错误码
+
+> B00004、00001、B00001、B00002  
+
+
+#### 查询会话分享列表  
+> 通过accessToken，查询此用户进行会话分享的客户端列表   
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/auth/queryShareList`  
+ **HTTP Method：** POST     
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+
+**输出参数：**  
+ 
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|shareData|String|Body|是|客户端列表信息|  
+  
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/auth/shareToken
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"shareData":
+	{"appId":"MB-UZHSH-0000",
+	"clientId":"uaccount123",
+	"shareTokenInfoList":[{"shareAppId":"MB-HEYJOZB-0001","shareClientId":"123456789","state":"1"}]
+    }
+}
+
+```
+
+##### 3、错误码
+
+> B00004、D00008      
+
+
+#### 取消会话分享  
+> 用户提交登录获取的Token（或登录进行会话延期获取的Token）和会话分享的appId和clientId，Token校验成功且会话分享存在的情况下，将通过会话分享获取的RefreshToken和accessToken及会话延期的Token全部设置为失效  
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/auth/cancelShare`  
+ **HTTP Method：** POST     
+ **Token 验证：** 否  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|shareAppId|String|Body|是|会话分享的appId|  
+|shareClientId|String|Body|是|会话分享的clientId|  
+
+**输出参数：**  标准输出参数
+ 
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/auth/shareToken
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)  
+Body：
+{
+"shareAppId":"MB-HE****B-0001",
+"shareClientId":"123456789"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+```
+
+##### 3、错误码
+
+> B00004、B00001、D00008、D00027    
+
+#### 第三方社交账号获取IOT平台token接口  
+> 用户使用第三方社交账号登录海尔app，通过第三方账号token获取海尔iot平台accessToken    
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/thirdpart/social/getAccessToken`  
+ **HTTP Method：** POST     
+ **Token 验证：** 否  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|thirdpartAccessToken|String|Body|是|第三方社交账号的token，通过第三方社交账号SDK获取的票据|  
+|socialType|String|Body|是|类别：facebook twitter amazon|  
+|thirdpartOpenId|String|Body|否|当前接入Facebook，Twitter，Amazon需传openId，此参数非必填定义兼容后期无openId 的模式| 
+
+**输出参数：**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|accessToken|String|Body|是|安全令牌 |  
+|scope|String|Body|是|访问资源的范围|  
+|expire|String|Body|是|有效期 ，单位秒| 
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/thirdpart/social/getAccessToken
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)  
+Body：
+{
+"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+"socialType":"amazon",
+"thirdpartOpenId":"110347635"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功",
+"refreshToken":null,
+"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+"scope":"auth_app",
+"expire":"2160000"
+}
+
+
+```
+
+##### 3、错误码
+
+> 00001、B00010、A00006     
+
+#### 第三方社交账号绑定IOT自有账号  
+> 用户使用自有账号登录iot平台，成功后登录第三方账号，与自有账号绑定成组；原第三方账号暗账号设备关系拷贝至自有账号下     
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/thirdpart/social/bindGroup`  
+ **HTTP Method：** POST     
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|uhomeAccessToken|String|Body|是|自有账号登录的iot平台 accessToken|  
+|thirdpartUhomeAccessToken|String|Body|是|第三方账号登录的iot平台token|  
+
+
+**输出参数：**  标准输出参数
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+ https://uws.haier.net/uaccount/v1/thirdpart/social/bindGroup
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)  
+Body：
+{
+"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+"accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode":"00000",
+"retInfo":"成功"
+}
+
+
+```
+
+##### 3、错误码
+
+> D00004、A00005、D00024      
+
+
+#### 查询账号绑定第三方账号组关系  
+> 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息     
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/thirdpart/social/getBindingGroup`  
+ **HTTP Method：** POST     
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+**输出参数：** 
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|groups|String|Body|是|示例：见请求样例|  
 
 
 ##### 2、请求样例  
 
 **用户请求**
-```java  
-header:
-appId MB-****-0000
-sequenceId 20140730112234000001
-Content-Type application/json;charset=UTF-8
-appKey 0b6d09518p152c9aj09cf6d80ee657c9
-appVersion 10.01.11.00025
-clientId 356877020056553-08002700DC94
-body:
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/thirdpart/social/getBindingGroup
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)  
+Body：
 {
-"loginId":"897",
-"password":"111111",
-"accType": "11",
-"loginType":"1",
-"sequenceId":"20140305102633000001",
-"thirdpartyAccessToken":"AAAAAAAAAAAA",
-"thirdpartyAppId":"bbbbbbb"
+"thirdpartAccessToken":"cok53pt9F5vABcD1HNGwP1YqGKbL8VfLdILvK-wR_fY7esjDLGlIkhilu6QNeApvOouMcJSl5a5R9OATONGQDQpbRZk-vo2CtTKf3Tuzgf0SBfJfL1AXVog7cjlZpZc9TNh7HB4WiaSS7-SfbhOAwJC1Qh5J9lGmLBk8yUfnhj4",
+"accessToken":"TGTUE8J3JHIDF12WEWHRH0912300"
 }
+
+```  
+
+**请求应答**
+
+```java
+{
+    "retCode": "00000",
+    "retInfo": "成功",
+    " groups": [
+        {
+            "userId": "1234",
+            "openId": "11098764",
+            "socialType":amazon"
+        },
+        {
+            "userId": "4567",
+            "openId": "112098764",
+            " socialType ":amazon"
+        }
+    ]
+}
+
+```
+
+##### 3、错误码
+
+> B00004、A00005   
+
+
+### Oauth登录
+
+#### 开发流程  
+
+![开发流程][kaifaliucheng]  
+
+#### H5登录页  
+
+![H5登录页][H5] 
+
+##### 接口定义
+
+?> **接入地址：**  `https://uws.haier.net/ouath/2.0/authorize`  
+ **HTTP Method：** GET       
+  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|app_id|String|&nbsp;|是|应用ID|  
+|state|String|&nbsp;|是|表示客户端的当前状态,可以指定任意值,认证服务器会原封不动地返回这个值，用于客户端校验防止CSRF攻击|  
+|response_type|String|&nbsp;|是|表示授权类型，此处的值固定为access_token|  
+|scope|String|&nbsp;|是|申请的权限范围，默认implicit ，后续支持authorization_code|  
+|redirect_uri|String|&nbsp;|是|客户端重定向地址|  
+
+#### 回调地址  
+
+`redirect_uri? access_token ={ access_token } &state={ state }`  
+1、	返回access_token  
+2、	客户端对state进行校验，防止CSRF(跨站请求伪造)攻击
+ 
+
+#### token校验接口  
+> 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息     
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `https://uws.haier.net/ouath/2.0/tokenInfo`  
+ **HTTP Method：** GET  
+ **前置条件：**登录获取会话token      
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|accessToken|String|&nbsp;|是&nbsp;|  
+
+**输出参数：** 
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|open|String|Body|是|账号open_id|  
+|app_id|String|Body|是|客户端应用标识|    
+|iss|String|Body|是|表示此令牌的颁发者|    
+|exp|String|Body|是|有效期 单位秒|    
+|iat|String|Body|是|颁发时间|    
+|aud|String|Body|是|表示此令牌的目标受众的标识符|      
+
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+GET
+https://uws.haier.net/oauth/2.0/tokeninfo?access_token=TGT3QHRFERNRLKH82COVN79ZTKBRP0
+ 
+Header：
+Request Headers:
+Connection: keep-alive
+Content-Encoding: utf-8
+Content-type: application/json
+Host: 192.168.190.27:8081
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 ```  
@@ -1949,20 +2400,22 @@ body:
 **请求应答**
 
 ```java
-header:
-appId MB-****-0000
-sequenceId 20140730112234000001
-Content-Type application/json;charset=UTF-8
-appKey 0b6d09518p152c9aj09cf6d80ee657c9
-appVersion 10.01.11.00025
-clientId 356877020056553-08002700DC94
-Body:
-{"retCode":"00000","retInfo":"登录UHOME云平台成功","userId":"100013957366155388"}
+{
+"open_id":"********",
+"iss":"http://uws.uhome.net","exp":"86400",
+"app_id":"MB-UZHSH-0000",
+"iat":"1552383052007",
+"aud":"uws.application-oa2-client.af6b5c6c93d22ede41c9b791dcf2b1d3"
+}
 
+
+{"error_description":"Token已过期，未通过token验证","error":"D00004"}
 ```
 
-##### 3、错误码  
-> 见首页公共错误码  
+##### 3、错误码
+
+> D00004   
+
 
 
 
@@ -1972,5 +2425,8 @@ Body:
 [account_PasswordFlow1]:_media/_account/account_PasswordFlow1.png
 [account_PasswordFlow2]:_media/_account/account_PasswordFlow2.png
 [account_captcha]:_media/_account/account_captcha.png  
+[kaifaliucheng]:_media/_account/kaifaliucheng.png
+[H5]:_media/_account/H5.png
+
 
 [Business]:/zh-cn/Business
