@@ -344,7 +344,7 @@ public class RSAUtil {
 
 ## 接口清单
 
-### 用户类接口
+### 注册登录
 
 #### 邮箱账号注册
 > 使用邮箱地址注册新账号
@@ -766,7 +766,7 @@ Content-Encoding: utf-8
 Content-type: application/json
 privacyVersion: V1.0.0
 Content-Length: 194
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)码
 
 Body:
 {
@@ -788,7 +788,65 @@ Body:
 ##### 3、错误码  
 
 > B00004、B00010 
+
+#### 退出登录
+> 账号退出登录，会话accessToken失效  
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v1/security/logout`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  无输入参数
+
+
+**输出参数：** 标准输出参数  
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v1/security/logout
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码
+
+> D00005、D00016
     
+### 账号信息管理
+
 #### 使用邮箱重置密码
 > 重置密码，需要先申请验证码
  
@@ -1156,6 +1214,71 @@ Body:
 
 > D00008、B00004、D00009、D00015  
 
+
+#### 用户申请注销账号和设备信息
+> 用户申请删除账号信息和设备绑定关系，并发送邮件通知，用户申请成功后，账号不能登录，登录返回密码错误
+ 
+##### 1、接口定义
+
+?> **接入地址：**  `/uaccount/v2/user/applyDeleteAccount`  
+ **HTTP Method：** POST  
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|msgCode|String|Body|是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|  
+
+
+**输出参数：** 标准输出参数  
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+POST
+https://uws.haier.net/uaccount/v2/user/applyDeleteAccount
+ 
+Header：
+Connection: keep-alive
+appId: MB-****-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
+sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
+timestamp: 1533886628775 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 404
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+Body:
+{"msgCode":"123333"}
+```  
+
+**请求应答**
+
+```java
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码
+
+> D00022     
+
+### 公钥管理
+
 #### 获取公钥
 > 获取公钥
  
@@ -1330,124 +1453,8 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 > C00001   
 
 
-#### 用户申请注销账号和设备信息
-> 用户申请删除账号信息和设备绑定关系，并发送邮件通知，用户申请成功后，账号不能登录，登录返回密码错误
- 
-##### 1、接口定义
 
-?> **接入地址：**  `/uaccount/v2/user/applyDeleteAccount`  
- **HTTP Method：** POST  
- **Token 验证：** 是  
-
-**输入参数**  
-
-| 参数名   | 类型   | 位置  |必填|说明|
-| --------|:------:|:-----:|:-----:|:-----| 
-|msgCode|String|Body|是|验证码,用户申请验证码用于注销账号,验证码发送至用户邮箱，注销前需验证验证码，6位随机数字。申请类型type=5|  
-
-
-**输出参数：** 标准输出参数  
-
-##### 2、请求样例  
-
-**用户请求**
-
-```java
-POST
-https://uws.haier.net/uaccount/v2/user/applyDeleteAccount
- 
-Header：
-Connection: keep-alive
-appId: MB-****-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
-sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
-timestamp: 1533886628775 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 404
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
-Body:
-{"msgCode":"123333"}
-```  
-
-**请求应答**
-
-```java
-{
-  "retCode": "00000",
-  "retInfo": "成功"
-}
-
-
-```
-
-##### 3、错误码
-
-> D00022     
-
-
-#### 退出登录
-> 账号退出登录，会话accessToken失效  
- 
-##### 1、接口定义
-
-?> **接入地址：**  `/uaccount/v1/security/logout`  
- **HTTP Method：** POST  
- **Token 验证：** 是  
-
-**输入参数**  无输入参数
-
-
-**输出参数：** 标准输出参数  
-
-##### 2、请求样例  
-
-**用户请求**
-
-```java
-POST
-https://uws.haier.net/uaccount/v1/security/logout
- 
-Header：
-Connection: keep-alive
-appId: MB-****-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-accessToken: TGTNS633MLE2OHV2P03YB3Q6E44K00
-sign: 2e997f503323fcbabfab0bf5f54da2a3bdecc60a6924519b7c90d9b20e0b62dd
-timestamp: 1533886628775 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 404
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
-```  
-
-**请求应答**
-
-```java
-{
-  "retCode": "00000",
-  "retInfo": "成功"
-}
-
-
-```
-
-##### 3、错误码
-
-> D00005、D00016
+### 用户信息管理
 
 
 #### 查询用户信息
@@ -1661,7 +1668,7 @@ Body:
 
 > D00008   
 
-
+### 权限认证管理
 #### 用户接受隐私条款
 > 用户接受隐私条款，记录隐私条款版本号
  
@@ -1726,10 +1733,79 @@ Body:
 
 > B00004、D00003   
 
+#### token校验接口
+  
+> 验证token是否可用     
+ 
+##### 1、接口定义
 
+?> **接入地址：**  `https://uws.haier.net/ouath/2.0/tokenInfo`  
+ **HTTP Method：** GET  
+ **前置条件：**登录获取会话token      
+ **Token 验证：** 是  
+
+**输入参数**  
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|accessToken|String|&nbsp;|是&nbsp;|  
+
+**输出参数：** 
+
+| 参数名   | 类型   | 位置  |必填|说明|
+| --------|:------:|:-----:|:-----:|:-----| 
+|open_id|String|Body|是|账号open_id|  
+|app_id|String|Body|是|客户端应用标识|    
+|iss|String|Body|是|表示此令牌的颁发者|    
+|exp|String|Body|是|有效期 单位秒|    
+|iat|String|Body|是|颁发时间|    
+|aud|String|Body|是|表示此令牌的目标受众的标识符|      
+
+
+##### 2、请求样例  
+
+**用户请求**
+
+```java
+GET
+https://uws.haier.net/oauth/2.0/tokeninfo?access_token=TGT3QHRFERNRLKH82COVN79ZTKBRP0
+ 
+Header：
+Request Headers:
+Connection: keep-alive
+Content-Encoding: utf-8
+Content-type: application/json
+Host: 192.168.190.27:8081
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```  
+
+**请求应答**
+
+```java
+{
+"open_id":"********",
+"iss":"http://uws.uhome.net","exp":"86400",
+"app_id":"MB-UZHSH-0000",
+"iat":"1552383052007",
+"aud":"uws.application-oa2-client.af6b5c6c93d22ede41c9b791dcf2b1d3"
+}
+
+
+{"error_description":"Token已过期，未通过token验证","error":"D00004"}
+```
+
+##### 3、错误码
+
+> D00004   
+
+
+### 会话分享
 
 #### 登录会话刷新
-> accessToken过期后，可以使用对应的refreshToken获取新的accessToken  
+> accessToken过期后，可以使用对应的refreshToken
+> 获取新的accessToken  
  
 ##### 1、接口定义
 
@@ -2096,6 +2172,8 @@ Body：
 
 > B00004、B00001、D00008、D00027    
 
+### 第三方社交账号
+
 #### 第三方社交账号获取IOT平台token接口  
 > 用户使用第三方社交账号登录海尔app，通过第三方账号token获取海尔iot平台accessToken    
  
@@ -2350,71 +2428,7 @@ Body：
 2、	客户端对state进行校验，防止CSRF(跨站请求伪造)攻击
  
 
-#### token校验接口  
-> 查询自有账号下绑定的全部第三方账号的信息，包括扩展信息     
- 
-##### 1、接口定义
 
-?> **接入地址：**  `https://uws.haier.net/ouath/2.0/tokenInfo`  
- **HTTP Method：** GET  
- **前置条件：**登录获取会话token      
- **Token 验证：** 是  
-
-**输入参数**  
-
-| 参数名   | 类型   | 位置  |必填|说明|
-| --------|:------:|:-----:|:-----:|:-----| 
-|accessToken|String|&nbsp;|是&nbsp;|  
-
-**输出参数：** 
-
-| 参数名   | 类型   | 位置  |必填|说明|
-| --------|:------:|:-----:|:-----:|:-----| 
-|open|String|Body|是|账号open_id|  
-|app_id|String|Body|是|客户端应用标识|    
-|iss|String|Body|是|表示此令牌的颁发者|    
-|exp|String|Body|是|有效期 单位秒|    
-|iat|String|Body|是|颁发时间|    
-|aud|String|Body|是|表示此令牌的目标受众的标识符|      
-
-
-##### 2、请求样例  
-
-**用户请求**
-
-```java
-GET
-https://uws.haier.net/oauth/2.0/tokeninfo?access_token=TGT3QHRFERNRLKH82COVN79ZTKBRP0
- 
-Header：
-Request Headers:
-Connection: keep-alive
-Content-Encoding: utf-8
-Content-type: application/json
-Host: 192.168.190.27:8081
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
-
-```  
-
-**请求应答**
-
-```java
-{
-"open_id":"********",
-"iss":"http://uws.uhome.net","exp":"86400",
-"app_id":"MB-UZHSH-0000",
-"iat":"1552383052007",
-"aud":"uws.application-oa2-client.af6b5c6c93d22ede41c9b791dcf2b1d3"
-}
-
-
-{"error_description":"Token已过期，未通过token验证","error":"D00004"}
-```
-
-##### 3、错误码
-
-> D00004   
 
 
 
