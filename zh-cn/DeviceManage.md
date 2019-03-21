@@ -1335,7 +1335,7 @@ Body：
 
 
 ##### 1、接口定义
-?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
+?> **接入地址：** `stdudse/v1/modfier/operate`</br>
 **HTTP Method：** POST
 
 **输入参数**
@@ -1344,7 +1344,7 @@ Body：
 :-|:-:|:-:|:-:|:-
 accessToken|String|上下文|必填|用户token
 deviceId|String|Body|必填|设备ID
-cmdName|String|Body|否|组命令id（1、若该操作为组命令操作，则该值鼻涕那，2、否为单命令操作则不传）
+cmdName|String|Body|否|组命令id（1、若该操作为组命令操作，则该值必填。2、若该操作为单命令操作，则该值不需要传递）
 cmdArgs|Map<String,String>|Body|必填|一组命令,即属性集合（key-value）。（若该操作为单命令操作，则该值必须只有一对key-value。）
 callbackUrl|String|Body|非必填|操作应答回调地址，只支持http协议
 
@@ -1378,7 +1378,7 @@ Body
 "deviceId": "********",
 "cmdName": "grSetDAC",
 "cmdArgs": {"pmvStatus":"true","cleaningTimeStatus":"false","cloudFilterChangeFlag":"false","electricHeatingStatus":"true","onOffStatus":"true","operationMode":"4"},
-"callbackUrl": "https://www.uhome.haier.net/callback.html"
+"callbackUrl": "http://www.uhome.haier.net/callback.html"
 }
 
 ```
