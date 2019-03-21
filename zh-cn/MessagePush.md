@@ -60,7 +60,7 @@ ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定
 options|Options|定义消息的选项设置，详见Option对象定义
 version|String|定义消息的版本，次版本为V1|
 
-### msgClientHistoryDto
+### MsgClientHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
@@ -108,7 +108,8 @@ poriorities|Integer|消息优先级|
 
 ## 终端功能接口列表
 
-?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>访问地址：`https://uws.haier.net/ums/v3`
+?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+访问地址：`https://uws.haier.net/ums/v3`
 
 
 ### 账号模块
@@ -135,7 +136,46 @@ msgVersion|String|body|是|消息模型版本，对应消息模型中的version
 
 **输出参数:** 标准输出参数
 
+##### 2、请求样例
 
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/account/register
+
+POST data:
+{
+	"channel":2,
+	"pushId":"fbIyFJWV_M4:APA91bFYu308MAM5PyJxvUMiJKHT6yJl_O4z3HTyjr",
+	"devAlias":"ios of yy",
+	"msgVersion":"v3"
+}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 234297626c79198546d965cedaef915264f47eaca7a21e1a508301ee1b81db9b
+timestamp: 1545817794954 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+
+```
+
+**输出参数**
+```
+{
+	"retCode":"00000",
+	"retInfo":"success"
+}
+```
 
 #### 终端注销
 > 注销已注册的终端信息</br>
@@ -149,6 +189,46 @@ msgVersion|String|body|是|消息模型版本，对应消息模型中的version
 **输入参数：** 无参数输入
 
 **输出参数：** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/account/logout
+
+POST data:
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: a9f87157f94c1c2848aa221d19016a768d936070f2642c5819183256953310d2
+timestamp: 1545817872035 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 0
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+**输出参数**
+
+```
+{
+	"retCode":"00000",
+	"retInfo":"success"
+}
+```
+
 
 
 #### 获取用户终端信息
@@ -168,9 +248,9 @@ msgVersion|String|body|是|消息模型版本，对应消息模型中的version
 retData|List<TerminalDto>|Body|是|终端信息列表
 
 
-### 设备模块
+### 设置模块
 
-#### 设备终端免打扰
+#### 设置终端免打扰
 > 设置终端能够按照业务类型、优先级、时间段进行免打扰；</br>
 > 1.以userId+appId+clientId标识唯一终端；</br>
 > 2.同一终端可以设置多条免打扰信息；</br>
@@ -200,8 +280,12 @@ endTime|String|body|是|结束时间
 dndId|String|body|是|免打扰唯一标识
 
 
-#### 取消设备终端免打扰
-用户可以关闭免打扰功能
+#### 取消终端免打扰
+
+删除设定的免打扰配置
+
+1、用户登陆后，方可使用（Header中accessToken参数必填）
+2、已设置过免打扰
 
 
 ##### 1、接口定义
@@ -217,6 +301,7 @@ dndId|String|body|是|免打扰设置唯一标识
 
 
 **输出参数：**标准输出参数
+
 
 
 #### 查询免打扰信息
@@ -261,7 +346,40 @@ message|UpMsg|body|是|推送消息内容定义
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识|
+retData|String|body|是|本次发送的任务标识|
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByClients
+
+POST data:
+{"toClients":["1ebc148c322da136b8e8f3439e3fa90e","bbcbdaad3483b3be60cf584cd2aba975"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
+```
+
 
 
 #### 上报消息的读取状态
@@ -283,6 +401,42 @@ taskId|String|body|是|终端收到的任务标识
 
 **输出参数：** 标准输出参数
 
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/reportStatus
+
+POST data:
+{ 	"taskId":"TK123456789123456789" }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
 
 
 #### 查询历史消息
@@ -315,6 +469,8 @@ pageSize|Integer|body||每页显示数量
 :-:|:-:|:-:|:-:|:-
 retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
 
+
+
 #### 删除应用内历史消息
 
 
@@ -340,6 +496,14 @@ taskId|String|body|是|消息任务Id一个或多个，逗号分隔
 访问地址：`https://uws.haier.net/umse/v3`  </br>
 **为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
 
+
+Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
+
+**开通流程如下**
+
+> “海极网” -->  “开发者中心” --> “我的产品” --> “我的云应用”
+
+
 **云端应用请求Header**
 
 参数名|类型|位置|必填|说明
@@ -351,19 +515,7 @@ sign|String|header|是|通过该参数，对调用方进行鉴权，算法详见
 timetamp|long|header|是|Unix时间戳，精确到毫秒
 content-type|String|header|是|必须为applicationg/json;charset=UTF-8
 
-### 企业版注意事项
 
-#### 权限申请
-
-企业版服务授权，使用服务IP白名单策略，需要是用此服务请联系IOT平台技术支持开通系统IP白名单
-
-#### 公共头部分
-
-Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
-
-**开通流程如下**
-
-> “海极网” -->  “开发者中心” --> “我的产品” --> “我的云应用”
 
 ### 消息推送
 
@@ -390,7 +542,42 @@ isBurn|Integer|body|否|是否阅后即焚
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+retData|String|body|是|本次发送的任务标识
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByApps
+
+POST data:
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":"TKc33b74ae08424ec0a5411d37d5fc7bce"}
+```
+
+
 
 
 #### 按应用推送消息
@@ -417,6 +604,41 @@ isBurn|Integer|body|否|是否是阅后即焚
 :-:|:-:|:-:|:-:|:-
 taskId|String|body|是|本次发送的任务标识
 
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByApps
+
+POST data:
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":"TKc33b74ae08424ec0a5411d37d5fc7bce"}
+```
+
+
 #### 按用户推送消息（支持模板）
 
 > 接收消息的用户列表必须是从指定的APP中注册的用户。
@@ -442,7 +664,8 @@ templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+retData|String|body|是|本次发送的任务标识
+
 
 #### 按应用推送消息（支持模板）
 
@@ -468,9 +691,130 @@ templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|本次发送的任务标识
+ratData|String|body|是|本次发送的任务标识
 
-### 根据taskId查询历史消息
+#### 推送邮件信息
+
+> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/sendEmail`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
+ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+priority|Integer|body||
+formaType|String|body||邮件格式。1是text，2是html
+title|String|body||
+content|String|body||
+
+##### 2、请求样例
+
+**输入参数**
+```
+{
+    "toList": [
+        "chenjinlei.uh@haier.com",
+        "abk@haier.com"
+    ],
+    "ccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "bccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "priority": "1",
+    "subject": "test",
+    "contentType": "TXT",
+    "content": "test email send template",
+    "emailTemplateId": "1000123"
+}
+
+```
+
+**输出参数**
+```
+{
+"retCode":"00000",
+"retInfo":"成功",
+"msgId":"57c0f0a28a1e481c9833b858db4b675e"
+}
+```
+
+##### 3、错误码
+
+> B00001、B00004、A00002、B00002、A00007、D00008、A00008
+
+####推送消息（支持模板）
+
+> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/sendEmailWithTmpl`</br>
+**HTTP Method：** POST
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
+ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+priority|Integer|body||优先级
+language|String|body||默认语言
+templateld|String|body||模板ID
+templateParams|Map<String,String>|body||模板参数
+
+
+##### 2、请求样例
+
+**输入参数**
+
+```
+{
+    "toList": [
+        "chenjinlei.uh@haier.com",
+        "abk@haier.com"
+    ],
+    "ccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "bccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "priority": "1",
+    "subject": "test",
+    "contentType": "TXT",
+"content": ["param1": "value1",  
+"param2": "value2",  
+" param3": " value3",  
+" param4": " value4"],
+    "emailTemplateId": "1000123"
+}
+
+```
+
+**输出参数**
+
+```
+{
+"retCode":"00000",
+"retInfo":"成功",
+"msgId":"57c0f0a28a1e481c9833b858db4b675e"
+}
+
+```
+
+
+
+#### 根据taskId查询历史消息
 
 
 > 查看某次推送任务，推送的消息列表。
