@@ -20,6 +20,13 @@ The Device Management Service Standard Edition provides developers with a basic 
 1、The device management service standard version can be used to modify device-related attributes and information, including updating location information, adding device brand information, and updating device aliases.</br>
 
 
+## Rules and constraints
+
+1、A user can bind multiple devices, and bind device data <=100.</br>
+2、A device can only be bound by one user.</br>
+3、When making a request to bind the device, the device must be online on the platform, and the time for the device to submit version information shall not be more than 10 minutes, that is, less than or equal to 10 minutes.</br>
+
+
 
 ### Application scenario
 The device management service (standard version) mainly implements the basic management services related to the smart connected device, such as binding the user to the device, unbinding the device, and obtaining the user device list for the developed application.
@@ -65,8 +72,8 @@ deviceId|String|Device ID|
 wifiType|String|Device wifitype| typeId
 deviceType|String|Equipment type|8-digit code consisting of large, medium and small categories  
 totalPermission|AuthInfo|Integration of permissions and permissions information|
-permissions|String|Permission information|
-online|String|Whether online|  
+permissions|Permission[]|Permission information|
+online|Boolean|Whether online|  
 
 ### BaseProperty
 Basic attribute  
@@ -117,7 +124,7 @@ softwareType|String|Software type Platform information|
 hardwareType|String|Hardware version type|
 hardwareVers|String|Hardware version number|
 softwareVers|String|Software version number  
-netType|String|Network type|Possible value:</br Unknown, unknown network or device does not support network quality report;</br>Wifi, WIFI network;
+netType|String|Network type|Possible value:</br> Unknown, unknown network or device does not support network quality report;</br>Wifi, WIFI network;
 strength|String|Signal strength|  
 
 ### DaviceStatus
@@ -211,7 +218,7 @@ Output standard response parameters
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -220,7 +227,6 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body
@@ -263,7 +269,7 @@ Output standard response parameters
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -272,7 +278,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -311,7 +316,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -320,7 +325,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -345,7 +349,7 @@ Header：
 #### Get device location information
 > Query device location information
 
-##### 1、Query device location information
+##### 1、Interface definition
 ?> **Access address：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 
@@ -366,7 +370,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -375,7 +379,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -427,7 +430,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -436,7 +439,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -540,7 +542,7 @@ Output standard output parameters
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -549,7 +551,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 body：
@@ -601,7 +602,7 @@ Output standard output parameters.
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -610,7 +611,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 Body:
@@ -662,7 +662,7 @@ No input parameters
 ```
 Header：
     Connection: keep-alive
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -671,7 +671,6 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -885,7 +884,7 @@ Header：
 
 ```
 Header：
-    appId: MB-FRIDGEGENE1-0000
+    appId: MB-****-0000
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -894,7 +893,6 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -938,7 +936,7 @@ Header：
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -947,7 +945,6 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -994,7 +991,7 @@ Content-type: application/json
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1003,7 +1000,6 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -1057,7 +1053,7 @@ POST data:
 [no cookies]
 Request Headers:
 Connection: keep-alive
-appId: MB-UZHSH-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 2
 sequenceId: 2014022801010
@@ -1066,7 +1062,6 @@ sign: ebcd5fc1387d647fa890cfa0ea91fc2d3c382316d9ae24ddf762cbbe76175aca
 timestamp: 1503395034831 
 language: zh-cn
 timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -1112,7 +1107,7 @@ Content-type: application/json
 
 ```
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1121,7 +1116,6 @@ sign: 59e44ce6ddda0378f75fba0ec381fabbcaf1d22d94078495da3da0e51609b94d
 timestamp: 1491014535850 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -1200,7 +1194,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1209,7 +1203,6 @@ sign: 116639d4405230df33486ceb5ea68bd2c685549c48cf83ce1cafd8dfaa336c7a
 timestamp: 1506061471587 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json 
 
@@ -1260,7 +1253,7 @@ Content-type: application/json
 ```
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1269,7 +1262,6 @@ sign: 384a9e720d4e218c7d7d44d81f88c8b8c198bb660b900f8679607aaeba198a61
 timestamp: 1506061897331 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8 
 Content-type: application/json
 

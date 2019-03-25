@@ -1,435 +1,847 @@
 
->**当前版本：** [UWS 消息推送服务标准版 V3.0.3](zh-cn/ChangeLog/MessagePush)   
+>**当前版本：** [UWS 消息推送服务标准版 V 3.0](zh-cn/ChangeLog/MessagePush)   
 **更新时间：** {docsify-updated} 
 
 ## 简介
 为开发者提供基于物联网的消息推送服务，消息推送支持个性化的推送服务模式，开发者可以根据应用特性或者特定场景要求通过配置自定义消息的方式给App用户推送相关信息。
 ![消息推送标准版图片][MessagePush_type]
 
-**消息通道注册**</br>
-1、设备注册: 用户登录终端前，允许设备注册通道，具备接收推送能力；</br>
-2、用户注册：用户登录终端后，赋予自己登陆（或授权）的设备具有业务消息分享和接收能力，必须向UMS注册服务。</br>
 
-**获取用户注册设备列表**</br>
-1、用户登录设备并且注册设备成功后，获取可推送消息的用户注册设备列表；</br>
-2、APP server 在没有token clientId情况下获取用户注册设备列表。</br>
-
-**端-端消息推送**</br>
-消息从一个设备发送到另外一个设备的分享过程。
-例如：馨厨将菜谱分享给手机
-
-**云-端消息推送&**</br>
-APP server等在未登陆情况对终端进行消息下发</br>
-
-**信息状态查询** </br>
-1、合法用户对消息状态查询；</br>
-2、终端消息状态上报；</br>
-3、消息终端显示后，消息已读/已处理等状态上报UMS；</br>  
 
 ### 应用场景
 适用于物联网的消息推送服务，包括消息从一个设备终端发送到另一个设备终端，或者从应用服务端发送到设备终端。
 
+![消息推送场景流程][MessagePush_flow]
+
+**权限与注册**
+
+IOT消息推送，根据需求选择FCM 或 极光推送，使用端需要先初始化对应ID
+
+使用消息推送模块，首先需要注册终端获取用户终端信息，根据设备类型进行推送
+
+**通道与推送**
+
+消息通道：从UMS注册消息通道，获取后台推送消息服务
+
+推送授权：授权云端给应用或相应客户推送服务消息
+
+业务消息：业务方通过调用云端消息推送服务，推送应用消息或者推送服务邮件
+
+
+
+**免打扰机制**
+
+提供消息免打扰机制，用户可自主设置免打扰规则、查询和管理免打扰机制等。
+
+
 ## 公共结构说明
-### UserRegInfo
-用户注册信息
+### TerminalDto
+终端信息
 
 参数名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String|账号登陆后返回的userId|
-userName|String|用户名|
-clientId|String|海尔带屏终端设备的唯一标识|由U+SDK产生如U+APP登录使用的clientId</br>PS：如是M2M通道，建议此值填写 deviceId即可。
-deviceId|String|带屏设备终端的唯一标识|如设备的mac地址</br>PS:如是M2M通道，建议填写deviceId即可
-deviceName|String|设备名称|设备昵称
-pushId|String|推送标识|第三方终端SDK产生的用于区分每个终端的唯一标识，例如极光是regID
-deviceType|String|终端类型|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
-typeId|String|设备类型编码|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
-appPackage|String|终端标识|依此来对应推送第三方APPID相关重要推送参数信息</br>Android =包名，IOS = Bundle ID，Linux =服务名称，Window = 服务名称。</br>为避免重复，接入前需要和UMS做好沟通
-regTime|String|注册时间|第一次正确注册时的时间
-status|int|状态值。</br>1：已注册，</br>2：已注销，</br>3：已更新|IF 1 -> 3 ;</br> IF 2 -> 1 ; </br>IF 3 -> 3
-collab3th|int|当前合作方通道类型|0：极光 ；</br>1：haier-M2M</br>当前版本仅智能音箱支持此通道
+userId|String| |用户Id，唯一标识
+clientId|String|如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址
+devAlias|String|终端别名|终端别名
+appId|String| |应用ID，40位以内字符
+isOnline|Integer|1，在线；2，离线|1,代表10min内在线；</br>2,代表10min内不在线
+lastOnlineTime|Date|设备最近一次在线时间|当isOnline位1时，该字段不返回；</br>当isOnline为2，且该字段不返回时，则表示最后一次在线时间是两天之前
 
-### MessageInfo
-消息信息
+### UpMsg
 
-参数名|类型|说明|备注
+透传字段：data、androids、ioss，请严格按照消息模型定义以及第三方通道对于三者字段内容的定义
+
+字段名|类型|说明|备注
 :-|:-:|:-|:-
-mesgId|String|消息ID|平台产生的消息ID
-userId|String|用户登录系统产生的|
-revTime|String|平台接收消息时间|
-pushTime|String|将消息下发的时间|
-status|int|0：发送失败，</br>1：发送成功，</br>2：终端已接收，</br>3：终端已展示，</br>4：终端已反馈，</br>5：取消展示，</br>6：消息已更新|0：UMS发送失败,尚未发送 , </br>1：UMS发送成功 ,</br> 2: 终端接收消息后，上报状态 , </br>3: 终端展示消息后，上报状态, </br> 4：终端反馈消息后，上报状态 ,</br> 5: UMS针对这条消息下发通知【阅后即焚】 , </br>6：UMS已经将这条消息更新为 【空消息】
+notification|Map<String,Object>|定义通知的内容，详见Notification对象定义|
+data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象定义|
+android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|
+ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义
+options|Options|定义消息的选项设置，详见Option对象定义
+version|String|定义消息的版本，次版本为V1|
+
+### MsgClientHistoryDto
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+taskId|String|消息任务ID|终端收到的msgId即ums的taskId
+msgId|String|消息ID|
+userId|String|用户ID|
+appId|String|应用ID|
+clientId|String|终端ID|
+busineeType|String|业务类型|
+message|UpMsg|消息模型|
+msgStatus|Integer|消息发送状态|
+readStatus|Integer|消息读取状态|
+pushTime|DateTime|ums通道推送时间|
 
 
-## 接口定义
-### 终端业务接口
+### MsgCloudHistoryDto
 
-#### 用户设备通道消息注册
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+msgId|String|消息ID|
+userId|String|用户ID|
+appId|String|应用ID|
+clientId|String|终端ID|
+busineeType|String|业务类型|
+messgae|UpMsg|消息模型|
+msgStatusStatus|Integer|消息发送状态|
+raadStatus|Integer|消息读取状态|
+tag|String|标签|
+pushTime|DateTime|ums消息推送时间|
+retCode|String|返回码|
 
-> 通道注册用于发送接收业务消息</br>
-此函数接口UAG安全过滤，如果是UGW（如智能音箱）clientId（包括header中clientId）、deviceId、pushId统一填写为deviceId即可
+### DoNotDisturbDto
 
-APP在如下两种情况下需要注册消息通道：
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+dndId|String|免打扰标识|
+beginTime|Integer|开始时间|
+endTime|Integer|结束时间|
+businessType|Integer|消息业务类型|
+priorities|Integer|消息业务类型|
+poriorities|Integer|消息优先级|
 
-1、APP初始化：APP安装后进行初始化时，需注册消息通道，必填参数：clientId , deviceId, pushId；
 
-2、登录APP：用户登录APP后，需再次注册消息通道，必填参数：userId, clientId , deviceId, pushId；
+
+
+## 终端功能接口列表
+
+?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+访问地址：`https://uws.haier.net/ums/v3`
+
+
+### 账号模块
+
+#### 终端注册
+
+> 通过该接口，在系统中注册接收消息的终端，建立appId、userId、clientId、pushId之间的关系；该接口是使用ums和umse的先决条件。</br>
+> 在注册时，若需要注册用户信息userId，则需要在header中传递accessToken
 
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/register`</br>
+?> **接入地址：** `/account/register`</br>
+**HTTP Method：** POST
+
+**输入参数：**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+channel|Integer|body|是|通道类型。</br>0代表极光，</br>1代表m2m通道，</br>2代表fcm通道，</br>3代表邮件，</br>4代表不使用或无通道。
+pushId|String|body|否|终端的通道推动标识。</br>当channel为4时可以为空，其它情况不能为空，fcm通道时长度应该为152。
+devAlias|String|body|否|设备别名
+msgVersion|String|body|是|消息模型版本，对应消息模型中的version
+
+
+**输出参数:** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/account/register
+
+POST data:
+{
+	"channel":2,
+	"pushId":"fbIyFJWV_M4:APA91bFYu308MAM5PyJxvUMiJKHT6yJl_O4z3HTyjr",
+	"devAlias":"ios of yy",
+	"msgVersion":"v3"
+}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 234297626c79198546d965cedaef915264f47eaca7a21e1a508301ee1b81db9b
+timestamp: 1545817794954 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+
+```
+
+**输出参数**
+```
+{
+	"retCode":"00000",
+	"retInfo":"success"
+}
+```
+
+#### 终端注销
+> 注销已注册的终端信息</br>
+> 一般在用户账号注销或APP卸载时滴啊用该接口
+
+
+##### 1、接口定义
+?> **接入地址：** `/account/logout`</br>
+**HTTP Method：** POST
+
+**输入参数：** 无参数输入
+
+**输出参数：** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/account/logout
+
+POST data:
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: a9f87157f94c1c2848aa221d19016a768d936070f2642c5819183256953310d2
+timestamp: 1545817872035 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 0
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+**输出参数**
+
+```
+{
+	"retCode":"00000",
+	"retInfo":"success"
+}
+```
+
+
+
+#### 获取用户终端信息
+> 查询该用户下所有处于激活状态的终端</br>
+> 根据userId查询，该userId注册的所有激活状态的终端信息
+
+##### 1、接口定义
+?> **接入地址：** `/account/getTerminals`</br>
+**HTTP Method：** POST
+
+**输入参数：**  无输入参数
+
+**输出参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<TerminalDto>|Body|是|终端信息列表
+
+
+### 设置模块
+
+#### 设置终端免打扰
+> 设置终端能够按照业务类型、优先级、时间段进行免打扰；</br>
+> 1.以userId+appId+clientId标识唯一终端；</br>
+> 2.同一终端可以设置多条免打扰信息；</br>
+> 3.不同消息业务类型（businessType）需要分别设置免打扰；</br>
+> 4.同一终端下设置多条免打扰时时间不允许有交叉；</br>
+> 5.每条免打扰配置支持设置多个优先级</br>
+
+
+##### 1、接口定义
+?> **接入地址：** `/config/setNotDisturb`</br>
+**HTTP Method：** POST </br>
+
+
+**输入参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+businessType|Integer|body|是|消息业务类型
+priority|Integer|body|是|消息优先级，priority定义见消息模型
+beginTime|String|body|是|开始时间
+endTime|String|body|是|结束时间
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+dndId|String|body|是|免打扰唯一标识
+
+
+#### 取消终端免打扰
+
+删除设定的免打扰配置
+
+1、用户登陆后，方可使用（Header中accessToken参数必填）
+2、已设置过免打扰
+
+
+##### 1、接口定义
+?> **接入地址：** `/config/cancelNotDisturb`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+dndId|String|body|是|免打扰设置唯一标识
+
+
+**输出参数：**标准输出参数
+
+
+
+#### 查询免打扰信息
+
+> 获取已设定的免打扰配置列表，以userId+appId+clientId（即终端）为粒度查询
+
+##### 1、接口定义
+
+?> **接入地址：** `/config/getNotDisturbs`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 无
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<DoNotDisturbDto>|body|是||
+
+
+### 消息模块
+
+#### 按设备推送消息
+
+> 从用户的某个终端推送消息到该用户的多个终端，消息的发送和接收终端都同属该用户（可以是不同APP）
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByClients`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+toClients|List<String>|body|是|属于该用户的clientId集合
+message|UpMsg|body|是|推送消息内容定义
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|String|body|是|本次发送的任务标识|
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByClients
+
+POST data:
+{"toClients":["1ebc148c322da136b8e8f3439e3fa90e","bbcbdaad3483b3be60cf584cd2aba975"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
+```
+
+
+
+#### 上报消息的读取状态
+
+> 更新消息的读取状态为已读</br>
+> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/reprotStatus`</br>
+**HTTP Method：** POST 
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|终端收到的任务标识
+
+
+**输出参数：** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/reportStatus
+
+POST data:
+{ 	"taskId":"TK123456789123456789" }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+
+#### 查询历史消息
+
+> 1、用户可以查询最长1年以内的历史消息 </br>
+> 2、历史消息不支持跨APP查询 </br>
+> 3、支持按终端查询（appId+userId+clientId）、按业务类型查询(appId+userId+clientId+businessType)、标签查询（appId+userId+clientId+tag）</br>
+> 4、支持分页，按时间倒序排列</br>
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getMsgHistory`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+businessType|Integer|body|否|消息业务类型
+tag|String|body|否|自定义标签
+pageIndex|Integer|body||当前页
+pageSize|Integer|body||每页显示数量
+
+
+
+**输出参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
+
+
+
+#### 删除应用内历史消息
+
+
+>1、用户提交申请删除一条或批量删除多条应用内消息</br>
+>2、系统收到请求后，将相关消息标记为删除状态(MSG_DISPATCH表MSG_STATUS=5)
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/delMsgHistory`</br>
+**HTTP Method：** POST 
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|消息任务Id一个或多个，逗号分隔
+
+**输出参数：** 标准输出参数
+
+## 云端功能接口
+
+?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+访问地址：`https://uws.haier.net/umse/v3`  </br>
+**为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
+
+
+Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
+
+**开通流程如下**
+
+> “海极网” -->  “开发者中心” --> “我的产品” --> “我的云应用”
+
+
+**云端应用请求Header**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+appId|String|header|是|终端应用的身份ID，通过海极网申请云应用获得appId和appKey
+appVersion|String|header|否|应用版本标识，最多32位字符
+sequenceId|String|header|是|报文流水号，6-32位；由客户端自行定义，自行生成；建议使用日期+顺序编号的方式。
+sign|String|header|是|通过该参数，对调用方进行鉴权，算法详见公共说明
+timetamp|long|header|是|Unix时间戳，精确到毫秒
+content-type|String|header|是|必须为applicationg/json;charset=UTF-8
+
+
+
+### 消息推送
+
+#### 按用户推送消息
+
+> 接收消息的用户列表必须是从指定的APP中注册的用户。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByUsers`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toUsers|List<String>|body|是|接受消息的用户ID列表
+toApps|List<String>|body|是|接受消息的APP列表
+messages|Message|body|是|推送消息内容定义
+tag|String|body|否|标签。例如家庭推送时可以存入家庭
+isBurn|Integer|body|否|是否阅后即焚
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|String|body|是|本次发送的任务标识
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByApps
+
+POST data:
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":"TKc33b74ae08424ec0a5411d37d5fc7bce"}
+```
+
+
+
+
+#### 按应用推送消息
+
+> 云端按应用列表给终端推送消息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByApps`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toApps|List<String>|body|是|接受消息的appId列表
+businesssType|Integer|body|是|消息业务类型
+message|Message|body|是|推送消息内容定义
+isBurn|Integer|body|否|是否是阅后即焚
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+taskId|String|body|是|本次发送的任务标识
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/umse/v3/msg/pushByApps
+
+POST data:
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":"TKc33b74ae08424ec0a5411d37d5fc7bce"}
+```
+
+
+#### 按用户推送消息（支持模板）
+
+> 接收消息的用户列表必须是从指定的APP中注册的用户。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushWithTmplByUsers`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toUsers|List<String>|body|是|接受消息的用户ID列表
+toApps|List<String>|body|是|接受消息的APP列表
+messages|Message|body|是|推送消息内容定义
+tag|String|body|否|标签。例如家庭推送时可以存入家庭
+isBurn|Integer|body|否|是否阅后即焚
+templateId|String|body|是|模板标识
+templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|String|body|是|本次发送的任务标识
+
+
+#### 按应用推送消息（支持模板）
+
+> 支持给应用列表推送消息。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushWithTmplByApps`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toApps|List<String>|body|是|接受消息的appId列表
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+message|Message|body|是|推送消息内容定义
+isBurn|Integer|body|否|是否是阅后即焚
+templateId|String|body|是|模板标识
+templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+ratData|String|body|是|本次发送的任务标识
+
+#### 推送邮件信息
+
+> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/sendEmail`</br>
 **HTTP Method：** POST
 
 **输入参数**
 
 参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-userId|String|Body|非必填|1、APP初始化时机型通道注册userId为空</br>2、用户登陆APP时进行通道注册userId不为空</br>PS:如果填写userId，纳闷系统校验此userId与消息头的token是否匹配
-userName|String|Body|非必填|
-clientId|String|Body|必填|clientid丢失或变更后是否需要立即重新注册 PS：此值与消息头clientId一致
-deviceId|String|Body|非必填|能获取deviceId则填写，如冰箱；否则不填写，如手机
-pushId|String|Body|必填|
-deviceName|String|Body|非必填|设备昵称
-deviceType|String|Body|必填|01：手机，</br>02：平板电脑 ，</br>03：电视 ，</br>04：带屏冰箱 ，</br>05：带屏烟机 ，</br>06：SmartCenter，</br>07：魔镜 ，</br>08：智能音箱
-typeId|String|Body|非必填|设备类型码(长串)，手机没有可以填空</br>PS：APP获取的设备类型码
-collab3th|int|长度为1|Body|必填|0：极光 ；</br>1：haier-M2M</br>当前版本仅智能音箱支持此通道
-
-**输出参数:** 
-
-参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
+toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
+ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+priority|Integer|body||
+formaType|String|body||邮件格式。1是text，2是html
+title|String|body||
+content|String|body||
 
-##### 2、请求错误码
+##### 2、请求样例
 
-> B00001、00004、D00008、H32004、H32005、C00006
+**输入参数**
+```
+{
+    "toList": [
+        "chenjinlei.uh@haier.com",
+        "abk@haier.com"
+    ],
+    "ccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "bccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "priority": "1",
+    "subject": "test",
+    "contentType": "TXT",
+    "content": "test email send template",
+    "emailTemplateId": "1000123"
+}
 
+```
 
+**输出参数**
+```
+{
+"retCode":"00000",
+"retInfo":"成功",
+"msgId":"57c0f0a28a1e481c9833b858db4b675e"
+}
+```
 
-#### 用户设备消息通道注销
-> 当设备不再需要推送功能或者此设备授权已移交他人
+##### 3、错误码
+
+> B00001、B00004、A00002、B00002、A00007、D00008、A00008
+
+####推送消息（支持模板）
+
+> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
 
 ##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/unreg`</br>
+
+?> **接入地址：** `/msg/sendEmailWithTmpl`</br>
 **HTTP Method：** POST
 
-**输入参数：**
+**输入参数**
 
-参数名|类型|位置|是否必填|说明
+参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-appPackage|String|Body|必填|
+toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
+ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
+priority|Integer|body||优先级
+language|String|body||默认语言
+templateld|String|body||模板ID
+templateParams|Map<String,String>|body||模板参数
 
-**输出参数：**
 
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
+##### 2、请求样例
 
-##### 2、错误码
->B00001、H32005、B00004、A00004、D00008、H32006
+**输入参数**
 
-#### 终端获取用户已注册通道设备列表
-> 获取当前账号下已经注册过消息通道的带屏设备列表
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/devlist`</br>
-**HTTP Method：** POST
-
-**输入参数：**  无，填写空字符串
-
-**输出参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
-
-##### 2、错误码
-> B00004、A00004
-
-#### 终端消息推送
-> dst 中 type：0，到端的消息推送，不限于当前账户；</br>
-> dst 中 type：1，2，3，一个用户的多屏互动场景。
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPush`</br>
-**HTTP Method：** POST </br>
-**说明：** 严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
-
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushtry`</br>
-**HTTP Method：** POST </br>
-**说明：** 最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
-
-**输入参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-expires|int|Body|非必填|消息有效期，单位秒
-dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"devType":["01","02"]}</br> {"type":3,"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2按照设备类型发送，例如：用户发给用户下是当前用户下（header中token）的appPackage_A、appPackage_B</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
-message|Json-obj|Body|否|业务基础信息
-
-**message示例**
 ```
-海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msg-name",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
+{
+    "toList": [
+        "chenjinlei.uh@haier.com",
+        "abk@haier.com"
+    ],
+    "ccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "bccList": [
+        "lifeng.uh@haier.com"
+    ],
+    "priority": "1",
+    "subject": "test",
+    "contentType": "TXT",
+"content": ["param1": "value1",  
+"param2": "value2",  
+" param3": " value3",  
+" param4": " value4"],
+    "emailTemplateId": "1000123"
 }
-此部分格式以及内容通道不会校验，只是透传
+
 ```
-
-**输入参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-**data示例**
-```
-data: {'msgId':”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
-msgId产生原则:时间戳+消息源信息
-```
-
-##### 2、错误码
-> msgPush：B00001、B00006、B00004、D00008、H32006、A00004、B00002、B00003
- 
-
-> msgPushtry:B00001、B00006、B00004、D00008、A00004、H32011、B00003、B00002
-
-
-#### 终端信息状态查询接口
-
-> 查询消息是否已经成功插入第三方平台，查询消息下发状态
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/getmsgstat`</br>
-**HTTP Method：** POST </br>
-
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-megId|String|Body|必填|终端再推送完毕后服务端返回的消息ID
 
 **输出参数**
 
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-##### 2、错误码
-
-> B00001、B00004、H32007
-
-
-#### 终端消息状态上报
-
-> 查询信息，终端在收到消息之后必须调用此接口上报“消息已接收”状态
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/report`</br>
-**HTTP Method：** POST </br>
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-appPackage|String|Body|必填|APP包名
-msgId|String|Body|必填|终端在推送完毕后，服务端返回的data中的msgId
-status|int|Body|必填|2：终端已接受</br>3：终端已展示</br>4：终端已反馈（参考massageInfo结构）
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
-
-##### 2、错误码
-
-> B00001、H32005、B00004、A00004、D00008、H32007、H32008
-
-
-#### 终端消息推送——设备绑定者
-
-> 消息推送至设备绑定者</br>
-> 【1】根据设备的deviceId发送信息到设备的在M2M系统绑定的主人的手机</br>
-> 【2】主人的手机，即为注册消息通道时候，注册类型deviceType为“01：手机”的所有APP
-
-##### 1、接口定义
-?> **接入地址：** `https://uws.haier.net/ums/v2/msgPushToHost`</br>
-**HTTP Method：** POST </br>
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-deviceId|String|Body|必填|绑定时设备的deviceId
-encryptedData|String|Body|必填|APP通过USDK获取的bindkey，获取方式详见USDK部门提供的API文档
-message|Json-obj|Body|必填|业务基础信息
-
-**message示例**
 ```
-例如: 海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msgName",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
+{
+"retCode":"00000",
+"retInfo":"成功",
+"msgId":"57c0f0a28a1e481c9833b858db4b675e"
 }
-此部分格式以及内容通道不会校验，只是透传
+
 ```
 
-**输出参数**
 
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据或null
 
-##### 2、错误码
+#### 根据taskId查询历史消息
 
-> B00001、B00006、B00004、H32009、H32010、A00004、H32011
 
-### 云端业务接口
-
-#### 云端获取用户已注册通道设备列表
-
-> 获取当前账号下已经注册过消息通道的带屏设备列表
-
+> 查看某次推送任务，推送的消息列表。
 
 ##### 1、接口定义
 
-?> **接入地址：** `https://uws.haier.net/umse/v2/devlist`</br>
-**HTTP Method：** POST </br>
+?> **接入地址：** `/msg/getMsgHistory`</br>
+**HTTP Method：** POST 
 
 **输入参数**
 
-参数名|类型|位置|是否必填|说明
+
+参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-userid|String|Body|必填|
+taskId|Sting|body|否|消息标识
+
 
 
 **输出参数**
 
-参数名|类型|位置|是否必填|说明
+
+参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
-
-##### 2、错误码
-
-> B00001、B00004、A00004
+retData|List<MsgCloudHistoryDto>|body|是|推送记录信息
 
 
-#### 云端消息推送
 
-> APP server 调用直接下发到终端，数组一次最多支持发送200个
-
-
-##### 1、接口定义
-
-?> **接入地址：** `https://uws.haier.net/umse/v2/msgPush`</br>
-**HTTP Method：** POST </br>
-**说明：**严格的参数校验，如果存在未注册，不合法的目的端，直接返回失败
-
-
-?> **接入地址：** `https://uws.haier.net/umse/v2/msgPushtry`</br>
-**HTTP Method：** POST </br>
-**说明：**最大限度发送消息，会进发送正确的目的端，存在未注册，非法的会主动过滤掉
-
-
-**输入参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-expires|int|Body|非必填|消息有效期，单位秒
-dst|Json-obj</br> {"type":0,"Id":["A","B"]} </br> {"type":1,"Id":["mac1","mac2"]}</br>{"type":2,"Id":["userId1","userId2"]"devType":["01","02"]}</br> {"type":3,"Id":["userId1","userId2"],"appType":["appPackage_A","appPackage_B"]}|Body|必填|type：0--Id为clientId，例如：A、B是目的端clientId;</br>type:1--Id为deviceId，例如：mac1、mac2是目的段的deviceId；</br>type:2，ID为userId,按照设备类型发送dstType</br>type:3,ID为userId，按照应用类型appType发送</br>数组上限200，userID不支持一次发给多个用户,参数合法判断（获取的类型值不在支持的设备列表中），参数合法的情况下UMS去除重复参数再去发送
-message|Json-obj|Body|否|业务基础信息
-
-**message说明**
-
-```
-例如: 海尔成套定义 message 业务大概分为三部分
-1.msgName   2.msgType  3. body
-{  
-"msgName": "msg-name",
-  "msgType": 3,
-    body{
-      "view": {  
-         },       
-        "extData":{
-        }
-      }
-}
-此部分格式以及内容通道不会校验，只是透传
-```
-
-**输出参数**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
-
-**data说明**
-
-```
-data: {'msgId' :”2345345345”}
-msgId唯一标识一条消息，由服务端端产生服务端没收到一个推送消息请求，都会产生一个消息ID，用于标记一条用户消息
-msgId产生原则:时间戳+消息源信息
-```
-
-#### 云端信息状态查询接口
-
-> 查询消息是否已经成功插入第三方平台
-
-
-##### 1、接口定义
-
-?> **接入地址：** `https://uws.haier.net/umse/v2/getmsgstat`</br>
-**HTTP Method：** POST </br>
-
-**输入参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-msgId|String|Body|必填|终端在推送完毕后服务端返回的消息Id
-
-
-**输出参数：**
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retCode|String|Body|是|返回码
-retInfo|String|Body|是|返回信息
-data|String|Body|是|返回数据
 
 
 [^-^]:文本连接注释
@@ -438,4 +850,4 @@ data|String|Body|是|返回数据
 [^-^]:常用图片注释
 [MessagePush_type]:_media/_MessagePush/MessagePush_type.png
 [MessagePush_liucheng]:_media/_MessagePush/MessagePush_liucheng.png
-
+[MessagePush_flow]:_media/_MessagePush/MessagePush_flow.png

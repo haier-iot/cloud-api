@@ -5,48 +5,27 @@
 The retCode and retInfo returned by the interface response are not internationalized and are processed by the interface caller.  
 The internationalization of the interface involving business data is defined by passing the language parameter in the header. The specific international language code is shown below.  
 
-|Language coding|	English name|	Chinese name|	Whether to support|
-|-----|----|----|----|
-|af	|Afrikaans - South Africa	|南非荷兰语|	no|
-|ar-ae	|Arabic(U.A.E.)	|阿拉伯语 - 阿拉伯联合酋长国	|no|
-|ar-bh	|Arabic(Bahrain)	|阿拉伯语 - 巴林	|no|
-|ar-dz	|Arabic(Algeria)	|阿拉伯语 - 阿尔及利亚	|no|
-|ar-eg	|Arabic(Egypt)	|阿拉伯语 - 埃及	|no|
-|ar-iq	|Arabic(Iraq)	|阿拉伯语 - 伊拉克	|no|
-|ar-jo	|Arabic(Jordan)	|阿拉伯语 - 约旦	|no|
-|ar-kw	|Arabic(Kuwait)	|阿拉伯语 - 科威特	|no|
-|ar-lb	|Arabic(Lebanon)	|阿拉伯语 - 黎巴嫩	|no|
-|ar-ly	|Arabic(Libya)	|阿拉伯语 - 利比亚	|no|
-|ar-ma	|Arabic(Morocco)	|阿拉伯语 - 摩洛哥	|no|
-|ar-om	|Arabic(Oman)	|阿拉伯语 - 阿曼	|no|
-|ar-qa	|Arabic(Qatar)	|阿拉伯语 - 卡塔尔	|no|
-|ar-sa	|Arabic(Saudi Arabia)	|阿拉伯语 - 沙特阿拉伯	|no|
-|ar-sy	|Arabic(Syria)	|阿拉伯语 - 叙利亚	|no|
-|ar-tn	|Arabic(Tunisia)	|阿拉伯语 - 突尼斯	|no|
-|ar-ye	|Arabic(Yemen)	|阿拉伯语 - 也门	|no
-|be	|Belarusian	|白俄罗斯语	|no|
-|bg	|Bulgarian	|保加利亚语	|no|
-|ca	|Catalan	|加泰罗尼亚语	|no|
-|cs|	Czech	|捷克语|	no|
-|da	|Danish	|丹麦语	|no|
-|de	|German(Standard)	|德语 - 标准|	no|
-|de-at	|German(Austrian)	|德语 - 奥地利	|no|
-|de-ch	|German(Swiss)	|德语 - 瑞士|	no|
-|de-li	|German(Liechtenstein)	|德语 - 列支敦士登|	no|
-|de-lu	|German(Luxembourg)	|德语 - 卢森堡	|no|
-|el	|Greek	|希腊语	|no|
-|en	|English	|英语|	yes|
-|en-au	|English(Australian)	|英语 - 澳大利亚	|no|
-|en-bz	|English(Belize)	|英语 - 伯利兹	|no|
-|en-ca	|English(Canadian)	|英语 - 加拿大	|no|
-|en-gb	|English(British)	|英语 - 英国	|no|
-|en-ie	|English(Ireland)	|英语 - 爱尔兰|	no|
-|en-jm	|English(Jamaica)	|英语 - 牙买加	|no|
-|en-nz	|English(New Zealand)	|英语 - 新西兰	|no|
-|en-tt	|English(Trinidad)	|英语 - 特立尼达岛	|no|
-|en-us	|English(United States)	|英语 - 美国	|no|
-|en-za	|English(South Africa)	|英语 - 南非	|no|
-|es	|Spanish(Spain - Modern Sort)	|西班牙语 - 标准|	no|
+编码|语言
+:-:|:-:
+de|德语
+fr|法语
+it|意大利语
+es|西班牙语
+sv|瑞典语
+fi|芬兰语
+da|丹麦语
+no|挪威语
+nl|荷兰语
+ru|俄罗斯语
+ed|英语
+pl|波兰
+cs|捷克
+zh-cn|中文简体
+zh-tw|中国台湾-繁体
+he|希伯来语
+el|希腊语
+pt|葡萄牙语
+
 
 ## Safety Regulations
 

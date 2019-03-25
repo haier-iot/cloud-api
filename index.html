@@ -18,8 +18,8 @@
     window.$docsify = {
       name: 'U+ IOT 云服务',
 	  nameLink: {       //点击文档标题后跳转的链接地址。
-	 '/zh-cn/': '/zh-cn/',
-     '/': '/'
+	 '/zh-cn/': '/guide/#/zh-cn/',
+     '/': '/guide/#/'
     },
       repo: 'https://github.com/haier-iot/guide',
 	  loadSidebar: true,
@@ -27,10 +27,12 @@
 	  subMaxLevel: 4,   //显示目录级别
 	  //logo: '/_media/icon.png',
 	  alias: {
+	  '/.*en-zh.*/_sidebar.md': '/en-zh/_sidebar.md',
+	  '/.*en-zh.*/_navbar.md': '/en-zh/_navbar.md',
       '/.*en-us.*/_sidebar.md': '/en-us/_sidebar.md',
 	  '/.*en-us.*/_navbar.md': '/en-us/_navbar.md',
 	   '/.*/_sidebar.md': '/zh-cn/_sidebar.md',
-	  '/.*/_navbar.md': '/zh-cn/_navbar.md',
+	  '/.*/_navbar.md': '/zh-cn/_navbar.md'
     },
 	loadNavbar: true,   // 配置头部导航
 	coverpage: false ,   // 配置封面

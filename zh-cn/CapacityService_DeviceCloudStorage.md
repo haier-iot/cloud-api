@@ -102,7 +102,7 @@ bucketInfo|BucketInfo|Body|必填|创建成功的存储区
 
 **请求样例**
 ```
-请求地址：http://123.103.113.62/css/v1/createBucket
+请求地址：http://*****/css/v1/createBucket
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 Body：
@@ -154,7 +154,7 @@ bucketInfo|BucketInfo|Body|必填|
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/queryBucket/107
+接入地址：http://******/css/v1/queryBucket/107
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -198,7 +198,7 @@ acessKey|String|header|必填|用户主ak
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/modifyBucketACL/123
+接入地址：http://*********/css/v1/modifyBucketACL/123
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 Body：
@@ -240,7 +240,7 @@ accessKey|String|header|必填|用户主ak
 
 **请求样例**
 ```
-请求地址：http://123.103.113.62/css/v1/deleteBucket/107
+请求地址：http://***********/css/v1/deleteBucket/107
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -283,7 +283,7 @@ bucketList|BucketList|Body|必填|
 
 **请求样例**
 ```
-请求地址：http://123.103.113.62/css/v1/bucketList?pageNo=0
+请求地址：http://*******/css/v1/bucketList?pageNo=0
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -449,7 +449,7 @@ fileList|FileList|Body||
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/fileList/119?pageNo=0
+接入地址：http://*******/css/v1/fileList/119?pageNo=0
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -646,7 +646,7 @@ fileInfo|FileInfo|Body|是|
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/uploadFile/test-123
+接入地址：http://*******/css/v1/uploadFile/test-123
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 	fileName: 青蛙王子.jpg
@@ -720,7 +720,7 @@ MetaInfo类型的对象，包含属性：MAP<String,String> 属性值 描述文�
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/fileListByMeta?pageNo=0
+接入地址：http://*******/css/v1/fileListByMeta?pageNo=0
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 Body：
@@ -826,7 +826,7 @@ fileInfo|FileInfo|Body|必填|
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/queryFile/2900851854051
+接入地址：http://*******/css/v1/queryFile/2900851854051
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -878,7 +878,7 @@ accessKey|String|Header|必填|用户主ak
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/modifyFileACL/101844908215
+接入地址：http://*******/css/v1/modifyFileACL/101844908215
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 Body：
@@ -917,7 +917,7 @@ accessKey|String|Header|必填|用户主ak
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/deleteFile/101844908215
+接入地址：http://*******/css/v1/deleteFile/101844908215
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```
@@ -954,7 +954,7 @@ fileID|long|url|必填|文件id
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/anonymous/102400553047
+接入地址：http://*******/css/v1/anonymous/102400553047
 ```
 
 **请求应答：** 直接返回文件内容，如为图片则返回图片文件
@@ -980,7 +980,7 @@ accessKey|String|Header|必填|用户主ak
 
 **请求样例**
 ```
-接入地址：http://123.103.113.62/css/v1/download/102604239767
+接入地址：http://*******/css/v1/download/102604239767
 Header：
 	accessKey: 1681314738825497:2K0MymVucAOQ==
 ```

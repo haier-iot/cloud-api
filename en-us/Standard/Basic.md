@@ -28,11 +28,11 @@ U+ platform existing UWS service description
 Serial number|UWS service name|Application name|Version number (current version)
 :-:|:-:|:-:|:-:
 1|[Account Service-NorthAmericanEnvironment](en-us/Account-NorthAmericanEnvironment)|uam|v1.4.0  
-2|[Account Service-EuropeanEnvironment](en-us/Account-EuropeanEnvironment)|uam|v2.0.0
-3|[Equipment Management Standard Edition-NorthAmericanEnvironment](en-us/DevicesStandard)|uds|v1.4.0
-4|[Equipment Management Enterprise Edition-NorthAmericanEnvironment](en-us/DevicesEnterprise)|udse|v1.5.2
-5|[Equipment Management Standard Edition-EuropeanEnvironment](en-us/DevicesStandard-EuropeanEnvironment)|uds|v2.0.2
-6|[Equipment Management Enterprise Edition-EuropeanEnvironment](en-us/DevicesEnterprise-EuropeanEnvironment)|udse|v1.5.2
+2|[Account Service-EuropeanEnvironment](en-us/Account-EuropeanEnvironment)|uam|v2.1.0
+3|[Equipment Management Standard Edition-NorthAmericanEnvironment](en-us/DevicesStandard-NA)|uds|v1.4.0
+4|[Equipment Management Enterprise Edition-NorthAmericanEnvironment](en-us/DevicesEnterprise-NA)|udse|v1.5.2
+5|[Equipment Management Standard Edition-EuropeanEnvironment](en-us/DevicesStandard-Euro)|uds|v2.0.2
+6|[Equipment Management Enterprise Edition-EuropeanEnvironment](en-us/DevicesEnterprise-Euro)|udse|v1.5.2
 7|[Data Subscription](en-us/DataSubscription)|udp|v1.0.0
 
 
@@ -52,7 +52,7 @@ The public field describes the public fields that should be included for each re
 |privacyVersion	|String|Header|	yes(Only for the European environment)|Latest Privacy Agreement Version|  
 |timestamp	|String	|Header	|yes|Long timestamp, accurate to milliseconds, this parameter provides support for multi-country regions. The user's location timestamp should be passed in.|
 |language	|String	|Header|	yes	|This parameter provides support for multi-language versions. By default, you can fill in zh-cn.|
-|timezone	|String|	Header|	yes	|Time zone, -11 to 13. In the time zone of the incoming user, you can fill in 8 by default.|
+|timezone	|String|	Header|	yes	|Represents the time zone used by the client. Pass in the user's time zone ID, referring to the list of [international time zone ids](en-us/Standard/Other).|
 |Content-Type|String|	Header|	yes	|Different parameters of this service will be different, generally "application/json; charset=UTF-8" specific reference media type|  
 
 
@@ -153,7 +153,7 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 |parameter name|	Description|
 |:-----|-----|
 |Signature string|Url string + Body string +appId+appKey +timestamp;|
-|url |Refers to the path part of the requested interface address after removing https://uws-gea-euro.haieriot.net or https://uws-gea-us.haieriot.net;|
+|url |Refers to the path part of the requested interface address after removing `https://uws-euro.haieriot.net` or `https://uws-gea-us.haieriot.net`;|
 |Body|Refers to the JSON string after the body part of the application sends the request to remove all whitespace characters. If there is no body, it is an empty string (not null);|
 |appId|The attributes in the Header header (see the public section);|
 |appKey|The appKey applied to the application on the Haigeek cannot be sent in clear text;|
@@ -161,7 +161,7 @@ The caller needs to sign the request sent to uws, and then assign it to the sign
 
 
 
-3. **Signature algorithm**
+3. **Signature algorithm**  
 The signature algorithm is to calculate the 32-bit lowercase SHA-256 value for the signature string. See the following example for details:  
  
 ```java
@@ -174,7 +174,7 @@ String getSign(String appId, String appKey, String timestamp, String body,String
 		body = body.trim();
 	}
 	if (!body.equals("")) {
-		body = body.replaceAll("", "");
+		body = body.replaceAll(" ", "");
 		body = body.replaceAll("\t", "");
 		body = body.replaceAll("\r", "");
 		body = body.replaceAll("\n", "");
@@ -206,3 +206,5 @@ String BinaryToHexString(byte[] bytes) {
 }
 
 ```  
+
+

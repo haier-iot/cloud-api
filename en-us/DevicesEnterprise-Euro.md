@@ -19,8 +19,13 @@ Standard equipment operation|The user operates the device by issuing the followi
 
 The device management service authorized by the manufacturer is the management and control device service specially provided by U+ cloud platform for enterprise users. It only needs to obtain the authorization code issued by U+ cloud platform, and it does not need to realize token authorization to quickly realize the device control and management function. Detailed service understanding and authorization to connect with  [Haier U+ Business BD][Business].
 
+## Rules and constraints  
+1、The device management enterprise service is the authorization for the server side. It needs to provide the IP address of the external network where the server is deployed and configure the IP white list in the cloud platform to be accessible.</br>
+2、The appId passing value in the request header of the public header should be applied to the enterprise application systemId, and the signature algorithm should use the corresponding systemKey.</br>
+3、DeviceId is the accessToken security token token that initiates the request for all devices with control rights.</br>
 
-### Application scenario
+
+## Application scenario
 The enterprise version service is applicable to the case where the application server (ie, the app server) is directly connected to the platform, and the enterprise-level device management is performed. The application server uniformly obtains device information and device control.  
 
 
@@ -97,7 +102,7 @@ result|String|Operation response result|Is a base64 code, </br> the result of de
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -184,7 +189,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -267,7 +272,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -354,7 +359,7 @@ Body
 **User request**
 ```
 Header：
-	appId:MB-ABC-0000
+	appId:MB-****-0000
 	appVersion:2015110401
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
@@ -410,7 +415,7 @@ Body
 | G03002  | Equipment offline | The device cannot issue commands without being online |      
 | G20202  | The current user does not match the device |  The current system does not match the device</br>The current system does not have permission to operate the device   |  
  
-### UAdvanced authorization device control(Manufacturer authorized device management services)   
+### Advanced authorization device control(Manufacturer authorized device management services)   
 
 
 > API interface overview  
@@ -450,7 +455,7 @@ For specific interface service understanding and authorization, please contact [
 **User request**
 ```
 Header：
-appId: SV-GEHWHKQ-0000
+appId: SV-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 20161020153428000015
@@ -459,7 +464,6 @@ sign: 139854d169436e6d91c7b11701b0e2a4bd9152c2005a1fab95dcd60639c3c17d
 timestamp: 1490253051551 
 language: zh-cn
 timezone: +8
-appKey: 961c447171c19efd78beaef9abc72e7d
 Content-Encoding: utf-8
 Content-type: application/json 
 Body
@@ -533,7 +537,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -617,7 +621,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -694,7 +698,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -776,7 +780,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -863,7 +867,7 @@ Body
 **User request**
 ```
 Header：
-appId:MB-ABC-0000
+appId:MB-****-0000
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001

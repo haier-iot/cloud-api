@@ -1,5 +1,5 @@
 
->  **当前版本**：[UWS 家庭模型服务 V1.5.1](zh-cn/ChangeLog/Family)  
+>  **当前版本**：[UWS 家庭模型服务 V1.6.0](zh-cn/ChangeLog/Family)  
  **更新时间**：{docsify-updated} 
 
 
@@ -18,6 +18,11 @@
 此服务包括对家庭的整体操作（如创建家庭、修改家庭名称、删除家庭等）、家庭基础信息的维护操作（如查询家庭信息列表、修改家庭名称等）、家庭成员管理（如添加家庭成员、邀请家庭成员、查看家庭成员列表等），以及其他对于家庭的管理操作。  
 **家庭设备共享与权限控制**  
 使用此服务将设备分享给家庭成员，实现多人共享。同时，可以限制分享权限，实现对设备的访问的可控性，增强的设备的安全性。设备的权限被划分为查看，控制，配置权。控制过程中，会检查用户的权限。实际用户控制资源时，会把用户不同途径获取的访问权限进行综合计算用户的实际权限。操作设备过程中，用户如果没有权限，设备将会被禁止操作或无法看见。
+
+## 流程图  
+
+![家庭模型流程][family_flow]
+
 
 
 ## 规则与约束
@@ -38,7 +43,25 @@
 
 
 ## 应用场景
-适用于多个用户间组建管理组，即创建“家庭”；同事拥有家庭组的用户，可把自有的设备分享到家庭组中，分享设备的使用，即实现以群组为单位的设备共享。
+
+**家庭模型流程：**
+适用于多个用户间组建管理组，即创建“家庭”；同时拥有家庭组的用户，可把自有的设备分享到家庭组中，分享设备的使用，即实现以群组为单位的设备共享。
+
+
+**家庭管理**
+
+家庭管理：用户可以创建家庭并成为家庭管理员，拥有家庭管理的相关权限，修改家庭名称、添加家庭成员等
+
+家庭成员管理：家庭成员邀请，用户主动申请加入，修改家庭成员别名等，详见家庭模型场景流程图
+
+
+**设备分享**
+
+设备分享给个人：设备管理员（即与设备绑定的用户）根据用户ID,将设备控制、查看权限分享给其他用户
+
+设备分享给家庭：设备管理员（即与设备绑定的用户）根据familyID，将设备分享给对应家庭，其家庭成员可以控制或查看设备
+
+
 
 ## 公共结构  
 ### AuthInfo  
@@ -93,7 +116,9 @@
 |devShareUser|UserBriefInfo|分享用户简明信息||  
 |devFamilyId|String|设备所属家庭Id||  
 |devOwner|UserBriefInfo|设备管理员简明信息||  
-|permission|Permision|权限|&emsp;|   
+|permission|Permision|权限|&emsp;| 
+|devRoomId|String|设备所属房间ID||  
+|devRoomName|String|设备房间名称|&emsp;|  
 
 ### FamilyInfo    
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称。     
@@ -101,11 +126,24 @@
 | **名称** | 家庭信息 | &emsp;|FamilyInfo |    
 | ------------- |:-------------:|:-----:|:-------------:|    
 |**字段名**|**类型**|**说明**|**备注**|      
-|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19|      
+|familyId|String|家庭id，以字符串形式传递的Long型变量，会自动转换字符串为合适的整型|长度19，添加请求时不填|      
 |familyName|String|家庭名称| |    
-|familyOwner|UserBriefInfo|家庭管理员用户简明信息||    
+|familyOwner|UserBriefInfo|家庭管理员用户简明信息|添加请求时不填| 
+|ownerName|String|家庭管理员用户简明信息|最长不超过50|  
+|familyLable|String|家庭标签|APP定义，如父母等|  
+|familyDesc|String|家庭描述| |  
 |appId|String|应用Id| |  
-|createtime|date|家庭建时间|&emsp;|         
+|createtime|date|家庭建时间|&emsp;|  
+|familyLogo|String|家庭logo|默认值为平台内置家庭logo url  
+|familyPicture|String|家庭图片|默认值为平台内置家庭图片 url|  
+|familyLocation|Location|家庭位置信息|家庭位置信息|  
+|familyPosition|String|家庭位置|小区等信息|   
+|familyExternData|String|扩展信息|IOT平台可定义，jason|  
+|familyLastUpdater|String|家庭最后修改人|添加请求时不填|  
+|LastUpdateTime|date|家庭最后修改时间|精确到秒，含年月日信息，，添加操作请求时不填|  
+|securityLevel|int|安全级别|添加操作请求时不填|  
+|deviceCount|int|设备数量|添加操作请求时不填|    
+|memberCount|int|成员数量|添加操作请求时不填|    
 
 ### FamilyInfoOwnerName   
 描述家庭信息,包含家庭主人,家庭创建时间,家庭名称。  
@@ -118,7 +156,27 @@
 |familyOwner|UserBriefInfo|家庭管理员用户简明信息||    
 |ownerName|String|家庭管理员用户简明信息||  
 |appId|String|应用Id|&emsp;|  
-|createtime|date|家庭创建时间|&emsp;|   
+|createtime|date|家庭创建时间|&emsp;|  
+
+### RoomInfo  
+描述房间信息   
+ 
+|**名称**|描述房间信息 |&emsp;|RoomInfo|      
+| ------------- |:-------------:|:-----:|:-------------:|
+|**字段名**|**类型**|**说明**|**备注**| 
+|roomName|String|房间名称||
+|roomId|String|房间ID||
+|familyId|String|房间所属家庭ID||
+|roomClass|String|房间类型||
+|roomLabel|String|房间标签||
+|roomCreater|UserBriefInfo|房间添加人||
+|roomLogo|String|房间logo url||
+|roomPicture|String|房间图片 url||
+|roomExternData|String|扩展信息，使用json格式||
+|roomCreateTime|Date|房间创建时间||
+|fromAppid|String|来源APPID或者systemId||
+|lastUpdateTime|Date|房间最后修改时间||
+|lastUpdateUser|UserBriefInfo|房间最后编辑用户信息|&emsp;|
 
 ### FamilyMemberInfo    
 描述家庭成员信息,包含家庭成员id,成员名称,所属家庭id。  
@@ -191,9 +249,15 @@ Map<String,String> 用户属性值key/value
 |**字段名**|**类型**|**说明**|**备注**|    
 |longitude|Double|经度||  
 |latitude|Double|维度||  
-|cityCode|String|城市编码|&emsp;|        
+|cityCode|String|城市编码|&emsp;|       
 
 
+### QueryClause 
+|**名称**	|查询条件 |&emsp;|QueryClause|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|queryInfo |Map<String,String>|查询条件信息|&emsp;|   
+ 
 
 ## 接口清单  
 
@@ -217,7 +281,9 @@ Map<String,String> 用户属性值key/value
 | 家庭成员主动退出家庭     | 家庭成员主动退出家庭,撤销家庭成员的家庭设备分享,撤销其他家庭成员对本家庭成员设备的分享权限，向家庭其他成员发送删除家庭成员消息 | 是| 无| 
 | 家庭管理员或家庭成员查询家庭成员     | 家庭管理员或家庭成员查询家庭成员 | 是| 无| 
 | 家庭成员或家庭管理员查询家庭成员所有成员（包含管理员）     | 家庭管理员或家庭成员查询家庭成员 | 是| 无| 
-| 根据关键字精确检索好友信息     | 精确查找用户信息，用于执行需要用户ID的场景，本次用户id有时效性，临时分配，有效期为1天，支持其他接口使用，在相关接口中有说明 | 是| 无| 
+| 根据关键字精确检索好友信息     | 精确查找用户信息，用于执行需要用户ID的场景，本次用户id有时效性，临时分配，有效期为1天，支持其他接口使用，在相关接口中有说明 | 是| 无|  
+|家庭管理员变更 | 家庭管理员可以主动移交管理员角色 | 是| 无|  
+|查询家庭下的房间列表 | 查询家庭下的房间列表信息 | 是| 无| 
 
 #### 家庭管理员创建家庭
 > 用户创建家庭,在家庭模型管理平台中创建家庭,请求者作为家庭管理员,返回家庭的基础信息和错误码
@@ -243,7 +309,7 @@ Map<String,String> 用户属性值key/value
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -318,7 +384,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -378,7 +444,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -435,7 +501,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -499,7 +565,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -562,7 +628,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -642,7 +708,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -696,7 +762,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -758,7 +824,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -822,7 +888,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -884,7 +950,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -948,7 +1014,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1004,7 +1070,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1059,7 +1125,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1148,7 +1214,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1200,7 +1266,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1249,7 +1315,9 @@ Body:
 | 设备管理员取消设备的家庭分享     | 设备管理员取消分享给家庭的设备，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志 | 是| 无| 
 | 设备管理员分享设备给个人     | 设备管理员分享设备给个人，发送分享个人设备消息给目标用户，记录消息发送结果到日志，支持targetId为临时的userid| 是| 无| 
 | 设备管理员取消设备分享    | 设备管理员取消用户分享，发送取消个人分享设备消息给目标用户，记录消息发送结果到日志, 支持targetId为临时的userid| 是| 无| 
-| 用户删除分享自己的个人设备    | 用户取消设备管理员分享给自己的设备 | 是| 无|  
+| 用户删除分享自己的个人设备    | 用户取消设备管理员分享给自己的设备 | 是| 无| 
+| 家庭管理员或设备管理员修改设备所属房间 | 家庭管理员或设备管理员修改设备所属房间 | 是| 无|
+
 
 #### 家庭管理员或家庭成员查询家庭的所有设备
 > 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备
@@ -1275,7 +1343,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1371,7 +1439,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1473,7 +1541,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1559,7 +1627,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1661,7 +1729,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1763,7 +1831,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1827,7 +1895,7 @@ online":false
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1893,7 +1961,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1947,7 +2015,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -2001,7 +2069,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -2055,7 +2123,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -2125,7 +2193,7 @@ Body:
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -2153,7 +2221,7 @@ Content-type: application/json
 ##### 3、错误码  
 > A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008   
 
-#### 用户删除分享给自己的个人设备（新增）
+#### 用户删除分享给自己的个人设备
 > 用户取消设备管理员分享给自己的设备
 
 ##### 1、接口定义
@@ -2178,7 +2246,7 @@ Content-type: application/json
 **用户请求**
 ```java  
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -2204,12 +2272,376 @@ Content-type: application/json
 ```
 
 ##### 3、错误码  
-> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008    
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008   
+
+#### 家庭管理员或设备管理员修改设备所属房间
+> 用户作为管理员或者作为家庭成员，并且是设备管理员修改设备信息，其中包含设备所在房间，设备在家庭中的昵称，设备分享权限，要修改的设备为1个或多个，这些设备都属于一个家庭
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/updateShareDevice`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
+| ShareDevice[]  | shareDevices   | body |必填|设备信息 |  
+| String  | familyId   | body |必填|家庭ID |  
+
+**输入参数说明**   
+**名称**	|设备共享信息 |&emsp;|ShareDevice|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|devId|String|设备MAC|必填|  
+|devName|String|设备名称|选填| 
+|devRoomId|String|设备所属房间ID|选填| 
+|permission|Permision|分享权限此处权限authType 必须为home|选填| 
+
+
+**输出参数**  
+标准输出
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body：
+{
+	"shareDevices": [{
+		"devRoomId": "694111057263000000",
+		"devInfo": {
+			"deviceId": "MOCKDEV_CJL-UFM-MEMBER"
+		}
+	}],
+	"familyId": "332111080977000000"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+"retCode": "00000",
+"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008  
+
+### 房间管理服务
+> API接口总览
+
+| API名称        | 作用          | 是否开放  | 特别说明|  
+| ------------- |:-------------:|:-----:|:-------------:|
+| 用户创建房间     | 用户创建房间到家庭下，房间必须属于家庭 | 是| 无|   
+| 用户修改房间信息 | 用户修改家庭下房间信息| 是| 无|  
+| 用户删除房间信息     | 房间必须没有设备才能被删除 | 是| 无|  
+| 用户查询家庭房间下的设备| 家庭管理员或家庭成员查询用户房间下的设备信息列表 | 是| 无|  
+
+#### 用户创建房间
+>用户创建房间到家庭下，房间必须属于家庭  
+
+##### 1、接口定义  
+?> **接入地 址：**  `/ufm/v1/protected/roomService/addRoomInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| --------- |:----------:|:-----:|:-----------:|:-----------:|  
+|  RoomInfo    | roomInfo | Body| 必填|房间信息|   
+
+**输入参数对象说明**   
+
+|**名称**	|描述房间信息 |&emsp;|RoomInfo|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|roomName|String|房间名称|必填|  
+|familyId|String|房间所属家庭ID|必填|  
+|roomClass|String|房间类型|非必填|  
+|roomLabel|String|房间标签|非必填| 
+|roomLogo|String|房间logo url|非必填| 
+|roomPicture|String|房间图片 url|非必填| 
+|roomExternData|String|扩展信息，使用json格式|非必填|  
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| RoomInfo |  roomInfo  |   Body  |  必填  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body:
+{
+	"roomInfo": {
+		"roomName": "testroorm1",
+		"familyId": 878111118405000000
+	}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"roomInfo": {
+		"roomName": "testroorm1",
+		"roomId": "150111135560000000",
+		"familyId": "878111118405000000",
+		"roomCreater": {
+			"userId": "100013957366152524",
+			"mobile": "136****8934"
+		},
+		"roomCreateTime": "2019-02-15 09:52:40"
+	}
+}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008
+
+#### 用户修改房间信息  
+>用户修改家庭下房间信息，有值的属性信息会被更新，为空或未配置的不填  
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/roomService/updateRoomInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
+|  RoomInfo    | roomInfo | Body| 必填|房间信息|  
+
+
+**输入参数对象说明**  
+ 
+|**名称**	|描述房间信息 |&emsp;|RoomInfo|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|roomName|String|房间名称|非必填|  
+|roomId|String|房间ID|必填|  
+|familyId|String|房间所属家庭ID|必填|  
+|roomClass|String|房间类型|非必填|  
+|roomLabel|String|房间标签|非必填| 
+|roomLogo|String|房间logo url|非必填| 
+|roomPicture|String|房间图片 url|非必填| 
+|roomExternData|String|扩展信息，使用json格式|非必填|  
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| RoomInfo |  roomInfo  |   Body  |  必填  | &emsp; |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body:
+{
+	"roomInfo": {
+		"familyId": "11111",
+		"roomId": "1111111",
+		"roomLabel": "测试"
+	}
+}
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功"}
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008
+
+#### 用户删除房间信息
+> 用户删除家庭下的房间，用户为家庭成员或家庭管理员，房间必须没有设备才能被删除  
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/roomService/delRoomInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
+|  RoomInfo    | roomInfo | Body| 必填|房间信息|  
+
+
+**输入参数对象说明**  
+   
+|**名称**	|描述房间信息 |&emsp;|RoomInfo|  
+| ------ |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|roomId|String|房间ID|必填|  
+|familyId|String|房间所属家庭ID|必填|  
+ 
+
+
+**输出参数**  
+
+标准输出
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body:
+{
+"roomInfo":{ "familyId":"11111","roomId":"1111111"}
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功"}
+
+```
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008
+
+#### 用户查询家庭房间下的设备
+> 家庭管理员或家庭成员查询用户房间下的设备信息列表，其他查询用户返回用户无权限  
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/roomService/queryRoomDevices`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------- |:-------------:|:-----:|:-----------:|:----------:|
+|  RoomInfo    | roomInfo | Body| 必填|房间信息|  
+
+
+**输入参数对象说明**    
+ 
+|**名称**	|描述房间信息 |&emsp;|RoomInfo|
+| ---------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|    
+|roomId|String|房间ID|必填|  
+|familyId|String|房间所属家庭ID|必填|  
+ 
+
+
+**输出参数**   
+ 
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ---------- |:----------:|:-----:|:-------------:|:-------------:|
+|  shareDevice[]    | shareDevices | Body| 必填|&emsp;| 
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+```  
+
+**请求应答**
+
+```java
+{"retCode":"00000","retInfo":"成功", "shareDevices":[{},{},{}]}
+
+```
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008
+
+   
+  
 
 
 [^-^]:常用图片注释
 [family_type]:_media/_family/family_type.png
 [family_liucheng]:_media/_family/family_liucheng.png
+[family_flow]:_media/_family/family_flow.png
 
 
 

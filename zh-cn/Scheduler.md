@@ -24,12 +24,16 @@
 
 ## 应用场景
 
-预约定时任务应用于按照时间规则触发的自动化任务的执行的场景，包括对单个设备或多个设备单点预约、周期化任务预约，以及批量的多点预约任务。
+预约定时任务应用于按照时间规则触发的自动化任务的执行的场景，包括单任务预约定时和批量设备预约定时。
+![预约定时场景流程][scheduler_flow]
 
-> 1、  网器硬件本身不具备预约执行功能，通过云端服务能力，在APP、屏幕端、硬件端等提供预约执行能力。通过预约定时服务，设备端有能力接入API的可在设备端直接使用，设备端不具备的可在服务端进行使用预约服务能力，业务只需更关注提供用户的业务及服务，不用关心具体功能构建；
+**定时任务**
 
-> 2、  同一设备，接入不同终端APP，且不同终端实现了不同预约逻辑，导致设备被不同业务触发调用，而用户又无统一入口查询其设备的所有预约列表，造成用户使用困扰。 如空调在优家APP、好空气APP端的预约信息；在接入统一的预约定时服务后，用户可在优家APP、好空气APP端查看到自己不同端配置的预约信息，方便用户管理使用预约控制功能；
+定时任务分为提供对单个设备或多设备的单定时任务和批量定时任务，可根据需求自行设计任务场景
 
+**定时任务管理**
+
+查看、删除、执行等相关的任务操作
 
 
 ## 公共结构
@@ -232,7 +236,7 @@
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -326,7 +330,7 @@ Body
 ```java  
 Header：
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -409,7 +413,7 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -482,7 +486,7 @@ Body:
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -575,7 +579,7 @@ Body:
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -659,7 +663,7 @@ Body:
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -786,7 +790,7 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -912,7 +916,7 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1041,7 +1045,7 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1123,7 +1127,7 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-0000
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -1161,4 +1165,5 @@ Body:
 [^-^]:常用图片注释
 [scheduler_type]:_media/_scheduler/scheduler_type.png
 [scheduler_liucheng]:_media/_scheduler/scheduler_liucheng.png
+[scheduler_flow]:_media/_scheduler/scheduler_flow.png
 

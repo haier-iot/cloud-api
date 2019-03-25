@@ -10,29 +10,25 @@
 
 * [账户服务](zh-cn/Account)  
 
-* 设备管理
-
-	* [标准版](zh-cn/DevicesStandard)  
-
-	* [企业版](zh-cn/DevicesEnterprise)   
+* [设备管理](zh-cn/DeviceManage)
 
 * [数据订阅](zh-cn/DataSubscription)  
 
-* [家庭模型](zh-cn/Family)  
+* [家庭模型](zh-cn/FamilyManage)
 
 * [场景引擎](zh-cn/IFTTT)  
 
 * [预约定时](zh-cn/Scheduler)  
 
-* [设备影子](zh-cn/DevicesShadow)  
-
 * [消息推送](zh-cn/MessagePush)  
+
+* [设备影子](zh-cn/DevicesShadow)  
 
 * 能力服务  
 
-	* [天气服务](zh-cn/CapacityService_Weather)    
+	* [应用版本更新](zh-cn/AppVersionUpdate)    
 	
-	* [智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)  
+	* [设备云存储](zh-cn/CapacityService_DeviceCloudStorage)  
 
 
 * [uSDK能力简介](zh-cn/uSDK)   
@@ -57,15 +53,13 @@
 * ChangeLog  
 
 	* [账户服务](zh-cn/ChangeLog/Account)
-	* [设备管理服务标准版](zh-cn/ChangeLog/DevicesStandard)
-	* [设备管理服务企业版](zh-cn/ChangeLog/DevicesEnterprise)
+	* [设备管理](zh-cn/ChangeLog/DevicesStandard)
 	* [数据订阅](zh-cn/ChangeLog/DataSubscription)
 	* [家庭模型](zh-cn/ChangeLog/Family)
 	* [场景引擎](zh-cn/ChangeLog/IFTTT)
 	* [预约定时](zh-cn/ChangeLog/Scheduler)
 	* [设备影子](zh-cn/ChangeLog/DevicesShadow)
 	* [消息推送](zh-cn/ChangeLog/MessagePush)
-	* [天气服务](zh-cn/ChangeLog/CapacityService_Weather)
-	* [智能设备资源云存储](zh-cn/ChangeLog/CapacityService_DeviceCloudStorage)
+	* [能力服务](zh-cn/ChangeLog/CapacityService_Weather)
 	
 	
