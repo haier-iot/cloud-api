@@ -36,7 +36,7 @@ sercertKey：海极网分配的sercertKey，不能为空，不能随意填写。
 1.uSDK启动时需要到到海尔云端验证appId和version值的合法性，所以appId和Version的值一定要与海极网中的填写的数据一致，如果不一致，会导致appId和version值的合法性验证失败，uSDK不能启动<br>
 2.uSDK在主线程中成功启动一次即可，不要多次或在其他个线程中启动uSDK
 
-### 1.4.定uSDK日志级别
+### 1.4.设置uSDK日志级别
 uSDK启动成功后，可以设置uSDK的日志级别，开发过程中建议使用USDK_LOG_DEBUG，上线产品建议使用USDK_LOG_NONE或USDK_LOG_ERROR，如不设置，默认为USDK_LOG_DEBUG输出所有日志。uSDK运行时会输出日志，其中包含与硬件交互及反馈给App的详细日志，uSDK的日志标签是uClient和uServer。<br>
 示例代码：
 
@@ -49,7 +49,7 @@ uSDK启动成功后，可以设置uSDK的日志级别，开发过程中建议使
 代码块success方法执行成功时被触发。<br>
 代码块failure方法执行失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
-### 1.5 开启和关闭dns防劫持功能
+### 1.5 开启/关闭dns防劫持功能
 为了保证用户能够正确访问到海尔云，uSDK中提供了dns防劫持功能， 默认此功能开启。
 当开发人员需要使用非生产环境（开发者、联调、验证）进行开发测试时，在sdk启动后关闭uSDK提供的DNS防劫持功能，才能保证 uSDK正常访问对应的云环境。<br>
 当APP需要对外发布时，需要开启DNS防劫持功能，保证用户能够正确访问到海尔云。
@@ -415,7 +415,7 @@ value：属性值，NSString类型。如”201.03”<br>
 组命令：App发送多条指令的集合，设备接收并执行<br>
 ![public_group_cmd_sixcode][public_group_cmd_sixcode]
 
-“单命令/组命令”说明当前指令201.01可以既作为单命令发送，也可以运用到组命令中。<br>
+“单命令/组命令”说明当前指令201001可以既作为单命令发送，也可以运用到组命令中。<br>
 
 ID文档中的组命令号或组命令标识： 分为10进制和16进制两种
 ![public_group_cmd_stand][public_group_cmd_stand]

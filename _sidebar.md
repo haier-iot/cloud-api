@@ -41,7 +41,7 @@
 
 	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
 	
-	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_GUIDE)  
+	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_API_USE)  
 
 *  uSDK_Android 开发指南  
 
