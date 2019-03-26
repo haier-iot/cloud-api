@@ -10,7 +10,7 @@ AppID：在海极网为物联App申请的AppId，用于App校验<br>
 AppKey：在海极网申请，用于与UWS云服务交互时使用。APP开发中只有“开发测试” 的APP_KEY。开发完成且提交海极网审核完成后会发放“生产” 的APP_KEY，APP使用生产的APP_KEY进行发布。<br>
 SecretKey：在海极网申请，uSDK使用
 
-#### 初始化：
+##### 初始化：
 
 	 self.baseStr = @"https://uhome.haier.net:6503";
     [[uAccount defaultUAccount] startWithBaseUrl:self.baseStr appId:self.APPID appKey:self.APPKey];
@@ -19,7 +19,7 @@ self.baseStr：域名，可以使用不同的域名访问不同环境的服务�
 self.APPID：app的唯一标识<br>
 self.APPKey：海极网申请appkey，用于标识该app的使用环境。
     
-#### 帐号登录：
+##### 帐号登录：
 
 	[[uAccount defaultUAccount] loginWithLoginId:userName password:pwd deviceToken:@"" success:^(NSString *result) {
          performSelector:@selector(GetDeviceList) withObject:nil afterDelay:1];    
@@ -42,13 +42,13 @@ httpError：发生http异常时触发<br>
 启动uSDK是调用各种功能性API，使用U+物联功能的前提，在主线程中启动一次即可。下面分别讲解启动uSDK及启动前后前后需要进行的必要设置：设置设备管理委托、设置过滤设备类型、启动uSDK、成功后设定uSDK日志级别、开启和/关闭dns防劫持功能。
 
 
-#### 2.1设置过滤设备类型
+##### 2.1设置过滤设备类型
 uSDK启动前，设置开发者关心的设备类型，可以是一个，也可以是多个；若不设置，默认为全部类型。设置过滤类型后，只能收到或查询到自己关心类型的设备，其他类型的设备将被过滤掉。多次执行[uSDKDeviceManager defaultDeviceManager].interestedDeviceTypes进行赋值，将覆盖已设定的设备过滤类型，以最后一次为准。<br>
 示例代码：
 
     [uSDKDeviceManager defaultDeviceManager].interestedDeviceTypes = ALL_TYPE
 
-#### 2.2 启动uSDK
+##### 2.2 启动uSDK
 启动uSDK是使用U+物联功能的前提，按如下方式启动uSDK。
 
     [[uSDKManager defaultManager] startSDKWithAppId:appDelegate.APPID appKey:appDelegate.APPKey secretKey:appDelegate.SERCERTKEY success:success failure:failure];
@@ -62,7 +62,7 @@ sercertKey：海极网分配的sercertKey，不能为空，不能随意填写。
 1.uSDK启动时需要到到海尔云端验证appId和version值的合法性，所以appId和Version的值一定要与海极网中的填写的数据一致，如果不一致，会导致appId和version值的合法性验证失败，uSDK不能启动<br>
 2.uSDK在主线程中成功启动一次即可，不要多次或在其他个线程中启动uSDK
 
-#### 2.3 设置日志输出级别
+##### 2.3 设置日志输出级别
 uSDK启动成功后，可以设置uSDK的日志级别，开发过程中建议使用USDK_LOG_DEBUG，上线产品建议使用USDK_LOG_NONE或USDK_LOG_ERROR，如不设置，默认为USDK_LOG_DEBUG输出所有日志。uSDK运行时会输出日志，其中包含与硬件交互及反馈给App的详细日志，uSDK的日志标签是uClient和uServer。<br>
 示例代码：
 
@@ -75,7 +75,7 @@ uSDK启动成功后，可以设置uSDK的日志级别，开发过程中建议使
 代码块success方法执行成功时被触发。<br>
 代码块failure方法执行失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
-#### 2.4 开启/关闭dns防劫持功能
+##### 2.4 开启/关闭dns防劫持功能
 为了保证用户能够正确访问到海尔云，uSDK中提供了dns防劫持功能， 默认此功能开启。
 当开发人员需要使用非生产环境（开发者、联调、验证）进行开发测试时，在sdk启动后关闭DNS防劫持功能，才能保证 uSDK正常访问对应的云环境。<br>
 当APP需要对外发布时，需要开启DNS防劫持功能，保证用户能够正确访问到海尔云。<br>
@@ -92,7 +92,7 @@ API介绍如下：
 
 
 
-#### 2.5 退出uSDK
+##### 2.5 退出uSDK
 App需要退出或者不需要使用U+物联功能时需要停止uSDK，可以减少系统资源消耗。
 
     [[uSDKManager defaultManager]stopSDKWithSuccess:^{
