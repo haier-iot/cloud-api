@@ -2,8 +2,8 @@
  **更新时间**：{docsify-updated}
 
 
-# SDK_SmartDevice_Android V5.1.0
-## 1.新增功能
+## SDK_SmartDevice_Android V5.1.0
+1.新增功能
 
 1.1.添加主机功能
 
@@ -21,7 +21,7 @@ public void bindDevice(String token, final USmartDevice device, double timeout, 
 
 public void getBindQRCode(USmartDevice device, double timeout, final ICallback iCallback)
 
-## 2. 接口变更
+2. 接口变更
 
 2.1.addDevice addAuthDevice接口合并为 addDeviceByRandomPrefix，不对外公开，用户使用需要通过反射调用。
 
@@ -29,6 +29,6 @@ private void addDeviceByRandomPrefix(final USmartDevice device, boolean isAuthDe
 
 2.2.用户输入部分id变更为固定12位
 
-## 3.内部优化及BUG修改
+3.内部优化及BUG修改
 
 无

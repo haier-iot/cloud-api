@@ -1,8 +1,8 @@
  **当前版本**：[uSDK_Phone_iOS V5.3.0]()  
  **更新时间**：{docsify-updated}
 
-# uSDK_Phone_iOS V5.3.0
-## 1 新增功能
+## uSDK_Phone_iOS V5.3.0
+ 1 新增功能
 1.1 新增蓝牙相关功能
 1.1.1  新增开启蓝牙搜索（uSDKDeviceManager类）
 - (void)startBleSearch:(void(^)(void))success failure:(void(^)(NSError *error)) failure;
@@ -17,10 +17,10 @@ NET_TYPE_BLE = 2
 - 新增属性，设备热点的bssid，要求调用者必须传入该参数，SDK将用该参数校验是否还在设备热点上，而不是通过设备热点名称
 1.3 新增连通性测试
 当uSDKNetReachabilityChecking类中的cloud_state_notify上报-130时，开始ping，直到cloud_state == offline或ping成功时停止
-1.4 新增加后台延时运行功能( uSDKManager类)
-## 2 接口变更
+1.4 新增加后台延时运行功能( uSDKManager类)<br>
+ 2 接口变更
 2.1修改uSDKBLEHALInterface类中register方法名为`registerBLEInterface`，原方法名疑似关键字
-## 3 内部优化及BUG修改
+3 内部优化及BUG修改<br>
 3.1 优化uSDKQRCodeModel类，扫描得到白名单中的老型号冰箱二维码中DID小写的问题， SDK将小写DID转成大写
 3.2 优化BLE配置（uSDKBLEManager），当出现-939(配置失败)时，返回模块最后的错误码，使错误结果更加准确
 3.3 优化uSDKBLEHALInterface类中BLE进入后台再回到前台时搜索慢的问题。BLE在进入后台时会放慢搜索频率，监听回前台消息，当回到前台时，重新调用一遍搜索，以恢复高频率搜索状态

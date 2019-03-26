@@ -1,8 +1,8 @@
  **当前版本**：[uSDK_Phone_Android V5.3.0]()  
  **更新时间**：{docsify-updated}
 
-# uSDK_Phone_Android V5.3.0
-## 1.新增功能
+## uSDK_Phone_Android V5.3.0
+1.新增功能
 
 1.1.新增接口，支持控制蓝牙搜索开关
 
@@ -20,9 +20,9 @@ uSDKSoftApBindInfo必须传入设备热点BSSID，SDK将用该参数校验是否
 
 1.5.新增扫码绑定功能，支持直连设备通过扫码绑定接口进行绑定
 
-## 2.接口变更
+2.接口变更
 无
-## 3.内部修改及Bug优化
+ 3.内部修改及Bug优化
 
 3.1.uSDKLogger增加net包，把ping相关业务移送到net包下，包含PingClient，PingResult， SinglePingResult三个类；
 
