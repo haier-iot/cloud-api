@@ -65,4 +65,4 @@
 	* [能力服务](zh-cn/ChangeLog/CapacityService_Weather)
     * [移动端SDK iOS](zh-cn/ChangeLog/CHL_uSDK_Phone_iOS)
     * [移动端SDK Android](zh-cn/ChangeLog/CHL_uSDK_Phone_Android)
-    *[设备端SDK Android](zh-cn/ChangeLog/CHL_SmartDeviceSDK)
+    * [设备端SDK Android](zh-cn/ChangeLog/CHL_SmartDeviceSDK)
