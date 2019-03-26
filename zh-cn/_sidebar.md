@@ -33,23 +33,23 @@
 	* [设备云存储](zh-cn/CapacityService_DeviceCloudStorage)  
 
 
-* [uSDK能力简介](zh-cn/uSDK)   
+* [移动端SDK能力简介](zh-cn/uSDK)   
 
-*  uSDK_IOS 开发指南  
+*  移动端SDK_IOS 开发指南  
 
-	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
+	* [使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
 	
-	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_USE)  
+	* [接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_USE)  
 
-*  uSDK_Android 开发指南  
+*  移动端SDK_Android 开发指南  
 
-	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_Android)  
+	* [使用说明](zh-cn/USDK/uSDK_Phone_Android)  
 	
-	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_Android)  
+	* [接口说明](zh-cn/USDK/uSDK_Phone_Android)  
 
  
 
-* [设备端SDK](zh-cn/USDK/SmartDeviceSDK)
+* [设备端SDK_Android 开发指南](zh-cn/USDK/SmartDeviceSDK)
 
 
 * ChangeLog  
@@ -63,3 +63,6 @@
 	* [设备影子](zh-cn/ChangeLog/DevicesShadow)
 	* [消息推送](zh-cn/ChangeLog/MessagePush)
 	* [能力服务](zh-cn/ChangeLog/CapacityService_Weather)
+        * [移动端SDK iOS](zh-cn/ChangeLog/CHL_uSDK_Phone_iOS)
+        * [移动端SDK Android](zh-cn/ChangeLog/CHL_uSDK_Phone_Android)
+        * [设备端SDK Android](zh-cn/ChangeLog/CHL_SmartDeviceSDK)
