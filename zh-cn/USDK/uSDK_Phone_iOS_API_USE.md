@@ -171,13 +171,13 @@ SmartLink方式是成熟稳定的设备入网方式，是U+平台物联设备的
     info.security = NO;
     [uSDKBinding bindDeviceBySmartLink:info progressNotify:^(uSDKBindProgressInfo *bindProgressInfo) {
         if(uSDKBindProgressSendConfigInfo==bindProgressInfo.bindProgress){
-            [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中..."];
+            [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中."];
         }if(uSDKBindProgressBindDevice==bindProgressInfo.bindProgress){
-            [[[ToastView alloc]init]showToastWithMessage:@"配置绑定中..."];
+            [[[ToastView alloc]init]showToastWithMessage:@"配置绑定中."];
         }
     } success:^(uSDKDevice *device) {
         self.labelDesc.text = @"配置绑定成功";
-        [[[ToastView alloc]init]showToastWithMessage:@"配置绑定成功..."];
+        [[[ToastView alloc]init]showToastWithMessage:@"配置绑定成功."];
         [self.activityIndicator stopAnimating];
         [self connectToCloud];
     } failure:^(NSError *error) {
@@ -230,18 +230,18 @@ SoftAP配置方式是将设备设置为WIFI热点，手机连接设备热点（U
     info.security = NO;
     [uSDKBinding bindDeviceBySoftAp:info progressNotify:^(uSDKBindProgressInfo *bindProgressInfo) {
         if(uSDKBindProgressConnectDevice==bindProgressInfo.bindProgress){
-            [[[ToastView alloc]init]showToastWithMessage:@"配置连接中..."];
+            [[[ToastView alloc]init]showToastWithMessage:@"配置连接中."];
         }else if(uSDKBindProgressSendConfigInfo==bindProgressInfo.bindProgress){
-            [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中..."];
+            [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中."];
         }if(uSDKBindProgressBindDevice==bindProgressInfo.bindProgress){
-             [[[ToastView alloc]init]showToastWithMessage:@"配置绑定中..."];
+             [[[ToastView alloc]init]showToastWithMessage:@"配置绑定中."];
         }
     } switchNetworkNotify:^{
         [AlertViewTools shouAlertViewWithTitle:@"绑定提示"
                                            Msg:@"请立即连接目标网络路由"];
     } success:^(uSDKDevice *device) {
         self.configResultLable.text = @"设备配置成功!";
-        [[[ToastView alloc]init]showToastWithMessage:@"配置绑定成功..."];
+        [[[ToastView alloc]init]showToastWithMessage:@"配置绑定成功."];
         [self connectToCloud];
     } failure:^(NSError *error) {
         self.configResultLable.text = @"设备配置失败!";
@@ -297,9 +297,9 @@ APP开发者设置并实现uSDKDeviceScannerDelegate委托，开启扫描功能�
         if(uSDKBindProgressConnectDevice==bindProgressInfo.bindProgress){
             [[[ToastView alloc]init]showToastWithMessage:@"设备连接中"];
         }else if(uSDKBindProgressSendConfigInfo==bindProgressInfo.bindProgress){
-             [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中..."];
+             [[[ToastView alloc]init]showToastWithMessage:@"配置信息发送中."];
         }if(uSDKBindProgressBindDevice==bindProgressInfo.bindProgress){
-             [[[ToastView alloc]init]showToastWithMessage:@"备绑定中..."];
+             [[[ToastView alloc]init]showToastWithMessage:@"备绑定中."];
           
         }
     } success:^(uSDKDevice *device) {
@@ -886,10 +886,10 @@ oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密�
 [^-^]:常用图片注释
 [public_single_cmd]:/_media/_usdk/public_single_cmd.png
 [public_group_cmd_sixcode]:/_media/_usdk/public_group_cmd_sixcode.png
-[public_group_cmd_stand]:../_media/_usdk/public_group_cmd_stand.png
-[public_op_attr_stand]:../_media/_usdk/public_op_attr_stand.png
-[public_stand_cmd_getAllProperty]:../_media/_usdk/public_stand_cmd_getAllProperty.png
-[public_stand_op_cmd_2]:../_media/_usdk/public_stand_op_cmd_2.png
-[public_user_gateway_dev_online]:../_media/_usdk/public_user_gateway_dev_online.png
-[public_get_bindinfo_error_code]:../_media/_usdk/public_get_bindinfo_error_code.png
-[connectstatus_change_step]:../_media/_usdk/connectstatus_change_step.png
+[public_group_cmd_stand]:/_media/_usdk/public_group_cmd_stand.png
+[public_op_attr_stand]:/_media/_usdk/public_op_attr_stand.png
+[public_stand_cmd_getAllProperty]:/_media/_usdk/public_stand_cmd_getAllProperty.png
+[public_stand_op_cmd_2]:/_media/_usdk/public_stand_op_cmd_2.png
+[public_user_gateway_dev_online]:/_media/_usdk/public_user_gateway_dev_online.png
+[public_get_bindinfo_error_code]:/_media/_usdk/public_get_bindinfo_error_code.png
+[connectstatus_change_step]:/_media/_usdk/connectstatus_change_step.png
