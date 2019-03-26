@@ -1,3 +1,7 @@
+
+**当前版本**：[uSDK_Phone_iOS V5.0]
+**更新时间**：{docsify-updated}
+
 ## 1.帐号登录
 SDK需要登陆后才能正常使用其他API功能，所以APP开发必须在海极网上申请APPID和APPKEY，申请完成后，调用uAccount提供的初始化方法和登录方法帐号。<br>
 
