@@ -881,8 +881,8 @@ oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密�
 
 
 [^-^]:常用图片注释
-[public_single_cmd]:../_media/_usdk/public_single_cmd.png
-[public_group_cmd_sixcode]:../_media/_usdk/public_group_cmd_sixcode.png
+[public_single_cmd]:/_media/_usdk/public_single_cmd.png
+[public_group_cmd_sixcode]:/_media/_usdk/public_group_cmd_sixcode.png
 [public_group_cmd_stand]:../_media/_usdk/public_group_cmd_stand.png
 [public_op_attr_stand]:../_media/_usdk/public_op_attr_stand.png
 [public_stand_cmd_getAllProperty]:../_media/_usdk/public_stand_cmd_getAllProperty.png
