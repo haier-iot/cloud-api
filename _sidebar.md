@@ -33,13 +33,13 @@
 
 * [uSDK能力简介](zh-cn/uSDK)   
 
-*  uSDK_IOS 开发指南  
+* 移动端SDK_IOS 开发指南  
 
 	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
 	
-	* [uSDK接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_GUIDE)  
+	* [uSDK接口说明](zh-cn/uSDK_Phone_iOS_API_USE)  
 
-*  uSDK_Android 开发指南  
+* 移动端SDK_Android 开发指南  
 
 	* [uSDK使用说明](zh-cn/USDK/uSDK_Phone_Android)  
 	
@@ -47,7 +47,7 @@
 
  
 
-* [设备端SDK](zh-cn/USDK/SmartDeviceSDK)
+* [设备端SDK_Android 开发指南](zh-cn/USDK/SmartDeviceSDK)
 
 
 * ChangeLog  
