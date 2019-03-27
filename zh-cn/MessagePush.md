@@ -439,6 +439,193 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ```
 
 
+#### 批量更新读取状态
+
+> 批量更新当前登录用户的消息读取状态为已读</br>
+> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息，该接口需在终端读取消息时调用。  
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/reportStatusByPatch`</br>
+**HTTP Method：** POST   
+
+**前置条件：** 
+1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
+2.终端收到并读取消息。  
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+taskIds|List|body|是|终端收到的任务标识
+
+
+**输出参数：** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/reportStatusByPatch
+
+POST data:
+
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+#### 按消息类型更新读取状态
+
+> 按消息的业务类型更新当前登录用户的消息读取状态为已读</br>
+> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息，该接口需在终端读取消息时调用。  
+
+##### 1、接口定义
+
+?> **接入地址：** `reportStatusByType`</br>
+**HTTP Method：** POST   
+
+**前置条件：** 
+1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
+2.终端收到并读取消息。
+  
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+businessType|String|body|是|消息的业务类型
+
+
+**输出参数：** 标准输出参数
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/reportStatusByType
+
+POST data:
+
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+
+#### 查询未读消息的数量
+
+> 查询当前登录用户下各业务类型的未读消息数量</br>
+> 按业务类型统计未读消息数量。  
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getUnreadNum`</br>
+**HTTP Method：** POST   
+
+**前置条件：** 
+
+ 用户登录后使用（即：调用接口时Header中accessToken参数必填）  
+  
+
+**输入参数：** 无输入参数
+
+**输出参数：**  
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgUnreadNumDto >|body|是|各消息业务类型下未读消息的数量  
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/reportStatusByType
+
+POST data:
+
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-****-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+
+
 #### 查询历史消息
 
 > 1、用户可以查询最长1年以内的历史消息 </br>
