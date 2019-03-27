@@ -2974,6 +2974,9 @@ joinTime|String|加入家庭时间|必填|
 
 #### 查询家庭下的共享设备
 
+分享到家庭的设备，没有分享到这个家庭，查不出来
+
+
 ##### 1、接口定义
 ?> **接入地 址：**  `/ufme/shareResourceService/familyShareDevices`  
  **HTTP Method：** POST
@@ -3005,7 +3008,8 @@ devName|String|设备分享名称|必填
 devOwner|String|设备Owner|必填
 devFamilyId|string|设备所属家庭id|必填
 permission|Permission|权限|必填
-
+devRoomId|String|设备所属房间ID|设备分享到家庭后有值
+devRoom|String|设备所属房间名称|设备分享到家庭后有值
 
 
 ##### 2、请求样例
@@ -3022,28 +3026,24 @@ permission|Permission|权限|必填
 
 ```java
 {
-	"shareDevs":
-	[
-		{
-			"deviceId": "100823",
-			"devName": "测试",
-			"devOwner": "11111111333",
-			"devFamilyId": "111111111",
-			"permission":
-				{
-					"authType":"share",
-					"auth":
-					{
-						"view":true,
-						"set":false,
-						"control":false
-					}
-				}
-		}
-	],
-	"retCode":"00000",
-	"retInfo":"成功"
+"shareDevs":[
+{
+    "deviceId": "100823",
+      "devName": "测试",
+"devOwner": "11111111333",
+"devFamilyId": "111111111",
+"devRoomId": "876112355197000000",
+	"devRoomName": "客厅",
+"permission":{
+"authType":"share",
+"auth":{"view":true,"set":false,"control":false}
 }
+],
+"retCode":"00000",
+"retInfo":"成功"
+
+}
+
 
 ```
 
