@@ -449,7 +449,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ?> **接入地址：** `/msg/reportStatusByPatch`</br>
 **HTTP Method：** POST   
 
-**前置条件：** 
+**前置条件：**   
 1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
 2.终端收到并读取消息。  
 
@@ -510,7 +510,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ?> **接入地址：** `reportStatusByType`</br>
 **HTTP Method：** POST   
 
-**前置条件：** 
+**前置条件：**   
 1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
 2.终端收到并读取消息。
   
