@@ -28,12 +28,12 @@
 
 * [消息推送](en-zh/MessagePush) 
 
-
+<div style='display: none'>
 * 修改记录  
 
 	* [账号服务](en-zh/ChangeLog/Account)
 	* [设备管理](en-zh/ChangeLog/DevicesStandard)
 	* [数据推送](en-zh/ChangeLog/DataSubscription)
 	* [消息推送](en-zh/ChangeLog/MessagePush)
-
+</div>
 

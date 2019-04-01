@@ -31,10 +31,11 @@
 * [Message Push Service](en-us/MessagePush)  
 
 
+<div style='display: none'>
 * ChangeLog  
 
 	* [Account Service](en-us/ChangeLog/Account)
 	* [Equipment Management](en-us/ChangeLog/DevicesStandard)
 	* [Data Subscription](en-us/ChangeLog/DataSubscription)
 	* [Message Push](en-us/ChangeLog/MessagePush)
-
+</div>
