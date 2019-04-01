@@ -41,3 +41,45 @@ uhome_sign是U+云平台要求的安全验证签名，需要加密的字段只�
 7.以下所有接口的正常Response下的HTTP Status Code为200，后无特殊情况不再说明。
 
 
+## 接口列表
+
+### 接口o获取应用级保护的access_token
+
+Request:
+
+```
+POST /oauth/token  HTTP /1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+	  https://account-api.haier.net [海尔品牌正式环境]
+Content-Type:application/x-www-form-urlencoded
+
+client_id=wodeyingyong&cliend_secret=secret&grant_type=client_credentials
+
+```
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|client_id| 用户中心下发的client_id |Y|
+|client_secret| 用户中心下发的client_secret |Y|
+|grant_type |固定值， client_credentials |Y|
+
+Response:
+
+```
+{
+"access_token": "yyyyy", //应用级access_token
+"expires_in": 43199, //有效期，单位秒(默认有效期10天)
+"token_type": "bearer" //token类型，调用时形如Bearer yyyy
+}
+
+```
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|
+|invalid_client| 401|无权调用，或所传 client_id / client_secret非法|
+|invalid_grant| 400|授权异常或失败|
+|unauthorized_client |400|应用未被授权此 grant_type|
+|unsupported_grant_type| 400|系统不支持此 grant_type|
+|invalid_scope| 400| scope 非法|
+
+
