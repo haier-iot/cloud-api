@@ -119,3 +119,33 @@ Response:
 |unauthorized| 401|未授权接口（未传access_token）|
 |invalid_token| 401|access_token 非法或无效|
 |insufficient_scope |403|权限不足，未获得接口所需的scope|
+
+
+### 获取(刷新)图形验证码
+
+注: 此接口使用的 access_token ( Authorization: Bearer yyyyy ) 依赖应用级token
+
+Request:
+```
+POST /v1/captcha HTTP/1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer yyyyy
+```
+
+Response:
+```
+{
+"captcha_token": "abc",
+"captcha_image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/..." //base64
+的图片码
+}
+```
+错误码表：
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token| 401|access_token 非法或无效|
+|insufficient_scope |403|权限不足，未获得接口所需的scope|
