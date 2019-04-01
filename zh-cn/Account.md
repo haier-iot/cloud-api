@@ -72,8 +72,9 @@ Response:
 }
 
 ```
+错误码表：
 
-| Error Code     | HTTP Status Code       | Description  | 
+| Error Code     | HTTP Status Code | Description  | 
 | ------------- |:-------------:|:----------|
 |invalid_request| 400 |参数非法或缺失必填参数|
 |invalid_client| 401|无权调用，或所传 client_id / client_secret非法|
@@ -83,3 +84,38 @@ Response:
 |invalid_scope| 400| scope 非法|
 
 
+### 判断账号是否可用
+
+注: 此接口使用的 access_token ( Authorization: Bearer yyyyy ) 依赖应用级token
+
+Request:
+
+```
+GET /v1/users/identifier-available?identifier=18888888888 HTTP/1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer yyyyy
+
+```
+
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|identifier|手机号/用户名/邮箱|Y|
+
+
+Response:
+```
+{
+"available": true //true表示手机未被注册，可以继续注册
+//false表示手机已被注册，不可以继续注册
+}
+```
+
+错误码表：
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token| 401|access_token 非法或无效|
+|insufficient_scope |403|权限不足，未获得接口所需的scope|
