@@ -1,5 +1,5 @@
 
->  **当前版本**：[UWS 场景引擎服务 V2.7.0](zh-cn/ChangeLog/IFTTT)   
+>  **当前版本**：[UWS 场景引擎服务 V2.7.1](zh-cn/ChangeLog/IFTTT)   
  **更新时间**：{docsify-updated}  
 
 
@@ -220,10 +220,10 @@
 object字段说明： </br>  
   
 ```     
-备注：该字段兼容新老数据</br>
-1.	条件为设备条件则该值为设备信息，value为设备{"mac":"DC330DC51955","clazz":"CAS362VBA(A1)U1套机"}； </br> 
-2.	如果为天气条件，则value为：</br>
-{"id":"城市code编码","type":"","name":"城市名字"}；</br>
+备注：该字段兼容新老数据  
+1.	条件为设备条件则该值为设备信息，value为设备{"mac":"DC330DC51955","clazz":"CAS362VBA(A1)U1套机"}；   
+2.	如果为天气条件，则value为：   
+{"id":"城市code编码","type":"","name":"城市名字"}；   
 
 ```
 
@@ -304,11 +304,11 @@ object字段说明： </br>
 
 operation字段说明：</br>
 ```    
-选填；</br>
-V2.2版本args跟operation；</br>  
-单命令控制不需要设置该值；</br> 
-组命令控制需要设置操作名称</br> 
-备注：</br> 
+选填；  
+V2.2版本args跟operation；   
+单命令控制不需要设置该值；   
+组命令控制需要设置操作名称。  
+备注：    
 "operation": {
     "id": "f313ddbcb49d11e798b8fa163eb273a5_0",
     "value": "空调参数设置(组命令)_分体空调1.0净化模式组命令",
@@ -4965,7 +4965,7 @@ typeId|String|32|Body|必填|
 :-|:-:|:-:|:-:|:-
 data|funsionsDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 {
     "sysProps":{
@@ -5023,7 +5023,7 @@ retInfo|String|Body|必填|
 data|SceneFunctionSupportDto[]|Body|必填|
 
 
-data 说明：
+data字段说明：
 ```
 {
 	[{
@@ -5056,7 +5056,7 @@ propId|String||Body|必填|组件属性id
 :-|:-:|:-:|:-:|:-
 data|PropOfComponentDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 {
 "id":"",//组件主键
@@ -5093,7 +5093,7 @@ propIds|List||Body|必填|组件属性id
 :-|:-:|:-:|:-:|:-
 data|PropOfComponentDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 [
 {
