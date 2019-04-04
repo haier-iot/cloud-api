@@ -616,5 +616,386 @@ Error:
 |social_type_error| 400 |social_type错误|  
 |social_extra_error| 400 |social_extra错误|  
 |uhome_token_request_error| 400 |获取Uhome设备令牌失败|  
+
+
+### 刷新社交登录            
+
+注: 此接口不受个人或者应用token保护，由特殊参数保护。    
+
+本接口使用的refresh_token仰赖短信随机码快速登录接口或者账号密码登录接口或者本接口获取的refresh_token，需缓存至客户端。 
+
+一般情况下，本接口依赖的refresh_token从客户端缓存获取，此时refresh_token字段直接传入；在遭遇用户清理数据或者其他突发情况拿不到refresh_token时，此时refresh_token字段传入social_type值:social_open_id值，由用户中心向三方云端校验真伪后，再获取唯一用户信息返回。  
+
+如果手机更换或者缓存更新等，客户端不知道该社交账号是否绑定过手机，可以通过本接口的报错获悉三方社交账号是否绑定过账号。如果报错􁲙social_connection_null，则未绑定过手机，请调用社交登录后绑定手机接口。  
+
+通常情况下，请客户端返回正常缓存的refresh_token。
+
+本接口为POST请求，`Content-Type为application/x-www-form-urlencoded`，不是`application/json`，参数也不是json形式，请接入方注意。  
+
+
+Request:
+```
+POST /oauth/token HTTP/1.1    
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Content-Type: application/x-www-form-urlencoded  
+client_id=wodeyingyong&client_secret=secret&grant_type=refresh_token&refresh_token=XXXXXXX&social_type=wechat&social_open_id:o6h-4w4p6FhAnJkowD_9HpQTDnE0&social_access_token=Cmt4XaSExdtLqNxOxkZGtZ0eZhD4al_2KSX&social_extra=adfadf&type_uhome=type_uhome_social_token&uhome_client_id=123456&uhome_app_id=MB-RSQCSAPP-0000&uhome_sign=76dfe3686b3251a223e458db5445711447edbee21943
+
+```  
+
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|client_id| 用户中心下发的client_id |Y|
+|client_secret|用户中心下发的client_secret |Y|  
+|grant_type |固定值传 refresh_token |Y|   
+|refresh_token |短信随机码快速登录接口或者账号密码登录接口返回的refresh_token；如果refresh_token丢失，那么传social_type
+值:social_open_id值 |Y|  
+|social_type |固定值，微信传wechat；微信公众号传wechat-public；微博传weibo；QQ传qq；网易传netease；豆瓣传douban |Y|   
+|social_open_id |三方社交返回的唯一userid |Y|  
+|social_access_token |三方社交返回的唯一登录token |Y|  
+|social_extra |三方云端校验token需要的额外授权信息，social_type为qq时，需要必填qq开放者平台申请的秘钥 |N|  
+|type_uhome |固定值传 type_uhome_social_token|Y|  
+|uhome_client_id |参考前提，透传UHome参数 |Y|  
+|uhome_app_id |参考前提，透传UHome参数  |Y|  
+|uhome_sign |参考前提，透传UHome参数 |Y|    
+
+Response:
+```
+{
+"access_token":"2YotnFZFEjr1zCsicMWpAA", //即为所需的访问令牌,
+"expires_in":3600, //access_token过期时间(单位秒，默认有效期10天)
+"scope": "openid profile email", //默认授权范围，可忽略
+"token_type":"bearer", //access_token类型，受个人保护接口可使用
+"refresh_token":"2YotnFZFEjr1zCsicMWpAA", //刷新token，可调用刷新token接口刷新出新的access_token(默认有效期1年)
+"uhome_access_token": "TGT91JFPNKDSYT22QTGFGOMZ85U900", //即为所需的 uhome设备令牌
+"uhome_user_id"：13123123 //透传回UHome返回的uhome userid
+}
+```  
+
+Error:   
+ 
+```  
+{
+"error": "invalid_client",
+"error_description": "Bad client credentials" 
+}
+```  
+
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|invalid_client| 401 |无权调用，或所传client_id / client_secret非法|  
+|invalid_grant| 400 |授权异常或失败（如密码或短信验证码错误）|
+|unauthorized_client| 400|应用未被授权此grant_type|
+|unsupported_grant_type |400|系统不支持此grant_type|  
+|invalid_grant| 400 |refresh_token非法|  
      
+
+业务相关错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|social_access_token_error |400|social_access_token不能为空或错误|  
+|social_refresh_token_error| 400 |refresh_token不能为空或者错误|  
+|social_type_error| 400 |social_type错误|  
+|social_extra_error| 400 |social_extra错误|  
+|uhome_token_request_error| 400 |获取Uhome设备令牌失败|  
+|social_connection_null| 400 |社交账号并没有绑定过手机，刷新失效|  
+
+
+### 获取用户基本信息            
+
+注: 此接口使用`access_token ( Authorization: Bearer yyyyy )`仰赖个人级token。    
+
+示例返回值为本接口最多能返回的用户信息字段，通常情况下，用户个人信息不会那么全面，那么如果值为空的字段，也不会在接口中返回。例如用户没有维护生日，那么返回值json将不会有birthdate字段。
+
+请接入方在解析返回值过程中注意。  
+
+
+Request:
+```
+GET /userinfo HTTP/1.1    
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer xxxxx
+
+```  
+ 
+
+Response:
+```
+{
+"name": "H405R1450621708059R28", //默认字段
+"username": "testGGG", //用户名(可用于登录)
+"email": "123@123.com", //邮箱(可用于登录)
+"gender": "female", //性别
+"user_id": 3323432, //user_id，即为统一的用户中心/官网user_id
+"email_verified": true, //邮箱验证
+"birthdate": "2016-12-28", //生日
+"phone_number": "18560630620", //手机号码 (可用于登录)
+"avatar_url": "http://example.com/a.jpg", //头像
+"phone_number_verified":true, //手机验证
+"address": { //居住地
+"province_id": 0, //省id (取自hp系统pro_code字段)
+"province": "", //省
+"city_id": 0, //市id (取自hp系统city_code字段)
+"city": "", //市
+"district_id": 0, //区id (取自hp系统area_code字段)
+"district": "", //区
+"line1": "", //详细地址
+"postcode": "0" //HP邮编
+}
+"updated_at": 1483596113000 //默认时间戳
+}
+```  
+
+Error:   
+ 
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token|401|access_token非法或失效|  
+|insufficient_scope| 403 |权限不足，未获得接口所需的scope|  
+
+
+### 修改密码              
+
+注: 此接口使用`access_token ( Authorization: Bearer yyyyy )`仰赖个人级token。    
+
+
+Request:
+```
+PUT /v1/users/change-password HTTP/1.1 
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer xxxxx
+Content-Type: application/json
+
+{
+"old_password": "123456",
+"new_password": "654321"
+}
+```  
+
+
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|old_password| 旧密码 |Y|
+|new_password|新密码 |Y|  
+
+
+Response:
+```
+{
+"success": true
+}
+```  
+
+Error:  
+
+```
+{
+"error": "invalid_request"
+} 
+```  
+ 
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token|401|access_token非法或失效|  
+|insufficient_scope| 403 |权限不足，未获得接口所需的scope|  
+ 
+
+### 找回密码              
+
+注: 此接口使用`access_token ( Authorization: Bearer yyyyy )`仰赖个人级token。    
+
+
+Request:
+```
+PUT /v2/users/getback-sms HTTP/1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer xxxxx
+Content-Type: application/json
+
+{
+"sms_answer": "435928",
+"mobile": "13111111111",
+"new_password": "Haier123",
+"client_ip":"192.169.1.1",
+"user_agent":"Mozilla/5.0"
+}
+```  
+
+
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|sms_answer| 短信随机码 |Y|
+|mobile|手机号 |Y|  
+|new_password|新密码 |Y|  
+|client_ip|用户真实ip |Y|  
+|user_agent|客户端userAgent信息 |Y|  
+
+
+Response:
+```
+{
+"success": true //成功
+}
+```  
+
+Error:  
+
+```
+{
+"error": "invalid_request"
+} 
+```  
+ 
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token|401|access_token非法或失效|  
+|insufficient_scope| 403 |权限不足，未获得接口所需的scope|   
+
+
+业务相关错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|bad_credentials| 400 |短信验证码不正确|  
+|cannot_getback_more| 400|找回密码次数超限|
+|invalid_password|400|密码格式非法|    
+
+
+### 退出接口              
+
+注: 此接口使用`access_token ( Authorization: Bearer yyyyy )`仰赖个人级token。    
+
+请接入方在解析返回值过程中注意。
+
+Request:
+```
+POST /uhome/signout HTTP/1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer xxxxx
+Content-Type: application/x-www-form-urlencoded
+uhome_client_id=123456&uhome_app_id=dddd&uhome_sign=76db3251a2237edbee21943&uhome_to
+ken=aadfadf  
+```  
+
+
+
+Response:  
+
+```
+true
+```  
+
+Error:  
+
+```
+{
+"error": "invalid_token",
+"error_description": "Invalid access token: 04c9bebc-3037-43e0-b977-193f7b4ccc59"
+} 
+```  
+ 
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token|401|access_token非法或失效|  
+|insufficient_scope| 403 |权限不足，未获得接口所需的scope|     
+
+
+
+### 更新用户基本信息                
+
+注: 此接口使用`access_token ( Authorization: Bearer yyyyy )`仰赖个人级token。    
+
+请接入方在解析返回值过程中注意。
+
+Request:
+```
+POST /haier/v1/users/me HTTP/1.1
+Host: https://taccount.haier.com [海尔品牌测试环境]
+https://account-api.haier.net [海尔品牌正式环境]
+Authorization: Bearer xxxxx
+{
+"nickname": "",
+"gender": "female",
+"avatar_url": "http://example.com/a.jpg",
+"birthdate": "1991-01-01",
+"address": {
+"province_id": 0,
+"province": "",
+"city_id": 0,
+"city": "",
+"district_id": 0,
+"district": "",
+"town_id": 0,
+"town": "",
+"line1": "",
+"line2": "",
+"postcode": "0"
+}
+} 
+```  
+
+
+| Parameter      | Desc         | Required  | 
+| ------------- |:-------------:|:----------|
+|nickname| 昵称|N|
+|gender|性别 |female/male|  
+|avatar_url|头像地址 |N|  
+|birthdate|生日 |N|  
+|address|居住地 |N|  
+
+
+Response:  
+
+```
+"success": true  
+```  
+
+Error:  
+ 
+错误码表：  
+
+接口调用错误  
+
+| Error Code     | HTTP Status Code       | Description  | 
+| ------------- |:-------------:|:----------|
+|invalid_request| 400 |参数非法或缺失必填参数|  
+|unauthorized| 401|未授权接口（未传access_token）|
+|invalid_token|401|access_token非法或失效|  
+|insufficient_scope| 403 |权限不足，未获得接口所需的scope|  
+
+
 
