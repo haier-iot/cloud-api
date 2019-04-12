@@ -1,6 +1,5 @@
 
-!> **当前版本：** [uws统一接入规范v1.3]()  
-**更新时间**：{docsify-updated} 
+!> **更新时间**：{docsify-updated} 
 
 ## 接入地址
 
