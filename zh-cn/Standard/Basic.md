@@ -28,18 +28,18 @@ UWS的使用方应做如下假设：
 ## 服务清单
 U+平台现有的UWS服务说明
 
-序号|UWS服务名|应用名|版本号（当前版本）
+序号|UWS服务名|应用名|备注
 :-:|:-:|:-:|:-:  
-1|[账户服务](zh-cn/Account)|uaccount|v2.1.0
-2|[设备管理服务](zh-cn/DeviceManage)|uds stdudse udse|v2.0.2
-3|[数据订阅](zh-cn/DataSubscription)|无|v1.0.0
-4|[家庭模型](zh-cn/FamilyManage)|ufm ufme|v1.5.1  
-5|[场景引擎](zh-cn/IFTTT)|iftttscene|v2.7.0  
-6|[预约定时](zh-cn/Scheduler)|scheduler|v1.0.0  
-7|[设备影子](zh-cn/DevicesShadow)|shadow|v1.0.0
-8|[消息推送](zh-cn/MessagePush)|ums umse|v3.0.3
-9|[天气服务](zh-cn/CapacityService_Weather)|暂未开放|暂未开发 
-10|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|v1.0.0   
+1|[账户服务](zh-cn/Account)|N/A|集团690用户中心
+2|[设备管理服务](zh-cn/DeviceManage)|uds、stdudse、udse|已开放
+3|[数据订阅](zh-cn/DataSubscription)|无|已开放
+4|[家庭模型](zh-cn/FamilyManage)|ufm、ufme|已开放  
+5|[场景引擎](zh-cn/IFTTT)|iftttscene|已开放  
+6|[预约定时](zh-cn/Scheduler)|scheduler|已开放  
+7|[设备影子](zh-cn/DevicesShadow)|shadow|已开放
+8|[消息推送](zh-cn/MessagePush)|ums、umse|已开放
+9|[天气服务](zh-cn/CapacityService_Weather)|weather|暂未开放 
+10|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|已开放   
 
 
 
