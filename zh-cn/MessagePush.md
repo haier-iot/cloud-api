@@ -534,7 +534,7 @@ content-type|String|header|是|必须为applicationg/json;charset=UTF-8
 :-:|:-:|:-:|:-:|:-
 toUsers|List<String>|body|是|接受消息的用户ID列表
 toApps|List<String>|body|是|接受消息的APP列表
-messages|Message|body|是|推送消息内容定义
+messages|UpMsg|body|是|推送消息内容定义
 tag|String|body|否|标签。例如家庭推送时可以存入家庭
 isBurn|Integer|body|否|是否阅后即焚
 
@@ -595,7 +595,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 :-:|:-:|:-:|:-:|:-
 toApps|List<String>|body|是|接受消息的appId列表
 businesssType|Integer|body|是|消息业务类型
-message|Message|body|是|推送消息内容定义
+message|UpMsg|body|是|推送消息内容定义
 isBurn|Integer|body|否|是否是阅后即焚
 
 **输出参数**
@@ -654,7 +654,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 :-:|:-:|:-:|:-:|:-
 toUsers|List<String>|body|是|接受消息的用户ID列表
 toApps|List<String>|body|是|接受消息的APP列表
-messages|Message|body|是|推送消息内容定义
+messages|UpMsg|body|是|推送消息内容定义
 tag|String|body|否|标签。例如家庭推送时可以存入家庭
 isBurn|Integer|body|否|是否阅后即焚
 templateId|String|body|是|模板标识
@@ -682,7 +682,7 @@ retData|String|body|是|本次发送的任务标识
 :-:|:-:|:-:|:-:|:-
 toApps|List<String>|body|是|接受消息的appId列表
 tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
-message|Message|body|是|推送消息内容定义
+message|UpMsg|body|是|推送消息内容定义
 isBurn|Integer|body|否|是否是阅后即焚
 templateId|String|body|是|模板标识
 templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
