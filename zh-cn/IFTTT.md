@@ -1,5 +1,5 @@
 
->  **当前版本**：[UWS 场景引擎服务 V2.6.1](zh-cn/ChangeLog/IFTTT)   
+>  **当前版本**：[UWS 场景引擎服务 V2.7.1](zh-cn/ChangeLog/IFTTT)   
  **更新时间**：{docsify-updated}  
 
 
@@ -77,7 +77,7 @@
 |basisSceneTags| String | 系统场景标签 |最大长度256 平台选择项（空调、新风机等）用户自建场景忽略| 
 |createUserNickname| String | 场景开发者展示名称 |最大长度64 场景开发者在海极网填写的昵称信息 用户自建场景忽略| 
 |createUserLogo| String | 场景开发者展示LOGO |最大长度256 场景开发者在海极网配置的logo信息PNG或JPG格式，128*128或64*64规则 用户自建场景忽略 |
-|taskInfo| TaskInfoDto | 定时策略信息 |&emsp;|
+|taskInfoList| List<TaskInfoDto>| 定时策略信息 |&emsp;|
 |eVersion| String | 引擎执行版本号 |最大32位，不需要app前端关注|
 |aVersion| String | 应用场景版本号 |&emsp;|
 |uVersion| String | 用户场景版本号 |最大32位|
@@ -165,14 +165,15 @@
 |tagList              |   List<SceneTagDto>|  用户场景标签编号|                             选填；最大长度256 多个以,分割 （1、如果场景类型为用户自建，则该标签可以被修改；2、如果场景类型为模板下载，该标签不能被用户修改）|
 |createTime           |   Timestamp        |  创建时间|                                     用户自建场景忽略|
 |updateTime           |   Timestamp        |  最后更新时间|                                 用户自建场景忽略|
-|taskInfo             |   TaskInfoDto      |  时间策略信息|                                 选填；有俩策略，周期生效（只支持平台触发类），定期执行（只支持手动触发类）如果是定时执行类场景则必填 同一个场景只能支持一个策略|
+|taskInfoList | List<TaskInfoDto>|  时间策略信息|                                 选填；有俩策略，周期生效（只支持平台触发类），定期执行（只支持手动触发类）如果是定时执行类场景则必填 同一个场景只能支持一个策略|  
 |aiKeyWord            |   String           |  语音标签|                                     选填；最大长度256|
 |banner               |   String           |  场景banner图URL|                              最大长度256 如果场景为下载类型，则来源于场景开发者相关信息，如果为用户自建，则需用户配置该字段；|
 |icon                 |   String           |  场景图标URL|                                  选填；最大长度256|
 |createUserNickname   |   String           |  场景开发者展示名称|                           最大长度64 场景开发者在海极网填写的昵称信息 用户自建场景忽略|
 |createUserLogo       |   String           |  场景开发者展示LOGO|                           最大长度256 场景开发者在海极网配置的logo信息PNG或JPG格式，128*128或64*64规则 用户自建场景忽略|
 |engineVersion        |   String           |  引擎执行版本号|                               最大32位，该值为引擎赋值 用户自建场景忽略|
-|createType           |   String           |  场景创建方式 Basis：下载方式； User：自建方式|最大16位 用户自建场景忽略|
+|createType           |   String           |  场景创建方式 Basis：下载方式； User：自建方式|最大16位 用户自建场景忽略|  
+|version     |   String   |  引擎数据版本号|此值来源于接口header公共部分version字段值|  
 
 
 ### RuleTemplateDto  
@@ -207,7 +208,7 @@
 | ------------- |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
 |id             | String              |条件ID                                                                                                                 |  UUID                                                                                                                                                          |
-|object         | StatusDesc          |条件载体 如果条件为设备条件则该值为设备信息，value为设备mac；desc为设备昵称                                            |  &emsp;                                                                                                                                                        |
+|object  | StatusDesc   |条件载体 如果条件为设备条件则该值为设备信息，value为设备mac；desc为设备昵称 。如果条件为天气信息，value为天气信息|  详见下方|                                                                                                                                          
 |desc           | String              |条件描述                                                                                                               |  目前是程序组装，只有叶子节点条件才会组装，上层结构不会 用户自建场景忽略                                                                                       |
 |key            | StatusDesc          |标准模型name；OS需要录入StatusDesc的ID；标识某个组件的属性ID；OS查询条件返回组件属性的描述（值和描述，还有组件属性的ID）| 选填；                                                                                                                                                        |
 |operationSign  | OperationSign       |关系运算符（枚举类型）                                                                                                 |  选填；取值如下：</br>`greaterThan(">"),`</br>`greaterThanEqual(">="),`</br>`equal("=="),`</br>`lessThan("<"), `</br>`lessThanEqual("<="),`</br>`unequal(“!=)` |
@@ -215,6 +216,16 @@
 |logicalSign    | LogicalSign         |逻辑运算符（枚举类型）|该条件对应上一个平行条件的逻辑运算，取值如下</br>`AND(”&&”) OR("`&#124;&#124;`")` |                                                                                                                                                                                      
 |conditions     | RuleWhenCondition[] |子条件对象数组|选填；说明：举例</br>`if(a`&#124;&#124;`b)` 这种格式那么`conditions`为`null`；</br>除了`logicalSign`其它必填；</br>`if((a`&#124;&#124;`b)&&(c`&#124;&#124;`d))`这种格式则`conditions`必填；</br>其它都为`null`；      |                                                                                                        
 |componentId    | String              |所属组件Id  |  必填；由组件区分是设备组件还是其它组件   |                                                                                                                                                                                                                                                                                                                         
+
+object字段说明： </br>  
+  
+```     
+备注：该字段兼容新老数据  
+1.	条件为设备条件则该值为设备信息，value为设备{"mac":"DC330DC51955","clazz":"CAS362VBA(A1)U1套机"}；   
+2.	如果为天气条件，则value为：   
+{"id":"城市code编码","type":"","name":"城市名字"}；   
+
+```
 
 
 ### RuleThenDto  
@@ -289,7 +300,24 @@
 |args          |DeviceControlArgs[]|控制命令集合                                      |  选填；如果为组命名则args有可能为空                                                      |
 |controlBtnText|String             |带控制的消息的相关按钮信息                        |  选填；消息推送带小循环控制 时必填 长度最大为10                                          |
 |componentId   |String             |组件id                                            |  必填；                                                                                  |
-|operation     |StatusDesc         |操作名称                                          |  选填；V2.2版本args跟operation选填 单命令控制不需要设置该值；组命令控制需要设置操作名称，|
+|operation     |StatusDesc         |操作名称                                          |  选填；详见下方|
+
+operation字段说明：</br>
+```    
+选填；  
+V2.2版本args跟operation；   
+单命令控制不需要设置该值；   
+组命令控制需要设置操作名称。  
+备注：    
+"operation": {
+    "id": "f313ddbcb49d11e798b8fa163eb273a5_0",
+    "value": "空调参数设置(组命令)_分体空调1.0净化模式组命令",
+    "desc": "分体空调1.0净化模式组命令",
+    "required": false
+  }
+
+
+```
 
 ### DeviceControlArgs  
 设备控制命令参数  
@@ -445,11 +473,24 @@ app用系统属性
 |**字段名**|**类型**|**说明**|**备注**|
 |type  |String |条件或者行为    |必填；枚举类型可选值condition或者action|
 |id |String   |条件或者行为Id |必填；取决于type |
-|device|Map<String,String>|具体的设备 |必填；数据结构定义：</br>`{`</br>`“mac”:”A123456”,`</br>`clazz”:”00123”  //设备大类加中类；这个必须跟海极网一致`</br>`}`</br>如果同一型号需要传入多个设备，数据格式如下：</br>`{"mac":"mac1,mac2,mac3","clazz":"02012"}`</br>和V2.3不一样的是去除了wifitype|
-|value  |Map<String,String> |条件或者行为中的取值    |选填；数据结构定义：</br>`{`</br>`“value”:”open”, //具体的值；`</br>`“desc”:”开机”   //具体值的描述`</br> `}`|  
+|value  |Map<String,String> |条件或者行为中的取值    |选填；数据结构定义：</br>`{`</br>`“value”:”open”, //具体的值；`</br>`“desc”:”开机”   //具体值的描述`</br> `}`|   
+|object |Map<String,String>   |设备参数或者天气参数保存 |必填；表示设备参数或者天气参数 | 
+|userSettingGroupPropDtoList |List<UserSettingGroupPropDto>|用户设置的参数 |选填；备注：动作为组命令，用户设置的参数信息 | 
+|dealyTime |Integer|延迟时间 |选填；取值为数字 单位为秒 说明该动作需要在触发执行后多少秒后触发如果不填或者0则认为不延迟|  
+|sceneId |String   |场景id |选填| 
 
-
-
+object字段说明：</br>   
+```  
+数据结构定义：
+{
+   “id”: “mac1”,		//存放设备mac或者城市code编码
+   “name”:”城市名字”,	//存放城市名字
+   “type”:"03012"		//存放设备的大类中类,model，如果为天气类型，则默认为天气组件类型
+}
+如果同一型号需要传入多个设备，数据格式如下：
+{"mac":"mac1,mac2,mac3","clazz":"02012"}
+备注：之前版本存入device字段的信息，现在都存储在该字段，具体结构如上。
+```
 ### SceneSortDto
 场景分类对象  
   
@@ -527,7 +568,7 @@ Cron表达式说明
 |sceneId         |String               |场景Id唯一        |必填; 最大长度32                                                                            |
 |sceneName       |String               |场景名称          |必填；最大长度255                                                                           |
 |sceneAlias      |String               |场景别名          |选填；最大长度255                                                                           |
-|sceneDesc       |String¬              |场景描述          |必填；最大长度600                                                                           |
+|sceneDesc       |String             |场景描述          |必填；最大长度600                                                                           |
 |userId          |String               |用户ID            |选填；最大长度32                                                                            |
 |familyId        |String               |家庭ID            |必填；最大长度32                                                                            |
 |operationType<font color="#FF0000">(弃用)</font>   |Int                  |操作类型          |必填；</br>1： 开启场景</br>2： 关闭场景</br>3： 触发场景                                   |
@@ -568,7 +609,17 @@ Cron表达式说明
 失败为false；对应的execResultCode为S03002,S03001,S00001（目前就这三种）</br> 
 execResultinfo在上面对应</br> 
 如果动作为消息推送，则成功码为00000，其它对应详细失败吗，码表由UMS统一提供，后续会附带；</br> 
-动作是何种类型取决于下面的param字段的动作类型</br> 
+动作是何种类型取决于下面的param字段的动作类型</br>  
+
+### UserSettingGroupPropDto(组命令属性参数)
+
+
+| **名称** | UserSettingGroupPropDto(组命令属性参数) |&emsp;| UserSettingGroupPropDto |   
+| ------------- |:----------:|:-----:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|
+|id |String   |id |必填|
+|value |StatusDesc   |用户设置的属性值和属性值描述 |必填 |
+|propId |String   |属性id |必填 |
 
 ## 接口清单
 
@@ -580,6 +631,7 @@ execResultinfo在上面对应</br>
 | 批量下载场景 | 从场景Store中批量下载场景 | 是| 无|  
 | 批量下载基础场景| 从场景Store中下载基础场景 | 是| 无|  
 | 批量下载应用场景 | 批量下载应用场景 | 是| 无|  
+| 获取家庭下场景列表| APP获取家庭下场景列表 | 是| 无|  
 | 查询家庭下场景列表| 包括用户自建场景和通过模板下载的场景 | 是| 无|  
 | 获取家庭下应用场景列表| 需要区分具体的终端(AppId区分) | 是| 无|  
 | 根据家庭下的场景Id批量查询场景列表| 根据家庭下的场景Id批量查询场景列表 | 是| 无| 
@@ -668,7 +720,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 #### 批量下载基础场景
@@ -733,7 +785,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 #### 批量下载应用场景
 >批量下载应用场景。</br>
@@ -796,7 +848,420 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
+
+#### 获取家庭下场景列表
+> 根据家庭查询家庭下的场景列表。APP获取家庭下场景列表。
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/iftttscene/scene/listByFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| familyId| String |32| Body| 必填|家庭Id|   
+| limit| Int|N/A| Body| 必填|每页显示的记录数最多20条，大于20条，默认20条| 
+| cursor| Int|N/A| Body| 必填|从0开始| 
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  data  |Pagination<SceneDto>| Body  |  必填 |显示场景中的描述信息,其中的规则rules中带有规则Id和规则名称以及规则描述,同时记录按照创建时间倒序，返回为null的字段被过滤掉，不显示。|
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 89998291f2d490e3339ed7f08247f85b8fc8185179ab0937b240c2aaceba9d76
+timestamp: 1542184530374 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"familyId": "385062139898000000",
+	"limit": 10,
+	"cursor": 0
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": {
+		"pageSize": 10,
+		"recordCount": 13,
+		"currentPage": 1,
+		"totalPage": 2,
+		"cursor": 10,
+		"list": [{
+			"id": "98c2af1901b84eb1b4be99cedb53e96b",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "回家模式",
+			"sceneDesc": "回家后可一键实现开灯、关窗帘、安防设备撤防、打开空调等。也可通过语音来实现上述功能。",
+			"isOpen": 1,
+			"rules": [{
+				"id": "d8c4d6fad4854aac9c23e2aaaf6a9ebd",
+				"rule": "点击即可执行"
+			}],
+			"createTime": "2018-09-12 14:58:46",
+			"updateTime": "2018-09-12 14:58:46",
+			"sourceId": "1c10d415fa3444dd9f900a53a70964cb",
+			"type": "deviceFamily",
+			"triggerType": "manually",
+			"appId": "MB-****-0000",
+			"taskInfo": {
+				"type": 1,
+				"cron": {
+					"minutes": "12",
+					"hours": "15",
+					"day": "?",
+					"month": "*",
+					"week": "6,7",
+					"year": "*",
+					"cronExp": "* 12 15 ? * 6,7 *",
+					"weekCronExp": "* * * ? * 6,7 *"
+				},
+				"status": true
+			},
+			"aiKeyword": "一键回家",
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E5%9B%9E%E5%AE%B6-0815_20180815131530653.png",
+			"icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "642fe4695da84edb8e70d3dd241ce952",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "厨房自动控温",
+			"sceneDesc": "厨房温度超过设定值，空调启动制冷模式。",
+			"isOpen": 0,
+			"rules": [{
+				"id": "62da131f1ea94f78918eabfa228e334d",
+				"rule": "厨房空调关闭烟机打开，厨房温度过高"
+			}],
+			"createTime": "2018-09-12 15:23:00",
+			"updateTime": "2018-09-17 17:56:10",
+			"engineVersion": "V24",
+			"sourceId": "78f95e4f59854dd1aea0b5d4dea281be",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"taskInfo": {
+				"type": 2,
+				"cron": {
+					"minutes": "*",
+					"hours": "*",
+					"day": "?",
+					"month": "*",
+					"week": "*",
+					"year": "*",
+					"cronExp": "* * * ? * * *",
+					"weekCronExp": "* * * ? * * *"
+				},
+				"status": true,
+				"activeBeginTime": "01:08:00",
+				"activeEndTime": "02:10:00"
+			},
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E5%8E%A8%E6%88%BF%E6%8E%A7%E6%B8%A9-0815_20180815131421475.png",
+			"icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "30d0ed93a24941d985ccfc39bbb47074",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "厨房自动控温",
+			"sceneDesc": "厨房温度超过设定值，空调启动制冷模式。",
+			"isOpen": 0,
+			"rules": [{
+				"id": "49b2151037944d8c98da9fb07afdcadb",
+				"rule": "厨房空调关闭烟机打开，厨房温度过高"
+			}],
+			"createTime": "2018-09-03 16:05:44",
+			"updateTime": "2018-09-07 13:04:55",
+			"engineVersion": "V24",
+			"sourceId": "78f95e4f59854dd1aea0b5d4dea281be",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"taskInfo": {
+				"type": 2,
+				"cron": {
+					"minutes": "*",
+					"hours": "*",
+					"day": "?",
+					"month": "*",
+					"week": "1,2,3,4,5",
+					"year": "*",
+					"cronExp": "* * * ? * 1,2,3,4,5 *",
+					"weekCronExp": "* * * ? * 1,2,3,4,5 *"
+				},
+				"status": false,
+				"activeBeginTime": "13:04:00",
+				"activeEndTime": "13:04:00"
+			},
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E5%8E%A8%E6%88%BF%E6%8E%A7%E6%B8%A9-0815_20180815131421475.png",
+			"icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "aed9381c28c84008b2dc73ac0e6ab9ec",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "空净净化",
+			"sceneDesc": "当空气质量差时，开启空气净化器净化功能。",
+			"isOpen": 1,
+			"rules": [{
+				"id": "dd1a4d8e14084ed5bbeaa81dc862f531",
+				"rule": "空气净化器净化功能"
+			}],
+			"createTime": "2018-09-25 16:54:28",
+			"updateTime": "2018-09-25 16:54:28",
+			"engineVersion": "V24",
+			"sourceId": "a6d833905bd64493ac35ec04be65ad3d",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E5%87%80-0815_20180815131434035.png",
+			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E5%87%802_20180730134743357.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "aa93a3a938834748a9060a177669b606",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "空净净化",
+			"sceneDesc": "当空气质量差时，开启空气净化器净化功能。",
+			"isOpen": 0,
+			"rules": [{
+				"id": "1d034095b1a747c6a683abf8aa552930",
+				"rule": "空气净化器净化功能"
+			}],
+			"createTime": "2018-09-17 14:10:59",
+			"updateTime": "2018-09-17 14:10:59",
+			"engineVersion": "V24",
+			"sourceId": "a6d833905bd64493ac35ec04be65ad3d",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-UZHSH-0001",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "935d7d4c0a5647b29461c631de3f0b0d",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "空净净化",
+			"sceneDesc": "当空气质量差时，开启空气净化器净化功能。",
+			"isOpen": 0,
+			"rules": [{
+				"id": "61e8fd04d8ac4aa7a0b1a81065288a16",
+				"rule": "空气净化器净化功能"
+			}],
+			"createTime": "2018-09-15 15:04:34",
+			"updateTime": "2018-09-15 15:04:34",
+			"engineVersion": "V24",
+			"sourceId": "a6d833905bd64493ac35ec04be65ad3d",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-UZHSH-0001",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "2bcbb7186a0440ee9aab1392e7018fe9",
+			"userId": "100013957366169381",
+			"familyId": "385062139898000000",
+			"sceneName": "空净净化",
+			"sceneDesc": "当空气质量差时，开启空气净化器净化功能。",
+			"isOpen": 0,
+			"rules": [{
+				"id": "3ac637309eb14c41b777f2f85e9c80e2",
+				"rule": "空气净化器净化功能"
+			}],
+			"createTime": "2018-09-14 09:21:27",
+			"updateTime": "2018-09-14 09:21:27",
+			"engineVersion": "V24",
+			"sourceId": "a6d833905bd64493ac35ec04be65ad3d",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-UZHSH-0001",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "ac57eb2f1ea543dc9029e3bb4003e798",
+			"userId": "100013957366168786",
+			"familyId": "385062139898000000",
+			"sceneName": "内测-满足所有条件（不同设备）",
+			"sceneDesc": "空调开机时执行恒氧",
+			"isOpen": 0,
+			"rules": [{
+				"id": "aec688187f6346edbdce48c43667f697",
+				"rule": "空调挂机/柜机同时关机时新风机恒氧"
+			}],
+			"createTime": "2018-09-07 09:44:03",
+			"updateTime": "2018-09-07 13:05:10",
+			"engineVersion": "V24",
+			"sourceId": "ddbad81f41a64fdcb7d787c3ebb12a10",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"taskInfo": {
+				"type": 2,
+				"status": true,
+				"activeBeginTime": "00:00:00",
+				"activeEndTime": "13:59:00"
+			},
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E5%9B%9E%E5%AE%B6-0815_20180815131530653.png",
+			"icon": "http://resource.haier.net:80/download/resource/uzhsh/00001/one_key_20180314.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "484eca88bc6344f18ead3fb3e90f0471",
+			"userId": "100013957366169635",
+			"familyId": "385062139898000000",
+			"sceneName": "恒温",
+			"sceneDesc": "温度超标开启PMV",
+			"isOpen": 0,
+			"rules": [{
+				"id": "330eccefe2b6434ea5fcea2821516df6",
+				"rule": "挂机室内温度过低"
+			},
+			{
+				"id": "56b04883b62249e2b94b7d50c1c45044",
+				"rule": "柜机室内温度过低"
+			},
+			{
+				"id": "82a7dcb10766450697aa032163123de4",
+				"rule": "挂机室内温度过高"
+			},
+			{
+				"id": "c150dfaa249b4781b825d695621f6e97",
+				"rule": "中央空调温度过高"
+			},
+			{
+				"id": "e5cc8ff3c8a946d198a78e0471f387a1",
+				"rule": "中央空调温度过低"
+			},
+			{
+				"id": "efc6e8636f05494f98ddb7f51a6eafbb",
+				"rule": "柜机室内温度过高"
+			}],
+			"createTime": "2018-09-11 11:15:03",
+			"updateTime": "2018-09-11 11:15:03",
+			"engineVersion": "V24",
+			"sourceId": "f4e402aa72244ce9a6dc165e64e28e17",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"taskInfo": {
+				"type": 2,
+				"cron": {
+					"minutes": "*",
+					"hours": "*",
+					"day": "?",
+					"month": "*",
+					"week": "*",
+					"year": "*",
+					"cronExp": "* * * ? * * *",
+					"weekCronExp": "* * * ? * * *"
+				},
+				"status": false,
+				"activeBeginTime": "18:09:00",
+				"activeEndTime": "12:00:00"
+			},
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
+			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		},
+		{
+			"id": "77cd027bd6814b87a558778a5367a714",
+			"userId": "100013957366169635",
+			"familyId": "385062139898000000",
+			"sceneName": "恒温",
+			"sceneDesc": "温度超标开启PMV",
+			"isOpen": 0,
+			"rules": [{
+				"id": "0907c3c943bb4649bb5265287b0b47db",
+				"rule": "中央空调温度过低"
+			},
+			{
+				"id": "2475174255934a67b5ce6ae6dc5f11a8",
+				"rule": "中央空调温度过高"
+			},
+			{
+				"id": "67f088f060e04cc18412dc700c207245",
+				"rule": "挂机室内温度过高"
+			},
+			{
+				"id": "84ffc0b731414e7aa000155b8250ded3",
+				"rule": "柜机室内温度过低"
+			},
+			{
+				"id": "ca95580592614382b37b0777a98be850",
+				"rule": "挂机室内温度过低"
+			},
+			{
+				"id": "e3c5580edd4c4bb295f049cdee3e9dfc",
+				"rule": "柜机室内温度过高"
+			}],
+			"createTime": "2018-09-11 11:14:05",
+			"updateTime": "2018-09-11 11:14:05",
+			"engineVersion": "V24",
+			"sourceId": "f4e402aa72244ce9a6dc165e64e28e17",
+			"type": "deviceFamily",
+			"triggerType": "platform",
+			"appId": "MB-****-0000",
+			"banner": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A9-0815_20180815131504944.png",
+			"icon": "http://resource.haigeek.com/download/resource/selfService/admin/%E6%81%92%E6%B8%A92_20180730134901229.png",
+			"createType": "Basis",
+			"status": "publish",
+			"auto": false
+		}],
+		"fromIndex": 0,
+		"toIndex": 10
+	}
+}
+```
+
+##### 3、错误码  
+> 见 快速开始——常用信息——平台公共错误码 
+
 
 
 
@@ -814,7 +1279,7 @@ Body
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|
 | familyId| String |32| Body| 必填|家庭Id|   
-| limit| Int|N/A| Body| 必填|默认每次向下滑加载10条数据| 
+| limit| Int|N/A| Body| 必填|每页显示的记录数最多20条，大于20条，默认20条| 
 | cursor| Int|N/A| Body| 必填|从0开始| 
 
 **输出参数**  
@@ -1210,7 +1675,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 #### 获取家庭下应用场景列表
 >获取家庭下应用场景列表。
@@ -2439,7 +2904,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 #### 根据家庭下的场景Id批量查询场景列表
@@ -2595,7 +3060,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -2655,7 +3120,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -2721,7 +3186,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -2784,7 +3249,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -2912,7 +3377,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 #### 用户创建手动触发类场景
 >根据用户填写的参数保存场景。
@@ -3089,7 +3554,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3246,7 +3711,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3308,7 +3773,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3371,7 +3836,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3432,7 +3897,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3520,7 +3985,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码
 
 
 
@@ -3584,7 +4049,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3647,7 +4112,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3669,8 +4134,36 @@ Body
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | JSON| Body  |  必填 |[Json结构](zh-cn/IFTTT_jsonDataStructure) |
+|  data  | JSON| Body  |  必填 |详见下方 |
 
+data字段说明：</br>
+```  
+[{
+	"value": "greaterThan",
+	"desc": "高于",
+	"required": false
+},
+{
+	"value": "greaterThanEqual",
+	"desc": "高于或等于",
+	"required": false
+},
+{
+	"value": "equal",
+	"desc": "等于",
+	"required": false
+},
+{
+	"value": "lessThan",
+	"desc": "低于",
+	"required": false
+},
+{
+	"value": "lessThanEqual",
+	"desc": "低于或等于",
+	"required": false
+}]
+```
 
 ##### 2、请求样例  
 
@@ -3728,7 +4221,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -3851,7 +4344,7 @@ Body
 ```
 
 ##### 3、错误码  
-> 见首页公共错误码 
+> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -4233,7 +4726,32 @@ Body
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
+|  data  | Object| Body  |必填|显示为：null|   
+
+#### 更新多生失效时间段接口
+>更新多个生失效时间段功能（支持平台），场景开启或关闭状态都可以更新。  
+
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/iftttscene/scene/updateTaskInfoList`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| sceneId| String |N/A| Body| 必填|用户场景Id|  
+| taskInfoList| List<TaskInfoDto> |5| Body| 必填|需要更新的生失效时间段| 
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  | String| Body  |必填|&emsp;|
+
 
 
 ## 场景Portal
@@ -4447,7 +4965,7 @@ typeId|String|32|Body|必填|
 :-|:-:|:-:|:-:|:-
 data|funsionsDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 {
     "sysProps":{
@@ -4505,7 +5023,7 @@ retInfo|String|Body|必填|
 data|SceneFunctionSupportDto[]|Body|必填|
 
 
-data 说明：
+data字段说明：
 ```
 {
 	[{
@@ -4538,7 +5056,7 @@ propId|String||Body|必填|组件属性id
 :-|:-:|:-:|:-:|:-
 data|PropOfComponentDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 {
 "id":"",//组件主键
@@ -4575,7 +5093,7 @@ propIds|List||Body|必填|组件属性id
 :-|:-:|:-:|:-:|:-
 data|PropOfComponentDto|Body|必填|
 
-data 说明：
+data字段说明：
 ```
 [
 {

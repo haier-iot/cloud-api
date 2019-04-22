@@ -1,6 +1,5 @@
 
->  **当前版本**：[UWS 预约定时 V1.0.0](zh-cn/ChangeLog/Scheduler) 
- **更新时间**：{docsify-updated}  
+!>  **更新时间**：{docsify-updated}  
 
 ## 简介
 

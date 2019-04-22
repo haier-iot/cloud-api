@@ -9,6 +9,18 @@
 
 ##  2018-11-24
 !> **场景Portal**：  
-- [x]  【新增】新增根据中类组件属性ID列表批量查询属性信息接口；
+- [x]  【新增】新增根据中类组件属性ID列表批量查询属性信息接口；  
+
+##  2019-02-28
+
+!> **uws场景引擎服务 V2.7.1**：  
+ 
+- [x]  【新增】接口公共部分修改version默认值为0.3；
+- [x]  【新增】场景类接口公共结构SceneDto删除taskInfo字段，新增taskInfoList字段；     
+- [x]  【新增】场景类接口公共结构UserSceneDto删除taskInfo字段，新增taskInfoList字段；  
+- [x]  【新增】新增更新多个生失效时间段接口；  
+- [x]  【修改】修改公共结构数据RuleSettings、UserSceneDto、RuleThenDeviceControl；   
+- [x]  【修改】修改查询支持的关系表达式接口； 
+
 
 

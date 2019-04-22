@@ -52,6 +52,7 @@
 * [设备端SDK_Android 开发指南](zh-cn/USDK/SmartDeviceSDK)
 
 
+<div style='display: none'>
 * ChangeLog  
 
 	* [账户服务](zh-cn/ChangeLog/Account)
@@ -66,3 +67,4 @@
 * [移动端SDK iOS](zh-cn/ChangeLog/CHL_uSDK_Phone_iOS)
 * [移动端SDK Android](zh-cn/ChangeLog/CHL_uSDK_Phone_Android)
 * [设备端SDK Android](zh-cn/ChangeLog/CHL_SmartDeviceSDK)
+</div>

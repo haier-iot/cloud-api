@@ -50,6 +50,7 @@
 * [设备端SDK_Android 开发指南](zh-cn/USDK/SmartDeviceSDK)
 
 
+<div style='display: none'>
 * ChangeLog  
 
 	* [账户服务](zh-cn/ChangeLog/Account)
@@ -61,5 +62,6 @@
 	* [设备影子](zh-cn/ChangeLog/DevicesShadow)
 	* [消息推送](zh-cn/ChangeLog/MessagePush)
 	* [能力服务](zh-cn/ChangeLog/CapacityService_Weather)
-	
+</div>
+
 	
