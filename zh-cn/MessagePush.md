@@ -64,32 +64,27 @@ version|String|定义消息的版本，次版本为V1|
 字段名|类型|说明|备注
 :-|:-:|:-|:-
 taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-msgId|String|消息ID|
-userId|String|用户ID|
-appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|
-message|UpMsg|消息模型|
-msgStatus|Integer|消息发送状态|
-readStatus|Integer|消息读取状态|
-pushTime|DateTime|ums通道推送时间|
+businessType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+message|UpMsg|消息模型|消息内容
+msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
+readStatus|Integer|消息读取状态|消息是否被读取
+pushTime|DateTime|ums通道推送时间|推送时间yyyy-MM-dd HH:mm:ss
 
 
 ### MsgCloudHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-msgId|String|消息ID|
 userId|String|用户ID|
 appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|
-messgae|UpMsg|消息模型|
-msgStatusStatus|Integer|消息发送状态|
-raadStatus|Integer|消息读取状态|
-tag|String|标签|
-pushTime|DateTime|ums消息推送时间|
-retCode|String|返回码|
+clietnId|String|终端ID|
+busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
+readStatus|Integer|消息读取状态|消息是否被读取
+tag|String|标签|自定义标签
+pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
+msgCode|String|返回码|
+
 
 ### DoNotDisturbDto
 
@@ -935,7 +930,15 @@ content|String|body||
 
 ##### 3、错误码
 
-> B00001、B00004、A00002、B00002、A00007、D00008、A00008
+错误码|描述|情景
+:-:|:-:|:-
+B00001|缺少必填参数|
+B00004|参数不符合规则要求|
+A00002|网络异常|
+B00002|参数类型错误|
+A00007|邮件服务异常|
+D00008|用户不合法|
+A00008|邮件发送失败|
 
 ####推送消息（支持模板）
 
@@ -997,7 +1000,17 @@ templateParams|Map<String,String>|body||模板参数
 }
 
 ```
+##### 3、接口错误码
 
+错误码|描述|情景
+:-:|:-:|:-
+B00001|缺少必填参数|
+B00004|参数不符合规则要求|
+A00002|网络异常|
+B00002|参数类型错误|
+A00007|邮件服务异常|
+D00008|用户不合法|
+A00008|邮件发送失败|
 
 
 #### 根据taskId查询历史消息
@@ -1026,8 +1039,52 @@ taskId|Sting|body|否|消息标识
 :-:|:-:|:-:|:-:|:-
 retData|List<MsgCloudHistoryDto>|body|是|推送记录信息
 
+##### 2、请求样例
 
+**输入参数**
 
+```
+POST /umse/v3/msg/getMsgHistory
+
+{"taskId":"MTtest2019-01-15 18:02:31_6e2e8f63-a6b4-4ea8-bf48-e64b165d855b"}
+
+Request Headers:
+Connection: keep-alive
+appId: SV-****-0000
+appVersion: 01.00.00.00000
+clientId: ufmtest123
+sequenceId: 20161020153428000015
+sign: 1ca44240e53ac7f69f732a721c29c8906827feb873e5ac0a29010ba545f1cec4
+timestamp: 1553703080084 
+language: zh-cn
+timezone: Asia/Shanghai
+Content-Encoding: utf-8
+Content-type: application/json
+
+```
+
+**输出参数**
+```
+{
+	"retCode": "00000",
+	"retInfo": "success",
+	"retData": [
+{
+		"taskId":"MTtest2019-01-1518:02:31_6e2e8f63-a6b4-4ea8-bf48-e64b165d855b",
+		"userId": "ptuid-2",
+		"appId": "ptaid1000000000",
+		"clientId": "ptcid-2-8",
+		"businessType": 6,
+		"msgStatus": 1,
+		"readStatus": 1,
+		"tag": null,
+		"msgCode":" H3016" ,
+		"priority": 8,
+		"pushTime":"2019-01-01 00:00:00",
+		"message": "用户海尔优家，设备海尔空调已经绑定成功"
+	}]
+}
+```
 
 
 [^-^]:文本连接注释
