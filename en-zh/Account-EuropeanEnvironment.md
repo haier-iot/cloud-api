@@ -354,7 +354,7 @@ lg参数参考附录章节国际语言代码表[access specification](en-zh/Acce
 
 对接口响应返回的retCode和retInfo不做国际化处理，由接口调用方处理。
 
-对于接口涉及业务数据的国际化通过在header中传递language参数来定义，具体的国际化语言代码见附录。
+对于接口涉及业务数据的国际化通过在header中传递language参数来定义，具体的国际化语言代码见[access specification](en-zh/AccessSpecification)。
 
 ### 语言模板的使用
 
@@ -764,12 +764,12 @@ Body:
 
 ?> **接入地址：**  `/uam/v2/mgr/getPublicKey`  
  **HTTP Method：** POST  
- **编制条件:** 使用有效的appid  </br>
+ **前置条件:** 使用有效的appid  </br>
  **Token 验证：** 否 
 
 **输入参数：** 
 
-标准输入入参数  
+标准输入参数  
 
 
 **输出参数：** 输出公钥 publicKey 
@@ -884,7 +884,7 @@ Body:
 > A00005、B00002    
 
 #### 获取图形验证码
-> 获取图形验证，限制每天每个终端20次请求限制。
+> 获取图形验证，每天每个终端20次请求限制。
 
 ##### 1、接口定义 
 
@@ -906,7 +906,7 @@ Content-Type: image/png;charset=UTF-8
 
 ##### 2、 请求样例  
 
-**用户请求 **
+**用户请求**
 ```java  
 POST
 
@@ -1033,7 +1033,7 @@ POST data:
 
 ##### 2、请求样例   
 
-**用户请求 **
+**用户请求**
 
 ```java 
 POST  
@@ -1073,7 +1073,7 @@ Content-type: application/json
 
 ##### 1、接口定义
 
-?> **接入地址：**  `/uam/v1/users/get`  
+?> **接入地址：**  `/uam/v2/users/get`  
  **HTTP Method：** POST  
  **Token 验证：** 是  
 
@@ -1157,7 +1157,7 @@ Content-type:application/json
 
  
 
-#### 用户信息修改
+#### 用户信息修改 V1
 > 根据登录人员token，修改当前登录用户的拓展属性
 
 
