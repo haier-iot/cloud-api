@@ -142,6 +142,241 @@ body|是|String|定义在所有系统使用通知的消息体
 
 > 定义Android消息的内容，此部分内容主要定义更加精细的Android系统通知展示方式。根据第三方推送服务方的不同，此部分定义会有所区别，如果接收方存在集成不同的第三方推送服务的情况则需要分别进行定义。
 
+以下为各属性的具体说明：
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+jpush|否|Json对象|极光推送通道notification.android透传属性
+fcm|否|Json对象|FCM推送通道message.android透传属性
+m2m|否|Json对象|m2m本期暂不支持
+
+其他属性定义请参考如下资料：  
+
+第三方推送服务|资料
+:-:|:-:
+极光推送|`https：//docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中Android部分
+FCM|`https：//firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
+
+
+
+#### IOS  
+
+> 定义IOS消息的内容，此部分内容主要定义更加精细的IOS系统通知展示方式。根据第三方推送服务方的不同，此部分定义会有所区别，如果接收方存在集成不同的第三方推送服务的情况则需要分别进行定义。  
+
+以下为各属性的具体说明：
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+jpush|否|Json对象|极光推送notification.ios透传属性
+fcm|否|Json对象|FCM推送通道message.apns透传属性
+m2m|否|Json对象|m2m本期暂不支持  
+
+
+其他属性定义请参考如下资料：  
+
+第三方推送服务|资料
+:-:|:-:
+极光推送|`https：//docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中IOS部分
+FCM|`https：//firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
+
+#### Data  
+
+> 定义实时消息的数据内容，此部分内容在App被唤醒或处于前台时，由第三方推送服务主动传递给App并由App来处理。此部分内容由云服务和App自行确定，但给U+ App及成套产品推送消息需遵循以下定义。  
+
+
+以下为各属性的具体说明：  
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+body|是|Body|实时消息在app端的具体业务及展示方式，详见Body对象定义
+
+##### Body  
+
+以下为各属性的具体说明： 
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+view|否|View|实时消息的展示方式，详见View对象定义
+extData|否|ExtData|实时消息的业务数据，详见ExtData对象定义
+extParam|否|ExtParam|自定义业务数据    
+
+###### View   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+showType|否|int|实时消息的显示样式：</br>-1：不显示，app一般用于无UI展示，直接处理消息内容；</br>0： toast；</br>2： 弹框，业务事件及button 按钮自定义见 btns 封装；</br>4： 红色感叹号显示；</br>20：弹框，无按钮；</br>21：弹框,一个按钮；无相应业务事件处理；</br>22：弹框，确定、取消两个按钮，均无业务事件处理
+title|否|string|实时消息的弹框标题
+content|否|string|实时消息的弹框内容 
+btns|否|Button|弹框显示的按钮，详见Button对象定义  
+
+
+###### Button   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+text|否|string|按钮的展示文本
+callId|否|int|按钮事件调用id，用来标识此按钮单击事件在ExtData中需要的参数信息    
+
+###### ExtData   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+expireTime|否|int|业务消息在本地系统的有效时间。若该值超出时间范围则在 APP 端视为无效消息，不进行业务处理。若为空或无此字段不处理
+isMsgCenter|否|int|实是否存储在 APP 消息中心。若为空或无此字段不处理，取值为 0：不存储 1：存储
+device|否|Device[]|控制类消息要控制的设备信息，详见Device对象定义 
+devControl|否|DevControl|设备控制指令信息，与device配合使用，详见DevControl对象定义  
+api|否|API|调用App端API，详见API对象定义
+page|否|Page|消息分页信息，详见Page对象定义    
+
+
+###### Device   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+typeId|否|string|设备typeid
+deviceId|是|string|设备mac地址
+deviceName|否|string|设备名称    
+
+###### DevControl   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+callId|否|int|调用者id。若为空或无此字段，则代表自动调用，此时ExtData中的device对象数据不能为空，否则无法执行
+deviceId|是|string|设备mac地址
+groupName|否|string|组命令名称  
+cmdList|是|json object|标准模型的命令键值对集合   
+
+###### API  
+
+> 自定义事件消息，执行API调用处理。APP端对此业务的处理逻辑：消息监听者或事件执行者收到此类消息时，执行相应API接口调用，并将携带的参数传至API接口内，若参数与API接口定义不符则失败。   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+callId|否|int|调用者id。若为空或无此字段，则代表自动调用 
+apiType|是|string|api定义。如附录中的删除家庭处理为：DELEATE_FAMILY
+params|否|json object|按钮在alert索引序号，由0开始。该API接口定义的入参集合   
+
+
+
+###### Page  
+
+> 自定义事件消息，执行Page页面跳转处理。APP端对此业务的处理逻辑：消息监听者或事件执行者收到此类消息时，交由VDN 执行页面跳转处理。   
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+callId|否|int|调用者id。若为空或无此字段，则代表自动调用，否则根据Button 的callId响应 
+url|是|string|页面唯一地址。如是native页面，则需在VDN的DNS表中页面保持一致
+params|否|int[]|参数键值对集合。页面跳转参数集合   
+
+
+
+###### ExtParam  
+
+> 自定义业务数据，可自行扩展。  
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+actWithNotify|否|Boolean|消息附属在通知里有效。</br>true：收到通知后，同时处理内部附属的消息内容</br>false：收到通知后，待用户点击通知栏时处理UI业务
+
+
+#### Options  
+
+> 定义消息的设置信息，包括消息的名称、消息的类型等。 
+
+以下为各属性的具体说明：
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+msgName|否|String|消息名字
+businessType|是|int|消息类型，App端根据此分类进行消息展示。取值如下：</br>0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+expires|否|int|消息在客户端离线时在第三方推送平台缓存时间，过期将不再推送给客户端。单位为秒，最长86400秒，如未指定则默认为86400秒。  
+priority|否|int|见priority备注
+iguangOptions|否|json object|见jiguangOptions备注
+
+见priority备注：  
+
+消息优先级别，如设置则默认为1。取值为：</br>0 ：紧急消息，一般需要唤醒屏幕，播放消息提示音</br>1：一般消息，在屏幕黑屏时候，播放消息提示音，无需唤醒屏幕</br>2：中低消息，无需声音提示</br>3： 低级此类消息，可能接收消息后，APP 无需立刻处理，等系统空闲或者 wifi 状态下处理即可</br>以上优先级定义主要在实时消息中由App实现相关优先级的效果，不同优先级的实时消息如果同时定义了通知，则与通知的优先级对应关系为：</br>通知：高优先级 ←→实时消息：紧急</br>通知：普通优先级←→实时消息：一般，中低，低级
+ 
+jiguangOptions备注：  
+
+极光推送选项设置，请参考：</br>`https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#options` </br>若使用极光推送在生产环境给ios端推送消息，该字段中必须包含apnsProduction，具体格式如下：
+```
+"jiguangOptions": {
+				    "apnsProduction": true
+			      }
+```
+
+
+#### 举例  
+
+云服务发送的消息内容举例如下: 
+
+```  
+
+	"notification": {
+		"title": "test message",
+		"body": "This is a test message "
+	},
+	"android": {
+		"jpush": {
+			"title": "test message",
+			"body": "This is a test message ",
+			"alert_type": 1
+		},
+		"fcm": {
+			"title": "test message",
+			"body": "This is a test message ",
+			"notification ": {
+				"sound": "default"
+			}
+		}
+	},
+	"data": {
+		"body": {
+			"view": {
+				"showType": 21,
+				"title": "test message",
+				"content": "This is a test message"
+			},
+			"extData": {
+				"isMsgCenter": 1
+			}
+		}
+	},
+	"options": {
+		"msgName": "",
+		"businessType ": 1,
+		"priority ": 1,
+		"expires": 60
+	}
+}
+```
+
 
 
 
