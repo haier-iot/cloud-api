@@ -59,37 +59,32 @@ ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定
 options|Options|定义消息的选项设置，详见Option对象定义
 version|String|定义消息的版本，此版本为V1|
 
-### msgClientHistoryDto
+### MsgClientHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-msgId|String|消息ID|
-userId|String|用户ID|
-appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|
-message|UpMsg|消息模型|
-msgStatus|Integer|消息发送状态|
-readStatus|Integer|消息读取状态|
-pushTime|DateTime|ums通道推送时间|
+taskId|String|消息任务ID|终端收到的消息标识taskId
+busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+message|UpMsg|消息模型|消息内容
+msgStatus|Integer|消息发送状态|1-待发送,2-发送中,3-成功,4-失败
+readStatus|Integer|消息读取状态|消息是否被读取
+pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
 
 
 ### MsgCloudHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-msgId|String|消息ID|
 userId|String|用户ID|
 appId|String|应用ID|
 clientId|String|终端ID|
-busineeType|String|业务类型|
+busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
 messgae|UpMsg|消息模型|
-msgStatusStatus|Integer|消息发送状态|
-raadStatus|Integer|消息读取状态|
+msgStatus|Integer|消息发送状态|1-待发送,2-发送中,3-成功,4-失败
+readStatus|Integer|消息读取状态|消息是否被读取
 tag|String|标签|
-pushTime|DateTime|ums消息推送时间|
-retCode|String|返回码|
+pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
+msgCode|String|消息发送状态码|
 
 ### DoNotDisturbDto
 
@@ -98,12 +93,17 @@ retCode|String|返回码|
 dndId|String|免打扰标识|
 beginTime|Integer|开始时间|
 endTime|Integer|结束时间|
-businessType|Integer|消息业务类型|
-priorities|Integer|消息优先级|
+businessType|Integer|消息业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+priority|Integer|消息优先级|1，2，3
 
 
 
+### MsgUnreadNumDto  
 
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+businessType|String|业务类型|
+msgNums|String|未读消息数量|
 
 ## 终端功能接口列表
 

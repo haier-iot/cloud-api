@@ -85,7 +85,6 @@ tag|String|标签|自定义标签
 pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
 msgCode|String|返回码|
 
-
 ### DoNotDisturbDto
 
 字段名|类型|说明|备注
@@ -94,8 +93,9 @@ dndId|String|免打扰标识|
 beginTime|Integer|开始时间|
 endTime|Integer|结束时间|
 businessType|Integer|消息业务类型|
-priorities|Integer|消息业务类型|
-poriorities|Integer|消息优先级|
+priority|Integer|消息优先级|1，2，3
+
+
 
 
 

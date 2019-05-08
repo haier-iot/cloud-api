@@ -181,8 +181,8 @@ Body
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|必填|设备ID
-sn|String|Body|必填|操作流水号，必须唯一
 property|String|Body|必填|设备读属性的属性名
+sn|String|Body|必填|操作流水号，必须唯一
 callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
 accessToken|String|Header|必填|用户token
 
@@ -265,9 +265,9 @@ Body
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|必填|设备ID
-sn|String|Body|必填|操作流水号，必须唯一
 property|String|Body|必填|设备写属性的属性名
 value|String|Body|必填|设备写属性的属性名
+sn|String|Body|必填|操作流水号，必须唯一
 callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
 accessToken|String|Header|必填|用户token
 
@@ -348,9 +348,9 @@ Body
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|必填|设备ID
-sn|String|Body|必填|设备操作请求序列号
 operationName|String|Body|必填|操作名称
 operationValue|List<OpPropertyValue>|Body|必填|属性值的列表，由模型文档决定是否必填及如何填
+sn|String|Body|必填|设备操作请求序列号
 callbackUrl|String|Body|非必填|操作应答回调地址,只支持http协议
 accessToken|String|Header|必填|用户token
 
