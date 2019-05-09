@@ -68,7 +68,7 @@ businessType|String|业务类型|0：系统类（系统类消息，例如推送�
 message|UpMsg|消息模型|消息内容
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
 readStatus|Integer|消息读取状态|消息是否被读取
-pushTime|DateTime|ums通道推送时间|推送时间yyyy-MM-dd HH:mm:ss
+pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
 
 
 ### MsgCloudHistoryDto
@@ -318,7 +318,7 @@ expires|否|int|消息在客户端离线时在第三方推送平台缓存时间�
 priority|否|int|见priority备注
 iguangOptions|否|json object|见jiguangOptions备注
 
-见priority备注：  
+priority备注：  
 
 消息优先级别，如设置则默认为1。取值为：</br>0 ：紧急消息，一般需要唤醒屏幕，播放消息提示音</br>1：一般消息，在屏幕黑屏时候，播放消息提示音，无需唤醒屏幕</br>2：中低消息，无需声音提示</br>3： 低级此类消息，可能接收消息后，APP 无需立刻处理，等系统空闲或者 wifi 状态下处理即可</br>以上优先级定义主要在实时消息中由App实现相关优先级的效果，不同优先级的实时消息如果同时定义了通知，则与通知的优先级对应关系为：</br>通知：高优先级 ←→实时消息：紧急</br>通知：普通优先级←→实时消息：一般，中低，低级
  
@@ -377,9 +377,115 @@ jiguangOptions备注：
 }
 ```
 
+## 消息接收模型说明
+
+### 消息接收方数据模型说明
+
+#### 通知数据模型  
+
+> 通知的数据模型请参考如下第三方文档中对通知部分的相关说明。
+
+##### App集成极光推送接收消息
+
+安卓请参考：
+  
+`https://docs.jiguang.cn/jpush/client/Android/android_sdk/`  
+
+IOS请参考：
+
+`https://docs.jiguang.cn/jpush/client/iOS/ios_sdk/`  
+
+说明：对于极光推送，发送方同时定义Notification和Data时，Data部分从通知的extras.content的内容，具体内容的模型请参照`实时消息普通数据模型`。
 
 
+##### App集成FCM接收消息  
 
+安卓请参考：  
+
+`https://firebase.google.com/docs/cloud-messaging/android/client`  
+
+
+IOS请参考：  
+
+`https://firebase.google.com/docs/cloud-messaging/ios/client`
+
+
+#### 实时消息普通数据模型  
+
+> 定义自定义消息的数据内容，此部分内容在App被唤醒或处于前台时，由第三方推送服务主动传递给App并由App来处理。   
+
+以下为各部分的具体说明：  
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+msgId|是|String|消息的唯一标识，默认此属性值由消息推送服务自动填充
+msgName|否|String|消息的名称，取值请参考Options中msgName定义，默认此属性值由消息推送服务自动根据Options中msgName填充，如发送方设置值将被覆盖
+businessType|否，正常业务为必填，阅后即焚、空消息为非必填|int|消息分类，取值请参考Options中businessType定义，默认此属性值由消息推送服务自动根据Options中businessType填充
+priority|否|int|默认此属性值由消息推送服务自动根据Options中priority填充，如果发送方设置数值则以发送方设置为准
+body|是|Body|实时消息在app端的具体业务及展示方式，详见body章节各对象定义。  
+
+
+需要注意：客户端收到的数据为base64编码后的数据，App需要对数据进行base64解码才能获取原始的json数据。
+
+接收到的消息内容（FCM需要从返回内容的content属性取）举例：  
+
+```
+eyJtc2dJZCI6IjAwMDAwMDAwMDAxIiwibXNnTmFtZSI6IiIsImJvZHkiOiB7InZpZXciOiB7InNob3dUeXBlIjoyMSwJInRpdGxlIjoidGVzdCBtZXNzYWdlIiwiY29udGVudCI6IlRoaXMgaXMgYSB0ZXN0IG1lc3NhZ2UifSwiZXh0RGF0YSI6eyJpc01zZ0NlbnRlciI6MX19fQ==
+```  
+base64解密为：  
+
+```
+{"msgId":"00000000001","msgName":"","body": {"view": {"showType":21,	"title":"test message","content":"This is a test message"},"extData":{"isMsgCenter":1}}}
+```  
+
+#### 阅后即焚数据模型
+
+> 阅后即焚消息是一种特殊的实时消息，本节定义阅后即焚消息的数据模型，当消息接收方收到阅后即焚消息后，需对消息立即做出响应，停止显示相应的消息并删除。  
+
+以下为各部分的具体说明：  
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+msgId|是|String|消息的唯一标识，默认此属性值由消息推送服务自动填充
+msgName|是|String|消息的名称，取值为UPN_CANCEL  
+body|是|Body|见body备注
+ 
+需要注意：客户端收到的数据为base64编码后的数据。
+
+body备注：  
+
+消息内容，具体定义为：</br>  
+```
+{ 
+“extData”:{
+“isMsgCenter”:0,
+“api”:{
+            “callId”:0,
+            “apiType”:0,
+            “params”:{
+                “op-msgId”:”要阅后即焚的msgId，由系统自动填充”
+            }
+        }
+}
+}
+```
+
+
+#### 空业务数据模型  
+
+> 空业务消息是一种特殊的实时消息，本节定义空业务数据模型，当消息接收方收到空业务消息后无需处理，此消息主要用来更新之前阅后即焚消息。  
+
+以下为各部分的具体说明：  
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+msgId|是|String|消息的唯一标识，默认此属性值由消息推送服务自动填充
+msgName|是|String|消息的名称，取值为UPN_NULL 
+msgType|是|int|消息的来源，取值：</br>3：状态类，此类消息由消息推送自动触发  （消息状态类，例如阅后即焚通知， 空消息）  
+body|是|Body|消息内容，内容为{}。  
+
+需要注意：客户端收到的数据为base64编码后的数据。  
+ 
 
 ## 终端功能接口列表
 
