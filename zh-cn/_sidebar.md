@@ -12,6 +12,8 @@
 
 * [账户服务](zh-cn/Account)  
 
+* [会话分享](zh-cn/Session)   
+
 * [设备管理](zh-cn/DeviceManage)
 
 * [数据订阅](zh-cn/DataSubscription)  
