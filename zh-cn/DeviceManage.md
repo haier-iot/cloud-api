@@ -1214,7 +1214,7 @@ Header：
 
 #### 获取设备型号信息
 
-领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+领域模型接口使用Https协议，使用`https://uws.haier.net /+接口地址`进行访问
 
 ##### 1、接口定义
 ?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
@@ -1265,7 +1265,7 @@ Body：
 
 #### 修改设备型号信息
 
-领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+领域模型接口使用Https协议，使用`https://uws.haier.net /+接口地址`进行访问
 
 修改设备型号信息，产品编码补习已在海极网注册
 
@@ -1332,7 +1332,7 @@ Body：
 
 #### 设备指令执行操作接口（经过逻辑运算）
 
-> 领域模型接口使用Https协议，使用`https://stduds-internal.haier.net /+接口地址`进行访问
+> 领域模型接口使用Https协议，使用`https://uws.haier.net /+接口地址`进行访问
 
 统一接收标准模型的命令，命令经过逻辑运算、转换、补偿后下发到设备
 
