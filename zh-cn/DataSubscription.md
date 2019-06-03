@@ -33,6 +33,74 @@
 
 
 
+## 公共说明  
+
+### 接入方式  
+
+本服务提供的所有接口仅支持wss协议请求。  
+在开发、联调时，应用开发者应该连接开发者环境，通过配置应用开发者访问外网的路由器（设置路由器的dns），可以连接到不同的开发环境。  
+
+### 接入地址  
+
+| **接口分类** | **接入地址** |**开发者环境DNS配置**|  
+| :-------------: |:-------------:|:-----:|  
+|数据订阅|`wss://uws.haier.net/wssubscriber`|`123.103.113.62`|  
+
+### 签名认证  
+
+**说明**  
+
+调用方需要对发送到wss的请求进行签名，执行签名计算的签名值需要赋值到URL的sign属性，以便服务端进行签名验证。  
+
+**参数介绍**  
+
+待签名字符串为： systemId + systemKey + timestamp；   
+systemId：应用ID，40位以内字符,Haier U+ 云平台全局唯一；  
+systemKey：在海极网给应用申请的systemKey，不能明文发送；  
+timestamp：Unix时间戳，精确到毫秒；  
+
+
+**算法**  
+
+
+签名算法就是对待签名字符串计算32位小写SHA-256值，算法示例:  
+
+```
+String getSign(String systemId, String systemKey, String timestamp) {
+    systemKey = systemKey.trim();
+    systemKey = systemKey.replaceAll("\"", "");
+
+    StringBuffer sb = new StringBuffer();
+    sb.append(systemId).append(systemKey).append(timestamp);
+    MessageDigest md = null;
+    byte[] bytes = null;
+    try {
+      md = MessageDigest.getInstance("SHA-256");
+      bytes = md.digest(sb.toString().getBytes("utf-8"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return BinaryToHexString(bytes);
+  }
+
+  String BinaryToHexString(byte[] bytes) {
+    StringBuilder hex = new StringBuilder();
+    String hexStr = "0123456789abcdef";
+    for (int i = 0; i < bytes.length; i++) {
+      hex.append(String.valueOf(hexStr.charAt((bytes[i] & 0xF0) >> 4)));
+      hex.append(String.valueOf(hexStr.charAt(bytes[i] & 0x0F)));
+    }
+    return hex.toString();
+  }
+
+```
+
+
+ 
+
+
+
+
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
 [dataSubscription_liucheng]:_media/_dataSubscription/dataSubscription_liucheng.png
