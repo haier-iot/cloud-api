@@ -95,13 +95,365 @@ String getSign(String systemId, String systemKey, String timestamp) {
 
 ```
 
+## 数据通讯模型   
 
+ ![数据订阅场景流程][dataS_model]  
  
+客户端向服务端发起连接请求，服务端对连接请求参数进行鉴权，鉴权失败，则断开连接并返回客户端鉴权失败信息；鉴权成功，则建立通道。  
+
+鉴权成功后，客户端可多次向服务端发起订阅关系，多次订阅同一个topic的key组合，服务端则自动合并为一个订阅，默认为同一个客户端订阅；  
+
+针对同一个云服务，发起多次连接，服务端则认为是多个客户端发起请求，所有消息将平衡分发到多个客户端上，每个云服务最多可发起连接数为系统可配置参数。  
+
+取消订阅，则删除订阅关系，服务端返回客户端取消响应结果。  
+
+
+## 数据订阅服务接口  
+
+#### 建立连接  
+> 提供建立连接的功能。客户端发起连接请求，数据订阅系统会对客户端连接请求进行鉴权后，建立与客户端的连接。   
+> 客户端发起连接请求，请求时携带对应应用的systemId和systemKey签名信息进行鉴权，鉴权成功返回鉴权结果，鉴权失败，则返回错误信息并断开连接。 
+
+##### 1、接口定义
+?> **接入地址：** `/wssubscriber/msgplatform/websocket`</br>
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+systemId|String|url|必填|应用ID，50位以内字符,Haier U+ 云平台全局唯一  
+timestamp|long|url|必填|Unix时间戳，精确到毫秒  
+sign|String|url|必填|对请求进行签名运算产生的签名 见签名算法   
+isSubscribeEarliestMessage|String|url|必填|决定该链接对应的收消息方式。<br>true: 从最早开始收消息<br>false或不填： 从当前开始收最新消息  
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+cmd|String|body|必填|操作说明
+data|String|body|必填|响应结果
+
+##### 2、请求样例
+
+**请求地址**
+
+```
+wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-0001-123&timestamp=1491013448629&sign=c70500c16563b5ccc7d032831bff34a5cb02c147ca6beeffff54d22d262a319e&isSubscribeEarliestMessage=false
+```
+
+**用户请求** 无  
+
+**请求应答**
+
+```
+{
+  "cmd": "authenticate-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "SV-BLKALPHA21-0001-123"
+  }
+}
+
+```
+
+##### 3、状态码
+
+状态码|描述 
+:-|:-
+00000|成功
+00001|失败
+   
+
+#### 订阅接口  
+> 订阅指定topic消息，消息订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发送订阅，如果失败，则无法进行订阅。  
+
+注意：Websocket订阅服务的订阅范围只针对详细订阅，不包括全量订阅，这点和SDK是有区别的。  
+
+##### 1、接口定义  
+
+客户端向云端发送的JSON字符串格式数据如下（红色部分为示例数据）：  
+
+```  
+
+{
+  "cmd": "subscribe",
+  "data": {
+    "subdata": [
+      {
+        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "keys": {
+          "typeId": [
+            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
+说明：用户一次性可以订阅多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
+
+
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）：
+
+```  
+{
+  "cmd": "subscribe-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "<font color="#FF0000">SV-BLKALPHA21-0001-123</font>",
+    "desc":"Topic [<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT</font>] subscribed ok"
+  }
+}
+
+
+```
+
+订阅成功之后，当topic有数据更新时，客户端会收到如下JSON字符串格式数据（红色部分为示例数据）：  
+
+```   
+{
+"topic": "<font color="#FF0000">XXXXXXX</font>",
+"typeId": "<font color="#FF0000">000000001000000000000000000000000000</font>", 
+"qos": "0", 
+"data": {
+          <font color="#FF0000">//消息内容，以schema为准</font>
+	    }
+}
+
+
+```  
+
+##### 3、错误码
+
+> 34001,34002,34003,34004,34005,34006,34999
+
+
+#### 取消订阅接口  
+> 取消订阅指定topic消息，取消订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发取消订阅，如果失败，则无法进行取消订阅。
+
+
+##### 1、接口定义  
+
+客户端向云端发送的JSON字符串格式数据如下（红色部分为示例数据）： 
+
+```  
+
+{
+  "cmd": "unsubscribe",
+  "data": {
+    "subdata": [
+      {
+        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "keys": {
+          "typeId": [
+            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
 
 
 
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）：
+
+```  
+{
+  "cmd": "unsubscribe-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "<font color="#FF0000">SV-BLKALPHA21-0001-123</font>",
+    "desc":"Topic [<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT</font>] unsubscribed ok"
+  }
+}
+
+
+```
+
+##### 3、错误码
+
+> 34001,34002,34003,34004,34005,34006,34999  
+
+
+
+#### 查询当前system的订阅关系 
+
+> 查询当前云应用的所有订阅关系，必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发起请求，如果失败，则无法进行操作。
+
+
+##### 1、接口定义  
+
+客户端向云端发送的JSON字符串格式数据如下： 
+
+```  
+
+{
+  "cmd": "searchSystem"
+}
+
+
+```
+
+
+
+云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（红色部分为示例数据）：  
+
+```  
+{
+  "cmd": "searchSystem-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "retdata": [
+      {
+        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "keys": {
+          "typeId": [
+            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
+
+##### 3、错误码
+
+> 34001,34002,34003,34004,34005,34006,34999  
+
+
+#### 查询当前client的订阅关系接口
+
+> 查询当前client的订阅关系，即查询当前client的当前system的订阅关系，必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发起请求，如果失败，则无法进行操作。  
+
+
+##### 1、接口定义  
+
+客户端向云端发送的JSON字符串格式数据如下:  
+
+```  
+
+{
+  "cmd": "searchClient"
+}
+
+
+```
+
+
+
+云端向客户端返回当前client的订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）： 
+
+```  
+{
+  "cmd": "searchClient-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "retdata": [
+      {
+        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "keys": {
+          "typeId": [
+            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
+
+##### 3、错误码
+
+> 34001,34002,34003,34004,34005,34006,34999  
+
+
+#### 关闭连接功能  
+
+> 关闭连接具体无交互接口，只需客户端关闭session即可。  
+
+注意：SDK订阅是有具体接口的，此外当group下的所有订阅关系都取消后，Websocket订阅服务会自动检测到并关闭当前session连接。
+
+#### 示例  
+
+> 以下提供Client端简单功能示例代码，仅方便引导本地开发使用,具体可根据本地实际情况进行二次开发。  
+
+**客户端Websocket实现包的pom依赖说明**   
+
+可以选择一个具体的开源实现包，如Jetty的或Glassfish或Tomcat的，区别只是部分代码稍微不同。
+  
+Jetty的Websocket实现依赖包举例如下：  
+
+```    
+&lt;dependency&gt;  
+		&emsp;&lt;groupId&gt;org.eclipse.jetty.websocket&lt;/groupId&gt;  
+		&emsp;&lt;artifactId&gt;javax-websocket-server-impl&lt;/artifactId&gt;  
+		&emsp;&lt;version&gt;9.3.0.RC0 &lt;/version&gt;  
+&lt;/dependency&gt;  
+
+```
+ 
+Glassfish的Websocket实现依赖包举例如下：  
+
+```   
+&lt;dependency&gt;
+	&emsp;&lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
+	&emsp;&lt;artifactId&gt;tyrus-container-jdk-client&lt;/artifactId&gt;
+	&emsp;&lt;version&gt;1.14&lt;/version&gt;
+&lt;/dependency&gt;
+
+```
+
+Tomcat的Websocket实现依赖包举例如下：  
+
+``` 
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+	&lt;artifactId&gt;tomcat-embed-websocket&lt;/artifactId&gt;
+	&lt;version&gt;8.5.37&lt;/version&gt;
+&lt;/dependency&gt;
+ 
+```
+
+注：  
+(1) 如上插件版本最低适用于JDK7环境,如果本地大于JDK7,也可酌情尝试插件最新版本。  
+(2) 后续各示意代码以Jetty的Websocket实现依赖包为前提。  
+(3) 如果本地项目是SpringBoot Web工程，因为其已经默认内嵌了Tomcat相关jar（同时包含了Tomcat针对Websocket的相关实现jar），所以不必在pom.xml中单独做Websocket相关引入，但必须注意Tomcat相关jar的引用范围，如下示意：  
+```  
+&lt;dependency&gt;  
+	&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+	&emsp;&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;  
+	&emsp;&lt;!-- 移除嵌入式tomcat插件 --&gt;  
+ 			&emsp;&emsp;&lt;exclusions&gt;  
+				&emsp;&emsp;&emsp;&lt;exclusion&gt;  
+					&emsp;&emsp;&emsp;&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+					&emsp;&emsp;&emsp;&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
+				&emsp;&emsp;&emsp;&lt;/exclusion&gt;  
+			&emsp;&emsp;&lt;/exclusions&gt;  
+&lt;/dependency&gt;  
+&lt;!-- <font color="#FF0000">打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去</font> --&gt;  
+&lt;dependency&gt;  
+		&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+		&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
+		&emsp;<font color="#FF0000">&lt;scope&gt;provided&lt;/scope&gt;</font>  
+&lt;/dependency&gt;  
+
+```
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
 [dataSubscription_liucheng]:_media/_dataSubscription/dataSubscription_liucheng.png
-[dataS_flow]:_media/_dataSubscription/dataS_flow.png
+[dataS_flow]:_media/_dataSubscription/dataS_flow.png  
+[dataS_model]:_media/_dataSubscription/dataS_model.png
