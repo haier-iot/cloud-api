@@ -95,7 +95,7 @@ String getSign(String systemId, String systemKey, String timestamp) {
 
 ```
 
-## 数据通讯模型   
+## 数据通讯模型
 
  ![数据订阅场景流程][dataS_model]  
  
@@ -597,200 +597,200 @@ import org.eclipse.jetty.util.component.LifeCycle;
 
 整体示例代码如下（可复用），建立连接代码见红色标注部分  
 
-public class TestSubscribeMsg {</br>
-&emsp;public static AtomicInteger reConnectCount = new AtomicInteger(0);</br>
-&emsp;public static void main(final String[] args) {</br>
-&emsp;&emsp;buildConnectionAndSubscribeMsg();// 简单建立连接并订阅信息</br>
-&emsp;}</br>
-&emsp;private static boolean buildConnectionAndSubscribeMsg() {</br>
-&emsp;&emsp;String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";</br>
-&emsp;&emsp;String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}"; </br>
-&emsp;&emsp;MsgWebSocketClient msgWebSocketClient;</br>
-&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;// 建立连接</br>
-&emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient = new MsgWebSocketClient(uri);</font></br>
-&emsp;&emsp;&emsp;// 发送订阅信息</br>
-&emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;msgWebSocketClient = null;</br>
-&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;return false;</br>
-&emsp;&emsp;}</br>
-&emsp;&emsp;return true;</br>
-&emsp;}</br>
-&emsp;<font color="#FF0000">@ClientEndpoint</font></br>
-&emsp;public static class MsgWebSocketClient {</br>
-&emsp;&emsp;// 最新收消息时间,心跳发消息时做时间间隔计算</br>
-&emsp;&emsp;public static AtomicLong lastReceiveTime = null;</br>
-&emsp;&emsp;// 是否继续心跳标志位</br>
-&emsp;&emsp;public static AtomicBoolean isHeartBeatContinue = null;</br>
-&emsp;&emsp;private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");</br>
-&emsp;&emsp;// 创建容器对象（建立连接时要用）</br>
-&emsp;&emsp;private WebSocketContainer container = ContainerProvider.getWebSocketContainer();</br>
-&emsp;&emsp;// 一个连接对应一个session</br>
-&emsp;&emsp;private Session session = null;</br>
-&emsp;&emsp;// 心跳线程池</br>
-&emsp;&emsp;private ExecutorService executorService = null;</br>
-&emsp;&emsp;// 关闭心跳线程要用到</br>
-&emsp;&emsp;private Future<?> future = null;</br>
-
-&emsp;&emsp;// 无参构造方法(必须)</br>
-&emsp;&emsp;public MsgWebSocketClient() {</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;public MsgWebSocketClient(String uri) throws Exception {</br>
-&emsp;&emsp;&emsp;session = container.connectToServer(MsgWebSocketClient.class, URI.create(uri));</br>
-&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-&emsp;&emsp;&emsp;&emsp;executorService = Executors.newFixedThreadPool(1);</br>
-&emsp;&emsp;&emsp;&emsp;lastReceiveTime = new AtomicLong(System.currentTimeMillis());</br>
-&emsp;&emsp;&emsp;&emsp;isHeartBeatContinue = new AtomicBoolean(true);</br>
-&emsp;&emsp;&emsp;&emsp;session.setMaxIdleTimeout(0);// 值为0表示会话连接不会因为长时间无数据交互而超时</br>
-&emsp;&emsp;&emsp;&emsp;startHeartBeat();// 启动心跳</br>
-&emsp;&emsp;&emsp;} else {</br>
-&emsp;&emsp;&emsp;&emsp;container = null;</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;@OnMessage</br>
-&emsp;&emsp;public void onMessage(final String message) {</br>
-&emsp;&emsp;&emsp;long currentTime = System.currentTimeMillis();</br>
-&emsp;&emsp;&emsp;// 更新最新收消息时间</br>
-&emsp;&emsp;&emsp;lastReceiveTime.set(currentTime);</br>
-&emsp;&emsp;&emsp;String currentDateStr = dateFormat.format(currentTime);</br>
-&emsp;&emsp;&emsp;if (message.contains("-ack")) {</br>
-&emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到系统答信息：" + message));</br>
-&emsp;&emsp;&emsp;} else {</br>
-&emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到 message：" + message));</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-&emsp;&emsp;@OnClose</br>
-&emsp;&emsp;public void onClose(Session session, CloseReason closeReason) {</br>
-&emsp;&emsp;&emsp;System.out.println("Connection closed!");</br>
-&emsp;&emsp;&emsp;stopHeartBeat();</br>
-&emsp;&emsp;&emsp;stopContainer();</br>
-&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;if (closeReason.getCloseCode().getCode() == 1006) {// 连接异常关闭CLOSED_ABNORMALLY(1006)</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5s...");</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(5000);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = buildConnectionAndSubscribeMsg();</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5min...");</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(300000);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = buildConnectionAndSubscribeMsg();</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 24h...");</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(86400000);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;buildConnectionAndSubscribeMsg();</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;public void addCmdInfo(final String cmdInfo) {</br>
-&emsp;&emsp;&emsp;new Thread() {</br>
-&emsp;&emsp;&emsp;&emsp;public void run() {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;}.start();</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;public void close() {</br>
-&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;stopHeartBeat(); // 关闭心跳</br>
-&emsp;&emsp;&emsp;&emsp;session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接</br>
-&emsp;&emsp;&emsp;&emsp;stopContainer(); // 关闭容器</br>
-&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;private void stopContainer() {</br>
-&emsp;&emsp;    /\*\*</br>
-&emsp;&emsp;&emsp; \* 如果项目引用的是Jetty的websocket实现，则采用如下代码</br>
-&emsp;&emsp;&emsp; \* import org.eclipse.jetty.util.component.LifeCycle;</br>
-&emsp;&emsp;&emsp; \*/</br>
-&emsp;&emsp;&emsp;if (container instanceof LifeCycle) {</br>
-&emsp;&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;((LifeCycle) container).stop();</br>
-&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;
-&emsp;&emsp;&emsp;/\*\*</br>
-&emsp;&emsp;&emsp; \* 如果项目引用的是Glassfish的websocket实现，则采用如下代码</br>
-&emsp;&emsp;&emsp; \* import org.glassfish.tyrus.client.ClientManager;</br>
-&emsp;&emsp;&emsp; \*/</br>
-//&emsp;&emsp;&emsp;if (container instanceof ClientManager) {</br>
-//&emsp;&emsp;&emsp;&emsp;try {</br>
-//&emsp;&emsp;&emsp;&emsp;&emsp;((ClientManager) container).shutdown();</br>
-//&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-//&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-//&emsp;&emsp;&emsp;&emsp;}</br>
-//&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;
-&emsp;&emsp;&emsp;/\*\*</br>
-&emsp;&emsp;&emsp; \* 如果项目引用的是Tomcat的websocket实现，则采用如下代码</br>
-&emsp;&emsp;&emsp; \* import org.apache.tomcat.websocket.WsWebSocketContainer;</br>
-&emsp;&emsp;&emsp; \*/</br>
-//&emsp;&emsp;&emsp;if(container instanceof WsWebSocketContainer){</br>
-//&emsp;             try {</br>
-//&emsp;&emsp;&emsp;&emsp;&emsp;((WsWebSocketContainer) container).destroy();</br>
-//&emsp;&emsp;&emsp;&emsp; } catch (Exception e) {</br>
-//&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-//&emsp;&emsp;&emsp;&emsp; }&emsp;</br>
-//&emsp;&emsp;&emsp;}</br>
-}
-
-&emsp;&emsp;private void startHeartBeat() {</br>
-&emsp;&emsp;&emsp;future = executorService.submit(new HeartBeat());</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;private void stopHeartBeat() {</br>
-&emsp;&emsp;&emsp;if (future != null) {</br>
-&emsp;&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;isHeartBeatContinue.set(false);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;future.cancel(true);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;executorService.shutdown();</br>
-&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-
-&emsp;&emsp;private class HeartBeat implements Runnable {</br>
-&emsp;&emsp;&emsp;// 心跳间隔时间，具体根据实际情况设置,如nginx默认websocket超时时间是60s，则可以在连接无数据交互情况持续到快过期前发送一次心跳（这里设置55s时）</br>
-&emsp;&emsp;&emsp;private long heartBeatInterval = 55000;</br>
-
-&emsp;&emsp;&emsp;public void run() {</br>
-&emsp;&emsp;&emsp;&emsp;try {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;while (isHeartBeatContinue.get()) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;long startTime = System.currentTimeMillis();</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (startTime - lastReceiveTime.get() > heartBeatInterval) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String cmdInfo = "{'cmd': 'keepAlive'}";</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// 更新最新收消息时间</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;lastReceiveTime.set(System.currentTimeMillis());</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-&emsp;&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;&emsp;}</br>
-&emsp;&emsp;}</br>
-&emsp;}</br>
-}</br>
+  public class TestSubscribeMsg {</br>
+  &emsp;public static AtomicInteger reConnectCount = new AtomicInteger(0);</br>
+  &emsp;public static void main(final String[] args) {</br>
+  &emsp;&emsp;buildConnectionAndSubscribeMsg();// 简单建立连接并订阅信息</br>
+  &emsp;}</br>
+  &emsp;private static boolean buildConnectionAndSubscribeMsg() {</br>
+  &emsp;&emsp;String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";</br>
+  &emsp;&emsp;String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}"; </br>
+  &emsp;&emsp;MsgWebSocketClient msgWebSocketClient;</br>
+  &emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;// 建立连接</br>
+  &emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient = new MsgWebSocketClient(uri);</font></br>
+  &emsp;&emsp;&emsp;// 发送订阅信息</br>
+  &emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
+  &emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;msgWebSocketClient = null;</br>
+  &emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;return false;</br>
+  &emsp;&emsp;}</br>
+  &emsp;&emsp;return true;</br>
+  &emsp;}</br>
+  &emsp;<font color="#FF0000">@ClientEndpoint</font></br>
+  &emsp;public static class MsgWebSocketClient {</br>
+  &emsp;&emsp;// 最新收消息时间,心跳发消息时做时间间隔计算</br>
+  &emsp;&emsp;public static AtomicLong lastReceiveTime = null;</br>
+  &emsp;&emsp;// 是否继续心跳标志位</br>
+  &emsp;&emsp;public static AtomicBoolean isHeartBeatContinue = null;</br>
+  &emsp;&emsp;private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");</br>
+  &emsp;&emsp;// 创建容器对象（建立连接时要用）</br>
+  &emsp;&emsp;private WebSocketContainer container = ContainerProvider.getWebSocketContainer();</br>
+  &emsp;&emsp;// 一个连接对应一个session</br>
+  &emsp;&emsp;private Session session = null;</br>
+  &emsp;&emsp;// 心跳线程池</br>
+  &emsp;&emsp;private ExecutorService executorService = null;</br>
+  &emsp;&emsp;// 关闭心跳线程要用到</br>
+  &emsp;&emsp;private Future<?> future = null;</br>
+  
+  &emsp;&emsp;// 无参构造方法(必须)</br>
+  &emsp;&emsp;public MsgWebSocketClient() {</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;public MsgWebSocketClient(String uri) throws Exception {</br>
+  &emsp;&emsp;&emsp;session = container.connectToServer(MsgWebSocketClient.class, URI.create(uri));</br>
+  &emsp;&emsp;&emsp;if (session.isOpen()) {</br>
+  &emsp;&emsp;&emsp;&emsp;executorService = Executors.newFixedThreadPool(1);</br>
+  &emsp;&emsp;&emsp;&emsp;lastReceiveTime = new AtomicLong(System.currentTimeMillis());</br>
+  &emsp;&emsp;&emsp;&emsp;isHeartBeatContinue = new AtomicBoolean(true);</br>
+  &emsp;&emsp;&emsp;&emsp;session.setMaxIdleTimeout(0);// 值为0表示会话连接不会因为长时间无数据交互而超时</br>
+  &emsp;&emsp;&emsp;&emsp;startHeartBeat();// 启动心跳</br>
+  &emsp;&emsp;&emsp;} else {</br>
+  &emsp;&emsp;&emsp;&emsp;container = null;</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;@OnMessage</br>
+  &emsp;&emsp;public void onMessage(final String message) {</br>
+  &emsp;&emsp;&emsp;long currentTime = System.currentTimeMillis();</br>
+  &emsp;&emsp;&emsp;// 更新最新收消息时间</br>
+  &emsp;&emsp;&emsp;lastReceiveTime.set(currentTime);</br>
+  &emsp;&emsp;&emsp;String currentDateStr = dateFormat.format(currentTime);</br>
+  &emsp;&emsp;&emsp;if (message.contains("-ack")) {</br>
+  &emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到系统答信息：" + message));</br>
+  &emsp;&emsp;&emsp;} else {</br>
+  &emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到 message：" + message));</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  &emsp;&emsp;@OnClose</br>
+  &emsp;&emsp;public void onClose(Session session, CloseReason closeReason) {</br>
+  &emsp;&emsp;&emsp;System.out.println("Connection closed!");</br>
+  &emsp;&emsp;&emsp;stopHeartBeat();</br>
+  &emsp;&emsp;&emsp;stopContainer();</br>
+  &emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;if (closeReason.getCloseCode().getCode() == 1006) {// 连接异常关闭CLOSED_ABNORMALLY(1006)</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5s...");</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(5000);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = buildConnectionAndSubscribeMsg();</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5min...");</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(300000);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = buildConnectionAndSubscribeMsg();</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 24h...");</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(86400000);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;buildConnectionAndSubscribeMsg();</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;public void addCmdInfo(final String cmdInfo) {</br>
+  &emsp;&emsp;&emsp;new Thread() {</br>
+  &emsp;&emsp;&emsp;&emsp;public void run() {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;}.start();</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;public void close() {</br>
+  &emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;stopHeartBeat(); // 关闭心跳</br>
+  &emsp;&emsp;&emsp;&emsp;session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接</br>
+  &emsp;&emsp;&emsp;&emsp;stopContainer(); // 关闭容器</br>
+  &emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;private void stopContainer() {</br>
+  &emsp;&emsp;    /\*\*</br>
+  &emsp;&emsp;&emsp; \* 如果项目引用的是Jetty的websocket实现，则采用如下代码</br>
+  &emsp;&emsp;&emsp; \* import org.eclipse.jetty.util.component.LifeCycle;</br>
+  &emsp;&emsp;&emsp; \*/</br>
+  &emsp;&emsp;&emsp;if (container instanceof LifeCycle) {</br>
+  &emsp;&emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;((LifeCycle) container).stop();</br>
+  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;/\*\*</br>
+  &emsp;&emsp;&emsp; \* 如果项目引用的是Glassfish的websocket实现，则采用如下代码</br>
+  &emsp;&emsp;&emsp; \* import org.glassfish.tyrus.client.ClientManager;</br>
+  &emsp;&emsp;&emsp; \*/</br>
+  //&emsp;&emsp;&emsp;if (container instanceof ClientManager) {</br>
+  //&emsp;&emsp;&emsp;&emsp;try {</br>
+  //&emsp;&emsp;&emsp;&emsp;&emsp;((ClientManager) container).shutdown();</br>
+  //&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  //&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  //&emsp;&emsp;&emsp;&emsp;}</br>
+  //&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;
+  &emsp;&emsp;&emsp;/\*\*</br>
+  &emsp;&emsp;&emsp; \* 如果项目引用的是Tomcat的websocket实现，则采用如下代码</br>
+  &emsp;&emsp;&emsp; \* import org.apache.tomcat.websocket.WsWebSocketContainer;</br>
+  &emsp;&emsp;&emsp; \*/</br>
+  //&emsp;&emsp;&emsp;if(container instanceof WsWebSocketContainer){</br>
+  //&emsp;             try {</br>
+  //&emsp;&emsp;&emsp;&emsp;&emsp;((WsWebSocketContainer) container).destroy();</br>
+  //&emsp;&emsp;&emsp;&emsp; } catch (Exception e) {</br>
+  //&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  //&emsp;&emsp;&emsp;&emsp; }&emsp;</br>
+  //&emsp;&emsp;&emsp;}</br>
+  }
+  
+  &emsp;&emsp;private void startHeartBeat() {</br>
+  &emsp;&emsp;&emsp;future = executorService.submit(new HeartBeat());</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;private void stopHeartBeat() {</br>
+  &emsp;&emsp;&emsp;if (future != null) {</br>
+  &emsp;&emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;isHeartBeatContinue.set(false);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;future.cancel(true);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;executorService.shutdown();</br>
+  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  
+  &emsp;&emsp;private class HeartBeat implements Runnable {</br>
+  &emsp;&emsp;&emsp;// 心跳间隔时间，具体根据实际情况设置,如nginx默认websocket超时时间是60s，则可以在连接无数据交互情况持续到快过期前发送一次心跳（这里设置55s时）</br>
+  &emsp;&emsp;&emsp;private long heartBeatInterval = 55000;</br>
+  
+  &emsp;&emsp;&emsp;public void run() {</br>
+  &emsp;&emsp;&emsp;&emsp;try {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;while (isHeartBeatContinue.get()) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;long startTime = System.currentTimeMillis();</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (startTime - lastReceiveTime.get() > heartBeatInterval) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String cmdInfo = "{'cmd': 'keepAlive'}";</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// 更新最新收消息时间</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;lastReceiveTime.set(System.currentTimeMillis());</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
+  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
+  &emsp;&emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;&emsp;}</br>
+  &emsp;&emsp;}</br>
+  &emsp;}</br>
+  }</br>
 
 注:  
 (1)	心跳的JSON字符串格式如下：  
