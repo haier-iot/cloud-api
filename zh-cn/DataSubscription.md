@@ -110,6 +110,7 @@ String getSign(String systemId, String systemKey, String timestamp) {
 
 ## 数据订阅服务接口  
 
+
 #### 建立连接  
 > 提供建立连接的功能。客户端发起连接请求，数据订阅系统会对客户端连接请求进行鉴权后，建立与客户端的连接。   
 > 客户端发起连接请求，请求时携带对应应用的systemId和systemKey签名信息进行鉴权，鉴权成功返回鉴权结果，鉴权失败，则返回错误信息并断开连接。 
@@ -823,7 +824,7 @@ public class TextEncoder  implements Encoder.Text<String>{
 ```
 
 
-#### 返回码列表公共错误码   
+## 返回码列表公共错误码   
 
 | **错误码** | **描述** |  
 | :-------------: |:-------------:|  
