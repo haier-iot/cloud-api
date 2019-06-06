@@ -172,7 +172,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 ##### 1、接口定义  
 
-客户端向云端发送的JSON字符串格式数据如下（红色部分为示例数据）：  
+客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
 ```  
 
@@ -181,10 +181,10 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   "data": {
     "subdata": [
       {
-        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "topic": "DEV_EVENT",
         "keys": {
           "typeId": [
-            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+            "101c1200240008101e0a00000141414100000000020000000000000000000000"
           ]
         }
       }
@@ -196,7 +196,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 说明：用户一次性可以订阅多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
 
 
-云端向客户端返回订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）：
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
 
 ```  
 {
@@ -204,23 +204,23 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   "data": {
     "code": "00000",
     "result": "success",
-    "systemId": "<font color="#FF0000">SV-BLKALPHA21-0001-123</font>",
-    "desc":"Topic [<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT</font>] subscribed ok"
+    "systemId": "SV-BLKALPHA21-0001-123",
+    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT] subscribed ok"
   }
 }
 
 
 ```
 
-订阅成功之后，当topic有数据更新时，客户端会收到如下JSON字符串格式数据（红色部分为示例数据）：  
+订阅成功之后，当topic有数据更新时，客户端会收到如下JSON字符串格式数据：    
 
 ```   
 {
-"topic": "<font color="#FF0000">XXXXXXX</font>",
-"typeId": "<font color="#FF0000">000000001000000000000000000000000000</font>", 
+"topic": "XXXXXXX",
+"typeId": "000000001000000000000000000000000000", 
 "qos": "0", 
 "data": {
-          <font color="#FF0000">//消息内容，以schema为准</font>
+          //消息内容，以schema为准
 	    }
 }
 
@@ -238,7 +238,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 ##### 1、接口定义  
 
-客户端向云端发送的JSON字符串格式数据如下（红色部分为示例数据）： 
+客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
 
 ```  
 
@@ -247,10 +247,10 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   "data": {
     "subdata": [
       {
-        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "topic": "DEV_EVENT",
         "keys": {
           "typeId": [
-            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+            "101c1200240008101e0a00000141414100000000020000000000000000000000"
           ]
         }
       }
@@ -262,7 +262,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 
 
-云端向客户端返回订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）：
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
 
 ```  
 {
@@ -270,8 +270,8 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   "data": {
     "code": "00000",
     "result": "success",
-    "systemId": "<font color="#FF0000">SV-BLKALPHA21-0001-123</font>",
-    "desc":"Topic [<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT</font>] unsubscribed ok"
+    "systemId": "SV-BLKALPHA21-0001-123",
+    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT] unsubscribed ok"
   }
 }
 
@@ -304,7 +304,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 
 
-云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（红色部分为示例数据）：  
+云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
 ```  
 {
@@ -314,10 +314,10 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
     "result": "success",
     "retdata": [
       {
-        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "topic": "DEV_EVENT",
         "keys": {
           "typeId": [
-            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+            "101c1200240008101e0a00000141414100000000020000000000000000000000"
           ]
         }
       }
@@ -352,7 +352,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 
 
-云端向客户端返回当前client的订阅结果的响应JSON字符串格式数据如下（红色部分为示例数据）： 
+云端向客户端返回当前client的订阅结果的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
 
 ```  
 {
@@ -362,10 +362,10 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
     "result": "success",
     "retdata": [
       {
-        "topic": "<font color="#FF0000">DEV_EVENT</font>",
+        "topic": "DEV_EVENT",
         "keys": {
           "typeId": [
-            "<font color="#FF0000">101c1200240008101e0a00000141414100000000020000000000000000000000</font>"
+            "101c1200240008101e0a00000141414100000000020000000000000000000000"
           ]
         }
       }
@@ -396,61 +396,83 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   
 Jetty的Websocket实现依赖包举例如下：  
 
-```    
-&lt;dependency&gt;  
-		&emsp;&lt;groupId&gt;org.eclipse.jetty.websocket&lt;/groupId&gt;  
-		&emsp;&lt;artifactId&gt;javax-websocket-server-impl&lt;/artifactId&gt;  
-		&emsp;&lt;version&gt;9.3.0.RC0 &lt;/version&gt;  
-&lt;/dependency&gt;  
 
-```
+	<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>javax-websocket-server-impl</artifactId>
+			<version>9.3.0.RC0 </version>
+	</dependency>
+
+
  
 Glassfish的Websocket实现依赖包举例如下：  
 
-```   
-&lt;dependency&gt;
-	&emsp;&lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
-	&emsp;&lt;artifactId&gt;tyrus-container-jdk-client&lt;/artifactId&gt;
-	&emsp;&lt;version&gt;1.14&lt;/version&gt;
-&lt;/dependency&gt;
 
-```
+	<dependency>
+		<groupId>org.glassfish.tyrus</groupId>
+		<artifactId>tyrus-container-jdk-client</artifactId>
+		<version>1.14</version>
+	</dependency>
+
+
 
 Tomcat的Websocket实现依赖包举例如下：  
 
-``` 
-&lt;dependency&gt;
-	&lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
-	&lt;artifactId&gt;tomcat-embed-websocket&lt;/artifactId&gt;
-	&lt;version&gt;8.5.37&lt;/version&gt;
-&lt;/dependency&gt;
- 
-```
+
+	<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-websocket</artifactId>
+		<version>8.5.37</version>
+	</dependency>
+
+
 
 注：  
 (1) 如上插件版本最低适用于JDK7环境,如果本地大于JDK7,也可酌情尝试插件最新版本。  
 (2) 后续各示意代码以Jetty的Websocket实现依赖包为前提。  
 (3) 如果本地项目是SpringBoot Web工程，因为其已经默认内嵌了Tomcat相关jar（同时包含了Tomcat针对Websocket的相关实现jar），所以不必在pom.xml中单独做Websocket相关引入，但必须注意Tomcat相关jar的引用范围，如下示意：  
-```  
-&lt;dependency&gt;  
-	&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-	&emsp;&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;  
-	&emsp;&lt;!-- 移除嵌入式tomcat插件 --&gt;  
- 			&emsp;&emsp;&lt;exclusions&gt;  
-				&emsp;&emsp;&emsp;&lt;exclusion&gt;  
-					&emsp;&emsp;&emsp;&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-					&emsp;&emsp;&emsp;&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
-				&emsp;&emsp;&emsp;&lt;/exclusion&gt;  
-			&emsp;&emsp;&lt;/exclusions&gt;  
-&lt;/dependency&gt;  
-&lt;!-- <font color="#FF0000">打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去</font> --&gt;  
-&lt;dependency&gt;  
-		&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-		&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
-		&emsp;<font color="#FF0000">&lt;scope&gt;provided&lt;/scope&gt;</font>  
-&lt;/dependency&gt;  
 
-```
+
+	<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-web</artifactId>
+		  <!-- 移除嵌入式tomcat插件 -->
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions>
+	</dependency>
+	<!-- \*\*打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去\*\* -->
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+	</dependency>
+
+
+	
+		  
+		&lt;dependency&gt;  
+			&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+			&emsp;&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;  
+			&emsp;&lt;!-- 移除嵌入式tomcat插件 --&gt;  
+		 			&emsp;&emsp;&lt;exclusions&gt;  
+						&emsp;&emsp;&emsp;&lt;exclusion&gt;  
+							&emsp;&emsp;&emsp;&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+							&emsp;&emsp;&emsp;&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
+						&emsp;&emsp;&emsp;&lt;/exclusion&gt;  
+					&emsp;&emsp;&lt;/exclusions&gt;  
+		&lt;/dependency&gt;  
+		&lt;!-- <font color="#FF0000">打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去</font> --&gt;  
+		&lt;dependency&gt;  
+				&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
+				&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
+				&emsp;<font color="#FF0000">&lt;scope&gt;provided&lt;/scope&gt;</font>  
+		&lt;/dependency&gt;  
+	
+	
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
