@@ -92,22 +92,48 @@ API介绍如下：
 
 
 
-##### 2.5 退出uSDK
-App需要退出或者不需要使用U+物联功能时需要停止uSDK，可以减少系统资源消耗。
 
-    [[uSDKManager defaultManager]stopSDKWithSuccess:^{
-
-    } failure:^(NSError *error) {
-
-    }];
 
 ## 3.搜索设备
 uSDK启动前，APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，启动uSDK完成后会不断扫描本网络里的U+设备并上报给app，App通过实现设备列表变化回调方法得到实时更新的设备集合。本章分别讲解：管理变化设备列表集合、获得设备列表全集的方法。
 
+### 3.1 拉取云端设备列表
+通过uAccount类提供的获取设备列表方法获取用户绑定的设备列表。
+
+    [[uAccount defaultUAccount] getDeviceListWithMainType:nil  typeId:nil success:^(NSArray<UacDevice *> *failedIds) {
+        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:@"登录成功"];
+    } failure:^(RespCommonModel *failure) {
+        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:failure.retInfo];
+    } httpError:^(RespCommonModel *httpError) {
+        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:httpError.retInfo];
+    }];
+
+
+代码块success，执行成功时触发，failedIds：用户绑定的设备列表。<br>
+代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
+代码块httpError， 网络异常时触发<br>
+
+### 3.2 连接用户接入网关
+通过执行uSDKDeviceManager的connectToCloudWithDevices方法连接用户接入网关，使SDK缓存的设备对象具备远程交互的能力。<br>
+示例代码：
+
+	[[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:appDelegate.remoteSession gatewayDomain:appDelegate.gatewayDomain gatewayPort:[appDelegate.gatewayPort integerValue] success:^{
+                
+            } failure:^(NSError *error) {
+                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"connectToCloudWithDevices" message:error.localizedDescription delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                [view show];
+            }];
+connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力<br>
+deviceList：3.1章节中获取的用户绑定的设备列表。<br>
+remoteSession，U+云账号登录后的accessToken。<br>
+gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者需要注意智能设备和手机APP是否使用了相同的环境。<br>
+代码块success执行成功时被触发。<br>
+代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
+
    
-### 3.1获得变化设备
+### 3.3 获得新入网设备
 uSDK会将网络里所有的智能设备都管理起来，形成一个设备列表的集合，并进行管理。设备列表集合的数量会根据实际设备的数量变化而发生变化，例如：配置一台新设备入网并上线，集合中会增加一台设备；设备切断电源然后下线，集合中会减少一台设备。<br>
-APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，通过实现如下方法，可得到变化的设备列表；
+APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，通过实现如下方法，可得到新入网的设备列表；
 
 ##### 设置委托：
 
@@ -129,7 +155,7 @@ APP开发者需要实现uSDKDeviceManagerDelegage委托并设置委托，通过�
 
 devices：变化的设备列表集合。uSDK启动前设置委托，第一次接收到当前设备池里的所有设备集合，之后接收到的是状态发生变化的设备集合。uSDK启动成功后设置委托，第一次接收到的设备集合可能是所有设备集合，也可能是状态发生变化的设备集合。示例中使用uSDK的API获取所有设备的全集，使用变化的集合还是使用设备全集，需要根据实际业务需求确定。
 
-### 3.2获得全部设备
+### 3.4获得全部设备
 
     [[uSDKDeviceManager defaultDeviceManager].deviceDict.allValues;
 
@@ -138,16 +164,13 @@ devices：变化的设备列表集合。uSDK启动前设置委托，第一次接
 如果您的产品全部支持加密入网，建议使用加密入网方式，提升整套产品安全性能，否则使用普通配置入网方式。<br>
 
 ##### 设备配置绑定前提条件：
-用户登录且成功调用连接用户接入网关方法（uSDKDeviceManager的connectToCloudWithDevices方法）。<br>
-
+1、用户登录且成功调用连接用户接入网关方法（uSDKDeviceManager的connectToCloudWithDevices方法）。<br>
+2、设备和SDK在同一网络内，且连接U+云的环境相同（生产、开发）<br>
 ##### 获取设备配置方式
 1、查看设备使用说明书，查看设备配置方式<br>
 2、向设备提供人员进行咨询<br>
 3.技术支持QQ群：457841032<br>
 4.商务经理：wangzheng@haier.com<br>
-
-
-
 
 
 ###  4.1.SmartLink配置绑定
@@ -317,7 +340,7 @@ bleInfo：装载配置信息的对象，包括ssid、密码、超时时间等信
 代码块success触发时，设备配置绑定成功。<br>
 代码块failure配置绑定失败时触发，error中有需要关注的错误信息，error.code为错误码，开发者需要关注。<br>
 
-###### 步骤四、关闭蓝牙扫描功能
+##### 步骤四、关闭蓝牙扫描功能
 配置绑定完成后，或需要离开此界面时，建议停止蓝牙搜索功能，降低资源消耗。
 
 	 [uSDKDeviceScanner stopScanConfigurableDevice];
@@ -344,81 +367,21 @@ bleInfo：装载配置信息的对象，包括ssid、密码、超时时间等信
 -->
 
 
-##  5.解除设备绑定关系
-
-当该用用户与已绑定的设备不需要这种关联关系时，用户需要对该设备进行解绑操作，解除关联关系。解除绑定后的设备，将不再具备远程的控制能力。<br>
-
-使用uAccount解除绑定方法内部具有重试机制，为异步方法，不会阻塞线程，执行结果会在回调函数中以参数形式返回。
-
-示例代码：
-
-    [[uAccount defaultUAccount]unbindDeviceWithDeviceId:deviceID success:^(RespCommonModel *successModel) {
-        //解除绑定成功
-    } failure:^(RespCommonModel *failureModel) {
-       //解除绑定失败
-    } httpError:^(RespCommonModel *httpErrorModel) {
-       //Http请求发生异常
-    }];
-代码块success，执行成功时触发，successModel返回的具体信息。<br>
-代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
-代码块httpError 网络异常时触发<br>
-
-<!--### 5.2 使用UWS云服务解除设备绑定
-UWS服务是U+平台对外提供的服务，关于解除设备绑定的详情请见[海极网.UWS服务](https://www.haigeek.com/developercenter/static/develop.html#/devloperTools/)-->
-
-<!--### 5.2  异常处理
-设备进行绑定时的加密信息来源与 U+云，app调用bindDevice接口时，由于时间或网络因素，智能设备可能还没有成功连接到 U+云，开发者可以参考下列信息处理异常: 
-![public_get_bindinfo_error_code][public_get_bindinfo_error_code]-->
-
-
-## 6.控制设备
+## 5.控制设备
 控制设备就是通过SDK将命令发送给智能设备，完成设备功能改变的一项操作，控制命令包含单命令、组命令，具体命令参见设备的功能模型文档或ID开发文档。<br>
 
-使设备能够被成功控制，需要进行如下步骤的开发：<br>
+使设备能够被成功控制，按如下步骤的开发：<br>
 1、获取设备列表<br>
 2、连接用户接入网关<br>
 3、连接设备<br>
 4、执行设备控制方法<br>
 
-### 6.1 获取设备列表
-通过uAccount类提供的获取设备列表方法获取用户绑定的设备列表。
-
-    [[uAccount defaultUAccount] getDeviceListWithMainType:nil  typeId:nil success:^(NSArray<UacDevice *> *failedIds) {
-        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:@"登录成功"];
-    } failure:^(RespCommonModel *failure) {
-        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:failure.retInfo];
-    } httpError:^(RespCommonModel *httpError) {
-        [AlertViewTools shouAlertViewWithTitle:@"提示" Msg:httpError.retInfo];
-    }];
 
 
-代码块success，执行成功时触发，failedIds：用户绑定的设备列表。<br>
-代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
-代码块httpError， 网络异常时触发<br>
 
-### 6.2 连接用户接入网关
-通过执行uSDKDeviceManager的connectToCloudWithDevices方法连接用户接入网关，使SDK缓存的设备对象具备远程交互的能力。<br>
-示例代码：
+### 5.1 建立设备连接
+当需要获得某台设备属性数据或进行命令功能控制时，需要先执行设备连接方法，该方法执行成功后，等待一定时间设备会变为“已连接“/”就绪” 状态，设备就绪状态时可以执行设备控制和获取的设备的属性集合。<br>
 
-	[[uSDKDeviceManager defaultDeviceManager]connectToCloudWithDevices:devList token:appDelegate.remoteSession gatewayDomain:appDelegate.gatewayDomain gatewayPort:[appDelegate.gatewayPort integerValue] success:^{
-                
-            } failure:^(NSError *error) {
-                UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"connectToCloudWithDevices" message:error.localizedDescription delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
-                [view show];
-            }];
-connectToCloudWithDevices：连接用户接入网关，使设备具备远程控制能力<br>
-deviceList：6.1章节中获取的用户绑定的设备列表。<br>
-remoteSession，+云账号登录后的accessToken。<br>
-gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者需要注意智能设备和手机APP是否使用了相同的环境。<br>
-代码块success执行成功时被触发。<br>
-代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
-
-
-### 6.3 建立/断开设备连接
-当需要获得某台设备属性数据或进行命令功能控制时，需要先执行设备连接方法，该方法执行成功后，等待一定时间设备会变为“就绪” 状态，设备就绪状态时可以执行设备控制和获取的设备的属性集合。<br>
-当我们不在关注设备的状态属性或不需要对设备进行控制时，需要及时断开设备连接，可以减少SDK及设备的资源消耗！<br>
-
-##### 6.3.1连接设备
 开发者执行设备连接操作前，可以通过设备的isSubscribed属性对设备的状态进行判断，为NO时进行连接操作，如果是YES，不需要再次对设备执行连接操作。<br>
 
 目前uSDK只支持连接单个设备，不支持同时连接多个设备，如有需要请逐个方法调用。<br>
@@ -434,26 +397,19 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。开发者�
 代码块success执行成功时触发，等待一定时间后设备状态将变为“就绪” 状态。<br>
 代码块failure执行失败时触发，error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
 
-##### 6.3.2 断开设备连接
-关注某台设备属性数据时，执行断开连接设备方法，释放设备资源。只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
-
-    [self.currentDevice disconnectWithSuccess:^{
-
-    } failure:^(NSError *error) {
-
-    }];
 
 
-### 6.4 控制设备
+
+### 5.2 控制设备
 完成连接设备操作，设备变为就绪状态后，开发者可以通过uSDKDevice对象发送控制命令给设备，完成设备功能的改变。<br>
 核心类uSDKDevice提供API用于执行设备控制。下面将以6位码的ID文档和标准设备模型文档为例，下面将分别讲解单命令和组命令控制。
 
 6位码ID文档和标准设备模型文档获取方式<br>
 1、向对接的商务人员索取相关文档<br>
-2、登录海极网，获取创建设备的相关文档<br>
+2、设备创建者登录海极网，获取相关文档<br>
 
 
-#### 6.4.1 发送单命令（6位码）
+#### 5.2.1 发送单命令（6位码）
 单命令：App只发送一个指令给设备
 ![public_single_cmd][public_single_cmd]
 
@@ -478,7 +434,7 @@ value：属性值，NSString类型。如”201003”<br>
 代码块success命令执行成功时触发。<br>
 代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。 
 
-#### 6.4.2.发送组命令（6位码）
+#### 5.2.2.发送组命令（6位码）
 组命令是由组命令号/组命令标识、单命令集合两部分组成的。由组命令号/组命令标识,分为10进制和10进制两种<br>
 ID文档中的组命令号或组命令标识<br>
 ![public_group_cmd_stand][public_group_cmd_stand]
@@ -537,7 +493,7 @@ cmdList：uSDKArgument对象实例的集合<br>
 2．组命令标识字具体值参考设备的ID文档，需要传入长度6位的10进制大写的字符串。<br>
 3．App需要严格遵守ID文档组命令的具体规定，不能随意添加或者减少指令，命令格式中要求的指令key和value不能随意填空。
 
-#### 6.4.3 发送写属性命令（标准文档）
+#### 5.2.3 发送写属性命令（标准文档）
 海极网支持创建智能设备，创建完成后会产生《XX设备应用开发文档》，以下将说明如何使用此文档与设备进行交互。
 
 操作属性<br>
@@ -562,7 +518,7 @@ value：属性名称对应的可取值，NSString类型，必须和文档中一�
 1、发送指令时Key和Value大小写敏感（例如：”True”）。<br>
 2、可写列为F时，此行不能作为指令发送。
 
-#### 6.4.4.发送操作命令/组命令（标准文档）
+#### 5.2.4.发送操作命令/组命令（标准文档）
 操作，是一组属性的集合，即是您在海极网创建的高级命令， 需要使用发送组命令的形式发送。
 ##### 操作形式一：
 ![public_stand_cmd_getAllProperty][public_stand_cmd_getAllProperty]
@@ -613,12 +569,14 @@ cmdList：uSDKArgument对象实例的集合。不能为nil<br>
 代码块failure命令执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。
 
 
-## 7 获取设备属性/报警
+
+
+## 6 获取设备属性/报警
 完成连接设备操作且变为就绪状态后，App就能实时获得设备的最新属性和报警信息。本章主要讲解：实现获得设备变化的属性状态接口方法，获得设备的所有属性状态、获得设备设备报警信息等内容。
 
-### 7.1获得设备属性
+### 6.1获得设备属性
 App开发者成功连接设备并完成uSDKDeviceDelegate设置及实现委托，通过如下方法获得设备的属性值集合推送； 
-#### 7.1.1 获得设备变化的属性
+#### 6.1.1 获得设备变化的属性
 
 ##### 设置委托：
 
@@ -633,16 +591,16 @@ App开发者成功连接设备并完成uSDKDeviceDelegate设置及实现委托�
 
 attributes：第一次收到attributes时，它包含该设备所有的属性值的全集，之后收到的是变化的属性集合。
 
-#### 7.1.2 获得设备所有属性
+#### 6.1.2 获得设备所有属性
 当设备就绪或已连接状态时，uSDKDevice对象的attributeDict属性中保存设备当前最新属性值合集，非就绪状态属性返回值无意义。<br>
 示例代码：
 
     self.currentDevice.attributeDict;
 
-### 7.2 获得设备报警及如何报警处理
+### 6.2 获得设备报警及报警处理
 设备就绪或已连接状态下，智能设备或家电发生障或警告时，uSDK会将收到的报警信息即时推送给App。<br>
 
-#### 7.2.1 获取设备报警信息
+#### 6.2.1 获取设备报警信息
 App开发者需要成功连接设备并实现uSDKDeviceDelegate委托并设置委托，开发者可以通过uSDKDeviceAlarm类查看设备报警信息。<br>
 
 
@@ -678,13 +636,13 @@ App可以调用uSDKDevice的API获取设备缓存的所有报警信息
 self.currentDevice：uSDKDevice对象，App查询设备是否有报警信息<br>
 alarmList：设备当前的报警信息列表
 
-#### 7.2.2 收到报警后的处理方式
+#### 6.2.2 收到报警后的处理方式
 当智能设备或家电报警时，会向uSDK规律性连续发送报警信息，开发者需要将报警信息展示给APP使用者，由使用者决定是否可以向设备发送停止报警指令，若使用者已经了解设备已经发生故障，需要发送停止报警命令给设备，停止报警的指令参考设备的ID文档。
 
 
 
 
-## 8 接收U+平台消息推送
+## 7 接收U+平台消息推送
 经过上述开发步骤后，SDK已经与U+平台建立了数据通路，APP开发者需要实现uSDKManagerDelegage委托并设置委托，可以接受U+平台推送的各种消息，包括：业务消息、Session异常消、绑定/解除绑定消息。
 
 ##### 设置委托
@@ -692,7 +650,7 @@ alarmList：设备当前的报警信息列表
 	
 	uSDKManager *uSDKMgr = [uSDKManager    defaultManager]; uSDKMgr.delegate = self;
 	
-### 8.1接收业务消息推送
+### 7.1接收业务消息推送
 
 设置uSDKManagerDelegage委托后，通过实现如下方法，获得业务消息推送。<br>
 实现委托：
@@ -704,7 +662,7 @@ alarmList：设备当前的报警信息列表
 sdkManager 当前uSDKManager对象<br>
 businessMessage 当前推送的业务消息
 
-### 8.2接收Session异常消息推送
+### 7.2接收Session异常消息推送
 设置uSDKManagerDelegage委托后，通过实现如下方法，获得Session异常消息推送。
 
 实现委托：
@@ -716,10 +674,10 @@ businessMessage 当前推送的业务消息
 sdkManager：当前uSDKManager对象<br>
 token：当前会话失效的token
 
-### 8.3 接收绑定/解除绑定消息
+### 7.3 接收绑定/解除绑定消息
 同一帐号、在手机A和B上绑定同一台设备的时，在手机上A绑定/解绑设备后，手机B将会收到云平台推送的绑定/解除绑定消息。
 
-##### 8.3.1 接收绑定消息推送
+##### 7.3.1 接收绑定消息推送
 设置uSDKManagerDelegage委托后，通过实现如下方法，获得绑定消息推送。<br>
 实现委托：
 
@@ -729,7 +687,7 @@ token：当前会话失效的token
 deviceManager： 设备管理器对象<br>
 deviceID :  绑定设备的ID
 
-##### 8.3.2 接收解除绑定消息推送
+##### 7.3.2 接收解除绑定消息推送
 设置uSDKManagerDelegage委托后，通过实现如下方法，获得解除绑定消息推送。<br>
 实现委托：
 
@@ -743,7 +701,7 @@ deviceID :  解除绑定设备的ID
 同一token不能在多个APP上使用，否则会造成消息推送丢失、属性信息推送丢失的情况。
 
 
-## 9 授权设备
+## 8 授权设备
 移动端SDK能够对SmartDevice SDK接入设备进行授权的一种能力，该设备被授权后，具备控制其他设备的能力。
 
 ##### 授权设备前提条件：
@@ -752,14 +710,14 @@ deviceID :  解除绑定设备的ID
 3.被授权设备为已连接或就绪<br>
 4.所有涉及设备均绑定在帐号下<br>
 
-### 9.1 判断设备是否具备被授权的能力
+### 8.1 判断设备是否具备被授权的能力
 
     NSString *t =@"mqttUGWAuth";
     if(device.softwareType==t){
     	//判断设备是否被授权过
     }
 
-### 9.2 设备是否被授权
+### 8.2 设备是否被授权
 
     [device getDeviceAuthStateSuccess:^(BOOL authState) {
          if(authState==NO){
@@ -771,7 +729,7 @@ deviceID :  解除绑定设备的ID
 success 获取成功的回调authState为YES时 代表已经授权，为NO时 代表未授权
 failure 失败的回调
 
-### 9.3 执行授权操作
+### 8.3 执行授权操作
 
     [device authToDeviceSuccess:^{
        //设备授权成功
@@ -781,7 +739,7 @@ failure 失败的回调
 success，授权成功时触发
 failure，失败时触发
 
-###  9.4 撤消授权
+###  8.4 撤消授权
 
     [device authToDeviceInvalidSuccess:^{
         //取消授权成功
@@ -789,15 +747,61 @@ failure，失败时触发
         //取消授权失败，可以重试
     }]; 
 
-  
+##  9 解除设备绑定关系
+
+当该用用户与已绑定的设备不需要这种关联关系时，用户需要对该设备进行解绑操作，解除关联关系。解除绑定后的设备，将不再具备远程的控制能力。<br>
+
+解除绑定关系前，需要断开和设备连接。
+
+使用uAccount解除绑定方法内部具有重试机制，为异步方法，不会阻塞线程，执行结果会在回调函数中以参数形式返回。
+
+示例代码：
+
+    [[uAccount defaultUAccount]unbindDeviceWithDeviceId:deviceID success:^(RespCommonModel *successModel) {
+        //解除绑定成功
+    } failure:^(RespCommonModel *failureModel) {
+       //解除绑定失败
+    } httpError:^(RespCommonModel *httpErrorModel) {
+       //Http请求发生异常
+    }];
+代码块success，执行成功时触发，successModel返回的具体信息。<br>
+代码块failure，执行失败时触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
+代码块httpError 网络异常时触发<br>
+
+<!--### 5.2 使用UWS云服务解除设备绑定
+UWS服务是U+平台对外提供的服务，关于解除设备绑定的详情请见[海极网.UWS服务](https://www.haigeek.com/developercenter/static/develop.html#/devloperTools/)-->
+
+<!--### 5.2  异常处理
+设备进行绑定时的加密信息来源与 U+云，app调用bindDevice接口时，由于时间或网络因素，智能设备可能还没有成功连接到 U+云，开发者可以参考下列信息处理异常: 
+![public_get_bindinfo_error_code][public_get_bindinfo_error_code]-->
 
 
 
+##  10 断开设备连接
+当开发者不关注某台设备属性数据时，退出APP时、切换帐号登录时，需要执行断开连接设备方法，释放设备资源。
+只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
 
-## 10 海外业务开发指引
+    [self.currentDevice disconnectWithSuccess:^{
+
+    } failure:^(NSError *error) {
+
+    }]; 
+
+
+## 11 退出uSDK
+App需要退出或者不需要使用U+物联功能时需要停止uSDK，减少系统资源消耗。
+
+    [[uSDKManager defaultManager]stopSDKWithSuccess:^{
+
+    } failure:^(NSError *error) {
+
+    }];
+
+
+## 12 海外业务开发指引
 到目前为止国际版uSDK中能够支撑欧洲和美国两个环境，通过配置不同的参数，使SDK连接到不同的服务器。<br>
 
-### 10.1 设置配置文件下载地址
+### 12.1 设置配置文件下载地址
 uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海外数据中心下载配置文件使设备连接成功或就绪、可控。
 
 ##### 配置文件地址
@@ -814,7 +818,7 @@ uSDK启动前，需设置配置文件下载地址，使uSDK能够从指定的海
 url：下载配置文件服务器的地址，参数不能为@""或nil，长度不超过128，且必须以http或者https开头.<br>
 result：执行结果返回值，如果不等于RET_USDK_OK，程序不能向下执行
 
-### 10.2 连接海外用户网关
+### 12.2 连接海外用户网关
 开发海外远程功能时，需要连接不同地域使用的用户接入网关地址和端口不同，如在美国需要使用的美国数据中心，用户接入网关地址和端口应该是美国数据中心的地址和端口。
 
 ##### 海外用户网关地址和端口：
@@ -843,7 +847,7 @@ gatewayDomain和gatewayPort：用户接入网关的域名和端口。<br>
 代码块failure启动失败时被触发, error中有需要关注的错误信息，error.code为错误码，error.localizedDescription为错误码的文字描述。<br>
 
 
-### 10.3 SoftAP配置设备
+### 12.3 SoftAP配置设备
 已出厂的海外模块中已经烧写了指定海外数据中心地址,大多情况下不需要设置主网关地址来更改模块连接的数据中心，如需更改，通过softap时设置模块的主网关地址和端口的方法实现。<br>
 
 
