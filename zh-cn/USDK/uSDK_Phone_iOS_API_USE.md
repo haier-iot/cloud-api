@@ -410,8 +410,8 @@ bleInfo：装载配置信息的对象，包括ssid、密码、超时时间等信
 
 
 #### 5.2.1 发送单命令（6位码）
-单命令：App只发送一个指令给设备
-![public_single_cmd][public_single_cmd]
+单命令：App只发送一个指令给设备<br>
+![单命令][SingleCmd]
 
 使用uSDKDevice对象发送单命令时，需要严格遵守ID文档规定，发送指定的key和value，不能随意填写或填空，值不能超过ID文档规定的范围。不能使用发送组命令的方法发送单命令。<br>
 示例代码：
@@ -747,7 +747,28 @@ failure，失败时触发
         //取消授权失败，可以重试
     }]; 
 
-##  9 解除设备绑定关系
+
+##  9 断开设备连接
+当开发者不关注某台设备属性数据时，退出APP时、切换帐号登录时，需要执行断开连接设备方法，释放设备资源。
+只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
+
+    [self.currentDevice disconnectWithSuccess:^{
+
+    } failure:^(NSError *error) {
+
+    }]; 
+
+
+## 10 退出uSDK
+App需要退出或者不需要使用U+物联功能时需要停止uSDK，减少系统资源消耗。
+
+    [[uSDKManager defaultManager]stopSDKWithSuccess:^{
+
+    } failure:^(NSError *error) {
+
+    }];
+
+##  11 解除设备绑定关系
 
 当该用用户与已绑定的设备不需要这种关联关系时，用户需要对该设备进行解绑操作，解除关联关系。解除绑定后的设备，将不再具备远程的控制能力。<br>
 
@@ -774,28 +795,6 @@ UWS服务是U+平台对外提供的服务，关于解除设备绑定的详情请
 <!--### 5.2  异常处理
 设备进行绑定时的加密信息来源与 U+云，app调用bindDevice接口时，由于时间或网络因素，智能设备可能还没有成功连接到 U+云，开发者可以参考下列信息处理异常: 
 ![public_get_bindinfo_error_code][public_get_bindinfo_error_code]-->
-
-
-
-##  10 断开设备连接
-当开发者不关注某台设备属性数据时，退出APP时、切换帐号登录时，需要执行断开连接设备方法，释放设备资源。
-只支持单个设备断开连接，不支持同时断开连接多个设备，如有需要请逐个方法调用。
-
-    [self.currentDevice disconnectWithSuccess:^{
-
-    } failure:^(NSError *error) {
-
-    }]; 
-
-
-## 11 退出uSDK
-App需要退出或者不需要使用U+物联功能时需要停止uSDK，减少系统资源消耗。
-
-    [[uSDKManager defaultManager]stopSDKWithSuccess:^{
-
-    } failure:^(NSError *error) {
-
-    }];
 
 
 ## 12 海外业务开发指引
@@ -888,12 +887,12 @@ oftApConfigInfo : uSDKSoftApConfigInfo对象，在此对象中设置SSID、密�
 
 
 [^-^]:常用图片注释
-[public_single_cmd]:/_media/_usdk/public_single_cmd.png
-[public_group_cmd_sixcode]:/_media/_usdk/public_group_cmd_sixcode.png
-[public_group_cmd_stand]:/_media/_usdk/public_group_cmd_stand.png
-[public_op_attr_stand]:/_media/_usdk/public_op_attr_stand.png
-[public_stand_cmd_getAllProperty]:/_media/_usdk/public_stand_cmd_getAllProperty.png
-[public_stand_op_cmd_2]:/_media/_usdk/public_stand_op_cmd_2.png
-[public_user_gateway_dev_online]:/_media/_usdk/public_user_gateway_dev_online.png
-[public_get_bindinfo_error_code]:/_media/_usdk/public_get_bindinfo_error_code.png
-[connectstatus_change_step]:/_media/_usdk/connectstatus_change_step.png
+[SingleCmd]:img/SingleCmd.png
+[public_group_cmd_sixcode]:img/public_group_cmd_sixcode.png
+[public_group_cmd_stand]:img/public_group_cmd_stand.png
+[public_op_attr_stand]:img/public_op_attr_stand.png
+[public_stand_cmd_getAllProperty]:img/public_stand_cmd_getAllProperty.png
+[public_stand_op_cmd_2]:img/public_stand_op_cmd_2.png
+[public_user_gateway_dev_online]:img/public_user_gateway_dev_online.png
+[public_get_bindinfo_error_code]:img/public_get_bindinfo_error_code.png
+[connectstatus_change_step]:img/connectstatus_change_step.png
