@@ -1385,13 +1385,125 @@ Body:
 > A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、F31301
 
 
+#### 获取家庭二维码参数
+
+> 家庭管理员或家庭成员获取家庭二维码参数，获取加入家庭的二维码参数
+
+##### 1、接口定义
+
+?> **接入地址：** `/ufm/v1/protected/familyService/family/QRCode`
+
+**HTTP Method：** `POST`
+
+**输入参数**
+
+类型|参数名|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+FamilyQRCodeInfo|QRCode|body|是|
+
+**家庭模型快速响应码**
+
+字段名|类型|说明|备注
+:-:|:-:|:-:|:-
+shareUrl|String|分享url|非必填，不传或者传空传空字符，返回默认url，默认值为`http://uplusapp.cn/U/0005H`
+event|String|快速响应码要处理的事件|非必填，目前只支持`1uplus://joinFamily`其他事件返回参数错误，可不填，当event为空或者空字符时使用默认值`uplus://joinFamily`
+familyId|String|家庭ID|必填
+timeout|int|按秒计算，为二维码有效期|必填
+params|String|附加参数，数字字母最长64位|非必填
+
+**输出参数**
+
+类型|参数名|位置|必要性|说明
+:-:|:-:|:-:|:-:|:-
+String|familyId|body|必填|家庭id
+String|qrcode|body|必填|二位码url
+
+
+##### 2、请求样例
+**用户请求**
+```
+{ 
+	"familyId":"647112241261000000",
+	"timeout":30
+}
+
+```
+
+**请求应答**
+```
+  {
+	"retCode": "00000",
+	"retInfo": "成功",
+	"familyId": "647112241261000000",
+	"qrcode": "http://uplusapp.cn/U/0005H?token=748dae0417fe4361b7ff882785b4f021&content=uplus://joinFamily/748dae0417fe4361b7ff882785b4f021",
+	"expiresTime": "2019-06-01 11:47:11"
+}
+
+```
+
+##### 3、错误码
+
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31137
+
+
+
+#### 使用二维码加入家庭
+
+> 用户使用App扫描二维码后由app处理参数后，本接口执行加入家庭，如果用户已经是家庭成员或者家庭管理员，返回E31105，提示用户已经是家庭成员。
+
+##### 1、接口定义
+
+?> **接入地址：** `/ufm/v1/protected/familyService/family/QRCode/param`
+
+**HTTP Method：** `POST`
+
+**输入参数**
+
+类型|参数名|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+String|familyQRCode|Body|必填|用户通过接口“获取家庭二维码参数”获取的qrcode中，token的值
+userFamilyName|用户在家庭中的名称|Body|必填|用户加入家庭附属条件
+
+**输出参数**
+
+类型|参数名|位置|必要性|说明
+:-:|:-:|:-:|:-:|:-
+String|familyId|body|必填|家庭id
+
+
+##### 2、请求样例
+**用户请求**
+```
+{
+	"familyQRCode":"748dae0417fe4361b7ff882785b4f021",
+	"userFamilyName":"cindy"
+}
+
+```
+
+**输出参数**
+
+```
+{
+   "familyId": "647112241261000000",
+    "retCode": "00000",
+	"retInfo": "成功"
+}
+```
+
+##### 3、错误码
+
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138
+
+
+
 ### 设备分享管理服务
 
 #### 家庭管理员或家庭成员查询家庭的所有设备
 > 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/{familyid}/shareDevices`  
+?> **接入地址：**  `/ufm/v1/protected/shareDeviceService/ family/{familyid}/shareDevices`  
  **HTTP Method：** GET
 
 **输入参数**  
