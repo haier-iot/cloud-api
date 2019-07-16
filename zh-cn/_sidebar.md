@@ -4,7 +4,7 @@
 
 	* [商务合作](zh-cn/Business)  
 
-	* [接入规范](zh-cn/Standard/Basic)     
+	* [接入规范<sup style="color:red">(重要)<sup>](zh-cn/Standard/Basic)     
 
 	* [常用信息](zh-cn/Standard/Other) 
 	
@@ -12,7 +12,7 @@
 
 * [账户服务](zh-cn/Account)  
 
-* [会话分享](zh-cn/Session)   
+* [账户授权](zh-cn/Session)   
 
 * [设备管理](zh-cn/DeviceManage)
 
@@ -37,13 +37,13 @@
 
 * [移动端SDK能力简介](zh-cn/uSDK)   
 
-*  移动端SDK_IOS 开发指南  
+*  移动端SDK_IOS
 
 	* [使用说明](zh-cn/USDK/uSDK_Phone_iOS_USE_GUIDE)   
 	
 	* [接口说明](zh-cn/USDK/uSDK_Phone_iOS_API_USE)  
 
-*  移动端SDK_Android 开发指南  
+*  移动端SDK_Android
 
 	* [使用说明](zh-cn/USDK/uSDK_Phone_Android)  
 	

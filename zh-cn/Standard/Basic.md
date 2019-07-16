@@ -5,13 +5,13 @@
 
 1. **接入前提**    
 
-应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品；  
+在海极网 http://www.haigeek.com 注册成为开发者，并且申请创建自己的产品应用；  
 
-按照应用产品的开发测试、发布上线的阶段步骤对应使用所创建应用分配的appid、appkey的信息接入海尔U+云平台的UWS服务。
+在 开发者、生产环境的appid、appkey 接入IOT平台UWS（U+ Web Service)服务；
 
 2. **接入方式**    
 
-云平台UWS与应用的交互接口统一为基于JSON的REST接口。  
+UWS与应用的交互接口统一为基于JSON的REST接口。  
 GET、DELETE原语的请求参数为url的QueryParam，需要进行URLEncode。 
 
 UWS的使用方应做如下假设：  
@@ -26,7 +26,7 @@ UWS的使用方应做如下假设：
 
 应用开发时，请连接开发者环境进行开发、测试；
 
-> 生产环境域名:`https://uws.haier.net`  
+> 生产环境域名：`https://uws.haier.net`  
 > 开发者环境域名：`https://dev-uws.haigeek.com`
 
 
@@ -35,7 +35,7 @@ UWS的使用方应做如下假设：
 |服务名称|应用名|备注
 :-:|:-:|:-:  
 [账户服务](zh-cn/Account)|N/A|账户登录管理
-[账户授权](zh-cn/Account)|uaccount|应用OAuth授权，用户授权管理
+[账户授权](zh-cn/Session)|uaccount|应用OAuth授权，用户授权管理
 [设备管理](zh-cn/DeviceManage)|uds、stdudse、udse|设备注册、设备管理、设备控制
 [数据订阅](zh-cn/DataSubscription)|N/A|设备数据订阅、应用数据订阅
 [家庭模型](zh-cn/FamilyManage)|ufm、ufme|家庭成员管理、家庭设备管理
