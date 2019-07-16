@@ -28,7 +28,7 @@
 
 ## 接口列表
 
-### Authorization Code授权
+### 获取授权Code
 
 > 通过accessToken，请求分享的appId，clientId获取会话分享的验证码，该验证码可用于生成请求分享终端的会话，即实现同一个账号通过一个应用授权登录其他应用终端的过程。  
 
@@ -182,7 +182,7 @@ B00004|参数不符合规则要求|
 B00001|缺少必填参数|code不存在   
 B00002|参数类型错误|数据格式错误   
 
-### 登录会话刷新  
+### Refresh Token 刷新 Access Token
 
 > accessToken过期后，可以使用对应的refreshToken获取新的accessToken。  
 
@@ -342,7 +342,7 @@ D00008|用户不合法|Token已过期或不存在
 D00030|未授权|分享获取的token不能取消授权     
 
 
-### 取消会话分享  
+### 用户取消授权 
 
 > 用户提交登录获取的Token（或登录进行会话延期获取的Token）和会话分享的appId和clientId，Token校验成功且会话分享存在的情况下，将通过会话分享获取的RefreshToken和accessToken及会话延期的Token全部设置为失效。  
 
