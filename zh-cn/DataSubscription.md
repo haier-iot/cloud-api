@@ -94,8 +94,20 @@ String getSign(String systemId, String systemKey, String timestamp) {
   }
 
 ```
+### 公共错误码   
 
-## 数据通讯模型
+| **错误码** | **描述** |  
+| :-------------: |:-------------:|  
+|34001|Illegal parameters.（参数非法）|  
+|34002|The type information obtained is illegal. （获取到的类型信息非法）|  
+|34003|Add subscribe relationship fail. （添加订阅关系鉴权失败）|  
+|34004|Delete subscribe relationship fail. （取消订阅关系鉴权失败）|  
+|34005|Illegal result of search. （查询结果异常）|  
+|34006|Invalid connection. （连接异常）|  
+|34999|UnKnown error. （未知异常）|  
+
+
+## 接口列表  
 
  ![数据订阅场景流程][dataS_model]  
  
@@ -106,9 +118,6 @@ String getSign(String systemId, String systemKey, String timestamp) {
 针对同一个云服务，发起多次连接，服务端则认为是多个客户端发起请求，所有消息将平衡分发到多个客户端上，每个云服务最多可发起连接数为系统可配置参数。  
 
 取消订阅，则删除订阅关系，服务端返回客户端取消响应结果。  
-
-
-## 数据订阅服务接口  
 
 
 ### 建立连接  
@@ -138,7 +147,7 @@ data|String|body|必填|响应结果
 
 **请求地址**
 
-```
+```java
 wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-0001-123&timestamp=1491013448629&sign=c70500c16563b5ccc7d032831bff34a5cb02c147ca6beeffff54d22d262a319e&isSubscribeEarliestMessage=false
 ```
 
@@ -146,7 +155,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 **请求应答**
 
-```
+```java
 {
   "cmd": "authenticate-ack",
   "data": {
@@ -175,7 +184,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
-```  
+```java  
 
 {
   "cmd": "subscribe",
@@ -199,7 +208,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
 
-```  
+```java  
 {
   "cmd": "subscribe-ack",
   "data": {
@@ -215,7 +224,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 订阅成功之后，当topic有数据更新时，客户端会收到如下JSON字符串格式数据：    
 
-```   
+```java   
 {
 "topic": "XXXXXXX",
 "typeId": "000000001000000000000000000000000000", 
@@ -241,7 +250,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
 
-```  
+```java  
 
 {
   "cmd": "unsubscribe",
@@ -265,7 +274,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
 
-```  
+```java  
 {
   "cmd": "unsubscribe-ack",
   "data": {
@@ -294,7 +303,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 客户端向云端发送的JSON字符串格式数据如下： 
 
-```  
+```java  
 
 {
   "cmd": "searchSystem"
@@ -307,7 +316,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
-```  
+```java  
 {
   "cmd": "searchSystem-ack",
   "data": {
@@ -342,7 +351,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 客户端向云端发送的JSON字符串格式数据如下:  
 
-```  
+```java  
 
 {
   "cmd": "searchClient"
@@ -355,7 +364,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 云端向客户端返回当前client的订阅结果的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
 
-```  
+```java  
 {
   "cmd": "searchClient-ack",
   "data": {
@@ -397,35 +406,36 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
   
 Jetty的Websocket实现依赖包举例如下：  
 
-
+```xml
 	<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>javax-websocket-server-impl</artifactId>
 			<version>9.3.0.RC0 </version>
 	</dependency>
 
-
+```
  
 Glassfish的Websocket实现依赖包举例如下：  
 
 
+```xml
 	<dependency>
 		<groupId>org.glassfish.tyrus</groupId>
 		<artifactId>tyrus-container-jdk-client</artifactId>
 		<version>1.14</version>
 	</dependency>
-
+```
 
 
 Tomcat的Websocket实现依赖包举例如下：  
 
-
+```xml
 	<dependency>
 		<groupId>org.apache.tomcat.embed</groupId>
 		<artifactId>tomcat-embed-websocket</artifactId>
 		<version>8.5.37</version>
 	</dependency>
-
+```
 
 
 注：  
@@ -433,133 +443,147 @@ Tomcat的Websocket实现依赖包举例如下：
 (2) 后续各示意代码以Jetty的Websocket实现依赖包为前提。  
 (3) 如果本地项目是SpringBoot Web工程，因为其已经默认内嵌了Tomcat相关jar（同时包含了Tomcat针对Websocket的相关实现jar），所以不必在pom.xml中单独做Websocket相关引入，但必须注意Tomcat相关jar的引用范围，如下示意：  
 
-&lt;dependency&gt;  
-	&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-	&emsp;&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;  
-	&emsp;&lt;!-- 移除嵌入式tomcat插件 --&gt;  
- 			&emsp;&emsp;&lt;exclusions&gt;  
-				&emsp;&emsp;&emsp;&lt;exclusion&gt;  
-					&emsp;&emsp;&emsp;&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-					&emsp;&emsp;&emsp;&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
-				&emsp;&emsp;&emsp;&lt;/exclusion&gt;  
-			&emsp;&emsp;&lt;/exclusions&gt;  
-&lt;/dependency&gt;  
-&lt;!-- <font color="#FF0000">打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去</font> --&gt;  
-&lt;dependency&gt;  
-		&emsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;  
-		&emsp;&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;  
-		&emsp;<font color="#FF0000">&lt;scope&gt;provided&lt;/scope&gt;</font>  
-&lt;/dependency&gt;  
-
+```xml
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-web</artifactId>
+ <!-- 移除嵌入式tomcat插件 -->
+  <exclusions>
+   <exclusion>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+   </exclusion>
+  </exclusions>
+</dependency>  
+<!-- 打war包时加入此项， 告诉spring-boot tomcat相关jar包用外部tomcat服务器的，不要打进去 -->  
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-tomcat</artifactId>
+ <scope>provided</scope>
+</dependency>
+```
 
 
 **2、 初始化客户端建立连接**   
 
-String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";</br>
-MsgWebSocketClient msgWebSocketClient;</br>
-try {</br>
-	&emsp;// 。。。。</br>
-	&emsp;// 建立连接</br>
-	&emsp;<font color="#FF0000">msgWebSocketClient = new MsgWebSocketClient(uri);</font></br>
-	&emsp;// 。。。。</br>
-	} catch (Exception e) {</br>
-		&emsp;&emsp;msgWebSocketClient = null;</br>
-		&emsp;&emsp;e.printStackTrace();</br>
-		&emsp;&emsp;return false;</br>
-	&emsp;}</br>
-	&emsp;return true;</br>
-}</br>
-
+```java
+String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";
+MsgWebSocketClient msgWebSocketClient;
+try {
+ // 。。。。
+ // 建立连接
+ msgWebSocketClient = new MsgWebSocketClient(uri);
+ // 。。。。
+} catch (Exception e) {
+  msgWebSocketClient = null;
+  e.printStackTrace();
+  return false;
+ }
+ return true;
+}
+```
 
 
 
 **3、 订阅详细消息**   
 
 	
-//组织订阅消息JSON</br>
-String cmdInfo = "{'cmd':'<font color="#FF0000">subscribe</font>','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}";</br> 
-MsgWebSocketClient msgWebSocketClient;</br>
-try {</br>
-	&emsp;// 建立连接</br>
-	&emsp;msgWebSocketClient = new MsgWebSocketClient(uri);</br>
-	&emsp;// 发送订阅信息</br>
-	&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-} catch (Exception e) {</br>
-		&emsp;msgWebSocketClient = null;</br>
-		&emsp;e.printStackTrace();</br>
-		&emsp;return false;</br>
-}</br>
-return true;</br>  
-
+ ```java 
+//组织订阅消息JSON
+String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}";
+MsgWebSocketClient msgWebSocketClient;
+try {
+ // 建立连接
+ msgWebSocketClient = new MsgWebSocketClient(uri);
+ // 发送订阅信息
+ msgWebSocketClient.addCmdInfo(cmdInfo);
+} catch (Exception e) {
+ msgWebSocketClient = null;
+ e.printStackTrace();
+ return false;
+}
+return true;
+```
 
 **4、 取消订阅详细消息**   
 
-//组织取消订阅消息JSON</br>
-String cmdInfo = "{'cmd':'<font color="#FF0000">unsubscribe</font>','data':{'subdata':[{'topic':'DEV_EVENT','keys':{'typeId':['901c1200240008101e0a00000141414100000000020000000000000000000000']}}]}}"</br>
-MsgWebSocketClient msgWebSocketClient;</br>
-		try {</br>
-			&emsp;&emsp;// 建立连接</br>
-			&emsp;&emsp;msgWebSocketClient = new MsgWebSocketClient(uri);</br>
-			&emsp;&emsp;// 发送订阅信息</br>
-			&emsp;&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-		} catch (Exception e) {</br>
-			&emsp;&emsp;msgWebSocketClient = null;</br>
-			&emsp;&emsp;e.printStackTrace();</br>
-			&emsp;&emsp;return false;</br>
-		}</br>
-return true;</br>
+```java
+//组织取消订阅消息JSON
+String cmdInfo = "{'cmd':'unsubscribe','data':{'subdata':[{'topic':'DEV_EVENT','keys':{'typeId':['901c1200240008101e0a00000141414100000000020000000000000000000000']}}]}}"
+MsgWebSocketClient msgWebSocketClient;
+try {
+  // 建立连接
+  msgWebSocketClient = new MsgWebSocketClient(uri);
+  // 发送订阅信息
+  msgWebSocketClient.addCmdInfo(cmdInfo);
+} catch (Exception e) {
+  msgWebSocketClient = null;
+  e.printStackTrace();
+  return false;
+}
+return true;
+
+```
 
 
 **5、 查询当前客户端订阅关系**  	  
 
-//组织查询当前客户端订阅关系消息JSON</br>
-String cmdInfo = "{'cmd':'<font color="#FF0000">searchClient</font>'}";</br>
-MsgWebSocketClient msgWebSocketClient;</br>
-		&emsp;try {</br>
-			&emsp;&emsp;// 建立连接</br>
-			&emsp;&emsp;msgWebSocketClient = new MsgWebSocketClient(uri);</br>
-			&emsp;&emsp;// 发送订阅信息</br>
-			&emsp;&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-		&emsp;} catch (Exception e) {</br>
-			&emsp;&emsp;msgWebSocketClient = null;</br>
-			&emsp;&emsp;e.printStackTrace();</br>
-			&emsp;&emsp;return false;</br>
-		}</br>
-	return true;</br>  
+```java
+//组织查询当前客户端订阅关系消息JSON
+String cmdInfo = "{'cmd':'searchClient'}";
+MsgWebSocketClient msgWebSocketClient;
+ try {
+  // 建立连接
+  msgWebSocketClient = new MsgWebSocketClient(uri);
+  // 发送订阅信息
+  msgWebSocketClient.addCmdInfo(cmdInfo);
+ } catch (Exception e) {
+  msgWebSocketClient = null;
+  e.printStackTrace();
+  return false;
+}
+return true;
+
+```
 
 
 **6、 查询当前客户对应的systemId下的所有订阅关系**  	
 
-//组织查询当前客户对应的systemId下的所有订阅关系消息JSON</br>
-String cmdInfo = "{'cmd':'<font color="#FF0000">searchSystem</font>'}";</br>
-MsgWebSocketClient msgWebSocketClient;</br>
-		try {</br>
-			&emsp;// 建立连接</br>
-			&emsp;msgWebSocketClient = new MsgWebSocketClient(uri);</br>
-			&emsp;// 发送订阅信息</br>
-			&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-		} catch (Exception e) {</br>
-			&emsp;msgWebSocketClient = null;</br>
-			&emsp;e.printStackTrace();</br>
-			&emsp;return false;</br>
-		}</br>
-		return true;</br>  
+```java
+//组织查询当前客户对应的systemId下的所有订阅关系消息JSON
+String cmdInfo = "{'cmd':'searchSystem'}";
+MsgWebSocketClient msgWebSocketClient;
+try {
+ // 建立连接
+ msgWebSocketClient = new MsgWebSocketClient(uri);
+ // 发送订阅信息
+ msgWebSocketClient.addCmdInfo(cmdInfo);
+} catch (Exception e) {
+ msgWebSocketClient = null;
+ e.printStackTrace();
+ return false;
+}
+return true;
+
+```
 
 
 **7、 关闭当前客户端连接**  	
 
-MsgWebSocketClient msgWebSocketClient;</br>
-		try {</br>
-			&emsp;// 建立连接</br>
-			&emsp;msgWebSocketClient = new MsgWebSocketClient(uri);</br>
-			&emsp;//关闭连接</br>
-			&emsp;<font color="#FF0000">msgWebSocketClient.close();</font></br>
-		} catch (Exception e) {</br>
-			&emsp;msgWebSocketClient = null;</br>
-			&emsp;e.printStackTrace();</br>
-			&emsp;return false;</br>
-		}</br>
-return true;</br>  
+```java
+MsgWebSocketClient msgWebSocketClient;
+try {
+ // 建立连接
+ msgWebSocketClient = new MsgWebSocketClient(uri);
+ //关闭连接
+ msgWebSocketClient.close();
+} catch (Exception e) {
+ msgWebSocketClient = null;
+ e.printStackTrace();
+ return false;
+}
+return true;
+```
 
 注：如果每次建立连接后只是进行查询等一次性操作（即不需要连接长时间保留），则建议操作完后关闭当前链接，同时不建议使用心跳。  
 
@@ -573,7 +597,7 @@ return true;</br>
 
 import 引用头：  
 
-```
+```java
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -597,210 +621,219 @@ import org.eclipse.jetty.util.component.LifeCycle;
 
 整体示例代码如下（可复用），建立连接代码见红色标注部分  
 
-  public class TestSubscribeMsg {</br>
-  &emsp;public static AtomicInteger reConnectCount = new AtomicInteger(0);</br>
-  &emsp;public static void main(final String[] args) {</br>
-  &emsp;&emsp;buildConnectionAndSubscribeMsg();// 简单建立连接并订阅信息</br>
-  &emsp;}</br>
-  &emsp;private static boolean buildConnectionAndSubscribeMsg() {</br>
-  &emsp;&emsp;String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";</br>
-  &emsp;&emsp;String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}"; </br>
-  &emsp;&emsp;MsgWebSocketClient msgWebSocketClient;</br>
-  &emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;// 建立连接</br>
-  &emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient = new MsgWebSocketClient(uri);</font></br>
-  &emsp;&emsp;&emsp;// 发送订阅信息</br>
-  &emsp;&emsp;&emsp;<font color="#FF0000">msgWebSocketClient.addCmdInfo(cmdInfo);</font></br>
-  &emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;msgWebSocketClient = null;</br>
-  &emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;return false;</br>
-  &emsp;&emsp;}</br>
-  &emsp;&emsp;return true;</br>
-  &emsp;}</br>
-  &emsp;<font color="#FF0000">@ClientEndpoint</font></br>
-  &emsp;public static class MsgWebSocketClient {</br>
-  &emsp;&emsp;// 最新收消息时间,心跳发消息时做时间间隔计算</br>
-  &emsp;&emsp;public static AtomicLong lastReceiveTime = null;</br>
-  &emsp;&emsp;// 是否继续心跳标志位</br>
-  &emsp;&emsp;public static AtomicBoolean isHeartBeatContinue = null;</br>
-  &emsp;&emsp;private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");</br>
-  &emsp;&emsp;// 创建容器对象（建立连接时要用）</br>
-  &emsp;&emsp;private WebSocketContainer container = ContainerProvider.getWebSocketContainer();</br>
-  &emsp;&emsp;// 一个连接对应一个session</br>
-  &emsp;&emsp;private Session session = null;</br>
-  &emsp;&emsp;// 心跳线程池</br>
-  &emsp;&emsp;private ExecutorService executorService = null;</br>
-  &emsp;&emsp;// 关闭心跳线程要用到</br>
-  &emsp;&emsp;private Future<?> future = null;</br>
-  
-  &emsp;&emsp;// 无参构造方法(必须)</br>
-  &emsp;&emsp;public MsgWebSocketClient() {</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;public MsgWebSocketClient(String uri) throws Exception {</br>
-  &emsp;&emsp;&emsp;session = container.connectToServer(MsgWebSocketClient.class, URI.create(uri));</br>
-  &emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-  &emsp;&emsp;&emsp;&emsp;executorService = Executors.newFixedThreadPool(1);</br>
-  &emsp;&emsp;&emsp;&emsp;lastReceiveTime = new AtomicLong(System.currentTimeMillis());</br>
-  &emsp;&emsp;&emsp;&emsp;isHeartBeatContinue = new AtomicBoolean(true);</br>
-  &emsp;&emsp;&emsp;&emsp;session.setMaxIdleTimeout(0);// 值为0表示会话连接不会因为长时间无数据交互而超时</br>
-  &emsp;&emsp;&emsp;&emsp;startHeartBeat();// 启动心跳</br>
-  &emsp;&emsp;&emsp;} else {</br>
-  &emsp;&emsp;&emsp;&emsp;container = null;</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;@OnMessage</br>
-  &emsp;&emsp;public void onMessage(final String message) {</br>
-  &emsp;&emsp;&emsp;long currentTime = System.currentTimeMillis();</br>
-  &emsp;&emsp;&emsp;// 更新最新收消息时间</br>
-  &emsp;&emsp;&emsp;lastReceiveTime.set(currentTime);</br>
-  &emsp;&emsp;&emsp;String currentDateStr = dateFormat.format(currentTime);</br>
-  &emsp;&emsp;&emsp;if (message.contains("-ack")) {</br>
-  &emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到系统答信息：" + message));</br>
-  &emsp;&emsp;&emsp;} else {</br>
-  &emsp;&emsp;&emsp;&emsp;System.out.println((currentDateStr + " 收到 message：" + message));</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  &emsp;&emsp;@OnClose</br>
-  &emsp;&emsp;public void onClose(Session session, CloseReason closeReason) {</br>
-  &emsp;&emsp;&emsp;System.out.println("Connection closed!");</br>
-  &emsp;&emsp;&emsp;stopHeartBeat();</br>
-  &emsp;&emsp;&emsp;stopContainer();</br>
-  &emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;if (closeReason.getCloseCode().getCode() == 1006) {// 连接异常关闭CLOSED_ABNORMALLY(1006)</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5s...");</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(5000);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;boolean isSuccess = buildConnectionAndSubscribeMsg();</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 5min...");</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(300000);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;isSuccess = buildConnectionAndSubscribeMsg();</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (!isSuccess) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;System.out.println("Try restarting the connection after 24h...");</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thread.sleep(86400000);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;buildConnectionAndSubscribeMsg();</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;public void addCmdInfo(final String cmdInfo) {</br>
-  &emsp;&emsp;&emsp;new Thread() {</br>
-  &emsp;&emsp;&emsp;&emsp;public void run() {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;}.start();</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;public void close() {</br>
-  &emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;stopHeartBeat(); // 关闭心跳</br>
-  &emsp;&emsp;&emsp;&emsp;session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接</br>
-  &emsp;&emsp;&emsp;&emsp;stopContainer(); // 关闭容器</br>
-  &emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;private void stopContainer() {</br>
-  &emsp;&emsp;    /\*\*</br>
-  &emsp;&emsp;&emsp; \* 如果项目引用的是Jetty的websocket实现，则采用如下代码</br>
-  &emsp;&emsp;&emsp; \* import org.eclipse.jetty.util.component.LifeCycle;</br>
-  &emsp;&emsp;&emsp; \*/</br>
-  &emsp;&emsp;&emsp;if (container instanceof LifeCycle) {</br>
-  &emsp;&emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;((LifeCycle) container).stop();</br>
-  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;
-  &emsp;&emsp;&emsp;/\*\*</br>
-  &emsp;&emsp;&emsp; \* 如果项目引用的是Glassfish的websocket实现，则采用如下代码</br>
-  &emsp;&emsp;&emsp; \* import org.glassfish.tyrus.client.ClientManager;</br>
-  &emsp;&emsp;&emsp; \*/</br>
-  //&emsp;&emsp;&emsp;if (container instanceof ClientManager) {</br>
-  //&emsp;&emsp;&emsp;&emsp;try {</br>
-  //&emsp;&emsp;&emsp;&emsp;&emsp;((ClientManager) container).shutdown();</br>
-  //&emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  //&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  //&emsp;&emsp;&emsp;&emsp;}</br>
-  //&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;
-  &emsp;&emsp;&emsp;/\*\*</br>
-  &emsp;&emsp;&emsp; \* 如果项目引用的是Tomcat的websocket实现，则采用如下代码</br>
-  &emsp;&emsp;&emsp; \* import org.apache.tomcat.websocket.WsWebSocketContainer;</br>
-  &emsp;&emsp;&emsp; \*/</br>
-  //&emsp;&emsp;&emsp;if(container instanceof WsWebSocketContainer){</br>
-  //&emsp;             try {</br>
-  //&emsp;&emsp;&emsp;&emsp;&emsp;((WsWebSocketContainer) container).destroy();</br>
-  //&emsp;&emsp;&emsp;&emsp; } catch (Exception e) {</br>
-  //&emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  //&emsp;&emsp;&emsp;&emsp; }&emsp;</br>
-  //&emsp;&emsp;&emsp;}</br>
-  }
-  
-  &emsp;&emsp;private void startHeartBeat() {</br>
-  &emsp;&emsp;&emsp;future = executorService.submit(new HeartBeat());</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;private void stopHeartBeat() {</br>
-  &emsp;&emsp;&emsp;if (future != null) {</br>
-  &emsp;&emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;isHeartBeatContinue.set(false);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;future.cancel(true);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;executorService.shutdown();</br>
-  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  
-  &emsp;&emsp;private class HeartBeat implements Runnable {</br>
-  &emsp;&emsp;&emsp;// 心跳间隔时间，具体根据实际情况设置,如nginx默认websocket超时时间是60s，则可以在连接无数据交互情况持续到快过期前发送一次心跳（这里设置55s时）</br>
-  &emsp;&emsp;&emsp;private long heartBeatInterval = 55000;</br>
-  
-  &emsp;&emsp;&emsp;public void run() {</br>
-  &emsp;&emsp;&emsp;&emsp;try {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;while (isHeartBeatContinue.get()) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;long startTime = System.currentTimeMillis();</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (startTime - lastReceiveTime.get() > heartBeatInterval) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;if (session.isOpen()) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;String cmdInfo = "{'cmd': 'keepAlive'}";</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;session.getBasicRemote().sendObject(cmdInfo);</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// 更新最新收消息时间</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;lastReceiveTime.set(System.currentTimeMillis());</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;&emsp;} catch (Exception e) {</br>
-  &emsp;&emsp;&emsp;&emsp;&emsp;e.printStackTrace();</br>
-  &emsp;&emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;&emsp;}</br>
-  &emsp;&emsp;}</br>
-  &emsp;}</br>
-  }</br>
+ ```java
+ public class TestSubscribeMsg {
+ public static AtomicInteger reConnectCount = new AtomicInteger(0);
+ public static void main(final String[] args) {
+  buildConnectionAndSubscribeMsg();// 简单建立连接并订阅信息
+ }
+ private static boolean buildConnectionAndSubscribeMsg() {
+  String uri = "wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";
+  String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}"; 
+  MsgWebSocketClient msgWebSocketClient;
+  try {
+   // 建立连接
+   msgWebSocketClient = new MsgWebSocketClient(uri);
+   // 发送订阅信息
+   msgWebSocketClient.addCmdInfo(cmdInfo);
+  } catch (Exception e) {
+   msgWebSocketClient = null;
+   e.printStackTrace();
+   return false;
+  }
+  return true;
+ }
+ ```
+
+```java
+@ClientEndpoint
+ public static class MsgWebSocketClient {
+  // 最新收消息时间,心跳发消息时做时间间隔计算
+  public static AtomicLong lastReceiveTime = null;
+  // 是否继续心跳标志位
+  public static AtomicBoolean isHeartBeatContinue = null;
+  private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hhmmss");
+  // 创建容器对象（建立连接时要用）
+  private WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+  // 一个连接对应一个session
+  private Session session = null;
+  // 心跳线程池
+  private ExecutorService executorService = null;
+  // 关闭心跳线程要用到
+  private Future<?> future = null;
+
+  // 无参构造方法(必须)
+  public MsgWebSocketClient() {
+  }
+
+  public MsgWebSocketClient(String uri) throws Exception {
+   session = container.connectToServer(MsgWebSocketClient.class, URI.create(uri));
+   if (session.isOpen()) {
+    executorService = Executors.newFixedThreadPool(1);
+    lastReceiveTime = new AtomicLong(System.currentTimeMillis());
+    isHeartBeatContinue = new AtomicBoolean(true);
+    session.setMaxIdleTimeout(0);// 值为0表示会话连接不会因为长时间无数据交互而超时
+    startHeartBeat();// 启动心跳
+   } else {
+    container = null;
+   }
+  }
+```
+```java
+@OnMessage
+  public void onMessage(final String message) {
+   long currentTime = System.currentTimeMillis();
+   // 更新最新收消息时间
+   lastReceiveTime.set(currentTime);
+   String currentDateStr = dateFormat.format(currentTime);
+   if (message.contains("-ack")) {
+    System.out.println((currentDateStr + " 收到系统答信息：" + message));
+   } else {
+    System.out.println((currentDateStr + " 收到 message：" + message));
+   }
+  }
+```
+
+```java
+@OnClose
+  public void onClose(Session session, CloseReason closeReason) {
+   System.out.println("Connection closed!");
+   stopHeartBeat();
+   stopContainer();
+   try {
+    if (closeReason.getCloseCode().getCode() == 1006) {// 连接异常关闭CLOSED_ABNORMALLY(1006)
+     System.out.println("Try restarting the connection after 5s...");
+     Thread.sleep(5000);
+     boolean isSuccess = buildConnectionAndSubscribeMsg();
+     if (!isSuccess) {
+      System.out.println("Try restarting the connection after 5min...");
+      Thread.sleep(300000);
+      isSuccess = buildConnectionAndSubscribeMsg();
+      if (!isSuccess) {
+       System.out.println("Try restarting the connection after 24h...");
+       Thread.sleep(86400000);
+       buildConnectionAndSubscribeMsg();
+      }
+     }
+    }
+   } catch (Exception e) {
+    e.printStackTrace();
+   }
+  }
+
+  public void addCmdInfo(final String cmdInfo) {
+   new Thread() {
+    public void run() {
+     try {
+      if (session.isOpen()) {
+       session.getBasicRemote().sendObject(cmdInfo);
+      }
+     } catch (Exception e) {
+      e.printStackTrace();
+     }
+    }
+   }.start();
+  }
+
+  public void close() {
+   try {
+    stopHeartBeat(); // 关闭心跳
+    session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接
+    stopContainer(); // 关闭容器
+   } catch (Exception e) {
+    e.printStackTrace();
+   }
+  }
+
+  private void stopContainer() {
+   /**
+    * 如果项目引用的是Jetty的websocket实现，则采用如下代码
+    * import org.eclipse.jetty.util.component.LifeCycle;
+    */
+   if (container instanceof LifeCycle) {
+    try {
+     ((LifeCycle) container).stop();
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+       /**
+    * 如果项目引用的是Glassfish的websocket实现，则采用如下代码
+    * import org.glassfish.tyrus.client.ClientManager;
+    */
+//   if (container instanceof ClientManager) {
+//    try {
+//     ((ClientManager) container).shutdown();
+//    } catch (Exception e) {
+//     e.printStackTrace();
+//    }
+//   }
+       /**
+    * 如果项目引用的是Tomcat的websocket实现，则采用如下代码
+    * import org.apache.tomcat.websocket.WsWebSocketContainer;
+    */
+//   if(container instanceof WsWebSocketContainer){
+//  try {
+//     ((WsWebSocketContainer) container).destroy();
+//     } catch (Exception e) {
+//     e.printStackTrace();
+//     } 
+//   }
+}
+
+  private void startHeartBeat() {
+   future = executorService.submit(new HeartBeat());
+  }
+
+  private void stopHeartBeat() {
+   if (future != null) {
+    try {
+     isHeartBeatContinue.set(false);
+     future.cancel(true);
+     executorService.shutdown();
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+  }
+
+  private class HeartBeat implements Runnable {
+   // 心跳间隔时间，具体根据实际情况设置,如nginx默认websocket超时时间是60s，则可以在连接无数据交互情况持续到快过期前发送一次心跳（这里设置55s时）
+   private long heartBeatInterval = 55000;
+
+   public void run() {
+    try {
+     while (isHeartBeatContinue.get()) {
+      long startTime = System.currentTimeMillis();
+      if (startTime - lastReceiveTime.get() > heartBeatInterval) {
+       if (session.isOpen()) {
+        String cmdInfo = "{'cmd': 'keepAlive'}";
+        session.getBasicRemote().sendObject(cmdInfo);
+        // 更新最新收消息时间
+        lastReceiveTime.set(System.currentTimeMillis());
+       }
+      }
+     }
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+   }
+  }
+ }
+}
+```
+
 
 注:  
-(1)	心跳的JSON字符串格式如下：  
-{"cmd": "keepAlive"}  
-服务端相应如下（红色部分为示例数据）：  
-{"cmd":"keepAlive-ack","data":{"code":"00000","result":"success","systemId":"<font color="#FF0000">SV-BLKALPHA21-0001-124</font>"}}  
+(1)	心跳的JSON字符串格式如下：  `{"cmd": "keepAlive"}  `  
+
+服务端相应如下（红色部分为示例数据）：{"cmd":"keepAlive-ack","data":{"code":"00000","result":"success","systemId":"<font color="#FF0000">SV-BLKALPHA21-0001-124</font>"}}     
+  
 (2)	心跳根据实际情况决定是否启用，一般适用订阅数据等需要保持长连接场景，如果非长连接场景，如建立一次连接只是为简单查询订阅关系则可酌情是否需要。  
+  
 (3)	如果项目引用的是Tomcat的Websocket实现，则项目中还必须创建如下解码器类代码，同时示例代码中注解<font color="#FF0000">@ClientEndpoint改为@ClientEndpoint(encoders = {TextEncoder.class})</font>  
 
-```
+```java
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
@@ -822,20 +855,6 @@ public class TextEncoder  implements Encoder.Text<String>{
 
 
 ```
-
-
-## 返回码列表公共错误码   
-
-| **错误码** | **描述** |  
-| :-------------: |:-------------:|  
-|34001|Illegal parameters.（参数非法）|  
-|34002|The type information obtained is illegal. （获取到的类型信息非法）|  
-|34003|Add subscribe relationship fail. （添加订阅关系鉴权失败）|  
-|34004|Delete subscribe relationship fail. （取消订阅关系鉴权失败）|  
-|34005|Illegal result of search. （查询结果异常）|  
-|34006|Invalid connection. （连接异常）|  
-|34999|UnKnown error. （未知异常）|  
-
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
