@@ -3,42 +3,47 @@
 
 ## 接入地址
 
-1. **接入前提**  
-应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品（应用类型包括Andriod、IOS）。
+1. **接入前提**    
+
+应用开发方使用海尔U+云平台的UWS服务前需在海极网 http://www.haigeek.com  注册成为开发者，并且申请创建自己的应用产品；  
+
 按照应用产品的开发测试、发布上线的阶段步骤对应使用所创建应用分配的appid、appkey的信息接入海尔U+云平台的UWS服务。
 
-2. **接入方式**  
-云平台UWS与应用的交互接口统一为基于JSON的REST接口。
-GET、DELETE原语的请求参数为url的QueryParam，需要进行URLEncode。
-UWS的使用方应做如下假设：
->   1.	云平台将强校验发送请求的参数，如果有与接口规范不一致的情况，接口调用将出错。
->   2.	云平台未来扩展接口功能时可能会增加接口应答返回时的参数数量。接口使用方应能对此兼容。
+2. **接入方式**    
 
-3. **接入协议**  
+云平台UWS与应用的交互接口统一为基于JSON的REST接口。  
+GET、DELETE原语的请求参数为url的QueryParam，需要进行URLEncode。 
+
+UWS的使用方应做如下假设：  
+>   1.	平台强校验请求的参数，请按接口规范开发应用；   
+>   2.	平台扩展接口功能时，可能会增加接口应答返回参数数量，使用方应对此兼容；
+
+3. **接入协议**    
+
 对外提供的服务统一使用HTTPS协议，默认使用443端口， 在服务端使用TSL进行单向加解密处理。服务调用方在进行调用时，无需下载或安装证书。
 
-4. **接入地址**  
+4. **接入地址**    
+
 应用开发时，请连接开发者环境进行开发、测试；
 
-> 生产环境域名:`https://uws.haier.net`
+> 生产环境域名:`https://uws.haier.net`  
 > 开发者环境域名：`https://dev-uws.haigeek.com`
 
 
 ## 服务清单
-U+平台现有的UWS服务说明
 
-序号|服务名称|应用名|备注
-:-:|:-:|:-:|:-:  
-1|[账户服务](zh-cn/Account)|N/A|集团690用户中心
-2|[设备管理服务](zh-cn/DeviceManage)|uds、stdudse、udse|已开放
-3|[数据订阅](zh-cn/DataSubscription)|无|已开放
-4|[家庭模型](zh-cn/FamilyManage)|ufm、ufme|已开放  
-5|[场景引擎](zh-cn/IFTTT)|iftttscene|已开放  
-6|[预约定时](zh-cn/Scheduler)|scheduler|已开放  
-7|[设备影子](zh-cn/DevicesShadow)|shadow|已开放
-8|[消息推送](zh-cn/MessagePush)|ums、umse|已开放
-9|[天气服务](zh-cn/CapacityService_Weather)|weather|暂未开放 
-10|[智能设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|已开放   
+|服务名称|应用名|备注
+:-:|:-:|:-:  
+[账户服务](zh-cn/Account)|N/A|账户登录管理
+[账户授权](zh-cn/Account)|uaccount|应用OAuth授权，用户授权管理
+[设备管理](zh-cn/DeviceManage)|uds、stdudse、udse|设备注册、设备管理、设备控制
+[数据订阅](zh-cn/DataSubscription)|N/A|设备数据订阅、应用数据订阅
+[家庭模型](zh-cn/FamilyManage)|ufm、ufme|家庭成员管理、家庭设备管理
+[场景引擎](zh-cn/IFTTT)|iftttscene|场景创建、场景执行、场景日志管理
+[云定时](zh-cn/Scheduler)|scheduler|设备预约控制、场景预约控制  
+[设备影子](zh-cn/DevicesShadow)|shadow|设备云状态查询、预期设备控制管理
+[消息推送](zh-cn/MessagePush)|ums、umse|设备消息推送、APP消息推送、语音消息推送
+[设备资源云存储](zh-cn/CapacityService_DeviceCloudStorage)|css|设备图片/视频存储、查看 
 
 
 
