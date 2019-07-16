@@ -163,6 +163,8 @@
 |wifiType|String|设备wifitype||  
 |deviceType|String|设备类别|| 
 |online|Boolean|是否在线|&emsp;|     
+|productName|String|设备型号名称|&emsp;|  
+|productCode|String|设备型号代码|&emsp;|  
 
 
 ### UserBriefInfo    
@@ -235,7 +237,37 @@ deviceId|String|设备ID|
 devName|String|设备名称|
 devOwner|String|设备主人|
 devFamilyId|String|设备所属家庭Id|
-permission|Permission|权限|
+permission|Permission|权限|   
+
+
+
+
+### DeviceRoomInfoDto  
+
+  
+字段名|类型|说明|备注
+:-:|:-:|:-:|:-
+deviceName|String|设备名称，等同于别名|
+deviceId|String|设备ID|
+wifiType|String|设备wifitype|
+deviceType|String|设备类别|
+room|String|设备房间位置信息|   
+permission|Permission[]|权限信息|   
+online|Boolean|是否在线|   
+
+
+
+### FamilyQRCodeInfo    
+
+家庭模型快速响应码  
+  
+字段名|类型|说明|备注
+:-:|:-:|:-:|:-
+shareUrl|String|分享url|
+event|String|快速响应码要处理的事件|
+familyId|String|家庭ID|
+timeout|int|按秒计算，为二维码有效期|
+params|String|附加参数，数字字母最长64位|   
 
 
 ## 接口清单  
@@ -2610,6 +2642,99 @@ Body：
 
 ##### 3、错误码  
 > A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31109
+
+
+#### 查询用户设备房间位置信息  
+> 用户查询指定家庭下设备的房间位置信息。
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/deviceAndRoom`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型         | 参数名         | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
+| String  | familyId  | body |必填|家庭ID | 
+
+
+**输出参数**  
+
+| 类型   | 参数名  | 位置  | 必填|说明|
+| ------ |:--------:|:-----:|:--------:|:-------:|
+| DeviceAndRoomInfo[] | deviceAndRooms | body|必填|房间位置信息 | 
+| String | familyId | body|必填|家庭id |  
+| String  | familyName | body|必填|家庭名称 |  
+
+
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body：
+{
+	"familyId": 878111118405000000
+}
+
+
+
+```  
+
+**请求应答**
+
+```java
+{
+   "familyId": 878111118405000000，
+   "familyName":"测试家庭"，
+    "deviceAndRooms": 
+    [
+       {
+           "deviceId": "0007A8C17DBD",
+           "deviceName": "空气净化器1数",
+           "deviceType": "21001001",
+           "online": false,
+           "permissions": 
+           [
+               {
+                   "auth": 
+                   {
+                       "control": true,
+                       "set": true,
+                       "view": true
+                   },
+                   "authType": "owner"
+               }
+           ],
+           "room": "卧室",
+		   "wifiType":"111c12002400081021010000005a4e4b32303134303931313031000000000000"
+        }
+    ],  
+    "retCode": "00000",
+    "retInfo": "成功!"
+}
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、G20202  
+
+
 
 ### 房间管理服务  
 
