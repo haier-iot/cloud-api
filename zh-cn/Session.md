@@ -182,7 +182,7 @@ B00004|参数不符合规则要求|
 B00001|缺少必填参数|code不存在   
 B00002|参数类型错误|数据格式错误   
 
-### Refresh Token 刷新 Access Token
+### Access Token刷新
 
 > accessToken过期后，可以使用对应的refreshToken获取新的accessToken。  
 
