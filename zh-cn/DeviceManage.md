@@ -156,7 +156,34 @@ online|Boolean|是否在线|
 :-|:-:|:-:|:-
 brand|String|品牌|
 model|String|型号|
-deviceId|String|设备ID|
+deviceId|String|设备ID|  
+
+
+### DevFWVersion  
+设备整机固件版本信息  
+
+参数名|类型|说明|备注
+:-|:-:|:-:|:-
+model|String|U+产品整机型号编码|
+vers|String|设备当前固件版本号。字符串格式，不做其余格式校验|
+firmware|Firmware|设备可升级的新版本固件信息|如果设备不支持升级或者当前没有更新的固件，则不存在firmware字段    
+
+
+### Firmware
+设备可升级的新版本固件信息  
+
+参数名|类型|说明|备注
+:-|:-:|:-:|:-
+vers|String|新版本固件版本号。字符串格式，不做其余格式校验|
+desc|String|新版本固件描述信息|
+timeout|Int|升级超时时间，单位：秒，取值范围：10~604800（7天）|升级超时时间平台仅用于记录，并且在升级进度及结果中返回给用户，具体超时判断由App进行  
+digestAlg|String|设备固件文件摘要算法，可取值：sha256 -- SHA256计算摘要|   
+digest|String|设备固件文件摘要信息，格式：全小写十六进制字符串|
+url|String|设备固件文件URL地址|
+keyAlg|String|设备固件文件加密算法。如果设备固件未加密，则值为空字符串。可取值：aes256 -- AES256加密|  
+key|String|设备固件文件加密密钥，格式：全小写十六进制字符串。如果设备固件未加密，则值为空字符串|  
+size|int|原始升级包大小|
+
 
 ### User
 用户信息
@@ -474,26 +501,21 @@ Header：
 
 ```
 {
-    "deviceVersion": 
-    {
-        "baseProperty":
-        {
+    "deviceVersion": {
+        "baseProperty": {
             "model": "33"
         },
         "deviceId": "DC330D01FBF1",
         "deviceType": "03001001",
-        "location": 
-        {
+        "location": {
             "cityCode": "101031900",
             "latitude": 0,
             "longitude": 0
         },
-        "modules": 
-        [
+        "modules": [
             {
                 "moduleId": "",
-                "moduleInfos": 
-                {
+                "moduleInfos": {
                     "hardwareVers": "1.0.00",
                     "softwareVers": "2.3.01",
                     "hardwareType": "R",
@@ -504,8 +526,7 @@ Header：
             },
             {
                 "moduleId": "DC330D01FBF1",
-                "moduleInfos": 
-                {
+                "moduleInfos": {
                     "hardwareVers": "R_1.0.00",
                     "platform": "eSDK_WIFI_AC",
                     "protocolVers": "1.00",
@@ -516,11 +537,14 @@ Header：
                 "moduleType": "wifimodule"
             }
         ],
-        "wifiType": "00000000000000008080000000041410"
+        "wifiType": "00000000000000008080000000041410",
+		“productNameT”:”AB8Y7400Y”,
+		“productCodeT”:” KFR-72LW/08DBA22A(香槟金)套机”
     },
     "retCode": "00000",
     "retInfo": "成功!"
 }
+
 
 ```
 
@@ -569,11 +593,10 @@ Header：
 body
 {
     "loc":
-    {
-        "longitude":"120",
-        "latitude":"45",
-        "cityCode":"010"
-    }
+		{"cityCode":"101010200",
+		 "latitude":39.975675,
+         "longitude":116.322712
+		}
 }
 ```
 
@@ -696,11 +719,9 @@ Header：
             "deviceName": "空气净化器1数",
             "deviceType": "21001001",
             "online": false,
-            "permissions": 
-            [
+            "permissions": [
                 {
-                    "auth": 
-                    {
+                    "auth": {
                         "control": true,
                         "set": true,
                         "view": true
@@ -708,24 +729,23 @@ Header：
                     "authType": "owner"
                 }
             ],
-            "totalPermission": 
-            {
+            "totalPermission": {
                 "control": true,
                 "set": true,
                 "view": true
             },
-            "wifiType": "111c12002400081021010000005a4e4b32303134303931313031000000000000"
+            "wifiType": "111c12002400081021010000005a4e4b32303134303931313031000000000000"，
+            “productNameT”:” AB8XC706N”,
+			“productCodeT”:” KFR-50LW/08GDB23A(茉莉白)套机”
         },
         {
             "deviceId": "C8934640B1DE",
             "deviceName": "空气盒子1",
             "deviceType": "14001001",
             "online": false,
-            "permissions": 
-            [
+            "permissions": [
                 {
-                    "auth": 
-                    {
+                    "auth": {
                         "control": true,
                         "set": true,
                         "view": true
@@ -733,24 +753,23 @@ Header：
                     "authType": "owner"
                 }
             ],
-            "totalPermission": 
-            {
+            "totalPermission": {
                 "control": true,
                 "set": true,
                 "view": true
             },
-            "wifiType": "101c120024000810140d00118003940000000000000000000000000000000000"
+            "wifiType": "101c120024000810140d00118003940000000000000000000000000000000000",
+			“productNameT”:”AB8Y7400Y”,
+			“productCodeT”:”KFR-72LW/08DBA22A(香槟金)套机”
         },
         {
             "deviceId": "DC330D01FBF1",
             "deviceName": "test002",
             "deviceType": "03001001",
             "online": true,
-            "permissions": 
-            [
+            "permissions": [
                 {
-                    "auth": 
-                    {
+                    "auth": {
                         "control": true,
                         "set": true,
                         "view": true
@@ -758,18 +777,20 @@ Header：
                     "authType": "owner"
                 }
             ],
-            "totalPermission": 
-            {
+            "totalPermission": {
                 "control": true,
                 "set": true,
                 "view": true
             },
-            "wifiType": "00000000000000008080000000041410"
+            "wifiType": "00000000000000008080000000041410",
+			“productNameT”:”AB8Y7400Y”,
+			“productCodeT”:”KFR-72LW/08DBA22A(香槟金)套机”
         }
     ],
     "retCode": "00000",
     "retInfo": "成功!"
 }
+
 ```
 
 ##### 3、接口错误码
@@ -1209,7 +1230,85 @@ Header：
 ```
 
 ##### 3、接口错误码
-> A00001、B00001、G20202、20903、D00006、G24001
+> A00001、B00001、G20202、20903、D00006、G24001  
+
+
+#### 检测设备整机固件版本信息  
+> 检测设备整机固件版本信息  
+
+##### 1、接口定义
+?> **接入地址：** `/uds/v1/protected/fota/checkDevFMVersion`</br>
+**HTTP Method：** POST  
+**前置条件：** 用户和设备有绑定关系   
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+token|String|Header|必填|用户token
+deviceId|String|Body|必填|设备ID
+
+**输出参数：** 
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+devFWVersionDto|DevFWVersionDto|body|必填|设备整机固件版本信息  
+
+##### 2、请求样例
+
+**请求样例**
+
+```
+请求地址：/uds/v1/protected/fota/checkDevFMVersion  
+POST data:
+{   
+	"deviceId":"0007A8947C62"
+}
+
+Header：
+    appId: MB-****-0000
+    appVersion: 99.99.99.99990
+    clientId: 123
+    sequenceId: 2014022801010
+    accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+    sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+    timestamp: 1491014596343 
+    language: zh-cn
+    timezone: +8
+    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    Content-Encoding: utf-8
+    Content-type: application/json
+```
+
+**请求应答**
+
+```
+{
+   "devFWVersionDto":
+   {
+      "firmware":
+      {
+         "desc":"2222222",
+         "digest":"4387f38fa0ac5e911dd02c32b2beeba6",
+         "digestAlg":"",
+         "key":" ",
+         "keyAlg":" ",
+         "timeout":10,
+      "url":"http://uhome.haier.net:80/resource/enabling/operation/mgmtUpgradeFileUpload/1558496591300.bin",
+         "vers":"1.2.00",
+         “size”:111
+      },
+      "model":"1a2b3c4d5e6f7g8h",
+      "vers":"1.0.00"
+   },
+   "retCode":"00000",
+   "retInfo":"成功"
+}
+
+```
+
+##### 3、接口错误码
+> A00001、B00001、G20202、G00003  
 
 
 #### 获取设备型号信息
