@@ -28,6 +28,8 @@
 
 * [设备影子<sup style="color:red">(new)<sup>](zh-cn/DevicesShadow)
 
+* [设备接入<sup style="color:red">(new)<sup>](zh-cn/Cloudgw)
+
 * 能力服务  
 
 	* [应用版本更新](zh-cn/AppVersionUpdate)    
