@@ -51,7 +51,7 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 [^-^]:常用图片注释
 [framework]:_media/_Cloudgw/framework.png 
-[sign]:https://haier-iot.github.io/guide/#/zh-cn/Standard/Basic?id=%e7%ad%be%e5%90%8d%e7%ae%97%e6%b3%95
+[sign]:Standard/Basic?id=%e7%ad%be%e5%90%8d%e7%ae%97%e6%b3%95
 
 
 
