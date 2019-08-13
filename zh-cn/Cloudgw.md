@@ -53,7 +53,7 @@ Iot云平台支持第三方设备通过云云对接的方式接入，整体架�
     <td>设备属性读</td>
 	<td>否</td>
     <td>设备属性读</td>
-	<td rowspan="3">Iot平台通过本接口将APP或APPServer对设备的控制指令发送给第三方云服务。如果不实现本接口，则对所有第三方云服务发送的远程控制请求会全部失败。</td>
+	<td rowspan="3">Iot平台通过本接口将APP或APPServer对设备的控制指令发送给第三方云服务。如果不实现本接口，则对所有第三方云服务发送的远程控制请求会全部失败。<font color="#FF0000">特别注意：设备标准模型文档中定义的组操作（getAllProperty，getAllAlarm）必须实现。</font></td>
 </tr>
 <tr>
     <td>设备属性写</td>
@@ -62,7 +62,7 @@ Iot云平台支持第三方设备通过云云对接的方式接入，整体架�
 </tr>
 <tr>
     <td>设备操作</td>
-	<td>否</td>
+	<td>是</td>
     <td>设备操作</td>
 </tr>
 <table>
@@ -839,7 +839,7 @@ Body：
 > Iot平台回调。    
 > 设备注册到Iot平台并且当前在线，App或AppServer控制设备时，即会使用本回调接口通过第三方云服务发送给设备执行。
 对设备控制是一个异步请求，第三方云服务收到本请求时需要立即返回，即接口返回时仅代表第三方云服务收到本控制请求，而实际向设备下发及设备执行结果，第三方云服务需要通过主动调用“设备控制应答”接口发送至Iot平台。
-<font color="#FF0000">特别注意：设备标准模型文档中定义的组操作（getAllProperty，getAllAlarm，stopCurrentAlarm）必须实现。</font>
+<font color="#FF0000">特别注意：设备标准模型文档中定义的组操作（getAllProperty，getAllAlarm）必须实现。</font>
 
 
 
