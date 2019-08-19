@@ -44,7 +44,7 @@
 
 | **接口分类** | **接入地址** |**开发者环境DNS配置**|  
 | :-------------: |:-------------:|:-----:|  
-|数据订阅|`wss://uws.haier.net/wssubscriber`|`221.122.92.13`|  
+|数据订阅|`wss://uws.haier.net/wssubscriber`|`123.103.113.62`|  
 
 ### 签名认证  
 
@@ -203,7 +203,7 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 }
 
 ```
-说明：用户一次性可以订阅多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
+说明：客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
 
 
 云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
@@ -646,7 +646,7 @@ import org.eclipse.jetty.util.component.LifeCycle;
  ```
 
 ```java
-@ClientEndpoint
+@ClientEndpoint(encoders = {TextEncoder.class})
  public static class MsgWebSocketClient {
   // 最新收消息时间,心跳发消息时做时间间隔计算
   public static AtomicLong lastReceiveTime = null;
@@ -696,106 +696,115 @@ import org.eclipse.jetty.util.component.LifeCycle;
 
 ```java
 @OnClose
-  public void onClose(Session session, CloseReason closeReason) {
-   System.out.println("Connection closed!");
-   stopHeartBeat();
-   stopContainer();
-   try {
-    if (closeReason.getCloseCode().getCode() == 1006) {// 连接异常关闭CLOSED_ABNORMALLY(1006)
-     System.out.println("Try restarting the connection after 5s...");
-     Thread.sleep(5000);
-     boolean isSuccess = buildConnectionAndSubscribeMsg();
-     if (!isSuccess) {
-      System.out.println("Try restarting the connection after 5min...");
-      Thread.sleep(300000);
-      isSuccess = buildConnectionAndSubscribeMsg();
-      if (!isSuccess) {
-       System.out.println("Try restarting the connection after 24h...");
-       Thread.sleep(86400000);
-       buildConnectionAndSubscribeMsg();
-      }
-     }
-    }
-   } catch (Exception e) {
-    e.printStackTrace();
-   }
-  }
+public void onClose(Session session, CloseReason closeReason) {
+			System.out.println("Connection closed!");
+			stopHeartBeat();
+			stopContainer();
+			try {
+				if(closeReason.getCloseCode().getCode() == 1006 || closeReason.getCloseCode().getCode() == 4500) {// 1006：连接异常关闭  4500：通道异常，服务器端主动断开连接
+					boolean isSuccess = false;
+					while(!isSuccess){
+						System.out.println("Try restarting the connection after 5s...");
+						Thread.sleep(5000);
+						isSuccess = buildConnectionAndSubscribeMsg();
+						if (!isSuccess) {
+							System.out.println("Try restarting the connection after 5min...");
+							Thread.sleep(300000);
+							isSuccess = buildConnectionAndSubscribeMsg();
+							if (!isSuccess) {
+								System.out.println("Try restarting the connection after 50min...");
+								Thread.sleep(3000000);
+								isSuccess = buildConnectionAndSubscribeMsg();
+							}
+						}
+					}
+				}
 
-  public void addCmdInfo(final String cmdInfo) {
-   new Thread() {
-    public void run() {
-     try {
-      if (session.isOpen()) {
-       session.getBasicRemote().sendObject(cmdInfo);
-      }
-     } catch (Exception e) {
-      e.printStackTrace();
-     }
-    }
-   }.start();
-  }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-  public void close() {
-   try {
-    stopHeartBeat(); // 关闭心跳
-    session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接
-    stopContainer(); // 关闭容器
-   } catch (Exception e) {
-    e.printStackTrace();
-   }
-  }
+		public void addCmdInfo(final String cmdInfo) {
+			new Thread() {
+				public void run() {
+					try {
+						if (session.isOpen()) {
+                            synchronized(session){
+								session.getBasicRemote().sendObject(cmdInfo);
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
+		}
 
-  private void stopContainer() {
-   /**
-    * 如果项目引用的是Jetty的websocket实现，则采用如下代码
-    * import org.eclipse.jetty.util.component.LifeCycle;
-    */
-   if (container instanceof LifeCycle) {
-    try {
-     ((LifeCycle) container).stop();
-    } catch (Exception e) {
-     e.printStackTrace();
-    }
-   }
-       /**
-    * 如果项目引用的是Glassfish的websocket实现，则采用如下代码
-    * import org.glassfish.tyrus.client.ClientManager;
-    */
-//   if (container instanceof ClientManager) {
-//    try {
-//     ((ClientManager) container).shutdown();
-//    } catch (Exception e) {
-//     e.printStackTrace();
-//    }
-//   }
-       /**
-    * 如果项目引用的是Tomcat的websocket实现，则采用如下代码
-    * import org.apache.tomcat.websocket.WsWebSocketContainer;
-    */
-//   if(container instanceof WsWebSocketContainer){
-//  try {
-//     ((WsWebSocketContainer) container).destroy();
-//     } catch (Exception e) {
-//     e.printStackTrace();
-//     } 
-//   }
+		public void close() {
+			try {
+				stopHeartBeat(); // 关闭心跳
+				session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "")); // 关闭session连接
+				stopContainer(); // 关闭容器
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		private void stopContainer() {
+		    /**
+			 * 如果项目引用的是Jetty的websocket实现，则采用如下代码
+			 * import org.eclipse.jetty.util.component.LifeCycle;
+			 */
+			if (container instanceof LifeCycle) {
+				try {
+					((LifeCycle) container).stop();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			/**
+			 * 如果项目引用的是Glassfish的websocket实现，则采用如下代码
+			 * import org.glassfish.tyrus.client.ClientManager;
+			 */
+//			if (container instanceof ClientManager) {
+//				try {
+//					((ClientManager) container).shutdown();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+			
+			/**
+			 * 如果项目引用的是Tomcat的websocket实现，则采用如下代码
+			 * import org.apache.tomcat.websocket.WsWebSocketContainer;
+			 */
+//			if(container instanceof WsWebSocketContainer){
+//	             try {
+//					((WsWebSocketContainer) container).destroy();
+//				 } catch (Exception e) {
+//					e.printStackTrace();
+//				 }	
+//			}
 }
 
-  private void startHeartBeat() {
-   future = executorService.submit(new HeartBeat());
-  }
+		private void startHeartBeat() {
+			future = executorService.submit(new HeartBeat());
+		}
 
-  private void stopHeartBeat() {
-   if (future != null) {
-    try {
-     isHeartBeatContinue.set(false);
-     future.cancel(true);
-     executorService.shutdown();
-    } catch (Exception e) {
-     e.printStackTrace();
-    }
-   }
-  }
+		private void stopHeartBeat() {
+			if (future != null) {
+				try {
+					isHeartBeatContinue.set(false);
+					future.cancel(true);
+					executorService.shutdown();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 
   private class HeartBeat implements Runnable {
    // 心跳间隔时间，具体根据实际情况设置,如nginx默认websocket超时时间是60s，则可以在连接无数据交互情况持续到快过期前发送一次心跳（这里设置55s时）
@@ -830,8 +839,8 @@ import org.eclipse.jetty.util.component.LifeCycle;
 服务端相应如下（红色部分为示例数据）：{"cmd":"keepAlive-ack","data":{"code":"00000","result":"success","systemId":"<font color="#FF0000">SV-BLKALPHA21-0001-124</font>"}}     
   
 (2)	心跳根据实际情况决定是否启用，一般适用订阅数据等需要保持长连接场景，如果非长连接场景，如建立一次连接只是为简单查询订阅关系则可酌情是否需要。  
-  
-(3)	如果项目引用的是Tomcat的Websocket实现，则项目中还必须创建如下解码器类代码，同时示例代码中注解<font color="#FF0000">@ClientEndpoint改为@ClientEndpoint(encoders = {TextEncoder.class})</font>  
+
+(3)	项目中还必须创建如下解码器类代码，其在示例代码的注解<font color="#FF0000">@ClientEndpoint(encoders = {TextEncoder.class})</font>中做了引用。
 
 ```java
 import javax.websocket.EncodeException;
@@ -855,6 +864,25 @@ public class TextEncoder  implements Encoder.Text<String>{
 
 
 ```
+
+
+
+### 自动重连机制    
+
+由于网络闪断、Websocket Server服务端重启升级等原因，势必造成已有Websocket Client接入端连接中断，所以强烈建议Websocket Client接入端代码增加自动重连机制，可参照`示例`章节中的代码或在此基础上优化。  
+
+注：
+(1)	自动重连尝试间隔可逐步递增，如5s尝试一次连接，如果不成功则5min后再尝试一次连接，如果还未成功则50min后再尝试连接一次。
+(2)	如果(1)未重连成功，则可尝试在以(1)为一个周期，持续循环重连。
+
+
+
+
+
+
+
+
+
 
 [^-^]:常用图片注释
 [dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
