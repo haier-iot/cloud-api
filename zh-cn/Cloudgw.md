@@ -167,7 +167,7 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 ### 设备配网  
 
-设备配网有两种方式：设备集成配网SDK(推荐方式)，设备具备自绑定能力。
+设备配网有两种方式：设备集成配网SDK(推荐方式)，设备自身具备联网能力。
 
 
 #### 设备集成配网SDK   
@@ -182,8 +182,10 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 注：配网SDK大小为40KB。
 
-#### 设备具备自绑定能力  
+#### 设备自身具备联网能力  
 
+设备无法集成U+配网SDK且自身具备联网能力，可实现绑定业务。
+  
 请联系平台王世腾(wangshiteng@haier.com)。
 
 ### 设备接入  
