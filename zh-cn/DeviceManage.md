@@ -240,6 +240,7 @@ ProcutNameT|String|产品型号名称|
 #### 绑定
 > 用户绑定设备的接口  <font color=red>（单用户绑定设备数量<=300个，绑定时设备必须平台上线。）</font>
 
+<div style='display: none'> 
 ##### 1、接口定义
 ?> **接入地址：** `/uds/v1/protected/bindDevice`</br>
 **HTTP Method：** POST
@@ -289,7 +290,7 @@ Body
 ##### 3、接口错误码
 > A00001、B00001、G20202、A00004、B00001、D00006、G20904、G20908、G20910
 
-
+</div>
 
 
 #### 解绑设备
