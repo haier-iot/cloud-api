@@ -240,6 +240,9 @@ ProcutNameT|String|产品型号名称|
 #### 绑定
 > 用户绑定设备的接口  <font color=red>（单用户绑定设备数量<=300个，绑定时设备必须平台上线。）</font>
 
+?> 具体绑定逻辑见uSDK的绑定方法
+
+
 <div style='display: none'> 
 ##### 1、接口定义
 ?> **接入地址：** `/uds/v1/protected/bindDevice`</br>
