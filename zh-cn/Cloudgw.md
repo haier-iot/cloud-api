@@ -164,6 +164,30 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 |13|非法值。主要指设备操作的操作值非法。例如温度设置的温度值越界。|
 |17|不支持的命令。主要指读属性或写属性请求时，设备无此属性，或者操作时，设备不支持此操作。|
 
+
+### 设备配网  
+
+设备配网有两种方式：设备集成配网SDK(推荐方式)，设备自身具备联网能力。
+
+
+#### 设备集成配网SDK   
+  
+设备底板无需改动，模块集成配网SDK，支持U+ APP配置绑定。 
+
+在海极网下载SDK申请表，申请配网SDK：
+
+![设备集成配网sdk][configuration_sdk1]   
+
+![设备集成配网sdk][configuration_sdk2]   
+
+注：配网SDK大小为40KB。
+
+#### 设备自身具备联网能力  
+
+设备无法集成U+配网SDK且自身具备联网能力，可实现绑定业务。
+  
+请联系平台王世腾(wangshiteng@haier.com)。
+
 ### 设备接入  
 
 #### 设备注册   
@@ -221,6 +245,7 @@ Body：
 }
 ```
 
+<!-- 注释开始
 #### 设备绑定
 > 调用Iot平台。  
 > 设备在Iot平台注册，即可将该设备绑定在一个优家用户下。调用本接口绑定设备时，设备绑定必须先由uSDK对要绑定的用户开启绑定时间窗（每次开启，20分钟内有效，且只能绑定一次），否则即绑定失败。如果绑定成功，本设备与之前其他用户的绑定关系会被自动解除。一个优家用户，最多可以绑定300个设备。  
@@ -270,7 +295,7 @@ Body：
 }
 
 ```
-
+注释结束  -->
 
 #### 设备上线  
 > 调用Iot平台。  
@@ -374,7 +399,7 @@ Body：
 
 ```
 
-
+<!-- 注释开始
 #### 开启设备绑定时间窗  
 > 调用Iot平台。  
 > 设备也可以通过优家APP直接进行绑定，但需要在优家APP绑定之前，必须调用本接口对设备开启绑定时间窗，否则即会绑定失败。
@@ -423,7 +448,7 @@ Body：
 }
 
 ```
-
+注释结束  -->
 
 #### 设备信息查询
 > Iot平台回调。    
@@ -974,6 +999,8 @@ Body：
 [framework]:_media/_Cloudgw/framework.png 
 [sign]:https://haier-iot.github.io/guide/#/zh-cn/Standard/Basic?id=%e7%ad%be%e5%90%8d%e7%ae%97%e6%b3%95
 [flow]:_media/_Cloudgw/flow.png 
+[configuration_sdk1]:_media/_Cloudgw/configuration_sdk1.png 
+[configuration_sdk2]:_media/_Cloudgw/configuration_sdk2.png 
 
 
 
