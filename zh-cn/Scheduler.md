@@ -113,18 +113,22 @@
 |名称	|Args指令集合|&emsp;|Args|
 | ------------- |:-------------:|:-----:|:-------------:|
 |字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
-|args|	Args[]	|必填，指令	|&emsp;|
-|optName	|String|	选填，操作名|	如果optName不为空则为组操作，根据optName可以区分操作指令是否需要补全。非标准模型对应组命令id|
+|cmdMsgList|	List<CmdItem>	|必填	|批量命令（详情见公共接口类）|
+|backUrl	|String|	非必填|	回调地址；将批量命令执行结果发送到这个地址，可以为空，为空则不回调|
 
 
-### Args
+### CmdItem
 
 |名称	|Args指令集合|&emsp;|Args|
 | ------------- |:-------------:|:-----:|:-------------:|
 |字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
-|name	|String|	必填，指令名称|	指令名称为模型文件中的属性|
-|desc	|String|	选填，指令名称描述|	指令名称描述为模型文件中对属性名称的描述；或者非标准模型组命令的操作名的描述；|
-|value	|String|	必填，指令值|	表示 将属性设置为该值；|
+|index	|int|	在批量指令中的顺序号，从0开始，步长为1，不能重复、不能缺号；下发指令时将，按这个序号，逐个指令下发。（编号错误，将导致指令下发错误）|	用户必填|
+|delaySeconds	|int|	执行这个指令前需要延时（等待）的秒数|	用户必填|
+|name	|String|	单个属性设置时，属性名|用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
+|value	|String|	单个属性设置时，属性值|用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
+|cmdName|String|	组命令时，操作名|	用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
+|cmdArgs|Map<String,String>|	组命令时，属性集合|	用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
+
 
 
 ### TaskEditInfo
@@ -141,36 +145,25 @@
 |type|	int|	1=增加、2=修改、3=删除	|&emsp;|	
 |modifyTime|	String|	修改时间	|&emsp;|	
 |endTime|	String	|终止时间	|&emsp;|	
-|argsInfo|	ArgsInfo[]|	指令	|&emsp;|	
+|argsInfo|	ArgsInfo|	指令	|&emsp;|	
 
 
 
-### TaskExecInfo
+### BatchResultDto
 
-|名称	|预约定时执行日志|&emsp;|TaskExecInfo|
+|名称	|批量命令执行结果明细|&emsp;|BatchResultDto|
 | ------------- |:-------------:|:-----:|:-------------:|
 |字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
-|taskId|	String|	任务id		|&emsp;|
-|taskSeq|	int|	任务序号		|&emsp;|
-|deviceId|	String|	设备mac		|&emsp;|
-|sn|	String|	下发序列		|&emsp;|
-|execTime|	String|	执行时间		|&emsp;|
-|step|	int	|执行阶段:0 开始 1 调用M2M 2 执行结果	|&emsp;|	
-|retCode|	String|	下发成功为0，失败根据M2M错误码表填写；结果信息根据命令返回的ACK信息中的错误码填写此编码		|&emsp;|
-|retInfo|	String|	执行信息		|&emsp;|
+|oid|long|	数据代理主键		|只读|
+|cmdSn|String|	批量指令的总sn		|只读|
+|cmdSubSn|String|	本条指令的sn，发送到领域模型。组成为：总sn+“：”+指令序号|只读|
+|deviceId|String|	设备Id	|只读|
+|execStep|int	|本条指令的执行步骤|只读|	
+|execResult|boolean|	本条指令本步骤的执行结果；true为成功、false为失败：如超时、异常等|只读|
+|execResultCode|String	|本条指令本步骤的执行结果说明，错误码|只读|	
+|execResultInfo|String|	本条指令本步骤的执行结果说明，错误信息|只读|
+|resultTime|long|	本条指令本步骤的反馈时间|只读|
 
-
-
-### TaskRestLogDataInfo
-
-|名称	|预约定时执行日志|&emsp;|TaskRestLogDataInfo|
-| ------------- |:-------------:|:-----:|:-------------:|
-|字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
-|total|	String|	必填，总数	|&emsp;|
-|curSize|	String|	必填，当前页条数	|&emsp;|
-|currentPage|	String|	必填，当前页码|&emsp;|	
-|pageSize|	String|	必填，每页条数	|&emsp;|
-|logInfos|	List<TaskExecInfo>|	必填，日志结果信息	|&emsp;|
 
 
 ## 接口清单
