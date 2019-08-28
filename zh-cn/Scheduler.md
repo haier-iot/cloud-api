@@ -222,6 +222,7 @@
 |taskName	|String varchar(50)|	选填|	任务名称|
 |taskDesc	|String varchar(100)|	选填	|任务描述|
 |taskSeq	|int	|选填|	子任务序号id；默认值为1|
+
 ##### 2、请求样例  
 
 **用户请求**
