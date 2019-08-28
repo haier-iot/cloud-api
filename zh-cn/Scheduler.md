@@ -193,7 +193,7 @@
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/add   `  
+?> **接入地 址：**  `/scheduler/v1/device/add   `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -215,10 +215,10 @@
 |deviceId|	String varchar(50)|	必填	|设备id| 
 |schedulerType|	int|	必填	|预约类型（1=设备），此版本仅支持设备预约|
 |typeId	|String varchar(100)|	必填|	设备typeId|
-|cron	|Cron[]|	必填|	预约定时表达式，任务执行时间|
 |status|int	|必填	|任务状态； 0 启用 ；2暂停|
 |argsInfo	|ArgsInfo[]|	必填	|多套指令集；当前版本只支持一套|
-|endTime	|dateTime|	选填|	任务终止时间；不填默认值三个月有效期；如果有值，按照此值的有效期|
+|cron	|Cron[]|	选填|	任务执行表达式；cron和intervals必填其一|
+|intervals	|int|	选填|	任务执行距当前的间隔时间，以分钟为单位，限制一天以（0-1440），如为0需要立即执行；cron和intervals必填其一。|
 |taskName	|String varchar(50)|	选填|	任务名称|
 |taskDesc	|String varchar(100)|	选填	|任务描述|
 |taskSeq	|int	|选填|	子任务序号id；默认值为1|
@@ -229,41 +229,50 @@
 Header：
 Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: ****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: *********
 sign: bb2a5c1e432eac8bea8eecb89b408937382e7e95486ee0a60944a46504fa0015
 timestamp: 1491013448628 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: **********
 Content-Encoding: utf-8
 Content-type: application/json
 Body
 {
-	"cron": [{
-		"minutes": "0 / 5",
-		"hours": "*",
-		"day": " * ",
-		"monty": "*",
-		"week": "?",
-		"year": ""
-	}],
-	"endTime": "2018 - 05 - 21 12: 00: 00",
-	"argsInfo": [{
-		"optName": "OnOffStatus",
-		"args": [
-			"esdFilterCleanTime",
-			"desc",
-			"-12"
-		]
-	}],
-	"taskName": "空调开机",
-	"taskDesc": "空调开机",
-    "taskSeq":"1"
+  "status": 0,
+  "deviceId": "DC330D000023",
+  "schedulerType": 1,
+  "typeId": "edd032ff-7113-4970-a780-392d44c423b3",
+  "cron": [
+    {
+      "minutes": "0 / 5",
+      "hours": "*",
+      "day": " * ",
+      "month": "*",
+      "week": "?",
+      "year": ""
+    }
+  ],
+  "endTime": "2018 - 05 - 21 12: 00: 00",
+  "argsInfo": {
+    "cmdMsgList": [
+      {
+        "index": 0,
+        "delaySeconds": 0,
+        "name": "onOffStatus",
+        "value": "true"
+      }
+    ],
+    "backUrl": "http://*********"
+  },
+  "taskName": "空调开机",
+  "taskDesc": "空调开机",
+  "taskSeq": "1"
 }
-}
+
 
 ```  
 
@@ -272,11 +281,12 @@ Body
 ```java
 {
     "retCode": "00000",
-	"retInfo": "预约定时创建成功",
-	"detailInfo": {
-    "taskId": “111111”
+"retInfo": "预约定时创建成功",
+"detailInfo": {
+     “taskId”: “878442f1550c4c189c5307873ca9b1dd”
 }
 }
+
 ```
 
 #### 预约定时批量新增
@@ -307,9 +317,10 @@ Body
 |deviceId|	String varchar(50)|	必填	|设备id| 
 |schedulerType|	int|	必填	|预约类型（1=设备），此版本仅支持设备预约|
 |typeId	|String varchar(100)|	必填|	设备typeId|
-|cron	|Cron[]|	必填|	预约定时表达式，任务执行时间|
 |status|int	|必填	|任务状态； 0 启用 ；2暂停|
 |argsInfo	|ArgsInfo[]|	必填	|多套指令集；当前版本只支持一套|
+|cron	|Cron[]|	选填|	任务执行表达式；cron和intervals必填其一|
+|intervals	|int|	选填|	任务执行距当前的间隔时间，以分钟为单位，限制一天以（0-1440），如为0需要立即执行；cron和intervals必填其一。|
 |endTime	|dateTime|	选填|	任务终止时间；不填默认值三个月有效期；如果有值，按照此值的有效期|
 |taskName	|String varchar(50)|	选填|	任务名称|
 |taskDesc	|String varchar(100)|	选填	|任务描述|
@@ -323,45 +334,79 @@ Body
 Header：
 Connection: keep-alive
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: ****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: **************
 sign: bb2a5c1e432eac8bea8eecb89b408937382e7e95486ee0a60944a46504fa0015
 timestamp: 1491013448628 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: ***********
 Content-Encoding: utf-8
 Content-type: application/json
 Body
 {
-				"cron": [{
-					"minutes": "0 / 5",
-					"hours": "*",
-					"day": " * ",
-					"monty": "*",
-					"week": "?",
-					"year": ""
-				}],
-				"endTime": "2018 - 05 - 21 12: 00: 00",
-				"argsInfo": [{
-					"optName": "OnOffStatus",
-					"args": [
-						"esdFilterCleanTime",
-						"desc",
-						"-12"
-					]
-				}],
-				"taskName": "空调开机",
-				"taskDesc": "空调开机"，
-                "taskId":"111111",
-                "taskSeq":"1"
-			}                  
-		]
-
-   }
+  "taskInfos": [
+    {
+      "status": 0,
+      "deviceId": "DC330D003121",
+      "schedulerType": 1,
+      "typeId": "101c120024000810e20105400000440000000000000000000000000000000000",
+      "intervals": 60,
+      "endTime": "2019-07-31 16:00:00",
+      "argsInfo": {
+        "backUrl": "http://*********",
+        "cmdMsgList": [
+          {
+            "index": 0,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          },
+          {
+            "index": 1,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          }
+        ]
+      },
+      "taskName": "批量关机",
+      "taskDesc": "批量关机",
+      "taskSeq": "1"
+    },
+    {
+      "status": 0,
+      "deviceId": "DC330D003121",
+      "schedulerType": 1,
+      "typeId": "101c120024000810e20105400000440000000000000000000000000000000000",
+      "intervals": 60,
+      "endTime": "2019-07-31 13:00:00",
+      "argsInfo": {
+        "backUrl": "http://*********",
+        "cmdMsgList": [
+          {
+            "index": 0,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          },
+          {
+            "index": 1,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          }
+        ]
+      },
+      "taskName": "批量关机2",
+      "taskDesc": "批量关机2",
+      "taskSeq": "2"
+    }
+  ]
 }
+
 ```  
 
 **请求应答**
@@ -369,9 +414,9 @@ Body
 ```java
 {
     "retCode": "00000",
-	"retInfo": "预约定时创建成功",
-	"detailInfo": {
-    "taskId": "111111"
+"retInfo": "预约定时创建成功",
+"detailInfo": {
+     “taskId”: “878442f1550c4c189c5307873ca9b1dd”
 }
 }
 
@@ -382,7 +427,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/delete   `  
+?> **接入地 址：**  `/scheduler/v1/device/delete   `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -406,22 +451,23 @@ Body
 ```java 
 Header：
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: *****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: *******
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: ********
 Content-Encoding: utf-8
 Content-type: application/json
 Body:
 {
-  "taskId": "111111"，
-  "taskSeq":1
+  “taskId”: “878442f1550c4c189c5307873ca9b1dd”，
+   “taskSeq”:1
 }
+
 
 
 ```
@@ -467,8 +513,9 @@ Body:
 |taskDesc	|String varchar(100)	|Body|	选填	|任务描述|
 |status	|int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
 |endTime	|dateTime	|Body	|选填	|如果有值，按照此值的有效期|
-|cron	|cron[]|	Body	|选填	|预约定时表达式|
-|argsInfo	|ArgsInfo[]|	Body|	选填|	多套指令集；当前版本只支持一套|
+|cron	|cron[]|	Body	|选填	|任务执行表达式；cron和intervals必填其一。|
+|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；cron和intervals必填其一。|
+|argsInfo	|ArgsInfo|	Body|	选填|	多套指令集；当前版本只支持一套|
 
 
 
@@ -478,41 +525,44 @@ Body:
 **用户请求**
 ```java 
 Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
+appId: MB-*****-0000
+appVersion: *****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: ***********
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: **************
 Content-Encoding: utf-8
 Content-type: application/json
 Body:
 {
-	"cron": [
-	{
-		"seconds":"0",
-		"minutes":"0/5",
-		"hours":"*",
-		"day":"*",
-		"monty":"*",
-		"week":"?",
-		"year":""
-	}
-	],
-	"argsInfo": [
-	{
-		"optName": "OnOffStatus", 
-		"args": [
-			"esdFilterCleanTime", 
-			"desc", 
-			"-12"
-		]
-	}
-	]
+  "taskId": "a2edc5e0b9ba485f9e63abae35e49983",
+  "taskSeq": 1,
+  "status": 0,
+  "intervals": 60,
+  "endTime": "2019-07-31 13:00:00",
+  "argsInfo": {
+    "backUrl": "http://******",
+    "cmdMsgList": [
+      {
+        "index": 0,
+        "delaySeconds": 0,
+        "name": "onOffStatus",
+        "value": "true"
+      },
+      {
+        "index": 1,
+        "delaySeconds": 0,
+        "name": "onOffStatus",
+        "value": "true"
+      }
+    ]
+  },
+  "taskName": "空调关机-修改",
+  "taskDesc": "空调开机-修改"
 }
 
 
@@ -534,7 +584,7 @@ Body:
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/group/modify   `  
+?> **接入地 址：**  `/scheduler/v1/device/group/modify   `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -561,8 +611,9 @@ Body:
 |taskDesc|	String varchar(100)|	Body|	选填|	任务描述|
 |status|	Int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
 |endTime	|dateTime|	Body|	选填	|如果有值，按照此值的有效期|
-|cron	|cron[]	|Body	|选填	|预约定时表达式|
-|argsInfo|	ArgsInfo[]|	Body|	选填|	多套指令集；当前版本只支持一套|
+|cron	|cron[]|	Body	|选填	|任务执行表达式；cron和intervals必填其一。|
+|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；cron和intervals必填其一。|
+|argsInfo|	ArgsInfo|	Body|	选填|	多套指令集；当前版本只支持一套|
 
 
 
@@ -572,43 +623,79 @@ Body:
 ```java 
 Header：
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: *****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: **********
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: **********
 Content-Encoding: utf-8
 Content-type: application/json
 Body:
 {
-			"cron": [
-				{
-				   "seconds":"0",
-				   "minutes”:"0/5",
-				   "hours":"*",
-				   "day":"*",
-				   "monty":"*",
-				   "week":"?",
-					"year":""
-				}
-			],
-		    "argsInfo": [
-				{
-					"optName": "OnOffStatus", 
-					"args": [
-						"esdFilterCleanTime", 
-						"desc", 
-						"-12"
-					]
-				}
-			]
-			}
-		]
-   }
+  "taskInfos": [
+    {
+      "status": 2,
+      "deviceId": "DC330D003121",
+      "schedulerType": 1,
+      "typeId": "101c120024000810e20105400000440000000000000000000000000000000000",
+      "intervals": 60,
+      "endTime": "2019-07-30 14:00:00",
+      "argsInfo": {
+        "backUrl": "http://***********",
+        "cmdMsgList": [
+          {
+            "index": 0,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          },
+          {
+            "index": 1,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          }
+        ]
+      },
+      "taskName": "批量关机a111",
+      "taskDesc": "批量关机a111",
+      "taskId": "bad2adb0d756469b8ae0e292c81240ab",
+      "taskSeq": 1
+    },
+    {
+      "status": 2,
+      "deviceId": "DC330D003121",
+      "schedulerType": 1,
+      "typeId": "101c120024000810e20105400000440000000000000000000000000000000000",
+      "intervals": 60,
+      "endTime": "2019-07-30 15:00:00",
+      "argsInfo": {
+        "backUrl": "http://*******",
+        "cmdMsgList": [
+          {
+            "index": 0,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          },
+          {
+            "index": 1,
+            "delaySeconds": 0,
+            "name": "onOffStatus",
+            "value": "true"
+          }
+        ]
+      },
+      "taskName": "批量关机a112",
+      "taskDesc": "批量关机a112",
+      "taskId": "bad2adb0d756469b8ae0e292c81240ab",
+      "taskSeq": "2"
+    }
+  ]
 }
 
 
@@ -630,7 +717,7 @@ Body:
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/query/userid   `  
+?> **接入地 址：**  `/scheduler/v1/device/query/userid   `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -656,23 +743,24 @@ Body:
 ```java 
 Header：
 appId: MB-****-0000
-appVersion: 99.99.99.99990
+appVersion: ****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: *******
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: ************
 Content-Encoding: utf-8
 Content-type: application/json
 Body
 {
-	"deviceId":"DC330D01FBF1",
-  	"startNumber":1,
-	"length":10
+  “deviceId”:” DC330D01FBF1”,
+  “startNumber”:1,
+“length”:10
 }
+
 
 
 ```
@@ -688,51 +776,51 @@ Body
 		"retCode": "00000",
 		"retInfo": "查询成功",
 		"detailInfo": {
-		"taskId": "111111"，
-		"taskSeq": 1，
-		"taskName": "空调开机"，
-		"deviceId": "DC330D01FBF1"，
-		"scheduleType"：1，
-		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
-		"appInfo":[
+		“taskId”: “bad2adb0d756469b8ae0e292c81240ab”，
+		“taskSeq”: 1，
+		“taskName”: “空调开机”，
+		“deviceId”: “DC330D01FBF1”，
+		“scheduleType”：1，
+		“wifiType”:” 111c120024000810040100318000614300000001000000000000000000000000”,
+		“appInfo”:[
 			{
-			"appId":"1111111",
-			"appVersion":"",
-			"appName":"",
-			"appLogo":""
+			“appId”:”1111111”,
+			“appVersion”:””,
+			“appName”:””,
+			“appLogo”:””
 			}
 			]， 
-		"createUserInfo": [
+		“createUserInfo”: [
 			{
-			"userId":"111111",
-			"userName":"",
-			"headImg":"",
-			"phone”:"139****1234"
+			“userId”:”111111”,
+			“userName”:"",
+			“headImg”:””,
+			“phone”:”139****1234”
 			}
 		]，
-		"createTime": "2018-04-19 17:00:00"，
-		"modifyUserInfo": "[
+		“createTime”: “2018-04-19 17:00:00”，
+		“modifyUserInfo”: “[
 			{
-			"userId":"111111",
-			"userName":"test",
-			"headImg":"b.jpg",
-			"phone":"139****1234"
+			“userId”:”111111”,
+			“userName”:”test”,
+			“headImg”:”b.jpg”,
+			“phone”:”139****1234”
 			}
 		]，
-		"modifyTime": "2018-04-19 17:00:00"，
-		"cron": [
+		“modifyTime”: “2018-04-19 17:00:00”，
+		“cron”: [
 			{
-			"seconds":"0",
-			"minutes":"0/5",
-			"hours":"*",
-			"day":"*",
-			"monty":"*",
-			"week":"?",
-			"year":""
+			“seconds”:”0”,
+			“minutes”:”0/5”,
+			“hours”:”*”,
+			“day”:”*”,
+			“monty”:”*”,
+			“week”:”?”,
+			“year”:””
 			}
 		],
-		"endTime":"2018-05-21 12:00:00",
-		"status": 1,
+		“endTime”:”2018-05-21 12:00:00”,
+		“status”: 1,
 		"argsInfo": [
 			{
 			"optName": "OnOffStatus", 
@@ -743,11 +831,12 @@ Body
 			]
 			}
 		],
-		"taskDesc":"空调开机"
+		“taskDesc”:”空调开机”
 		}
 	]
     }
 }
+
 
 ```
 
@@ -807,59 +896,59 @@ Body
 **请求应答**
 ```java
 {
-"retCode": "00000",
+  "retCode": "00000",
 "retInfo": "查询成功",
-"detailInfo":{
+“detailInfo”:{
     [
 		{
 		"retCode": "00000",
 		"retInfo": "查询成功",
 		"detailInfo": {
-		"taskId": "111111"，
-		"taskSeq": 1，
-		"taskName": "空调开机"，
-		"deviceId": "DC330D01FBF1"，
-		"scheduleType"：1，
-		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
-		"appInfo":[
+		“taskId”: “bad2adb0d756469b8ae0e292c81240ab”，
+		“taskSeq”: 1，
+		“taskName”: “空调开机”，
+		“deviceId”: “DC330D01FBF1”，
+		“scheduleType”：1，
+		“wifiType”:” 111c120024000810040100318000614300000001000000000000000000000000”,
+		“appInfo”:[
 			{
-			"appId":"1111111",
-			"appVersion":"",
-			"appName":"",
-			"appLogo”:""
+			“appId”:”1111111”,
+			“appVersion”:””,
+			“appName”:””,
+			“appLogo”:””
 			}
 			]， 
-		"createUserInfo": [
+		“createUserInfo”: [
 			{
-			"userId":"111111",
-			"userName":"",
-			"headImg":"",
-			"phone":"139****1234"
+			“userId”:”111111”,
+			“userName”:"",
+			“headImg”:””,
+			“phone”:”139****1234”
 			}
 		]，
-		"createTime":"2018-04-19 17:00:00"，
-		"modifyUserInfo": "[
+		“createTime”: “2018-04-19 17:00:00”，
+		“modifyUserInfo”: “[
 			{
-			"userId":"111111",
-			"userName":"test",
-			"headImg":"b.jpg",
-			"phone":"139****1234"
+			“userId”:”111111”,
+			“userName”:”test”,
+			“headImg”:”b.jpg”,
+			“phone”:”139****1234”
 			}
 		]，
-		"modifyTime": "2018-04-19 17:00:00"，
-		"cron": [
+		“modifyTime”: “2018-04-19 17:00:00”，
+		“cron”: [
 			{
-			"seconds":"0",
-			"minutes":"0/5",
-			"hours”:"*",
-			"day":"*",
-			"monty":"*",
-			"week":"?",
-			"year":""
+			“seconds”:”0”,
+			“minutes”:”0/5”,
+			“hours”:”*”,
+			“day”:”*”,
+			“monty”:”*”,
+			“week”:”?”,
+			“year”:””
 			}
 		],
-		"endTime":"2018-05-21 12:00:00",
-		"status": 1,
+		“endTime”:”2018-05-21 12:00:00”,
+		“status”: 1,
 		"argsInfo": [
 			{
 			"optName": "OnOffStatus", 
@@ -870,11 +959,12 @@ Body
 			]
 			}
 		],
-		"taskDesc":"空调开机"
+		“taskDesc”:”空调开机”
 		}
 	]
     }
 }
+
 
 ```
 
@@ -908,21 +998,21 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
+appId: MB-*****-0000
+appVersion: *****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: *************
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: **************
 Content-Encoding: utf-8
 Content-type: application/json
 Body
 {
-  "taskId": "111111'
+  “taskId”: “bad2adb0d756469b8ae0e292c81240ab”
 }
 
 
@@ -933,57 +1023,57 @@ Body
 {
 "retCode": "00000",
 "retInfo": "查询成功",
-"detailInfo":{
+“detailInfo “:{
     [
 		{
 		"retCode": "00000",
 		"retInfo": "查询成功",
 		"detailInfo": {
-		"taskId": "111111"，
-		"taskSeq": 1，
-		"taskName": "空调开机"，
-		"deviceId": "DC330D01FBF1"，
-		"scheduleType"：1，
-		"wifiType":" 111c120024000810040100318000614300000001000000000000000000000000",
-		"appInfo":[
+		“taskId”: “bad2adb0d756469b8ae0e292c81240ab”，
+		“taskSeq”: 1，
+		“taskName”: “空调开机”，
+		“deviceId”: “DC330D01FBF1”，
+		“scheduleType”：1，
+		“wifiType”:” 111c120024000810040100318000614300000001000000000000000000000000”,
+		“appInfo”:[
 			{
-			"appId":"1111111",
-			"appVersion":"",
-			"appName":"",
-			"appLogo”:""
+			“appId”:”1111111”,
+			“appVersion”:””,
+			“appName”:””,
+			“appLogo”:””
 			}
 			]， 
-		"createUserInfo": [
+		“createUserInfo”: [
 			{
-			"userId":"111111",
-			"userName":"",
-			"headImg":"",
-			"phone":"139****1234"
+			“userId”:”111111”,
+			“userName”:"",
+			“headImg”:””,
+			“phone”:”139****1234”
 			}
 		]，
-		"createTime":"2018-04-19 17:00:00"，
-		"modifyUserInfo": "[
+		“createTime”: “2018-04-19 17:00:00”，
+		“modifyUserInfo”: “[
 			{
-			"userId":"111111",
-			"userName":"test",
-			"headImg":"b.jpg",
-			"phone":"139****1234"
+			“userId”:”111111”,
+			“userName”:”test”,
+			“headImg”:”b.jpg”,
+			“phone”:”139****1234”
 			}
 		]，
-		"modifyTime": "2018-04-19 17:00:00"，
-		"cron": [
+		“modifyTime”: “2018-04-19 17:00:00”，
+		“cron”: [
 			{
-			"seconds":"0",
-			"minutes":"0/5",
-			"hours”:"*",
-			"day":"*",
-			"monty":"*",
-			"week":"?",
-			"year":""
+			“seconds”:”0”,
+			“minutes”:”0/5”,
+			“hours”:”*”,
+			“day”:”*”,
+			“monty”:”*”,
+			“week”:”?”,
+			“year”:””
 			}
 		],
-		"endTime":"2018-05-21 12:00:00",
-		"status": 1,
+		“endTime”:”2018-05-21 12:00:00”,
+		“status”: 1,
 		"argsInfo": [
 			{
 			"optName": "OnOffStatus", 
@@ -994,11 +1084,12 @@ Body
 			]
 			}
 		],
-		"taskDesc":"空调开机"
+		“taskDesc”:”空调开机”
 		}
 	]
     }
 }
+
 
 ```
 
@@ -1009,19 +1100,16 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/query/execlog   `  
+?> **接入地 址：**  `/scheduler/v1/device/query/execlog   `  
  **HTTP Method：** POST
 
 **输入参数**  
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|taskId	|String varchar(50)	|Body|	可选	|任务id|
-|deviceId|	String varchar(50)|	Body|	必填|	设备id|
-|beginTime|	Date|	Body|	可选|	任务执行开始时间: 日期类型的字符串|
-|endTime|	Date|	Body|	可选	|任务执行结束时间: 日期类型的字符串|
-|currentPage|	int|	Body|	可选|	分页参数，当前页，最小为1;默认值1|
-|pageSize|	int|	Body|	可选|	分页参数，每页条数;默认值10|
+|taskId	|String 	|Body|	可选	|任务id|
+|taskSeq|	int|	Body|	必填|	子任务序号id|
+
 
 
 
@@ -1037,27 +1125,23 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
+appId: MB-*****-0000
+appVersion: ****.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: *******
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: *****
 Content-Encoding: utf-8
 Content-type: application/json
 Body
 {
-  	"taskId":"111111",
-  	"deviceId":"DC330D32C193",
-  	"beginTime":"2018-04-19 17:00:00",
-  	"endTime":"2018-04-20 17:00:00",
-  	"pageSize":10,
-	"currentPage":1
-}
+  “taskId”:“bad2adb0d756469b8ae0e292c81240ab”,
+    “taskSeq”:  “1”
+ }
 
 
 ```
@@ -1065,38 +1149,35 @@ Body
 **请求应答**
 ```java
 {
-"retCode": "00000",
-"retInfo": "查询成功",
-"detailInfo":{
-	[
-		{
-			"total": 6,
-			"curSize": 6,
-			"currentPage": 1,
-			"pageSize": 10,
-			"logInfos": [{
-				"taskId": 1,
-				"deviceId": "DC330D32C193 ",
-				"sn": "dd753e6da718402dbd32fef9549e9676",
-				"excuteTime": "2018 - 04 - 19 17: 00: 00",
-				"step": 0,
-				"retCode": "00000",
-				"retInfo": "成功"
-			}]
-		}
-	]
+    "batchResult": true, 
+    "cmdSn": "181206135609768fa163e26700a3593", 
+    "detailInfo": [
+        {
+            "cmdSn": "181206135609768fa163e26700a3593", 
+            "cmdSubSn": "181206135609768fa163e26700a3593:_:000", 
+            "deviceId": "DC330D861BB6", 
+            "execResult": true, 
+            "execResultCode": "00000", 
+            "execResultInfo": "成功", 
+            "execStep": 2, 
+            "oid": 14839, 
+            "resultTime": 1544075772000
+        }
+    ], 
+    "retCode": "00000", 
+    "retInfo": "成功"
 }
-}
+
 
 ```
 
 
 #### 预约任务执行预览
->预约任务执行预览
+>预约任务执行预览，任务立即下发一次
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/scheduler /v1/device/preview   `  
+?> **接入地 址：**  `/scheduler/v1/device/preview   `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1119,24 +1200,23 @@ Body
 **用户请求**
 ```java 
 Header：
-appId: MB-****-0000
-appVersion: 99.99.99.99990
+appId: MB-********-0000
+appVersion: *******.99990
 clientId: 123
 sequenceId: 2014022801010
-accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+accessToken: ************
 sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
 timestamp: 1491014596343 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: ************
 Content-Encoding: utf-8
 Content-type: application/json
 Body:
 {
-	"taskId": "111111"
-  	"taskSeq":1
+  “taskId”: “bad2adb0d756469b8ae0e292c81240ab”
+    “taskSeq”:1
 }
-
 
 ```
 
