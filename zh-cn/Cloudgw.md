@@ -172,7 +172,10 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 #### 设备集成配网SDK   
   
-设备底板无需改动，模块集成配网SDK，支持U+ APP配置绑定。 
+设备底板无需改动，模块集成配网SDK，支持U+ APP配置绑定。  
+设备云端按本文档API的定义调用，实现设备控制与状态数据同步。  
+  
+ 
 
 在海极网下载SDK申请表，申请配网SDK：
 
@@ -180,11 +183,12 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 ![设备集成配网sdk][configuration_sdk2]   
 
-注：配网SDK大小为40KB。
+注：配网SDK大小为2KB。
 
 #### 设备自身具备联网能力  
 
-设备无法集成U+配网SDK且自身具备联网能力，可实现绑定业务。
+设备无法集成U+配网SDK且自身具备联网能力，需要设备(如带屏设备)生成绑定二维码，U+ APP扫描绑定二维码，或U+ APP生成二维码，设备(如摄像头类设备)解析并通过云设备回传U+云平台，实现设备发起绑定。  
+设备云端按本文档API的定义调用，实现设备控制与状态数据同步。    
   
 请联系平台王世腾(wangshiteng@haier.com)。
 
