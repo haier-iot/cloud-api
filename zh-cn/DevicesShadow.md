@@ -286,6 +286,69 @@ Body
 ##### 3、错误码  
 > A00003、A00004、B00001、C00003、C00004、Y00001  
 
+
+### 获取设备报警列表
+> 按指定设备云端当前告警列表信息
+
+##### 1、接口定义
+?> **接入地 址：**  `	/stdudse/v1/getCautionList `  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型   | 参数名   | 位置  | 必填|说明|  
+| :-----:|:------:|:-----:|:---:|:----:|   
+|  deviceId    | String | Body| 必填|设备id|  
+
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| :-------------:|:----------:|:-----:|:--------:|:---------:|
+| List<DevFault> |  cautionListInfo  |   Body  |  必填  |设备当前报警List |
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+用户请求	Headers:
+Connection: keep-alive
+appId: ######    
+appKey: #######################  
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+sign: bb2a5c1e432eac8bea8eecb89b408937382e7e95486ee0a60944a46504fa0015 
+timestamp: 1491013448628 
+language: zh-cn
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{ deviceId:"DD330DDDDDD"}
+
+```  
+
+**请求应答**
+
+```java
+{
+ "retCode":"00000",
+ "retInfo":"操作成功！",
+ " cautionListInfo ":[
+{ name:"4405",value:"高温报警",type:"高温报警",timestamp:"1521111111111"
+}
+]
+}
+
+
+```
+
+##### 3、错误码  
+> B00001 
+
+
 ### 设备功能描述查询
 > 按设备影子模块分类返回设备标准模型，验证token合法性  
 
