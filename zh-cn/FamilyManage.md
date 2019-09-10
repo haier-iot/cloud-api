@@ -10,7 +10,7 @@
 
 ### 家庭管理流程
 
-
+DeviceRoomInfoDto
 ![家庭模型流程][family_flow]
 
 
@@ -158,10 +158,10 @@
 | **名称** | 设备简明信息 | &emsp;|DeviceBriefInfo |
 | ------------- |:-------------:|:-----:|:-------------:|   
 |**字段名**|**类型**|**说明**|**备注**|    
-|deviceName|String|设备名称，等同于别名||  
-|deviceId|String|设备ID||  
-|wifiType|String|设备wifitype||  
-|deviceType|String|设备类别|| 
+|deviceName|String|设备名称，等同于别名|&emsp;|  
+|deviceId|String|设备ID|&emsp;|  
+|wifiType|String|设备wifitype|&emsp;|  
+|deviceType|String|设备类别|&emsp;| 
 |online|Boolean|是否在线|&emsp;|     
 |productName|String|设备型号名称|&emsp;|  
 |productCode|String|设备型号代码|&emsp;|  
@@ -169,46 +169,21 @@
 
 ### UserBriefInfo    
 Map<String,String> 用户属性值key/value  
+下表为存在的key,其他key属性需要忽略
 
-### DeviceInfo    
-| **名称** | 绑定设备信息 | &emsp;|DeviceInfo |
+| **名称** | 用户简明信息 | &emsp;|UserBriefInfo |
 | ------------- |:-------------:|:-----:|:-------------:|   
 |**字段名**|**类型**|**说明**|**备注**|    
-|deviceName|String|设备名称，等同于别名||  
-|deviceId|String|设备ID||  
-|wifiType|String|设备wifitype||  
-|deviceType|String|设备类别|| 
-|totalPermission|AuthInfo|权限和，权限信息的综合|| 
-|permissions|Permission[]|权限信息 ||  
-|online|Boolean|是否在线|&emsp;|     
-
-### BaseProperty   
-| **名称** | 基础属性 |&emsp;| BaseProperty |   
-| ------------- |:-------------:|:-----:|:-------------:|  
-|**字段名**|**类型**|**说明**|**备注**|    
-|brand|String|设备品牌||  
-|model|String|设备型号||  
-|others|Map<String,String>|其他属性|&emsp;|       
+|name|	String|	昵称|&emsp;|	
+|email|	String|	电子邮件|&emsp;|	
+|userId|	String|	用户id|	不为空|
+|mobile|	String|	手机号|	&emsp;|
+|avatar|	String|	头像url|	用户中心提供的头像地址|
+|isVirtualUser|	String|	是否为虚拟用户|	true，虚拟用户，false，实体用户|
+|hostUserId|	String|	宿主用户的IOT平台userid|	&emsp;|
+|ucUserId|	String|	用户中心userId|&emsp;|	
 
 
-### DeviceVersion    
-| **名称** | 设备版本信息 | &emsp;|DeviceVersion |
-| ------------- |:-------------:|:-----:|:-------------:|  
-|**字段名**|**类型**|**说明**|**备注**|    
-|deviceId|String|模块信息||  
-|modules|Set<Module>|设备型号||  
-|wifiType|String|wifi类型||  
-|deviceType|String|设备类型||  
-|basePropertiy|BaseProperty|品牌信息||  
-|location|Location|位置信息|&emsp;|      
-  
-### Module    
-| **名称** | 模块信息 | &emsp;|Module |
-| ------------- |:-------------:|:-----:|:-------------:|  
-|**字段名**|**类型**|**说明**|**备注**|    
-|moduleId|String|模块ID||  
-|moduleType|String|模块类型||  
-|moduleInfos|Map<String,String>|模块其他信息|&emsp;|         
 
 ### Location 
 |**名称**	|模块信息 |&emsp;|Location|
@@ -253,7 +228,9 @@ wifiType|String|设备wifitype|
 deviceType|String|设备类别|
 room|String|设备房间位置信息|   
 permission|Permission[]|权限信息|   
-online|Boolean|是否在线|   
+online|Boolean|是否在线|
+productNameT|String|设备型号名称| 
+productCodeT|String|设备型号代码|    
 
 
 
@@ -597,20 +574,24 @@ Content-type: application/json
 > 验证用户token,确认用户是否为家庭成员,查询加入的家庭信息,并返回    
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/familyService/families`  
+?> **接入地 址：**  `/ufm/v1/protected/familyService/families?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
 
 | 类型      | 参数名   | 位置  | 必填|说明|
 | -------- |:--------:|:-----:|:---------:|:---------:|  
-|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理| 
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | FamilyInfo[] |  families  |   Body  |  必填  | 家庭信息列表 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 ##### 2、请求样例  
 
@@ -635,38 +616,72 @@ Content-type: application/json
 
 ```java
 {
-"families":[{
-"familyName":"测试1",
-"familyId":"20021003012012",
-"familyOwner":{
-"userId": "10811563273",
-"userNickName": "xiaoyi",
-"userHeadImg": "https://uhome.haier.com/resource/headimg",
-"userAge": "10811563273",
-"userAddr": "10811563273",
-“userSex”: “male”
-},
-"appId":"MB-PORTAL-0000",
-"createtime":"2016-09-28 10:00:00"
-},
-{
-"familyName":"测试3",
-"familyId":"20021003012012",
-"familyOwner":{
-"userId": "10811563273",
-"userNickName": "xiaoyi",
-"userHeadImg": "https://uhome.haier.com/resource/headimg",
-"userAge": "10811563273",
-"userAddr": "10811563273",
-“userSex”: “male”
-},
-"appId":"MB-PORTAL-0000",
-"createtime":"2016-09-28 10:00:00"
-
-}]
-  "retCode": "00000",
-  "retInfo": "成功"
+    "retCode": "00000",
+    "retInfo": "成功",
+    "families": [
+        {
+            "familyId": "755111162274000000",
+            "familyName": "科技",
+            "familyOwner": {
+                "userId": "100013957366152524",
+                "mobile": "136****8934"
+            },
+            "appId": "MB-UBOT-0009",
+            "createTime": "2019-02-15 17:17:55",
+            "familyLocation": {
+                "latitude": "39.92767",
+                "cityCode": "101010300",
+                "longitude": "116.45011"
+            },
+            "familyPosition": "北京市 朝阳区",
+            "securityLevel": "0",
+            "deviceCount": "1",
+            "memberCount": "2"
+        },
+        {
+            "familyId": "880111442716000000",
+            "familyName": "科技",
+            "familyOwner": {
+                "userId": "100013957366152524",
+                "mobile": "136****8934"
+            },
+            "appId": "MB-UBOT-0009",
+            "createTime": "2019-02-18 11:51:57",
+            "familyLocation": {
+                "latitude": "39.92767",
+                "cityCode": "101010300",
+                "longitude": "116.45011"
+            },
+            "familyPosition": "北京市 朝阳区",
+            "securityLevel": "0",
+            "deviceCount": "0",
+            "memberCount": "2"
+        },
+        {
+            "familyId": "115111466664000000",
+            "familyName": "科技",
+            "familyOwner": {
+                "userId": "100013957366152524",
+                "mobile": "136****8934"
+            },
+            "appId": "MB-UBOT-0009",
+            "createTime": "2019-02-18 18:31:05",
+            "familyLocation": {
+                "latitude": "39.92767",
+                "cityCode": "101010300",
+                "longitude": "116.45011"
+            },
+            "familyPosition": "北京市 朝阳区",
+            "securityLevel": "0",
+            "deviceCount": "0",
+            "memberCount": "2"
+        }
+]，
+"totalCount": "20",
+"pageSize": "3",
+"pageNumber": "1"
 }
+
 
 ```
 
@@ -675,7 +690,7 @@ Content-type: application/json
 
 #### 家庭管理员删除家庭
 > 家庭管理员删除家庭,收回用户分享给家庭的设备权限,收回家庭成员的家庭分享设备权限，向删除前家庭成员发送删除家庭消息，记录消息推送结果到日志   
-
+/ufm/v1/protected/shareDeviceService/ person/shareDevices
 ##### 1、接口定义
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/family`  
  **HTTP Method：** DELETE
@@ -1090,9 +1105,9 @@ Content-type: application/json
 
 #### 家庭管理员或家庭成员查询家庭成员
 >家庭管理员或家庭成员查询家庭成员  
- 
+ /ufm/v1/protected/familyService/families
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/familyMembers`  
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/familyMembers?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
@@ -1100,13 +1115,17 @@ Content-type: application/json
 | 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | String  | familyId  | url |必填|家庭id | 
-  
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理|   
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | FamilyMemberInfo[]  |  familyMembers   |   Body  |  必填   | 家庭成员信息列表 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 
 ##### 2、请求样例  
@@ -1167,6 +1186,9 @@ Content-type: application/json
 },
 "memberName":"测试3""joinTime ":"2016-11-01 00:00:00"}
 ],
+"totalCount": "20",
+"pageSize": "3",
+"pageNumber": "1",
 "retCode":"00000",
 "retInfo":"成功"
 
@@ -1181,7 +1203,7 @@ Content-type: application/json
 >家庭管理员或家庭成员查询家庭成员 
  
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/allFamilyMembers`  
+?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/allFamilyMembers?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
@@ -1189,14 +1211,17 @@ Content-type: application/json
 | 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | String  | familyId  | url |必填|家庭id | 
-  
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理|   
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | FamilyMemberInfo[]  |  familyMembers   |   Body  |  必填   | 家庭成员信息列表 |
-
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 ##### 2、请求样例  
 
@@ -1529,13 +1554,228 @@ String|familyId|body|必填|家庭id
 
 
 
+#### 虚拟用户加入家庭
+
+> 实体账户作为家庭成员添加虚拟用户进入家庭，实体账户必须为虚拟账户的宿主账户
+
+##### 1、接口定义
+
+?> **接入地址：** `/ufm/v1/protected/familyService/joinFamily/virtualFamilyMember`
+
+**HTTP Method：** `POST`
+
+**输入参数**
+
+类型|参数名|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+String|	virtualUCId|	Body|	必填	虚拟用户用户中心ID
+String| 	familyId|	Body|	必填	要加入的家庭ID
+String|	userFamilyName|	Body|	必填	用户加入家庭附属参数,为用户在家庭中昵称
+
+
+**输出参数**
+
+类型|参数名|位置|必要性|说明
+:-:|:-:|:-:|:-:|:-
+String|	virtualUserId|	Body|	必填|	用户在iot平台分配的userId
+
+
+##### 2、请求样例
+**用户请求**
+```
+{
+"familyId":"1111111111111",
+"userFamilyName":"cindy",
+"virtualUcId":"111111111"
+}
+
+
+```
+
+**输出参数**
+
+```
+{
+    "virtualUserId": "1111111",
+    "retCode": "00000",
+	"retInfo": "成功"
+}
+
+```
+
+##### 3、错误码
+
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142
+
+
+#### 虚拟用户退出家庭
+
+> 实体账户必须为虚拟账户的宿主账户，实体账户协助虚拟账户退出家庭
+
+##### 1、接口定义
+
+?> **接入地址：** `/ufm/v1/protected/familyService/leaveFamily/virtualFamilyMember`
+
+**HTTP Method：** `POST`
+
+**输入参数**
+
+类型|参数名|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+String|	virtualUserId|	Body|	必填|	虚拟用户在IOT平台的用户ID
+String| 	familyId|	Body|	必填	|要加入的家庭ID
+
+
+
+**输出参数**
+
+类型|参数名|位置|必要性|说明
+:-:|:-:|:-:|:-:|:-
+
+
+
+##### 2、请求样例
+**用户请求**
+```
+{
+"familyId":"1111111111111",
+"virtualUserId":"111111111"
+}
+
+
+
+```
+
+**输出参数**
+
+```
+{
+   
+    "retCode": "00000",
+"retInfo": "成功"
+}
+
+
+```
+
+##### 3、错误码
+
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142
+
+
+#### 查询虚拟成员所在家庭
+
+> 实体账户查询虚拟用户所在的家庭
+
+##### 1、接口定义
+
+?> **接入地址：** `/ufm/v1/protected/familyService/queryFamily /virtualFamilyMember`
+
+**HTTP Method：** `POST`
+
+**输入参数**
+
+类型|参数名|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+String|	virtualUserId|	Body|	必填	|虚拟用户在IOT平台的用户ID
+
+
+
+**输出参数**
+
+类型|参数名|位置|必要性|说明
+:-:|:-:|:-:|:-:|:-
+FamilyInfo[]|	families|	Body|	必填	|家庭信息
+
+
+##### 2、请求样例
+**用户请求**
+```
+{
+"virtualUserId":"1111111111111"
+}
+
+
+```
+
+**输出参数**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"families": [{
+		"familyId": "693130509064000000",
+		"familyName": "Aalitest",
+		"familyOwner": {
+			"isVirtualUser": "false",
+			"email": "",
+			"name": "187****6123",
+			"userId": "100013957366158663",
+			"ucUserId": "2005021119",
+			"avatar": "https://account.haier.com/avatar/b1120a5ef93ed15e792e557124139a12.jpg",
+			"mobile": "18730000000"
+		},
+		"appId": "MB-UBOT-0009",
+		"createTime": "2019-08-28 02:31:04",
+		"familyLocation": {},
+		"securityLevel": "0",
+		"deviceCount": "0",
+		"memberCount": "3"
+	}, {
+		"familyId": "693130508700000000",
+		"familyName": "我的家庭",
+		"familyOwner": {
+			"isVirtualUser": "false",
+			"email": "",
+			"name": "187****6123",
+			"userId": "100013957366158663",
+			"ucUserId": "2005021119",
+			"avatar": "https://account.haier.com/avatar/b1120a5ef93ed15e792e557124139a12.jpg",
+			"mobile": "1873000000"
+		},
+		"appId": "MB-UBOT-0009",
+		"createTime": "2019-08-28 02:25:01",
+		"familyLocation": {},
+		"securityLevel": "0",
+		"deviceCount": "0",
+		"memberCount": "4"
+	}
+],
+	"totalCount": "2"
+}
+
+
+```
+
+##### 3、错误码
+
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### 设备分享管理服务
 
 #### 家庭管理员或家庭成员查询家庭的所有设备
 > 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备
 
 ##### 1、接口定义
-?> **接入地址：**  `/ufm/v1/protected/shareDeviceService/ family/{familyid}/shareDevices`  
+?> **接入地址：**  `/ufm/v1/protected/shareDeviceService/ family/{familyid}/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
@@ -1543,12 +1783,18 @@ String|familyId|body|必填|家庭id
 | 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 |  String    | familyId | url| 必填|家庭Id|
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理| 
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
+
 
 ##### 2、请求样例  
 
@@ -1618,6 +1864,9 @@ online":false
 }
 }
 ],
+"totalCount": "20",
+"pageSize": "3",
+"pageNumber": "1",
 "retCode":"00000",
 "retInfo":"成功"
 }
@@ -1631,20 +1880,24 @@ online":false
 > 查询设备管理员分享给个人的所有设备  
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ person/shareDevices `  
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ person/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
 
 | 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
-|  &emsp;    | &emsp; | &emsp;| &emsp;|&emsp;|
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理|
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | ShareDevice[] |  shareDevs  |   Body  |  必填  |共享设备信息 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 ##### 2、请求样例  
 
@@ -1733,20 +1986,24 @@ online":false
 > 查询设备管理员分享给家庭的所有设备   
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices`  
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
 
 | 类型         | 参数名         | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
-|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |    
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:| 
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理|  
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| ShareDevice[] |  shareDevs |   Body|  必填  | 共享设备信息 |  
+| ShareDevice[] |  shareDevs |   Body|  必填  | 共享设备信息 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|  
 
 ##### 2、请求样例  
 
@@ -1806,6 +2063,9 @@ online":false
 }
 }
 ],
+"totalCount": "20",
+"pageSize": "3",
+"pageNumber": "1",
 "retCode":"00000",
 "retInfo":"成功"
 }
@@ -1819,20 +2079,24 @@ online":false
 > 家庭成员查询分享给我的所有家庭设备    
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices2me `  
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices2me?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
 
 | 类型         | 参数名         | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
-|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理| 
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 ##### 2、请求样例  
 
@@ -1907,6 +2171,9 @@ online":false
 "auth":{"view":true,"set":false,"control":false}
 }
 }],
+"totalCount": "20",
+"pageSize": "3",
+"pageNumber": "1",
     "retCode": "00000", 
     "retInfo": "成功", 
    
@@ -1921,20 +2188,24 @@ online":false
 > 查询分享给我的所有个人分享设备   
 
 ##### 1、接口定义
-?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/shareDevices2me `  
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/shareDevices2me?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
 **输入参数**  
 
 | 类型         | 参数名         | 位置  | 必填|说明|
-| ------------- |:-------------:|:-----:|:-------------:|:-------------:|
-|  &emsp;     | &emsp;  | &emsp; | &emsp; |&emsp; |  
+| ------------- |:-------------:|:-----:|:-------------:|:-------------:| 
+|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
+|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理|  
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | ShareDevice[] |  shareDevs  |   Body  |  必填  | 共享设备信息 |
+|String|	totalCount|	Body|	必填	|总数|
+|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
+|String|	pageNumber|	Body|	必填	|当前页，从1开始|
 
 ##### 2、请求样例  
 
@@ -2009,6 +2280,9 @@ online":false
 
 }
 ],
+	"totalCount": "20",
+	"pageSize": "3",
+	2.7.1.10	UserBriefInfo"pageNumber": "1",
     "retCode": "00000", 
     "retInfo": "成功", 
    
