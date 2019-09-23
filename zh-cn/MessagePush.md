@@ -32,8 +32,29 @@ IOT消息推送，根据需求选择FCM 或 极光推送，使用端需要先初
 
 提供消息免打扰机制，用户可自主设置免打扰规则、查询和管理免打扰机制等。
 
+## 公共属性说明 <sup style="color:red">(重要)<sup>
+参数名|类型|说明|备注
+:-|:-:|:-|:-
+userId|	String|	用户唯一标识	| &ensp;|
+appId|	String	|应用唯一标识	| &ensp;|
+clientId|	String	|终端唯一标识| &ensp;|	
+pushId|	String	|通道的推送标识|	通道会为每个终端（通过appId+clientId识别）生成的唯一标识|
+msgId	|String	|消息的唯一标识| &ensp;|	
+taskId|	String	|任务的唯一标识|	一个任务下包含多个消息|
+businessType|	Integer|	消息业务类型|	0:系统类（系统类消息，例如推送升级，热修复等）1:设备类（洗衣机、安防、菜谱分享等）2:运营类（广告，运营等）3:场景类4:家庭类5:活动类 &ensp;&ensp;<font color=red>未定义枚举值不允许私自使用</font>|
+channel|	Integer|	通道标识|	0:极光 1:m2m通道 2:fcm通道 3:邮件 4:不使用或无通道|
+isBurn|	Integer|	消息撤回标识	|0:正常消息 1:阅后即焚|
+priority|	Integer	|消息优先级|	0:最高级  1:重要  2:正常 3:次要|
+msgExpires|	Integer|	消息过期标识|	-1:一年 0:立即过期  最大值8760（单位小时）|
+msgVersion|	String|	消息模型版本|	v2:v3之前版本 v3:v3版本|
+queryTag|	Integer	|标识查询起始时间之前、还是之后的消息|	0:给定时间之后 1:给定时间之前 |
+
+
 
 ## 公共结构说明
+
+>  所有返回参数为null时不返回。
+
 ### TerminalDto
 终端信息
 
