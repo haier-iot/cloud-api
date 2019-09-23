@@ -78,17 +78,17 @@ data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象�
 android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|
 ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义
 options|Options|定义消息的选项设置，详见Option对象定义
-version|String|定义消息的版本，次版本为V1|
+version|String|定义消息的版本，此版本为V3|
 
 ### MsgClientHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
 taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-businessType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
-message|UpMsg|消息模型|消息内容
+businessType|Integer|业务类型|见公共属性说明
+message|UpMsg|消息模型|见UpMsg
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
-readStatus|Integer|消息读取状态|消息是否被读取
+readStatus|Integer|消息读取状态|1:未读，2:已读
 pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
 
 
@@ -96,25 +96,30 @@ pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String|用户ID|
-appId|String|应用ID|
-clietnId|String|终端ID|
-busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+userId|String|用户ID|见公共属性说明
+appId|String|应用ID|见公共属性说明
+clietnId|String|终端ID|见公共属性说明
+busineeType|Integer|业务类型|见公共属性说明
+message|	UpMsg|	消息模型	|见UpMsg
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
 readStatus|Integer|消息读取状态|消息是否被读取
-tag|String|标签|自定义标签
+tag|String|标签|自定义标签，可定义家庭ID等
 pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
-msgCode|String|返回码|
+retCode|String|消息发送状态码|
 
 ### DoNotDisturbDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
 dndId|String|免打扰标识|
-beginTime|Integer|开始时间|
-endTime|Integer|结束时间|
-businessType|Integer|消息业务类型|
-priority|Integer|消息优先级|1，2，3
+beginTime|Date|开始时间|时间格式: HH:ss
+endTime|Date|结束时间|时间格式: HH:ss
+businessType|	Integer|	消息业务类型	|见公共属性说明
+dndTag|	String|	免打扰标签|	同推送系列接口中的tag
+dndType|	Integer|	免打扰类型|	0代表按类型免打扰，此时businessType有值，tag为null; 1代表按标签免打扰，此时businessType为null，tag有值;
+priority|	Integer|	消息优先级|	见公共属性说明
+
+
 
 
 
@@ -124,6 +129,14 @@ priority|Integer|消息优先级|1，2，3
 :-|:-:|:-|:-
 business|String|业务类型|
 msgNums|String|未读消息数量|
+
+### TerminalSimpleDto
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+clientId|	String	|	应用的clientId
+appId	|String		|应用id，40位以内字符
+
 
 ## 消息推送模型说明
 
