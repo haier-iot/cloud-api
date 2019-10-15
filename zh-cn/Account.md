@@ -1,4 +1,4 @@
-
+好固定值传 password
 !> **更新时间**：{docsify-updated}  
 
 
@@ -488,7 +488,7 @@ client_id=wodeyingyong&client_secret=secret&grant_type=refresh_token&refresh_tok
 | ------------- |:-------------:|:----------|
 |client_id| 用户中心下发的client_id |Y|
 |client_secret|用户中心下发的client_secret |Y|  
-|grant_type |固定值传 password |Y|  
+|grant_type |固定值传 refresh_token |Y|  
 |refresh_token |短信随机码快速登录接口或者账号密码登录接口或者本接口获取的refresh_token |Y|  
 |type_uhome |固定值传 type_uhome_common_token |Y|  
 |uhome_client_id |参考前提，透传UHome参数 |Y|  
