@@ -1,4 +1,4 @@
-
+家庭管理员创建家庭
 !> **更新时间**：{docsify-updated}  
 
 
@@ -295,11 +295,7 @@ appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 Content-Encoding: utf-8
 Content-type: application/json
 Body:
-{
-"familyInfo":{
-"familyName":"我家"
-	}
-}
+{"familyInfo": {"familyName": "科技"}}
 
 
 ```  
@@ -308,24 +304,24 @@ Body:
 
 ```java
 {
-"familyInfo":{
-"familyName":"我家",
-"familyId":"10086",
-"familyOwner":{
-"userId": "10811563273",
-"userNickName": "xiaoyi",
-"userHeadImg": "https://uhome.haier.com/resource/headimg",
-"userAge": "10811563273",
-"userAddr": "10811563273",
-“userSex”: “male”
-		}
-	},
-"appId":"MB-PORTAL-0000"，
-"createtime":"2016-10-01 12:00:00"
+    "retCode": "00000",
+    "retInfo": "成功",
+    "familyInfo": {
+        "familyId": "647112241261000000",
+        "familyName": "科技",
+        "familyOwner": {
+            "userId": "100013957366154693",
+            "mobile": "136****8934"
+        },
+        "appId": "MB-***-0009",
+        "createTime": "2019-02-26 11:27:42",
+        "familyLocation": {},
+        "securityLevel": "0",
+        "deviceCount": "0",
+        "memberCount": "0"
+    }
 }
-   "retCode": "00000",
-   "retInfo": "成功"
-}
+
 
 
 ```
