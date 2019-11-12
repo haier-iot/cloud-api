@@ -56,7 +56,7 @@
 |endTime|	dateTime|	任务终止时间: 日期时间类型的字符串|`yyyy-MM-dd hh:mm:ss`|
 |endTimeSource|	int	|endTime来源	|0: 系统默认，1:用户设置|
 |argsInfo|	ArgsInfo[]	|指令	|&emsp;|
-|status|	int|	定时预约状态 0 启用；1 已完成； 2 暂停；3 删除；4失效 |	int(2)|
+|status|	int|	定时预约状态 0 启用；1 已完成； 2 暂停； |	int(2)|
 |taskDesc|	String|	任务描述	|varchar(100)
 |taskSeq|	int|	子任务序号id|	1：系统默认
 |taskAmount|	int|	子任务总数|	&emsp;|
@@ -91,6 +91,7 @@
 |名称	|Cron表达式说明|&emsp;|Cron|
 | ------------- |:-------------:|:-----:|:-------------:|
 |字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
+|seconds|	String|	必填，秒；|	取值范围（0-59）；允许特殊字符（, - * /）|
 |minutes|	String|	必填，分钟；|	取值范围（0-59）；允许特殊字符（, - * /）|
 |hours|	String	|必填，小时|	取值范围（0-23）；允许特殊字符（, - * /）|
 |day|	String	|必填，天|	取值范围（1-31）；允许特殊字符（, - * ? / L W）|
@@ -128,24 +129,6 @@
 |value	|String|	单个属性设置时，属性值|用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
 |cmdName|String|	组命令时，操作名|	用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
 |cmdArgs|Map<String,String>|	组命令时，属性集合|	用户可选name和value与cmdName和cmdArgs这两组由用户选择，必填其一|
-
-
-
-### TaskEditInfo
-
-|名称	|预约编辑日志|&emsp;|TaskEditInfo|
-| ------------- |:-------------:|:-----:|:-------------:|
-|字段名|	类型	|说明|	备注(数据字典描述，规范入参)|
-|taskId	|String	|任务id|	&emsp;|	
-|taskSeq|	int|	任务序号|&emsp;|	
-|deviceId|	String|	设备mac	|&emsp;|	
-|userInfo|	UserInfo[]|	用户信息	|&emsp;|	
-|appInfo|	AppInfo[]|	应用信息	|&emsp;|	
-|status|	int|	定时预约状态 0 启用；1 已完成； 2 暂停； 3 删除；|&emsp;|	
-|type|	int|	1=增加、2=修改、3=删除	|&emsp;|	
-|modifyTime|	String|	修改时间	|&emsp;|	
-|endTime|	String	|终止时间	|&emsp;|	
-|argsInfo|	ArgsInfo|	指令	|&emsp;|	
 
 
 
@@ -189,7 +172,7 @@
 
 #### 预约定时新增
 
-> 预约定时新增，适用于单设备单任务场景
+> 预约定时新增，适用于单设备单任务场景<font color=red>（注意：请求公共参数header中的timezone 为必填，代表客户端使用的时区。传入用户所在时区ID，国内服务请填写"Asia/Shanghai"即可。 ）</font>
 
 ##### 1、接口定义
 
@@ -249,6 +232,7 @@ Body
   "typeId": "edd032ff-7113-4970-a780-392d44c423b3",
   "cron": [
     {
+	  "seconds ": "*",
       "minutes": "0 / 5",
       "hours": "*",
       "day": " * ",
@@ -292,7 +276,7 @@ Body
 
 #### 预约定时批量新增
 
-> 预约定时批量新增，适应于单设备批量定时和批量设备单定时场景
+> 预约定时批量新增，适应于单设备批量定时和批量设备单定时场景<font color=red>（注意：请求公共参数header中的timezone 为必填，代表客户端使用的时区。传入用户所在时区ID，国内服务请填写"Asia/Shanghai"即可。 ）</font>
 
 ###### 1、接口定义
 
@@ -484,7 +468,7 @@ Body:
 ```
 
 #### 预约定时修改
-> 预约定时修改，适用于单设备单任务场景
+> 预约定时修改，适用于单设备单任务场景<font color=red>（注意：请求公共参数header中的timezone 为必填，代表客户端使用的时区。传入用户所在时区ID，国内服务请填写"Asia/Shanghai"即可。 ）</font>
 
 ##### 1、接口定义
 
@@ -514,8 +498,8 @@ Body:
 |taskDesc	|String varchar(100)	|Body|	选填	|任务描述|
 |status	|int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
 |endTime	|dateTime	|Body	|选填	|如果有值，按照此值的有效期|
-|cron	|cron[]|	Body	|选填	|任务执行表达式；cron和intervals必填其一。|
-|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；cron和intervals必填其一。|
+|cron	|cron[]|	Body	|选填	|任务执行表达式；|
+|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；|
 |argsInfo	|ArgsInfo|	Body|	选填|	多套指令集；当前版本只支持一套|
 
 
@@ -581,7 +565,7 @@ Body:
 
 
 #### 预约定时批量修改
-> 预约定时批量修改，适应于单设备批量定时和批量设备单定时场景
+> 预约定时批量修改，适应于单设备批量定时和批量设备单定时场景<font color=red>（注意：请求公共参数header中的timezone 为必填，代表客户端使用的时区。传入用户所在时区ID，国内服务请填写"Asia/Shanghai"即可。 ）</font>
 
 ##### 1、接口定义
 
@@ -612,8 +596,8 @@ Body:
 |taskDesc|	String varchar(100)|	Body|	选填|	任务描述|
 |status|	Int|	Body|	选填	|定时预约状态 0 启用；2 暂停；|
 |endTime	|dateTime|	Body|	选填	|如果有值，按照此值的有效期|
-|cron	|cron[]|	Body	|选填	|任务执行表达式；cron和intervals必填其一。|
-|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；cron和intervals必填其一。|
+|cron	|cron[]|	Body	|选填	|任务执行表达式；|
+|intervals	|int|	Body	|选填	|任务执行距当前的间隔时间，以分钟为单位，限制一天以内（0-1440），如为0需要立即执行；|
 |argsInfo|	ArgsInfo|	Body|	选填|	多套指令集；当前版本只支持一套|
 
 
