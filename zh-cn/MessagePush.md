@@ -767,7 +767,7 @@ retData|String|body|是|本次发送的任务标识|
 
 **输入参数**
 ```
-POST https://uws.haier.net/umse/v3/msg/pushByClients
+POST https://uws.haier.net/ums/v3/msg/pushByClients
 
 POST data:
 {"toClients":["1ebc148c322da136b8e8f3439e3fa90e","bbcbdaad3483b3be60cf584cd2aba975"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
@@ -776,7 +776,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-***
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
