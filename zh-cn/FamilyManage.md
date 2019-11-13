@@ -110,7 +110,7 @@ DeviceRoomInfoDto
 |familyPicture|String|家庭图片|默认值为平台内置家庭图片 url，不超过1K|  
 |familyLocation|Location|家庭位置信息|家庭位置信息|  
 |familyPosition|String|家庭位置|小区等信息|   
-|familyExternData|String|扩展信息|IOT平台可定义，jason|  
+|familyExternData|String|扩展信息|IOT平台可定义，json|  
 |familyLastUpdater|String|家庭最后修改人|添加请求时不填|  
 |LastUpdateTime|date|家庭最后修改时间|精确到秒，含年月日信息，，添加操作请求时不填|  
 |securityLevel|int|安全级别|添加操作请求时不填|  
@@ -187,7 +187,7 @@ Map<String,String> 用户属性值key/value
 |mobile|	String|	手机号|	&emsp;|
 |avatarUrl|	String|	头像url|	用户中心提供的头像地址|
 |isVirtualUser|	String|	是否为虚拟用户|	true，虚拟用户，false，实体用户|
-|hostUserId|	String|	宿主用户的IOT平台userid|	&emsp;|
+|hostUserId|	String|	2.7.1.6	FamilyInfo宿主用户的IOT平台userid|	&emsp;|
 |ucUserId|	String|	用户中心userId|&emsp;|	
 
 
