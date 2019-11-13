@@ -1095,7 +1095,7 @@ taskId|String|body|是|消息任务Id一个或多个，逗号分隔
 ## 云端功能接口
 
 ?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
-访问地址：`https://uws.haier.net/umse/v3`  </br>
+访问地址(内网访问)：`https://internal.uws.haier.net/umse/v3`  </br>
 **为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
 
 
@@ -1150,16 +1150,16 @@ retData|String|body|是|本次发送的任务标识
 
 **输入参数**
 ```
-POST https://uws.haier.net/umse/v3/msg/pushByApps
+POST https://internal.uws.haier.net/umse/v3/msg/pushByApps
 
 POST data:
-{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+{"toApps":["MB-****-0000","MB-****-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: SV-****-0000
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
@@ -1210,16 +1210,16 @@ taskId|String|body|是|本次发送的任务标识
 
 **输入参数**
 ```
-POST https://uws.haier.net/umse/v3/msg/pushByApps
+POST https://internal.uws.haier.net/umse/v3/msg/pushByApps
 
 POST data:
-{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+{"toApps":["MB-***-0000","MB-***-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: SV-****-0000
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
