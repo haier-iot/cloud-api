@@ -542,12 +542,13 @@ Header：
             }
         ],
         "wifiType": "00000000000000008080000000041410",
-		“productNameT”:”AB8Y7400Y”,
-		“productCodeT”:” KFR-72LW/08DBA22A(香槟金)套机”
+        “productNameT”:”AB8Y7400Y”,
+        “productCodeT”:” KFR-72LW/08DBA22A(香槟金)套机”
     },
     "retCode": "00000",
     "retInfo": "成功!"
 }
+
 
 
 ```
@@ -739,8 +740,8 @@ Header：
                 "view": true
             },
             "wifiType": "111c12002400081021010000005a4e4b32303134303931313031000000000000"，
-            “productNameT”:” AB8XC706N”,
-			“productCodeT”:” KFR-50LW/08GDB23A(茉莉白)套机”
+            “productNameT”:” KFR-50LW/08GDB23A(茉莉白)套机”,
+            “productCodeT”:” AB8XC706N”
         },
         {
             "deviceId": "C8934640B1DE",
@@ -763,8 +764,8 @@ Header：
                 "view": true
             },
             "wifiType": "101c120024000810140d00118003940000000000000000000000000000000000",
-			“productNameT”:”AB8Y7400Y”,
-			“productCodeT”:”KFR-72LW/08DBA22A(香槟金)套机”
+            “productNameT”:” KFR-72LW/08DBA22A(香槟金)套机”,
+            “productCodeT”:” AB8Y7400Y”
         },
         {
             "deviceId": "DC330D01FBF1",
@@ -787,13 +788,14 @@ Header：
                 "view": true
             },
             "wifiType": "00000000000000008080000000041410",
-			“productNameT”:”AB8Y7400Y”,
-			“productCodeT”:”KFR-72LW/08DBA22A(香槟金)套机”
+            “productNameT”:” KFR-72LW/08DBA22A(香槟金)套机”,
+            “productCodeT”:” AB8Y7400Y”
         }
     ],
     "retCode": "00000",
     "retInfo": "成功!"
 }
+
 
 ```
 
