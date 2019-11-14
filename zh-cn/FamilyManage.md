@@ -3313,7 +3313,9 @@ Content-type: application/json
 
 **权限申请**
 
-云服务服务授权，使用服务IP白名单策略，需要是用此服务请联系IOT平台技术支持开通系统IP白名单
+?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。
+访问地址(内网访问)：https://internal.uws.haier.net/ufme
+**为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
 
 **公共头部分**
 
