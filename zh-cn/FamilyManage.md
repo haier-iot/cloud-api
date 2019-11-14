@@ -3313,8 +3313,8 @@ Content-type: application/json
 
 **权限申请**
 
-?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。
-访问地址(内网访问)：https://internal.uws.haier.net/ufme
+?> 使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
+访问地址(内网访问)：`https://internal.uws.haier.net/ufme`  </br>
 **为访问安全，云端接口在调用时，需要设置调用方IP白名单。**
 
 **公共头部分**
