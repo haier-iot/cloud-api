@@ -244,14 +244,32 @@ wss://uws.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21-00
 
 ```java   
 {
-"topic": "XXXXXXX",
-"typeId": "000000001000000000000000000000000000", 
-"qos": "0", 
-"data": {
-          //消息内容，以schema为准
-	    }
+    "header": {
+        "ts": 1573716963096, 
+        "sn": "2b37edb71d6b49fbaff2b46f988ba6a1", 
+        "type": "std", 
+        "keys": {
+            "typeId": "订阅设备typeId", 
+            "deviceId": "设备deviceId"
+        }, 
+        "ver": "v1.0.1", 
+        "snd": "m2m", 
+        "from": "haier", 
+        "topic": "XXXXXXX", 
+        "qos": 0
+    }, 
+    "body": {
+        "ts": 1573716962580, 
+        "sn": "2b37edb71d6b49fbaff2b46f988ba6a1", 
+        "typeId": "订阅设备typeId", 
+        "deviceId": "设备deviceId", 
+        "category": "StdRpt", 
+        "args": {
+            //消息内容，以schema为准
+        }, 
+        "name": "***"
+    }
 }
-
 
 ```  
 
