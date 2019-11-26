@@ -22,7 +22,9 @@
  
  * [欧洲环境-标准版](en-zh/DevicesStandard-Euro)  
 
- * [欧洲环境-企业版](en-zh/DevicesEnterprise-Euro)  
+ * [欧洲环境-企业版](en-zh/DevicesEnterprise-Euro)
+ 
+ * [东南亚环境](en-zh/DeviceManage-SoutheastAsia)  
 
 * [数据推送](en-zh/DataSubscription) 
 
