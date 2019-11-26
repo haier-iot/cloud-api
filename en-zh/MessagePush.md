@@ -33,16 +33,16 @@ IOT消息推送，根据需求选择FCM 或 极光推送，使用端需要先初
 
 提供消息免打扰机制，用户可自主设置免打扰规则、查询和管理免打扰机制等。
 
-## 公共结构说明
+## 公共对象说明
 ### TerminalDto
 终端信息
 
 参数名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String| |用户Id，唯一标识
-clientId|String|如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址
+userId|String| |用户Id，唯一标识|&nbsp;
+clientId|String|如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址|&nbsp;
 devAlias|String|终端别名|终端别名
-appId|String| |应用ID，40位以内字符
+appId|String| |应用ID，40位以内字符|&nbsp;
 isOnline|Integer|1，在线；2，离线|1,代表10min内在线；</br>2,代表10min内不在线
 lastOnlineTime|Date|设备最近一次在线时间|当isOnline位1时，该字段不返回；</br>当isOnline为2，且该字段不返回时，则表示最后一次在线时间是两天之前
 
@@ -52,24 +52,27 @@ lastOnlineTime|Date|设备最近一次在线时间|当isOnline位1时，该字�
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-notification|Map<String,Object>|定义通知的内容，详见Notification对象定义|
-data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象定义|
-android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|
-ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义
-options|Options|定义消息的选项设置，详见Option对象定义
-version|String|定义消息的版本，此版本为V1|
+notification|Map<String,Object>|定义通知的内容，详见Notification对象定义|&nbsp;
+data|Map<String,Object>|定义自定义消息的数据内容，详见Data对象定义|&nbsp;
+android|Map<String,Object>|定义Android系统消息定制化内容，详见android对象定义|&nbsp;
+ios|Map<String,Object>|定义IOS系统消息定制化内容，详见IOS对象定义|&nbsp;
+options|Options|定义消息的选项设置，详见Option对象定义|&nbsp;
+version|String|定义消息的版本，此版本为V1|&nbsp;
 
 ### MsgClientHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-taskId|String|消息任务ID|终端收到的消息标识taskId
-busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
-message|UpMsg|消息模型|消息内容
-msgStatus|Integer|消息发送状态|1-待发送,2-发送中,3-成功,4-失败
-readStatus|Integer|消息读取状态|消息是否被读取
-pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
-
+taskId|String|消息任务ID|终端收到的msgId即ums的taskId
+msgId|String|消息ID|&nbsp;
+userId|String|用户ID|&nbsp;
+appId|String|应用ID|&nbsp;
+clientId|String|终端ID|&nbsp;
+businessType|businessType|业务类型|&nbsp;
+message|UpMsg|消息模型|&nbsp;
+msgStatus|Integer|消息发送状态|&nbsp;
+readStatus|Integer|消息读取状态|&nbsp;
+pushTime|DateTime|ums通道推送时间|&nbsp;
 
 ### MsgCloudHistoryDto
 
@@ -521,22 +524,17 @@ msgVersion|String|body|是|消息模型版本，对应消息模型中的version
 POST https://uws.haier.net/ums/v3/account/register
 
 POST data:
-{
-	"channel":2,
-	"pushId":"fbIyFJWV_M4:APA91bFYu308MAM5PyJxvUMiJKHT6yJl_O4z3HTyjr",
-	"devAlias":"ios of yy",
-	"msgVersion":"v3"
-}
+{"channel":2,"pushId":"fbIyFJWV_M4:APA91bFYu308MAM5PyJxvUMiJKHT6yJl-_O4z3HTyjr","devAlias":"ios of yy","msgVersion":"v3"}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-****-****
 sequenceId: 20161020153428000015
 sign: 234297626c79198546d965cedaef915264f47eaca7a21e1a508301ee1b81db9b
 timestamp: 1545817794954 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 appVersion: 99.99.99.99990
@@ -576,6 +574,9 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 **输入参数**
 ```
+请求地址	/ums/v3/account/logout
+
+POST https://uws.haier.net/ums/v3/account/logout
 
 POST data:
 
@@ -588,7 +589,7 @@ appId: MB-****-****
 sequenceId: 20161020153428000015
 sign: a9f87157f94c1c2848aa221d19016a768d936070f2642c5819183256953310d2
 timestamp: 1545817872035 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 appVersion: 99.99.99.99990
@@ -627,6 +628,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 retData|List<TerminalDto>|Body|是|终端信息列表
+
 
 
 ### 设置模块
@@ -688,6 +690,7 @@ dndId|String|body|是|免打扰设置唯一标识
 #### 查询免打扰信息
 
 > 获取已设定的免打扰配置列表，以userId+appId+clientId（即终端）为粒度查询
+> 用户登录后使用（即：调用接口时Header中accessToken参数必填）。
 
 ##### 1、接口定义
 
