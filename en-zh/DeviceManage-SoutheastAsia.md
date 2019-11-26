@@ -244,7 +244,7 @@ data|String|body|必填|绑定加密数据
 请求地址：/uds/v1/protected/bindDevice
 Header：
     Connection: keep-alive
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -298,7 +298,7 @@ deviceId|String|url|必填|设备ID
 ```
 请求地址：/uds/v1/protected/B00000000002/unbindDevice
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -349,7 +349,7 @@ deviceId|String|body|必填|设备ID
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/aliasName
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -405,7 +405,7 @@ loc|Lociation|body|必填|设备位置信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/location
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -467,7 +467,7 @@ deviceVersion|DeviceVersion|body|必填|设备信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/deviceInfo
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -476,7 +476,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -564,7 +564,7 @@ PUT data:
 {"loc":{"cityCode":"101010200","latitude":39.975675,"longitude":116.322712} }
 
 Header：
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 2014022801010
@@ -573,7 +573,7 @@ sign: dd9e75faed4fe74b49494012512515f787c9fb28f74d286dde47790139509cd2
 timestamp: 1491014310003 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -621,7 +621,7 @@ PUT data:
 {"aliasName":"拨测的设备"}
 
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -630,7 +630,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 Body
@@ -680,7 +680,7 @@ deviceinfos|DeviceInfo[]|body|必填|共享设备信息
 ```
 请求地址：/uds/v1/protected/deviceinfos
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -689,7 +689,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -805,7 +805,7 @@ isOnline|String|Body|必填|状态信息
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/isOnline
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -814,7 +814,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -861,7 +861,7 @@ deviceNetQuality|DeviceNetQualityDto|Body|必填|设备ID
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/deviceNetQuality
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -870,7 +870,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -924,7 +924,7 @@ DeviceStatus|DeviceStatus|Body|必填|设备状态
 ```
 请求地址：/uds/v1/protected/DC330D01FBF1/lastReportStatus
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -933,7 +933,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey:*********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -993,7 +993,7 @@ POST data:
 [no cookies]
 Request Headers:
 Connection: keep-alive
-appId: MB-UZHSH-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 clientId: 2
 sequenceId: 2014022801010
@@ -1002,7 +1002,7 @@ sign: ebcd5fc1387d647fa890cfa0ea91fc2d3c382316d9ae24ddf762cbbe76175aca
 timestamp: 1503395034831 
 language: zh-cn
 timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json
 
@@ -1047,7 +1047,7 @@ deviceRoomInfos|DeviceRoomInfoDto[]|body|必填|房间位置信息
 ```
 请求地址：/uds/v1/protected/deviceAndRoom
 Header：
-	appId: MB-FRIDGEGENE1-0000
+	appId: MB-****-****
 	appVersion: 99.99.99.99990
 	clientId: 123
 	sequenceId: 2014022801010
@@ -1056,7 +1056,7 @@ Header：
 	timestamp: 1491014535850 
 	language: zh-cn
 	timezone: +8
-	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+	appKey: *********************
 	Content-Encoding: utf-8
 	Content-type: application/json
 
@@ -1132,7 +1132,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1141,7 +1141,7 @@ sign: 116639d4405230df33486ceb5ea68bd2c685549c48cf83ce1cafd8dfaa336c7a
 timestamp: 1506061471587 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json 
 
@@ -1188,7 +1188,7 @@ brantInfo|BrandInfo|body|必填|设备品牌信息
 ```
 请求地址：/uds/v1/protected/0007A8947C62/deviceBrand
 Header：
-    appId: MB-****-0000
+    appId: MB-****-****
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
@@ -1197,7 +1197,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: +8
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: *********************
     Content-Encoding: utf-8
     Content-type: application/json
 ```
@@ -1257,7 +1257,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-FRIDGEGENE1-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 clientId: xb001
 sequenceId: 20161020153428000015
@@ -1266,7 +1266,7 @@ sign: 384a9e720d4e218c7d7d44d81f88c8b8c198bb660b900f8679607aaeba198a61
 timestamp: 1506061897331 
 language: zh-cn
 timezone: +8
-appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+appKey: *********************
 Content-Encoding: utf-8 
 Content-type: application/json
 
@@ -1330,7 +1330,7 @@ users|User[]|Body|是|用户列表
 请求地址	/udse/v1/devBindUsers
 
 Header：
-appId: SV-GEHWHKQ-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 clientId: 123
 sequenceId: 20161020153428000015
@@ -1339,7 +1339,7 @@ sign: 139854d169436e6d91c7b11701b0e2a4bd9152c2005a1fab95dcd60639c3c17d
 timestamp: 1490253051551 
 language: zh-cn
 timezone: +8
-appKey: 961c447171c19efd78beaef9abc72e7d
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json 
 Body
@@ -1412,7 +1412,7 @@ usn|String|Body|是|操作序列号
 ```
 请求地址	/udse/v1/devOp
 Header：
-appId:MB-ABC-0000
+appId: MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1497,7 +1497,7 @@ timestamp|long|Body|必填|操作时间戳
 ```
 请求地址	/udse/v1/devOpStatus
 Header：
-appId:MB-ABC-0000
+appId:MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1573,7 +1573,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址：/udse/v1/stdDevPropertyRead
 Header：
-appId:MB-ABC-0000
+appId:MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1654,7 +1654,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址	/udse/v1/stdDevPropertyWrite
 Header：
-appId:MB-ABC-0000
+appId:MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -1742,7 +1742,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址	/udse/v1/stdDevOperate
 Header：
-appId:MB-ABC-0000
+appId:MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -2142,7 +2142,7 @@ usn|String|Body|必填|操作序列号
 ```
 请求地址	/udse/v1/opBusinessDown
 Header：
-appId:MB-ABC-0000
+appId:MB-****-****
 appVersion:2015110401
 clientId:356877020056553-08002700DC94
 sequenceId:08002700DC94-15110519074300001
@@ -2219,7 +2219,7 @@ POST data:
 [no cookies]
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-****
 appVersion: XX.XX.XX.XXXXX
 clientId: 1234
 sequenceId: sdfsadf
@@ -2227,7 +2227,7 @@ sign: a5dfb2c8b9b9b75edc99ef79a16310e80da016c1431b897bbaaf741882f40546
 timestamp: 1558594327794
 language: zh-cn
 timezone: +8
-appKey: 2ba149e67de2e4dfae30a82abec26a3a
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json
 accessToken: TGTH5R94VU4X6AD27K304JHF0M8R00
@@ -2285,7 +2285,7 @@ PUT data:
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-****
 appVersion: XX.XX.XX.XXXXX
 clientId: 1234
 sequenceId: sdfsadf
@@ -2293,7 +2293,7 @@ sign: a0a47ff522c0226b1f0ba50b0a9c336d8d84c200745b0b07d04b5cb2ae06e2b9
 timestamp: 1558594625859
 language: zh-cn
 timezone: +8
-appKey: 2ba149e67de2e4dfae30a82abec26a3a
+appKey: *********************
 Content-Encoding: utf-8
 Content-type: application/json
 accessToken: TGTH5R94VU4X6AD27K304JHF0M8R00
