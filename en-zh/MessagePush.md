@@ -75,35 +75,29 @@ pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String|用户ID|
-appId|String|应用ID|
-clientId|String|终端ID|
-busineeType|String|业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
-messgae|UpMsg|消息模型|
-msgStatus|Integer|消息发送状态|1-待发送,2-发送中,3-成功,4-失败
-readStatus|Integer|消息读取状态|消息是否被读取
-tag|String|标签|
-pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
-msgCode|String|消息发送状态码|
+msgId|String|消息ID|&nbsp;
+userId|String|用户ID|&nbsp;
+appId|String|应用ID|&nbsp;
+clientId|String|终端ID|&nbsp;
+busineeType|String|业务类型|&nbsp;
+messgae|UpMsg|消息模型|&nbsp;
+msgStatus|Integer|消息发送状态|&nbsp;
+readStatus|Integer|消息读取状态|&nbsp;
+tag|String|标签|&nbsp;
+pushTime|DateTime|ums消息推送时间|&nbsp;
+retCode|String|返回码|&nbsp;
 
 ### DoNotDisturbDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-dndId|String|免打扰标识|
-beginTime|Integer|开始时间|
-endTime|Integer|结束时间|
-businessType|Integer|消息业务类型|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
-priority|Integer|消息优先级|1，2，3
+dndId|String|免打扰标识|&nbsp;
+beginTime|Integer|开始时间|&nbsp;
+endTime|Integer|结束时间|&nbsp;
+businessType|Integer|消息业务类型|&nbsp;
+priority|Integer|消息优先级|&nbsp;
 
 
-
-### MsgUnreadNumDto  
-
-字段名|类型|说明|备注
-:-|:-:|:-|:-
-businessType|String|业务类型|
-msgNums|String|未读消息数量|
 
 ## 消息推送模型说明
 
@@ -485,13 +479,13 @@ msgName|是|String|消息的名称，取值为UPN_NULL
 msgType|是|int|消息的来源，取值：</br>3：状态类，此类消息由消息推送自动触发  （消息状态类，例如阅后即焚通知， 空消息）  
 body|是|Body|消息内容，内容为{}。  
 
-需要注意：客户端收到的数据为base64编码后的数据。  
- 
+需要注意：客户端收到的数据为base64编码后的数据。 
+
 
 ## 终端功能接口列表
 
 ?>  使用REST接口的风格对外提供服务，仅支持HTTPS协议。</br>
-访问地址：`https://uws-euro.haieriot.net/ums/v3`
+访问地址：https://uws.haier.net/ums/v3
 
 
 ### 账号模块
@@ -499,7 +493,7 @@ body|是|Body|消息内容，内容为{}。
 #### 终端注册
 
 > 通过该接口，在系统中注册接收消息的终端，建立appId、userId、clientId、pushId之间的关系；该接口是使用ums和umse的先决条件。</br>
-> 在注册时，若需要注册用户信息userId，则需要在header中传递accessToken
+> 在注册时，若需要注册用户信息userId，则需要在header中传递accessToken参数；否则，不需要传递该参数。
 
 
 ##### 1、接口定义
@@ -522,6 +516,9 @@ msgVersion|String|body|是|消息模型版本，对应消息模型中的version
 
 **输入参数**
 ```
+请求地址	 /ums/v3/account/register
+
+POST https://uws.haier.net/ums/v3/account/register
 
 POST data:
 {
@@ -547,6 +544,10 @@ timezone: Asia/Shanghai
 language: zh-cn
 clientId: 123456
 accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 121
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
@@ -583,7 +584,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-****-****
 sequenceId: 20161020153428000015
 sign: a9f87157f94c1c2848aa221d19016a768d936070f2642c5819183256953310d2
 timestamp: 1545817872035 
@@ -708,6 +709,7 @@ retData|List<DoNotDisturbDto>|body|是||
 #### 按设备推送消息
 
 > 从用户的某个终端推送消息到该用户的多个终端，消息的发送和接收终端都同属该用户（可以是不同APP）
+> 用户登录后使用（即：调用接口时Header中accessToken参数必填）。
 
 ##### 1、接口定义
 
@@ -740,23 +742,28 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
 timestamp: 1546850546246 
 language: zh-cn
-appKey: 2ba149e67de2e4dfae30a82abec26a3a
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 Content-Length: 639
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 ```
 
 **输出参数**
 ```
-{"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
+{
+    "retCode": "00000", 
+    "retInfo": "success", 
+    "retData": "TKcb27343560914c76a3d21ce3bac187a8"
+}
 ```
 
 
@@ -784,6 +791,7 @@ taskId|String|body|是|终端收到的任务标识
 
 **输入参数**
 ```
+POST https://uws.haier.net/ums/v3/msg/reportStatus
 
 POST data:
 { 	"taskId":"TK123456789123456789" }
@@ -792,11 +800,11 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-****-****
 sequenceId: 20161020153428000015
 sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
 timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 appVersion: 99.99.99.99990
@@ -808,197 +816,17 @@ Content-Length: 36
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
-```
-
-**输出参数**
-
-```
-{"retCode":"00000","retInfo":"success"}
-```
-
-
-#### 批量更新读取状态
-
-> 批量更新当前登录用户的消息读取状态为已读</br>
-> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息，该接口需在终端读取消息时调用。  
-
-##### 1、接口定义
-
-?> **接入地址：** `/msg/reportStatusByPatch`</br>
-**HTTP Method：** POST   
-
-**前置条件：**   
-1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
-2.终端收到并读取消息。  
-
-**输入参数：** 
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-taskIds|List|body|是|终端收到的任务标识
-
-
-**输出参数：** 标准输出参数
-
-##### 2、请求样例
-
-**输入参数**
-```
-
-POST data:
-
-
-
-[no cookies]
-
-Request Headers:
-Connection: keep-alive
-appId: MB-****-0000
-sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-appVersion: 99.99.99.99990
-timezone: Asia/Shanghai
-language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
-Host: uws.haier.net
-User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 ```
 
 **输出参数**
 
 ```
-{"retCode":"00000","retInfo":"success"}
+{
+"retCode":"00000",
+"retInfo":"success"
+}
 ```
-
-#### 按消息类型更新读取状态
-
-> 按消息的业务类型更新当前登录用户的消息读取状态为已读</br>
-> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息，该接口需在终端读取消息时调用。  
-
-##### 1、接口定义
-
-?> **接入地址：** `reportStatusByType`</br>
-**HTTP Method：** POST   
-
-**前置条件：**   
-1.用户登录后使用（即：调用接口时Header中accessToken参数必填）。  
-2.终端收到并读取消息。
-  
-
-**输入参数：** 
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-businessType|String|body|是|消息的业务类型
-
-
-**输出参数：** 标准输出参数
-
-##### 2、请求样例
-
-**输入参数**
-```
-
-POST data:
-
-
-
-[no cookies]
-
-Request Headers:
-Connection: keep-alive
-appId: MB-****-0000
-sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-appVersion: 99.99.99.99990
-timezone: Asia/Shanghai
-language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
-Host: uws.haier.net
-User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
-
-```
-
-**输出参数**
-
-```
-{"retCode":"00000","retInfo":"success"}
-```
-
-
-#### 查询未读消息的数量
-
-> 查询当前登录用户下各业务类型的未读消息数量</br>
-> 按业务类型统计未读消息数量。  
-
-##### 1、接口定义
-
-?> **接入地址：** `/msg/getUnreadNum`</br>
-**HTTP Method：** POST   
-
-**前置条件：** 
-
- 用户登录后使用（即：调用接口时Header中accessToken参数必填）  
-  
-
-**输入参数：** 无输入参数
-
-**输出参数：**  
-
-参数名|类型|位置|是否必填|说明
-:-:|:-:|:-:|:-:|:-
-retData|List<MsgUnreadNumDto >|body|是|各消息业务类型下未读消息的数量  
-
-##### 2、请求样例
-
-**输入参数**
-```
-
-POST data:
-
-
-
-[no cookies]
-
-Request Headers:
-Connection: keep-alive
-appId: MB-****-0000
-sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-appVersion: 99.99.99.99990
-timezone: Asia/Shanghai
-language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
-Host: uws.haier.net
-User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
-
-```
-
-**输出参数**
-
-```
-{"retCode":"00000","retInfo":"success"}
-```
-
 
 
 #### 查询历史消息
@@ -1033,7 +861,7 @@ retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
 
 
 
-#### 删除应用内历史消息
+#### 删除历史消息
 
 
 >1、用户提交申请删除一条或批量删除多条应用内消息</br>
@@ -1048,9 +876,11 @@ retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|消息任务Id一个或多个，逗号分隔
+taskIds|List|body|是|消息任务id(taskId)列表
 
 **输出参数：** 标准输出参数
+
+
 
 ## 云端功能接口
 
@@ -1118,13 +948,13 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
 timestamp: 1546850546246 
 language: zh-cn
-appKey: 2ba149e67de2e4dfae30a82abec26a3a
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 Content-Length: 639
@@ -1177,13 +1007,13 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: SV-UZHSH-0000
+appId: MB-****-****
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
 timestamp: 1546850546246 
 language: zh-cn
-appKey: 2ba149e67de2e4dfae30a82abec26a3a
+appKey: *******************
 Content-Encoding: utf-8
 Content-type: application/json
 Content-Length: 639
@@ -1429,7 +1259,7 @@ POST /umse/v3/msg/getMsgHistory
 
 Request Headers:
 Connection: keep-alive
-appId: SV-****-0000
+appId: MB-****-****
 appVersion: 01.00.00.00000
 clientId: ufmtest123
 sequenceId: 20161020153428000015
@@ -1451,7 +1281,7 @@ Content-type: application/json
 {
 		"taskId":"MTtest2019-01-1518:02:31_6e2e8f63-a6b4-4ea8-bf48-e64b165d855b",
 		"userId": "ptuid-2",
-		"appId": "ptaid1000000000",
+		"appId": "*********",
 		"clientId": "ptcid-2-8",
 		"businessType": 6,
 		"msgStatus": 1,
