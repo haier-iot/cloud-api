@@ -2360,5 +2360,5 @@ D00008|用户不合法
 
 
 [^-^]:常用图片注释
-[DevicesStandard_flow]:_media/_DevicesStandard/DevicesStandard_flow.png
-[DeviceE_flow]:_media/_DevicesEnterprise/DeviceE_flow.png
+[DevicesStandard_flow]:_media/_devicesStandard/DevicesStandard_flow.png
+[DeviceE_flow]:_media/_devicesEnterprise/DeviceE_flow.png
