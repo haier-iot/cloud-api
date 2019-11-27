@@ -112,7 +112,7 @@ cityCode|String|城市编码|
 参数名|类型|说明|备注
 :-|:-:|:-:|:-
 softwareType|String|软件类型，平台信息|
-hardware|String|硬件版本类型|
+hardwareType|String|硬件版本类型|
 hardwareVers|String|硬件版本号|
 softdwareVers|String|软件版本号|
 netType|String|网络类型|可取值：</br>unknown,位置网络或设备不支持挽留过质量上报；</br>Wifi：WIFI网络
@@ -146,7 +146,7 @@ deviceId|String|设备ID|
 wifiType|String|设备wifitype|
 deviceType|String|设备类别|
 room|String|设备房间位置信息|
-permission|Permission[]|权限信息|
+permissions|Permission[]|权限信息|
 online|Boolean|是否在线|
 
 ### BrandInfo
