@@ -154,7 +154,7 @@
 > 按指定的设备id，查询该设备的云端影子信息，验证token合法性，验证token所属用户与待查询设备存在查看和操作权限  
 
 ##### 1、接口定义
-?> **接入地 址：**  `/shadow /v1/info `  
+?> **接入地 址：**  `/shadow/v1/info `  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -200,9 +200,9 @@ Body
 
 ```java
 {
-    "retCode": "00000",
+"retCode": "00000",
 "retInfo": "成功",
-"shadowInfo": {
+"detailInfo": {
 	"shadowInfo": {
 		"shadowVersion": "20160101",
 		"reportedTimestamp": 123456,
