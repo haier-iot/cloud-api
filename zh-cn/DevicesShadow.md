@@ -83,9 +83,9 @@
 |events| Map<String, MetadataItem > | events部分中每个属性的时间戳，因此，key确定状态的更新时间，可以是事件标示|只读（可为空，可以不含此项）|   
 
 
-### Shadow  
+### detailInfo(Shadow) 
   
-| **名称** | 设备影子信息 |&emsp;| Shadow |   
+| **名称** | 设备影子信息 |&emsp;| detailInfo(Shadow) |   
 |:----------: |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
 |shadowInfo| ShadowInfo | 影子基本信息 |只读|  
