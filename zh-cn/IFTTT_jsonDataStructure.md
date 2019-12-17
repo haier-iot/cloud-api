@@ -36,7 +36,7 @@
               "desc": "26℃"
             },
             "componentId": "3e8a0dfb038d40fab6c5b4936924086c",
-		    "logicalSign" : "&&"
+		    "logicalSign" : "OR"
           }
         ]
       },
