@@ -14,7 +14,7 @@
 
 2）用户收到授权码后，通过安全渠道传输给需要分享到的App，App通过提交自己的AppId、ClientId和授权码，系统对授权码与AppId和ClientId的对应关系和授权码的有效期进行校验，校验合格则为对应的账户生成新的RefreshToken和AccessToken返回给用户；校验失败，则返回授权码校验失败的错误。<br/>
 
-3）RefreshToken的有效期默认永久有效，AccessToken的有效期默认25天。<br/>
+3）refreshToken 刷新令牌 用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken ；refreshToken只能用一次刷新，刷一次后失效，未使用刷新前长期有效。AccessToken的有效期默认25天。<br/>
 
 
 4）仅通过登录或RefreshToken获取的AccessToken，方可获取授权码，通过授权码获取到的AccessToken及由RefreshToken再次获取的AccessToken不可用来申请授权码。<br/>
