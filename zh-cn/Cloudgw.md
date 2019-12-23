@@ -89,7 +89,10 @@ systemId|String|Header|是|系统ID。40位以内字符，系统全局唯一标�
 sequenceId|String|Header|是|报文流水(客户端唯一)客户端交易流水号。6-32 位。由客户端自行定义，自行生成。建议使用不带中横线的UUID，例如：e3480efdef6a410f9f60801707671bcc  
 sign|String|Header|是|对请求进行签名运算产生的签名 [签名算法][sign]   
 timestamp|String|Header|是|Unix时间戳，当前UTC标准时间，精确到毫秒，例如：1557900146503    
-Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json格式数据，值必须为application/json;charset=UTF-8
+Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json格式数据，值必须为application/json;charset=UTF-8  
+
+
+Iot平台回调第三方接口时，也会同样携带以上HTTP Header参数。
    
 
 请求头信息样例（其中#为占位符，不代表具体含义）：  
@@ -207,10 +210,13 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-machineId|String|Body|是|要注册的设备的物理唯一标识，该标识在同一systemId下需唯一。字符串长度范围：1~32。对于WIFI类设备，建议使用MAC地址，格式为全大写无连接符十六进制字符串，例如CC1122334455。对于2G或NB类设备，建议使用IMEI地址，格式为全数据字符串，例如860123456789876。
+machineId|String|Body|是|要注册的设备的物理唯一标识，该标识在同一systemId下需唯一。
+字符串长度范围：1~32，（字符集可取值[0-9][A-Z] [a-z]）。对于WIFI类设备，建议使用MAC地址，格式为全大写无连接符十六进制字符串，例如CC1122334455。对于2G或NB类设备，建议使用IMEI地址，格式为全数据字符串，例如860123456789876。
 uPlusID|String|Body|是|U+产品编号，接入U+产品的唯一标识，由U+统一定义。字符串长度范围：64。
 devSign|String|Body|是|设备产品信息签名，用于设备身份认证，全小写十六进制字符串，字符串长度范围：64。例如：996a4a51cfc228f7d5044319767d6f792f106460e86a9050b79dcee0a6dd31d9 算法如下（+表示字符串拼接）：SHA256（machineId+uPlusID+deviceKey+ timestamp）其中：deviceKey为海极网创建uPlusID时分配；timestamp为HTTP Header中的时间戳字段；
 online|Boolean|Body|是|设备当前在线状态。true为在线；false为离线；  
+uPlusCodeT|String|Body|否|U+产品整机型号编码（即成品编码）。设备上报的型号编码必须是在海极网注册或录入的，否则设备注册会失败。设备上报型号信息后，会直接覆盖平台该设备现有型号信息。字符串长度范围：9~11
+
 
 
 
@@ -468,6 +474,7 @@ Body：
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。  
+machineId|String|Body|是|设备注册时使用的设备物理唯一标识。字符串长度范围：1~32。    
 callbackType|String|Body|是|回调类型，值固定为：`devInfoQuery`  
 rptProperty|Boolean|Body|是|是否立即上报属性状态。如果值为true，则第三方云服务在应答本接口后，应立即调用“设备属性状态上报”接口上报设备当前全部属性状态。如果值为false，则忽略。
 rptAlarm|Boolean|Body|是|是否立即上报报警状态。如果值为true，则第三方云服务在应答本接口后，应立即调用“设备报警状态上报”接口上报设备当前全部报警状态。如果值为false，则忽略。
@@ -534,7 +541,7 @@ Body：
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。  
-propertys|Property数组|Body|是|设备属性列表；Property类型定义见下面`参数类型定义`。数组长度范围：1~256。
+propertys|Property数组|Body|是|设备属性列表；Property类型定义见下面`参数类型定义`。数组长度范围：0~256。
   
 
 **输出参数:**  
@@ -596,7 +603,7 @@ Body：
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。  
-alarms|Alarm数组|Body|是|设备报警列表；Alarm类型定义见下面`参数类型定义`。数组长度范围：1~256。
+alarms|Alarm数组|Body|是|设备报警列表；Alarm类型定义见下面`参数类型定义`。数组长度范围：0~256。
 
 
 **输出参数:**  
@@ -661,6 +668,8 @@ Body：
 :-|:-:|:-:|:-:|:-
 callbackType|String|Body|是|回调类型，值固定为：`propertyRead`  
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。
+machineId|String|Body|是|设备注册时使用的设备物理唯一标识。字符串长度范围：1~32。
+token|String|Body|否|设备绑定的第三方用户token，字符串长度范围：1~32。如当前设备没有授权的第三方用户，则无此字段。
 sn|String|Body|是|控制序列号，对于一次控制，控制应答的序列号需要同控制请求的序列号相同。字符串长度范围：1~64。
 propertyName|String|Body|是|要读取的设备属性名。字符串长度范围：无限制。
 
@@ -770,6 +779,8 @@ Body：
 :-|:-:|:-:|:-:|:-
 callbackType|String|Body|是|回调类型，值固定为：`propertyWrite`  
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。
+machineId|String|Body|是|设备注册时使用的设备物理唯一标识。字符串长度范围：1~32。
+token|String|Body|否|设备绑定的第三方用户token，字符串长度范围：1~32。如当前设备没有授权的第三方用户，则无此字段。     
 sn|String|Body|是|控制序列号，对于一次控制，控制应答的序列号需要同控制请求的序列号相同。字符串长度范围：1~64。
 propertyName|String|Body|是|要写入的设备属性名。字符串长度范围：无限制。
 propertyValue|String|Body|是|要写入的设备属性值。字符串长度范围：无限制。
@@ -881,7 +892,9 @@ Body：
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 callbackType|String|Body|是|回调类型，值固定为：`operation`  
+machineId|String|Body|是|设备注册时使用的设备物理唯一标识。字符串长度范围：1~32。
 deviceId|String|Body|是|设备ID。字符串长度范围：1~32。
+token|String|Body|否|设备绑定的第三方用户token，字符串长度范围：1~32。如当前设备没有授权的第三方用户，则无此字段。
 sn|String|Body|是|控制序列号，对于一次控制，控制应答的序列号需要同控制请求的序列号相同。字符串长度范围：1~64。
 propertyName|String|Body|是|设备操作名。字符串长度范围：无限制。
 parameters|Parameter数组|Body|是|设备操作请求参数列表。如当前操作请求无参数，则值为空数组[]。数组长度范围：无限制。
@@ -952,7 +965,7 @@ deviceId|String|Body|是|设备ID。字符串长度范围：1~32。
 sn|String|Body|是|控制序列号，对于一次控制，控制应答的序列号需要同控制请求的序列号相同。字符串长度范围：1~64。
 errNo|Integer|Body|是|设备控制应答错误码，表示本次设备控制结果，该错误码会直接返回至App处理。可返回错误码见[第三方云设备控制异步应答错误码](#jump1)定义。
 parameters|[Parameter数组](#jump)|Body|是|设备操作应答参数列表。
-如当前操作应答无参数，则值为空数组[]。数组长度范围：1~256。
+如当前操作应答无参数，则值为空数组[]。数组长度范围：0~256。
 
 
 **输出参数:**  
