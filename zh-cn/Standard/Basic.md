@@ -173,7 +173,7 @@ App端或应用服务通过UWS获取的数据等要确保存储安全。
 应用开发时，请连接开发者环境进行开发、测试；
 
 > 生产环境域名：`https://uws.haier.net`  
-> 开发者环境域名：`https://dev-uws.haigeek.com`
+> 开发者环境域名：`https://uws.haier.net`  通过设置本地路由器DNS为39.97.52.209跳转访问服务。
 
 
 
