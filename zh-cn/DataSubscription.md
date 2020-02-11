@@ -1,6 +1,7 @@
 
 !> **更新时间**：{docsify-updated}  
 
+
 ## 简介
 >  数据订阅服务功能旨在帮助开发者或应用快速获取实时的增量数据，包括设备信息数据、用户数据以及其他开发者根据实际需求订阅的自定义数据。
 
@@ -435,7 +436,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 > 以下提供Client端简单功能示例代码，仅方便引导本地开发使用,具体可根据本地实际情况进行二次开发。  
 
-**1、 客户端Websocket实现包的pom依赖说明**   
+#### 1、 客户端Websocket实现包的pom依赖说明   
 
 可以选择一个具体的开源实现包，如Jetty的或Glassfish或Tomcat的，区别只是部分代码稍微不同。
   
@@ -499,7 +500,7 @@ Tomcat的Websocket实现依赖包举例如下：
 ```
 
 
-**2、 初始化客户端建立连接**   
+#### 2、 初始化客户端建立连接
 
 ```java
 String uri = "wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-JCY-TEST&timestamp=1491013448629&sign=a9d30dcea2fc1def236b0dca91bf0d6b5cb2e25f1bc8cbfb588a07f8b59dfb22&isSubscribeEarliestMessage=false";
@@ -520,7 +521,7 @@ try {
 
 
 
-**3、 订阅详细消息**   
+####  3、 订阅详细消息
 
 	
   ``` java 
@@ -541,7 +542,7 @@ return true;
 
 ```
 
-**4、 取消订阅详细消息**   
+####  4、 取消订阅详细消息   
 
 ```java
 //组织取消订阅消息JSON
@@ -562,7 +563,7 @@ return true;
 ```
 
 
-**5、 查询当前客户端订阅关系**  	  
+####  5、 查询当前客户端订阅关系	  
 
 ```java
 //组织查询当前客户端订阅关系消息JSON
@@ -583,7 +584,7 @@ return true;
 ```
 
 
-**6、 查询当前客户对应的systemId下的所有订阅关系**  	
+####  6、 查询当前客户对应的systemId下的所有订阅关系 	
 
 ```java
 //组织查询当前客户对应的systemId下的所有订阅关系消息JSON
@@ -604,7 +605,7 @@ return true;
 ```
 
 
-**7、 关闭当前客户端连接**  	
+#### 7、 关闭当前客户端连接
 
 ```java
 MsgWebSocketClient msgWebSocketClient;
@@ -619,16 +620,20 @@ try {
  return false;
 }
 return true;
+
 ```
 
 注：如果每次建立连接后只是进行查询等一次性操作（即不需要连接长时间保留），则建议操作完后关闭当前链接，同时不建议使用心跳。  
 
-**8、 整示例代码（可复用）**  	
+####  8、 整示例代码（可复用）
 
 代码功能：  
-(1)	支持Client端订阅消息。  
-(2)	支持心跳检测，心跳功能简单支持当客户端和服务器端连接处于无数据交互状态时才发送心跳检测消息，有数据交互时不发送。  
-(3)	支持连接断开后每55s进行一次重连尝试。  
+(1)	支持Client端订阅消息。
+
+(2)	支持心跳检测，心跳功能简单支持当客户端和服务器端连接处于无数据交互状态时才发送心跳检测消息，有数据交互时不发送。
+
+(3)	支持连接断开后指定时间进行重连尝试。
+
 
 
 import 引用头：  
@@ -653,10 +658,10 @@ import javax.websocket.CloseReason;
 import org.eclipse.jetty.util.component.LifeCycle;
 
 
-
 ```
 
 整体示例代码如下（可复用），建立连接代码见红色标注部分  
+
 
  ```java
  public class TestSubscribeMsg {
@@ -868,6 +873,7 @@ session.setMaxTextMessageBufferSize(1024*1024); //1Mb
 	}
 }
 
+
 ```
 
 
@@ -879,6 +885,7 @@ session.setMaxTextMessageBufferSize(1024*1024); //1Mb
 (2)	心跳根据实际情况决定是否启用，一般适用订阅数据等需要保持长连接场景，如果非长连接场景，如建立一次连接只是为简单查询订阅关系则可酌情是否需要。  
 
 (3)	项目中还必须创建如下解码器类代码，其在示例代码的注解<font color="#FF0000">@ClientEndpoint(encoders = {TextEncoder.class})</font>中做了引用。
+
 
 
 
@@ -902,7 +909,6 @@ public class TextEncoder  implements Encoder.Text<String>{
 	}
 }
 
-
 ```
 
 
@@ -924,12 +930,11 @@ public class TextEncoder  implements Encoder.Text<String>{
 
 
 
-
 [^-^]:常用图片注释
-[dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
-[dataSubscription_liucheng]:_media/_dataSubscription/dataSubscription_liucheng.png
-[dataS_flow]:_media/_dataSubscription/dataS_flow.png  
-[dataS_model]:_media/_dataSubscription/dataS_model.png  
+[dataSubscription_type]:../_media/_dataSubscription/dataSubscription_type.png
+[dataSubscription_liucheng]:../_media/_dataSubscription/dataSubscription_liucheng.png
+[dataS_flow]:../_media/_dataSubscription/dataS_flow.png  
+[dataS_model]:../_media/_dataSubscription/dataS_model.png  
 
 
 
