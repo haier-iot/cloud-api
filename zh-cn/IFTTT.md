@@ -2962,47 +2962,9 @@ Body
 
 ### 场景商店类
 
-#### 从场景商店查询场景列表
-> APP用户浏览场景store
+#### 根据appSceneId查询场景基本信息
 
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/list`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|最大长度|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-limit|Int|N/A|Body|必填|每页显示的记录数
-cursor|Int|N/A|Body|必填|从0开始
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-data|Pagination<SceneDto>|Body|必填|显示场景Store中的描述信息，规则rules中带有规则Id和规则名称
-
-#### 按应用标识查询场景列表（V2.4）
-
-
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/listByAppId`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|最大长度|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-limit|Int|N/A|Body|必填|每页显示的记录数
-cursor|Int|N/A|Body|必填|从0开始
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-data|Pagination<SceneDto>|Body|必填|场景列表信息，其中每个场景详情中的规则rules中只带有规则Id和规则名称以及规则描述,同时场景记录按照创建时间倒序
-
-#### 根据appSceneId查询场景基本信息（V2.4）
+>根据appId和appSceneId查询场景。 
 
 ##### 1、接口定义
 ?> **接入地址：** `/iftttscene/scene/store/findBasicSceneInfo`</br>
@@ -3018,118 +2980,81 @@ appSceneId|String|32|Body|必填|应用场景Id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|String|Body|必填|应用场景详情，其中的规则rules中带有规则Id和规则名称以及规则描述
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|SceneDto|Body|必填|应用场景详情, 其中的规则rules中带有规则Id和规则名称以及规则描述
 
-#### 根据关键字查询相关场景（本期不实现）
+#### 查询应用场景的规则信息
 
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/keyword`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|最大长度|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-keyword|String|255|Body|必填|关键字，根据关键字模糊查询相关场景
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-data|String|Body|必填|显示场景Stroe中的描述信息，不太有规则详情
-
-#### 应用场景标签列表查询（v2.4）
-
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/getSceneTagListOfScene`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|最大长度|位置|必填|说明
-:-|:-:|:-:|:-:|:-:|:-
-sceneId|String|32|Body|必填|应用场景id
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-Data|Object|Body|必填|应用场景相关标签列表
-
-#### 根据应用标识查询标签列表（v2.4）
-
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/getSceneTagListByAppId`</br>
-**HTTP Method：** POST
-
-**输入参数** ： 无
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-Data|Object|Body|必填|标签列表
-
-
-#### 根据应用标识查询分类列表（v2.4）
-
-##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/getSceneSortListByAppId`</br>
-**HTTP Method：** POST
-
-**输入参数** ： 无
-
-**输出参数:** 
-
-参数名|类型|位置|必填|说明
-:-|:-:|:-:|:-:|:-
-Data|Object|Body|必填|分类列表
-
-
-#### 查询应用场景的规则信息（v2.4）
+>查询应用场景的规则信息。
 
 ##### 1、接口定义
 ?> **接入地址：** `/iftttscene/scene/store/app/rule/getById`</br>
 **HTTP Method：** POST
 
-**输入参数** 
+**输入参数**
 
 参数名|类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-ruleId|String|32|Body|必填|规则id
+ruleId|String|32|Body|必填|规则Id
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|RuleTemplateDto|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|RuleTemplateDto|Body|必填|&nbsp;
 
+#### 判断设备列表是否支持该场景列表
 
-#### 判断设备列表是否支持该场景
+>判断型号列表是否支持该场景。
 
 ##### 1、接口定义
-?> **接入地址：** `/iftttscene/scene/store/sceneUsable`</br>
+?> **接入地址：** `/iftttscene/sceneportal/store/sceneListUsable`</br>
 **HTTP Method：** POST
 
-**输入参数** 
+**输入参数**
 
-参数名|类型|最大长度|位置|必填|说明
+参数名|限定类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-sceneId|String|32|Body|必填|应用场景id
-typeId|String[]||Body|必填|typeIds:["typeId1"," typeId2"," typeId3"," typeId4"]
+sceneIdList|数组|32|Body|必填|["0000391158444616ac9124af2ecc0303"," 0000391158444616ac9124af2ecc0303","0000391158444616ac9124af2ecc0303"]
+productCodeList|数组|32|Body|必填|["AA9EK3001","AA9EK3004","AA9EK3002"]
+
+
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-Data|Object|Body|必填|true/false
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+Data|Object|Body|必填|{"sceneId1":true/false,"sceneId2":true/false}
+
+#### 获取所有场景标签列表
+
+>查询场景所有标签列表
+
+##### 1、接口定义
+?> **接入地址：** `/iftttscene/sceneportal/store/getAllSceneTagList`</br>
+**HTTP Method：** POST
+
+**输入参数** ： 无
+
+**输出参数:** 
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+Data|SceneTagDto[]|Body|[{"id":1,"name":""}]
+
+
 
 
 ### 组件类
 
-#### 查询组件信息（V2.5兼容）
+#### 查询组件信息
 
-> 查询组件信息(增加业务组件为typeId组件时返回typeid,组件为型号组件时,返回设备型号)
+> 查询组件信息(增加业务组件为typeId组件时返回typeid,组件为型号组件时,返回设备型号)。
 
 ##### 1、接口定义
 ?> **接入地址：** `/iftttscene/component/getById`</br>
@@ -3145,189 +3070,137 @@ id|String|32|Body|必填|组件Id
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|ComponentDto|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|ComponentDto|Body|必填|&nbsp;|
 
-#### 根据设备型号查询功能列表（V2.新增）
 
-> 根据设备型号查询型号对应的功能，如果该型号没有相关数据，则查询型号对应的TypeId对应的功能列表
-> 设备的功能会按照海极网设备功能配置的顺序输出
+#### 根据组件id功能id功能值和设备获取支持的型号属性信息
+
+> 根据组件Id、功能id、功能值 和设备(型号产品编码列表) 获取具体设备的属性信息。
 
 ##### 1、接口定义
-?> **接入地址：** `/iftttscene/component/getPropByModel`</br>
+?> **接入地址：** `/iftttscene/component/getModelPropList`</br>
 **HTTP Method：** POST
 
 **输入参数** 
 
 参数名|类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-model|String|32|Body|如果app有型号则必填|设备型号
-typeId|String|32|Body|必填|
+componentId|String|32|Body|必填|可为产品id 中类组件id 型号组件id
+functionId|String|32|Body|必填|可为产品功能id、中类属性id，型号属性id
+functionVal|String|32|Body|可为空|兼容老版本，参数可不填，模板中对产品组件类型模板传值，其他组件不传
+productCodeList|String|64|Body|必填|型号产品编码数组
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|funsionsDto|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|PropDto|Body|必填|[{<br>"productCode" //型号产品编码<br>"model"//型号名称<br>"typeId"       //typeid <br>"propClass"    //属性类型<br>"propName"    //属性标识名称;<br>"description"    //属性标识描述;<br>"functionName"  //属性功能标识名称; <br>"functionDesc"  //属性功能标识描述; <br>"propFixer"     //属性修饰词;<br>"propValType"  //取值类型;<br>"variants"      //值范围;<br>"readable     //是否可读;<br>"writable"     //是否可写;<br>"whenLabel"   //是否作为条件;<br>"thenLabel"   //是否作为动作;<br>"propSort"   //排序;<br>}]|
 
-data字段说明：
-```
-{
-    "sysProps":{
-	"id":"",//根据组件类型确定到底是什么id
-"componentId":""，
-"componentType":""//组件类型  device：中类组件，model:型号组件，typeId：组件
-},//app取出sysProps字段直接
-	"actions":[{
-		"propId":"",//属性主键
-		"desc":"",//组命令前端呈现
-"propClass":"",//属性类别
-“splitFunc”:””,//拆分标识 0：不拆，1：拆分；
-           “fixer”:””,//定语，属性的修饰词：比如“设置为”，“执行”；
-		"props":[]//类型为ComponentFunctionPropDto
-	}],
-	"conditions":[]//数据结构跟actions一致
-}
-ComponentFunctionPropDto结构如下：
-{ 
-          "propId":"",//属性主键
-"propClass":"",//属性类别
-		"desc":"",
-          “fixer”:””,//定语，属性的修饰词：比如“设置为”，“执行”；
-		"propName":"",//原始命令值，app需要给引擎赋该值
-        "functionName":"",//功能标识名称，在基于场景模板创建应用场景时，使用该字段匹配模板中的functionName来确定是否支持目标场景模板（大部分情况下跟propName相同）
-		"propValType":"",//取值类型
-		"variants":"",//取值范围，为json字符串
-		"defaultValue":"",//预留字段，不维护任何值 ，
-		"defaultValueDesc":"",//预留字段，不维护任何
-}
-```
 
-#### 查询是否支持场景功能
 
-> 通过拿多个设备typeId（必填）、型号（选填） 通过接口查询是否有设备组件功能支持场景功能。同时判断每个支持场景功能的设备组件是否可以作为条件、是否可以作为动作。
+####	根据组命令功能名和设备获取具体组功能属性信息
 
+> 根据组功能名称 和设备(型号产品编码列表) 获取具体设备的属性信息。
 
 ##### 1、接口定义
-?> **接入地址：** `/iftttscene/component/getSceneFunctionSupport`</br>
+?> **接入地址：** `/iftttscene/component/getModelGroupPropList`</br>
 **HTTP Method：** POST
 
 **输入参数** 
 
 参数名|类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-sceneFunctionSupportDtos|sceneFunctionSupportDto[]||Body|必填|其中型号属性选填，typeId属性必填.其他属性不需要填写。
-
+functionName|String|32|Body|必填|可为产品功能id、中类属性id，型号属性id
+productCodeList|String[]|64|Body|必填|型号产品编码数组
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-retCode|String|Body|必填|
-retInfo|String|Body|必填|
-data|SceneFunctionSupportDto[]|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|PropDto|Body|必填|[{<br>"productCode" //型号产品编码<br>"model"//型号名称<br>"typeId"       //typeid <br>"propClass"    //属性类型<br>"propName"    //属性标识名称;<br>"description"    //属性标识描述;<br>"functionName"  //属性功能标识名称; <br>"functionDesc"  //属性功能标识描述; <br>"propFixer"     //属性修饰词;<br>"propValType"  //取值类型;<br>"variants"      //值范围;<br>"readable     //是否可读;<br>"writable"     //是否可写;<br>"whenLabel"   //是否作为条件;<br>"thenLabel"   //是否作为动作;<br>"propSort"   //排序;<br>}]|
 
 
-data字段说明：
-```
-{
-	[{
-		"model":"",//型号
-		"typeId":"",//设备类型
-          “supportSceneStatus”:””,//true : 支持场景,false : 不支持场景
-		“sceneType”:””//1 :  只支持条件  2 :只支持动作  3 : 既支持条件也支持动作  
-	}]
-}
+####	根据设备产品编码查询型号属性列表
 
-```
-
-#### 根据中类组件属性ID查询属性信息
-
+> 根据设备型号产品编码，查询型号对应的功能，如果该型号没有相关数据，则返回空设备的功能会按照海极网设备功能配置的顺序输出。
 
 ##### 1、接口定义
-?> **接入地址：** `/iftttscene/component/getPropById`</br>
+?> **接入地址：** `/iftttscene/component/getModelPropByProductCode`</br>
 **HTTP Method：** POST
 
 **输入参数** 
 
 参数名|类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-propId|String||Body|必填|组件属性id
+productCode|String|9位|Body|必填|设备型号产品编码
 
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|PropOfComponentDto|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|FunctionsDto|Body|必填|{<br>    "sysProps":{<br>	"id":"",//产品编码<br>"componentId":""，<br>"componentType":""//组件类型 MODEL<br>},//app取出sysProps字段直接<br>	"actions":[{<br>		"propId":"",//属性主键<br>		"desc":"",//组命令前端呈现<br>"propClass":"",//属性类别<br>           “fixer”:””,//定语，属性的修饰词：比如“设置为”，“执行”；<br>"propSot":0,//属性排序数字<br>		"props":[]//类型为ComponentFunctionPropDto<br>	}],<br>	"conditions":[]//数据结构跟actions一致<br>}<br><br><br>ComponentFunctionPropDto结构如下：<br>{ <br>          "propId":"",//属性主键<br>"propClass":"",//属性类别<br>		"desc":"",<br>          “fixer”:””,//定语，属性的修饰词：比如“设置为”，“执行”；<br>		"propName":"",//原始命令值，app需要给引擎赋该值<br>        "functionName":"",//功能标识名称，在基于场景模板创建应用场景时，使用该字段匹配模板中的functionName来确定是否支持目标场景模板（大部分情况下跟propName相同）<br>		"propValType":"",//取值类型<br>		"variants":"",//取值范围，为json字符串<br>		"defaultValue":"",//预留字段，不维护任何值 ，<br>		"defaultValueDesc":"",//预留字段，不维护任何<br>}|
 
-data字段说明：
-```
-{
-"id":"",//组件主键
-"propName"，"",//标识名称	必填；硬件属性的标识名称，程序读的
-"propClass"，"",//属性类别	可取值： property(属性) alarm（告警） operation(操作类属性)，group（组命令）
-"functionName"，"",//功能标识名称	程序读的
-"description"，"",//显示名称	选填；人读的
-"functionDesc"，"",//功能显示名称	人读的
-"propValType"，"",//属性值类型 可取值：prop_class为property或者为operation时，可取double,int,bool, string,enum；prop_class为alarm,该字段为null
-"readable"，"",是否可读	
-"writable"，"",	是否可写
-"variants"，"",取值范围	存储取值范围的json字符串
-"splitFunc"，"",拆分标识   0：不拆，1：拆分后属性，2：被拆分属性；
-}
-```
 
-#### 据根据中类组件属性ID列表批量查询属性信息
 
+####	查询型号支持场景状态列表
+
+> 通过型号产品编码列表和查询类型查询型号支持场景状态。状态包含否可以作为条件、是否可以作为动作。型号如果不支持场景，则结果集不返回。
 
 ##### 1、接口定义
-?> **接入地址：** `/iftttscene/component/getPropByIds`</br>
+?> **接入地址：** `/iftttscene/component/ getModelSupportSceneStateList`</br>
 **HTTP Method：** POST
 
 **输入参数** 
 
 参数名|类型|最大长度|位置|必填|说明
 :-|:-:|:-:|:-:|:-:|:-
-propIds|List||Body|必填|组件属性id
+productCodeList|List|暂不限制个数，理论上用户家庭不会超过20个设备。|Body|必填|型号产品编码列表。
+type|int|&nbsp;|Body|必填|查询类型  0：查询未上线的型号  1：查询已上线型号 ，2 查询 全部     必传值。
+App灰度测试之用到1和2
 
 
 **输出参数:** 
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-data|PropOfComponentDto|Body|必填|
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|SceneFunctionSupportDto[]|Body|必填|{<br>	[{<br>		"productCode":"",//型号编码<br>	     "supportSceneStatus":"",//true : 支持场景,false : 不支持场景<br>		"sceneType":""//1 :  只支持条件  2 :只支持动作  3 : 既支持条件也支持动作  <br>	}]<br>}
+|
 
-data字段说明：
-```
-[
-{
-"id":"",//组件主键
-"propName"，"",//标识名称	必填；硬件属性的标识名称，程序读的
-"propClass"，"",//属性类别	可取值： property(属性) alarm（告警） operation(操作类属性)，group（组命令）
-"functionName"，"",//功能标识名称	程序读的
-"description"，"",//显示名称	选填；人读的
-"functionDesc"，"",//功能显示名称	人读的
-"propValType"，"",//属性值类型 可取值：prop_class为property或者为operation时，可取double,int,bool, string,enum；prop_class为alarm,该字段为null
-"readable"，"",是否可读	
-"writable"，"",	是否可写
-"variants"，"",取值范围	存储取值范围的json字符串
-"splitFunc"，"",拆分标识   0：不拆，1：拆分后属性，2：被拆分属性；
-}，
-{
-"id":"0021ba83f2314d0b9b9702791193b22d",
-"propName":"grSetTank",
-"propClass":"group",
-"functionName":"grSetTank",
-"functionDesc":"浴缸设置",
-"propType":"GROUP",
-"readable":false,
-"writable":true,
-"description":"浴缸设置",
-"splitFunc":0
-},
-]
 
-```
+####	获取非设备类组件和属性功能列表
+
+> 获取非设备类组件属性功能列表（天气、定时、延时、地理围栏）。
+
+##### 1、接口定义
+?> **接入地址：** `/iftttscene/component/getCmptPropList`</br>
+**HTTP Method：** POST
+
+**输入参数** 
+
+参数名|类型|最大长度|位置|必填|说明
+:-|:-:|:-:|:-:|:-:|:-
+type|String|32|Body|必填|取值：天气 WEATHER, 定时 TIMER, 延时 DELAY, 地理围栏 GEOFENCE 
+
+
+
+**输出参数:** 
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+retCode|String|Body|必填|&nbsp;|
+retInfo|String|Body|必填|&nbsp;|
+data|List< ComponentFunctionsDto >|Body|必填|{<br>"componentId":""，<br>"componentType":" WEATHER"//组件类型  WEATHRE：天气组件<br>“componentName”: "当前天气"<br>"componentDesc":"当前天气"<br>"props":[]//类型为FunctionDto<br>	}],<br>}]<br><br><br>FunctionDto 结构<br>{ <br>          "id":" 0021ba83f2314d0b9b9702791193b22d ",//属性主键<br>"type":""//属性类型,		<br>"description":"温度",<br>          “fixer”:设置为”,//定语，属性的修饰词：比如“设置为”，“执行”；<br>		"name":"temperature ",//属性标识<br>        "whenLable":true,//可作为条件 <br>"thenLable":false,//可作为动作 <br>		"valType":"double",//取值类型<br>		"variants":" {"unit":"℃","minValue":-50,"step":1,"maxValue":50} <br>",//取值范围，为json字符串<br>}|
 
 
 
