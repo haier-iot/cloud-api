@@ -931,10 +931,10 @@ public class TextEncoder  implements Encoder.Text<String>{
 
 
 [^-^]:常用图片注释
-[dataSubscription_type]:../_media/_dataSubscription/dataSubscription_type.png
-[dataSubscription_liucheng]:../_media/_dataSubscription/dataSubscription_liucheng.png
-[dataS_flow]:../_media/_dataSubscription/dataS_flow.png  
-[dataS_model]:../_media/_dataSubscription/dataS_model.png  
+[dataSubscription_type]:_media/_dataSubscription/dataSubscription_type.png
+
+[dataS_flow]:_media/_dataSubscription/dataS_flow.png  
+[dataS_model]:_media/_dataSubscription/dataS_model.png  
 
 
 
