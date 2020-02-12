@@ -1449,7 +1449,11 @@ Body
 
 
 #### 修改用户平台触发类场景
->修改用户平台触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。</br>说明：1、更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。</br>2、如果要修改场景的规则信息，必须传入原有场景的ruleId;
+>修改用户平台触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。
+说明：
+1、 更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。<br>
+2、如果要修改场景的规则信息，必须传入原有场景的ruleId;<br>
+3、模板转自定义调用该接口保存平台触发类场景。
 
 
 ##### 1、接口定义
@@ -1472,7 +1476,12 @@ Body
 
 
 #### 修改用户手动触发类场景
->修改用户手动触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。</br>说明：1、更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。</br>2、如果要修改场景的规则信息，必须传入原有场景的ruleId;
+>修改用户手动触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。
+说明：
+1、更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。<br>
+2、如果要修改场景的规则信息，必须传入原有场景的ruleId;<br>
+3、模板转自定义调用该接口保存手动执行类场景。
+
 
 
 ##### 1、接口定义
@@ -1496,23 +1505,53 @@ Body
 
 
 
+#### 修改用户场景
+>修改用户场景（传入参数userSceneDto中必须传入需要修改的id,familyId不能修改）。
+说明：
+1，	支持场景开启状态下的编辑功能；
+2，	不区分场景类型，所有场景均可编辑；
+3，	编辑后场景规则ID、条件、动作ID均会重新生成
 
-
-
-
-#### 规则类获取规则详情
->根据规则Id查询规则具体信息。
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/iftttscene/scene/rule/getById`  
+?> **接入地 址：**  `/iftttscene/scene/modifyUserScene`  
  **HTTP Method：** POST
 
 **输入参数**  
 
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|
-| familyId| String |32| Body| 必填|家庭Id|           
+| userSceneDto| UserSceneDto |&emsp;| Body| 必填|场景参数 |           
+ 
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  | Object| String  |  必填 |&nbsp; |  
+|  retInfo  | Object| String  |  必填 |&nbsp; |  
+|  data  | Object| Body  |  必填 |返回修改成功的场景ID |   
+
+
+
+
+
+
+
+
+#### 规则类获取规则详情
+>根据规则Id查询规则具体信息。返回结构和保存用户场景结构一致。
+
+##### 1、接口定义
+
+?> **接入地 址：**  `/iftttscene/scene/rule/getRuleInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|          
 | ruleId| String |32| Body| 必填|规则Id|     
 
 **输出参数**  
@@ -1521,466 +1560,6 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  | RuleTemplateDto| Body  |  必填 |&emsp;  |
 
-
-
-#### 修改规则名称
->修改规则名称。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateRuleName`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleId| String |32| Body| 必填|场景Id|  
-| name| String |255| Body| 必填|规则名称|      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 7ffa0beaba5480237d441ddeeb0087b85c2ce675ba551c377330623a2de14690
-timestamp: 1542618834303 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-	"ruleId": "eb83f2d339d644839e3f95901a0af094",
-	"name": "2.3引擎关爱场景-空调-1.0-分体jiayk"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
-
-
-
-
-
-#### 修改规则描述
->修改规则描述。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateRuleDescribe`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleId| String |32| Body| 必填|场景Id|  
-| describe| String |512| Body| 必填|规则描述|      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 22f09c8c7349bda4da2d6fb3e1bad9780838b0ea780344b6ec2e4711c8e5097c
-timestamp: 1542618995204 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-	"ruleId": "eb83f2d339d644839e3f95901a0af094",
-	"describe": "rule_description1_jiayk"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
-
-
-
-
-
-
-#### 修改规则开关状态
->修改规则开关状态接。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateRuleStatus`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleId| String |32| Body| 必填|规则Id|  
-| isOpen| Integer |N/A| Body| 必填|场景片段是否开启: 1 开启 0 未开启 App根据isOpen状态判断能否编辑规则和设置规则参数，isOpen只有是在开启状态才可编辑规则和设置规则参数|      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 5d88391974492f6ccf8dfdfb8c2ca8721f5ced9ece6e45e2523459d4edeb9093
-timestamp: 1542619171879 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{ 
-	"ruleId": "eb83f2d339d644839e3f95901a0af094", "isOpen": "1"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
-
-
-
-
-
-#### 修改行为开关状态
->修改行为开关状态。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateActionStatus`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleActionId| String |32| Body| 必填|规则行为Id|  
-| isOpen| Integer |N/A| Body| 必填|行为是否开启: 1 已开启 0 未开启 App根据isOpen状态判断能否编辑规则和设置规则参数，isOpen只有是在开启状态才可编辑规则和设置规则参数 |      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 1655668e4ecb63ba1b6e89d12d42ba7719c3c62f3a339d6419de8f5822c1db75
-timestamp: 1542619291670 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{ 
-	"ruleActionId": "a0b2568f2c794ec4a7ec7b162029d854", "isOpen": "1"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
-
-
-
-
-
-#### 修改消息推送行为中消息内容
->修改消息推送行为中消息内容。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updatePushMessage`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleActionId| String |32| Body| 必填|规则行为Id|  
-| pushMessage| String |N/A| Body| 必填|推送的消息内容 |      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 57ed50324ef9945fa6d717e81db7386128b029b9215383fa13d44902688efd14
-timestamp: 1542619379759 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-	"ruleActionId":"071099dacbee41eeab4a0375ca2b0688",
-     "pushMessage":{
-        "messagePush":{
-            "pushType":"family_device",
-            "pushContent":{
-                "msgName":"",
-                "expires":"86400",
-                "msgTitle":"危险",
-                "msgContent":"海尔空小调：咳咳咳～。"
-            },
-            "showTypes":{
-                "01":"3",
-                "02":"3"
-            },
-            "msgStrategy":"null"
-        },
-        "deviceControl":{
-            "args":"null",
-            "controlBtnText":"启动空调",
-            "operation":{
-                "id":"f313ddbcb49d11e798b8fa163eb273a5_0",
-                "value":"null",
-                "desc":"空调参数设置(组命令)_测试组命令24",
-                "required":"false"
-            },
-            "componentId":"4e8a0dfb038d40fab6c5b49369240000"
-        }
-    }
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码
-
-
-
-
-
-#### 修改条件描述
->修改条件描述。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateRuleConditionsDescribe`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleConditionId| String |32| Body| 必填|规则条件id|  
-| desc| String |512| Body| 必填|描述 |      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: 8bf804aa13f267a87ea4f927270290c5005a09a7edbabd0f84bfed79c4441325
-timestamp: 1542619548528 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-  "ruleConditionId": "8ad397d15ba74186932b2102c94006d9",
-  "desc": "当前室内温度 >= 28℃jia123"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
-
-
-
-
-
-
-#### 修改动作描述
->修改动作描述。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/updateRuleActionDescribe`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| ruleActionId| String |32| Body| 必填|规则行为Id|  
-| desc| String |512| Body| 必填|描述 |      
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |  必填 |显示为：null  |
-
-##### 2、请求样例  
-
-**用户请求**
-```java  
-Header：
-appId: MB-****-0000
-appVersion: 3.3.0
-clientId: 123456
-sequenceId: 20161020153428000015
-accessToken: TGT1RTMIZLU4ERIC1Y6UY558EVOE70
-sign: c2a733ed66f5c4435d32d7677dd28ab93df9cabb2bcd7cd26f8e76ed2ac5ba7d
-timestamp: 1542619708199 
-language: zh-cn
-timezone: +8
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-Body
-{
-  "ruleActionId": "a0b2568f2c794ec4a7ec7b162029d854",
-  "desc": "DESCRIPTION_jiayk11"
-}
-```  
-
-**请求应答**
-
-```java
-{
-	"retCode": "00000",
-	"retInfo": "成功",
-	"data": null
-}
-```
-
-##### 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
 
 
 
@@ -2242,41 +1821,31 @@ Body
 |  data  | List< SceneOperationLogDto>| Body  |  显示家庭下场景的操作记录列表，根据记录产生的时间倒序排列 |
 
 
-#### 通过来源（模板id）查询家庭下已下载的场景列表
->通过来源(模板id)获取家庭下场景列表（通过模板下载的场景）。
+#### 查询场景详情
+>根据场景id查询场景的基本信息、条件和动作信息。
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/iftttscene/scene/listInFamilyBySource`  
+?> **接入地 址：**  `/iftttscene/scene/getSceneDetailBySceneId`  
  **HTTP Method：** POST
 
 **输入参数**  
 
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
-| familyId| String |32| Body| 必填|家庭Id|  
-| sourceId| String |32| Body| 必填|场景来源id(模板id) | 
+| sceneId| String |32| Body| 必填|家庭Id|  
      
 
 **输出参数**  
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | List<UserSceneDto>| Body  |必填| 显示场景的描述性信息, 其中的规则rules中带有规则Id和规则名称,其他字段不返回，同时记录按照创建时间倒序|
+|  data  | UserSceneDto| Body  |必填| &nbsp;|
 
 
 
 
 ### 家庭配置类
-> API接口总览
-
-| API名称        | 作用          | 是否开放  | 特别说明|
-| ------------- |:-------------:|:-----:|:-------------:|
-| 判断该场景下规则的条件以及动作等是否正确 | 根据sceneId判断该场景下规则的条件以及动作等是否正确 | 是| 无|  
-| 查询规则设置的参数| 查询条件或者行为中用户保存的值 | 是| 无|  
-| 根据场景模板Id保存规则参数信息 | 根据场景模板Id保存规则参数信息 | 是| 无|  
-| 批量更新规则的参数| 批量更新规则的参数| 是| 无|  
-
 
 #### 判断该场景下规则的条件以及动作等是否正确
 >根据场景id判断该场景下规则的条件以及动作等是否正确，返回Map<String,List<String>> ,key 为规则id,value为校验符合要求,可以开启的动作集合。
@@ -2290,7 +1859,7 @@ Body
 
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
-| sourceId| String |&emsp;| Body|必填 |&emsp; | 
+| sceneId| String |&emsp;| Body|必填 |&emsp; | 
      
 
 **输出参数**  
@@ -2298,30 +1867,6 @@ Body
 |   名称      |     类型      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  ruleMap  | LMap<String,List<String>>| Body  |必填| &emsp;|
-
-
-
-#### 查询规则设置的参数
->根据条件Id或者行为Id查询用户之前保存的设备或者需要用户填写的数据。
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/rule/settings`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| familyId| String |32| Body| 必填|家庭Id | 
-| ids| String[] |32| Body| 必填|条件或者行为的Id数组，只能是一种，不能混合查询；具体类型由type区分 | 
-| type| String |255| Body| 必填|条件还是行为，枚举：condition或者action| 
-     
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  Data  | Map<String,RuleSettings>| Body  |必填|返回设置的参数 Key为条件或者行为的Id Value为具体的RuleSettings|
 
 
 
@@ -2338,7 +1883,8 @@ Body
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
 | familyId| String |32| Body| 必填|家庭Id | 
 | templateId| String[] |32| Body| 必填|场景模板Id | 
-| ruleSettings| RuleSettings[] |N/A| Body| 必填|type:必填，枚举类型可选值condition或者action；</br>id：模板的条件或者行为Id，取决于type；数据结构定义：</br>`{`</br>`“mac”:”A123456”,`</br>`“clazz”:”00123”  //设备大类加中类；这个必须跟海极网一致`</br>`}`</br>如果同一型号需要传入多个设备，数据格式如下：</br>`{"mac":"mac1,mac2,mac3","clazz":"02012"}`</br>和V2.3不一样的是去除了wifitype</br>value:选填 数据结构定义：</br>`{`</br>` “value”:”open”, //具体的值；`</br>`“desc”:”开机”   //具体值的描述`</br>`}`|   
+| sceneTagList| List<SceneTagDto> |NA| Body|选填|场景位置标签 |
+| ruleSettings| RuleSettings[] |N/A| Body| 必填|type:必填，枚举类型可选值condition或者action；</br>id：模板的条件或者行为Id，取决于type；数据结构定义：</br>`{`</br>`"mac":"A123456",`</br>`"clazz":"00123"  //设备大类加中类；这个必须跟海极网一致`</br>`}`</br>如果同一型号需要传入多个设备，数据格式如下：</br>`{"mac":"mac1,mac2,mac3","clazz":"02012"}`</br>和V2.3不一样的是去除了wifitype</br>value:选填 数据结构定义：</br>`{`</br>` "value":"open", //具体的值；`</br>`"desc":"开机"   //具体值的描述`</br>`}`|   
    
 
 **输出参数**  
@@ -2373,41 +1919,11 @@ Body
 |  data  | Object| Body  |必填|如果成功返回success；如果失败返回错误信息|
 
 
+
+
+
+
 ### 触发类
-> API接口总览
-
-| API名称        | 作用          | 是否开放  | 特别说明|
-| ------------- |:-------------:|:-----:|:-------------:|
-| 开启或关闭场景 | 激活场景或者去消息激活 | 是| 无|  
-| 开启或关闭用户场景| 开启或关闭用户场景 | 是| 无|  
-| 手动执行场景 | 手动执行场景 | 是| 无|  
-| 手动执行用户场景| 手动执行用户场景| 是| 无|  
-
-
-
-#### 开启或关闭场景
->激活场景或者去消息激活。
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/operation`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| familyId| String |32| Body| 必填|家庭Id | 
-| sceneId| String |32| Body| 必填|&emsp; | 
-| status| String |32| Body| 必填|目前可取值 0：取消激活；1：激活场景| 
-     
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
-
-
 
 
 #### 开启或关闭用户场景
@@ -2434,31 +1950,12 @@ Body
 
 
 
-#### 手动执行场景
->手动执行场景。
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/triggerScene`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| familyId| String |32| Body| 必填|家庭Id | 
-| sceneId| String |32| Body| 必填|&emsp; | 
-
-     
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
-
 
 #### 手动执行用户场景
+
 >手动执行用户场景。
+
+
 ##### 1、接口定义
 
 ?> **接入地 址：**  `/iftttscene/scene/triggerUserScene `  
@@ -2482,119 +1979,7 @@ Body
 
 
 ### 定时类
-> API接口总览
-
-| API名称        | 作用          | 是否开放  | 特别说明|
-| ------------- |:-------------:|:-----:|:-------------:|
-| 用户配置场景定时任务 | 用户配置场景定时任务 | 是| 无|  
-| 用户配置场景定时功能| 用户配置场景定时功能 | 是| 无|  
-| 开启或关闭定时器 | 开启或关闭场景定时器 | 是| 无|  
-| 用户删除场景的定时功能| 删除场景对应的定时功能| 是| 无|  
-
-
-#### 用户配置场景定时任务
->用户场景绑定定时器，主要支持quartz表达式，最低支持到分钟级别。说明：</br>1、支持手动触发类场景；</br>2、支持平台触发类场景；</br>3、支持定时触发类场景；</br>4、场景开启或关闭状态都可以设置定时功能。
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/bindingTaskInfo`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| sceneId| String |32| Body| 必填|&emsp; | 
-| taskInfo| TaskInfoDto |N/A| Body| 必填|定时任务详情，包括：</br>type:定时策略类型；（必填）</br>cornDto，定时表达式；（必填）</br>activeBeginTime，场景生效开始时间；</br>activeEndTime,场景生效结束时间（定时类场景或者手动触发类场景无生失效时间段设置，但是必须有cron表达式，平台类场景的cron表达式和生失效时间同时必须传）</br>status：定时状态开关（必填，如果没有，默认false，不报错）|
-    
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
-
-
-
-
-
-#### 用户配置场景定时功能
->用户场景绑定定时器，主要支持quartz表达式，最低支持到分钟级别。说明：</br>1、支持手动触发类场景；</br>2、支持平台触发类场景；</br>3、支持定时触发类场景；</br>4、场景开启或关闭状态都可以设置定时功能。
-
-
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/bindingTimer`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| id| String |32| Body| 必填|场景Id| 
-| cron| Cron |10| Body| 必填|Quartz表达式最低支持到分钟|
-| status| Boolean |N/A| Body| 非必填|定时任务开关状态，默认为启用|    
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
-
-
-
-#### 开启或关闭定时器
->支持用户场景(平台、手动和定时触发类)调用该接口, 场景开启或关闭状态都可以设置(开启或关闭)定时器。
-
-
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/operationTimer`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| sceneId| String |32| Body| 必填|场景Id| 
-| familyId| String |32| Body| 必填|家庭Id|
-| status| Boolean |N/A| Body| 必填|true:开启定时器</br>false:关闭定时器|    
-
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|
-
-
-
-
-#### 用户删除场景的定时功能
->删除场景对应的定时功能（支持平台、手动和定时触发类场景），场景开启或关闭状态都可以删除定时功能。
-
-
-
-##### 1、接口定义
-
-?> **接入地 址：**  `/iftttscene/scene/task/delete`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| id| String |N/A| Body| 必填|用户场景Id| 
- 
-
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  data  | Object| Body  |必填|显示为：null|   
+  
 
 #### 更新多生失效时间段接口
 >更新多个生失效时间段功能（支持平台），场景开启或关闭状态都可以更新。  
