@@ -2137,7 +2137,7 @@ Body
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
 | familyId| String |32| Body| 必填|家庭Id| 
-| userSceneDto| UserSceneDto |&emsp;| Body| 选填|场景参数| 
+| userSceneDto| UserSceneDto |&emsp;| Body| 必填|场景参数| 
 
      
 
