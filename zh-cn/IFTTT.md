@@ -2323,7 +2323,7 @@ Body
 
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
-| component Id| String |N/A| Body| 必填|组件Id|  
+| componentId| String |N/A| Body| 必填|组件Id|  
 | familyId| String |N/A| Body| 必填|家庭Id| 
  
 
@@ -2346,7 +2346,7 @@ Body
 
 ##### 1、接口定义
 
-?> **接入地 址：**  `/iftttscene /internal/callback/action/{sn}`  
+?> **接入地 址：**  `/iftttscene/internal/callback/action/{sn}`  
  **HTTP Method：** POST
 
 **输入参数**  
