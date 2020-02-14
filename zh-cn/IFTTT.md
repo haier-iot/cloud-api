@@ -83,7 +83,7 @@
 |uVersion| String | 用户场景版本号 |最大32位|
 |bVersion| String | 基础场景版本号 |&emsp;|
 |dType| String | 下载类型</br>Basis：基础场景；</br>App：应用场景；</br>User：用户自建 |最大16位|
-|triggerType| String | 是否支持App手动触发执行 |选填，用户自建场景忽略 目前取值：</br>platform：平台触发，manually：手动触发，timerTrigger：时间触发；</br>注释：该字段由app定义，app可根据该字段配合手动触发机制实现地图围栏，天气等业务|
+
 
 ### BasisSceneDto  
 基础场景对象  
@@ -109,7 +109,7 @@
 | icon  |  String  |   场景图标URL  |最大长度256|
 | createUserId  |  String  |   场景创建者Id  |最大64|
 |  createUserNickname |  String  |   场景开发者展示名称  |最大长度64 场景开发者在海极网填写的昵称信息 用户自建场景忽略|
-|  createUserLogo |  String  |   场景开发者展示LOGO  |最大长度256 场景开发者在海极网配置的logo信息PNG或JPG格式，128*128或64*64规则 用户自建场景忽略|
+|  createUserLogo |  String  |   场景开发者展示LOGO  |最大长度256 场景开发者在海极网配置的logo信息PNG或JPG格式，128x128或64x64规则 用户自建场景忽略|
 |  engineVersion |  String  |   引擎执行版本号  |最大32位 当前版本号为1.0（来源由场景引擎提供，Portal入库需要提供该版本号）|
  
 
@@ -207,25 +207,17 @@
 | **名称** | 条件对象 |&emsp;| RuleWhenCondition |   
 | ------------- |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
-|id             | String              |条件ID                                                                                                                 |  UUID                                                                                                                                                          |
-|object  | StatusDesc   |条件载体 如果条件为设备条件则该值为设备信息，value为设备mac；desc为设备昵称 。如果条件为天气信息，value为天气信息|  详见下方|                                                                                                                                          
+|id             | String              |条件ID                                                                                                                 |  UUID                                                                                                                                                          |                                                                                                                                          
 |desc           | String              |条件描述                                                                                                               |  目前是程序组装，只有叶子节点条件才会组装，上层结构不会 用户自建场景忽略                                                                                       |
 |key            | StatusDesc          |标准模型name；OS需要录入StatusDesc的ID；标识某个组件的属性ID；OS查询条件返回组件属性的描述（值和描述，还有组件属性的ID）| 选填；                                                                                                                                                        |
 |operationSign  | OperationSign       |关系运算符（枚举类型）                                                                                                 |  选填；取值如下：</br>`greaterThan(">"),`</br>`greaterThanEqual(">="),`</br>`equal("=="),`</br>`lessThan("<"), `</br>`lessThanEqual("<="),`</br>`unequal(“!=)` |
 |value          | StatusDesc          |标准模型值 |  选填；  |                                                                                                                                                                                                                                                                 
 |logicalSign    | LogicalSign         |逻辑运算符（枚举类型）|该条件对应上一个平行条件的逻辑运算，取值如下</br>`AND(”&&”) OR("`&#124;&#124;`")` |                                                                                                                                                                                      
 |conditions     | RuleWhenCondition[] |子条件对象数组|选填；说明：举例</br>`if(a`&#124;&#124;`b)` 这种格式那么`conditions`为`null`；</br>除了`logicalSign`其它必填；</br>`if((a`&#124;&#124;`b)&&(c`&#124;&#124;`d))`这种格式则`conditions`必填；</br>其它都为`null`；      |                                                                                                        
-|componentId    | String              |所属组件Id  |  必填；由组件区分是设备组件还是其它组件   |                                                                                                                                                                                                                                                                                                                         
+|componentId    | String              |所属组件Id  |  必填；由组件区分是设备组件还是其它组件   |          
+|componentType    | String              |组件类型  | 选填； |  
+|settings    | RuleSettingsDto              |条件配置的参数  |  该dto里面参数为：</br>Id:</br>Object: 设置的设备信息或者天气信息</br>Value: 设置的值|                                                                                                                                                                                                                                                                                                                 
 
-object字段说明： </br>  
-  
-```     
-备注：该字段兼容新老数据  
-1.	条件为设备条件则该值为设备信息，value为设备{"mac":"DC330DC51955","clazz":"CAS362VBA(A1)U1套机"}；   
-2.	如果为天气条件，则value为：   
-{"id":"城市code编码","type":"","name":"城市名字"}；   
-
-```
 
 
 ### RuleThenDto  
@@ -234,7 +226,7 @@ object字段说明： </br>
 | **名称** | 规则触发动作 |&emsp;| RuleThenDto |   
 | ------------- |:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**说明**|**备注**|  
-|conditions|RuleThenAction[]|需要触发的动作     |选填；表示when里边的条件组合   |
+|actions|RuleThenAction[]|需要触发的动作     |选填 |
 |desc      |String             |表示when字段描述 |选填；用户自建场景忽略         |
 
 ### RuleThenAction  
@@ -246,10 +238,13 @@ object字段说明： </br>
 |id          |String                |行为ID                   |主键ID      UUID|                                                                              
 |desc        |String                |行为动作描述             |选填|
 |type        |ActionEnum            |需要触发的动作类型枚举类 |取值如下：DeviceControl：设备控制 MessagePush：消息推送 MessagePushWithControl：带小循环控制的消息|
-|dealyTime   |Integer               |动作延迟执行时间         |选填；取值为数字 单位为秒 说明该动作需要在触发执行后多少秒后触发 如果不填或者0则认为不延迟 用户自建场景忽略|
 |control     |RuleThenDeviceControl |设备控制动作             |选填；如果type值为：DeviceControl control必填，pushMessage为空；如果type为MessagePushWithControl 则control和pushMessage都必填|
 |pushMessage |RuleThenPushMessage   |消息推送动作             |选填；如果选择消息推送则control为空，pushMessage必填|
+|delayControl      |RuleThenDelayControl |延时动作控制 |type 为Delayed：延时</br>延时动作结构体|
+|newMessage      |RuleThenNewMessage               |新版消息动作         |选填：如果type为NewMessagePush，newMessage必填|
 |isOpen      |Integer               |动作片段是否开启         |1开启，0关闭|
+|settings      |RuleSettingsDto   |动作配置的参数   |该dto里面参数为：</br>Id: settings主键id</br>Object: 设置的设备信息</br>Value: 设置的值|
+|sceneControl      |SceneControl   |控制场景  |选填：如果type为TriggerScene：执行场景OperationScene：开关场景 必填|
 
 
 ### RuleThenPushMessage  
@@ -264,6 +259,20 @@ object字段说明： </br>
 |msgStrategy | MessageStrategy   |消息发送策略    |选填|
 |priority    | Integer           |消息优先级      |具体和《ums3.0接口定义说明书-标准版》保持一致，示意如下:</br>0 – 紧急消息</br>1 – 一般消息，如果不填则默认为一般消息</br>2 – 中低消息</br>3 – 低级消息|
 
+### RuleThenNewMessage   
+新版消息推送动作  
+  
+| **名称** | 消息推送动作 |&emsp;| RuleThenNewMessage | 
+| ------------- |:----------:|:-----:|:--------:|
+|**字段名**|**类型**|**说明**|**备注**|  
+|pushType    | PushType   |推送类型 ，枚举 |必填;取值：</br>按照家庭推送：family|
+|msgTitle | String       |消息标题 |必填|
+|msgContent   |String|消息内容    |必填|
+|showTypes | int   |终端显示类型 |实时消息的显示样式：</br>-1：不显示，app一般用于无UI展示，直接处理消息内容</br>0： toast</br>2： 弹框，业务事件及button 按钮自定义，见 btns 封装。</br>4： 红色感叹号显示 ;</br>20：弹框，无按钮；</br>21：弹框,一个按钮，</br>无相应业务事件处理；</br>22：弹框，确定、取消</br>两个按钮，均无业务事件处理|
+|msgName    | String           |消息名称      |&emsp;|
+|expires    | int           |消息过期时间      |消息在客户端离线时在第三方推送平台缓存时间，过期将不再推送给客户端。单位为秒，最长86400秒，如未指定则默认为86400秒。|
+|priority    | int           |消息优先级     |消息优先级别，如设置则默认为1。取值为：</br>0 ：紧急消息，一般需要唤醒屏幕，播放消息提示音</br>1：一般消息，在屏幕黑屏时候，播放消息提示音，无需唤醒屏幕</br>2：中低消息，无需声音提示</br>3： 低级此类消息，可能接收消息后，APP 无需立刻处理，等系统空闲或者 wifi 状态下处理即可|
+|msgStrategy    | MessageStrategy           |消息发送策略      |选填；|
 
 
 ### MessageStrategy  
@@ -296,7 +305,7 @@ object字段说明： </br>
 | **名称** | 设备控制动作 |&emsp;| RuleThenDeviceControl |   
 | ------------- |:----------:|:-----:|:--------:| 
 |**字段名**|**类型**|**说明**|**备注**|   
-|object        |StatusDesc         |动作载体 为设备信息，value为设备mac；desc为设备昵称| &emsp;                                                                                  |
+|object        |StatusDesc         |动作载体 为设备信息，value为设备mac；desc为设备昵称|删除，请用settingDto结构 |
 |args          |DeviceControlArgs[]|控制命令集合                                      |  选填；如果为组命名则args有可能为空                                                      |
 |controlBtnText|String             |带控制的消息的相关按钮信息                        |  选填；消息推送带小循环控制 时必填 长度最大为10                                          |
 |componentId   |String             |组件id                                            |  必填；                                                                                  |
@@ -319,6 +328,26 @@ V2.2版本args跟operation；
 
 ```
 
+### RuleThenDelayControl
+延时动作控制结构体
+  
+| **名称** | 延时动作控制结构体 |&emsp;| RuleThenDelayControl |   
+| ------------- |:----------:|:-----:|:--------:| 
+|**字段名**|**类型**|**说明**|**备注**|   
+|args  |DelayControlArgs[] |延时动作集合     |选填；如果为组命名则args有可能为空|
+|componentId |String     |组件id |必填；|
+
+
+### DelayControlArgs
+设备控制命令参数
+  
+| **名称** | 延时控制参数 |&emsp;| DelayControlArgs |   
+| ------------- |:----------:|:-----:|:--------:| 
+|**字段名**|**类型**|**说明**|**备注**|   
+|name  |StatusDesc |名称     |必填{"id":"111111","value":"30","required":false,"desc":"延时"}|
+|value |StatusDesc     |值 |选填；原始值放入value属性|
+
+
 ### DeviceControlArgs  
 设备控制命令参数  
   
@@ -330,15 +359,27 @@ V2.2版本args跟operation；
 |changeValue|StatusDesc |标准模型的改变值（增加或减少相应单位量）|选填；原始值放入value属性，递增递减值放入changeValue |
 
 
-### RuleDeviceDesc  
+### SceneControl  
+场景控制参数结构体  
+  
+| **名称** | 设备控制动作 |&emsp;| SceneControl |   
+| ------------- |:----------:|:-----:|:--------:| 
+|**字段名**|**类型**|**说明**|**备注**|   
+|familyId  |String |家庭id     |必填        |
+|sceneId |String     |场景id |必填；|
+|sceneName|String |场景名称|选填 |
+|status|String |状态|选填：开关类场景必填</br>取值 </br>0：关闭场景</br>1：开启场景|
+
+
+### ComponentDeviceDesc  
 设备描述  
   
 | **名称** | 设备描述 |&emsp;| RuleDeviceDesc |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**|  
+|**字段名**|**类型**|**说明**|**备注**|   
 |id  |String |设备主键     |必填        |
-|bigClass |StatusDesc    |设备大类 |必填 |
-|middleClass|StatusDesc |设备中类|必填|
+|bigClass |StatusDesc     |设备大类 |必填|
+|middleClass|StatusDesc |设备中类|必填 |
 
 
 ### ComponentDto  
@@ -346,108 +387,114 @@ V2.2版本args跟operation；
   
 | **名称** | 组件信息 |&emsp;| ComponentDto |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|id           |String                   | 组件主键                  |必填                                                                                                               |
-|componentName|String                   | 组件名称                  |必填                                                                                                               |
-|componentDesc|String                   | 组件描述                  |必填                                                                                                               |
-|componentType|ComponentType            | 组件类型                  |枚举类型 设备组件：</br>中类组件：DEVICE("device")</br>typeId组件：TYPEID（“typeId”）</br>型号组件：MODEL(“model”) |
-|deviceDesc   |ComponentDeviceDesc      | 组件所属设备标准模型类型  |选填，只有当组件类型为 设备组件：DEVICE("device") 该属性才有值                                                     |
-|wifitypeList |String[]                 | 组件支持的wifitype列表    |如果该字段为空，则支持中类下所有typeid设备，如果不为空，则组件只支持返回的typeid列表                               |
-|propList     |List<PropOfComponentDto> | 组件相关的属性列表        |选填                                                                                                               |
+|**字段名**|**类型**|**说明**|**备注**|   
+|id  |String |组件主键     |必填        |
+|componentName |String     |组件名称 |必填|
+|componentDesc|String |组件描述|必填 |
+|componentType|ComponentType |组件类型|枚举类型</br>设备组件：</br>中类组件：DEVICE("device")</br>typeId组件：TYPEID（“typeId”）</br>型号组件：MODEL(“model”)</br>|
+|deviceDesc|ComponentDeviceDesc |组件所属设备标准模型类型|选填，只有当组件类型为设备组件：DEVICE("device")该属性才有值|
+|wifitypeList|String[] |组件支持的wifitype列表|如果该字段为空，则支持中类下所有typeid设备，如果不为空，则组件只支持返回的typeid列表|
+|propList|List<PropOfComponentDto> |组件相关的属性列表|选填|
+
+
+
 
 ### PropOfComponentDto  
 组件下的属性信息  
   
 | **名称** | 组件下的属性信息 |&emsp;| PropOfComponentDto |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|id          |String   | 组件主键     |选填；最大长度32位                                                                                           |
-|propName    |String   | 标识名称     |必填；硬件属性的标识名称，程序读的                                                                           |
-|propClass   |String   | 属性类别     |可取值： property(属性) alarm（告警） operation(操作类属性)，group（组命令）                                 |
-|functionName|String   | 功能标识名称 |程序读的                                                                                                     |
-|description |String   | 显示名称     |选填；人读的                                                                                                 |
-|functionDesc|String   | 功能显示名称 |人读的                                                                                                       |
-|propValType |String   | 属性值类型   |选填：可取值：prop_class为property或者为operation时，可取double,int,bool,enum；prop_class为alarm,该字段为null|
-|readable    |boolean  | 是否可读     |选填                                                                                                         |
-|writable    |boolean  | 是否可写     |选填                                                                                                         |
-|variants    |String   | 取值范围     |存储取值范围的json字符串                                                                                     |
+|**字段名**|**类型**|**说明**|**备注**|   
+|id  |String |组件主键     |选填；最大长度32位       |
+|propName |String     |组件名称 |必填；硬件属性的标识名称，程序读的|
+|propClass|String |属性类别|可取值： property(属性) alarm（告警） operation(操作类属性)，group（组命令） |
+|functionName|String |功能标识名称|程序读的|
+|description|String |显示名称|选填；人读的|
+|functionDesc|String |功能显示名称|人读的|
+|propValType|String|属性值类型|选填：可取值：prop_class为property或者为operation时，可取double,int,bool,enum；prop_class为alarm,该字段为null|
+|readable|boolean |是否可读|选填|
+|writable|boolean |是否可写|选填|
+|variants|String |取值范围|存储取值范围的json字符串|
+
+
 
 ### FunctionsDto  
 组件功能列表  
   
-| **名称** | 组件功能列表 |&emsp;| FunctionsDto |   
+| **名称** | 字段取值和描述 |&emsp;| StatusDesc |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|sysProps  |SysPropDto |app用系统属性     |&emsp;        |
-|conditions |List<ConditionOrActionDto>    |条件 |&emsp; |
+|**字段名**|**类型**|**说明**|**备注**|   
+|sysProps  |SysPropDto |app用系统属性     |&emsp;       |
+|conditions |List<ConditionOrActionDto>     |条件 |&emsp;|
 |actions|List<ConditionOrActionDto> |动作|组命令仅用作动作|
 
 
+
 ### SysPropDto  
-app用系统属性  
+app用系统属性 
   
-| **名称** | app用系统属性 |&emsp;| SysPropDto |   
+| **名称** | 字段取值和描述 |&emsp;| StatusDesc |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|id  |String |主键     |typeId或型号映射表的主键  |
-|componentId |String   |组件ID |&emsp; |
+|**字段名**|**类型**|**说明**|**备注**|   
+|id  |String |主键     |typeId或型号映射表的主键      |
+|componentId |String    |组件ID |&emsp;|
 |componentType|ComponentType |组件类型|typeId组件：TYPEID（“typeId”）</br>型号组件：MODEL(“model”)|
 
 ### ConditionOrActionDto  
-条件或者动作  
+条件或者动作 
   
-| **名称** | 条件或者动作 |&emsp;| ConditionOrActionDto |   
+| **名称** | 字段取值和描述 |&emsp;| StatusDesc |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|propId |String                            |主键         |单命令：属性主键；</br>组命令：组命令功能主键             |
-|desc   |String                            |描述         |单命令：属性标识显示名称；</br>组命令：组命令功能显示名称 |
-|fixer  |String                            |属性修饰词   |&emsp;                                                    |
-|props  |List< ComponentFunctionPropDto >  |功能属性集合 |&emsp;                                                    |
+|**字段名**|**类型**|**说明**|**备注**|   
+|propId  |String |主键     |单命令：属性主键；组命令：组命令功能主键|
+|desc |String    |描述 |单命令：属性标识显示名称；组命令：组命令功能显示名称|
+|fixer|String |属性修饰词|&emsp;|
+|props|List< ComponentFunctionPropDto > |功能属性集合|&emsp;|
 
-### ComponentFunctionPropDto
-功能属性信息  
+
+### ComponentFunctionPropDto  
+功能属性信息 
   
 | **名称** | 功能属性信息 |&emsp;| ComponentFunctionPropDto |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**| 
-|propId           |String |属性主键          |&emsp;                  | 
-|propName         |String |标识名称          |&emsp;                  |
-|fixer            |String |属性修饰词        |&emsp;                  |
-|functionName     |String |功能标识名称      |&emsp;                  |
-|desc             |String |属性标识显示名称  |&emsp;                  |
-|propValType      |String |属性值类型        |&emsp;                  |
-|variants         |String |取值范围          |存储取值范围的json字符串|
-|defaultValue     |String |默认值            |预留字段，不维护任何值  |
-|defaultValueDesc |String |默认值描述        |预留字段，不维护任何值  |
+|**字段名**|**类型**|**说明**|**备注**|   
+|propId  |String |属性主键     |&emsp;|
+|propName |String    |标识名称 |&emsp;|
+|fixer|String |属性修饰词|&emsp;|
+|functionName|String |功能标识名称|&emsp;|
+|desc|String |属性标识显示名称|&emsp;|
+|propValType|String |属性值类型|&emsp;|
+|variants|String |取值范围|存储取值范围的json字符串|
+|defaultValue|String |默认值|预留字段，不维护任何值|
+|defaultValueDesc|String |默认值描述|预留字段，不维护任何值|
 
 
 
 
-### SceneFunctionSupportDto
-场景功能支持对象  
+### SceneFunctionSupportDto  
+场景功能支持对象 
   
-| **名称** | 场景功能支持对象 |&emsp;| SceneFunctionSupportDto |   
+| **名称** | 功能属性信息 |&emsp;| SceneFunctionSupportDto |   
 | ------------- |:----------:|:-----:|:--------:| 
-|**字段名**|**类型**|**说明**|**备注**|
-|model  |String |设备型号     |&emsp;        |
-|typeId |String   |设备类型 |&emsp; |
+|**字段名**|**类型**|**说明**|**备注**|   
+|model  |String |设备型号     |&emsp;|
+|typeId |String    |设备类型 |&emsp;|
 |isSupportScene|Boolean |是否支持场景|true : 支持场景</br>false：不支持场景|
-|sceneType  |Int |支持场景的类型     |1. 只支持行为</br> 2. 只支持动作  </br>3. 既支持行为也支持动作  |  
+|sceneType|Int |支持场景的类型|1. 只支持行为 </br> 2. 只支持动作</br>  3. 既支持行为也支持动作|
 
 
-
-
-### StatusDesc
-字段取值和描述  
+### StatusDesc  
+场景功能支持对象 
   
 | **名称** | 字段取值和描述 |&emsp;| StatusDesc |   
-| ------------- |:----------:|:-----:|:-----:| 
-|**字段名**|**类型**|**说明**|**备注**|
-|id        |String             |属性Id               |选填；如果为条件的Key，则Id表示组件中的某个属性的ID|
-|value     |String             |字段值               |选填；|
-|desc      |String             |字段值中文描述       |选填；|
+| ------------- |:----------:|:-----:|:--------:| 
+|**字段名**|**类型**|**说明**|**备注**|   
+|id  |String |属性Id     |选填；如果为条件的Key，则Id表示组件中的某个属性的ID|
+|value |String    |字段值 |选填；|
+|desc|String |字段值中文描述|选填；|
 |scope     |Map<String,String> |取值范围，跟标准同步 |选填；数据结构：</br>`{`</br>`“type”:”enum”,`</br>`“value:”json”`</br>`}`</br>type类型遵循PropOfComponentDto中的PropValType </br>字段描述本结构中value的取值范围，</br>只有在具体的属性中才有值，</br>表示这个属性的取值范围；不在属性的值中出现|
-|required  |Boolean            |属性是否必填         |如果为true表示app实例化需要填写此参数|
+|required|Boolean |属性是否必填|如果为true表示app实例化需要填写此参数|
+|room|String |所属房间|只读：设备类所属房间信息|
 
 
 
@@ -473,23 +520,57 @@ app用系统属性
 |**字段名**|**类型**|**说明**|**备注**|
 |type  |String |条件或者行为    |必填；枚举类型可选值condition或者action|
 |id |String   |条件或者行为Id |必填；取决于type |
-|value  |Map<String,String> |条件或者行为中的取值    |选填；数据结构定义：</br>`{`</br>`“value”:”open”, //具体的值；`</br>`“desc”:”开机”   //具体值的描述`</br> `}`|   
+|isOpen |Integer   |表示条件或者动作状态|1： 开启</br>0： 关闭</br>备注：这个表示条件或者动作的开启，本期默认传递1|
+|value  |Map<String,String> |条件或者行为中的取值    |选填；数据结构定义：</br>`{`</br>`“value”:”open”, //具体的值；`</br>`“desc”:”开机”   //具体值的描述`</br> `}`</br>类型地理围栏：`{`"desc":"离开","value":"leave"`}`|   
 |object |Map<String,String>   |设备参数或者天气参数保存 |必填；表示设备参数或者天气参数 | 
 |userSettingGroupPropDtoList |List<UserSettingGroupPropDto>|用户设置的参数 |选填；备注：动作为组命令，用户设置的参数信息 | 
 |dealyTime |Integer|延迟时间 |选填；取值为数字 单位为秒 说明该动作需要在触发执行后多少秒后触发如果不填或者0则认为不延迟|  
 |sceneId |String   |场景id |选填| 
+|componentId |String   |组件ID |只读,为空情况目前非组件消息类型| 
+|functionName |String   |功能名称 |只读，MessagePush</br>Delayed：延时</br>NewMessagePush：新版消息推送</br>TriggerScene：执行场景</br>OperationScene：开关场景| 
+|status |String   |条件或动作状态 |0：失效；1：正常| 
 
 object字段说明：</br>   
 ```  
 数据结构定义：
 {
-   “id”: “mac1”,		//存放设备mac或者城市code编码
-   “name”:”城市名字”,	//存放城市名字
-   “type”:"03012"		//存放设备的大类中类,model，如果为天气类型，则默认为天气组件类型
+   “id”: “mac1”,		//存放设备mac或者城市code编码或者cron表达式，或者位置信息
+   “name”:”名字” 
 }
 如果同一型号需要传入多个设备，数据格式如下：
 {"mac":"mac1,mac2,mac3","clazz":"02012"}
 备注：之前版本存入device字段的信息，现在都存储在该字段，具体结构如上。
+{
+   “id”: “mac1”,		//存放设备mac或者城市code编码或者cron表达式，或者位置信息
+   “name”:”名字” 
+}
+
+地理围栏：
+{
+   “id”: “{"longitude": "经度",
+		"latitude": "纬度",
+		"radius ": "半径",
+		"userId": "用户ID"
+}”,	name”:”龙旗科技园” 
+}
+
+延时类型：
+{“id”: “60”, “name”:”延时1分钟” 
+}
+
+消息类型
+{
+   “id”: “"{"title":"消息标题","content":"消息内容"}"”,
+   “name”:”动作消息” 
+}
+开关场景类型：
+{“id”: “场景id”, “name”:”场景名称” 
+}
+执行场景类型：
+{“id”: “场景id”, “name”:”场景名称” 
+}
+
+
 ```
 ### SceneSortDto
 场景分类对象  
@@ -620,6 +701,51 @@ execResultinfo在上面对应</br>
 |id |String   |id |必填|
 |value |StatusDesc   |用户设置的属性值和属性值描述 |必填 |
 |propId |String   |属性id |必填 |
+
+
+
+### RuleSettingsDto
+场景设置的参数信息
+
+| **名称** | 条件对象 |&emsp;| RuleWhenCondition |   
+| ------------- |:----------:|:-----:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|
+|id |String   |ruleSttings  |UUID|
+|object |StatusDesc   |条件或者动作载体 |使用如RuleWhenCondition或RuleThenAction中object使用方式 |
+|status |String   |条件或动作状态 |0：失效;1：正常 |
+
+
+
+### BatchResultDto
+领域模型回调执行结果
+ 
+| ------------- |:----------:|:-----:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|
+|oid |long   |数据代理主键  |&emsp;|
+|cmdSn |String   |批量指令的总sn |&emsp;|
+|cmdSubSn |String   |本条指令的sn |&emsp;|
+|execStep |Int   |本条指令的执行步骤 |&emsp;|
+|execResult |Boolean   |本条指令本步骤的执行结果 |&emsp;|
+|execResultInfo |String   |本条指令本步骤的执行结果说明|&emsp;|
+|resultTime |long   |本条指令本步骤的反馈时间 |&emsp;|
+
+
+
+
+### ResultDto
+洗烘联动回调执行结果
+ 
+| ------------- |:----------:|:-----:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|
+|sn |String   |指令的总sn  |&emsp;|
+|deviceId |String   |干衣机设备Id |&emsp;|
+|context |Map<String, Object>   |上下文信息 |&emsp;|
+|execStep |Int   |本条指令的执行步骤 |&emsp;|
+|execResult |Boolean   |本条指令本步骤的执行结果 |&emsp;|
+|execResultCode |String   |本条指令本步骤的执行结果说明|&emsp;|
+|execResultInfo |String   |本条指令本步骤的执行结果说明|&emsp;|
+|resultTime |long   |本条指令本步骤的反馈时间 |&emsp;|
+
 
 ## 接口清单
 
