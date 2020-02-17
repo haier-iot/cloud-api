@@ -665,7 +665,7 @@ retData|List<TerminalDto>|Body|是|终端信息列表
 
 ### 设置模块
 
-#### 设置终端免打扰
+#### 按类型设置免打扰
 > 设置终端能够按照业务类型、优先级、时间段进行免打扰；</br>
 > 1.以userId+appId+clientId标识唯一终端；</br>
 > 2.同一终端可以设置多条免打扰信息；</br>
@@ -693,6 +693,39 @@ endTime|String|body|是|结束时间
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 dndId|String|body|是|免打扰唯一标识
+
+
+
+#### 按标签设置免打扰
+> 设置终端能够按照发送标签、优先级、时间段进行免打扰；</br>
+> 1.以userId+appId+clientId标识唯一终端；
+> 2.同一终端可以设置多条免打扰信息；
+> 3.不同标签需要分别设置免打扰；
+> 4.同一终端下同一标签设置多条免打扰时，时间不允许有交叉；
+> 5.每条免打扰配置支持设置多个优先级
+
+
+
+##### 1、接口定义
+?> **接入地址：** `/config/setTagNotDisturb`</br>
+**HTTP Method：** POST </br>
+
+
+**输入参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+dndTag|string|body|是|免打扰标签
+priority|Integer|body|是|消息优先级，priority定义见消息模型
+beginTime|String|body|是|开始时间
+endTime|String|body|是|结束时间
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+dndId|String|body|是|免打扰唯一标识
+
 
 
 #### 取消终端免打扰
@@ -756,6 +789,8 @@ retData|List<DoNotDisturbDto>|body|是||
 :-:|:-:|:-:|:-:|:-
 toClients|List<String>|body|是|属于该用户的clientId集合
 message|UpMsg|body|是|推送消息内容定义
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+
 
 **输出参数：**
 
@@ -795,6 +830,108 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 {"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
 ```
 
+
+
+
+#### 按设备推送模板消息
+
+> 向用户的某个或多个设备推送消息;接收终端为用户绑定的设备或被分享的设备。
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushWithTmplByClients`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+toClients|List<TerminalSimpleDto>|body|是|其中clientId 保存deviceId，appId由App端传入。
+message|UpMsg|body|是|推送消息内容定义，只需传入message.options字段，忽略其他字段。推送消息辅助信息，如消息名，到期时间，优先级等。
+tag|UpMsg|String|否|标签，例如家庭推送时可以存入家庭标识
+templateId|Integer|body|是|由UMS分配的模板序号，与UMS管理的业务号和版本号字典表对应
+templateParams|Map<String, Object>|body|是|String 表示占位参数值；Object表示实际参数值。
+
+**输出参数：**
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|String|body|是|本次发送的任务标识|
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/pushWithTmplByClients
+
+POST data: {
+	"toClients": [{
+		"clientId": "DC330D2EB0D6",//设备mac
+		"appId": "MB-***" //应用Id
+     }, {
+		"clientId": "DC330D2EB0D1",//设备mac
+		"appId": "MB-***" //应用Id
+	}],
+	"message": {
+		"options": {
+			"msgName": "",
+			"businessType": 1,
+			"priority": 1,
+			"expires": 60
+		},
+		"version": "v3"
+	},
+	"tag": "标签",
+	"templateId": 1,
+	"templateParams": {
+		"STUFF_ID": 2,
+		"ALERT_SWITCH": 193,
+		"ALERT_YEAR": 19,
+		"ALERT_MONTH": 11,
+		"ALERT_DAY": 13,
+		"ALERT_1_HOUR": 21,
+		"ALERT_1_MINUTE": 59,
+		"ALERT_1_FREQ": 2,
+		"ALERT_2_HOUR": 11,
+		"ALERT_2_MINUTE": 19,
+		"ALERT_2_FREQ": 2,
+		"ALERT_3_HOUR": 1,
+		"ALERT_3_MINUTE": 9,
+		"ALERT_3_FREQ": 2,
+		"ALERT_4_HOUR": 0,
+		"ALERT_4_MINUTE": 0,
+		"ALERT_4_FREQ": 0
+	}
+}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-********
+sequenceId: ***********
+sign: **********
+timestamp: 1546854308557 
+appKey: ***********
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT*********  //accessToken（header）必传
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":{"TK829ab61f7b3e4ac19b1f2ffe631a0fed":{"clientId":"DC330D2EB0D1","appId":"//应用ID"},"TKa597e2ba36bc4f4b87201ea5cfb76d83":{"clientId":"DC330D2EB0D6","appId":"//应用ID"}}}
+```
 
 
 #### 上报消息的读取状态
@@ -1295,143 +1432,7 @@ templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
 :-:|:-:|:-:|:-:|:-
 ratData|String|body|是|本次发送的任务标识
 
-#### 推送邮件信息
 
-> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
-
-##### 1、接口定义
-
-?> **接入地址：** `/msg/sendEmail`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-:|:-:|:-:|:-:|:-
-toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
-ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
-bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
-priority|Integer|body||
-formaType|String|body||邮件格式。1是text，2是html
-title|String|body||
-content|String|body||
-
-##### 2、请求样例
-
-**输入参数**
-```
-{
-    "toList": [
-        "chenjinlei.uh@haier.com",
-        "abk@haier.com"
-    ],
-    "ccList": [
-        "lifeng.uh@haier.com"
-    ],
-    "bccList": [
-        "lifeng.uh@haier.com"
-    ],
-    "priority": "1",
-    "subject": "test",
-    "contentType": "TXT",
-    "content": "test email send template",
-    "emailTemplateId": "1000123"
-}
-
-```
-
-**输出参数**
-```
-{
-"retCode":"00000",
-"retInfo":"成功",
-"msgId":"57c0f0a28a1e481c9833b858db4b675e"
-}
-```
-
-##### 3、错误码
-
-错误码|描述|情景
-:-:|:-:|:-
-B00001|缺少必填参数|
-B00004|参数不符合规则要求|
-A00002|网络异常|
-B00002|参数类型错误|
-A00007|邮件服务异常|
-D00008|用户不合法|
-A00008|邮件发送失败|
-
-#### 推送邮件消息（支持模板）
-
-> 推送邮件信息，根据systemId使用相应的邮件模板推送消息，3.1.0版本中只有默认模板，向用户推送邮件信息
-
-##### 1、接口定义
-
-?> **接入地址：** `/msg/sendEmailWithTmpl`</br>
-**HTTP Method：** POST
-
-**输入参数**
-
-参数名|类型|位置|必填|说明
-:-:|:-:|:-:|:-:|:-
-toList|List<String>|body|是|目标用户，最多16个目标地址（目前16个，系统可配）ccList,toList,bccList最少一个不为空
-ccList|List<String>|body|否|抄送用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
-bccList|List<String>|body|否|密抄用户，最多16个目标地址(目前16个,系统可配) ccList,toList,bccList最少一个不为空
-priority|Integer|body||优先级
-language|String|body||默认语言
-templateld|String|body||模板ID
-templateParams|Map<String,String>|body||模板参数
-
-
-##### 2、请求样例
-
-**输入参数**
-
-```
-{
-    "toList": [
-        "chenjinlei.uh@haier.com",
-        "abk@haier.com"
-    ],
-    "ccList": [
-        "lifeng.uh@haier.com"
-    ],
-    "bccList": [
-        "lifeng.uh@haier.com"
-    ],
-    "priority": "1",
-    "subject": "test",
-    "contentType": "TXT",
-"content": ["param1": "value1",  
-"param2": "value2",  
-" param3": " value3",  
-" param4": " value4"],
-    "emailTemplateId": "1000123"
-}
-
-```
-
-**输出参数**
-
-```
-{
-"retCode":"00000",
-"retInfo":"成功",
-"msgId":"57c0f0a28a1e481c9833b858db4b675e"
-}
-
-```
-##### 3、接口错误码
-
-错误码|描述|情景
-:-:|:-:|:-
-B00001|缺少必填参数|
-B00004|参数不符合规则要求|
-A00002|网络异常|
-B00002|参数类型错误|
-A00007|邮件服务异常|
-D00008|用户不合法|
-A00008|邮件发送失败|
 
 
 #### 根据taskId查询历史消息
