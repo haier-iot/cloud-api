@@ -245,7 +245,13 @@ Content-Length: 24
 **待签名字符串为：** url字符串 + Body字符串+appId+appKey +timestamp；
 
 **url 字符串：**指请求的接口地址去除https://uws.haier.net 后剩余的路径部分；
+```
+注意：get 请求不带参数
+如：GET https://uws.haier.net/ufm/v1/protected/familyService/868072664569000000/familyMembers?pageNumber=1&pageSize=10
 
+计算签名的url是从/ufm开始，Members结束，即/ufm/v1/protected/familyService/868072664569000000/familyMembers
+
+```
 **Body字符串：**指应用发送请求的Body部分去除所有空白字符后的JSON字符串，没有body时为空字符串（不是null）。
 
 **appId：**Header头中的属性（见公共部分说明）；
