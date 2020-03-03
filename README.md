@@ -17,7 +17,7 @@ U+平台以U+物联平台、U+大数据平台、U+交互平台、U+生态平台�
 ?> U+互联互通具备安全可靠的物联网能力，其全互联、快连接、高安全、专业云的行业引领优势，实现了设备、云端和APP的快速连接，帮助行业用户打造更具吸引力的智能家电产品，实现全场景多设备联动的极致体验。
 
 U+互联互通技术能力具有快连接、全互联、高安全、专业云四大特点，从硬件技术到软件服务，为行业提供安全、开放、生态、定制的物联云解决方案。    
-![图片2](http://resource.haigeek.com/haierupfile/views/pc/img/cloud_qh2.png)
+![图片2][cloud_qh2]
 
 **全球部署**
 ![全球部署][worldiot]
@@ -25,5 +25,6 @@ U+互联互通技术能力具有快连接、全互联、高安全、专业云四
 [haigeek]:(http://www.haigeek.com)
 [haieruplus]:http://www.haieruplus.com
 [joinhaieruplus]:http://www.haieruplus.com/zhaopinlist.htm
+[cloud_qh2]:/_media/cloud_qh2.png
 [worldiot]:/_media/worldiot.png
 
