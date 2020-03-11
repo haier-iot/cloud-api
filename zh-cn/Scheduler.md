@@ -55,7 +55,7 @@
 |cron|	Cron[]|	cron对象	|&emsp;|
 |endTime|	dateTime|	任务终止时间: 日期时间类型的字符串|`yyyy-MM-dd hh:mm:ss`|
 |endTimeSource|	int	|endTime来源	|0: 系统默认，1:用户设置|
-|argsInfo|	ArgsInfo[]	|指令	|&emsp;|
+|argsInfo|	ArgsInfo	|指令	|&emsp;|
 |status|	int|	定时预约状态 0 启用；1 已完成； 2 暂停； |	int(2)|
 |taskDesc|	String|	任务描述	|varchar(100)
 |taskSeq|	int|	子任务序号id|	1：系统默认
@@ -199,7 +199,7 @@
 |schedulerType|	int|	必填	|预约类型（1=设备），此版本仅支持设备预约|
 |typeId	|String varchar(100)|	必填|	设备typeId|
 |status|int	|必填	|任务状态； 0 启用 ；2暂停|
-|argsInfo	|ArgsInfo[]|	必填	|多套指令集；当前版本只支持一套|
+|argsInfo	|ArgsInfo|	必填	|多套指令集；当前版本只支持一套|
 |cron	|Cron[]|	选填|	任务执行表达式；cron和intervals必填其一|
 |intervals	|int|	选填|	任务执行距当前的间隔时间，以分钟为单位，限制一天以（0-1440），如为0需要立即执行；cron和intervals必填其一。|
 |taskName	|String varchar(50)|	选填|	任务名称|
@@ -303,7 +303,7 @@ Body
 |schedulerType|	int|	必填	|预约类型（1=设备），此版本仅支持设备预约|
 |typeId	|String varchar(100)|	必填|	设备typeId|
 |status|int	|必填	|任务状态； 0 启用 ；2暂停|
-|argsInfo	|ArgsInfo[]|	必填	|多套指令集；当前版本只支持一套|
+|argsInfo	|ArgsInfo|	必填	|多套指令集；当前版本只支持一套|
 |cron	|Cron[]|	选填|	任务执行表达式；cron和intervals必填其一|
 |intervals	|int|	选填|	任务执行距当前的间隔时间，以分钟为单位，限制一天以（0-1440），如为0需要立即执行；cron和intervals必填其一。|
 |endTime	|dateTime|	选填|	任务终止时间；不填默认值三个月有效期；如果有值，按照此值的有效期|
@@ -967,7 +967,7 @@ Body
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|taskId|	String varchar(50)|	Body|	必填	|预约定时任务id|
+|taskId|	String|	Body|	必填	|预约定时任务id|
 |taskSeq|	int	|Body|	选填	|子任务序号id|
 
 
@@ -1092,7 +1092,7 @@ Body
 
 | 参数名        | 类型          | 位置  | 必填|说明|
 | ------------- |:-------------:|:-----:|:-------------:|:-----:|
-|taskId	|String 	|Body|	可选	|任务id|
+|taskId	|String 	|URL|	可选	|任务id|
 |taskSeq|	int|	Body|	必填|	子任务序号id|
 
 
@@ -1102,7 +1102,7 @@ Body
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-|detailInfo|	List<TaskRestLogDataInfo>|	Body|	必填	|返回详情；|
+|detailInfo|	List<TaskRestLogDataInfo>|	Body|	必填	|查询到的结果|
 
 
 ##### 2、请求样例  
