@@ -732,45 +732,6 @@ dndId|String|body|是|免打扰唯一标识
 
 
 
-##### 2、请求样例
-
-**输入参数**
-```
-POST https://uws.haier.net/ums/v3/config/setTagNotDisturb
-
-POST data:
-{"priority":1,"beginTime":"21:00","dndTag":"abcd","endTime":"07:00"}
-
-[no cookies]
-
-Request Headers:
-Connection: keep-alive
-appId: MB-UZHSH-0000
-appVersion: 99.99.99.99990
-sequenceId: 20161020153428000015
-sign: ba471cc9c1029c539c4a1ff92b40d5ee9edbfa3ab381ac85a8b6af8999d7e3ad
-timestamp: 1566443152916 
-appKey: f50c76fbc8271d361e1f6b5973f54585
-Content-Encoding: utf-8
-Content-type: application/json
-timezone: Asia/Shanghai
-language: zh-cn
-clientId: 1234
-accessToken: TGT19N1WNFHPFFMN24PBAIROXQWBV0
-Content-Length: 68
-Host: uws.haier.net
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
-
-
-```
-**输出参数**
-
-```
-{"retCode":"00000","retInfo":"success","retData":"DND9b8f5d01de9e4ef6a5a69323e68dd5a8"}
-
-```
-
 
 
 #### 按标签设置免打扰
