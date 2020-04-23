@@ -1197,7 +1197,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 :-:|:-:|:-:|:-:|:-
 businessType|Integer|body|否|消息业务类型
 tag|String|body|否|自定义标签
-msgTime|String|body|是|查询消息的起始时间,格式为：yyyy-MM-dd HH:mm:ss.SSS
+msgTime|String|body|是|查询消息的起始时间,格式为：`yyyy-MM-dd HH:mm:ss.SSS`
 queryTag|Integer|body|是|标识查询起始时间之前、还是之后的消息。1代表之前，0代表之后
 querySize|Integer|body||每次查询消息的数量
 
