@@ -44,10 +44,7 @@ taskId|	String	|任务的唯一标识|	一个任务下包含多个消息|
 businessType|	Integer|	消息业务类型|	0:系统类（系统类消息，例如推送升级，热修复等）1:设备类（洗衣机、安防、菜谱分享等）2:运营类（广告，运营等）3:场景类4:家庭类5:活动类 &ensp;&ensp;<font color=red>未定义枚举值不允许私自使用</font>|
 channel|	Integer|	通道标识|	0:极光 1:m2m通道 2:fcm通道 3:邮件 4:不使用或无通道|
 isBurn|	Integer|	消息撤回标识	|0:正常消息 1:阅后即焚|
-priority|	Integer	|消息优先级|	0:最高级  1:重要  2:正常 3:次要|
-msgExpires|	Integer|	消息过期标识|	-1:一年 0:立即过期  最大值8760（单位小时）|
-msgVersion|	String|	消息模型版本|	v2:v3之前版本 v3:v3版本|
-queryTag|	Integer	|标识查询起始时间之前、还是之后的消息|	0:给定时间之后 1:给定时间之前 |
+
 
 
 
@@ -61,7 +58,7 @@ queryTag|	Integer	|标识查询起始时间之前、还是之后的消息|	0:给
 参数名|类型|说明|备注
 :-|:-:|:-|:-
 userId|String| |用户Id，唯一标识
-clientId|String|如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址
+clientId|String| |如果能直接从uSDK中获取则需要从uSDK中获取；如果没有uSDK，则可以取设备mac地址
 devAlias|String|终端别名|终端别名
 appId|String| |应用ID，40位以内字符
 isOnline|Integer|1，在线；2，离线|1,代表10min内在线；</br>2,代表10min内不在线
@@ -85,26 +82,26 @@ version|String|定义消息的版本，此版本为V3|
 字段名|类型|说明|备注
 :-|:-:|:-|:-
 taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-businessType|Integer|业务类型|见公共属性说明
-message|UpMsg|消息模型|见UpMsg
+businessType|Integer|业务类型|0:系统类（系统类消息，例如推送升级，热修复等）</br>1:设备类（场景引擎，菜谱分享等）</br>2:运营类（广告，运营等）
+message|UpMsg|消息模型|消息内容
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
 readStatus|Integer|消息读取状态|1:未读，2:已读
-pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss`
+pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss.SSS`
 
 
 ### MsgCloudHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String|用户ID|见公共属性说明
-appId|String|应用ID|见公共属性说明
-clietnId|String|终端ID|见公共属性说明
-busineeType|Integer|业务类型|见公共属性说明
-message|	UpMsg|	消息模型	|见UpMsg
+userId|String|用户ID|
+appId|String|应用ID|
+clietnId|String|终端ID|
+busineeType|Integer|业务类型|0:系统类（系统类消息，例如推送升级，热修复等）</br>1:设备类（场景引擎，菜谱分享等）</br>2:运营类（广告，运营等）
+message|	UpMsg|	消息模型	|消息内容
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
-readStatus|Integer|消息读取状态|消息是否被读取
+readStatus|Integer|消息读取状态|1:未读，2:已读
 tag|String|标签|自定义标签，可定义家庭ID等
-pushTime|DateTime|ums消息推送时间|`yyyy-MM-dd HH:mm:ss`
+pushTime|Date|ums消息推送时间|`yyyy-MM-dd HH:mm:ss.SSS`
 retCode|String|消息发送状态码|
 
 ### DoNotDisturbDto
@@ -114,10 +111,10 @@ retCode|String|消息发送状态码|
 dndId|String|免打扰标识|
 beginTime|Date|开始时间|时间格式: HH:ss
 endTime|Date|结束时间|时间格式: HH:ss
-businessType|	Integer|	消息业务类型	|见公共属性说明
+businessType|	Integer|	消息业务类型	|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
 dndTag|	String|	免打扰标签|	同推送系列接口中的tag
-dndType|	Integer|	免打扰类型|	0代表按类型免打扰，此时businessType有值，tag为null; 1代表按标签免打扰，此时businessType为null，tag有值;
-priority|	Integer|	消息优先级|	见公共属性说明
+dndType|	Integer|	免打扰类型|	0代表按类型免打扰，此时businessType有值，tag为null;</br> 1代表按标签免打扰，此时businessType为null，tag有值;
+priority|	Integer|	消息优先级|	CRITICAL(0),MAJOR(1),NORMAL(2),MINOR(3)
 
 
 
@@ -646,7 +643,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 
 
-#### 获取用户终端信息
+#### 获取用户终端列表
 > 查询该用户下所有处于激活状态的终端</br>
 > 根据userId查询，该userId注册的所有激活状态的终端信息
 
@@ -661,6 +658,45 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 retData|List<TerminalDto>|Body|是|终端信息列表
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/account/getTerminals
+
+POST data:
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: 74c923c293d74b34cde07ffb6f7170658a825aa00df60b4e2a58539afbb5f445
+timestamp: 1566542876463 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 1234
+accessToken: TGT3SQ2F51WY75QQ2864766QZMJA00
+Content-Length: 0
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":[{"userId":"4340515081329747","clientId":"1234","devAlias":"BLA-AL00-YY","appId":"MB-UZHSH-0000"}]}
+```
+
 
 
 ### 设置模块
@@ -685,14 +721,55 @@ retData|List<TerminalDto>|Body|是|终端信息列表
 :-:|:-:|:-:|:-:|:-
 businessType|Integer|body|是|消息业务类型
 priority|Integer|body|是|消息优先级，priority定义见消息模型
-beginTime|String|body|是|开始时间
-endTime|String|body|是|结束时间
+beginTime|String|body|是|开始时间，格式 HH:ss
+endTime|String|body|是|结束时间，格式 HH:ss
 
 **输出参数：**
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 dndId|String|body|是|免打扰唯一标识
+
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/config/setTagNotDisturb
+
+POST data:
+{"priority":1,"beginTime":"21:00","dndTag":"abcd","endTime":"07:00"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: ba471cc9c1029c539c4a1ff92b40d5ee9edbfa3ab381ac85a8b6af8999d7e3ad
+timestamp: 1566443152916 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 1234
+accessToken: TGT19N1WNFHPFFMN24PBAIROXQWBV0
+Content-Length: 68
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":"DND9b8f5d01de9e4ef6a5a69323e68dd5a8"}
+
+```
 
 
 
@@ -717,14 +794,56 @@ dndId|String|body|是|免打扰唯一标识
 :-:|:-:|:-:|:-:|:-
 dndTag|string|body|是|免打扰标签
 priority|Integer|body|是|消息优先级，priority定义见消息模型
-beginTime|String|body|是|开始时间
-endTime|String|body|是|结束时间
+beginTime|String|body|是|开始时间，格式 HH:ss
+endTime|String|body|是|结束时间，格式 HH:ss
 
 **输出参数：**
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 dndId|String|body|是|免打扰唯一标识
+
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/config/setTagNotDisturb
+
+POST data:
+{"priority":1,"beginTime":"00:00","tag":"DC330D5EE767 ",endTime":"07:00"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: 084df7eea6133253d9ab8f5ddc237893c24a696ec8c41ec2f95367881e5ea7e4
+timestamp: 1555292586708 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 69
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":"DND9b8f5d01de9e4ef6a5a69323e68dd5a8"}
+
+```
 
 
 
@@ -752,6 +871,47 @@ dndId|String|body|是|免打扰设置唯一标识
 
 
 
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/config/cancelNotDisturb
+
+POST data:
+{"dndId":"DNDd64c4dc8b7e441b8a0558ec92818e534"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: cb4665204d7b9e4fd213de039c5964f9c880b6383e7143a1ad5545d84cfe6969
+timestamp: 1555292708273 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 47
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+
+```
+
+
 #### 查询免打扰信息
 
 > 获取已设定的免打扰配置列表，以userId+appId+clientId（即终端）为粒度查询
@@ -771,6 +931,47 @@ dndId|String|body|是|免打扰设置唯一标识
 retData|List<DoNotDisturbDto>|body|是||
 
 
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/config/getNotDisturbs
+
+POST data:
+
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: 8d9cca8acc4af3950eeda94593e465e7d13e8172a2706d71998f239077bbd9fd
+timestamp: 1555292642458 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 0
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":[{"dndId":"DND96e921b990764adfa913e6da1887e955","dndType":1,"priority":1,"beginTime":"21:00","endTime":"07:00","dndTag":"abcd"}]}
+
+```
+
+
 ### 消息模块
 
 #### 按设备推送消息
@@ -787,7 +988,7 @@ retData|List<DoNotDisturbDto>|body|是||
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-toClients|List<String>|body|是|属于该用户的clientId集合
+toClients|Set<TerminalSimpleDto>|body|是|终端列表
 message|UpMsg|body|是|推送消息内容定义
 tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
 
@@ -805,13 +1006,13 @@ retData|String|body|是|本次发送的任务标识|
 POST https://uws.haier.net/ums/v3/msg/pushByClients
 
 POST data:
-{"toClients":["1ebc148c322da136b8e8f3439e3fa90e","bbcbdaad3483b3be60cf584cd2aba975"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
-
-[no cookies]
+{
+"toClients":["1ebc148c322da136b8e8f3439e3fa90e","bbcbdaad3483b3be60cf584cd2aba975"],
+"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-***
+appId: SV-UZHSH-0000
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
@@ -823,6 +1024,8 @@ Content-type: application/json
 Content-Length: 639
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
 ```
 
 **输出参数**
@@ -839,7 +1042,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 ##### 1、接口定义
 
-?> **接入地址：** `/msg/pushWithTmplByClients`</br>
+?> **接入地址：** `/msg/pushWithTmplByDevices`</br>
 **HTTP Method：** POST 
 
 
@@ -847,101 +1050,96 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-toClients|List<TerminalSimpleDto>|body|是|其中clientId 保存deviceId，appId由App端传入。
-message|UpMsg|body|是|推送消息内容定义，只需传入message.options字段，忽略其他字段。推送消息辅助信息，如消息名，到期时间，优先级等。
-tag|UpMsg|String|否|标签，例如家庭推送时可以存入家庭标识
-templateId|Integer|body|是|由UMS分配的模板序号，与UMS管理的业务号和版本号字典表对应
+toDevices|List<String>|body|是|deviceIDs列表
+options|Options|body|是|推送消息辅助信息，如消息名，到期时间，优先级等。
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+templateID|Integer|body|是|由UMS分配的模板序号，与UMS管理的业务号和版本号字典表对应
 templateParams|Map<String, Object>|body|是|String 表示占位参数值；Object表示实际参数值。
+version|String|body|是|版本号：v3
 
 **输出参数：**
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-retData|String|body|是|本次发送的任务标识|
+retData|String|body|是|无|
 
 ##### 2、请求样例
 
 **输入参数**
 ```
-POST https://uws.haier.net/ums/v3/msg/pushWithTmplByClients
+POST https://uws.haier.net/ums/v3/msg/pushWithTmplByDevices
 
 POST data: {
-	"toClients": [{
-		"clientId": "DC330D2EB0D6",//设备mac
-		"appId": "MB-***" //应用Id
-     }, {
-		"clientId": "DC330D2EB0D1",//设备mac
-		"appId": "MB-***" //应用Id
-	}],
-	"message": {
-		"options": {
-			"msgName": "",
-			"businessType": 1,
-			"priority": 1,
-			"expires": 60
-		},
-		"version": "v3"
+	"toDevices": ["MAC"],
+	"options": {
+		"msgName": "",
+		"businessType ": 1,
+		"priority ": 1,
+		"expires": 60
 	},
 	"tag": "标签",
-	"templateId": 1,
+	"templateID": 1, //十进制整数 
 	"templateParams": {
-		"STUFF_ID": 2,
-		"ALERT_SWITCH": 193,
-		"ALERT_YEAR": 19,
-		"ALERT_MONTH": 11,
-		"ALERT_DAY": 13,
-		"ALERT_1_HOUR": 21,
-		"ALERT_1_MINUTE": 59,
-		"ALERT_1_FREQ": 2,
-		"ALERT_2_HOUR": 11,
-		"ALERT_2_MINUTE": 19,
-		"ALERT_2_FREQ": 2,
-		"ALERT_3_HOUR": 1,
-		"ALERT_3_MINUTE": 9,
-		"ALERT_3_FREQ": 2,
-		"ALERT_4_HOUR": 0,
-		"ALERT_4_MINUTE": 0,
-		"ALERT_4_FREQ": 0
-	}
+ "STUFF_ID": 2,//十进制整数
+		"ALERT_SWITCH": 193, //十进制整数
+		"ALERT_YEAR": 19, //十进制整数
+		"ALERT_MONTH": 11, //十进制整数
+		"ALERT_DAY": 13, //十进制整数
+		"ALERT_1_HOUR": 21, //十进制整数
+		"ALERT_1_MINUTE": 59, //十进制整数
+		"ALERT_1_FREQ": 2, //十进制整数
+		"ALERT_2_HOUR": 11, //十进制整数
+		"ALERT_2_MINUTE": 19, //十进制整数
+		"ALERT_2_FREQ": 2, //十进制整数
+"ALERT_3_HOUR": 1, //十进制整数
+		"ALERT_3_MINUTE": 9, //十进制整数
+		"ALERT_3_FREQ": 2, //十进制整数
+       "ALERT_4_HOUR": 0, //十进制整数
+		"ALERT_4_MINUTE": 0, //十进制整数
+		"ALERT_4_FREQ": 0 //十进制整数
+	},
+	"version": "v3"
 }
+
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-********
-sequenceId: ***********
-sign: **********
+appId: MB-UZHSH-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
 timestamp: 1546854308557 
-appKey: ***********
+appKey: f50c76fbc8271d361e1f6b5973f54585
 Content-Encoding: utf-8
 Content-type: application/json
 appVersion: 99.99.99.99990
 timezone: Asia/Shanghai
 language: zh-cn
 clientId: 123456
-accessToken: TGT*********  //accessToken（header）必传
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0   //accessToken（header）必传
 Content-Length: 36
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 
 ```
 
 **输出参数**
 ```
-{"retCode":"00000","retInfo":"success","retData":{"TK829ab61f7b3e4ac19b1f2ffe631a0fed":{"clientId":"DC330D2EB0D1","appId":"//应用ID"},"TKa597e2ba36bc4f4b87201ea5cfb76d83":{"clientId":"DC330D2EB0D6","appId":"//应用ID"}}}
+{"retCode":"00000","retInfo":"success","retData":""}
 ```
 
 
 #### 上报消息的读取状态
 
 > 更新消息的读取状态为已读</br>
-> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息。
+> 若是阅后即焚的消息，该终端更新消息为已读状态后，其他终端将不再收到相同的消息，该接口需在终端读取消息时调用。
 
 ##### 1、接口定义
 
-?> **接入地址：** `/msg/reprotStatus`</br>
+?> **接入地址：** `/msg/reportStatus`</br>
 **HTTP Method：** POST 
 
 **输入参数：** 
@@ -966,7 +1164,7 @@ POST data:
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-UZHSH-0000
 sequenceId: 20161020153428000015
 sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
 timestamp: 1546854308557 
@@ -981,6 +1179,7 @@ accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
 Content-Length: 36
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
@@ -1009,7 +1208,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-taskIds|List|body|是|终端收到的任务标识
+taskIds|Set<String>|body|是|终端收到的任务标识
 
 
 **输出参数：** 标准输出参数
@@ -1021,28 +1220,28 @@ taskIds|List|body|是|终端收到的任务标识
 POST https://uws.haier.net/ums/v3/msg/reportStatusByPatch
 
 POST data:
-
-
+{"taskIds":["TK348b8e2b23184067a6d1dc3b94a138b8"]}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+sign: a0edf1ef86df31702ae6322535722c0a0d0e98a2a719f651956dede10b243bbb
+timestamp: 1555292892282 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
 Content-Encoding: utf-8
 Content-type: application/json
-appVersion: 99.99.99.99990
 timezone: Asia/Shanghai
 language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 50
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
@@ -1059,7 +1258,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 ##### 1、接口定义
 
-?> **接入地址：** `reportStatusByType`</br>
+?> **接入地址：** `/msg/reportStatusByType`</br>
 **HTTP Method：** POST   
 
 **前置条件：**   
@@ -1071,7 +1270,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-businessType|String|body|是|消息的业务类型
+businessType|Integer|body|是|消息的业务类型
 
 
 **输出参数：** 标准输出参数
@@ -1083,28 +1282,28 @@ businessType|String|body|是|消息的业务类型
 POST https://uws.haier.net/ums/v3/msg/reportStatusByType
 
 POST data:
-
-
+{"businessType":1}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+sign: 80ede8320605c83b2574c7088e13d504c3287599cfb30c90746a6d3ade63dee4
+timestamp: 1555293031670 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
 Content-Encoding: utf-8
 Content-type: application/json
-appVersion: 99.99.99.99990
 timezone: Asia/Shanghai
 language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 18
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
@@ -1142,38 +1341,39 @@ retData|List<MsgUnreadNumDto >|body|是|各消息业务类型下未读消息的�
 
 **输入参数**
 ```
-POST https://uws.haier.net/ums/v3/msg/reportStatusByType
+POST https://uws.haier.net/ums/v3/msg/getUnreadNum
 
 POST data:
-
-
+{}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: MB-****-0000
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
-sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
-timestamp: 1546854308557 
-appKey: f50c76fbc8271d361e1f6b5973f54585
+sign: 39fd2951a99ddabe98d3fbce3ba9e78be21f39526f8dece9989db40e78b31d86
+timestamp: 1555293070703 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
 Content-Encoding: utf-8
 Content-type: application/json
-appVersion: 99.99.99.99990
 timezone: Asia/Shanghai
 language: zh-cn
-clientId: 123456
-accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
-Content-Length: 36
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 2
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
 **输出参数**
 
 ```
-{"retCode":"00000","retInfo":"success"}
+{"retCode":"00000","retInfo":"success","retData":[{"businessType":0,"msgNums":46}]}
+
 ```
 
 
@@ -1249,7 +1449,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ```
 
 
-#### 删除应用内历史消息
+#### 删除历史消息
 
 
 >1、用户提交申请删除一条或批量删除多条应用内消息</br>
@@ -1264,9 +1464,50 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|String|body|是|消息任务Id一个或多个，逗号分隔
+taskIds|Set<String>|body|是|消息任务id(taskId)列表
 
-**输出参数：** 标准输出参数
+**输出参数：** 标准retCode、retInfo输出。
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/delMsgHistory
+
+POST data:
+{"taskIds":["TKb21a34992ead4246a9adf61a61b9c338"]}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: 6ca7169fdb21adc5a746574e7cdbcf12aa13b486c505a4ddc4b0cb505e866194
+timestamp: 1555293756682 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 50
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+
 
 ## 云端功能接口
 
@@ -1326,16 +1567,16 @@ retData|String|body|是|本次发送的任务标识
 
 **输入参数**
 ```
-POST https://internal.uws.haier.net/umse/v3/msg/pushByApps
+POST https://uws.haier.net/umse/v3/msg/pushByUsers
 
 POST data:
-{"toApps":["MB-****-0000","MB-****-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"toUsers":["100013957366168858","100013957366169184"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: SV-****-0000
+appId: SV-UZHSH-0000
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
@@ -1348,11 +1589,13 @@ Content-Length: 639
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
+
 ```
 
 **输出参数**
 ```
-{"retCode":"00000","retInfo":"success","retData":"TKc33b74ae08424ec0a5411d37d5fc7bce"}
+{"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
+
 ```
 
 
@@ -1372,8 +1615,8 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 toApps|List<String>|body|是|接受消息的appId列表
-businesssType|Integer|body|是|消息业务类型
 message|UpMsg|body|是|推送消息内容定义
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
 isBurn|Integer|body|否|是否是阅后即焚
 
 **输出参数**
@@ -1386,16 +1629,16 @@ taskId|String|body|是|本次发送的任务标识
 
 **输入参数**
 ```
-POST https://internal.uws.haier.net/umse/v3/msg/pushByApps
+POST https://uws.haier.net/umse/v3/msg/pushByApps
 
 POST data:
-{"toApps":["MB-***-0000","MB-***-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
+{"toApps":["MB-UZHSH-0000","MB-UZHSH-0001"],"message":{"notification":{"title":"test message","body":"ums : hello world "},"options":{"msgName":"","businessType":0,"expires":60,"priority":1,"jiguangOptions":{"apnsProduction":true}},"android":{"jpush":{"collapseKey":"test message","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"test message","body":"This is a test message ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"test message","content":"ums : hello world"},"extData":{"isMsgCenter":1}}},"version":"v3"}}
 
 [no cookies]
 
 Request Headers:
 Connection: keep-alive
-appId: SV-****-0000
+appId: SV-UZHSH-0000
 appVersion: 99.99.99.99990
 sequenceId: 20161020153428000015
 sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
@@ -1407,6 +1650,7 @@ Content-type: application/json
 Content-Length: 639
 Host: uws.haier.net
 User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
 
 ```
 
@@ -1432,8 +1676,8 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 :-:|:-:|:-:|:-:|:-
 toUsers|List<String>|body|是|接受消息的用户ID列表
 toApps|List<String>|body|是|接受消息的APP列表
-messages|UpMsg|body|是|推送消息内容定义
-tag|String|body|否|标签。例如家庭推送时可以存入家庭
+message|UpMsg|body|是|推送消息内容定义，只需传入message.options字段，忽略其他字段
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
 isBurn|Integer|body|否|是否阅后即焚
 templateId|String|body|是|模板标识
 templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
@@ -1458,9 +1702,9 @@ retData|String|body|是|本次发送的任务标识
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-toApps|List<String>|body|是|接受消息的appId列表
+toApps|List<String>|body|是|appId列表
 tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
-message|UpMsg|body|是|推送消息内容定义
+message|UpMsg|body|是|推送消息内容定义，只需传入message.options字段，忽略其他字段
 isBurn|Integer|body|否|是否是阅后即焚
 templateId|String|body|是|模板标识
 templateParams|Map<String,string>|body|是|Map.Entry.key必须唯一
@@ -1511,7 +1755,7 @@ POST /umse/v3/msg/getMsgHistory
 
 Request Headers:
 Connection: keep-alive
-appId: SV-****-0000
+appId: SV-UZHSH-0000
 appVersion: 01.00.00.00000
 clientId: ufmtest123
 sequenceId: 20161020153428000015
@@ -1545,6 +1789,7 @@ Content-type: application/json
 		"message": "用户海尔优家，设备海尔空调已经绑定成功"
 	}]
 }
+
 ```
 
 
