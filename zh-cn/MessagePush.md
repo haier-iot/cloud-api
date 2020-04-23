@@ -1197,9 +1197,9 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 :-:|:-:|:-:|:-:|:-
 businessType|Integer|body|否|消息业务类型
 tag|String|body|否|自定义标签
-pageIndex|Integer|body||当前页
-pageSize|Integer|body||每页显示数量
-
+msgTime|String|body|是|查询消息的起始时间,格式为：yyyy-MM-dd HH:mm:ss.SSS
+queryTag|Integer|body|是|标识查询起始时间之前、还是之后的消息。1代表之前，0代表之后
+querySize|Integer|body||每次查询消息的数量
 
 
 **输出参数：** 
@@ -1207,7 +1207,46 @@ pageSize|Integer|body||每页显示数量
 参数名|类型|位置|是否必填|说明
 :-:|:-:|:-:|:-:|:-
 retData|List<MsgClientHiustoryDto>|body|是|推送记录信息
+totalRecords|Integer|body|是|返回记录总数
 
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/msg/getMsgHistory
+
+POST data:
+{"businessType":1,"queryTag":"0","msgTime":"2019-1-8 16:31:10.0","querySize":5}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0001
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: 369c2087f40325fb2b9ca312e9c5ee54022eb5a783ea890a1e2bc2fe376341c0
+timestamp: 1555293778307 
+appKey: 5dfca8714eb26e3a776e58a8273c8752
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 9c510d7c64f7a570874884e0a94f6a9e
+accessToken: TGT1EL9DID5TSSV92RHSFKSJ3G47H0
+Content-Length: 79
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","totalRecords":61,"retData":[{"taskId":"TK56f786c40384472b944125a71f87ae8a","businessType":1,"msgStatus":4,"readStatus":2,"pushTime":"2019-04-13 13:20:00.000","message":{"notification":null,"android":null,"ios":null,"data":{"body":{"view":{"showType":21,"title":"push by clients","content":"push by clients"},"extData":{"isMsgCenter":1}}},"options":{"msgName":"","businessType":1,"expires":60,"priority":null,"jiguangOptions":null},"version":"v3"}},{"taskId":"TKa54cd61ece804df29bb76c4824eb57c4","businessType":1,"msgStatus":4,"readStatus":2,"pushTime":"2019-04-13 13:20:00.000","message":{"notification":{"title":"push by clients","body":"push by clients "},"android":{"jpush":{"collapseKey":"push by clients","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"push by clients","body":"push by clients ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"push by clients","content":"push by clients"},"extData":{"isMsgCenter":1}}},"options":{"msgName":"","businessType":1,"expires":60,"priority":null,"jiguangOptions":null},"version":"v3"}},{"taskId":"TK2db6d00fead446488e3ce75d564ed20c","businessType":1,"msgStatus":4,"readStatus":2,"pushTime":"2019-04-13 13:20:00.000","message":{"notification":null,"android":null,"ios":null,"data":{"body":{"view":{"showType":21,"title":"push by clients","content":"push by clients"},"extData":{"isMsgCenter":1}}},"options":{"msgName":"","businessType":1,"expires":60,"priority":null,"jiguangOptions":null},"version":"v3"}},{"taskId":"TK10c2fc87508144b7a135ec88b45f8064","businessType":1,"msgStatus":4,"readStatus":2,"pushTime":"2019-04-13 13:20:00.000","message":{"notification":{"title":"push by clients","body":"push by clients "},"android":{"jpush":{"collapseKey":"push by clients","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"push by clients","body":"push by clients ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"push by clients","content":"push by clients"},"extData":{"isMsgCenter":1}}},"options":{"msgName":"","businessType":1,"expires":60,"priority":null,"jiguangOptions":null},"version":"v3"}},{"taskId":"TK0da2717daf44449ab5701c94821ec67c","businessType":1,"msgStatus":4,"readStatus":2,"pushTime":"2019-04-13 13:20:00.000","message":{"notification":{"title":"push by clients","body":"push by clients "},"android":{"jpush":{"collapseKey":"push by clients","priority":0,"ttl":86400,"restrictedPackageName":"0"},"fcm":{"title":"push by clients","body":"push by clients ","notification ":{"sound":"default"}}},"ios":null,"data":{"body":{"view":{"showType":21,"title":"push by clients","content":"push by clients"},"extData":{"isMsgCenter":1}}},"options":{"msgName":"","businessType":1,"expires":60,"priority":null,"jiguangOptions":null},"version":"v3"}}]}
+```
 
 
 #### 删除应用内历史消息
