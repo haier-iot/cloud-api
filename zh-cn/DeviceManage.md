@@ -1386,7 +1386,7 @@ Body：
 deviceId|String|Body|是|设备id
 codeType|Integer|Body|是|1、机器编码；2、产品型号编码
 code|String|Body|是|具体编码
-modifyType|String|Body|否|修改方式：1、APP扫码更新；2、APP用户选择；3、其他，请描述
+modifyType|String|Body|否|修改方式：1、规则修改；2、直接修改；无输入或输入为空时默认采用【直接修改】逻辑  
 
 **输出参数**
 
