@@ -152,7 +152,7 @@ String getSign(String systemId, String systemKey, String timestamp) {
 systemId|String|url|必填|应用ID，50位以内字符,Haier U+ 云平台全局唯一  
 timestamp|long|url|必填|Unix时间戳，精确到毫秒  
 sign|String|url|必填|对请求进行签名运算产生的签名 见签名算法   
-isSubscribeEarliestMessage|String|url|必填|决定该链接对应的收消息方式。<br>true: 从最早开始收消息<br>false或不填： 从当前开始收最新消息  
+isSubscribeEarliestMessage|String|url|选填|决定该链接对应的收消息方式。<br>true: 从最早开始收消息<br>false或不填： 从当前开始收最新消息  
 
 **输出参数**
 
@@ -196,10 +196,10 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 ### 订阅接口  
 > 订阅指定topic消息，消息订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发送订阅，如果失败，则无法进行订阅。  
 
-注意：Websocket订阅服务的订阅范围只针对详细订阅，不包括全量订阅，这点和SDK是有区别的。  
+  
 
 ##### 1、接口定义  
-
+######	按typeId订阅
 客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
 ```java  
@@ -221,10 +221,10 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 }
 
 ```
-说明：客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
+说明：(1)注意，客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。(2)订阅端一次最多能发起500个订阅关系（约typeId数乘以topic数）。
 
 
-云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000 _DEV_EVENT`为示例数据）：
 
 ```java  
 {
@@ -233,45 +233,138 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
     "code": "00000",
     "result": "success",
     "systemId": "SV-BLKALPHA21-0001-123",
-    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT] subscribed ok"
+    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000 _DEV_EVENT] subscribed ok"
   }
 }
 
 
 ```
+另外,客户端在按typeId 订阅时支持`*`号通配符订阅,向云端发送的JSON字符串格式数据如下（`DEV_EVENT`、`*` 为示例数据）
 
-订阅成功之后，当topic有数据更新时，客户端会收到如下JSON字符串格式数据：    
-
-```java   
+情况1 订阅指定topic下的所有typeId集合的消息：
+```
 {
-    "header": {
-        "ts": 1573716963096, 
-        "sn": "2b37edb71d6b49fbaff2b46f988ba6a1", 
-        "type": "std", 
+  "cmd": "subscribe",
+  "data": {
+    "subdata": [
+      {
+        "topic": "DEV_EVENT",
         "keys": {
-            "typeId": "订阅设备typeId", 
-            "deviceId": "设备deviceId"
-        }, 
-        "ver": "v1.0.1", 
-        "snd": "m2m", 
-        "from": "haier", 
-        "topic": "XXXXXXX", 
-        "qos": 0
-    }, 
-    "body": {
-        "ts": 1573716962580, 
-        "sn": "2b37edb71d6b49fbaff2b46f988ba6a1", 
-        "typeId": "订阅设备typeId", 
-        "deviceId": "设备deviceId", 
-        "category": "StdRpt", 
-        "args": {
-            //消息内容，以schema为准
-        }, 
-        "name": "***"
-    }
+          "typeId": [
+            "*"
+          ]
+        }
+      }
+    ]
+  }
 }
 
-```  
+```
+
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123`、`*_DEV_EVENT` 为示例数据）：
+
+```
+{
+  "cmd": "subscribe-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "SV-BLKALPHA21-0001-123",
+    "desc":"Topic [*_DEV_EVENT] subscribed ok"
+  }
+}
+
+```
+
+情况2 订阅指定topic下以相同数字开头的typeId集合的消息：
+
+```
+{
+  "cmd": "subscribe",
+  "data": {
+    "subdata": [
+      {
+        "topic": "DEV_EVENT",
+        "keys": {
+          "typeId": [
+            "1*",
+            "201c120000118674061a00418005590000000000000000000000000000000040"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
+
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123`、`1*_DEV_EVEN,201c120000118674061a00418005590000000000000000000000000000000040_DEV_EVENT` 为示例数据）
+
+```
+{
+  "cmd": "subscribe-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "SV-BLKALPHA21-0001-123",
+    "desc":"Topic [1*_DEV_EVEN,201c120000118674061a00418005590000000000000000000000000000000040_DEV_EVENT] subscribed ok"
+  }
+}
+
+```
+
+注：目前以相同数字开头的typeId集合消息订阅匹配支持0*，1*，2*三种，如上例子中0*表示订阅所有以0开头的typeId的消息，0*,2*表示意义以此类推。
+
+注意发起订阅命令JSON时，整体`*`和`0*`或`1*`或`2*`约定不能同时存在，`0*`和`1*`和`2*`可以同时存在，但其意义等价于整体`*`，所以最好还是用整体`*`简洁些。
+
+######	按deviceId订阅
+
+客户端向云端发送的JSON字符串格式数据如下（`0007A8B70158`,`0007A8B70159` ,`101c1200240008101e0a00000141414100000000020000000000000000000000`、为示例数据）：
+```
+{
+  "cmd": "subscribe",
+  "data": {
+    "subdata": [
+      {
+        "topic": "DEV_EVENT",
+        "keys": {
+          "deviceId": [
+            {
+              "typeId": "101c1200240008101e0a00000141414100000000020000000000000000000000",
+              "mac": [
+                "0007A8B70158",
+                "0007A8B70159"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+```
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`101c1200240008101e0a00000141414100000000020000000000000000000000_0007A8B70158 _DEV_EVENT` ,`101c1200240008101e0a00000141414100000000020000000000000000000000_0007A8B70159 _DEV_EVENT`、为示例数据）：
+
+```
+{
+  "cmd": "subscribe-ack",
+  "data": {
+    "code": "00000",
+    "result": "success",
+    "systemId": "SV-BLKALPHA21-0001-123",
+"desc":"Topic [
+101c1200240008101e0a00000141414100000000020000000000000000000000_0007A8B70158 _DEV_EVENT，
+101c1200240008101e0a00000141414100000000020000000000000000000000_0007A8B70159 _DEV_EVENT
+] subscribed ok"
+  }
+}
+
+
+```
+注：因为mac从业务角度划分已经是最细粒度，按通配符订阅无实际意义，所以这里约定暂不支持*号通配符订阅；
+
+
 
 ##### 2、错误码
 
@@ -283,11 +376,9 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 
 ##### 1、接口定义  
-
-客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
-
-```java  
-
+######	按typeId取消订阅
+按typeId取消订阅和按typeId订阅中的JSON字符串格式数据结构一致，只是将JSON字符串格式数据结构中的subscribe关键字换成unsubscribe关键字即可，如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：
+``` 
 {
   "cmd": "unsubscribe",
   "data": {
@@ -306,23 +397,32 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 ```
 
+云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000 _DEV_EVENT`为示例数据）：
 
-
-云端向客户端返回订阅结果的响应JSON字符串格式数据如下（`SV-BLKALPHA21-0001-123、101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT`为示例数据）：
-
-```java  
+``` 
 {
   "cmd": "unsubscribe-ack",
   "data": {
     "code": "00000",
     "result": "success",
     "systemId": "SV-BLKALPHA21-0001-123",
-    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000_online_DEV_EVENT] unsubscribed ok"
+    "desc":"Topic [101c1200240008101e0a00000141414100000000020000000000000000000000 _DEV_EVENT] unsubscribed ok"
   }
 }
 
-
 ```
+也支持按*号等通配符取消,其命令结构和按typeId订阅中的通配符订阅结构等描述情况一致，只是将JSON字符串格式数据结构中的subscribe关键字换成unsubscribe关键字即可，这里不在列举； 
+   
+备注：订阅端一次最多能发起500个待取消的订阅关系（约typeId数乘以topic数）。
+
+
+#####  按deviceId取消订阅
+
+按deviceId取消订阅情况和按deviceId订阅中的消息结构基本一致，只是将JSON字符串格式数据结构中的subscribe关键字换成unsubscribe关键字即可，这里不再列举，此外按deviceId也不支持按通配符取消订阅；
+
+注：具体按什么形式订阅，就按类似的形式取消，如果混用则不一定有实际意义，比如订阅时是按typeId订阅的，取消订阅时却按deviceId取消订阅，不会达到效果，也无实际意义。
+
+
 
 ##### 2、错误码
 
@@ -350,9 +450,9 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 
 
-云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
+云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（`0007A8B70158、0007A8B70159、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
-```java  
+```  
 {
   "cmd": "searchSystem-ack",
   "data": {
@@ -364,12 +464,22 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
         "keys": {
           "typeId": [
             "101c1200240008101e0a00000141414100000000020000000000000000000000"
+          ],
+          "deviceId": [
+            {
+              "typeId": "101c1200240008101e0a00000141414100000000020000000000000000000000",
+              "mac": [
+                "0007A8B70158",
+                "0007A8B70159"
+              ]
+            }
           ]
         }
       }
     ]
   }
 }
+
 
 ```
 
@@ -378,52 +488,6 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 > 34001,34002,34003,34004,34005,34006,34999  
 
 
-### 查询当前client的订阅关系接口
-
-> 查询当前client的订阅关系，即查询当前client的当前system的订阅关系，必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发起请求，如果失败，则无法进行操作。  
-
-
-##### 1、接口定义  
-
-客户端向云端发送的JSON字符串格式数据如下:  
-
-```java  
-
-{
-  "cmd": "searchClient"
-}
-
-
-```
-
-
-
-云端向客户端返回当前client的订阅结果的响应JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）： 
-
-```java  
-{
-  "cmd": "searchClient-ack",
-  "data": {
-    "code": "00000",
-    "result": "success",
-    "retdata": [
-      {
-        "topic": "DEV_EVENT",
-        "keys": {
-          "typeId": [
-            "101c1200240008101e0a00000141414100000000020000000000000000000000"
-          ]
-        }
-      }
-    ]
-  }
-}
-
-```
-
-##### 2、错误码
-
-> 34001,34002,34003,34004,34005,34006,34999  
 
 
 ### 关闭连接功能  
@@ -524,7 +588,7 @@ try {
 ####  3、 订阅详细消息
 
 	
-  ``` java 
+``` 
   //组织订阅消息JSON
 String cmdInfo = "{'cmd':'subscribe','data':{'subdata':[{'topic':'DEV_STATUS','keys':{'typeId':['201c51890c31c3080401c7f78d41b400000054d990e09c6826eaaf0e08405d40']}}]}}";
 MsgWebSocketClient msgWebSocketClient;
@@ -563,28 +627,8 @@ return true;
 ```
 
 
-####  5、 查询当前客户端订阅关系	  
 
-```java
-//组织查询当前客户端订阅关系消息JSON
-String cmdInfo = "{'cmd':'searchClient'}";
-MsgWebSocketClient msgWebSocketClient;
- try {
-  // 建立连接
-  msgWebSocketClient = new MsgWebSocketClient(uri);
-  // 发送订阅信息
-  msgWebSocketClient.addCmdInfo(cmdInfo);
- } catch (Exception e) {
-  msgWebSocketClient = null;
-  e.printStackTrace();
-  return false;
-}
-return true;
-
-```
-
-
-####  6、 查询当前客户对应的systemId下的所有订阅关系 	
+####  5、 查询当前客户对应的systemId下的所有订阅关系 	
 
 ```java
 //组织查询当前客户对应的systemId下的所有订阅关系消息JSON
@@ -605,7 +649,7 @@ return true;
 ```
 
 
-#### 7、 关闭当前客户端连接
+#### 6、 关闭当前客户端连接
 
 ```java
 MsgWebSocketClient msgWebSocketClient;
@@ -638,7 +682,7 @@ return true;
 
 import 引用头：  
 
-```java
+```
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -658,13 +702,14 @@ import javax.websocket.CloseReason;
 import org.eclipse.jetty.util.component.LifeCycle;
 
 
+
 ```
 
 整体示例代码如下（可复用），建立连接代码见红色标注部分  
 
 
- ```java
- public class TestSubscribeMsg {
+```java
+public class TestSubscribeMsg {
 	public static AtomicInteger reConnectCount = new AtomicInteger(0);
 
 	public static void main(final String[] args) {
@@ -871,7 +916,8 @@ session.setMaxTextMessageBufferSize(1024*1024); //1Mb
 			}
 		}
 	}
-}
+}	
+
 
 
 ```
@@ -915,16 +961,12 @@ public class TextEncoder  implements Encoder.Text<String>{
 
 ### 自动重连机制    
 
-由于网络闪断、Websocket Server服务端重启升级等原因，势必造成已有Websocket Client接入端连接中断，所以强烈建议Websocket Client接入端代码增加自动重连机制，可参照3.9示例中绿色标注代码或在此基础上优化。
-注：
-(1)	自动重连尝试间隔可逐步递增，如5s尝试一次连接，如果不成功则2min后再尝试一次连接，如果还未成功则5min后再尝试连接一次。
-(2)	如果(1)未重连成功，则可尝试在以(1)为一个周期，持续循环重连。
+由于网络闪断、Websocket Server服务端重启升级等原因，势必造成已有Websocket Client接入端连接中断，所以强烈建议Websocket Client接入端代码增加自动重连机制，可参照以上“自动重连机制”示例或在此基础上优化。
+
+注：</br>
+(1)	自动重连尝试间隔可逐步递增，如5s尝试一次连接，如果不成功则2min后再尝试一次连接，如果还未成功则5min后再尝试连接一次。</br>
+(2)	如果(1)未重连成功，则可尝试在以(1)为一个周期，持续循环重连。</br>
 (3)	建议重连尝试间隔不易过短或频繁,如几秒钟一循环,以防止瞬间大量访问,对服务端造成连接压力。
-
-
-
-
-
 
 
 
