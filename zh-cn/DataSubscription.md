@@ -42,9 +42,9 @@
 
 ### 接入地址  
 
-| **接口分类** | **接入地址** |**开发者环境DNS配置**|  
+| **接口分类** | **接入地址** |**开发者环境接入地址**|  
 | :-------------: |:-------------:|:-----:|  
-|数据订阅|`wss://mp-stp.haier.net/wssubscriber`|`39.97.52.209`|  
+|数据订阅|`wss://mp-stp.haier.net/wssubscriber`|`wss://mp-stp-kfz.haier.net/wssubscriber`|  
 
 ### 签名认证  
 
