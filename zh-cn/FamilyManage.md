@@ -2841,6 +2841,123 @@ Body：
 > A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、F31218、E31108、E31120、E31401  
 
 
+
+#### 家庭成员批量分享设备到家庭
+> 家庭成员或家庭管理员作为设备的管理员分享设备给家庭，发送分享家庭设备消息给家庭成员，包含管理员，记录消息发送结果到日志,分享过程中：  
+1. 如果同一用户已经分享，自动取消原来分享，建立新的分享关系；
+2. 如果不是同一用户分享，判断此用户是不是绑定者，如果不是，作为垃圾数据处理，如果是，提示设备已经被分享；如果分享没有房间信息，系统会分享设备到默认房间；
+3. 如果请求没有填写家庭ID，则会把设备分享到默认家庭,本次分享会返回每个设备的分享结果。
+
+##### 1、接口定义
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/shareDeviceList`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型   | 参数名 | 位置  | 必填|说明|  
+| ---- |:-----:|:-----:|:-----:|:------:|
+| ShareDevice[] | shareDevices   | body |必填|设备的分享信息，最大一次请求数为10 |  
+ 
+
+
+**输入参数说明**  
+
+|**名称**	|设备共享信息 |&emsp;|ShareDevice|
+| ------------- |:-------------:|:-----:|:-------------:|  
+|**字段名**|**类型**|**说明**|**备注**|      
+|devInfo|DeviceBriefInfo|设备简明信息|必填|  
+|devRoomId|String|设备所在房间|选填，不填进入默认房间，按规则生成| 
+|devRoomName|String|设备所在房间名称|选填，优先级低于devRoomId，devRoomId如果填写，则本字段被忽略| 
+|devName|String|设备名称|必填| 
+|devFamilyId|String|设备所属家庭Id|非必填，不填会分享设备到默认家庭，家庭由用户配置| 
+|permission|Permision|分享权限此处权限authType 必须为home|必填| 
+
+
+**输出参数**  
+
+| 类型   | 参数名 | 位置  | 必填|说明|  
+| ---- |:-----:|:-----:|:-----:|:------:|
+| Map<String,String>| shareResults    | body |必填|Key为设备ID，value为设备分享结果，值同错误码|  
+
+##### 2、请求样例  
+
+**用户请求**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 99.99.99.99990
+clientId: 123
+sequenceId: 2014022801010
+accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
+sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+timestamp: 1491014447260 
+language: zh-cn
+timezone: +8
+appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+Content-Encoding: utf-8
+Content-type: application/json
+
+Body：
+{
+"shareDevices":[{
+"devInfo":{           
+"deviceId": "100823"
+},
+"devName":"test",
+"devfamilyId":"",
+"devRoomId":"",
+"devRoomName":"测试一下",
+"permission":{ "authType":"home",
+"auth":{ "view": true, "set": true, "control": true}},
+/** view 查看权；set 配置权；control 控制权；家庭中心交互要求此处都为true  **/
+" devFamilyId":"1256738"
+},{
+"devInfo":{           
+"deviceId": "100823"
+},
+"devName":"test",
+"devfamilyId":"",
+"devRoomId":"",
+"devRoomName":"测试一下",
+"permission":{ "authType":"home",
+"auth":{ "view": true, "set": true "control": true}},
+" devFamilyId":"1256738"
+},{
+"devInfo":{           
+"deviceId": "100823"
+},
+"devName":"test",
+"devfamilyId":"",
+"devRoomId":"",
+"devRoomName":"测试一下",
+"permission":{ "authType":"home",
+"auth":{ "view": true, "set": true, "control": true}},
+" devFamilyId":"1256738"
+}]
+}
+
+
+```  
+
+**请求应答**
+
+```java
+{
+    "retCode": "00000", 
+"retInfo": "成功",
+"shareResults":[ "100823": "00000","100824": "00000","100825": "00000"]
+ }
+
+
+```
+
+##### 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31108、E31111、E31129
+
+
+
+
+
 #### 家庭管理员或家庭成员批量更新设备房间属性
 > 用户作为管理员或者作为家庭成员，修改设备所属房间信息。
 
