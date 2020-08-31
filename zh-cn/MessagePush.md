@@ -41,10 +41,13 @@ clientId|	String	|终端唯一标识| &ensp;|
 pushId|	String	|通道的推送标识|	通道会为每个终端（通过appId+clientId识别）生成的唯一标识|
 msgId	|String	|消息的唯一标识| &ensp;|	
 taskId|	String	|任务的唯一标识|	一个任务下包含多个消息|
-businessType|	Integer|	消息业务类型|	0:系统类（系统类消息，例如推送升级，热修复等）1:设备类（洗衣机、安防、菜谱分享等）2:运营类（广告，运营等）3:场景类4:家庭类5:活动类 &ensp;&ensp;<font color=red>未定义枚举值不允许私自使用</font>|
+businessType|	Integer|	消息业务类型|	-1:设置免打扰失效</br>0:系统类（系统类消息，例如推送升级，热修复等）</br>1:设备类（洗衣机、安防、菜谱分享等）</br>2:运营类（广告，运营等）</br>3:场景类</br>4:家庭类</br>5:活动类</br>6:服务提醒</br>7:交易物流</br>8:会员服务</br>9:在线客服</br>10:问题反馈</br>11:众播消息</br>&ensp;&ensp;<font color=red>未定义枚举值不允许私自使用</font>|
 channel|	Integer|	通道标识|	0:极光 1:m2m通道 2:fcm通道 3:邮件 4:不使用或无通道|
 isBurn|	Integer|	消息撤回标识	|0:正常消息 1:阅后即焚|
-
+priority|	Integer|	消息优先级	|0:最高级；1:重要；2:正常；3:次要|
+msgExpires|	Integer|	消息过期标识	|-1:一年；0:立即过期|
+msgVersion|	String|	消息模型版本	|v2:v3之前版本；v3:v3版本|
+queryTag|	Integer|标识查询起始时间之前、还是之后的消息	|0:给定时间之后；1:给定时间之前|
 
 
 
@@ -82,22 +85,22 @@ version|String|定义消息的版本，此版本为V3|
 字段名|类型|说明|备注
 :-|:-:|:-|:-
 taskId|String|消息任务ID|终端收到的msgId即ums的taskId
-businessType|Integer|业务类型|0:系统类（系统类消息，例如推送升级，热修复等）</br>1:设备类（场景引擎，菜谱分享等）</br>2:运营类（广告，运营等）
+businessType|Integer|业务类型|见公共属性说明
 message|UpMsg|消息模型|消息内容
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
 readStatus|Integer|消息读取状态|1:未读，2:已读
-pushTime|DateTime|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss.SSS`
+pushTime|Date|ums通道推送时间|推送时间`yyyy-MM-dd HH:mm:ss.SSS`
 
 
 ### MsgCloudHistoryDto
 
 字段名|类型|说明|备注
 :-|:-:|:-|:-
-userId|String|用户ID|
-appId|String|应用ID|
-clietnId|String|终端ID|
-busineeType|Integer|业务类型|0:系统类（系统类消息，例如推送升级，热修复等）</br>1:设备类（场景引擎，菜谱分享等）</br>2:运营类（广告，运营等）
-message|	UpMsg|	消息模型	|消息内容
+userId|String|用户ID|见公共属性说明
+appId|String|应用ID|见公共属性说明
+clietnId|String|终端ID|见公共属性说明
+busineeType|Integer|业务类型|见公共属性说明
+message|	UpMsg|	消息模型	|见UpMsg
 msgStatus|Integer|消息发送状态|1，待发送；2，发送中；3，成功；4，失败
 readStatus|Integer|消息读取状态|1:未读，2:已读
 tag|String|标签|自定义标签，可定义家庭ID等
@@ -111,10 +114,10 @@ retCode|String|消息发送状态码|
 dndId|String|免打扰标识|
 beginTime|Date|开始时间|时间格式: HH:ss
 endTime|Date|结束时间|时间格式: HH:ss
-businessType|	Integer|	消息业务类型	|0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
+businessType|	Integer|见公共属性说明
 dndTag|	String|	免打扰标签|	同推送系列接口中的tag
 dndType|	Integer|	免打扰类型|	0代表按类型免打扰，此时businessType有值，tag为null;</br> 1代表按标签免打扰，此时businessType为null，tag有值;
-priority|	Integer|	消息优先级|	CRITICAL(0),MAJOR(1),NORMAL(2),MINOR(3)
+priority|	Integer|	消息优先级|	见公共属性说明
 
 
 
@@ -133,6 +136,49 @@ msgNums|String|未读消息数量|
 :-|:-:|:-|:-
 clientId|	String	|	应用的clientId
 appId	|String		|应用id，40位以内字符
+
+
+### ClientTargetVo
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+clientId|	String	|	应用的clientId
+appId	|String		|应用id，40位以内字符
+userId	|String		|用户标识
+
+### ClientTargetDto
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+clientId|	String	|	应用的clientId
+appId	|String		|应用标识，40位以内字符
+taskId|	String	|	消息批次标识
+userId	|String		|用户标识
+
+
+### MsgCategoryDto
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+businessType|	String	|消息类别
+totalRecords	|Long		|该分类下的消息总数
+unreadMsg|	MsgClientHistoryDto	|	未读消息内容
+unreadMsgNum	|Long		|未读消息数
+doNotDisturbDtos|	List<DoNotDisturbDto>	|	免打扰信息列表
+latestMsgTime	|Date		|该分类下最新的消息时间，格式为：yyyy-MM-dd HH:mm:ss.SSS
+
+
+### MsgBoUserDto
+
+字段名|类型|说明|备注
+:-|:-:|:-|:-
+userId|	String	|	用户id
+familyId	|String		|家庭Id
+boId|	String	|业务对象Id
+lastBoStatus	|Interger		|业务对象状态 0:new/1:read/2:deleted
+createTime|	timeStamp	|	创建时间
+updateTime	|timeStamp		|更新时间
+
 
 
 ## 消息推送模型说明
@@ -708,7 +754,7 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 > 3.不同消息业务类型（businessType）需要分别设置免打扰；</br>
 > 4.同一终端下设置多条免打扰时时间不允许有交叉；</br>
 > 5.每条免打扰配置支持设置多个优先级</br>
-
+> 用户登录后使用（即：调用接口时Header中accessToken参数必填）。
 
 ##### 1、接口定义
 ?> **接入地址：** `/config/setNotDisturb`</br>
@@ -730,6 +776,46 @@ endTime|String|body|是|结束时间，格式 HH:ss
 :-:|:-:|:-:|:-:|:-
 dndId|String|body|是|免打扰唯一标识
 
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/config/setTagNotDisturb
+
+POST data:
+{"priority":1,"beginTime":"21:00","dndTag":"abcd","endTime":"07:00"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: ba471cc9c1029c539c4a1ff92b40d5ee9edbfa3ab381ac85a8b6af8999d7e3ad
+timestamp: 1566443152916 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 1234
+accessToken: TGT19N1WNFHPFFMN24PBAIROXQWBV0
+Content-Length: 68
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+
+```
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success","retData":"DND9b8f5d01de9e4ef6a5a69323e68dd5a8"}
+
+```
 
 
 
@@ -1003,7 +1089,7 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 
 ##### 1、接口定义
 
-?> **接入地址：** `/msg/pushWithTmplByDevices`</br>
+?> **接入地址：** `/msg/pushWithTmplByClients`</br>
 **HTTP Method：** POST 
 
 
@@ -1028,7 +1114,7 @@ retData|String|body|是|无|
 
 **输入参数**
 ```
-POST https://uws.haier.net/ums/v3/msg/pushWithTmplByDevices
+POST https://uws.haier.net/ums/v3/msg/pushWithTmplByClients
 
 POST data: {
 	"toDevices": ["MAC"],
@@ -1469,6 +1555,114 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ```
 
 
+#### 查询消息汇总
+
+
+>1、按消息分类返回统计信息；</br>
+>2、每一类消息的消息总数；</br>
+>3、每一类消息的未读消息数；</br>
+>4、每一类消息若有未读消息返回最近一条未读消息的内容，否则不返回；</br>
+>5、每一类消息若设置了免打扰则返回免打扰信息列表，否则不返回；</br>
+>6、每一类消息若有消息返回最新消息的时间，否则不返回；</br>
+>7、消息分类按最新消息的时间倒序排列</br>
+
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getMsgSubtotal`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 无输入参数
+
+**输出参数：**  
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgCategoryDto>|body|是|消息分类汇总信息 
+
+
+
+
+
+
+
+
+#### 上报BSM业务消息状态
+
+
+>1、用户登录后使用（即：调用接口时Header中accessToken参数必填）
+
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/getMsgSubtotal`</br>
+**HTTP Method：** POST 
+
+
+**输入参数：** 
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+boId|String|body|是|boID业务对象ID
+boStatus|Integer|body|是|业务对象状态0:new/1:read/2:deleted
+
+**输出参数：**  
+
+参数名|类型|位置|是否必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|String|body|是|返回更新成功与否 
+
+
+
+
+##### 2、请求样例
+
+**输入参数**
+```
+POST https://uws.haier.net/ums/v3/ bms/reportBSMStatus
+
+POST data:
+{ 	"taskId":"TK123456789123456789",
+   "boId":"1234567",
+ "userId":"1234566",
+   "appId":"MB-UZHSH-0000",
+   "clientId":"1234",
+   "boStatus":"0"
+ }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: MB-UZHSH-0000
+sequenceId: 20161020153428000015
+sign: 0ce87f502a6f020d17466f0971eeedd6e3a1ce81d7ca2d8074c87c5fb4c5cfc7
+timestamp: 1546854308557 
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+appVersion: 99.99.99.99990
+timezone: Asia/Shanghai
+language: zh-cn
+clientId: 123456
+accessToken: TGT28NIRF26AOAB72CU1ZR8BDL4AR0
+Content-Length: 36
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+
+```
+
+**输出参数**
+
+```
+{"retCode":"00000","retInfo":"success"}
+```
+
+
+
 
 ## 云端功能接口
 
@@ -1512,8 +1706,8 @@ content-type|String|header|是|必须为applicationg/json;charset=UTF-8
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-toUsers|List<String>|body|是|接受消息的用户ID列表
-toApps|List<String>|body|是|接受消息的APP列表
+toUsers|List<String>|body|是|接受消息的用户ID列表，list 最大200
+toApps|List<String>|body|是|接受消息的APP列表，list 最大200
 messages|UpMsg|body|是|推送消息内容定义
 tag|String|body|否|标签。例如家庭推送时可以存入家庭
 isBurn|Integer|body|否|是否阅后即焚
@@ -1622,6 +1816,34 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 ```
 
 
+
+
+
+#### 按设备推送消息
+
+> 云端给终端设备推送消息
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByClients`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toClients|Set<ClientTargetVo>|body|是|终端列表
+message|UpMsg|body|是|推送消息内容定义
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+
+**输出参数**
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<ClientTargetDto>|body|是|本次发送的任务标识
+
+
+
 #### 按用户推送消息（支持模板）
 
 > 接收消息的用户列表必须是从指定的APP中注册的用户。
@@ -1694,9 +1916,9 @@ ratData|String|body|是|本次发送的任务标识
 
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
-taskId|Sting|body|否|消息标识
-
-
+taskId|Sting|body|是|消息标识
+startPage|Integer|body|否|起始页，范围1-10000
+pageSize|Integer|body|否|每页显示数量，范围1-1000
 
 **输出参数**
 
@@ -1704,7 +1926,7 @@ taskId|Sting|body|否|消息标识
 参数名|类型|位置|必填|说明
 :-:|:-:|:-:|:-:|:-
 retData|List<MsgCloudHistoryDto>|body|是|推送记录信息
-
+totalRecords|Integer|body|否|
 ##### 2、请求样例
 
 **输入参数**
@@ -1726,6 +1948,7 @@ language: zh-cn
 timezone: Asia/Shanghai
 Content-Encoding: utf-8
 Content-type: application/json
+
 
 ```
 
@@ -1751,13 +1974,210 @@ Content-type: application/json
 	}]
 }
 
+
 ```
+
+
+
+
+
+
+
+#### 按家庭推送消息
+
+
+> 云端按家庭给用户注册的终端推送消息。接收消息的家庭列表必须是从指定的APP中注册的用户
+
+##### 1、接口定义
+
+?> **接入地址：** `/msg/pushByFamilies`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+toApps|List<String>|body|是|接收消息的应用ID列表。
+toFamilies|List<String>|body|是|接收消息的家庭ID列表。
+message|UpMsg|body|是|推送消息内容定义。
+tag|String|body|否|标签，例如家庭推送时可以存入家庭标识
+isBurn|Integer|body|否|是否是阅后即焚
+
+**输出参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgCloudHistoryDto>|body|是|本次发送的任务标识
+
+##### 2、请求样例
+
+**输入参数**
+
+```
+POST https://uws.haier.net/umse/v3/msg/ pushByFamilies
+
+POST data:
+{
+    "toApps":[
+        "MB-UZHSH-0000",
+        "MB-UZHSH-0001"],
+    "toFamilies":[
+        "1111",
+        "2222"],
+    "message":{
+        "data":{
+            "body":{
+                "view":{
+                    "showType":-1
+                },
+                "extData":{
+                    "api":{
+                        "apiType":"UPDATE_BO_STATUS",
+                        "params":{
+                            "bsms":[
+                                {
+                                    "boId":"123",
+                                    "boStatus":0,
+                                    "boInfo":{
+                                        "familyId":"11111",
+                                        "boName":"场景名称",
+                                        "createdTime":"2020-07-09 13:53:05"
+                                    }
+                                }]
+                        }
+                    }
+                }
+            }
+        },
+        "options":{
+            "businessType":-1,
+            "priority":1,
+            "msgExpires":0,
+            "expires":0,
+            "msgName":"SCENE_BSM",
+            "jiguangOptions":{
+                "apnsProduction":true
+            }
+        },
+        "version":"v3"
+    }
+} [no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":"TKcb27343560914c76a3d21ce3bac187a8"}
+
+```
+
+
+
+
+
+#### 按用户获取业务状态列表
+
+
+> 云端按用户获取BSM记录，默认获取最近（按updateTime倒序）最新三个月的最新业务状态记录(page)
+
+##### 1、接口定义
+
+?> **接入地址：** `/bsm/findBSMByUserID`</br>
+**HTTP Method：** POST 
+
+**输入参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+userId|Sting|body|是|接收业务状态的用户ID。
+familyId|String|body|是|接收业务状态的家庭ID。
+boCategory|Integer|body|是|标识业务类型0：场景；1：家庭
+boStatus|Integer|body|是|默认是new :0 read:1
+queryTag|Integer|body|是|标识查询起始时间之前、还是之后的消息。1代表之前，0代表之后。
+queryTime|TimeStamp|body|是|起始查询时间
+startPage|Integer|body|否|起始页，范围1-10000
+queryTime|Integer|body|否|每页显示数量，范围1-1000
+
+
+**输出参数**
+
+
+参数名|类型|位置|必填|说明
+:-:|:-:|:-:|:-:|:-
+retData|List<MsgBoUserDto>|body|是|返回符合条件的业务对象记录
+
+##### 2、请求样例
+
+**输入参数**
+
+```
+POST https://uws.haier.net/umse/v3/ bsm/findBSMByUserID
+
+POST data:
+{
+    "userId":"12345",
+    "familyId":"123",
+"boStatus":0,
+"boCategory":0,
+    "queryTag ":0,
+    "queryTime ":,"2020-07-09 13:53:05"
+
+}
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+appId: SV-UZHSH-0000
+appVersion: 99.99.99.99990
+sequenceId: 20161020153428000015
+sign: fa4de4b47448c32e151f6228575027d58a8b0774d92e788e229498aba5c3af1a
+timestamp: 1546850546246 
+language: zh-cn
+appKey: 2ba149e67de2e4dfae30a82abec26a3a
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 639
+Host: uws.haier.net
+User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
+
+
+
+```
+
+**输出参数**
+```
+{"retCode":"00000","retInfo":"success","retData":""}
+
+
+```
+
+
+
 
 
 [^-^]:文本连接注释
 [MessagePush_document_url]:#
 
 [^-^]:常用图片注释
-[MessagePush_type]:_media/_MessagePush/MessagePush_type.png
-[MessagePush_liucheng]:_media/_MessagePush/MessagePush_liucheng.png
-[MessagePush_flow]:_media/_MessagePush/MessagePush_flow.png
+[MessagePush_type]:../_media/_MessagePush/MessagePush_type.png
+[MessagePush_liucheng]:../_media/_MessagePush/MessagePush_liucheng.png
+[MessagePush_flow]:../_media/_MessagePush/MessagePush_flow.png
