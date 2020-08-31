@@ -2178,6 +2178,6 @@ User-Agent: Apache-HttpClient/4.5.3 (Java/1.8.0_192)
 [MessagePush_document_url]:#
 
 [^-^]:常用图片注释
-[MessagePush_type]:../_media/_MessagePush/MessagePush_type.png
-[MessagePush_liucheng]:../_media/_MessagePush/MessagePush_liucheng.png
-[MessagePush_flow]:../_media/_MessagePush/MessagePush_flow.png
+[MessagePush_type]:_media/_MessagePush/MessagePush_type.png
+[MessagePush_liucheng]:_media/_MessagePush/MessagePush_liucheng.png
+[MessagePush_flow]:_media/_MessagePush/MessagePush_flow.png
