@@ -160,6 +160,7 @@
 |triggerType          |   String           |  是否支持App手动触发执行|                      选填，用户自建场景忽略 目前取值：platform：平台触发，manually：手动触发：timerTrigger：时间触发；注释：该字段由app定义，app可根据该字段配合手动触发机制实现地图围栏，天气等业务|
 |appId                |   String           |  appId|                                        应用标识|
 |isOpen               |   Integer          |  场景是否开启|                                 1开启，0关闭;选填|
+|sceneStatus               |   Integer          |  场景状态|                                 0无效，1有效|
 |weight               |   Integer          |  用户场景权重|                                 选填 按该字段进行排序|
 |sortList             |   List<SceneSortDto|  用户场景分类列表|                             选填；最大长度256 多个以,分割 分类只能有一个|
 |tagList              |   List<SceneTagDto>|  用户场景标签编号|                             选填；最大长度256 多个以,分割 （1、如果场景类型为用户自建，则该标签可以被修改；2、如果场景类型为模板下载，该标签不能被用户修改）|
