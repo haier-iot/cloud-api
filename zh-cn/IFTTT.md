@@ -218,6 +218,10 @@
 |componentId    | String              |所属组件Id  |  必填；由组件区分是设备组件还是其它组件   |          
 |componentType    | String              |组件类型  | 选填； |  
 |settings    | RuleSettingsDto              |条件配置的参数  |  该dto里面参数为：</br>Id:</br>Object: 设置的设备信息或者天气信息</br>Value: 设置的值|                                                                                                                                                                                                                                                                                                                 
+|groupTag    | String              |分组标识  | 选填； |
+|prodNoList    | List<String>      |产品编码列表  | 支持模板的设备产品编码列表 |
+|prodNoAuthList    |List<Map<String,String>>    |产品编码授权列表  | 支持模板的设备产品编码授权列表，map中有两个key：productCode、ifNeedAuth |
+|prodMacMap    | Map<String,DeviceInfoDto >   |设备Mac与标签取值范围对应关系  | 通过RuleWhenCondition中的 key的ifLabel字段判断是否支持标签功能，该字段代表每一个设备mac对应标签系统中的标签取值范围 |
 
 
 
@@ -246,6 +250,9 @@
 |isOpen      |Integer               |动作片段是否开启         |1开启，0关闭|
 |settings      |RuleSettingsDto   |动作配置的参数   |该dto里面参数为：</br>Id: settings主键id</br>Object: 设置的设备信息</br>Value: 设置的值|
 |sceneControl      |SceneControl   |控制场景  |选填：如果type为TriggerScene：执行场景OperationScene：开关场景 必填|
+|prodNoList      |String     |产品编码列表    |支持模板的设备产品编码列表| 
+|prodNoAuthList  |List<Map<String,String>>  |产品编码授权列表    |支持模板的设备产品编码授权列表，map中有两个key：productCode、ifNeedAuth| 
+|prodMacMap      |Map<String, List<RangeDto>>     |设备Mac与标签取值范围对应关系         |如果设备支持标签功能，DeviceControlArgs中的name属性中的StatusDesc 的ifLabel判断，该字段代表每一个设备mac对应标签系统中的标签取值范围| 
 
 
 ### RuleThenPushMessage  
@@ -450,6 +457,14 @@ app用系统属性
 |propId  |String |主键     |单命令：属性主键；组命令：组命令功能主键|
 |desc |String    |描述 |单命令：属性标识显示名称；组命令：组命令功能显示名称|
 |fixer|String |属性修饰词|&emsp;|
+|propClass|String |属性类别|&emsp;|
+|desc|String |单命令：属性标识显示名称；组命令：组命令功能标识显示名称|&emsp;|
+|splitFunc|String |拆分标识 0：不拆，1：拆分|&emsp;|
+|propSort|String |排序|&emsp;|
+|ifNeedAuth|String |是否需要授权 1 需要授权 2 不需要授权（音响）|&emsp;|
+|propName|String |功能标识|&emsp;|
+|functionName|String |组命令标识|&emsp;|
+|ifLabel|String |否启用标签：0:否，1：是|&emsp;|
 |props|List< ComponentFunctionPropDto > |功能属性集合|&emsp;|
 
 
@@ -496,7 +511,7 @@ app用系统属性
 |scope     |Map<String,String> |取值范围，跟标准同步 |选填；数据结构：</br>`{`</br>`“type”:”enum”,`</br>`“value:”json”`</br>`}`</br>type类型遵循PropOfComponentDto中的PropValType </br>字段描述本结构中value的取值范围，</br>只有在具体的属性中才有值，</br>表示这个属性的取值范围；不在属性的值中出现|
 |required|Boolean |属性是否必填|如果为true表示app实例化需要填写此参数|
 |room|String |所属房间|只读：设备类所属房间信息|
-
+|ifLabel|String |是否之前标签|0代表不支持，1代表支持|
 
 
 ### Pagination
@@ -529,7 +544,8 @@ app用系统属性
 |sceneId |String   |场景id |选填| 
 |componentId |String   |组件ID |只读,为空情况目前非组件消息类型| 
 |functionName |String   |功能名称 |只读，MessagePush</br>Delayed：延时</br>NewMessagePush：新版消息推送</br>TriggerScene：执行场景</br>OperationScene：开关场景| 
-|status |String   |条件或动作状态 |0：失效；1：正常| 
+|enablestatus |String   |条件或动作状态 |0：失效；1：正常| 
+|groupTag |String   |分组标签 |只读| 
 
 object字段说明：</br>   
 ```  
@@ -713,7 +729,7 @@ execResultinfo在上面对应</br>
 |**字段名**|**类型**|**说明**|**备注**|
 |id |String   |ruleSttings  |UUID|
 |object |StatusDesc   |条件或者动作载体 |使用如RuleWhenCondition或RuleThenAction中object使用方式 |
-|status |String   |条件或动作状态 |0：失效;1：正常 |
+|enableStatus |String   |条件或动作状态 |0：失效;1：正常 |
 
 
 
@@ -748,6 +764,59 @@ execResultinfo在上面对应</br>
 |execResultCode |String   |本条指令本步骤的执行结果说明|&emsp;|
 |execResultInfo |String   |本条指令本步骤的执行结果说明|&emsp;|
 |resultTime |long   |本条指令本步骤的反馈时间 |&emsp;|
+
+### SceneTemplateDto
+场景模板信息
+
+| |  ||  |   
+| ------------- |:----------:|:-----:|:-----:|  
+|**字段名**|**类型**|**说明**|**备注**|
+|Id |String   |场景Id唯一  |不填；UUID|
+|sourceId |String   |场景来源ID |选填；用户自建场景忽略|
+|basisSceneId |String |基础场景Id |基础场景Id+基础版本号来区分是否需要升级|
+|sceneName |String   |场景名称(应用场景名称) |必填；最大长度255|
+|appSceneAlias |String   |应用场景别名 |选填；最大长度255 用户自建场景忽略|
+|basicSceneAlias |String   |公共场景别名|选填；最大长度255 用户自建场景忽略|
+|sceneDesc |String   |场景描述|必填；最大长度600|
+|userId |String   |用户ID |必填；最大长度32|
+|familyId |String   |家庭ID |选填；|
+|type |String   |场景类型 |必填；最大长度32 用户自建场景忽略|
+|rules |RuleTemplateDto[]   |规则模板 |必填；可以是多个规则片段组成场景整体规则；一个场景最多支持10个片段；每个片段最多支持25个条件的运算；|
+|auto |boolean   |是否支持自动实例化 |必填；默认为false 用户自建场景忽略|
+|canAppTrigger |boolean   |是否支持App手动触发执行|选填，默认是不支持0:开启后自动执行  1：一键离家|
+|status |String   |基础场景当前状态 |选填；目前只关注三个状态，默认不填为草稿：draft；已发布：publish;已删除:deleted；用户不关注（场景测试app可以根据该字段显示场景模板开发状态）|
+|appId |String   |appId|应用标识|
+|isOpen |Integer   |场景是否开启 |1开启，0关闭|
+|weight |Integer   |应用场景权重 |必填 用户自建场景忽略|
+|appSceneStatus |Integer   |应用场景状态 |必填；0:下架  1:上架 用户自建场景忽略|
+|version |String   |应用场景版本 |最大长度32 用户自建场景忽略，但是需要app显示|
+|sortList |List<SceneSortDto>   |应用场景分类列表 |选填；最大长度256 多个以,分割 用户自建场景忽略|
+|tagList |List<SceneTagDto>   |应用场景标签编号 |选填；最大长度256 多个以,分割用户自建场景忽略|
+|prompt |String   |用户填写的“提示”信息 |最大长度256|
+|createTime |Timestamp   |创建时间|&emsp;|
+|updateTime |Timestamp   |最后更新时间|&emsp;|
+|activeBeginTime |Timestamp   |场景生效开始时间|最大长度64|
+|activeEndTime |Timestamp   |场景生效结束时间|最大长度64 说明：生效开始时间可以大于结束时间，该情况视为夸天执行，但是最多不能夸24小时  并且生效时间段只对开关类场景起作用，手动触发场景不受限制|
+|recommend |String   |推荐|最大长度64 用户自建场景忽略|
+|collect |String   |收藏|最大长度64 用户自建场景忽略|
+|aiKeyWord |String   |语音标签|最大长度256|
+|banner |String   |场景banner图URL|最大长度256|
+|icon |String   |场景图标URL|最大长度256|
+|inoutSide |Integer   |场景标识|0:外部-非官网  1:内部-官网 用户自建场景忽略|
+|basisSceneVersion |String   |系统场景版本|最大长度32 用户自建场景忽略|
+|basisSceneName |String   |系统场景名称|最大长度64 用户自建场景忽略|
+|basisSceneDescription |String   |系统场景描述|最大长度1800 用户自建场景忽略|
+|basisSceneTags |String   |系统场景标签|最大长度256 平台选择项（空调、新风机等）用户自建场景忽略|
+|createUserNickname |String   |场景开发者展示名称|最大长度64 场景开发者在海极网填写的昵称信息 用户自建场景忽略|
+|createUserLogo |String   |场景开发者展示LOGO|最大长度256 场景开发者在海极网配置的logo信息PNG或JPG格式，128*128或64*64规则 用户自建场景忽略|
+|taskInfoList |List<TaskInfoDto>   |定时策略信息|&emsp;|
+|eVersion |String   |引擎执行版本号|最大32位，不需要app前端关注|
+|aVersion |String   |应用场景版本号|&emsp;|
+|uVersion |String   |用户场景版本号|最大32位|
+|bVersion |String   |基础场景版本号|&emsp;|
+|dType |String   |下载类型 Basis：基础场景；App：应用场景；User：用户自建|最大32位，不需要app前端关注|
+
+
 
 
 ## 接口清单
