@@ -16,6 +16,8 @@
 
 * [设备管理](zh-cn/DeviceManage)
 
+* [设备授权](zh-cn/DeviceAuthorize)
+
 * [数据订阅](zh-cn/DataSubscription)  
 
 * [家庭模型](zh-cn/FamilyManage)  
