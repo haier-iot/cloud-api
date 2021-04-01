@@ -18,10 +18,10 @@
     window.$docsify = {
       name: 'U+ IOT 云服务',
 	  nameLink: {       //点击文档标题后跳转的链接地址。
-	 '/zh-cn/': '/guide/#/zh-cn/',
-     '/': '/guide/#/'
+	 '/zh-cn/': '/cloud-api/#/zh-cn/',
+     '/': '/cloud-api/#/'
     },
-      repo: 'https://github.com/haier-iot/guide',
+      repo: 'https://github.com/haier-iot/cloud-api',
 	  loadSidebar: true,
 	  autoHeader: true,   //根据sidebar自动添加标题
 	  subMaxLevel: 4,   //显示目录级别
@@ -77,9 +77,9 @@
 	 plugins: [
             function (hook, vm) {
                 hook.beforeEach(function (html) {
-                    var url = 'https://github.com/haier-iot/guide/blob/master/' + vm.route.file;
+                    var url = 'https://github.com/haier-iot/cloud-api/blob/master/' + vm.route.file;
                     var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n';
-                    var github = "<div  data-tooltip-title=\"Star it if you like\" data-tooltip-position=\"top\" class=\"tool-tip\"><iframe src=\"https://ghbtns.com/github-btn.html?user=haier-iot&amp;repo=guide&amp;type=watch&amp;count=true\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"0\" width=\"110\" height=\"20\" style='margin:0 10px -6px'></iframe></div>";
+                    var github = "<div  data-tooltip-title=\"Star it if you like\" data-tooltip-position=\"top\" class=\"tool-tip\"><iframe src=\"https://ghbtns.com/github-btn.html?user=haier-iot&amp;repo=cloud-api&amp;type=watch&amp;count=true\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"0\" width=\"110\" height=\"20\" style='margin:0 10px -6px'></iframe></div>";
           var editHtml = '<a href='+ url +' data-tooltip-title=\"Correct this doc\" data-tooltip-position=\"top\" class=\"tool-tip\" target=\"_blank\"><img class=\"emoji\" src=\"https://img.alicdn.com/tfs/TB1ica2lcLJ8KJjy0FnXXcFDpXa-128-128.png\" alt=\"Edit\"></a>';
           return "<div class=\"tool-docs-header\">"
 		  + editHtml
