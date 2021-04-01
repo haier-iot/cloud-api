@@ -1,14 +1,14 @@
 * 快速开始 
 
-	* [概述](zh-cn/)  
+* [概述](zh-cn/)  
 
-	* [公共参数](zh-cn/Business)  
+* [公共参数](zh-cn/)  
 
-	* [签名机制](zh-cn/Business) 
+* [签名机制](zh-cn/) 
 
-	* [调用API说明<sup style="color:red">(重要)<sup>](zh-cn/Standard/Basic)     
+* [调用API说明<sup style="color:red">(重要)<sup>](zh-cn/)     
 
-	* [公共错误码](zh-cn/Standard/Other) 
+* [公共错误码](zh-cn/) 
 
 
 * [账号类服务](zh-cn/Account) 
@@ -17,8 +17,8 @@
 	* [用户授权](zh-cn/AccountManage/signIn) 
 	* [企业账号](zh-cn/AccountManage/signIn) 
 
-* [家庭类服务](zh-cn/FamilyManage)  
-	* [介绍](zh-cn/FamilyManage/Introduce)  
+* [家庭类服务](zh-cn/Family)  
+	* [介绍](zh-cn/Family/Introduce)  
 	* [家庭管理](#) 
 	* [楼层管理](#)
 	* [房间管理](#)
@@ -26,8 +26,8 @@
 	* [家庭设备管理](#)
 	* [家庭数据订阅](#)
 
-* [设备类服务](zh-cn/FamilyManage)  
-	* [介绍](zh-cn/FamilyManage/Introduce)  
+* [设备类服务](zh-cn/Device)  
+	* [介绍](zh-cn/Device/Introduce)  
 	* [设备权限](#) 
 	* [设备管理](#)
 	* [设备控制](#)
@@ -45,7 +45,7 @@
 
 
 * [场景类服务](zh-cn/IFTTT)  
-	* [介绍](zh-cn/FamilyManage/Introduce)  
+	* [介绍](zh-cn/IFTTT/Introduce)  
 	* [场景模板](#) 
 	* [用户场景配置](#)
 	* [用户场景管理](#)
@@ -55,8 +55,8 @@
 	* [场景数据订阅](#)
 	* [设备场景管理](#)
 
-* [消息类服务](zh-cn/IFTTT)  
-	* [介绍](zh-cn/FamilyManage/Introduce)  
+* [消息类服务](zh-cn/Message)  
+	* [介绍](zh-cn/Message/Introduce)  
 	* [终端管理](#) 
 	* [消息发送](#)
 	* [免打扰管理](#)
@@ -68,18 +68,30 @@
 
 
 
-* [设备开发<sup style="color:red">(new)<sup>](zh-cn/Cloudgw)
-	* [介绍](zh-cn/FamilyManage/Introduce) 
+* [设备开发<sup style="color:red">(new)<sup>](zh-cn/Device-dev)
+	* [介绍](zh-cn/Device-dev/Introduce) 
 	* [物联模组类](#)
 	* [设备SDK类](#)
 	* [云设备类](#)
 	* [云云对接类](#)
 
 
-* [应用开发<sup style="color:red">(new)<sup>](zh-cn/Cloudgw)
-	* [介绍](zh-cn/FamilyManage/Introduce) 
+* [应用开发<sup style="color:red">(new)<sup>](zh-cn/App-dev)
+	* [介绍](zh-cn/App-dev/Introduce) 
 	* [移动端SDK](#)
 	* [统计分析SDK](#)
+
+
+
+* [常见问题<sup style="color:red">(new)<sup>](zh-cn/Questions)
+	* [移动SDK相关问题](zh-cn/Questions/Introduce) 
+	* [设备SDK相关问题](#)
+	* [设备控制相关问题](#)
+
+
+* [解决方案<sup style="color:red">(new)<sup>](zh-cn/Solutions)
+	* [########](zh-cn/Solutions/Introduce) 
+
 
 
 
