@@ -1,14 +1,14 @@
 * 快速开始 
 
-* [概述](zh-cn/)  
+* [概述](zh-cn/Overviews)  
 
-* [公共参数](zh-cn/)  
+* [公共参数](zh-cn/Parameters)  
 
-* [签名机制](zh-cn/) 
+* [签名机制](zh-cn/Signature) 
 
-* [调用API说明<sup style="color:red">(重要)<sup>](zh-cn/)     
+* [调用API说明<sup style="color:red">(重要)<sup>](zh-cn/API-des)     
 
-* [公共错误码](zh-cn/) 
+* [公共错误码](zh-cn/ErrorCodes) 
 
 
 * [账号类服务](zh-cn/Account) 
