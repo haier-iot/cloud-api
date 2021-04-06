@@ -27,8 +27,8 @@
 	* [家庭数据订阅](#)
 
 * [设备类服务](zh-cn/Device)  
-	* [介绍](zh-cn/Device/Introduce)  
-	* [设备权限](#) 
+	* [介绍](zh-cn/Device/dev-intro)  
+	* [设备权限](zh-cn/Device/authorization) 
 	* [设备管理](#)
 	* [设备控制](#)
 	* [设备型号信息](#)
