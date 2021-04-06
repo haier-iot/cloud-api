@@ -14,7 +14,7 @@
 * [账号类服务](zh-cn/Account) 
 	* [介绍](zh-cn/Account/act-intro) 
 	* [用户管理](zh-cn/Account/act-manage) 
-	* [用户授权](zh-cn/Account/signIn) 
+	* [用户授权](zh-cn/Account/act-auth) 
 	* [企业账号](zh-cn/Account/signIn) 
 
 * [家庭类服务](zh-cn/Family)  
