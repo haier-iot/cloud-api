@@ -26,4 +26,4 @@
 由登录等动作接口返回。受保护的接口在被调用时，调用方需要在HTTP请求的Header中新增Authorization,
 值为Bearer[access_token]，后面接口将直接备注受应用级还是设备级保护，请调用方自行甄别。<br/>
 
-4.以下所有接口的正常Response下的HTTP Status Code为200，后无特殊情况不再说明。
+4.以下所有接口的正常Response下的HTTP Status Code为200，后无特殊情况不再说明。<br/>
