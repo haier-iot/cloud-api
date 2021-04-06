@@ -12,8 +12,8 @@
 
 
 * [账号类服务](zh-cn/Account) 
-	* [介绍](zh-cn/AccountManage/signIn) 
-	* [用户管理](zh-cn/AccountManage/signIn) 
+	* [介绍](zh-cn/Account/act-intro) 
+	* [用户管理](zh-cn/Account/act-manage) 
 	* [用户授权](zh-cn/AccountManage/signIn) 
 	* [企业账号](zh-cn/AccountManage/signIn) 
 
