@@ -206,11 +206,11 @@ expiresIn |Long| payload| accessToken的有效时间（以秒为单位）
 
 
 [^-^]:常用图片注释
-[pic1]:../zh-cn/_media/_account/pic1.jpg
-[pic2]:../zh-cn/_media/_account/pic2.png
-[pic3]:../zh-cn/_media/_account/pic3.png
-[pic4]:../zh-cn/_media/_account/pic4.png
-[pic5]:../zh-cn/_media/_account/pic5.png
-[pic6]:../zh-cn/_media/_account/pic6.png
-[pic7]:../zh-cn/_media/_account/pic7.png
-[pic8]:../zh-cn/_media/_account/pic8.jpg
+[pic1]:../_media/_account/pic1.jpg
+[pic2]:../_media/_account/pic2.png
+[pic3]:../_media/_account/pic3.png
+[pic4]:../_media/_account/pic4.png
+[pic5]:../_media/_account/pic5.png
+[pic6]:../_media/_account/pic6.png
+[pic7]:../_media/_account/pic7.png
+[pic8]:../_media/_account/pic8.jpg
