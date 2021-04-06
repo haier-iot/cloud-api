@@ -718,5 +718,5 @@ D00016|你已退出或尚未登录|
 [pic7]:../_media/_account/pic7.png
 [pic8]:../_media/_account/pic8.jpg
 
-[session1]:_media/_account/session1.png
-[session2]:_media/_account/session2.png
+[session1]:../_media/_account/session1.png
+[session2]:../_media/_account/session2.png
