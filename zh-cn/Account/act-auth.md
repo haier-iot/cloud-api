@@ -40,7 +40,7 @@
 
 ### 接入流程的开发
 
-** 1 海尔授权登录H5页链接**
+**1 海尔授权登录H5页链接**
 
 第三方App通过发现技能或者绑定第三方账号的方式打开海尔账号Oauth授权登录H5页，此时第三方 App 要生成 授权 URL（标准的OAuth 授权码模式的认证的URI）。 用户 进入 授权 URL， 登录并完成 对 应用 的 授权，用户中心将重定向 用户 至第三方App回跳页，并带上code和是state。
 
@@ -72,7 +72,7 @@
 4、	如输入密码错误次数过多，会提示图形验证码界面，强制用户输入验证才能完成授权，当用户输入密码错误次数达到限制，系统会锁定该用户帐号，5小时后自动解锁。
 
 
-** 2	授权成功返回**
+**2	授权成功返回**
 ```
 Location: {redirect_uri}?code=SplxlOBeZQQYbYS6WxSbIA&state={state}
 ```
@@ -82,7 +82,7 @@ Location: {redirect_uri}?code=SplxlOBeZQQYbYS6WxSbIA&state={state}
 |code| 用户授权给应用的授权码 |
 |state| 应用生成的随机字符,藉此判断此次回跳是否被伪造 |
 				
-** 3	获取授权token **
+**3 获取授权token**
 
 >  通过oauth登录获取的token获取海尔token 
 
@@ -145,7 +145,7 @@ POST data:
 } 
 ```
 
-** 4	刷新授权token **
+**4 刷新授权token**
 
 
 ?> **请求地址：** `https://uws.haier.net/ucs/uia/refresh/token `</br>
