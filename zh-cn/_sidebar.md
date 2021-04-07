@@ -17,7 +17,7 @@
 	* [用户授权](zh-cn/Account/act-auth) 
 	* [企业账号](zh-cn/Account/act-third) 
 
-* [家庭类服务](zh-cn/Family)  
+* [家庭类服务](#)  
 	* [介绍](zh-cn/Family/fam-intro)  
 	* [家庭管理](zh-cn/Family/fam-manage) 
 	* [楼层管理](zh-cn/Family/fam-floor)
@@ -25,6 +25,7 @@
 	* [家庭成员管理](zh-cn/Family/fam-member)
 	* [家庭设备管理](zh-cn/Family/fam-device)
 	* [个人用户关系](zh-cn/Family/fam-relationship)
+
 
 * [设备类服务](zh-cn/Device)  
 	* [介绍](zh-cn/Device/dev-intro)  
@@ -44,7 +45,8 @@
 	* [设备管理-三方云](zh-cn/Device/)		
 
 
-* [场景类服务](zh-cn/IFTTT)  
+
+* [场景类服务](#)  
 	* [介绍](zh-cn/IFTTT/Introduce)  
 	* [场景模板](#) 
 	* [用户场景配置](#)
@@ -55,20 +57,11 @@
 	* [场景数据订阅](#)
 	* [设备场景管理](#)
 
-* [消息类服务](zh-cn/Message)  
-	* [介绍](zh-cn/Message/Introduce)  
-	* [终端管理](#) 
-	* [消息发送](#)
-	* [免打扰管理](#)
-	* [业务消息管理](#)
-	* [场景日志](#)
-	* [场景统计](#)
-	* [场景数据订阅](#)
-	* [设备场景管理](#)
 
 
 
-* [设备开发<sup style="color:red">(new)<sup>](zh-cn/Device-dev)
+
+* [设备开发<sup style="color:red">(new)<sup>](#)
 	* [介绍](zh-cn/Device-dev/Introduce) 
 	* [物联模组类](#)
 	* [设备SDK类](#)
@@ -76,20 +69,20 @@
 	* [云云对接类](#)
 
 
-* [应用开发<sup style="color:red">(new)<sup>](zh-cn/App-dev)
+* [应用开发<sup style="color:red">(new)<sup>](#)
 	* [介绍](zh-cn/App-dev/Introduce) 
 	* [移动端SDK](#)
 	* [统计分析SDK](#)
 
 
 
-* [常见问题<sup style="color:red">(new)<sup>](zh-cn/Questions)
+* [常见问题<sup style="color:red">(new)<sup>](#)
 	* [移动SDK相关问题](zh-cn/Questions/Introduce) 
 	* [设备SDK相关问题](#)
 	* [设备控制相关问题](#)
 
 
-* [解决方案<sup style="color:red">(new)<sup>](zh-cn/Solutions)
+* [解决方案<sup style="color:red">(new)<sup>](#)
 	* [########](zh-cn/Solutions/Introduce) 
 
 
