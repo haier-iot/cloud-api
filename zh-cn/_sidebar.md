@@ -11,7 +11,7 @@
 * [公共错误码](zh-cn/ErrorCodes) 
 
 
-* [账号类服务](zh-cn/Account) 
+* [账号类服务](#) 
 	* [介绍](zh-cn/Account/act-intro) 
 	* [用户管理](zh-cn/Account/act-manage) 
 	* [用户授权](zh-cn/Account/act-auth) 
