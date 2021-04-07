@@ -1364,5 +1364,197 @@ body：
 
 
 
+## 用户申请加入家庭  
+> 用户申请加入家庭，优先familyId，不填则使用设备ID，推送UMS消息给家庭管理员   
+
+ 1、接口定义
+
+?> **接入地 址：**  `/fcs/apply/joinFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型  | 参数名      | 位置  | 必填|说明|
+| ------- |:--------:|:-----:|:-------:|:-------:|
+|  String    | familyId | Body| 非必填|用户要加入家庭的家庭ID和deviceId二选一|  
+|  String    | deviceId | Body| 非必填|用户要加入家庭的家庭ID和deviceId二选一|  
+|  String    | memberName | Body| 非必填|用户在家庭中的昵称,默认用户手机号（脱敏）|  
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| String | applicationId  |   body  |  必填 | 用户申请的ID，识别邀请休息，可通过推送消息或其他诸如短信之类的方式通知家庭管理员，家庭管理员以此为依据同意用户加入家庭。 |
+
+
+
+ 2、请求样例  
+
+**用户请求**
+```
+https://{baseuri}/fcs/apply/joinFamily
+
+{
+“ familyId “:”647112241261000000”
+}
+
+
+```  
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"payload": {
+		"applicationId": "647112241261000000"
+	}
+}
+
+
+```
+
+ 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142、E31408
+
+
+
+
+## 家庭管理员同意/拒绝用户加入家庭  
+> 家庭管理员同意/拒绝用户加入家庭，并向申请用户以及其他家庭成员推送加入家庭消息或向申请用户拒绝用户加入家庭消息   
+
+ 1、接口定义
+
+?> **接入地 址：**  `/fcs/apply/agreeJoinFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型  | 参数名      | 位置  | 必填|说明|
+| ------- |:--------:|:-----:|:-------:|:-------:|
+|  String    | agree | Body| 必填|true或false，true为同意，false为拒绝|  
+|  String    | applicationId | Body| 必填|申请ID，从推送消息中获得，或其他渠道获得|  
+
+
+
+
+ 2、请求样例  
+
+**用户请求**
+```
+https://{baseuri}/fcs/apply/agreeJoinFamily
+
+{
+" applicationId ":"9de5705ae9fb4567a3735aedaef853e8",
+" agree": " true "
+
+}
+
+
+```  
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功"
+}
+
+
+
+```
+
+ 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142、E31408
+
+
+
+## 用户查询申请记录、邀请记录  
+> 用户通过deviceId查询到自己申请该设备所在家庭的申请记录以及该家庭管理员邀请当前用户加入家庭的记录  
+
+ 1、接口定义
+
+?> **接入地 址：**  `/fcs/find/records`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型  | 参数名      | 位置  | 必填|说明|
+| ------- |:--------:|:-----:|:-------:|:-------:|
+|  String    | familyId | Body| 非必填|用户要加入家庭的家庭ID和deviceId二选一|  
+|  String    | deviceId | Body| 非必填|用户要加入家庭的家庭ID和deviceId二选一|    
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| List<ApplicationInfoDto> | applicationInfoDtos  |   body  |  必填 | 用户申请记录 |
+
+
+
+ 2、请求样例  
+
+**用户请求**
+```
+https://{baseuri}/fcs/find/records
+
+{
+"deviceId":"04FA83D829C3"
+}
+
+
+
+```  
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"payload": {
+		"applicationInfos": [{
+			"applicationId": "123912983129873",
+			"userId": "123",
+			"familyId": "12345678",
+			"familyName": "family",
+			"applicationTime": "2020-12-09 00:00:00",
+			"applicationStatus": 1,
+			"applicationMessage": "家庭管理员已经同意加入家庭"
+		}],
+		"invitationInfos": [{
+			"invitationId": "123912983129873",
+			"userId": "123",
+			"familyId": "12345678",
+			"familyName": "family",
+			"invitationTime": "2020-12-09 00:00:00",
+			"invitationStatus": 1,
+			"invitationMessage": "当前用户已经同意加入该家庭",
+			"invitationCode": "123456",
+			"inviterName":"用户1234",
+			"inviterId":"1234567890"
+		}]
+	}
+}
+
+
+
+```
+
+ 3、错误码  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31137、E31138、 E31140、E31141、E31142、E31408
+
+
+
+
+
+
+
+
+
 [^-^]:常用图片注释
 [family_flow]:_media/_family/family_flow.png
