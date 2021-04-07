@@ -13,6 +13,7 @@
 > 家庭管理员添加家庭成员,分享家庭设备权限给成员，发送家庭成员添加家庭成员消息,支持memberId为临时的userid  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/familyMember`  
  **HTTP Method：** POST
 
@@ -77,6 +78,7 @@ Body:
  
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/{memberId}/familyMember`  
  **HTTP Method：** PUT
 
@@ -153,6 +155,7 @@ Body:
 > 家庭主人删除家庭成员,并解除成员在家庭中分享的设备关系，并收回成员分享给家庭的设备，发送删除家庭成员消息给家庭全体成员，记录消息推送结果到日志 
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/{memberId}/familyMember`  
  **HTTP Method：** DELETE
 
@@ -212,6 +215,7 @@ Content-type: application/json
 >家庭管理员或家庭成员查询家庭成员  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/familyMembers?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -311,6 +315,7 @@ Content-type: application/json
 >家庭管理员或家庭成员查询家庭成员 
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/{familyId}/allFamilyMembers?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -393,6 +398,7 @@ Content-type: application/json
 >精确查找用户信息，用于执行需要用户ID的场景，本次用户id有时效性，临时分配，有效期为1天，支持其他接口使用，在相关接口中有说明,同时屏蔽用户敏感信息,包含手机号,邮箱,登录名。
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/userInfo`  
  **HTTP Method：** POST
 
@@ -463,6 +469,7 @@ Body:
 >家庭管理员可以主动移交管理员角色，变更时，只能变更给当前家庭下其他家庭成员；变更完成时，家庭管理员变为家庭普通成员
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/changeAdmin`  
  **HTTP Method：** POST
 

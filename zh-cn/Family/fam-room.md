@@ -10,6 +10,7 @@
 >用户创建房间到家庭下，房间必须属于家庭  
 
  1、接口定义  
+
 ?> **接入地 址：**  `/ufm/v1/protected/roomService/addRoomInfo`  
  **HTTP Method：** POST
 
@@ -94,7 +95,9 @@ Body:
 
 ## 用户修改房间信息  
 >用户修改家庭下房间信息，有值的属性信息会被更新，为空或未配置的不填  
+
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/roomService/updateRoomInfo`  
  **HTTP Method：** POST
 
@@ -166,6 +169,7 @@ Body:
 > 用户删除家庭下的房间，用户为家庭成员或家庭管理员，房间必须没有设备才能被删除  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/roomService/delRoomInfo`  
  **HTTP Method：** POST
 
@@ -229,6 +233,7 @@ Body:
 > 家庭管理员或家庭成员查询用户房间下的设备信息列表，其他查询用户返回用户无权限  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/roomService/queryRoomDevices`  
  **HTTP Method：** POST
 
@@ -293,6 +298,7 @@ Content-type: application/json
 >查询家庭下的房间列表信息
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/roomInfoList`  
  **HTTP Method：** POST
 
@@ -372,6 +378,7 @@ Body:
 > 用户查询指定家庭下设备的房间位置信息。
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/deviceAndRoom`  
  **HTTP Method：** POST
 

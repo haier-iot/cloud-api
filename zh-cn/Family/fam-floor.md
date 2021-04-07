@@ -11,6 +11,7 @@
 
 
  1、接口定义  
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/addFloorInfo`  
  **HTTP Method：** POST
 
@@ -82,6 +83,7 @@
 
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/updateFloorInfo`  
  **HTTP Method：** POST
 
@@ -144,6 +146,7 @@
  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/delFloorInfo`  
  **HTTP Method：** POST
 
@@ -199,6 +202,7 @@
   
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/addRoomsToFloor`  
  **HTTP Method：** POST
 
@@ -274,6 +278,7 @@
 >家庭管理员或家庭成员查询家庭下指定楼层的房间信息列表
  
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/queryFloorRooms`  
  **HTTP Method：** POST
 
@@ -372,6 +377,7 @@
 > 家庭管理员或家庭成员查询家庭楼层设备信息。
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/floorService/queryFloorDevices`  
  **HTTP Method：** POST
 
@@ -462,6 +468,7 @@
 > 查询家庭下的楼层列表信息，按照floorOrderId排序
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/familyService/floorInfoList`  
  **HTTP Method：** POST
 

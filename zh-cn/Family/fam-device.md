@@ -12,6 +12,7 @@
 > 家庭管理员或家庭成员查询家庭成员分享给家庭的所有设备
 
  1、接口定义
+
 ?> **接入地址：**  `/ufm/v1/protected/shareDeviceService/family/{familyid}/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -132,6 +133,7 @@
 > 查询设备管理员分享给个人的所有设备  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ person/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -170,6 +172,7 @@
 > 查询设备管理员分享给家庭的所有设备   
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/shareDevices?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -263,6 +266,7 @@ online":false
 > 家庭成员查询分享给我的所有家庭设备
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/ family/shareDevices2me?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -375,6 +379,7 @@ online":false
 > 查询分享给我的所有个人分享设备
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/shareDevices2me?pageNumber={curpage}&pageSize={pageSize}`  
  **HTTP Method：** GET
 
@@ -484,6 +489,7 @@ online":false
 > 查询用户自有设备列表    
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/devices`  
  **HTTP Method：** GET
 
@@ -550,6 +556,7 @@ Content-type: application/json
  
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/shareDevice`  
  **HTTP Method：** POST
 
@@ -643,6 +650,7 @@ Body:
 > 用户取消分享给家庭的设备,收回分享给家庭用户的设备家庭权限，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志。同时，将设备转移到默认家庭的默认楼层的默认房间中，默认家庭由默认家庭逻辑指定。默认房间由wifiType配置决定，如果wifitype没有配置，则转移到客厅
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/{familyId}/manager/{devId}/shareDevice`  
  **HTTP Method：** DELETE
 
@@ -700,6 +708,7 @@ Content-type: application/json
 > 设备管理员取消分享给家庭的设备，发送取消家庭设备分享消息给家庭成员，记录消息发送结果到日志。默认房间由wifiType配置决定，如果wifitype没有配置，则转移到客厅
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/{familyId}/{devId}/shareDevice`  
  **HTTP Method：** DELETE
 
@@ -760,6 +769,7 @@ Content-type: application/json
 > 设备管理员分享设备给个人，发送分享个人设备消息给目标用户，记录消息发送结果到日志，支持targetId为临时的userid
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/{targetId}/shareDevice`  
  **HTTP Method：** POST
 
@@ -826,6 +836,7 @@ Content-type: application/json
 > 设备管理员取消用户分享，发送取消个人分享设备消息给目标用户，记录消息发送结果到日志, 支持targetId为临时的userid
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/ {targetId}/{devId}/shareDevice`  
  **HTTP Method：** DELETE
 
@@ -870,6 +881,7 @@ Content-type: application/json
 > 用户取消设备管理员分享给自己的设备
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/person/{devId}/shareDeviceToMe`  
  **HTTP Method：** DELETE
 
@@ -911,6 +923,7 @@ Content-type: application/json
 > 用户作为管理员或者作为家庭成员，如果是家庭成员，必须是设备管理员，拥有权限，可以修改设备信息，其中包含设备所在房间，设备在家庭中的昵称，设备分享权限，要修改的设备为一个或多个，这些设备都属于一个家庭，多个设备是，遇到失败，则本次操作中断。
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/updateShareDevice`  
  **HTTP Method：** POST
 
@@ -989,6 +1002,7 @@ Body：
 > 用户作为管理员或者作为家庭成员，修改设备所属房间信息
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/updateDevicesShareRoom`  
  **HTTP Method：** POST
 
@@ -1061,6 +1075,7 @@ Body：
 > 用户查询指定家庭下设备的房间位置信息
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/deviceAndRoom`  
  **HTTP Method：** POST
 
@@ -1150,6 +1165,7 @@ Body：
 
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/family/shareDeviceList`  
  **HTTP Method：** POST
 

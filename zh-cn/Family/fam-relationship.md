@@ -10,6 +10,7 @@
 > 被邀请用户通过验证时向本服务发送验证请求，验证成功后返回用户的真实UserId
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/personalService/invitation/verification`  
  **HTTP Method：** POST
 
@@ -72,6 +73,7 @@ Body:
 > 被邀请用户查询被邀请记录，保留时间可以和IOT商议，验证完成后不再保留    
 
  1、接口定义
+
 ?> **接入地 址：**  `/ufm/v1/protected/personalService/invitation/ records `  
  **HTTP Method：** GET
 
