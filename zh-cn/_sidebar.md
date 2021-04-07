@@ -35,7 +35,7 @@
 	* [设备型号信息](zh-cn/Device/)
 	* [设备拓扑关系](zh-cn/Device/)
 	* [设备网络信息](zh-cn/Device/)
-	* [设备功能标签](zh-cn/Device/)
+	* [设备功能标签](zh-cn/Device/label)
 	* [设备预约定时](zh-cn/Device/reservation)
 	* [设备耗材管理](zh-cn/Device/supplies)	
 	* [设备音视频服务](zh-cn/Device/audio-video)
