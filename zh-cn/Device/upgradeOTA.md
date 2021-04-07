@@ -92,18 +92,18 @@
 
 
 [^-^]:常用图片注释
-[pic1]:../_media/_OTA/pic1.png
-[pic2]:../_media/_OTA/pic2.png
-[pic3]:../_media/_OTA/pic3.png
-[pic4]:../_media/_OTA/pic4.png
-[pic5]:../_media/_OTA/pic5.png
-[pic6]:../_media/_OTA/pic6.png
-[pic7]:../_media/_OTA/pic7.png
-[pic8]:../_media/_OTA/pic8.png
-[pic9]:../_media/_OTA/pic9.png
-[pic10]:../_media/_OTA/pic10.png
-[pic11]:../_media/_OTA/pic11.png
-[pic12]:../_media/_OTA/pic12.png
-[pic13]:../_media/_OTA/pic13.png
+[pic1]:../Device/_media/_OTA/pic1.png
+[pic2]:../Device/_media/_OTA/pic2.png
+[pic3]:../Device/_media/_OTA/pic3.png
+[pic4]:../Device/_media/_OTA/pic4.png
+[pic5]:../Device/_media/_OTA/pic5.png
+[pic6]:../Device/_media/_OTA/pic6.png
+[pic7]:../Device/_media/_OTA/pic7.png
+[pic8]:../Device/_media/_OTA/pic8.png
+[pic9]:../Device/_media/_OTA/pic9.png
+[pic10]:../Device/_media/_OTA/pic10.png
+[pic11]:../Device/_media/_OTA/pic11.png
+[pic12]:../Device/_media/_OTA/pic12.png
+[pic13]:../Device/_media/_OTA/pic13.png
 
 
