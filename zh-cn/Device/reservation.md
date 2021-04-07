@@ -1212,7 +1212,7 @@ Body:
 
 
 [^-^]:常用图片注释
-[scheduler_type]:../_media/_scheduler/scheduler_type.png
-[scheduler_liucheng]:../_media/_scheduler/scheduler_liucheng.png
-[scheduler_flow]:../_media/_scheduler/scheduler_flow.png
+[scheduler_type]:../Device/_media/_scheduler/scheduler_type.png
+[scheduler_liucheng]:../Device/_media/_scheduler/scheduler_liucheng.png
+[scheduler_flow]:../Device/_media/_scheduler/scheduler_flow.png
 
