@@ -130,11 +130,14 @@ String getSign(String systemId, String systemKey, String timestamp) {
 取消订阅，则删除订阅关系，服务端返回客户端取消响应结果。  
 
 
-### 建立连接  
+### 建立连接
+
+**使用说明**
+  
 > 提供建立连接的功能。客户端发起连接请求，数据订阅系统会对客户端连接请求进行鉴权后，建立与客户端的连接。   
 > 客户端发起连接请求，请求时携带对应应用的systemId和systemKey签名信息进行鉴权，鉴权成功返回鉴权结果，鉴权失败，则返回错误信息并断开连接。 
 
-##### 1、接口定义
+**接口描述**
 ?> **接入地址：** `/wssubscriber/msgplatform/websocket`</br>
 
 **输入参数**
@@ -153,7 +156,7 @@ isSubscribeEarliestMessage|String|url|选填|决定该链接对应的收消息�
 cmd|String|body|必填|操作说明
 data|String|body|必填|响应结果
 
-##### 2、请求样例
+**示例**
 
 **请求地址**
 
@@ -177,7 +180,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 ```
 
-##### 3、状态码
+**状态码**
 
 状态码|描述 
 :-|:-
@@ -185,13 +188,14 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 00001|失败
    
 
-### 订阅接口  
+### 订阅接口
+
+**使用说明**
+  
 > 订阅指定topic消息，消息订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发送订阅，如果失败，则无法进行订阅。  
 
-  
-
-##### 1、接口定义  
-######	按typeId订阅
+**接口描述**  
+**按typeId订阅**
 客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
 ```java  
@@ -309,7 +313,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 注意发起订阅命令JSON时，整体`*`和`0*`或`1*`或`2*`约定不能同时存在，`0*`和`1*`和`2*`可以同时存在，但其意义等价于整体`*`，所以最好还是用整体`*`简洁些。
 
-######	按deviceId订阅
+**按deviceId订阅**
 
 客户端向云端发送的JSON字符串格式数据如下（`0007A8B70158`,`0007A8B70159` ,`101c1200240008101e0a00000141414100000000020000000000000000000000`、为示例数据）：
 ```
@@ -357,18 +361,20 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 注：因为mac从业务角度划分已经是最细粒度，按通配符订阅无实际意义，所以这里约定暂不支持*号通配符订阅；
 
 
-
-##### 2、错误码
+**错误码**
 
 > 34001,34002,34003,34004,34005,34006,34999
 
 
-### 取消订阅接口  
+### 取消订阅接口
+
+**使用说明**
+  
 > 取消订阅指定topic消息，取消订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发取消订阅，如果失败，则无法进行取消订阅。
 
 
-##### 1、接口定义  
-######	按typeId取消订阅
+**接口描述**
+**按typeId取消订阅**	
 按typeId取消订阅和按typeId订阅中的JSON字符串格式数据结构一致，只是将JSON字符串格式数据结构中的subscribe关键字换成unsubscribe关键字即可，如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：
 ``` 
 {
@@ -408,7 +414,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 备注：订阅端一次最多能发起500个待取消的订阅关系（约typeId数乘以topic数）。
 
 
-#####  按deviceId取消订阅
+**按deviceId取消订阅** 
 
 按deviceId取消订阅情况和按deviceId订阅中的消息结构基本一致，只是将JSON字符串格式数据结构中的subscribe关键字换成unsubscribe关键字即可，这里不再列举，此外按deviceId也不支持按通配符取消订阅；
 
@@ -416,7 +422,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 
 
-##### 2、错误码
+**错误码**
 
 > 34001,34002,34003,34004,34005,34006,34999  
 
@@ -424,10 +430,12 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 ### 查询当前system的订阅关系 
 
+**使用说明**
+
 > 查询当前云应用的所有订阅关系，必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发起请求，如果失败，则无法进行操作。
 
 
-##### 1、接口定义  
+**接口描述** 
 
 客户端向云端发送的JSON字符串格式数据如下： 
 
@@ -437,10 +445,7 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
   "cmd": "searchSystem"
 }
 
-
 ```
-
-
 
 云端向客户端返回当前system的订阅关系的响应JSON字符串格式数据如下（`0007A8B70158、0007A8B70159、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
@@ -475,14 +480,15 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 
 ```
 
-##### 2、错误码
+**错误码**
 
 > 34001,34002,34003,34004,34005,34006,34999  
 
 
 
+### 关闭连接功能
 
-### 关闭连接功能  
+**使用说明**  
 
 > 关闭连接具体无交互接口，只需客户端关闭session即可。  
 
@@ -618,8 +624,6 @@ return true;
 
 ```
 
-
-
 ####  5、 查询当前客户对应的systemId下的所有订阅关系 	
 
 ```java
@@ -639,7 +643,6 @@ try {
 return true;
 
 ```
-
 
 #### 6、 关闭当前客户端连接
 
@@ -661,7 +664,7 @@ return true;
 
 注：如果每次建立连接后只是进行查询等一次性操作（即不需要连接长时间保留），则建议操作完后关闭当前链接，同时不建议使用心跳。  
 
-####  8、 整示例代码（可复用）
+####  7、 整示例代码（可复用）
 
 代码功能：  
 (1)	支持Client端订阅消息。
@@ -948,7 +951,6 @@ public class TextEncoder  implements Encoder.Text<String>{
 }
 
 ```
-
 
 
 ### 自动重连机制    
