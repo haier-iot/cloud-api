@@ -4,6 +4,19 @@
 业务方使用UWS服务，必须在海极网（ http://www.haigeek.com/ ）上提前创建应用，不同业务，创建不同应用；
 应用上线需要经过海极网审核认证，未经过审核认证的服务，海极网有权随时下线该应用访问UWS服务权限；
 
+## 接入协议    
+
+对外提供的服务统一使用HTTPS协议，默认使用443端口， 在服务端使用TSL进行单向加解密处理。服务调用方在进行调用时，无需下载或安装证书。
+
+## 接入地址    
+
+
+> 国内平台环境域名：`https://uws.haier.net`  
+> 东南亚平台环境域名：`https://uws-sea.haieriot.net`  
+> 北美平台环境域名：`https://uws-gea-us.haieriot.net`  
+> 欧洲平台环境域名:`https://uws-euro.haieriot.net`
+
+
 
 ## 安全规范
 

@@ -74,3 +74,17 @@ String BinaryToHexString(byte[] bytes) {
 }
 
 ```
+
+```
+//计算签名示例
+
+public static void main(String[] args)  {
+		
+
+		String ss = getSign("MB-DEMO-0000","504f37c39bb062a789b28598fe94d9d8","1614331048386","{\"deviceId\":\"2C37C530B5F1\"}","https://uws.haier.net/shadow/v1/info");
+		System.out.println(ss);
+
+			} //计算出的ss为7e5ffbf921dabc9dc3db657c4d2fdb7c990444380d638973f26762722d7b09d2
+
+
+```
