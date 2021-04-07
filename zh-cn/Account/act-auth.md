@@ -706,6 +706,212 @@ D00016|你已退出或尚未登录|
 
 
 
+## 设备授权
+	
+### 介绍
+
+语音WIFI模块设备（如遥控器），需要用户绑定设备时，自动获取用户授权，以便用户可对遥控器对话，控制用户名下其他设备；若用户不进行授权，则无法使用遥控器语音设备进行控制其他设备；
+
+
+>说明：
+>
+>1、被授权方应是一个应用（海极网），可是海极网的服务提供者，或应用开发者；<br/>
+2、用户绑定设备，自动认为用户已同意授权应用方获取用户授权信息；<br/>
+3、应用通过deviceId获取用户授权信息 前提：1）设备商定义开放应用访问设备授权（typeId+systemId） 2）用户已经绑定具体deviceId设备；<br/>
+4、用户绑定设备若不同意授权，则应用使用deviceid获取用户授权时，反馈授权失败信息；<br/>
+5、用户解绑设备，设备厂商+用户授权 自动解除授权；
+
+
+
+
+### 授权服务接口
+
+**1. 获取授权token**
+
+> 通过授权码获取设备授权token请求头携带AI云server的 systemId，clientId（设备的deviceId），签名，body中携带授权码；获取设备授权token</br>
+> 前置条件：AI云server接收IOT用户系统的授权码
+
+**接口描述**
+
+?> **接入地 址：**  `/uaccount/v3/auth/deviceAuthToken `  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| code     | String | Body| 是|会话分享验证码|
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  |  String  |   Body   | 是| 安全令牌  |
+|  refreshToken  |  String  |   Body   | 是| 刷新令牌  |
+|  scope  |  String  |   Body   | 是| 访问资源的范围，默认auth_default  |
+|  expire  |  String  |   Body   | 是| 有效期 ，单位秒  |
+
+
+
+**请求示例**  
+
+
+```  
+POST https://uws.haier.net/uaccount/v3/auth/deviceAuthToken
+
+POST data: 
+{"code":"783uy5758345353595tyttwtyh934753753" }
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+systemId: SV-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+Content-Encoding: utf-8
+Content-type: application/json
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+```  
+
+**请求应答**
+
+```
+{"retCode":"00000","retInfo":"成功
+","refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00","scope":"all","expire":"2160000"}
+
+
+```
+
+**2. 会话刷新**
+
+> accessToken过期后，可以使用对应的refreshToken获取新的accessToken</br>
+> 前置条件：获取有效的授权，包括accessToken和refreshToken
+
+**接口描述**
+
+?> **接入地 址：**  `/uaccount/v3/auth/token  `  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+| refreshToken     | String| Body| 是|用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken|
+| grantType     | String| Body| 是|授权方式 ，当前默认为refresh_token|
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  accessToken  |  String  |   Body   | 是| 安全令牌  |
+|  refreshToken  |  String  |   Body   | 是| 刷新令牌  |
+|  scope  |  String  |   Body   | 是| 访问资源的范围，默认auth_default  |
+|  expire  |  String  |   Body   | 是| 有效期 ，单位秒  |
+
+
+
+**请求示例**  
+
+
+```
+POST https://uws.haier.net/uaccount/v3/auth/token
+
+POST data:
+{"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","grantType":"refresh_token"}
+
+[no cookies]
+
+Request Headers:
+Connection: keep-alive
+systemId: SV-TEST-0000
+appVersion: 2.4.0
+clientId: 123
+sequenceId: 20161020153428000015
+sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+timestamp: 1533882163013 
+language: en
+timezone: +8
+Content-Encoding: utf-8
+Content-type: application/json
+privacyVersion: V1.0.0
+Content-Length: 385
+Host: 10.2.0.16:6353
+User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+
+
+```  
+
+**请求应答**
+
+```
+{"retCode":"00000","retInfo":"成功
+","refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00","scope":"auth_app","expire":"2160000"}
+
+```
+**3. 回调服务接口**
+
+?> 接收授权码回调接口服务，由需要开通设备授权的业务开发方按接口定义要求开发服务，部署服务并提供外网访问服务URL地址给到IoT平台进行配置授权。
+
+
+**接口描述**
+
+?> **接入地 址：**  `由设备开发者定义  `  
+ **HTTP Method：** GET
+
+**输入参数**  
+
+| 参数名        | 类型          | 位置  | 必填|说明|
+| ------------- |:-------------:|:-----:|:-------------:|:-----:|
+|timestamp|	long |	Header|	是	|Unix时间戳，精确到毫秒。|
+|sign|	String	|Header|	是	|对请求进行签名运算产生的签名，签名规则详见下sign签名算法。|
+|code|	String |	param|	是	|授权码|
+|systemId|	String |	param|	是	|回调云server 的systemId|
+|deviceId|	String |	param|	是	|设备ID|
+|typeId|	String |	param|	是	|设备类型ID|
+
+**输出参数**  
+
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String  |   Body   | 是| 返回码（其中00000代表请求成功）  |
+|  retInfo  |  String  |   Body   | 是| 用于调试的返回信息，不支持国际化，也不能直接显示在UI上  |
+|  sn  |  String  |   Body   | 是| 请求唯一标识码，由云端生成  |
+
+
+
+
+
+**请求示例**
+```
+Header：
+sign:bd4495183b97e8133aeab2f1916fed41
+timestamp:1446639090139
+GET
+http://********/oauth/iot/callback?code=**&systemId=**& deviceId=***&typeId=***
+
+
+```
+
+**请求应答**
+```
+{
+  "retCode": "00000",
+  "retInfo": "操作成功",
+"sn":"123456789",
+  "data": null
+}
+
+
+```
+
 
 
 [^-^]:常用图片注释
