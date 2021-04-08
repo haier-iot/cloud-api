@@ -33,6 +33,7 @@
 	* [设备分享](zh-cn/Device/dev-share)
 	* [设备管理](zh-cn/Device/dev-mgmt)
 	* [设备控制](zh-cn/Device/dev-control)
+	* [设备数据查询](zh-cn/Device/dataquery)
 	* [设备型号信息](zh-cn/Device/dev-model)
 	* [设备拓扑关系](zh-cn/Device/dev-topology)
 	* [设备网络信息](zh-cn/Device/NetInfo)
