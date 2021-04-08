@@ -31,7 +31,7 @@
 	（3）虚拟成员数：一个家庭下最多20个虚拟成员。
 
 
-** AuthInfo ** 
+**AuthInfo** 
 描述权限内容信息结构。   
   
 | **名称** | 权限内容信息，至少一项为true |&emsp;| AuthInfo |   
@@ -41,7 +41,7 @@
 |set| Boolean | 是否有配置权限 ||  
 |control| Boolean | 是否有控制权 |&emsp;|    
 
-** QueryInfo**  
+**QueryInfo**  
 描述查询条件的接口。  
  
 | **名称** | 查询条件对象 | &emsp; | QueryInfo |  
