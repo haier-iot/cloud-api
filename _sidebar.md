@@ -19,7 +19,6 @@
 
 * [家庭类服务](#)  
 	* [介绍](zh-cn/Family/fam-intro)  
-	* [公共参数](zh-cn/Family/fam-common)  
 	* [家庭管理](zh-cn/Family/fam-manage) 
 	* [楼层管理](zh-cn/Family/fam-floor)
 	* [房间管理](zh-cn/Family/fam-room)
