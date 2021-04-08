@@ -66,6 +66,9 @@
 	* [介绍](zh-cn/Device-dev/Introduce) 
 	* [物联模组类](#)
 	* [设备SDK类](#)
+		* [Linux](zh-cn/Device-dev/dev-linux)
+		* [Android](zh-cn/Device-dev/dev-android)
+		* [RTOS](zh-cn/Device-dev/dev-rtos)	
 	* [云设备类](#)
 	* [云云对接类](#)
 
