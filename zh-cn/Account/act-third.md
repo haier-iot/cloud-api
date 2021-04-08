@@ -177,4 +177,4 @@ Content-Length: 27
 
 [^-^]:常用图片注释
 [haigeek]:(http://www.haigeek.com)
-[thirdpartUserCheck]:../_media/_account/thirdpartUserCheck.png
+[thirdpartUserCheck]:../Account/_media/_account/thirdpartUserCheck.png

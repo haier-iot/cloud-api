@@ -915,14 +915,14 @@ http://********/oauth/iot/callback?code=**&systemId=**& deviceId=***&typeId=***
 
 
 [^-^]:常用图片注释
-[pic1]:../_media/_account/pic1.jpg
-[pic2]:../_media/_account/pic2.png
-[pic3]:../_media/_account/pic3.png
-[pic4]:../_media/_account/pic4.png
-[pic5]:../_media/_account/pic5.png
-[pic6]:../_media/_account/pic6.png
-[pic7]:../_media/_account/pic7.png
-[pic8]:../_media/_account/pic8.jpg
+[pic1]:../Account/_media/_account/pic1.jpg
+[pic2]:../Account/_media/_account/pic2.png
+[pic3]:../Account/_media/_account/pic3.png
+[pic4]:../Account/_media/_account/pic4.png
+[pic5]:../Account/_media/_account/pic5.png
+[pic6]:../Account/_media/_account/pic6.png
+[pic7]:../Account/_media/_account/pic7.png
+[pic8]:../Account/_media/_account/pic8.jpg
 
-[session1]:../_media/_account/session1.png
-[session2]:../_media/_account/session2.png
+[session1]:../Account/_media/_account/session1.png
+[session2]:../Account/_media/_account/session2.png
