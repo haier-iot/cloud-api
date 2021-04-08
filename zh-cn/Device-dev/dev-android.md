@@ -14,4 +14,4 @@
 
 ## 历史版本
 
-[p1]:media/android/p1.png
+[p1]:_media/_android/p1.png
