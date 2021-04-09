@@ -570,7 +570,7 @@ AbsSmartDevice mOnlineDevice = SmartDeviceManager.getInstance().getOnlineDeviceB
 
 ```
 /**
- * token  登录 U+帐号系统后返回的令牌
+ * token  登录 U+ 帐号系统后返回的令牌
  * 60     绑定超时时间，单位:秒
  */
 mOnlineDevice.bindDevice(java.lang.String token, 60, new ICallback<Void>() {
@@ -578,7 +578,7 @@ mOnlineDevice.bindDevice(java.lang.String token, 60, new ICallback<Void>() {
     /*为SDK方法执行成功的回调，不是绑定业务的执行结果*/
      @Override
      public void onSuccess(Void result) {
-        String msg = "绑定  device: " + mOnlineDevice.getDeviceId() + " sucess";
+        String msg = "绑定 device: " + mOnlineDevice.getDeviceId() + " sucess";
     }
     
     /*为SDK方法执行失败的回调，需根据返回错误码进行处理*/
@@ -590,9 +590,8 @@ mOnlineDevice.bindDevice(java.lang.String token, 60, new ICallback<Void>() {
 ```
   
   
-> **这里的onSuccess回调为 SDK 方法的执行结果，不是绑定业务的执行结果**   
-> 
-> **绑定业务的执行结果，在 SmartDeviceListener 类的 onDeviceBindCallback 回调方法中**
+> 这里的onSuccess回调为 SDK 方法的执行结果，**不是绑定业务的执行结果**。   
+> 绑定业务的执行结果，在 SmartDeviceListener 类的 onDeviceBindCallback 回调方法中。
 
 ```
 /**
@@ -664,9 +663,6 @@ public void addSmartDeviceVideoListener(ISmartDeviceVideoListener listener) {
 
 ```
 
-
-
-
 **10.2 对象音视频初始化**
 
 ```
@@ -677,9 +673,30 @@ public void addSmartDeviceVideoListener(ISmartDeviceVideoListener listener) {
 public void initIotVideo(java.lang.String path, <any> cb)
 ```
 
-
 ## 历史版本
 
+- **SmartDevice SDK 6.0.0**
+
+**更新日志**  
+1. 支持A级安全；  
+2. 支持P2P音视频功能，包含语音对讲和视频监控；  
+3. 支持报警事件的上报。  
+
+**开发工具**  
+
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
+
+- **SmartDevice SDK 5.5.0** 
+
+**更新日志**  
+1. 集成最新的海外多证书；  
+2. 支持网关类设备；  
+3. 支持P2P图片资源的上报；  
+4. 支持FOTA升级；  
+
+**开发工具**  
+
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
 
 [p1]:_media/_android/p1.png
 [p2]:_media/_android/p2.png
