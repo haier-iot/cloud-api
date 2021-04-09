@@ -42,6 +42,7 @@
 	* [设备音视频服务](zh-cn/Device/audio-video)
 	* [设备数据订阅](zh-cn/Device/datasubscription)	
 	* [设备OTA升级](zh-cn/Device/upgradeOTA)
+	* [设备管理-非网器](zh-cn/Device/dev-unconnected)
 	* [设备管理-三方云](zh-cn/Device/cloud-3rd)
 
 
@@ -77,7 +78,7 @@
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
 	* [云设备类](#)
-	* [云云对接类](#)
+	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
 * [应用开发<sup style="color:red">(new)<sup>](zh-cn/App-dev)
