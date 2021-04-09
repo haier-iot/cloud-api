@@ -9,8 +9,7 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 ## 基本功能
 
 **设备接入功能**  
-
-主要的业务功能包括：  
+ 
 &emsp;&emsp;启动/停止 SDK  
 &emsp;&emsp;添加/删除设备  
 &emsp;&emsp;属性和报警上报  
@@ -18,17 +17,16 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 &emsp;&emsp;开启绑定时间窗  
 &emsp;&emsp;设备自绑定  
 &emsp;&emsp;P2P 音视频功能，包含语音对讲和视频录制  
-&emsp;&emsp;支持 FOTA 升级等
+&emsp;&emsp;支持 FOTA 升级
 
 **设备控制功能**
-
-主要的业务功能包括：  
+ 
 &emsp;&emsp;设备入网功能  
 &emsp;&emsp;设备搜索功能  
 &emsp;&emsp;设备控制功能  
-&emsp;&emsp;状态变化主动上报功能  
-&emsp;&emsp;报警信息上报功能等  
-&emsp;&emsp;结合 uSDK 为设备实现授权，从而和帐号下的设备交互
+&emsp;&emsp;状态变化主动上报  
+&emsp;&emsp;报警信息上报  
+&emsp;&emsp;结合 uSDK 为设备实现授权，从而和帐号下的其他设备交互
 
 
 ## 开发文档
@@ -36,17 +34,17 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 
 ### 设备接入
 
-> 创建功能集时接入方式选择设备 **SDK(Android)**  
+**创建功能集时接入方式选择** 设备 SDK(Android)
 
 ![图片][p2]
 
 
-> 记录生成的设备唯一标识 **typeID** 和 **DeviceKey**  
+**记录生成的设备唯一标识** typeID **和** DeviceKey  
 
 ![图片][p3]
 
 
-> 记录生成的 **成品编码**  
+**记录生成的** 成品编码  
 
 ![图片][p4]
 
@@ -55,7 +53,7 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 
 **1. 设置日志级别**
 
-默认不输出日志，开发人员需要通过设置日志级别接口，才能输出不同级别的日志。  
+默认不输出日志，开发人员需要通过添加设置日志级别接口，才能输出不同级别的日志。  
 > 开发过程中建议使用 USDK_LOG_DEBUG，上线产品建议使用 USDK_LOG_ERROR。
 
 
