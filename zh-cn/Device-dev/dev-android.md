@@ -70,7 +70,7 @@ uSDKManager.getSingleInstance().initLog(uSDKLogLevelConst.USDK_LOG_DEBUG, false,
 ```  
 
 **2. 启动、停止服务**
-> 推荐在 Application 对象实现中执行
+> 建议在 Application 对象实现中执行
 
 - 启动服务
   
@@ -114,18 +114,16 @@ mSmartDeviceManager.startService(startOption, new ICallback() {
 - 停止服务  
 
   App 退出前或者不需要使用 SmartDevice SDK 功能时需要停止 SDK，主线程调用即可  
-  停止 SDK 前需删除已注册上线的设备
+  **停止 SDK 前需删除已注册上线的设备**
 
 
 ```
-mSmartDeviceManager.stopService
+mSmartDeviceManager.stopService()
 ```
-
-
 
 **3. 注册、上线、删除设备**  
 
-开发者需要根据在海极网创建的硬件产品信息创建 AbsSmartDevice  设备实例，然后调用注册上线设备方法将设备实例接入到 U+平台中。
+开发者需要根据在[海极网](https://www.haigeek.com/)创建的硬件产品信息创建 AbsSmartDevice  设备实例，然后调用注册上线设备方法将设备实例接入到 U+平台中。
 
 注册上线成功的设备是可授权设备，通过移动端 SDK  对此设备进行授权后，具备控制其他设备的能力。
 
@@ -188,7 +186,6 @@ GatewayDevice gatewayDevice = new GatewayDevice.Builder()
                                                .builder();
                                   
 SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallback<String>() {
-    
     /*设备上线成功*/
     @Override
     public void onSuccess(String result) {
@@ -296,7 +293,7 @@ SmartDeviceManager.getInstance().generalDeviceOnline(generalDevice, new ICallbac
 
 **3.5 删除设备**
 
-开发者不需要使用设备接入功能或需要退出 APP 之前，需要将之前添加的设备实例从 SDK  中移除，可以有效减少资源消耗。
+当不需要使用设备接入功能或需要退出 APP 之前，需要将之前添加的设备实例从 SDK  中移除，可以有效减少资源消耗。
 
 ```
 USmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
@@ -315,10 +312,9 @@ USmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
 
 **4. U+ 云连接状态**
 
-当注册上线设备成功后，SDK  会与云平台建立数据通路进行数据交互，连接状态发生变化时会通过回调通知 App。
-开启绑定时间窗、属性状态上报、大数据上报、报警上报等各项功能都依靠云通信，所以需要重点关注和云连接状态。
+当注册上线设备成功后，SDK  会与云平台建立数据通路进行数据交互，连接状态发生变化时会通过回调通知 App。开启绑定时间窗、属性状态上报、大数据上报、报警上报等各项功能都依靠云通信，需要特别关注和云连接状态。
 
-> SDK和云的连接是免维护的，自带重连机制。
+> **SDK和云的连接是免维护的，自带重连机制。**
 
 实现IUSmartDeviceManagerListener  接口并注册该接口得到连接状态信息。
   
@@ -333,7 +329,6 @@ public void onCloudState(int state) {
 ```
 
 
-
 **5. 设备数据上报**
 
 > SDK 与 U+ 云平台成功建立数据通路后，连接状态变为 251，此时可以通过 SDK  上报设备的属性状态、大数据、报警等信息。
@@ -342,7 +337,7 @@ public void onCloudState(int state) {
 
 > 每次上报的都是属性全集，不能单个属性上报。
 
-具体的属性名和属性值参考在[海极网](https://www.haigeek.com/)中创建的硬件设备的属性集合。  
+具体的属性名和属性值参考在海极网中创建的硬件设备的属性集合。  
 
 此操作的数据上报成功与否依赖 **网络连接** 及 **SDK和云的连接状态**，执行前应进行相应的状态判断。
 
@@ -374,7 +369,7 @@ mSmartDevice.reportStatus(pairList, new IuSDKCallback() {
 
 > 根据业务需求可以一次上报单个报警，也可以上报多个报警。
 
-具体的报警属性名和属性值需要参考在[海极网](https://www.haigeek.com/)中创建的硬件设备的报警属性集合。
+具体的报警属性名和属性值需要参考在海极网中创建的硬件设备的报警属性集合。
 
 此操作的数据上报成功与否依赖 **网络连接** 及 **SDK和云的连接状态**，执行前应进行相应的状态判断。
 
@@ -401,7 +396,7 @@ mSmartDevice.reportAlarm(pairList, new IuSDKCallback() {
 
 **5.3 设备大数据上报**
 
-具体的大数据内容需要参考在[海极网](https://www.haigeek.com/)中创建的硬件设备的大数据。
+具体的大数据内容需要参考在海极网中创建的硬件设备的大数据。
 
 此操作的数据上报成功与否依赖 **网络连接** 及 **SDK和云的连接状态**，执行前应进行相应的状态判断。
 
@@ -427,7 +422,6 @@ try{
 } catch (JSONException e) {
     e.printStackTrace();
 }
-
 mSmartDevice.reportBigData(type, Base64.encodeToString(bigData.getBytes(), Base64.NO_WRAP), new IuSDKCallback() {
     @Override
     public void onCallback(uSDKErrorConst errorConst) {
@@ -444,23 +438,19 @@ mSmartDevice.reportBigData(type, Base64.encodeToString(bigData.getBytes(), Base6
 
 **6. 开启绑定时间窗口**
 
-对 SmartDevice 接入设备进行控制或获取设备属性时，首先需要开启 SmartDevice 接入设备的绑定时间窗，然后使用移动端 APP  对接入设备进行安全绑定。
-移动端 App 绑定成功后，才能和 SmartDevice  接入设备进行交互。
-
-设备端开启绑定时间窗成功后，移动端 APP 可以开始设备安全绑定  
+当移动端 APP 要对 SmartDevice 接入设备进行控制或获取设备属性时，首先需要开启 SmartDevice 接入设备的绑定时间窗，设备端开启绑定时间窗成功后，移动端 APP 可以开始设备安全绑定。绑定成功后才能和 SmartDevice 接入设备进行交互。  
 
 
-> 开启绑定时间窗功能需要访问 U+云，所以调用此方法前需要保证网络畅通，能够正常访问外网。  
+> 开启绑定时间窗功能需要访问 U+ 云，所以调用此方法前需要保证网络畅通，能够正常访问网络。  
 > 
 > **和 U+ 云的连接状态变为 251  时，才能调用开启绑定时间窗方法**。
 > 
-> 每次开启有效时间为 20 分钟。  
+> 每次开启有效时间为 **20 分钟**。  
 移动端 APP 需要在 20 分钟内完成安全绑定功能，超过 20 分钟设备端需要重新开启时间窗。
 > 
 > 建议开启绑定时间窗时，增加重试策略，直到开启成功为止。
   
   
-
 ```
 /**
  * timeOut  方法请求的超时时间，建议 5-10 秒
@@ -474,18 +464,19 @@ if（cloudConnectState != 251）{
 while(flag&&retryTimes > 0){
     retryTimes--;
     mSmartDevice.bindWindow(timeOut, new IuSDKCallback() {
-    @Override
-    public void onCallback(uSDKErrorConst errorConst) {
-        String msg;
-        if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-            msg = "开启绑定时间窗成功";
-            retryTimes=-1;
-            flag =false;
-        } else {
-            msg = "开启绑定时间窗失败：" + errorConst;
+        @Override
+        public void onCallback(uSDKErrorConst errorConst) {
+            String msg;
+            if (uSDKErrorConst.RET_USDK_OK == errorConst) {
+                msg = "开启绑定时间窗成功";
+                retryTimes=-1;
+                flag =false;
+            } else {
+                msg = "开启绑定时间窗失败：" + errorConst;
+            }
         }
-    }
-});
+    });
+}
 ```
 
 **7. 处理接收到控制命令**
@@ -500,8 +491,8 @@ SmartDevice 接入设备接收到读属性命令时，需要实现 IUSmartDevice
 
 ```
 /**
- * 读属性回调：通过该接口可以获取指定设备的属性
- * 读属性应答：执行读属性回调后需调用此接口将结果返回给 uGW server
+ * 读属性回调: 通过该接口可以获取指定设备的属性
+ * 读属性应答: 执行读属性回调后需调用此接口将结果返回给 uGW server
  */
 public USmartReadRsp onDeviceReadCallback(String devId, int reqSn, String name) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
@@ -523,8 +514,8 @@ SmartDevice 接入设备接收到单命令或写属性命令时，需要实现 I
 
 ```
 /**
- * 写属性回调：通过该接口可以更新接入设备的可写属性
- * 写属性应答：执行写属性回调后需调用此接口将结果返回给 uGW server
+ * 写属性回调: 通过该接口可以更新接入设备的可写属性
+ * 写属性应答: 执行写属性回调后需调用此接口将结果返回给 uGW server
  */
 public UBaseSmartRsp onDeviceWriteCallback(String devId, int reqSn, String name, String value) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
@@ -546,11 +537,10 @@ SmartDevice 接入设备接收到组命令或操作命令时，需要实现 IUSm
 
 ```
 /**
- * 操作性回调：通过该接口可以更新接入设备的可操作属性
- * 操作性应答：执行操作回调后需调用此接口将结果返回给 uGW server
+ * 操作性回调: 通过该接口可以更新接入设备的可操作属性
+ * 操作性应答: 执行操作回调后需调用此接口将结果返回给 uGW server
  */
-public USmartOpRsp onDeviceOpCallback(String devId, int reqSn, 
-                                String opName, List<USmartDevicePair> pairList) {
+public USmartOpRsp onDeviceOpCallback(String devId, int reqSn, String opName, List<USmartDevicePair> pairList) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
     if (null == device) {
         USmartOpRsp opRsp = new USmartOpRsp(reqSn);
@@ -694,10 +684,6 @@ public void initIotVideo(java.lang.String path, <any> cb)
 
 
 ### 注意事项
-
-1.
-
-2.
 
 
 
