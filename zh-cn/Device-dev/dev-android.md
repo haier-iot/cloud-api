@@ -8,7 +8,7 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 
 ## 基本功能
 
-**设备接入功能**  
+**设备接入**  
  
 &emsp;&emsp;启动/停止 SDK  
 &emsp;&emsp;添加/删除设备  
@@ -19,7 +19,7 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 &emsp;&emsp;P2P 音视频功能，包含语音对讲和视频录制  
 &emsp;&emsp;FOTA 升级
 
-**设备控制功能**
+**设备控制**
  
 &emsp;&emsp;设备入网  
 &emsp;&emsp;设备搜索  
@@ -28,6 +28,9 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 &emsp;&emsp;报警信息上报  
 &emsp;&emsp;结合 uSDK 为设备实现授权，从而和帐号下的其他设备交互
 
+**场景控制**  
+
+&emsp;&emsp;离线控制 
 
 ## 开发文档
 
@@ -128,11 +131,7 @@ mSmartDeviceManager.stopService
 
 > 若网络不可用情况下，调用此接口可以执行成功，但设备无法与 U+云进行网络连接及数据通信。程序内部会不断尝试与 U+云建立连接。
 
-  
-    
-    
-<span id="3.1"> </span>
-<a id="jump"> </a>
+<a id="3.1"> </a>
 **3.1 注册、上线网关设备**  
 
 - 网关设备注册
@@ -203,7 +202,8 @@ SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallbac
     }
 });
 ```
-  
+ 
+<a id="3.2"> </a> 
 **3.2 注册、上线子设备** 
 
 - 子设备注册  
@@ -276,7 +276,7 @@ SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallbac
 
 **3.3 注册、上线附件设备**
 
-接口流程及参数参考 [3.2 注册、上线子设备](#jump)
+接口流程及参数参考 [3.2](#3.2)
 ```
 SmartDeviceManager.getInstance().registerAnnexDevice(registerAnnexDevice, new ICallback<RegisterResult>())
         
@@ -292,7 +292,7 @@ SmartDeviceManager.getInstance().registerGeneralDevice(registerGeneralDevice, ne
 SmartDeviceManager.getInstance().generalDeviceOnline(generalDevice, new ICallback<String>())
 ```
 
-接口流程及参数可参考 [3.1 注册、上线网关设备](#3.1)
+接口流程及参数可参考 [3.1](#3.1)
 
 **3.5 删除设备**
 
@@ -313,14 +313,69 @@ USmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
 });
 ```
 
+**4. U+ 云连接状态**
+
+当注册上线设备成功后，SDK  会与云平台建立数据通路进行数据交互，连接状态发生变化时会通过回调通知 App。
+开启绑定时间窗、属性状态上报、大数据上报、报警上报等各项功能都依靠云通信，所以需要重点关注和云连接状态。
+
+> SDK和云的连接是免维护的，自带重连机制。
+
+实现IUSmartDeviceManagerListener  接口并注册该接口得到连接状态信息。
+  
+```
+/**
+ * state  ：251 和云连接成功
+ * state  ：252 和云建立连接失败
+ */
+public void onCloudState(int state) {
+    String msg = "onCloudState state : " + state;
+}
+```
 
 
 
-### 常见问题
+**5. 设备数据上报**
 
-1.问题1
+> SDK 与 U+ 云平台成功建立数据通路后，连接状态变为 251，此时可以通过 SDK  上报设备的属性状态、大数据、报警等信息。
 
-2.问题2
+**5.1 设备状态数据上报**
+
+> 每次上报的都是属性全集，不能单个属性上报。
+
+具体的属性名和属性值参考在[海极网](https://www.haigeek.com/)中创建的硬件设备的属性集合。  
+
+此操作的数据上报成功与否依赖 **网络连接** 及 **SDK和云的连接状态**，执行前应进行相应的状态判断。
+
+```
+/**
+ * pairName   属性名
+ * pairValue  属性值
+ */
+ArrayList<USmartDevicePair> pairs = new ArrayList<>(4);
+pairs.add(new USmartDevicePair("model", model));
+pairs.add(new USmartDevicePair("humidity", humidity));
+pairs.add(new USmartDevicePair("timedTurnOn", timedTurnOn));
+pairs.add(new USmartDevicePair("onOffStatus", onOffStatus));
+mSmartDevice.reportStatus(pairList, new IuSDKCallback() {
+     @Override
+     public void onCallback(uSDKErrorConst errorConst) {
+        String msg;
+        if (uSDKErrorConst.RET_USDK_OK == errorConst) {
+            msg = "reportStatus 成功";
+        } else {
+            msg = "reportStatus 失败：" + errorConst;
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+
+### 注意事项
+
+1.
+
+2.
 
 
 
