@@ -128,12 +128,11 @@ mSmartDeviceManager.stopService
 
 > 若网络不可用情况下，调用此接口可以执行成功，但设备无法与 U+云进行网络连接及数据通信。程序内部会不断尝试与 U+云建立连接。
 
-注意：
-1. 注册设备返回的 result对象里，设备ID为：设备载入海尔设备Listens  
-由平台版本预置在设备 Listens  中，每个设备一个；
-2. 申请 Listens 请联系张健（zhangjian.uh@haier.com）
-
+  
+    
+    
 <span id="3.1"></span>
+## <a id="jump">目录</a>
 **3.1 注册、上线网关设备**  
 
 - 网关设备注册
@@ -204,7 +203,7 @@ SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallbac
     }
 });
 ```
-<span id="3.2"></span>
+  
 **3.2 注册、上线子设备** 
 
 - 子设备注册  
@@ -277,7 +276,7 @@ SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallbac
 
 **3.3 注册、上线附件设备**
 
-接口流程及参数参考 [3.2 注册、上线子设备](#3.2)
+接口流程及参数参考 [3.2 注册、上线子设备](#jump)
 ```
 SmartDeviceManager.getInstance().registerAnnexDevice(registerAnnexDevice, new ICallback<RegisterResult>())
         
