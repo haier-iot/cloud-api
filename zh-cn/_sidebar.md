@@ -49,15 +49,15 @@
 
 
 * [场景类服务](#)  
-	* [介绍](zh-cn/IFTTT/Introduce)  
-	* [场景模板](#) 
-	* [用户场景配置](#)
-	* [用户场景管理](#)
-	* [场景执行](#)
-	* [场景日志](#)
-	* [场景统计](#)
-	* [场景数据订阅](#)
-	* [设备场景管理](#)
+	* [介绍](zh-cn/IFTTT/ifttt-intro)  
+	* [场景模板](zh-cn/IFTTT/ifttt-template) 
+	* [用户场景配置](zh-cn/IFTTT/ifttt-config)
+	* [用户场景管理](zh-cn/IFTTT/ifttt-management-user)
+	* [场景执行](zh-cn/IFTTT/ifttt-execute)
+	* [场景日志](zh-cn/IFTTT/ifttt-log)
+	* [场景统计](zh-cn/IFTTT/ifttt-count)
+	* [场景数据订阅](zh-cn/IFTTT/ifttt-subdata)
+	* [设备场景管理](zh-cn/IFTTT/ifttt-management-device)
 
 
 
