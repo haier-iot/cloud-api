@@ -1,5 +1,4 @@
-!> **更新时间：** {docsify-updated} 
-
+# 云云对接类
 
 ## 简介  
 
@@ -1089,10 +1088,10 @@ Body：
 
 
 [^-^]:常用图片注释
-[solution]:_media/_device-c2c/solution.png
-[flow1]:_media/_device-c2c/flow1.png
-[flow2]:_media/_device-c2c/flow2.png
-[flow3]:_media/_device-c2c/flow3.png
-[flow4]:_media/_device-c2c/flow4.png
-[access]:_media/_device-c2c/access.png
-[control]:_media/_device-c2c/control.png
+[solution]:../Device-dev/_media/_device-c2c/solution.png
+[flow1]:../Device-dev/_media/_device-c2c/flow1.png
+[flow2]:../Device-dev/_media/_device-c2c/flow2.png
+[flow3]:../Device-dev/_media/_device-c2c/flow3.png
+[flow4]:../Device-dev/_media/_device-c2c/flow4.png
+[access]:../Device-dev/_media/_device-c2c/access.png
+[control]:../Device-dev/_media/_device-c2c/control.png
