@@ -564,8 +564,8 @@ public USmartOpRsp onDeviceOpCallback(String devId, int reqSn, String opName, Li
 AbsSmartDevice mOnlineDevice = SmartDeviceManager.getInstance().getOnlineDeviceById(deviceId)
 ```
 
-可以通过这个方法获取到之前注册上线的对象赋给 AbsSmartDevice mOnlineDevice  
-后续使用这个 mOnlineDevice 对象做相关业务。
+通过这个方法获取到之前注册上线的对象赋给 AbsSmartDevice mOnlineDevice  
+后续可使用这个 mOnlineDevice 对象开展相关业务。
 
 
 ```
@@ -590,7 +590,7 @@ mOnlineDevice.bindDevice(java.lang.String token, 60, new ICallback<Void>() {
 ```
   
   
-> **这里的成功回调为 SDK 方法的执行结果，不是绑定业务的执行结果**   
+> **这里的onSuccess回调为 SDK 方法的执行结果，不是绑定业务的执行结果**   
 > 
 > **绑定业务的执行结果，在 SmartDeviceListener 类的 onDeviceBindCallback 回调方法中**
 
@@ -622,11 +622,11 @@ if(MainActivity.cloudStateFlag != 251){
 }
 
 /**
- * 超时时间 20-120  建议 30 秒
- * mSmartDevice: 添加成功的主机或子机设备对象
+ * timeOut       20-120，建议 30 秒
+ * mSmartDevice  添加成功的主设备或子设备对象
  */
 USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback() {
-     
+    
     /*成功获取二维码信息，包含 typeid、设备 mac 及加密信息内容*/
     @Override
     public void onSuccess(Object o) {
@@ -644,11 +644,8 @@ USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback(
 
 **10. P2P 音视频功能**
 
-Smartdevice6.0.0 版本支持音视频功能,即通过设备端 sdk 上报视频,配合
-usdk8.0.0 版本在 app 端实时展示视频内容,并且支持在视频播放过程中语音对讲
-及上报报警内容。
-示例代码：
-通过 getOnlineDeviceById  获取到的上线对象来做为音视频对象。
+SmartDevice 6.0.0 版本支持音视频功能，即通过设备端 SDK 上报视频，配合
+usdk 8.0.0 版本在 APP 端实时展示视频内容，并支持在视频播放过程中语音对讲及上报报警内容。
 
 **10.1 注册上线设备对象音视频监听**
 
@@ -674,17 +671,11 @@ public void addSmartDeviceVideoListener(ISmartDeviceVideoListener listener) {
 
 ```
 /**
- * path 此路径需为此应用进程中的目录
- * 回调成功即初始化成功
+ * path 此路径为此应用进程中的目录
+ * cb   回调成功即初始化成功
  */
 public void initIotVideo(java.lang.String path, <any> cb)
 ```
-
-
-
-
-### 注意事项
-
 
 
 ## 历史版本
