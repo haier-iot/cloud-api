@@ -131,8 +131,8 @@ mSmartDeviceManager.stopService
   
     
     
-<span id="3.1"></span>
-## <a id="jump">目录</a>
+<span id="3.1"> </span>
+<a id="jump"> </a>
 **3.1 注册、上线网关设备**  
 
 - 网关设备注册
