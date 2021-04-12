@@ -11,7 +11,7 @@
 
 > 刷新设备列表
 
-**接口描述**
+**接口描述**   
 
 ?> **接入地址：** `/dcs/third-party-cloud/add/user/third-party/device`</br>
 **HTTP Method：** POST
@@ -156,7 +156,7 @@ Request Headers:
 
 > 查询单个设备的详情(需要uag校验，并且增加token校验)
 
-**接口描述**
+**接口描述**  
 
 ?> **接入地址：** `/dcs/third-party-cloud/get/device/detail`</br>
 **HTTP Method：** POST
