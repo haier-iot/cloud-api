@@ -12,6 +12,7 @@
 > 刷新设备列表
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/add/user/third-party/device`</br>
 **HTTP Method：** POST
 
@@ -156,6 +157,7 @@ Request Headers:
 > 查询单个设备的详情(需要uag校验，并且增加token校验)
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/get/device/detail`</br>
 **HTTP Method：** POST
 
@@ -267,6 +269,7 @@ Request Headers:
 > 查询单个设备的状态(需要uag校验，并且增加token校验)
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/get/device/status`</br>
 **HTTP Method：** POST
 
@@ -687,6 +690,7 @@ Request Headers:
 > 控制设备(需要uag校验，并且增加token校验)
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/update/device/cmd`</br>
 **HTTP Method：** POST
 
@@ -770,6 +774,7 @@ Request Headers:
 > 取消单个设备的授权(需要uag校验，并且增加token校验)
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/delete/user/third-party/device`</br>
 **HTTP Method：** POST
 
@@ -846,6 +851,7 @@ Request Headers:
 > 查询第三方开通预授权的型号列表(需要uag校验，但是无需token校验)
 
 **接口描述**
+
 ?> **接入地址：** `/dcs/third-party-cloud/get/third-party/device-models`</br>
 **HTTP Method：** POST
 
