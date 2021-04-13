@@ -22,14 +22,6 @@
 ![场景介绍][IFTTT_jieshao]
 
 
-## 场景模板
-![家人介绍][family_jiaren]
-
-## 场景推荐
-![家空间][family_kongjian]
-
-## 用户场景管理
-![家设备][family_device]
 
 ## 高级场景开发
 >信息及服务板块是由各应用基于数字家庭开展业务，共建的业务服务。围绕家中人、物、空间以智慧家庭用户体验为初衷共建的业务服务。
@@ -38,7 +30,7 @@
 wangbo.uh@haier.com;   
 yangjingyuan@haier.com;
 
-![家服务介绍][family_fuwu]
+
 
 
 
