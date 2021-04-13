@@ -60,6 +60,12 @@
 	* [设备场景管理](zh-cn/IFTTT/ifttt-management-device)
 
 
+* [消息类服务](#)  
+	* [介绍](zh-cn/Message/msg-intro)  
+	* [终端管理](zh-cn/Message/msg-terminal-mgmt) 
+	* [消息发送](zh-cn/Message/msg-push)
+	* [免打扰管理](zh-cn/Message/msg-notdisturb)
+	* [业务消息管理](zh-cn/Message/msg-mgmt)
 
 
 
