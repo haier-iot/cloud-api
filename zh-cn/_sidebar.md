@@ -65,12 +65,19 @@
 
 * [设备开发<sup style="color:red">(new)<sup>](#)
 	* [介绍](zh-cn/Device-dev/Introduce) 
+	
 	* [物联模组类](#)
+	
+		* [module](zh-cn/Device-dev/module)
+	
 	* [设备SDK类](#)
+		
 		* [Linux](zh-cn/Device-dev/dev-linux)
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
+		
 	* [云设备类](zh-cn/Device-dev/device-direct)
+	
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
@@ -93,4 +100,4 @@
 
 
 
-	
+​	
