@@ -26,6 +26,7 @@
 	* [家庭设备管理](zh-cn/Family/fam-device)
 	* [个人用户关系](zh-cn/Family/fam-relationship)
 
+
 * [设备类服务](#)  
 	* [介绍](zh-cn/Device/dev-intro)  
 	* [设备权限](zh-cn/Device/authorization)
@@ -43,7 +44,8 @@
 	* [设备数据订阅](zh-cn/Device/datasubscription)	
 	* [设备OTA升级](zh-cn/Device/upgradeOTA)
 	* [设备管理-非网器](zh-cn/Device/dev-unconnected)
-	* [设备管理-三方云](zh-cn/Device/cloud-3rd)
+	* [设备管理-三方云](zh-cn/Device/cloud-3rd)		
+
 
 
 * [场景类服务](#)  
@@ -67,47 +69,37 @@
 
 
 
-* [设备开发<sup style="color:red">(new)<sup>](zh-cn/Device-dev)
+* [设备开发<sup style="color:red">(new)<sup>](#)
 	* [介绍](zh-cn/Device-dev/Introduce) 
-	* [物联模组类](#)
-		* [module](zh-cn/Device-dev/module)
+	* [物联模组类](zh-cn/Device-dev/module)
 	* [设备SDK类](#)
 		* [Linux](zh-cn/Device-dev/dev-linux)
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
-<<<<<<< HEAD
-<<<<<<< HEAD
 		
 	* [云设备类](zh-cn/Device-dev/device-direct)
 	
 
-=======
-	* [云设备类](zh-cn/Device-dev/dev-direct)
->>>>>>> 4bbbcb0a263bd19dadd4d9639b3762076b045993
-=======
-	* [云设备类](zh-cn/Device-dev/device-direct)
->>>>>>> parent of 4f1dc74 (提交模组版本)
-	
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
-* [应用开发<sup style="color:red">(new)<sup>](zh-cn/App-dev)
+* [应用开发<sup style="color:red">(new)<sup>](#)
 	* [介绍](zh-cn/App-dev/Introduce) 
 	* [移动端SDK](#)
 	* [统计分析SDK](#)
 
 
 
-* [常见问题<sup style="color:red">(new)<sup>](zh-cn/Questions)
+* [常见问题<sup style="color:red">(new)<sup>](#)
 	* [移动SDK相关问题](zh-cn/Questions/Introduce) 
 	* [设备SDK相关问题](#)
 	* [设备控制相关问题](#)
 
 
-* [解决方案<sup style="color:red">(new)<sup>](zh-cn/Solutions)
+* [解决方案<sup style="color:red">(new)<sup>](#)
 	* [########](zh-cn/Solutions/Introduce) 
 
 
 
 
-​	
+	
