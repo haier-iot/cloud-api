@@ -77,7 +77,7 @@
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
 		
-	* [云设备类](zh-cn/Device-dev/device-direct)
+	* [云设备类](zh-cn/Device-dev/dev-direct)
 	
 
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
