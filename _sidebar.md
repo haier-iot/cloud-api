@@ -48,7 +48,7 @@
 
 * [场景类服务](#)  
 	* [介绍](zh-cn/IFTTT/ifttt-intro)  
-	* [场景模板](zh-cn/IFTTT/ifttt-template) 
+	* [场景类](zh-cn/IFTTT/ifttt-template) 
 	* [用户场景配置](zh-cn/IFTTT/ifttt-config)
 	* [用户场景管理](zh-cn/IFTTT/ifttt-management-user)
 	* [场景执行](zh-cn/IFTTT/ifttt-execute)

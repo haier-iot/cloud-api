@@ -1,5 +1,5 @@
 
-# 场景模板
+# 场景类
 
 
 
@@ -840,3 +840,5 @@ Body
 |  retCode  |String| Body  |必填| &emsp;|
 |  retInfo  |String| Body  |必填| &emsp;|
 |  data  |SceneTemplateDto| Body  |必填|&emsp;|
+
+
