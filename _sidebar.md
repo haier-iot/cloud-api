@@ -48,7 +48,7 @@
 
 * [场景类服务](#)  
 	* [介绍](zh-cn/IFTTT/ifttt-intro)  
-	* [场景模板](zh-cn/IFTTT/ifttt-template) 
+	* [场景类](zh-cn/IFTTT/ifttt-template) 
 	* [用户场景配置](zh-cn/IFTTT/ifttt-config)
 	* [用户场景管理](zh-cn/IFTTT/ifttt-management-user)
 	* [场景执行](zh-cn/IFTTT/ifttt-execute)
@@ -83,9 +83,13 @@
 		* [Linux](zh-cn/Device-dev/dev-linux)
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
+<<<<<<< HEAD
 		
 	* [云设备类](zh-cn/Device-dev/device-direct)
 	
+=======
+	* [云设备类](zh-cn/Device-dev/dev-direct)
+>>>>>>> 4bbbcb0a263bd19dadd4d9639b3762076b045993
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
