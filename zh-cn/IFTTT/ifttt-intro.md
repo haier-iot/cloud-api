@@ -889,3 +889,4 @@ execResultinfo在上面对应</br>
 
 [^-^]:常用图片注释
 [IFTTT_jieshao]:_media/IFTTT_jieshao.png
+[IFTTT_type]:_media/IFTTT_type.png
