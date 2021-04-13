@@ -1,30 +1,35 @@
 # 智能模组直连接入平台
   模块直连接入平台是指设备采用智能模块的方式，接入到 U+ 平台，并通过 U+ 平台进行APP端与设备的交互，进而进行智能控制。
 
-![智能模块接入平台图][pic1]
+![图片][pic1]
 
 ## 基本功能
 
-### 设备接入与控制
+### 设备接入
 
-&emsp;&emsp;设备自绑定
-&emsp;&emsp;设备控制
-&emsp;&emsp;数据上报
+&emsp;&emsp;添加/删除设备 
 &emsp;&emsp;属性和报警上报 
+&emsp;&emsp;设备自绑定
 &emsp;&emsp;FOTA升级
-&emsp;&emsp;OTA升级
+&emsp;&emsp;数据上报
 
+### 设备控制
+
+&emsp;&emsp;设备入网
+&emsp;&emsp;设备绑定
+&emsp;&emsp;设备控制
+&emsp;&emsp;状态变化主动上报
+&emsp;&emsp;设备加密
+&emsp;&emsp;OTA升级
 
 
 ## 开发文档
 
-### **WIFi模块**
-
-### 上电流程
+### **上电流程**
 
 交互流程见下图：
 
-![上电流程图][pic2]
+![图片][pic2]
 
 ### 正常控制流程
 
@@ -32,13 +37,13 @@
 
 交互流程见下图：
 
-![单命令控制流程图][pic3]
+![图片][pic3]
 
 **组命令控制流程**
 
 交互流程见下图：
 
-![组命令控制流程图][pic4]
+![图片][pic4]
 
 ### 主动汇报流程
 
@@ -46,13 +51,13 @@
 
 交互流程见下图：
 
-![主动汇报正常汇报流程图][pic5]
+![图片][pic5]
 
 **主动汇报重发流程** 
 
 交互流程见下图：
 
-![主动汇报重发流程图][pic6]
+![图片][pic6]
 
 ### 汇报配置流程 
 
@@ -60,11 +65,25 @@
 
 交互流程见下图：
 
-![正常配置流程图][pic7]
+![图片][pic7]
 
+**配置时间不匹配流程**
 
+交互流程见下图：
 
+![图片][pic8]
 
+**关闭主动汇报匹配流程**
+
+交互流程见下图
+
+![图片][pic9]
+
+**恢复默认汇报间隔流程**
+
+交互流程见下图：
+
+![图片][pic10]
 
 ### 报警流程 
 
@@ -76,13 +95,13 @@
 
 交互流程见下图：
 
-![正常报警流程图][pic8]
+![图片][pic11]
 
 **报警重发流程**
 
 交互流程见下图：
 
-![报警重发流程图][pic9]
+![图片][pic12]
 
 ### 模块设置
 
@@ -90,7 +109,7 @@
 
 交互流程见下图：
 
-![模块网络状态查询图][pic10]
+![图片][pic13]
 
 **进入设置模式**
 
@@ -102,7 +121,7 @@
 
 交互流程见下图：
 
-![模块进入设置模式图][pic11]
+![图片][pic14]
 
 **退出设置模式**
 
@@ -110,7 +129,7 @@
 
 交互流程见下图：
 
-![模块退出设置模式图][pic12]
+![图片][pic15]
 
 **模块主动退出设置模式**
 
@@ -120,39 +139,39 @@
 
 交互流程见下图：
 
-![模块主动退出设置模式图][pic13]
+![图片][pic16]
 
-### **蓝牙模块**
+## 蓝牙模块
 
 ### 蓝牙联动配对流程(网关侧)
 
 **配对成功流程**
 
-![蓝牙联动配对成功流程图][pic14]
+![图片][pic17]
 
 **不允许配对流程**
 
 交互流程见下图：
 
-![蓝牙联动不允许配对流程图(网关侧)][pic15]
+![图片][pic18]
 
 **配对超时流程**
 
 交互流程见下图：
 
-![配对超时流程图][pic16]
+![图片][pic19]
 
 ### 蓝牙解除联动配对流程(网关侧)
 
 交互流程见下图：
 
-![蓝牙解除联动配对流程图(网关侧)][pic17]
+![图片][pic20]
 
 ### 蓝牙配对流程(待配对侧)
 
 交互流程见下图：
 
-![蓝牙配对流程图(待配对侧)][pic18]
+![图片][pic21]
 
 ### 联动流程(网关侧)
 
@@ -160,50 +179,38 @@
 
 交互流程见下图：
 
-![联动上报流程图(网关侧)][pic19]
+![图片][pic22]
 
  **联动控制流程**
 
 交互流程见下图：
 
-![联动控制流程图][pic20]
+![图片][pic23]
 
- 
 
-**设置蓝牙发射功率**
 
-交互流程见下图：
+历史图片
 
-![设置蓝牙发射功率图][pic21]
-
-**清除配置信息**
-
-交互流程见下图：
-
-![清除配置信息图][pic22]
-
-### 常用图片
-
-[pic1]:../Device-dev/_media/_module/pic1.png
-[pic2]:../Device-dev/_media/_module/pic2.png
-[pic3]:../Device-dev/_media/_module/pic3.png
-[pic4]:../Device-dev/_media/_module/pic4.png
-[pic5]:../Device-dev/_media/_module/pic5.png
-[pic6]:../Device-dev/_media/_module/pic6.png
-[pic7]:../Device-dev/_media/_module/pic7.png
-[pic8]:../Device-dev/_media/_module/pic8.png
-[pic9]:../Device-dev/_media/_module/pic9.png
-[pic10]:../Device-dev/_media/_module/pic10.png
-[pic11]:../Device-dev/_media/_module/pic11.png
-[pic12]:../Device-dev/_media/_module/pic12.png
-[pic13]:../Device-dev/_media/_module/pic13.png
-[pic14]:../Device-dev/_media/_module/pic14.png
-[pic15]:../Device-dev/_media/_module/pic15.png
-[pic16]:../Device-dev/_media/_module/pic16.png
-[pic17]:../Device-dev/_media/_module/pic17.png
-[pic18]:../Device-dev/_media/_module/pic18.png
-[pic19]:../Device-dev/_media/_module/pic19.png
-[pic20]:../Device-dev/_media/_module/pic20.png
-[pic21]:../Device-dev/_media/_module/pic21.png
-[pic22]:../Device-dev/_media/_module/pic22.png
-
+[pic1]:_media/_module/pic1.png
+[pic2]:_media/_module/pic2.png
+[pic3]:_media/_module/pic3.png
+[pic4]:_media/_module/pic4.png
+[pic5]:_media/_module/pic5.png
+[pic6]:_media/_module/pic6.png
+[pic7]:_media/_module/pic7.png
+[pic8]:_media/_module/pic8.png
+[pic9]:_media/_module/pic9.png
+[pic10]:_media/_module/pic10.png
+[pic11]:_media/_module/pic11.png
+[pic12]:_media/_module/pic12.png
+[pic13]:_media/_module/pic13.png
+[pic14]:_media/_module/pic14.png
+[pic15]:_media/_module/pic15.png
+[pic16]:_media/_module/pic16.png
+[pic17]:_media/_module/pic17.png
+[pic18]:_media/_module/pic18.png
+[pic19]:_media/_module/pic19.png
+[pic20]:_media/_module/pic20.png
+[pic21]:_media/_module/pic21.png
+[pic22]:_media/_module/pic22.png
+[pic23]:_media/_module/pic23.png

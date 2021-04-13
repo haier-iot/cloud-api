@@ -73,16 +73,12 @@
 
 * [设备开发<sup style="color:red">(new)<sup>](zh-cn/Device-dev)
 	* [介绍](zh-cn/Device-dev/Introduce) 
-	
 	* [物联模组类](#)
-	
-	  [module](zh-cn/Device-dev/module)
-	
 	* [设备SDK类](#)
-		
 		* [Linux](zh-cn/Device-dev/dev-linux)
 		* [Android](zh-cn/Device-dev/dev-android)
 		* [RTOS](zh-cn/Device-dev/dev-rtos)	
+<<<<<<< HEAD
 <<<<<<< HEAD
 		
 	* [云设备类](zh-cn/Device-dev/device-direct)
@@ -90,6 +86,9 @@
 =======
 	* [云设备类](zh-cn/Device-dev/dev-direct)
 >>>>>>> 4bbbcb0a263bd19dadd4d9639b3762076b045993
+=======
+	* [云设备类](zh-cn/Device-dev/device-direct)
+>>>>>>> parent of 4f1dc74 (提交模组版本)
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
@@ -112,4 +111,4 @@
 
 
 
-​	
+	
