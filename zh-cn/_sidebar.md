@@ -53,7 +53,7 @@
 	* [场景类](zh-cn/IFTTT/ifttt-template) 
 	* [家庭配置类](zh-cn/IFTTT/ifttt-config)
 	* [触发类](zh-cn/IFTTT/ifttt-management-user)
-	* [场景执行](zh-cn/IFTTT/ifttt-execute)
+	* [定时类](zh-cn/IFTTT/ifttt-execute)
 	* [场景日志](zh-cn/IFTTT/ifttt-log)
 	* [场景统计](zh-cn/IFTTT/ifttt-count)
 	* [场景数据订阅](zh-cn/IFTTT/ifttt-subdata)
