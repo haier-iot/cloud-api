@@ -1,7 +1,7 @@
 
-
 # 定时类
 !> **更新时间**：{docsify-updated}  
+
 
 
 ## 更新多生失效时间段接口
@@ -29,4 +29,3 @@
 |  retCode  |String| Body  |必填| &emsp;|
 |  retInfo  |String| Body  |必填| &emsp;|
 |  data  | Object| Body  |必填|显示为null|
-
