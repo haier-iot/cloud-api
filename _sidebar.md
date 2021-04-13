@@ -49,7 +49,7 @@
 * [场景类服务](#)  
 	* [介绍](zh-cn/IFTTT/ifttt-intro)  
 	* [场景类](zh-cn/IFTTT/ifttt-template) 
-	* [用户场景配置](zh-cn/IFTTT/ifttt-config)
+	* [家庭配置类](zh-cn/IFTTT/ifttt-config)
 	* [用户场景管理](zh-cn/IFTTT/ifttt-management-user)
 	* [场景执行](zh-cn/IFTTT/ifttt-execute)
 	* [场景日志](zh-cn/IFTTT/ifttt-log)
@@ -58,16 +58,12 @@
 	* [设备场景管理](zh-cn/IFTTT/ifttt-management-device)
 
 
-* [消息类服务](zh-cn/Message)  
-	* [介绍](zh-cn/Message/Introduce)  
-	* [终端管理](#) 
-	* [消息发送](#)
-	* [免打扰管理](#)
-	* [业务消息管理](#)
-	* [场景日志](#)
-	* [场景统计](#)
-	* [场景数据订阅](#)
-	* [设备场景管理](#)
+* [消息类服务](#)  
+	* [介绍](zh-cn/Message/msg-intro)  
+	* [终端管理](zh-cn/Message/msg-terminal-mgmt) 
+	* [消息发送](zh-cn/Message/msg-push)
+	* [免打扰管理](zh-cn/Message/msg-notdisturb)
+	* [业务消息管理](zh-cn/Message/msg-mgmt)
 
 
 
