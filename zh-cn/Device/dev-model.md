@@ -88,7 +88,8 @@ Body:
 
 领域模型接口使用Https协议，使用`https://uws.haier.net /+接口地址`进行访问
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/stdudse/v1/protected/getBaseInfo`</br>
 **HTTP Method：** POST
 
@@ -131,7 +132,8 @@ Body：
 
 ```
 
-**错误码**
+**错误码**  
+
 > G10001
 
 ## 修改设备型号信息
@@ -143,7 +145,8 @@ Body：
 修改设备型号信息，产品编码补习已在海极网注册
 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/stdudse/v1/protected/modifyModelInfo`</br>
 **HTTP Method：** POST
 
@@ -205,7 +208,8 @@ Body：
 
 根据成品编码，获取完整的型号信息数据
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/dcs/device-service-2c/get/netDevice/info`</br>
 **HTTP Method：** POST
 
