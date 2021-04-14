@@ -309,7 +309,8 @@ Header：
 ?> **接入地址：** `/ufm/v1/protected/shareDeviceService/person/{targetId}/shareDevice`</br>
 **HTTP Method：** POST
 
-**输入参数**
+**输入参数**  
+
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 shareDev|ShareDevice|Body|是|设备的分享信息 
@@ -386,6 +387,7 @@ Body:
 **HTTP Method：** DELETE
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 devId|String|url|是|设备id 
@@ -445,6 +447,7 @@ Header：
 **HTTP Method：** DELETE
 
 **输入参数**
+
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 devId|String|url|是|设备id 
