@@ -288,7 +288,6 @@ retInfo|String|Body|必填|用于调试的返回信息，不支持国际化，�
 payload|ShadowBeanVO|Body|必填|返回数据
 
 
-
 **ShadowBeanVO**
 
 | **名称** | 设备影子信息 |&emsp;| ShadowBeanVO |   

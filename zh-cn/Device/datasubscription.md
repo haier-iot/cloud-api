@@ -137,7 +137,8 @@ String getSign(String systemId, String systemKey, String timestamp) {
 > 提供建立连接的功能。客户端发起连接请求，数据订阅系统会对客户端连接请求进行鉴权后，建立与客户端的连接。   
 > 客户端发起连接请求，请求时携带对应应用的systemId和systemKey签名信息进行鉴权，鉴权成功返回鉴权结果，鉴权失败，则返回错误信息并断开连接。 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/wssubscriber/msgplatform/websocket`</br>
 
 **输入参数**
@@ -195,7 +196,8 @@ wss://mp-stp.haier.net/wssubscriber/msgplatform/websocket?systemId=SV-BLKALPHA21
 > 订阅指定topic消息，消息订阅必须在建立连接成功的前提下进行，如果建立连接返回成功，才可以发送订阅，如果失败，则无法进行订阅。  
 
 **接口描述**  
-**按typeId订阅**
+**按typeId订阅**  
+
 客户端向云端发送的JSON字符串格式数据如下（`DEV_EVENT、101c1200240008101e0a00000141414100000000020000000000000000000000`为示例数据）：  
 
 ```java  
