@@ -269,7 +269,7 @@ Body:
 
 | 类型    | 参数名     | 位置  | 必填|说明|  
 | :----: |:------:|:----:|:------:|:------:|    
-|  typeid | String   | Body  | 必填 | 设备typeid|
+| typeid | String | Body | 必填 |设备typeid|  
 
 
 **输出参数**  
@@ -308,9 +308,9 @@ Body:
 ```java
 {
     "retCode": "00000",
-"retInfo": "成功",
-"shadowModel": {
-  "deviceInfo": {
+	"retInfo": "成功",
+	"shadowModel": {
+    "deviceInfo": {
 		"typeid": "20160101"
   },
   "reported": [
