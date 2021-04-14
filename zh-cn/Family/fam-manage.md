@@ -60,7 +60,7 @@
 
 **示例**
 
-**请求样例 ** 
+**请求样例** 
 
 ```java  
 Header：
@@ -365,17 +365,17 @@ Content-type: application/json
 
 | 类型      | 参数名   | 位置  | 必填|说明|
 | -------- |:--------:|:-----:|:---------:|:---------:|  
-|String	|pageNumber|	url|	否	|当前访问信息的起始页，从1开始|
-|String	|pageSize	|url|	否	|每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理| 
+|String |pageNumber|    url|    否   |当前访问信息的起始页，从1开始|
+|String |pageSize   |url|   否   |每页的对象数，如果不足，有多少显示多少，最大不超过系统规定的上限数，超过按上限处理| 
 
 **输出参数**  
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 | FamilyInfo[] |  families  |   Body  |  必填  | 家庭信息列表 |
-|String|	totalCount|	Body|	必填	|总数|
-|String|	pageSize|	Body|	必填	|当前返回页实际数量，不超过规定的最大数据|
-|String|	pageNumber|	Body|	必填	|当前页，从1开始|
+|String|    totalCount| Body|   必填  |总数|
+|String|    pageSize|   Body|   必填  |当前返回页实际数量，不超过规定的最大数据|
+|String|    pageNumber| Body|   必填  |当前页，从1开始|
 
 **示例**
 
@@ -590,7 +590,7 @@ Body:
 ```java
 {
     "retCode": "00000",
-	"retInfo": "成功"，
+    "retInfo": "成功"，
     "familyId": "647112241261000000",
     "inviteCode": "541180"
 }
@@ -732,13 +732,13 @@ Body:
 
 ```java
 {
-	"retCode": "00000",
-	"retInfo": "成功",
-	"familyId": "164131078929000000",
-	"inviteCode": "994925",
-	"memberName": "邀请成员拨测名称",
-	"invitationUID": "a7fb8855152047368e221c2883ddbe15",
-	"invatationStatus": 2
+    "retCode": "00000",
+    "retInfo": "成功",
+    "familyId": "164131078929000000",
+    "inviteCode": "994925",
+    "memberName": "邀请成员拨测名称",
+    "invitationUID": "a7fb8855152047368e221c2883ddbe15",
+    "invatationStatus": 2
 }
 
 ```
@@ -857,8 +857,8 @@ String|qrcode|body|必填|二位码url
 
 ```
 { 
-	"familyId":"647112241261000000",
-	"timeout":30
+    "familyId":"647112241261000000",
+    "timeout":30
 }
 
 ```
@@ -866,11 +866,11 @@ String|qrcode|body|必填|二位码url
 **请求应答**
 ```
   {
-	"retCode": "00000",
-	"retInfo": "成功",
-	"familyId": "647112241261000000",
-	"qrcode": "http://uplusapp.cn/U/0005H?token=748dae0417fe4361b7ff882785b4f021&content=uplus://joinFamily/748dae0417fe4361b7ff882785b4f021",
-	"expiresTime": "2019-06-01 11:47:11"
+    "retCode": "00000",
+    "retInfo": "成功",
+    "familyId": "647112241261000000",
+    "qrcode": "http://uplusapp.cn/U/0005H?token=748dae0417fe4361b7ff882785b4f021&content=uplus://joinFamily/748dae0417fe4361b7ff882785b4f021",
+    "expiresTime": "2019-06-01 11:47:11"
 }
 
 ```
@@ -913,8 +913,8 @@ String|familyId|body|必填|家庭id,加入家庭成功或者用户已经加入�
 **请求样例**
 ```
 {
-	"familyQRCode":"748dae0417fe4361b7ff882785b4f021",
-	"userFamilyName":"cindy"
+    "familyQRCode":"748dae0417fe4361b7ff882785b4f021",
+    "userFamilyName":"cindy"
 }
 
 ```
@@ -925,7 +925,7 @@ String|familyId|body|必填|家庭id,加入家庭成功或者用户已经加入�
 {
    "familyId": "647112241261000000",
     "retCode": "00000",
-	"retInfo": "成功"
+    "retInfo": "成功"
 }
 ```
 
@@ -990,8 +990,8 @@ body：
 
 ```java
 {
-	"retCode": "00000",
-	"retInfo": "成功",
+    "retCode": "00000",
+    "retInfo": "成功",
     "familyInfo": {
         "familyId": "647112241261000000",
         "familyName": "ke",
@@ -1159,7 +1159,7 @@ body：
 ```java
 {
     "retCode": "00000",
-	"retInfo": "成功
+    "retInfo": "成功
 }
 
 
@@ -1346,11 +1346,11 @@ body：
 }，
 "inviter":{
 "isVirtualUser": "false",
-		"email": "",
-		"name": "187****6123",
-		"userId": "100013957366158663",
-		"ucUserId": "2005021119",		"avatar":"https://account.haier.com/avatar/b1120a5ef93ed15e792e557124139a12.jpg",
-		"mobile": "18730000000"
+        "email": "",
+        "name": "187****6123",
+        "userId": "100013957366158663",
+        "ucUserId": "2005021119",       "avatar":"https://account.haier.com/avatar/b1120a5ef93ed15e792e557124139a12.jpg",
+        "mobile": "18730000000"
 }
 
 }
@@ -1426,7 +1426,7 @@ body：
 ```java
 {
     "retCode": "00000",
-	"retInfo": "成功
+    "retInfo": "成功
 }
 
 
@@ -1469,9 +1469,9 @@ body：
 
 
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```
 https://{baseuri}/fcs/apply/joinFamily
 
@@ -1486,11 +1486,11 @@ https://{baseuri}/fcs/apply/joinFamily
 
 ```
 {
-	"retCode": "00000",
-	"retInfo": "成功",
-	"payload": {
-		"applicationId": "647112241261000000"
-	}
+    "retCode": "00000",
+    "retInfo": "成功",
+    "payload": {
+        "applicationId": "647112241261000000"
+    }
 }
 
 
@@ -1520,9 +1520,9 @@ https://{baseuri}/fcs/apply/joinFamily
 
 
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```
 https://{baseuri}/fcs/apply/agreeJoinFamily
 
@@ -1539,8 +1539,8 @@ https://{baseuri}/fcs/apply/agreeJoinFamily
 
 ```
 {
-	"retCode": "00000",
-	"retInfo": "成功"
+    "retCode": "00000",
+    "retInfo": "成功"
 }
 
 
@@ -1576,9 +1576,9 @@ https://{baseuri}/fcs/apply/agreeJoinFamily
 
 
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```
 https://{baseuri}/fcs/find/records
 
@@ -1594,31 +1594,31 @@ https://{baseuri}/fcs/find/records
 
 ```
 {
-	"retCode": "00000",
-	"retInfo": "成功",
-	"payload": {
-		"applicationInfos": [{
-			"applicationId": "123912983129873",
-			"userId": "123",
-			"familyId": "12345678",
-			"familyName": "family",
-			"applicationTime": "2020-12-09 00:00:00",
-			"applicationStatus": 1,
-			"applicationMessage": "家庭管理员已经同意加入家庭"
-		}],
-		"invitationInfos": [{
-			"invitationId": "123912983129873",
-			"userId": "123",
-			"familyId": "12345678",
-			"familyName": "family",
-			"invitationTime": "2020-12-09 00:00:00",
-			"invitationStatus": 1,
-			"invitationMessage": "当前用户已经同意加入该家庭",
-			"invitationCode": "123456",
-			"inviterName":"用户1234",
-			"inviterId":"1234567890"
-		}]
-	}
+    "retCode": "00000",
+    "retInfo": "成功",
+    "payload": {
+        "applicationInfos": [{
+            "applicationId": "123912983129873",
+            "userId": "123",
+            "familyId": "12345678",
+            "familyName": "family",
+            "applicationTime": "2020-12-09 00:00:00",
+            "applicationStatus": 1,
+            "applicationMessage": "家庭管理员已经同意加入家庭"
+        }],
+        "invitationInfos": [{
+            "invitationId": "123912983129873",
+            "userId": "123",
+            "familyId": "12345678",
+            "familyName": "family",
+            "invitationTime": "2020-12-09 00:00:00",
+            "invitationStatus": 1,
+            "invitationMessage": "当前用户已经同意加入该家庭",
+            "invitationCode": "123456",
+            "inviterName":"用户1234",
+            "inviterId":"1234567890"
+        }]
+    }
 }
 
 
