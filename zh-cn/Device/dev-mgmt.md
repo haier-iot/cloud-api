@@ -7,7 +7,8 @@
 
 > 获取设备aliasName（别名）
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/aliasName`</br>
 **HTTP Method：** GET
 
@@ -66,7 +67,8 @@ Header：
 
 > 获取设备的loaction（位置）内容
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/location`</br>
 **HTTP Method：** GET
 
@@ -358,7 +360,9 @@ Header：
 ?> **接入地址：** `/uds/v1/protected/deviceinfos`</br>
 **HTTP Method：** GET
 
-**输入参数：** 无
+**输入参数：** 
+
+无
 
 **输出参数**
 
@@ -483,7 +487,8 @@ Header：
 
 > 用户可以查看设备是否在线
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/isOnline`</br>
 **HTTP Method：** GET
 
@@ -540,7 +545,8 @@ Header：
 
 > 获取到用户最新上报的状态信息
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/lastReportStatus`</br>
 **HTTP Method：** GET
 
@@ -606,7 +612,8 @@ Header：
 
 > 为设备添加品牌信息
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/saveDeviceBrand`</br>
 **HTTP Method：** POST
 
@@ -617,7 +624,9 @@ Header：
 token|String|Header|必填|用户token
 brantInfo|BrandInfo|body|必填|设备品牌信息
 
-**输出参数：** 输出标准应答参数 
+**输出参数：**   
+
+输出标准应答参数 
 
 **示例**
 
@@ -669,6 +678,7 @@ POST data
 > 查询设备的品牌信息
 
 **接口描述**
+ 
 ?> **接入地址：** `/uds/v1/protected/{deviceId}/deviceBrand`</br>
 **HTTP Method：** GET
 
@@ -731,7 +741,8 @@ Header：
  
 > 检测设备整机固件版本信息  
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/uds/v1/protected/fota/checkDevFMVersion`</br>
 **HTTP Method：** POST  
 **前置条件：** 用户和设备有绑定关系   
@@ -813,7 +824,8 @@ Header：
 根据typeId、应用分类、大中类获取型号信息，获取完整的型号信息数据
 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/dcs/device-service-2c/get/netDevice/productCodes`</br>
 **HTTP Method：** POST
 
@@ -888,7 +900,8 @@ Request Headers:
 根据自发现信息或mac查询设备的型号、图标、配置引导信息
 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/dcs/netdeviceinfo/find/deviceInfomation`</br>
 **HTTP Method：** POST
 
@@ -985,7 +998,8 @@ Post：
 根据DeviceId和token查询设备绑定状态，如果用户和设备有绑定关系则返回绑定时间，反之返回错误码(1900001: 当前用户与该设备不匹配);
 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/dcs/device-service-2c/get/device/user/binding/status`</br>
 **HTTP Method：** POST
 
