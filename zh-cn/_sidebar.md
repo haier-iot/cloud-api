@@ -91,9 +91,10 @@
 
 
 * [常见问题<sup style="color:red">(new)<sup>](#)
-	* [移动SDK相关问题](zh-cn/Questions/Introduce) 
-	* [设备SDK相关问题](#)
-	* [设备控制相关问题](#)
+	* [移动SDK相关问题](zh-cn/Questions/usdk-qa) 
+	* [设备SDK相关问题](zh-cn/Questions/ioT-sdk-qa)
+	* [设备控制相关问题](zh-cn/Questions/dev-qa)
+	* [云服务调用相关问题](zh-cn/Questions/uws-qa)
 
 
 * [解决方案<sup style="color:red">(new)<sup>](#)
