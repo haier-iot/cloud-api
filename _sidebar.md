@@ -55,7 +55,7 @@
 	* [触发类](zh-cn/IFTTT/ifttt-management-user)
 	* [定时类](zh-cn/IFTTT/ifttt-execute)
 	* [组件类](zh-cn/IFTTT/ifttt-log)
-	* [场景统计](zh-cn/IFTTT/ifttt-count)
+	* [回调类](zh-cn/IFTTT/ifttt-count)
 	* [场景数据订阅](zh-cn/IFTTT/ifttt-subdata)
 	* [设备场景管理](zh-cn/IFTTT/ifttt-management-device)
 
