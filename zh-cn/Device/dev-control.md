@@ -331,9 +331,8 @@ Body
 
 ## 设备控制类接口
 
-设备控制类接口通过APPSERVER访问
-
-若APPSERVER部署在外网，则通过https://uws.haier.net/udse访问；
+设备控制类接口通过APPSERVER访问：  
+若APPSERVER部署在外网，则通过https://uws.haier.net/udse访问；  
 若APPSERVER部署在内网，则通过https://internal.uws.haier.net/udse访问；
 
 
@@ -343,7 +342,7 @@ Body
 
 **公共头部分**
 
-Header 中appid 字段填写内容为系统ID，即systemid。 此字段需要在海极网开通云应用获得。
+Header 中appid 字段填写内容为系统ID，即systemid。此字段需要在海极网开通云应用获得。
 
 **开通流程如下**
 
