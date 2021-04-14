@@ -25,6 +25,7 @@
 	* [家庭成员管理](zh-cn/Family/fam-member)
 	* [家庭设备管理](zh-cn/Family/fam-device)
 	* [个人用户关系](zh-cn/Family/fam-relationship)
+	* [家庭数据订阅](zh-cn/Family/fam-subdata)
 
 
 * [设备类服务](#)  
