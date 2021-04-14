@@ -7,7 +7,8 @@
 根据DeviceId和token查询设备拓扑关系，如果用户对该设备有权限继续查询，反之返回错误码(1200001: 当前用户与该设备不匹配);
 
 
-**接口描述**
+**接口描述**  
+
 ?> **接入地址：** `/dcs/device-service-2c/get/device/topological/relation`</br>
 **HTTP Method：** POST
 
