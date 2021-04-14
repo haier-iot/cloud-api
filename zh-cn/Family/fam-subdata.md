@@ -51,7 +51,8 @@
 
 ```
 
-**字段说明**
+**字段说明**  
+
 type：</br>
 share_device_to_family 分享设备到家庭</br>
 update_device_family_shareinfo 更新设备分享信息</br>
