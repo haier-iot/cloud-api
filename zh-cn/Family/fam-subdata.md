@@ -51,9 +51,23 @@
 
 ```
 
-**说明**
+**字段说明**
+type：</br>
+share_device_to_family 分享设备到家庭</br>
+update_device_family_shareinfo 更新设备分享信息</br>
+update_device_family_room 更新设备房间信息</br>
+delete_family_share_device 删除分享的设备</br>
 
-|type|内容 |
-| :-------------:|:-------------:|
-|share_device_to_family</br>update_device_family_shareinfo</br>update_device_family_room</br>|"deviceId": "设备ID"</br>"deviceName": "设备家庭名称"</br>"familyId": "家庭ID"</br>"familyName": "家庭名称"</br>"floorId": "楼层编号"</br>"floorOrderId": "楼层序号"</br>"floorName": "楼层名称"</br>"roomId": "房间ID"</br>"roomName": "房间名称"</br>"userId": "49520033|
-|delete_family_share_device|"deviceId": "设备ID"</br>"familyId": "家庭ID"|
+
+"deviceId": "设备ID"</br>
+"deviceName": "设备家庭名称"</br>
+"familyId": "家庭ID"</br>
+"familyName": "家庭名称"</br>
+"floorId": "楼层编号"</br>
+"floorOrderId": "楼层序号"</br>
+"floorName": "楼层名称"</br>
+"roomId": "房间ID"</br>
+"roomName": "房间名称"</br>
+"userId": "49520033
+
+
