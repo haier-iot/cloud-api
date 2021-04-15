@@ -1221,13 +1221,8 @@ Body：
 
 | 类型   | 参数名 | 位置  | 必填|说明|  
 | ---- |:-----:|:-----:|:-----:|:------:|
-<<<<<<< Updated upstream
-| ShareDevice[] | shareDevices   | body |必填|设备的分享信息，最大一次请求数为10 |  
-
-
-=======
 | ShareDevice[] | shareDevices   | body |必填|设备的分享信息，最大一次请求数为10 | 
->>>>>>> Stashed changes
+
 
 **输入参数说明**  
 
