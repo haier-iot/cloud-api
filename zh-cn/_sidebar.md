@@ -71,7 +71,7 @@
 
 
 * [设备开发<sup style="color:red">(new)<sup>](#)
-	* [介绍](zh-cn/Device-dev/Introduce) 
+	* [介绍](zh-cn/Device-dev/devcie-devlp-intro) 
 	* [物联模组类](zh-cn/Device-dev/module)
 	* [设备SDK类](#)
 		* [Linux](zh-cn/Device-dev/dev-linux)
