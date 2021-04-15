@@ -57,7 +57,7 @@
 	* [定时类](zh-cn/IFTTT/ifttt-execute)
 	* [组件类](zh-cn/IFTTT/ifttt-log)
 	* [回调类](zh-cn/IFTTT/ifttt-count)
-	* [智家APP（Portal）](zh-cn/IFTTT/ifttt-app-portal)
+	* [APP（Portal）](zh-cn/IFTTT/ifttt-app-portal)
 
 
 
