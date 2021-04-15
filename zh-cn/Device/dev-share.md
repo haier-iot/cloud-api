@@ -8,7 +8,7 @@
 
 **接口描述**
 
-?> **接入地址：** `/ufm/v1/protected/shareDeviceService/ person/shareDevices?pageNumber={curpage}&pageSize={pageSize}`</br>
+?> **接入地址：** `/ufm/v1/protected/shareDeviceService/person/shareDevices?pageNumber={curpage}&pageSize={pageSize}`</br>
 **HTTP Method：** GET
 
 **输入参数**
