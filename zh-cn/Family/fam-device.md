@@ -684,7 +684,7 @@ Body:
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | String  | devId   | url |必填|设备id |  
 | String  | familyId   | url |必填|家庭id |  
-  
+
 
 **输出参数**  
 
@@ -745,7 +745,7 @@ Content-type: application/json
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | String  | devId   | url |必填|设备id |  
 | String  | familyId   | url |必填|家庭id |  
-  
+
 
 **输出参数**  
 
@@ -809,7 +809,8 @@ Content-type: application/json
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | ShareDevice  | shareDev   | Body |必填|设备的分享信息 |  
 | String  | targetId   | url |必填|分享设备的目标用户 |  
-  
+
+
 **输入对象参数说明**  
 
 |    字段名    |     类型      | 说明  |备注 |
@@ -879,7 +880,8 @@ Content-type: application/json
 | ------------- |:-------------:|:-----:|:-------------:|:-------------:|
 | String  | devId   | url |必填|设备id |  
 | String  | targetId   | url |必填|设备分享者 |  
-  
+
+
 **输出参数**  
 
 |    字段名    |     类型      | 说明  |备注 |
@@ -926,7 +928,6 @@ Content-type: application/json
 | 类型   | 参数名 | 位置  | 必填|说明|  
 | ---- |:-----:|:-----:|:-----:|:------:|
 | String  | devId   | url |必填|设备id |   
-  
 
 
 
@@ -972,7 +973,7 @@ Content-type: application/json
 | ---- |:-----:|:-----:|:-----:|:------:|
 | ShareDevice[]  | shareDevices   | body |必填|设备信息 |  
 | String  | familyId   | body |必填|家庭ID |   
-  
+
 
 **输入参数说明**  
 
@@ -1053,7 +1054,6 @@ Body：
 | 类型   | 参数名 | 位置  | 必填|说明|  
 | ---- |:-----:|:-----:|:-----:|:------:|
 | ShareDevice[] | shareDevices   | body |必填|设备信息 |  
- 
 
 
 **输入参数说明**  
@@ -1221,8 +1221,7 @@ Body：
 
 | 类型   | 参数名 | 位置  | 必填|说明|  
 | ---- |:-----:|:-----:|:-----:|:------:|
-| ShareDevice[] | shareDevices   | body |必填|设备的分享信息，最大一次请求数为10 |  
- 
+| ShareDevice[] | shareDevices   | body |必填|设备的分享信息，最大一次请求数为10 | 
 
 
 **输入参数说明**  
