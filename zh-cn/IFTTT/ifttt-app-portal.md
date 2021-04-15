@@ -33,7 +33,7 @@
 **Headers** 
 
 参数名称|参数值|是否必须|示例|备注
-:-|:-:|:-:|:-:|:-:|:-
+:-|:-:|:-:|:-:|:-
 Content-Type|application/json|是|&nbsp;|&nbsp;|
 
 **Body** 
