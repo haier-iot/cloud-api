@@ -54,6 +54,159 @@ data|object[]|必须|&nbsp;|返回数据|item 类型: object|
 ## 获取型号支持的功能信息
 
 
+> 基本信息
+
+?> **接入地址：** `/https://api.haigeek.com/adc/scenePortal/cmpt/getModelPropList`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+入参：
+{
+"componentId": "3019f113965989d5435be2e252c37505",
+"functionId": "bf8d58f02b9bc0888b3e3a06044632c4",
+"functionVal":"",
+"productCodeList": ["AA9ZQ3015AA"]
+}出参：
+{
+"retCode": "00000",
+"retInfo": "成功",
+"data": [{
+"id": "bf8d58f02b9bc0888b3e3a06044632c4",
+"midtypeCode": "140ee",
+"typeId": "201892472082410014ee1f59c420c50000001678a5ce52b5095cfdb58f0d1440",
+"model": "KFR-26GW/15DDA22AU1套机",
+"productCode": "AA9ZQ3015AA",
+"propClass": "message",
+"propName": "event3",
+"description": "事件3",
+"functionName": "event3",
+"functionDesc": "事件3",
+"propFixer": "设置为",
+"readable": true,
+"writable": false,
+"whenLabel": true,
+"thenLabel": false,
+"propSort": 2,
+"ifNeedAuth": "2",
+"ifLabel": "0",
+"props": [{
+"propClass": "null",
+"propName": "setIntValue",
+"propSort": 0,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "setMode",
+"propSort": 1,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "setHMS",
+"propSort": 2,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "setMS",
+"propSort": 3,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "setFloatValue",
+"propSort": 4,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "onOffStatus",
+"propSort": 5,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "currentTemperature",
+"propSort": 6,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "stringTest",
+"propSort": 7,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "onOffLight",
+"propSort": 8,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "maxIntValue",
+"propSort": 9,
+"ifLabel": "0",
+"exchangeType": "0"
+},
+{
+"propClass": "null",
+"propName": "setYMD",
+"propSort": 10,
+"ifLabel": "0",
+"exchangeType": "0"
+}]
+}]
+}
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+clientId|XXXXXXXX-XXXXXXXXXXXX|是|&nbsp;|&nbsp;|
+appVersion|XX.XX.XX.XXXXX|是|&nbsp;|&nbsp;|
+sequenceId|sdfsadf|是|&nbsp;|&nbsp;|
+accessToken|TGT30O0ODH35RYSY2KUI7LALCJRI90|是|&nbsp;|&nbsp;|
+language|zh-cn|是|&nbsp;|&nbsp;|
+timezone|+8|是|&nbsp;|&nbsp;|
+sign|${sign}|是|&nbsp;|&nbsp;|
+timestamp|${timestamp}|是|&nbsp;|&nbsp;|
+appId|MB-UZHSH-0000|是|&nbsp;|&nbsp;|
+appName	|adc|是|&nbsp;|&nbsp;|
+appKey	|f50c76fbc8271d3261e1f6b5973f54585|是|&nbsp;|6bda204e2fa884c175fde09f185ec790|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+productCodeList|string[]|必须|&nbsp;|&nbsp;|item 类型: string|
+sceneIdList|string[]|必须|&nbsp;|&nbsp;|item 类型: string|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode|string|必须|&nbsp;|返回码|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object[]|必须|&nbsp;|返回数据|item 类型: object|
+
 ## 获取型号功能
 
 
