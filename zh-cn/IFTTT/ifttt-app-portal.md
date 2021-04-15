@@ -1,6 +1,6 @@
 
 
-# 组件类（Portal）
+# 智家APP（Portal）
 
 !> **更新时间**：{docsify-updated}  
 
