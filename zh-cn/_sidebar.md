@@ -70,7 +70,7 @@
 
 
 
-* [设备开发<sup style="color:red">(new)<sup>](#)
+* [设备开发](#)
 	* [介绍](zh-cn/Device-dev/devcie-devlp-intro) 
 	* [物联模组类](zh-cn/Device-dev/module)
 	* [设备SDK类](#)
