@@ -305,9 +305,56 @@ productCode|string|必须|&nbsp;|成品编码|&nbsp;|
 
 名称|类型|是否必须|默认值|备注|其他信息
 :-|:-:|:-:|:-:|:-:|:-
-retCode|string|必须|&nbsp;|返回码|&nbsp;|
+retCode```                  ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
 retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
-data|object[]|必须|&nbsp;|返回数据|item 类型: object|
+data|object|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ sysProps|object|必须|&nbsp;|app用系统属性|&nbsp;|
+```   ```├─ id|string|必须|&nbsp;|成品编码|&nbsp;|
+```   ```├─ componentId|string|必须|&nbsp;|组件id|&nbsp;|
+```   ```├─ componentType|string|必须|&nbsp;|组件类型（MODEL 型号组件）|&nbsp;|
+``` ```├─ conditions|object|必须|&nbsp;|条件属性集合|&nbsp;|
+```   ```├─ propId|string|必须|&nbsp;|单命令：属性主键；组命令：组命令功能主键|&nbsp;|
+```   ```├─ propClass|string|必须|&nbsp;|属性类别|&nbsp;|
+```   ```├─ desc|string|必须|&nbsp;|单命令：属性标识显示名称；组命令：组命令功能标识显示名称|&nbsp;|
+```   ```├─ fixer|string|必须|&nbsp;|属性修饰词|&nbsp;|
+```   ```├─ splitFunc|string|必须|&nbsp;|拆分标识 0：不拆，1：拆分|&nbsp;|
+```   ```├─ propSort|string|必须|&nbsp;|排序|&nbsp;|
+```   ```├─ ifNeedAuth|string|必须|&nbsp;|是否需要授权 1 需要授权 2 不需要授权（音响）|&nbsp;|
+```   ```├─ propName|string|必须|&nbsp;|功能标识|&nbsp;|
+```   ```├─ functionName|string|必须|&nbsp;|组命令标识|&nbsp;|
+```   ```├─ ifLabel|string|必须|&nbsp;|否启用标签：0:否，1：是|&nbsp;|
+```   ```├─ props|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+```     ```├─ propId|string|必须|&nbsp;|属性主键|&nbsp;|
+```     ```├─ fixer|string|必须|&nbsp;|属性修饰词|&nbsp;|
+```     ```├─ propName|string|必须|&nbsp;|属性标识名称|&nbsp;|
+```     ```├─ desc|string|必须|&nbsp;|属性标识显示名称|&nbsp;|
+```     ```├─ functionName|string|必须|&nbsp;|属性功能标识名称|&nbsp;|
+```     ```├─ propValType|string|必须|&nbsp;|取值类型|&nbsp;|
+```     ```├─ variants|string|必须|&nbsp;|取值范围|&nbsp;|
+```     ```├─ defaultValue|string|必须|&nbsp;|默认值|&nbsp;|
+```     ```├─ defaultValueDesc|string|必须|&nbsp;|默认值描述|&nbsp;|
+``` ```├─ actions|object|必须|&nbsp;|动作属性集合|&nbsp;|
+```   ```├─ propId|string|必须|&nbsp;|单命令：属性主键；组命令：组命令功能主键|&nbsp;|
+```   ```├─ propClass|string|必须|&nbsp;|属性类别|&nbsp;|
+```   ```├─ desc|string|必须|&nbsp;|单命令：属性标识显示名称；组命令：组命令功能标识显示名称|&nbsp;|
+```   ```├─ fixer|string|必须|&nbsp;|属性修饰词|&nbsp;|
+```   ```├─ splitFunc|string|必须|&nbsp;|拆分标识 0：不拆，1：拆分|&nbsp;|
+```   ```├─ propSort|string|必须|&nbsp;|排序|&nbsp;|
+```   ```├─ ifNeedAuth|string|必须|&nbsp;|是否需要授权 1 需要授权 2 不需要授权|&nbsp;|
+```   ```├─ propName|string|必须|&nbsp;|功能标识|&nbsp;|
+```   ```├─ functionName|string|必须|&nbsp;|组命令标识|&nbsp;|
+```   ```├─ ifLabel|string|必须|&nbsp;|否启用标签：0:否，1：是|&nbsp;|
+```   ```├─ props|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+```     ```├─ propId|string|必须|&nbsp;|属性主键|&nbsp;|
+```     ```├─ fixer|string|必须|&nbsp;|属性修饰词|&nbsp;|
+```     ```├─ propName|string|必须|&nbsp;|属性标识名称|&nbsp;|
+```     ```├─ desc|string|必须|&nbsp;|desc|&nbsp;|
+```     ```├─ functionName|string|必须|&nbsp;|属性功能标识名称|&nbsp;|
+```     ```├─ propValType|string|必须|&nbsp;|取值类型|&nbsp;|
+```     ```├─ variants|string|必须|&nbsp;|取值范围|&nbsp;|
+```     ```├─ defaultValue|string|必须|&nbsp;|默认值|&nbsp;|
+```     ```├─ defaultValueDesc|string|必须|&nbsp;|默认值描述|&nbsp;|
+
 
 ## 查询型号支持场景状态列表
 
