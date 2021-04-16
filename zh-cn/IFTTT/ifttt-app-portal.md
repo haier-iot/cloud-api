@@ -205,7 +205,7 @@ productCodeList|string|必须|&nbsp;|产品编码列表|&nbsp;|
 
 名称|类型|是否必须|默认值|备注|其他信息
 :-|:-:|:-:|:-:|:-:|:-
-retCode```      ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retCode```                  ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
 retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
 data|object|必须|&nbsp;|返回数据|&nbsp;|
 &nbsp;&nbsp;├─ id|string|必须|&nbsp;|id|&nbsp;|
