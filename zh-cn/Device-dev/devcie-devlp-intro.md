@@ -13,7 +13,8 @@
 ?> 新开发设备接入平台的选择流程见下图：
 ![新开发设备接入平台的选择流程][pic1]
 
-**常用图片注释**
+[^-^]: 常用图片注释
+
 [pic1]:../Device-dev/_media/_devcie-devlp-intro/pic1.png
 
 
