@@ -360,6 +360,58 @@ data|object|必须|&nbsp;|返回数据|&nbsp;|
 
 ## 查询型号支持场景状态列表
 
+> 基本信息
+
+?> **接入地址：** `https://api.haigeek.com/adc/scenePortal/cmpt/getModelSupportSceneStateList`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+{
+"retCode": "00000",
+"retInfo": "成功",
+"data": [{
+    "productCode": "FY0015009",
+    "supportSceneStatus": true,
+    "sceneType": 1
+},
+{
+    "productCode": "FY001LM0L",
+    "supportSceneStatus": true,
+    "sceneType": 1
+}]
+}
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+type|string|必须|&nbsp;|型号状态：0、未上线 1、已上线  2、全部状态（包括已上线未上线）|&nbsp;|
+productCodeList|string[]|必须|&nbsp;|成品编码列表|item 类型: string|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object[]|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ productCode|string|必须|&nbsp;|成品编码|&nbsp;|
+``` ```├─ supportSceneStatus|boolean|必须|&nbsp;|是否支持显示|&nbsp;|
+``` ```├─ sceneType|string|必须|&nbsp;|场景类型：1、条件  2、 动作  3 条件和动作都支持|&nbsp;|
+
+
 
 ## 根据中类组件属性ID查询属性信息（为了兼容app老服务暂时返回常量）
 
