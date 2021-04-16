@@ -208,8 +208,8 @@ productCodeList|string|必须|&nbsp;|产品编码列表|&nbsp;|
 retCode```                  ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
 retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
 data|object|必须|&nbsp;|返回数据|&nbsp;|
-&nbsp;&nbsp;├─ id|string|必须|&nbsp;|id|&nbsp;|
-&nbsp;&nbsp;├─ midtypeCode|string|必须|&nbsp;|中类编码|&nbsp;|
+```   ```├─ id|string|必须|&nbsp;|id|&nbsp;|
+```       ```├─ midtypeCode|string|必须|&nbsp;|中类编码|&nbsp;|
 &nbsp;&nbsp;├─ prodtypeCode|string|必须|&nbsp;|产品类型编码|&nbsp;|
 &nbsp;&nbsp;├─ typeId|string|必须|&nbsp;|typeId|&nbsp;|
 &nbsp;&nbsp;├─ model|string|必须|&nbsp;|型号|&nbsp;|
