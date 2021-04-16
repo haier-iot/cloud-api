@@ -209,6 +209,32 @@ retCode|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
 retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
 data|object|必须|&nbsp;|返回数据|&nbsp;|
 &nbsp;├─ id|string|必须|&nbsp;|id|&nbsp;|
+&nbsp;├─ midtypeCode|string|必须|&nbsp;|中类编码|&nbsp;|
+&nbsp;├─ prodtypeCode|string|必须|&nbsp;|产品类型编码|&nbsp;|
+&nbsp;├─ typeId|string|必须|&nbsp;|typeId|&nbsp;|
+&nbsp;├─ model|string|必须|&nbsp;|型号|&nbsp;|
+&nbsp;├─ productCode|string|必须|&nbsp;|成品编码|&nbsp;|
+&nbsp;├─ propClass|string|必须|&nbsp;|属性类别|&nbsp;|
+&nbsp;├─ propName|string|必须|&nbsp;|属性标识名称|&nbsp;|
+&nbsp;├─ description|string|必须|&nbsp;|属性标识显示名称|&nbsp;|
+&nbsp;├─ functionName|string|必须|&nbsp;|属性功能标识名称|&nbsp;|
+&nbsp;├─ functionDesc|string|必须|&nbsp;|属性功能标识描述|&nbsp;|
+&nbsp;├─ propFixer|string|必须|&nbsp;|属性修饰词|&nbsp;|
+&nbsp;├─ propValType|string|必须|&nbsp;|取值类型|&nbsp;|
+&nbsp;├─ variants|string|必须|&nbsp;|取值范围|&nbsp;|
+&nbsp;├─ defaultValue|string|必须|&nbsp;|默认值|&nbsp;|
+&nbsp;├─ propVal|string|必须|&nbsp;|取值|&nbsp;|
+&nbsp;├─ readable|string|必须|&nbsp;|是否可读|&nbsp;|
+&nbsp;├─ writeType|string|必须|&nbsp;|写类型|&nbsp;|
+&nbsp;├─ attrLabel|string|必须|&nbsp;|模型/模板 （创建硬件 高级模式选模板，标准模式选模型）|&nbsp;|
+&nbsp;├─ whenLabel|string|必须|&nbsp;|是否作为条件|&nbsp;|
+&nbsp;├─ thenLabel|string|必须|&nbsp;|是否作为动作|&nbsp;|
+&nbsp;├─ propSort|string|必须|&nbsp;|排序|&nbsp;|
+&nbsp;├─ ifNeedAuth|string|必须|&nbsp;|是否需要授权 1 需要授权 2 不需要授权。|&nbsp;|
+&nbsp;├─ props|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+&nbsp;&nbsp;├─ propClass|string|必须|&nbsp;|属性类别|&nbsp;|
+&nbsp;&nbsp;├─ propName|string|必须|&nbsp;|属性名称|&nbsp;|
+&nbsp;&nbsp;├─ propVal|string|必须|&nbsp;|属性值|&nbsp;|
 
 ## 获取型号功能
 
