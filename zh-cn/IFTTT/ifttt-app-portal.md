@@ -539,8 +539,84 @@ props|object[]|必须|&nbsp;|子属性|item 类型: object|
 
 ## 根据中类组件属性ID查询属性信息
 
+> 基本信息
+
+?> **接入地址：** `  https://api.haigeek.com/adc/scenePortal/cmpt/getPropById`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+propId|string|必须|&nbsp;|属性id|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+
 
 ## 获取组件信息接口
+
+
+> 基本信息
+
+?> **接入地址：** ` https://api.haigeek.com/adc/scenePortal/cmpt/getById`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+id|string|必须|&nbsp;|组件id|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ id|string|必须|&nbsp;|组件id|&nbsp;|
+``` ```├─ componentName|string|必须|&nbsp;|组件名称|&nbsp;|
+``` ```├─ componentType|string|必须|&nbsp;|组件类型|&nbsp;|
+``` ```├─ componentDesc|string|必须|&nbsp;|组件描述|&nbsp;|
+``` ```├─ typeId|string|非必须|&nbsp;|typeid|&nbsp;|
+``` ```├─ model|string|非必须|&nbsp;|型号名称|&nbsp;|
+``` ```├─ prodtypeCode|string|必须|&nbsp;|组件类型编码|&nbsp;|
+``` ```├─ prodtypeName|string|非必须|&nbsp;|组件类型名称|&nbsp;|
+``` ```├─ DeviceDesc|object|非必须|&nbsp;|中类组件描述信息|&nbsp;|
+```   ```├─ bigClass|string|非必须|&nbsp;|大类|&nbsp;|
+```   ```├─ middleClass|string|非必须|&nbsp;|中类|&nbsp;|
+```   ```├─ id|string|非必须|&nbsp;|id|&nbsp;|
 
 
 ## 查询场景的规则信息
