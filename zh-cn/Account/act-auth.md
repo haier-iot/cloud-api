@@ -42,11 +42,11 @@
 
 **1. 海尔授权登录H5页链接**
 
-第三方App通过发现技能或者绑定第三方账号的方式打开海尔账号Oauth授权登录H5页，此时第三方 App 要生成 授权 URL（标准的OAuth 授权码模式的认证的URI）。 用户 进入 授权 URL， 登录并完成 对 应用 的 授权，用户中心将重定向 用户 至第三方App回跳页，并带上code和是state。
+第三方App通过发现技能或者绑定第三方账号的方式打开海尔账号Oauth授权登录H5页，此时第三方App要生成授权 URL（标准的OAuth 授权码模式的认证的URI）。用户进入授权URL，登录并完成对应用的授权，用户中心将重定向 用户至第三方App回跳页，并带上code和是state。
 
 
 ```
- 测试环境 ：https://taccount.haier.com/oauth/authorize? client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callback  
+ 测试环境：https://taccount.haier.com/oauth/authorize? client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callback  
 
  生产环境：https://account.haier.com/oauth/authorize? client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callbac
 
@@ -57,8 +57,8 @@
 |client_id |为海极网分配的systemid, 我们使用例子中的 rptest| Y|
 |response_type| 为授权方式, 这里固定为 code| Y|
 |redirect_uri |指定回跳地址, 这里为 https://rp.com/login_callback| Y|
-|state|为 应用 生成的随机字符, 在 用户 授权 回调时会原样返回给 应 用, 藉此可以判断来自 本平台 的回跳是否被伪造; 此参数非必传, 但推荐传送以增强安全性|N|
-|display|告知 本平台 以何种登录界面展示给 用户, 如设定为 qr 时, 本平 台 仅展示只有二维码的页面(意在让 用户 扫码登录), 同时此页面 可作为 iframe 嵌入 应用 当前页面; 若未指定, 则默认展示登录界 面|N|
+|state|为应用生成的随机字符, 在用户授权 回调时会原样返回给应用,藉此可以判断来自本平台的回跳是否被伪造; 此参数非必传,但推荐传送以增强安全性|N|
+|display|告知本平台以何种登录界面展示给用户, 如设定为qr时, 本平台仅展示只有二维码的页面(意在让用户 扫码登录), 同时此页面可作为iframe嵌入应用当前页面; 若未指定, 则默认展示登录界面|N|
 
 
 
@@ -87,7 +87,7 @@ Location: {redirect_uri}?code=SplxlOBeZQQYbYS6WxSbIA&state={state}
 **使用说明**
 
 通过oauth登录获取的token获取海尔token，其中：  
-1. Oauth登录返回的code ，使用授权码换取token，code有效期为 10 分钟，只能使用1次；  
+1. Oauth登录返回的code，使用授权码换取token，code有效期为10分钟，只能使用1次；  
 2. refresh token默认有效期为1年，失效过后，需要海尔账号重新授权；
 3. 在RefreshToken的有效期内，使用接口“刷新海尔token，/ucs/uia/refresh/token”，获取到的RefreshToken有效期不会延长，只会重新刷新10天accessToken的有效期；
 
