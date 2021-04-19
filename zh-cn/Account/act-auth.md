@@ -115,8 +115,8 @@ Content-Type  |String |Header |是|application/json;charset=UTF-8
 
 参数名|类型|位置|说明
 :-|:-:|:-:|:-
-retCode| String| body| 错诨码 
-retInfo |String| body |错诨详细信息 
+retCode| String| body| 错误码 
+retInfo |String| body |错误详细信息 
 payload |Object  |Body|  
 accessToken|String| payload| 授权凭证 
 refreshToken |String |payload |刷新凭证 
@@ -180,8 +180,8 @@ Content-Type  |String |Header |是|application/json;charset=UTF-8
 
 参数名|类型|位置|说明
 :-|:-:|:-:|:-
-retCode| String| body| 错诨码 
-retInfo |String| body |错诨详细信息 
+retCode| String| body| 错误码 
+retInfo |String| body |错误详细信息 
 payload |Object  |Body|  
 accessToken|String| payload| 授权凭证 
 refreshToken |String |payload |刷新凭证 
