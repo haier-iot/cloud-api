@@ -451,6 +451,92 @@ propId|string|必须|&nbsp;|属性id|&nbsp;|
 ## 获取非设备类组件和属性功能列表
 
 
+
+> 基本信息
+
+?> **接入地址：** `https://api.haigeek.com/adc/scenePortal/cmpt/getCmptPropList`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+{
+"retCode": "00000",
+"retInfo": "成功",
+"data": {
+    "componentId": "3404d74e0ede4f33ba8ab72e11de8eac",
+    "componentType": "WEATHER",
+    "componentName": "当前天气",
+    "componentDesc": "当前天气",
+    "props": [{
+        "propId": "3d7f098d96bd48098168b0f0bf1b206b",
+        "fixer": "设置为",
+        "propName": "pm25",
+        "desc": "室外PM2.5",
+        "functionName": "pm25",
+        "propValType": "int",
+        "variants": "{"unit":"ug/m³","minValue":0,"step":5,"maxValue":2000}"
+    },
+    {
+        "propId": "b140f5d6dfb4464e9c4b8548eed77a6d",
+        "fixer": "设置为",
+        "propName": "temperature",
+        "desc": "室外温度",
+        "functionName": "temperature",
+        "propValType": "int",
+        "variants": "{"unit":"℃","minValue":-60,"step":1,"maxValue":60}"
+    },
+    {
+        "propId": "c4c49da19d104cf892b53f674de72c7e",
+        "fixer": "设置为",
+        "propName": "humidy",
+        "desc": "室外湿度",
+        "functionName": "humidy",
+        "propValType": "int",
+        "variants": "{"unit":"%","minValue":0,"step":1,"maxValue":100}"
+    }]
+    }
+}
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+type|string|必须|&nbsp;|组件类型（WEATHER 天气；TIMER  定时；DELAY 延时；GEOFENCE 地理围栏）|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+componentId```                         ```|string|必须|&nbsp;|组件id|&nbsp;|
+componentName|string|必须|&nbsp;|组件名称|&nbsp;|
+componentType|string|必须|&nbsp;|组件类型|&nbsp;|
+props|object[]|必须|&nbsp;|子属性|item 类型: object|
+``` ```├─ name|string|必须|&nbsp;|属性名称|&nbsp;|
+``` ```├─ type|string|必须|&nbsp;|属性类别，可取值：property alarm operation group(组命令)|&nbsp;|
+``` ```├─ valType|string|必须|&nbsp;|为property或者为operation时，可取double int bool enum；type为alarm,该字段为null|&nbsp;|
+``` ```├─ variants|string|必须|&nbsp;|取值范围|&nbsp;|
+``` ```├─ whenLabel|boolean|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ thenLabel|boolean|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ sort|integer|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ description|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ createTime|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ updateTime|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ componentId|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ defaultValue|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ icon|string|必须|&nbsp;|&nbsp;|&nbsp;|
+
+
 ## 根据中类组件属性ID查询属性信息
 
 
