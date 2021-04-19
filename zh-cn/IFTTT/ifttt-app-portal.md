@@ -415,6 +415,39 @@ data|object[]|必须|&nbsp;|返回数据|&nbsp;|
 
 ## 根据中类组件属性ID查询属性信息（为了兼容app老服务暂时返回常量）
 
+> 基本信息
+
+?> **接入地址：** ` https://api.haigeek.com/adc/scenePortal/cmpt/getPropByIds`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+为了兼容app老服务暂时返回常量
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+propId|string|必须|&nbsp;|属性id|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+
+
+
 ## 获取非设备类组件和属性功能列表
 
 
