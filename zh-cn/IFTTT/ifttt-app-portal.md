@@ -701,7 +701,6 @@ data|object|必须|&nbsp;|返回数据|&nbsp;|
 **接口描述**
 
 ```
-
 ```
 > 请求参数
 
@@ -754,5 +753,114 @@ data|object|必须|&nbsp;|返回数据|&nbsp;|
 ``` ```├─ triggerType|string|必须|&nbsp;|platform：平台触发，manually：手动触发：timerTrigger 时间触发 weatherTrigger:天气触发|&nbsp;|
 ``` ```├─ taskInfo|object|必须|&nbsp;|定时策略信息|&nbsp;|
 ``` ```├─ taskInfoList|object[]|必须|&nbsp;|多个定时策略信息|item 类型: object|
+
+
+
+## 根据场景id查询当前场景所在网关设备以及该场景所支持的网关列表
+
+
+> 基本信息
+
+?> **接入地址：** `/iftttscene/edge/find/gateway-device-of-scene`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+{
+  "retCode": "00000",
+  "retInfo": "返回成功",
+  "data": {
+    "deviceId": "DC330D3722E1",
+    "supportTable": [
+      {
+        "deviceId": "DC330D3722E1"
+      },
+      {
+        "deviceId": "DC330D6A14BB"
+      },
+      {
+        "deviceId": "0007A8AA464F"
+      }
+    ]
+  }
+}
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+sceneId|string|必须|&nbsp;|场景id|mock: 2012191658176438709924980006936|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ deviceId|string|非必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ supportTable|object[]|非必须|&nbsp;|&nbsp;|item 类型: object|
+```   ```├─ deviceId|string|必须|&nbsp;|app上场景排序|&nbsp;|
+
+
+
+## 切换场景运行位置
+
+
+> 基本信息
+
+?> **接入地址：** `/iftttscene/edge/change-location`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+请求参数：
+{
+  "sceneId": "868086971205000000",
+  "familyId": "868086971205111111",
+  "sceneLocation": "edge",
+  "gatewayId": "DB1230C3F"
+}
+返回参数：
+{
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+sceneId|string|必须|&nbsp;|场景id|mock: 2012191658176438709924980006936|
+familyId|string|必须|&nbsp;|家庭id|&nbsp;|
+sceneLocation|string|必须|&nbsp;|场景id|运行位置类型：local、cloud|
+gatewayId|string|非必须|&nbsp;|网关id,locationType为local时必填|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
 
 
