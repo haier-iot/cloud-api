@@ -693,5 +693,66 @@ data|object|必须|&nbsp;|返回数据|&nbsp;|
 ## 查询模板场景基本信息
 
 
+> 基本信息
+
+?> **接入地址：** `https://api.haigeek.com/adc/scenePortal/scene/findBasicSceneInfo`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+appSceneId|string|必须|&nbsp;|场景id|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ id|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ isAccessApp|number|必须|&nbsp;|app是否上架 0-未上架 1-已上架|&nbsp;|
+``` ```├─ appSceneSort|integer|必须|&nbsp;|app上场景排序|&nbsp;|
+``` ```├─ sourceId|string|必须|&nbsp;|场景来源|&nbsp;|
+``` ```├─ sceneAlias|string|必须|&nbsp;|场景别名|&nbsp;|
+``` ```├─ sceneDesc|string|必须|&nbsp;|场景描述|&nbsp;|
+``` ```├─ sceneName|string|必须|&nbsp;|场景名称|&nbsp;|
+``` ```├─ appId|string|必须|&nbsp;|客户端id|&nbsp;|
+``` ```├─ auto|string|必须|&nbsp;|是否支持自动实例化|&nbsp;|
+``` ```├─ banner|string|必须|&nbsp;|场景banner图URL|&nbsp;|
+``` ```├─ canAppTrigger|string|必须|&nbsp;|是否需要APP触发|&nbsp;|
+``` ```├─ createTime|string|必须|&nbsp;|创建时间|&nbsp;|
+``` ```├─ icon|string|必须|&nbsp;|场景图标URL|&nbsp;|
+``` ```├─ storeIcon|string|必须|&nbsp;|场景商店URL|&nbsp;|
+``` ```├─ inoutSide|string|必须|&nbsp;|场景标识|&nbsp;|
+``` ```├─ keyword|string|必须|&nbsp;|关键字|&nbsp;|
+``` ```├─ status|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ video|string|必须|&nbsp;|场景短视频URL|&nbsp;|
+``` ```├─ userIdWhiteList|string|必须|&nbsp;|用户id白名单|&nbsp;|
+``` ```├─ loginIdWhiteList|string|必须|&nbsp;|登录id白名单|&nbsp;|
+``` ```├─ sortList|object[]|必须|&nbsp;|	应用场景分类列表|item 类型: object|
+``` ```├─ tagList|object[]|必须|&nbsp;|应用场景标签列表|item 类型: object|
+``` ```├─ type|string|必须|&nbsp;|场景类型|&nbsp;|
+``` ```├─ updateTime|string|必须|&nbsp;|更新时间|&nbsp;|
+``` ```├─ userId|string|必须|&nbsp;|&nbsp;|&nbsp;|
+``` ```├─ version|string|必须|&nbsp;|应用场景版本|&nbsp;|
+``` ```├─ triggerType|string|必须|&nbsp;|platform：平台触发，manually：手动触发：timerTrigger 时间触发 weatherTrigger:天气触发|&nbsp;|
+``` ```├─ taskInfo|object|必须|&nbsp;|定时策略信息|&nbsp;|
+``` ```├─ taskInfoList|object[]|必须|&nbsp;|多个定时策略信息|item 类型: object|
 
 
