@@ -622,6 +622,74 @@ data|object|必须|&nbsp;|返回数据|&nbsp;|
 ## 查询场景的规则信息
 
 
+> 基本信息
+
+?> **接入地址：** `https://api.haigeek.com/adc/scenePortal/scene/app/rule/getById`</br>
+**HTTP Method：** POST
+
+**接口描述**
+
+```
+
+```
+> 请求参数
+
+**Headers** 
+
+参数名称|参数值|是否必须|示例|备注
+:-|:-:|:-:|:-:|:-
+Content-Type|application/json|是|&nbsp;|&nbsp;|
+
+
+**Body** 
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+ruleId|string|必须|&nbsp;|场景规则Id|&nbsp;|
+
+> 返回数据
+
+名称|类型|是否必须|默认值|备注|其他信息
+:-|:-:|:-:|:-:|:-:|:-
+retCode```                         ```|string|必须|&nbsp;|返回码 00000 成功|&nbsp;|
+retInfo|string|必须|&nbsp;|返回信息|&nbsp;|
+data|object|必须|&nbsp;|返回数据|&nbsp;|
+``` ```├─ id|string|必须|&nbsp;|成品编码|&nbsp;|
+``` ```├─ rule|string|必须|&nbsp;|规则名称|&nbsp;|
+``` ```├─ salience|string|必须|&nbsp;|规则执行优先级数字越大则越先执行|&nbsp;|
+``` ```├─ when|object|必须|&nbsp;|条件|&nbsp;|
+```   ```├─ conditions|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+```     ```├─ id|string|必须|&nbsp;|条件id|&nbsp;|
+```     ```├─ desc|string|必须|&nbsp;|单命令：属性标识显示名称；组命令：组命令功能标识显示名称|&nbsp;|
+```     ```├─ stdDesc|string|必须|&nbsp;|属性修饰词|&nbsp;|
+```     ```├─ logicalSign|string|必须|&nbsp;|逻辑运算符（枚举类型）|&nbsp;|
+```     ```├─ key|string|必须|&nbsp;|&nbsp;|&nbsp;|
+```     ```├─ operationSign|string|必须|&nbsp;|关系运算符（枚举类型）|&nbsp;|
+```     ```├─ value|string|必须|&nbsp;|&nbsp;|&nbsp;|
+```     ```├─ componentId|string|必须|&nbsp;|组件id|&nbsp;|
+```     ```├─ componentType|string|必须|&nbsp;|组件类型|&nbsp;|
+```     ```├─ groupTag|string|必须|&nbsp;|分组tagID，非设备条件为null|&nbsp;|
+``` ```├─ then|object|必须|&nbsp;|动作|&nbsp;|
+```   ```├─ actions|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+```     ```├─ id|string|必须|&nbsp;|动作id|&nbsp;|
+```     ```├─ type|string|必须|&nbsp;|动作类型|&nbsp;|
+```     ```├─ dealyTime|string|必须|&nbsp;|&nbsp;|&nbsp;|
+```     ```├─ stdDesc|string|必须|&nbsp;|标准描述|&nbsp;|
+```     ```├─ priority|string|必须|&nbsp;|优先级|&nbsp;|
+```     ```├─ control|object|必须|&nbsp;|&nbsp;|&nbsp;|
+```       ```├─ componentId|string|必须|&nbsp;|组件id|&nbsp;|
+```       ```├─ args|object[]|必须|&nbsp;|&nbsp;|item 类型: object|
+```         ```├─ name|object|必须|&nbsp;|&nbsp;|&nbsp;|
+```           ```├─ id|string|必须|&nbsp;|功能id|&nbsp;|
+```           ```├─ value|string|必须|&nbsp;|功能名|&nbsp;|
+```           ```├─ desc|string|必须|&nbsp;|功能描述|&nbsp;|
+```           ```├─ required|string|必须|&nbsp;|&nbsp;|&nbsp;|
+```         ```├─ value|object|必须|&nbsp;|&nbsp;|&nbsp;|
+```           ```├─ value|string|必须|&nbsp;|设定值|&nbsp;|
+```           ```├─ desc|string|必须|&nbsp;|设定值描述|&nbsp;|
+```           ```├─ required|string|必须|&nbsp;|&nbsp;|&nbsp;|
+
+
 ## 查询模板场景基本信息
 
 
