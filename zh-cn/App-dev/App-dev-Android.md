@@ -45,7 +45,6 @@ AppId、Appkey统一通过海极网上申请，开发者中心-我的应用 ，�
 ![基本业务流程](C:\Users\01503602\Desktop\GitHub\基本业务流程.png)
 
 
-
 ## 配置入网流程
 
 考下列流程开发配置设备入网功能，特别说明：启动uSDK是配置入网功能的前提；只使用uSDK配置入网功能的App，完成设备入网后，可执行退出uSDK。
@@ -511,3 +510,10 @@ uSDKManger.getuSDKVersion()
 
 uSDKError.getDescription()
 uSDKError.getErrorCode()
+
+
+
+[^-^]:常用图片注释
+[基本业务流程]:../App-dev/_media/_dataSubscription/基本业务流程.png
+[配置入网流程]:../App-dev/_media/配置入网流程.png
+[控制设备流程图]:../App-dev/_media/控制设备流程图.png
