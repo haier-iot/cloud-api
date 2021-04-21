@@ -140,7 +140,7 @@ POST data:
 
 ```
 { 
- "retCode": "0000", 
+ "retCode": "00000", 
  "retInfo": "成功", 
  "payload": { 
   "accessToken": "wfhwdh", 
@@ -202,7 +202,7 @@ expiresIn |Long| payload| accessToken的有效时间（以秒为单位）
 **请求应答**
 ```
 { 
- "retCode": "0000", 
+ "retCode": "00000", 
  "retInfo": "成功", 
  "payload": { 
   "accessToken": "wfhwdh", 
