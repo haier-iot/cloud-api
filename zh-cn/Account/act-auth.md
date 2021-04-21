@@ -42,13 +42,13 @@
 
 **1. 海尔授权登录H5页链接**
 
-第三方App通过发现技能或者绑定第三方账号的方式打开海尔账号Oauth授权登录H5页，此时第三方App要生成授权 URL（标准的OAuth 授权码模式的认证的URI）。用户进入授权URL，登录并完成对应用的授权，用户中心将重定向 用户至第三方App回跳页，并带上code和是state。
+第三方App通过发现技能或者绑定第三方账号的方式打开海尔账号Oauth授权登录H5页，此时第三方App要生成授权 URL（标准的OAuth 授权码模式的认证的URI）。用户进入授权URL，登录并完成对应用的授权，用户中心将重定向 用户至第三方App回跳页，并带上code和state。
 
 
 ```
- 测试环境：https://taccount.haier.com/oauth/authorize? client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callback  
+ 测试环境：https://taccount.haier.com/oauth/authorize?client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callback&amp;multiportflag=123  
 
- 生产环境：https://account.haier.com/oauth/authorize? client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callbac
+ 生产环境：https://account.haier.com/oauth/authorize?client_id=rptest&amp;response_type=code&amp;state=xyz&amp;redirect_uri=https://r p.com/login_callbac&amp;multiportflag=123
 
 ```
 
@@ -57,6 +57,7 @@
 |client_id |为海极网分配的systemid, 我们使用例子中的 rptest| Y|
 |response_type| 为授权方式, 这里固定为 code| Y|
 |redirect_uri |指定回跳地址, 这里为 https://rp.com/login_callback| Y|
+|multiportflag|请求终端唯一标识，随机字符，最大长度不超过32位。在访问IoT设备中心绑定控制设备接口时强制校验终端标识ID是否和token匹配（注明：设备中心接口参数定义为 clientId）|Y|
 |state|为应用生成的随机字符, 在用户授权 回调时会原样返回给应用,藉此可以判断来自本平台的回跳是否被伪造; 此参数非必传,但推荐传送以增强安全性|N|
 |display|告知本平台以何种登录界面展示给用户, 如设定为qr时, 本平台仅展示只有二维码的页面(意在让用户 扫码登录), 同时此页面可作为iframe嵌入应用当前页面; 若未指定, 则默认展示登录界面|N|
 
