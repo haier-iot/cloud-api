@@ -6,10 +6,13 @@
 
 
 ## 领域模型执行动作后回调执行结果
+
+**使用说明**
+
 >领域模型执行动作后回调返回执行结果。 
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/internal/callback/action/{sn}`  
  **HTTP Method：** POST
@@ -34,10 +37,13 @@
 
 
 ## 洗烘联动执行后回调执行结果
+
+**使用说明**
+
 >洗烘联动执行动作后回调返回执行结果。 
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/internal/callback/action/{componentType}/{sn}/{actionSn}`  
  **HTTP Method：** POST
