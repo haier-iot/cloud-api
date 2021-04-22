@@ -40,10 +40,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign:e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign:**********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -156,10 +156,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign:e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign:**********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -262,10 +262,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign:e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign:**********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -336,10 +336,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign: **********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -413,10 +413,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign: **********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -472,10 +472,10 @@ Header：
 	clientId: 123
 	sequenceId: 2014022801010
 	accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-	sign: e5bd9aefd68c16a9d441a636081f11ceaed51ff58ec608e5d90048f975927e7f
+	sign: **********
 	timestamp: 1491014447260 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
 	Content-Encoding: utf-8
 	Content-type: application/json
