@@ -77,7 +77,7 @@
 ```
 Location: {redirect_uri}?code=SplxlOBeZQQYbYS6WxSbIA&state={state}
 ```
-|       |          |          |
+| 参数 |    说明      |     备注     |
 | ------------- |:-------------:|:-------------:|
 |redirect_uri| 授权回调地址，务必和授权表单里填写的一致|
 |code| 用户授权给应用的授权码 |
