@@ -7,7 +7,7 @@
 >获取家庭下场景列表（包括用户自建场景和通过模板下载的场景）。
 
 
- 1、接口定义
+ **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/listSceneByFamily`  
  **HTTP Method：** POST
@@ -421,7 +421,7 @@ Body
 ## 判断该场景下规则的条件以及动作等是否正确
 >根据场景id判断该场景下规则的条件以及动作等是否正确，返回Map<String,List<String>> ,key 为规则id,value为校验符合要求,可以开启的动作集合。
 
- 1、接口定义
+ **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/ruleJudgement`  
  **HTTP Method：** POST
@@ -445,7 +445,7 @@ Body
 
 ## 根据场景模板Id保存规则参数信息
 >根据场景模板Id下载场景,并且更新下载后的场景的规则参数信息。
- 1、接口定义
+ **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/saveTemplate`  
  **HTTP Method：** POST
@@ -472,7 +472,7 @@ Body
 
 ## 批量更新规则的参数
 >批量更新规则详情 说明：如果需要更新的场景是手动触发类（例如，一键离家）那么每次更新规则系统都会判断当前更新后的场景是否满足实例化条件，如果满足则立即实例化并且场景的isOpen为true表示场景已经开启满足触发要求；如果是开关类场景，则只会更新最新场景的数据不会进行实例化，如果需要实例化需要APP调用手动开启场景接口。
- 1、接口定义
+ **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/rule/updateSettings`  
  **HTTP Method：** POST
@@ -501,7 +501,7 @@ Body
 ## 获取家庭规则参数设置
 >根据familyId和场景id查询家庭规则设置，其中条件或者动作未设置参数(即没有配置设备信息，外部条件信息等)也会返回记录。
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/getRuleSettingsByFamilyId`  
  **HTTP Method：** POST
 
@@ -526,7 +526,7 @@ Body
 ## 手动执行类场景列表查询
 >查询家庭下手动执行类场景列表
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/ listManuallySceneByFamily`  
  **HTTP Method：** POST
 
@@ -553,7 +553,7 @@ Body
 ## 开关类场景列表查询
 >平台触发类场景列表查询
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/listPlatformSceneByFamily`  
  **HTTP Method：** POST
 
@@ -580,7 +580,7 @@ Body
 ## 根据系统id查询场景列表
 >根据系统id查询场景列表，进行应用隔离,系统id根据UAG获取区分。
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/listFamilySceneBySystemId`  
  **HTTP Method：** POST
 
@@ -606,7 +606,7 @@ Body
 ## 根据属性id查询场景
 >根据设备id 查询场景列表
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/listSceneBySettings`  
  **HTTP Method：** POST
 
@@ -635,7 +635,7 @@ Body
 ## 查询场景执行状态
 >根据场景id 查询场景场景执行状态
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/getOperationLogInfo`  
  **HTTP Method：** POST
 
@@ -663,7 +663,7 @@ Body
 ## 根据场景名称查询场景
 >根据场景名称模糊查询场景列表
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/ listSceneBySceneName`  
  **HTTP Method：** POST
 
@@ -690,7 +690,7 @@ Body
 ## 修改场景描述信息
 >修改场景描述信息（场景名称、场景别名、场景描述）,多余参数不要传，防止修改出错。
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/updateSceneDesc`  
  **HTTP Method：** POST
 
@@ -716,7 +716,7 @@ Body
 ## 修改场景标签
 >修改场景标签，场景id必须，标签信息必须
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/updateSceneTag`  
  **HTTP Method：** POST
 
@@ -743,7 +743,7 @@ Body
 ## 查询家庭下标签信息
 >获取家庭下场景标签列表
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/listSceneTagByFamily`  
  **HTTP Method：** POST
 
@@ -768,7 +768,7 @@ Body
 ## 根据场景模板Id启用场景，优化接口
 >根据场景模板Id下载场景,并设置参数，如果该场景是开关类场景则把场景打开。
 
- 1、接口定义
+ **接口描述**
 ?> **接入地 址：**  `/iftttscene/scene/sceneEnabled`  
  **HTTP Method：** POST
 
@@ -796,7 +796,7 @@ Body
 ## 场景模版一键启用
 >根据家庭id、场景模板Id（目前只支持可启用的场景模版id）自动下载场景。 
 
- 1、接口定义
+ **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/sceneAutoDownload`  
  **HTTP Method：** POST
