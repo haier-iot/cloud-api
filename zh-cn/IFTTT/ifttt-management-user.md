@@ -4,8 +4,11 @@
 
 
 ## 开启或关闭用户场景
+
+**使用说明**
+
 >开启或关闭用户场景。
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/operationUserScene`  
  **HTTP Method：** POST
@@ -29,10 +32,13 @@
 
 ## 手动执行用户场景
 
+**使用说明**
+
+
 >手动执行用户场景。
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/triggerUserScene `  
  **HTTP Method：** POST
@@ -55,10 +61,12 @@
 
 ## 手动执行用户场景带返回值
 
+**使用说明**
+
 >手动执行用户场景，返回sn，执行请求唯一标识。
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/v2/triggerUserScene `  
  **HTTP Method：** POST

@@ -5,10 +5,13 @@
 
 
 ## 组件ID查询家庭场景列表
+
+**使用说明**
+
 >通过组件ID和家庭ID查询家庭下的场景列表。 
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/getSceneListByComponentId`  
  **HTTP Method：** POST

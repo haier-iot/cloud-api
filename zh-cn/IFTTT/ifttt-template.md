@@ -4,10 +4,13 @@
 
 
 ## 批量下载基础场景
+
+**使用说明**
+
 >APP从场景Store中下载基础场景。</br>
 注：同一个家庭可以多次下载同一个场景
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/store/downloadStoreScene`  
  **HTTP Method：** POST
@@ -71,9 +74,12 @@ Body
 
 
 ## 修改场景昵称
+
+**使用说明**
+
 >修改场景昵称（别名）。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/updateAppSceneAlias`  
  **HTTP Method：** POST
@@ -133,9 +139,12 @@ Body
 
 
 ## 删除用户下载的场景
+
+**使用说明**
+
 >删除用户下载的场景。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/deleteAppScene`  
  **HTTP Method：** POST
@@ -196,9 +205,12 @@ Body
 
 
 ## 用户创建平台触发类场景
+
+**使用说明**
+
 >根据用户填写的参数保存场景
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/addUserScene`  
  **HTTP Method：** POST
@@ -322,9 +334,12 @@ Body
 
 
 ## 用户创建手动触发类场景
+
+**使用说明**
+
 >根据用户填写的参数保存场景。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/addUserManualScene`  
  **HTTP Method：** POST
@@ -346,6 +361,9 @@ Body
 
 
 ## 修改用户平台触发类场景
+
+**使用说明**
+
 >修改用户平台触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。
 说明：
 1、 更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。<br>
@@ -353,7 +371,7 @@ Body
 3、模板转自定义调用该接口保存平台触发类场景。
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/updateUserScene`  
  **HTTP Method：** POST
@@ -376,6 +394,9 @@ Body
 
 
 ## 修改用户手动触发类场景
+
+**使用说明**
+
 >修改用户手动触发类场景（传入参数userSceneDto中必须传入需要修改的id,userId不能修改）。
 说明：
 1、更新场景只能更新 场景名称、场景描述、场景别名、定时策略、规则、权重、banner、icon，标签、分类本期暂时没有涉及，先不做要求。<br>
@@ -384,7 +405,7 @@ Body
 
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/updateUserManualScene`  
  **HTTP Method：** POST
@@ -407,6 +428,9 @@ Body
 
 
 ## 修改用户场景
+
+**使用说明**
+
 >修改用户场景（传入参数userSceneDto中必须传入需要修改的id,familyId不能修改）。
 说明：
 1，	支持场景开启状态下的编辑功能；
@@ -414,7 +438,7 @@ Body
 3，	编辑后场景规则ID、条件、动作ID均会重新生成
 
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/modifyUserScene`  
  **HTTP Method：** POST
@@ -437,9 +461,12 @@ Body
 
 
 ## 规则类获取规则详情
+
+**使用说明**
+
 >根据规则Id查询规则具体信息。返回结构和保存用户场景结构一致。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/rule/getRuleInfo`  
  **HTTP Method：** POST
@@ -462,9 +489,12 @@ Body
 
 
 ## 查询支持的关系表达式
+
+**使用说明**
+
 >查询支持的关系表达式。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/getRelationOperator`  
  **HTTP Method：** POST
@@ -568,9 +598,12 @@ Body
 
 
 ## 获取场景最新操作日志
+
+**使用说明**
+
 >APP下拉刷新，获取家庭下场景的操作日志。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/getNewOperationLog`  
  **HTTP Method：** POST
@@ -692,9 +725,12 @@ Body
 
 
 ## 获取场景历史操作日志
+
+**使用说明**
+
 >上拉加载，获取家庭下场景的操作日志</br>APP下拉刷新，获取家庭下场景的执行日志，精确到动作级别。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/getHistoryOperationLog`  
  **HTTP Method：** POST
@@ -716,9 +752,12 @@ Body
 
 
 ## 查询场景详情
+
+**使用说明**
+
 >根据场景id查询场景的基本信息、条件和动作信息。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/getSceneDetailBySceneId`  
  **HTTP Method：** POST
@@ -740,8 +779,11 @@ Body
 
 
 ## 根据触发因素和触发类型查询触发的场景执行日志记录
+
+**使用说明**
+
 >智家app点击设备进入设备详情页，切换场景日志tag，显示该设备触发的场景执行日志记录，只有场景执行日志，不必展示场景下动作执行明细.
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/find/scene-operation-logs-by-trigger-value`  
  **HTTP Method：** POST
@@ -767,8 +809,11 @@ Body
 
 
 ## 根据设备mac查询设备功能
+
+**使用说明**
+
 >查询当前家庭下设备的功能信息
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/find/device-functions`  
  **HTTP Method：** POST
@@ -790,12 +835,15 @@ Body
 
 
 ## 查询模板详情
+
+**使用说明**
+
 >根据家庭id、模板id查询场景的模板详情信息
 模版条件的desc描述拼接规则：
 （1）ifLable=1时，条件desc =场景模版条件中key的desc值+条件逻辑运算符operationSign中文描述+条件value的desc值。其中条件value的desc由前端H5拼接，其余部分场景引擎拼接。        如果没有设备，条件desc =场景模版条件中key的desc值+条件逻辑运算符operationSign中文描述+条件value的desc值，由场景引擎拼接模版条件描述。
 （2）ifLable=0时，条件desc =场景模版条件中key的desc值+条件逻辑运算符operationSign中文描述+条件value的desc值，由场景引擎拼接模版条件描述。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/template/find/template-info`  
  **HTTP Method：** POST
@@ -817,10 +865,13 @@ Body
 
 
 ## 统计场景使用
+
+**使用说明**
+
 >根据家庭id、用户ID查询场景使用信息
 统计规则：filter参数为查询的条件，dimL1和dimL2为需要统计的维度。
 
- 1、接口定义
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/find/user-data`  
  **HTTP Method：** POST
