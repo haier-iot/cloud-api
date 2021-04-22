@@ -54,10 +54,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -125,10 +125,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -202,10 +202,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -280,10 +280,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -370,10 +370,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
