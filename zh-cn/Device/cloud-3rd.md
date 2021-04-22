@@ -90,10 +90,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:c6533d557d12f98276a9cc3b0b0bca31bdf30ea4ad82e879fb3d445c3a70ee8a
+	sign:************
 	timestamp: 1590053691484 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -218,10 +218,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:************
 	timestamp: 1590053835901 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -382,10 +382,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:031a0ca6324cf7e5c5eda75c1bc08dbd557d856c9c8723e15382f03762b0f770
+	sign:************
 	timestamp: 1590053937813 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -738,10 +738,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:579c04727f5d922bd24669cd432746be0a5f8be20acdb274e27fe5c2da309192
+	sign:************
 	timestamp: 1590054016960 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -815,10 +815,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:c5a0a2c3118aa937dc080274d17bfe389f6b13d62b276f77e52af6babef327e6
+	sign:************
 	timestamp: 1590054583156 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -900,10 +900,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: TGT3RALJTMOTE3MH28K9FZDX1QNZA0
-	sign:1b5396e398fc7e16e3323c197481b894a70f19492b8a8170e52568c04b0779c7
+	sign:************
 	timestamp: 1590054123585 
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: 7a95f33dfe67d76cf79534b8d02093a7
 	Content-Encoding: utf-8
 	Content-type: application/json

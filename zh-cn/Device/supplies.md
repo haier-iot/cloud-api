@@ -57,7 +57,7 @@ Header:
 	appVersion: 01.00.00.00000
 	clientId: 111111111111
 	accessToken: TGT3EM9DNXY65GYY20VNX6077ISHG0
-	sign:37b1b9e18c9b12481e6ebcdec9c4e5f3b8da80fbc52930ae13efcdb57f159e31
+	sign:**********
 	timestamp: 1585577435707 
 	Content-Encoding: utf-8
 	Content-type: application/json

@@ -40,11 +40,11 @@ Header：
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
-    accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-    sign: bb2a5c1e432eac8bea8eecb89b408937382e7e95486ee0a60944a46504fa0015
+    accessToken: ************
+    sign: ************
     timestamp: 1491013448628 
     language: zh-cn
-    timezone: +8
+    timezone: Asia/Shanghai
     appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
@@ -108,11 +108,11 @@ Header：
     appVersion: 99.99.99.99990
     clientId: 123
     sequenceId: 2014022801010
-    accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-    sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+    accessToken: ************
+    sign: ************
     timestamp: 1491014596343 
     language: zh-cn
-    timezone: +8
+    timezone: Asia/Shanghai
     appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json

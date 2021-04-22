@@ -35,10 +35,10 @@ Header：
     clientId: 123
     sequenceId: 2014022801010
     accessToken: TGT1ANW5WCQ2SXRD2DGIYRRAVLOMS0
-    sign: e81bc61691c9c2e6f1b8590e93a6130fb3498b8fd2786592d9265bdfc506d830
+    sign: **********
     timestamp: 1491014596343 
     language: zh-cn
-    timezone: +8
+    timezone: Asia/Shanghai
     appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
     Content-Encoding: utf-8
     Content-type: application/json
@@ -113,10 +113,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: *******
 	accessToken: **********
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:**********
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	Content-Encoding: utf-8
 	Content-type: application/json
 
