@@ -60,10 +60,10 @@ Header：
 	clientId: lipeizhen
 	sequenceId: 20150812102234777777
 	accessToken: TGT36YE3RVND80GY1ZGCIHB6LR2MW
-	sign:ab9cdf9c9e7e857677fce6fe2ff8624f162791653c8b21e2c1f4e2ce3aa3b4d8
+	sign:************
 	timestamp: 1604653214611
 	language: cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	Content-Type: application/json;charset=UTF-8
 	appKey: f50c76fbc8271d361e1f6b5973f54585
 	Content-Length: 207
@@ -188,10 +188,10 @@ Headers:
 	appVersion: XX.XX.XX.XXXXX
 	clientId: 1234
 	sequenceId: sdfsadf
-	sign:d5f5f22caf9809990b5854fe4077834fa34ebf1274bda0ebdbd15821b0a9bee4
+	sign:************
 	timestamp: 1604653710256
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	appKey: f50c76fbc8271d361e1f6b5973f54585
 	Content-Encoding: utf-8
 	Content-type: application/json
@@ -277,23 +277,23 @@ usn|String|Body|非必填|序列号sn
 
 ```
 Header：
-appId:MB-*****-0000
-appVersion:2015110401
-clientId:356877020056553-08002700DC94
-sequenceId:08002700DC94-15110519074300001
-sign:bd4495183b97e8133aeab2f1916fed41
-timestamp: 1436236880183
-accessToken:TGT37FAT5QBI2UNO2TFWT4AASDKAF0
-language:zh-cn
-timezone:8
-Content-type: application/json
+	appId:MB-*****-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	sign:************
+	timestamp: 1436236880183
+	accessToken:TGT37FAT5QBI2UNO2TFWT4AASDKAF0
+	language:zh-cn
+	timezone:Asia/Shanghai
+	Content-type: application/json
 
 Body
 {
-"deviceId": "********",
-"cmdName": "grSetDAC",
-"cmdArgs": {"pmvStatus":"true","cleaningTimeStatus":"false","cloudFilterChangeFlag":"false","electricHeatingStatus":"true","onOffStatus":"true","operationMode":"4"},
-"callbackUrl": "http://www.uhome.haier.net/callback.html"
+	"deviceId": "********",
+	"cmdName": "grSetDAC",
+	"cmdArgs": {"pmvStatus":"true","cleaningTimeStatus":"false","cloudFilterChangeFlag":"false","electricHeatingStatus":"true","onOffStatus":"true","operationMode":"4"},
+	"callbackUrl": "http://www.uhome.haier.net/callback.html"
 }
 
 ```
@@ -391,10 +391,10 @@ Header：
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
 	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
-	sign:bd4495183b97e8133aeab2f1916fed41
+	sign:************
 	timestamp: 1436236880183
 	language:zh-cn
-	timezone:8
+	timezone:Asia/Shanghai
 	Content-type: application/json
 Body:
 	{
@@ -477,10 +477,10 @@ Header：
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
 	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
-	sign:bd4495183b97e8133aeab2f1916fed41
+	sign:************
 	timestamp: 1436236880183
 	language:zh-cn
-	timezone:8
+	timezone:Asia/Shanghai
 	Content-type: application/json
 Body:
 	{
@@ -561,10 +561,10 @@ Header：
 	clientId:356877020056553-08002700DC94
 	sequenceId:08002700DC94-15110519074300001
 	accessToken: TGTFUNXMDK4AQIN2I9SJ8M9MGV1D00
-	sign:bd4495183b97e8133aeab2f1916fed41
+	sign:************
 	timestamp: 1436236880183
 	language:zh-cn
-	timezone:8
+	timezone:Asia/Shanghai
 	Content-type: application/json
 Body:
 	{
