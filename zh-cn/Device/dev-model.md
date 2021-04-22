@@ -40,7 +40,7 @@ Body：
 ```
 {
   "deviceBaseInfo": {
-"deviceId": "DC330DC4B6EE",
+	"deviceId": "DC330DC4B6EE",
     "productCodeT": "AA9Y31E00",
     "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
     "connectionStatus": "online"
@@ -103,7 +103,7 @@ Body：
 ```
 {
   "deviceBaseInfo": {
-"deviceId": "DC330DC4B6EE",
+	"deviceId": "DC330DC4B6EE",
     "productCodeT": "AA9Y31E00",
     "productNameT": "AS09CB1HRA内机(丹麦Haier-CF)",
     "connectionStatus": "online"
@@ -166,7 +166,7 @@ Request Headers:
 	sign: 3**************
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	Content-Encoding: utf-8
 	Content-type: application/json
 
