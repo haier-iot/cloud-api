@@ -46,10 +46,10 @@ Request Headers:
 	clientId: test123456
 	sequenceId: 20161020153428000015
 	accessToken: ************************
-	sign:314ad2d5b240dad28e69acc1f012c0d915fb9ecb00f41b745e949b1c2abdb2f4
+	sign:************
 	timestamp: 1590053835901
 	language: zh-cn
-	timezone: +8
+	timezone: Asia/Shanghai
 	Content-Encoding: utf-8
 	Content-type: application/json
 
