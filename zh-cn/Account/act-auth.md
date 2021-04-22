@@ -422,8 +422,7 @@ accessToken过期后，可以使用对应的refreshToken获取新的accessToken�
 :-|:-:|:-:|:-:|:-
 refreshToken|String|Body|必填|app端持有refreshToken，用于会话accessToken延期，延期会话会生成新的refreshToken和accessToken     
 grantType|String|Body|必填|授权方式 ，当前默认为 refresh_token  
- 
-  
+
 
 **输出参数**
 
