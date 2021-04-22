@@ -145,7 +145,7 @@ POST data:
  "retInfo": "成功", 
  "payload": { 
   "accessToken": "wfhwdh", 
-  "expiresIn": 300, 
+  "expiresIn": 600, 
   "refreshToken": "wfwidoijwdmpocop", 
   "scope": "write,read", 
   "source": "haier" 
@@ -207,7 +207,7 @@ expiresIn |Long| payload| accessToken的有效时间（以秒为单位）
  "retInfo": "成功", 
  "payload": { 
   "accessToken": "wfhwdh", 
-  "expiresIn": 300, 
+  "expiresIn": 600, 
   "refreshToken": "wfwidoijwdmpocop", 
   "scope": "write,read", 
   "source": "haier" 
