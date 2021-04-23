@@ -45,7 +45,7 @@ Header：
     timestamp: 1491013448628 
     language: zh-cn
     timezone: Asia/Shanghai
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: ************
     Content-Encoding: utf-8
     Content-type: application/json
 Body
@@ -113,7 +113,7 @@ Header：
     timestamp: 1491014596343 
     language: zh-cn
     timezone: Asia/Shanghai
-    appKey: 6cdd4658b8e7dcedf287823b94eb6ff9
+    appKey: ************
     Content-Encoding: utf-8
     Content-type: application/json
 
