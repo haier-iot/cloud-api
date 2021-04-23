@@ -85,7 +85,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -94,7 +94,7 @@ Request Headers:
 	timestamp: 1590053691484 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
@@ -213,7 +213,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -222,7 +222,7 @@ Request Headers:
 	timestamp: 1590053835901 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
@@ -377,7 +377,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -386,7 +386,7 @@ Request Headers:
 	timestamp: 1590053937813 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
@@ -733,7 +733,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -742,7 +742,7 @@ Request Headers:
 	timestamp: 1590054016960 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
@@ -810,7 +810,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -819,7 +819,7 @@ Request Headers:
 	timestamp: 1590054583156 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
@@ -895,7 +895,7 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	systemId: SV-SBZXFWFWPTQ656-0000
+	systemId: SV-************-0000
 	appVersion: 01.00.00.00000
 	clientId: test123456
 	sequenceId: 20161020153428000015
@@ -904,7 +904,7 @@ Request Headers:
 	timestamp: 1590054123585 
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: 7a95f33dfe67d76cf79534b8d02093a7
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	identification: tuya
