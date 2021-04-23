@@ -68,6 +68,10 @@
 	* [免打扰管理](zh-cn/Message/msg-notdisturb)
 	* [业务消息管理](zh-cn/Message/msg-mgmt)
 
+* [数据类服务](#)
+	* [资源服务](zh-cn/Data/resource)
+	* [天气和位置服务](zh-cn/Data/weather-location)
+
 
 
 * [设备开发](#)

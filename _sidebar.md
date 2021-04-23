@@ -68,6 +68,10 @@
 	* [业务消息管理](zh-cn/Message/msg-mgmt)
 
 
+* [数据类服务](#)
+	* [资源服务](zh-cn/Data/resource)
+	* [天气和位置服务](zh-cn/Data/weather-location)
+
 
 * [设备开发](#)
 	* [介绍](zh-cn/Device-dev/devcie-devlp-intro) 
