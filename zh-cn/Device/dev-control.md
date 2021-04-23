@@ -65,7 +65,7 @@ Header：
 	language: cn
 	timezone: Asia/Shanghai
 	Content-Type: application/json;charset=UTF-8
-	appKey: f50c76fbc8271d361e1f6b5973f54585
+	appKey: ************
 	Content-Length: 207
 	Host: 192.168.140.16:6320
 	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
@@ -192,7 +192,7 @@ Headers:
 	timestamp: 1604653710256
 	language: zh-cn
 	timezone: Asia/Shanghai
-	appKey: f50c76fbc8271d361e1f6b5973f54585
+	appKey: ************
 	Content-Encoding: utf-8
 	Content-type: application/json
 	accessToken: TGT3S0MI00DBFHGD1ZWV12Z5JEQ680
