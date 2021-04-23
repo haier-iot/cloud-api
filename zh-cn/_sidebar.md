@@ -68,6 +68,10 @@
 	* [免打扰管理](zh-cn/Message/msg-notdisturb)
 	* [业务消息管理](zh-cn/Message/msg-mgmt)
 
+* [数据类服务](#)
+	* [资源服务](zh-cn/Data/resource)
+	* [天气和位置服务](zh-cn/Data/weather-location)
+
 
 
 * [设备开发](#)
@@ -97,7 +101,7 @@
 	* [设备SDK相关问题](zh-cn/Questions/ioT-sdk-qa)
 	* [设备控制相关问题](zh-cn/Questions/dev-qa)
 	* [云服务调用相关问题](zh-cn/Questions/uws-qa)
-
+	* [模组相关问题](zh-cn/Questions/module)
 
 * [解决方案<sup style="color:red">(new)<sup>](#)
 	* [########](zh-cn/Solutions/Introduce) 
