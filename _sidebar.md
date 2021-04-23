@@ -96,6 +96,7 @@
 	* [设备SDK相关问题](zh-cn/Questions/ioT-sdk-qa)
 	* [设备控制相关问题](zh-cn/Questions/dev-qa)
 	* [云服务调用相关问题](zh-cn/Questions/uws-qa)
+	* [模组相关问题](zh-cn/Questions/module)
 
 
 * [解决方案<sup style="color:red">(new)<sup>](#)
@@ -104,4 +105,4 @@
 
 
 
-	
+​	
