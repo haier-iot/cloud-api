@@ -185,7 +185,7 @@
 
 ![清除配置信息图][pic22]
 
-**常用图片注释**
+常用图片注释
 
 [pic1]:../Device-dev/_media/_module/pic1.png
 [pic2]:../Device-dev/_media/_module/pic2.png
