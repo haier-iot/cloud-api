@@ -132,8 +132,8 @@ expiresIn |Long| payload| accessToken的有效时间（以秒为单位）
 ```
 POST data: 
 { 
- "code": "abcopdfoiekdsm", 
- "redirectUrl": "https://www.haigeek.com" 
+	"code": "abcopdfoiekdsm", 
+	"redirectUrl": "https://www.haigeek.com" 
 } 
 ```
 
@@ -141,15 +141,15 @@ POST data:
 
 ```
 { 
- "retCode": "00000", 
- "retInfo": "成功", 
- "payload": { 
-  "accessToken": "wfhwdh", 
-  "expiresIn": 600, 
-  "refreshToken": "wfwidoijwdmpocop", 
-  "scope": "write,read", 
-  "source": "haier" 
- } 
+	"retCode": "00000", 
+	"retInfo": "成功", 
+	"payload": { 
+		"accessToken": "wfhwdh", 
+		"expiresIn": 600, 
+		"refreshToken": "wfwidoijwdmpocop", 
+		"scope": "write,read", 
+		"source": "haier" 
+ 	} 
 } 
 ```
 
@@ -203,15 +203,15 @@ expiresIn |Long| payload| accessToken的有效时间（以秒为单位）
 **请求应答**
 ```
 { 
- "retCode": "00000", 
- "retInfo": "成功", 
- "payload": { 
-  "accessToken": "wfhwdh", 
-  "expiresIn": 600, 
-  "refreshToken": "wfwidoijwdmpocop", 
-  "scope": "write,read", 
-  "source": "haier" 
- }
+	"retCode": "00000", 
+	"retInfo": "成功", 
+	"payload": { 
+		"accessToken": "wfhwdh", 
+		"expiresIn": 600, 
+		"refreshToken": "wfwidoijwdmpocop", 
+		"scope": "write,read", 
+		"source": "haier" 
+	 }
 } 
 ```
 
@@ -278,26 +278,30 @@ code|String|Body|必填|会话分享验证码
 POST https://uws.haier.net/uaccount/v2/auth/shareCode
 
 POST data:
-{"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","shareClientId":"MB-T**2-0000","shareClientId":"456FEW334DD" }
+	{
+	"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+	"shareClientId":"MB-T**2-0000",
+	"shareClientId":"456FEW334DD" 
+	}
 
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-appId: MB-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	appId: MB-TEST-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -357,26 +361,28 @@ expire|String|Body|必填|有效期 ，单位秒
 POST https://uws.haier.net/uaccount/v2/auth/shareToken
 
 POST data: 
-{"code":" da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " }
+	{
+	"code":" da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " 
+	}
 
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-appId: MB-TEST2-0000
-appVersion: 2.4.0
-clientId: 456FEW334DD
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	appId: MB-********-0000
+	appVersion: 2.4.0
+	clientId: 456FEW334DD
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -445,21 +451,21 @@ POST data:
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-appId: MB-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	appId: MB-********-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -522,22 +528,21 @@ POST data:
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-appId: MB-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
-
+	Connection: keep-alive
+	appId: MB-********-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -601,26 +606,28 @@ shareClientId|String|Body|必填|会话分享的clientId
 ```java
 
 POST data: 
-{"shareAppId":"MB-HEYJOZB-0001","shareClientId":"123456789"}
+	{
+	"shareAppId":"MB-HEYJOZB-0001","shareClientId":"123456789"
+	}
 
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-appId: MB-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	appId: MB-********-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -676,16 +683,16 @@ D00030|未授权|分享获取的token不能取消授权
 ```java
 
 Header：
-appId:MB-TEST-0000
-appVersion:2015110401
-clientId:356877020056553-08002700DC94
-sequenceId:08002700DC94-15110519074300001
-accessToken: TGT1OY0RUUAH5D242SB68E9WX0W930
-sign:bd4495183b97e8133aeab2f1916fed41
-timestamp:1446639090139
-language:zh-cn
-timezone:8
-Content-type: application/json
+	appId:MB-********-0000
+	appVersion:2015110401
+	clientId:356877020056553-08002700DC94
+	sequenceId:08002700DC94-15110519074300001
+	accessToken: TGT1OY0RUUAH5D242SB68E9WX0W930
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp:1446639090139
+	language:zh-cn
+	timezone:8
+	Content-type: application/json
 
 
 ```
@@ -763,31 +770,39 @@ D00016|你已退出或尚未登录|
 POST https://uws.haier.net/uaccount/v3/auth/deviceAuthToken
 
 POST data: 
-{"code":"783uy5758345353595tyttwtyh934753753" }
+	{
+	"code":"783uy5758345353595tyttwtyh934753753" 
+	}
 
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-systemId: SV-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-Content-Encoding: utf-8
-Content-type: application/json
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	systemId: SV-********-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	Content-Encoding: utf-8
+	Content-type: application/json
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```  
 
 **请求应答**
 
 ```
-{"retCode":"00000","retInfo":"成功
-","refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00","scope":"all","expire":"2160000"}
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken":"TGTV5FR3XH20S0B2E7G56V1CMQ4T67",
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"all",
+	"expire":"2160000"
+}
 
 
 ```
@@ -827,26 +842,29 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 POST https://uws.haier.net/uaccount/v3/auth/token
 
 POST data:
-{"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000","grantType":"refresh_token"}
+	{
+	"refreshToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
+	"grantType":"refresh_token"
+	}
 
 [no cookies]
 
 Request Headers:
-Connection: keep-alive
-systemId: SV-TEST-0000
-appVersion: 2.4.0
-clientId: 123
-sequenceId: 20161020153428000015
-sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
-timestamp: 1533882163013 
-language: en
-timezone: +8
-Content-Encoding: utf-8
-Content-type: application/json
-privacyVersion: V1.0.0
-Content-Length: 385
-Host: 10.2.0.16:6353
-User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
+	Connection: keep-alive
+	systemId: SV-********-0000
+	appVersion: 2.4.0
+	clientId: 123
+	sequenceId: 20161020153428000015
+	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	timestamp: 1533882163013 
+	language: en
+	timezone: +8
+	Content-Encoding: utf-8
+	Content-type: application/json
+	privacyVersion: V1.0.0
+	Content-Length: 385
+	Host: 10.2.0.16:6353
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 
 ```  
@@ -854,8 +872,14 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **请求应答**
 
 ```
-{"retCode":"00000","retInfo":"成功
-","refreshToken": TGTV5FR3XH20S0B2E7G56V1CMQ4T67,"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00","scope":"auth_app","expire":"2160000"}
+{
+	"retCode":"00000",
+	"retInfo":"成功",
+	"refreshToken":TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
+	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
+	"scope":"auth_app",
+	"expire":"2160000"
+}
 
 ```
 **3. 回调服务接口**
@@ -895,10 +919,10 @@ User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 **请求示例**
 ```
 Header：
-sign:bd4495183b97e8133aeab2f1916fed41
-timestamp:1446639090139
+	sign:bd4495183b97e8133aeab2f1916fed41
+	timestamp:1446639090139
 GET
-http://********/oauth/iot/callback?code=**&systemId=**& deviceId=***&typeId=***
+	http://********/oauth/iot/callback?code=**&systemId=**& deviceId=***&typeId=***
 
 
 ```
@@ -906,10 +930,10 @@ http://********/oauth/iot/callback?code=**&systemId=**& deviceId=***&typeId=***
 **请求应答**
 ```
 {
-  "retCode": "00000",
-  "retInfo": "操作成功",
-"sn":"123456789",
-  "data": null
+	"retCode": "00000",
+	"retInfo": "操作成功",
+	"sn":"123456789",
+	"data": null
 }
 
 
