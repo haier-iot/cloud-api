@@ -21,12 +21,13 @@
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 accessToken|String|Header|必填|安全令牌 token，30位字符。  
-systemId|String|Header|必填|| 
+systemId|String|Header|必填|海极网申请的systemId 
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
 Content-Type|String|Header|必填|互联网媒体信息，默认为"application/json;charset=UTF-8" 
 clientId|String|Header|必填|客户端ID27 位字符,客户端机编码与客户端 MAC 地址 拼合成唯一的客户端标识。 主要用途为唯一标识客户端 (例如,手机)。手机机编码为 IMEI 码。 手机 MAC 为 12 位地址。命名规范:客户端机编码(15 位)-客户 端 MAC 地址(12 位)格式: XXXXXXXXXXXXXXX-XXXXXXXXXXXX 举例: 356877020056553-08002700DC94。APP端可调用usdk获取，其他服务端自定义标识，不能为空。 
 apiVersion |String|Header |必填|此处默认填v1 
+sequenceId |String|Header |否|报文流水(客户端唯一)客户端交易流水号。6-32 位。由客户端自行定义，自行生成。建议使用日期+顺序编号的方式。
 
 
 **输出参数**
@@ -166,8 +167,14 @@ Request Headers:
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|必填|| 
-systemId|String|Header|必填|| 
-accessToken|String|Header|必填||    
+systemId|String|Header|必填|海极网申请的systemId 
+accessToken|String|Header|必填|安全令牌 token，30位字符。    
+sign|String|Header|必填|对请求进行签名运算产生的签名 
+timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
+Content-Type|String|Header|必填|互联网媒体信息，默认为"application/json;charset=UTF-8" 
+clientId|String|Header|必填|客户端ID27 位字符,客户端机编码与客户端 MAC 地址 拼合成唯一的客户端标识。 主要用途为唯一标识客户端 (例如,手机)。手机机编码为 IMEI 码。 手机 MAC 为 12 位地址。命名规范:客户端机编码(15 位)-客户 端 MAC 地址(12 位)格式: XXXXXXXXXXXXXXX-XXXXXXXXXXXX 举例: 356877020056553-08002700DC94。APP端可调用usdk获取，其他服务端自定义标识，不能为空。 
+apiVersion |String|Header |必填|此处默认填v1 
+sequenceId |String|Header |否|报文流水(客户端唯一)客户端交易流水号。6-32 位。由客户端自行定义，自行生成。建议使用日期+顺序编号的方式。
 
 
 **输出参数**
@@ -215,22 +222,17 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
+	Content-Type: application/json;charset=UTF-8
 	systemId: SV-************-0000
-	appVersion: 01.00.00.00000
-	clientId: test123456
-	sequenceId: 20161020153428000015
-	accessToken: TGT34DXO535N5UDV2IWPQGGJ6B2BV0
-	sign:************
-	timestamp: 1590053835901 
-	language: zh-cn
-	timezone: Asia/Shanghai
-	appKey: ************
-	Content-Encoding: utf-8
-	Content-type: application/json
-	identification: tuya
-	Content-Length: 34
-	Host: 10.159.59.16:8844
-	User-Agent: Apache-HttpClient/4.5.2 (Java/1.8.0_211)
+	clientId: 123
+	timestamp: 1619419152459
+	sign: 201d9f37bdea749610d3ba7dfe18b7168490713aeaeb88376a31a2d7febab34f
+	sequenceId: 2005271617292630
+	apiVersion: v1
+	accessToken: ************
+	Content-Length: 28
+	Host: uws.haier.net
+	User-Agent: Apache-HttpClient/4.2.6 (java 1.5)
 
 ```
 
@@ -252,8 +254,8 @@ Request Headers:
                            "moduleInfos":{"$ref":"$.payload.baseProperty.others"},
                            "moduleType":"wifimodule"
                          }
-                        ],
-              "wifiType":"200861080082032421059278f9beccb244ad62bd7dd223670db151b71678bc40"
+                        ], 
+			"wifiType":"200861080082032421059278f9beccb244ad62bd7dd223670db151b71678bc40"
             },    
   "retCode":"00000",
   "retInfo":"成功"
