@@ -121,7 +121,6 @@ Body:
 	    "devSign" : "***",
 		"online" : true | false,
 	    "uPlusCodeT" : "***"
-	
 	}
 
 ```
