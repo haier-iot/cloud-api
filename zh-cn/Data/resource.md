@@ -14,17 +14,20 @@
 应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：  
 - **输入参数**
 
-| 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|
-| systemId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
-| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见|| timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|| Content-Type | String | Header | 是 |application/json;charset=UTF-8|  
+|参数名称|类型|位置|必填|说明|
+|:------:|:-----:|:-----:|:------:|:------|
+|systemId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
+|sign|String|Header|是|对请求进行签名运算产生的签名,签名算法见|
+|timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
+|Content-Type|String|Header|是|application/json;charset=UTF-8|
+
 
 - **输出参数**
 
-| 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|   
-| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|  
-| retInfo | String | Body | 是 |用于调试的返回信息，不支持国际化，也不能直接显示在UI上|  
+|参数名称|类型|位置|必填|说明|
+|:------:|:-----:|:-----:|:------:|:------|
+|retCode|String|Body|是|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
+|retInfo|String|Body|是|用于调试的返回信息，不支持国际化，也不能直接显示在UI上|
 
 ### 文件上传接口  
 **使用说明**  
@@ -38,30 +41,30 @@
 
 - **输入参数**
 
-| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
-|:------：|:-----:|:-----:|:------:|:------:|:------:|
-| file | file | Body | 是 | 源文件 |目前文件最大限制为10MB|
-| fileInfo | String | Body| 是 |fileInfo组成的json字符串|&emsp;|
+|参数名称|类型|位置|必填|说明|备注|
+|:------:|:-----:|:-----:|:------:|:------:|:------:|
+|file|file|Body|是|源文件|目前文件最大限制为10MB|
+|fileInfo|String|Body|是|fileInfo组成的json字符串|&emsp;|
 
 **输入参数对象说明**
 
-| **名称** | 文件信息对象 |&emsp;| fileInfo |
-| ------------- |:----------:|:-----:|:--------:|
+|**名称**|文件信息对象|&emsp;|fileInfo|
+|:------:|:----------:|:-----:|:--------:|
 |**字段名**|**类型**|**必填**|**说明**|**备注**|
-|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
-|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|
+|fileHash|String|是|文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
+|fileCreator|String|否|文件创建者|长度限制为：32位，不可使用特殊字符|
 
 - **输出参数**
 
-| 参数名称 | 类型 | 位置 | 说明 | 备注 |
-| ------- |:----------:|:-----:|:---------:|
-| fileHash | String | Body |上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
-| fileSize | long | Body |文件的大小|单位：byte(字节)|
-| alg | String | Body |服务端计算文件hash的算法|可取值：md5|
-| httpUrl | String | Body |文件使用http协议的url|url最大长度:256位|
-| httpsUrl | String | Body |文件使用https协议的url|url最大长度:256位|
-| retCode | String | Body |请求响应返回码|&emsp;|
-| retInfo | String | Body |请求响应返回信息|&emsp;|
+|参数名称|类型|位置|说明|备注|
+|:-------:|:----------:|:-----:|:---------:|
+|fileHash|String|Body|上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
+|fileSize|long|Body|文件的大小|单位：byte(字节)|
+|alg|String|Body|服务端计算文件hash的算法|可取值：md5|
+|httpUrl|String|Body|文件使用http协议的url|url最大长度:256位|
+|httpsUrl|String|Body|文件使用https协议的url|url最大长度:256位|
+|retCode|String|Body|请求响应返回码|&emsp;|
+|retInfo|String|Body|请求响应返回信息|&emsp;|
 
 **示例**
 
@@ -98,6 +101,7 @@ Body:{
 ```
 
 ### 申请密钥接口
+
 **使用说明**  
 > 下载文件需要密钥，因此下载文件之前需要获得密钥。
 
@@ -109,23 +113,23 @@ Body:{
 
 - **输入参数**
 
-| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
-|:------：|:-----:|:-----:|:------:|:------:|:------:|
-| fileUrl | String | Body | 是 | 文件的url |&emsp;|
-| expiryTime | int | Body| 是 |秘钥的有效期(单位为分钟)，最大值为：60*24即24小时|&emsp;|
+|参数名称|类型|位置|必填|说明|备注|
+|:------:|:-----:|:-----:|:------:|:------:|:------:|
+|fileUrl|String|Body|是|文件的url|&emsp;|
+|expiryTime|int|Body|是|秘钥的有效期(单位为分钟)，最大值为：60*24即24小时|&emsp;|
 
 - **输出参数**
 
-| 参数名称 | 类型 | 位置 | 说明 | 备注 |
-| ------- |:----------:|:-----:|:---------:|
-| secretKey | String | Body |秘钥（定长8字节）|&emsp;|
-| fileHash | String | Body |原始文件的hash（定长32字节）|&emsp;|
-| fileSize | long | Body |文件的大小，单位为：byte（字节）|&emsp;|
-| alg | String | Body |服务端计算文件hash的算法|&emsp;|
-| httpUrl | String | Body |文件使用http协议的url|&emsp;|
-| httpsUrl | String | Body |文件使用https协议的url|&emsp;|
-| retCode | String | Body |请求响应返回码|&emsp;|
-| retInfo | String | Body |请求响应返回信息|&emsp;|
+|参数名称|类型|位置|说明|备注|
+|:-------:|:----------:|:-----:|:---------:|
+|secretKey|String|Body|秘钥（定长8字节）|&emsp;|
+|fileHash|String|Body|原始文件的hash（定长32字节）|&emsp;|
+|fileSize|long|Body|文件的大小，单位为：byte（字节）|&emsp;|
+|alg|String|Body|服务端计算文件hash的算法|&emsp;|
+|httpUrl|String|Body|文件使用http协议的url|&emsp;|
+|httpsUrl|String|Body|文件使用https协议的url|&emsp;|
+|retCode|String|Body|请求响应返回码|&emsp;|
+|retInfo|String|Body|请求响应返回信息|&emsp;|
 
 **示例**
 
@@ -142,7 +146,6 @@ Body:{
     "fileUrl":"http://resource.haier.net/rsservice/v1/download/systemId/resoureces/85d1e38c753d4109847b036dbb258ce8",
     "expiryTime":60
 }
-
 ```
 
 -**请求应答**
@@ -171,21 +174,22 @@ Body:{
 
 - **接口参数**  
 应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
-**输入参数**  
-| 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|
-| appId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
-| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见[附录签名算法示例](#jump2)|
-| timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|
-| Content-Type | String | Header | 是 |application/json;charset=UTF-8|
+**输入参数**
+|参数名称|类型|位置|必填|说明|
+|:------:|:-----:|:-----:|:------:|:------|
+|appId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
+|sign|String|Header|是|对请求进行签名运算产生的签名,签名算法见[附录签名算法示例](#jump2)|
+|timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
+|Content-Type|String|Header|是|application/json;charset=UTF-8|
 
 - **输出参数**  
-| 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|
-| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
-| retInfo | String | Body | 是 |用于调试的返回信息，不支持国际化，也不能直接显示在UI上|
+|参数名称|类型|位置|必填|说明|
+|:------:|:-----:|:-----:|:------:|:------|
+|retCode|String|Body|是|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
+|retInfo|String|Body|是|用于调试的返回信息，不支持国际化，也不能直接显示在UI上|
 
 ### 文件上传接口
+
 **使用说明**
 
 > 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照[附录错误码表](#jump1)
@@ -198,34 +202,34 @@ Body:{
 
 - **输入参数**
 
-| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
-|:------：|:-----:|:-----:|:------:|:------:|:------:|  
-| file | file | Body | 是 | 源文件 |目前文件最大限制为10MB|  
-| fileInfo | String | Body| 是 |fileInfo组成的json字符串|&emsp;|  
+|参数名称|类型|位置|必填|说明|备注|
+|:------:|:-----:|:-----:|:------:|:------:|:------:|
+|file|file|Body|是|源文件|目前文件最大限制为10MB|
+|fileInfo|String|Body|是|fileInfo组成的json字符串|&emsp;|
 
-    **输入参数对象说明**
+**输入参数对象说明**
 
-| **名称** | 文件信息对象 |&emsp;| fileInfo |
-| ------------- |:----------:|:-----:|:--------:|
+|**名称**|文件信息对象|&emsp;| fileInfo |
+|:-----: |:-----:|:-----:|:-----:|
 |**字段名**|**类型**|**必填**|**说明**|**备注**|
-|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
-|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|
-|uploadClientId| String | 是 |DeviceId或者UserId|&emsp;|
-|expiryTime| int | 是 |文件的过期时间和秘钥的过期时间|单位：小时，文件有效期和秘钥有效期都为此时间，文件过期则从服务端删除，无法再下载。最大限制为7天，即168小时|
+|fileHash|String|是|文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
+|fileCreator|String|否|文件创建者|长度限制为：32位，不可使用特殊字符|
+|uploadClientId|String|是|DeviceId或者UserId|&emsp;|
+|expiryTime|int|是|文件的过期时间和秘钥的过期时间|单位：小时，文件有效期和秘钥有效期都为此时间，文件过期则从服务端删除，无法再下载。最大限制为7天，即168小时|
 
 - **输出参数**
 
-| 参数名称 | 类型 | 位置 | 说明 | 备注 |
-| ------- |:----------:|:-----:|:---------:|
-| fileHash | String | Body |上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
-| fileSize | long | Body |文件的大小|单位：byte(字节)|
-| secretKey | String | Body |秘钥（定长8字节）|下载方下载资源时需要秘钥方可下载|
-| expiryTime | long | Body |过期时间|过期时间戳(毫秒),其值为上传文件时的当前时间加上申请时填写的过期时间|
-| alg | String | Body |服务端计算文件hash的算法|可取值：md5|
-| httpUrl | String | Body |文件使用http协议的url|url最大长度:256位|
-| httpsUrl | String | Body |文件使用https协议的url|url最大长度:256位|
-| retCode | String | Body |请求响应返回码|&emsp;|
-| retInfo | String | Body |请求响应返回信息|&emsp;|
+|参数名称|类型|位置|说明|备注|
+|:-------:|:----------:|:-----:|:---------:|
+|fileHash|String|Body|上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
+|fileSize|long|Body|文件的大小|单位：byte(字节)|
+|secretKey|String|Body|秘钥（定长8字节）|下载方下载资源时需要秘钥方可下载|
+|expiryTime|long|Body|过期时间|过期时间戳(毫秒),其值为上传文件时的当前时间加上申请时填写的过期时间|
+|alg|String|Body|服务端计算文件hash的算法|可取值：md5|
+|httpUrl|String|Body|文件使用http协议的url|url最大长度:256位|
+|httpsUrl|String|Body|文件使用https协议的url|url最大长度:256位|
+|retCode|String|Body|请求响应返回码|&emsp;|
+|retInfo|String|Body|请求响应返回信息|&emsp;|
 
 **示例**
 
@@ -275,25 +279,26 @@ Body:{
 
 - **输入参数**
 
-| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
-|:------：|:-----:|:-----:|:------:|:------:|:------:|
-| secretKey | String | header或者url中 | 是 | 文件秘钥 |定长8字节|
-| Range | String | header | 否 |分包下载|1 Range:bytes=128-1024 表示下载128-1024段的文件字节（不包括第1024的字节）。  
+|参数名称|类型|位置|必填|说明|备注|
+|:------:|:-----:|:-----:|:------:|:------:|:------:|
+|secretKey|String|header或者url中|是|文件秘钥|定长8字节|
+|Range|String|header|否|分包下载|1 Range:bytes=128-1024 表示下载128-1024段的文件字节（不包括第1024的字节）。  
 2 Range: bytes=0-表示下载全部文件  
 3 Range: bytes=-2048 表示下载0-2048文件字节  
 4 不填，默认全部下载.  
 5 如果Range不在文件长度范围内，则下载全部文件  
 6 如果请求的文件长度大于文件本身的长度，fileContent会按照文件实际长度返回，会出现请求长度和回复长度不一致的情况，如：请求0-1024长度，但文件本身只有512长度，则实际返回的文件长度是512  
-7 如果Range参数填写的不符合规则，则返回错误码，如：Range: bytes=1.5-10  |  
-| showInBrowser | Boolean | header或者url中 | 否 | 是否在浏览器中进行文件预览 |该参数的意义为，文件通过浏览器打开时，是否需要在浏览器预览直接显示出来，例如图片，文本，默认值为（false）不显示，弹框下载|
+7 如果Range参数填写的不符合规则，则返回错误码，如：Range: bytes=1.5-10  |
+
+|showInBrowser|Boolean|header或者url中|否|是否在浏览器中进行文件预览|该参数的意义为，文件通过浏览器打开时，是否需要在浏览器预览直接显示出来，例如图片，文本，默认值为（false）不显示，弹框下载|
 
 - **输出参数**
 
-| 参数名称 | 类型 | 位置 | 说明 | 备注 |
-| ------- |:----------:|:-----:|:---------:|
-| file | InputStream | Body |源文件|&emsp;|
-| alg | String | Header |服务端计算文件hash的算法|&emsp;|
-| hash | String | Header |文件的hash值|
+|参数名称|类型|位置|说明|备注|
+|:-------:|:----------:|:-----:|:---------:|
+|file|InputStream|Body|源文件|&emsp;|
+|alg|String|Header|服务端计算文件hash的算法|&emsp;|
+|hash|String|Header|文件的hash值|
 
 
 **示例**
@@ -348,11 +353,11 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 
 
 ## 附录
-<a id="jump1"> </a> 
-###公共错误码
 
-|  错误码  |  描述  |
-|：----：|：----：|
+###<a id="jump1"> </a>公共错误码
+
+|错误码|描述|
+|:----:|:----:|
 |B00001|秘钥不存在,请重新申请|
 |B00002|文件不存在|
 |B00003|文件hash对比错误，文件不完整|
@@ -368,12 +373,12 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 |B00013|系统错误|
 |B00014|文件下载失败，请重试|
 
-<a id="jump2"> </a> 
-###签名算法示例
+
+###<a id="jump2"> </a>签名算法示例
 
 ```
-String getSign(String systemId, String systemKey, String timestamp, String body,String url){：
-URL urlObj = new URL(url);
+String getSign(String systemId, String systemKey, String timestamp, String body,String url){
+    URL urlObj = new URL(url);
     url=urlObj.getPath();
     systemKey = systemKey.trim();
     systemKey = systemKey.replaceAll("\"", "");
@@ -386,7 +391,7 @@ URL urlObj = new URL(url);
         body = body.replaceAll("\r", "");
         body = body.replaceAll("\n", "");
     }
-       StringBuffer sb = new StringBuffer();
+    StringBuffer sb = new StringBuffer();
     sb.append(url).append(body).append(systemId).append(systemKey).append(timestamp);
     log.info("signStr:"+sb);
     MessageDigest md = null;
@@ -411,8 +416,8 @@ String BinaryToHexString(byte[] bytes) {
     return hex.toString();
 }
 ```
-<a id="jump3"> </a> 
-###文件上传示例
+
+###<a id="jump3"> </a> 文件上传示例
 
 ```
 public static void sendFile(String url, Map<String, Object> headers, String body, File file) throws Exception {
@@ -464,8 +469,7 @@ public static void sendFile(String url, Map<String, Object> headers, String body
 
 ```
 
-<a id="jump4"> </a> 
-###文件下载示例
+###<a id="jump4"> </a> 文件下载示例
 
 ```
 public void getDownloadTest() {
@@ -512,8 +516,7 @@ public void getDownloadTest() {
     }
 ```
 
-<a id="jump5"> </a> 
-###文件hash值算法
+###<a id="jump5"> </a>文件hash值算法
 
 ```
 //取文件的md5-hash值
