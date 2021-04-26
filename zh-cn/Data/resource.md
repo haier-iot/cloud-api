@@ -121,7 +121,7 @@ Body:{
 - **输出参数**
 
 |参数名称|类型|位置|说明|备注|
-|:-------:|:----------:|:-----:|:---------:|
+|:------:|:-----:|:-----:|:------:|:------:|:------:|
 |secretKey|String|Body|秘钥（定长8字节）|&emsp;|
 |fileHash|String|Body|原始文件的hash（定长32字节）|&emsp;|
 |fileSize|long|Body|文件的大小，单位为：byte（字节）|&emsp;|
@@ -209,8 +209,8 @@ Body:{
 
 **输入参数对象说明**
 
-|**名称**|文件信息对象|&emsp;| fileInfo |
-|:-----: |:-----:|:-----:|:-----:|
+|**名称**|文件信息对象|&emsp;|fileInfo|
+|:-----:|:-----:|:-----:|:-----:|
 |**字段名**|**类型**|**必填**|**说明**|**备注**|
 |fileHash|String|是|文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
 |fileCreator|String|否|文件创建者|长度限制为：32位，不可使用特殊字符|
@@ -220,7 +220,7 @@ Body:{
 - **输出参数**
 
 |参数名称|类型|位置|说明|备注|
-|:-------:|:----------:|:-----:|:---------:|
+|:-------:|:----------:|:-----:|:---------:|:---------:|
 |fileHash|String|Body|上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
 |fileSize|long|Body|文件的大小|单位：byte(字节)|
 |secretKey|String|Body|秘钥（定长8字节）|下载方下载资源时需要秘钥方可下载|
@@ -233,7 +233,7 @@ Body:{
 
 **示例**
 
-- **请求样例** 
+- **请求样例**
 
 ```
 POST /rsservice/v1/union/upload HTTP/1.1
@@ -267,8 +267,8 @@ Body:{
 
 
 ## 文件下载接口
-**使用说明**
 
+**使用说明**
 > 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照[附录错误码表](#jump1)
 
 **接口描述**
@@ -282,20 +282,23 @@ Body:{
 |参数名称|类型|位置|必填|说明|备注|
 |:------:|:-----:|:-----:|:------:|:------:|:------:|
 |secretKey|String|header或者url中|是|文件秘钥|定长8字节|
-|Range|String|header|否|分包下载|1 Range:bytes=128-1024 表示下载128-1024段的文件字节（不包括第1024的字节）。  
-2 Range: bytes=0-表示下载全部文件  
-3 Range: bytes=-2048 表示下载0-2048文件字节  
-4 不填，默认全部下载.  
-5 如果Range不在文件长度范围内，则下载全部文件  
-6 如果请求的文件长度大于文件本身的长度，fileContent会按照文件实际长度返回，会出现请求长度和回复长度不一致的情况，如：请求0-1024长度，但文件本身只有512长度，则实际返回的文件长度是512  
-7 如果Range参数填写的不符合规则，则返回错误码，如：Range: bytes=1.5-10  |
-
+|Range|String|header|否|分包下载|参见[输入参数备注](#memo1)|
 |showInBrowser|Boolean|header或者url中|否|是否在浏览器中进行文件预览|该参数的意义为，文件通过浏览器打开时，是否需要在浏览器预览直接显示出来，例如图片，文本，默认值为（false）不显示，弹框下载|
+<a id="memo1"></a>
+
+**输入参数备注**
+1. Range:bytes=128-1024 表示下载128-1024段的文件字节（不包括第1024的字节）。  
+2. Range: bytes=0-表示下载全部文件  
+3. Range: bytes=-2048 表示下载0-2048文件字节  
+4. 不填，默认全部下载.  
+5. 如果Range不在文件长度范围内，则下载全部文件  
+6. 如果请求的文件长度大于文件本身的长度，fileContent会按照文件实际长度返回，会出现请求长度和回复长度不一致的情况，如：请求0-1024长度，但文件本身只有512长度，则实际返回的文件长度是512  
+7. 如果Range参数填写的不符合规则，则返回错误码，如：Range: bytes=1.5-10  
 
 - **输出参数**
 
 |参数名称|类型|位置|说明|备注|
-|:-------:|:----------:|:-----:|:---------:|
+|:------:|:-----:|:-----:|:------:|:------:|
 |file|InputStream|Body|源文件|&emsp;|
 |alg|String|Header|服务端计算文件hash的算法|&emsp;|
 |hash|String|Header|文件的hash值|
@@ -354,7 +357,9 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 
 ## 附录
 
-###<a id="jump1"> </a>公共错误码
+<a id="jump1"></a>
+
+###公共错误码
 
 |错误码|描述|
 |:----:|:----:|
@@ -374,7 +379,9 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 |B00014|文件下载失败，请重试|
 
 
-###<a id="jump2"> </a>签名算法示例
+<a id="jump2"></a>
+
+### 签名算法示例
 
 ```
 String getSign(String systemId, String systemKey, String timestamp, String body,String url){
@@ -417,7 +424,9 @@ String BinaryToHexString(byte[] bytes) {
 }
 ```
 
-###<a id="jump3"> </a> 文件上传示例
+<a id="jump3"> </a>
+
+### 文件上传示例
 
 ```
 public static void sendFile(String url, Map<String, Object> headers, String body, File file) throws Exception {
@@ -469,7 +478,9 @@ public static void sendFile(String url, Map<String, Object> headers, String body
 
 ```
 
-###<a id="jump4"> </a> 文件下载示例
+<a id="jump4"> </a>
+
+### 文件下载示例
 
 ```
 public void getDownloadTest() {
@@ -515,8 +526,9 @@ public void getDownloadTest() {
         }
     }
 ```
+<a id="jump5"> </a>
 
-###<a id="jump5"> </a>文件hash值算法
+### 文件hash值算法
 
 ```
 //取文件的md5-hash值
