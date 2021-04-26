@@ -2,67 +2,72 @@
 !> **更新时间**：{docsify-updated}  
 
 ## 简介  
->  为Haier U+云平台提供统一的资源上传下载服务。  
+>  为Haier U+云平台提供统一的资源上传下载服务。
+
 
 ## 文件上传（2B）  
 **接口公共部分**  
 
-- **接入地址：**  `https:// resource.haier.net `
+- **接入地址：**  `https://resource.haier.net `
 
 - **接口参数**  
 应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：  
-**输入参数**  
-| 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|  
-| systemId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|  
-| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见|  | timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|  | Content-Type | String | Header | 是 |application/json;charset=UTF-8|  
+- **输入参数**
 
-- **输出参数**  
+| 参数名称 | 类型  | 位置  | 必填|说明|
+|：------：|:-----:|:-----:|:------:|:------|
+| systemId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
+| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见|| timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|| Content-Type | String | Header | 是 |application/json;charset=UTF-8|  
+
+- **输出参数**
+
 | 参数名称 | 类型  | 位置  | 必填|说明|
 |：------：|:-----:|:-----:|:------:|:------|   
-| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见附录错误码表）|  
+| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|  
 | retInfo | String | Body | 是 |用于调试的返回信息，不支持国际化，也不能直接显示在UI上|  
 
 ### 文件上传接口  
 **使用说明**  
-> 上传文件，成功时返回文件的url，失败时返回错误码，错误码参照附录
+> 上传文件，成功时返回文件的url，失败时返回错误码，错误码参照[附录错误码表](#jump1)
 
 **接口描述**  
 
-?> **接入地 址：**  `/ rsservice/v1/upload `
+- **接入地 址：**  `/rsservice/v1/upload`
 
-**HTTP Method：** POST
+- **HTTP Method：** POST
 
-**输入参数**  
-| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |  
-|:------：|:-----:|:-----:|:------:|:------:|:------:|  
-| file | file | Body | 是 | 源文件 |目前文件最大限制为10MB|  
+- **输入参数**
+
+| 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
+|:------：|:-----:|:-----:|:------:|:------:|:------:|
+| file | file | Body | 是 | 源文件 |目前文件最大限制为10MB|
 | fileInfo | String | Body| 是 |fileInfo组成的json字符串|&emsp;|
 
-**输入参数对象说明**  
-| **名称** | 文件信息对象 |&emsp;| fileInfo |  
-| ------------- |:----------:|:-----:|:--------:|  
-|**字段名**|**类型**|**必填**|**说明**|**备注**|  
-|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位
-具体算法见附录|  
-|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|  
+**输入参数对象说明**
 
-**输出参数**  
+| **名称** | 文件信息对象 |&emsp;| fileInfo |
+| ------------- |:----------:|:-----:|:--------:|
+|**字段名**|**类型**|**必填**|**说明**|**备注**|
+|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
+|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|
+
+- **输出参数**
+
 | 参数名称 | 类型 | 位置 | 说明 | 备注 |
 | ------- |:----------:|:-----:|:---------:|
-| fileHash | String | Body |上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|  
-| fileSize | long | Body |文件的大小|单位：byte(字节)|  
-| alg | String | Body |服务端计算文件hash的算法|可取值：md5|  
-| httpUrl | String | Body |文件使用http协议的url|url最大长度:256位|  
-| httpsUrl | String | Body |文件使用https协议的url|url最大长度:256位|  
-| retCode | String | Body |请求响应返回码|&emsp;|  
-| retInfo | String | Body |请求响应返回信息|&emsp;|  
+| fileHash | String | Body |上传至服务端源文件的hash|下载端可以使用该hash对比，验证文件的完整性|
+| fileSize | long | Body |文件的大小|单位：byte(字节)|
+| alg | String | Body |服务端计算文件hash的算法|可取值：md5|
+| httpUrl | String | Body |文件使用http协议的url|url最大长度:256位|
+| httpsUrl | String | Body |文件使用https协议的url|url最大长度:256位|
+| retCode | String | Body |请求响应返回码|&emsp;|
+| retInfo | String | Body |请求响应返回信息|&emsp;|
 
 **示例**
 
-**请求样例** 
+- **请求样例** 
 
-```java  
+```
 POST /rsservice/v1/upload HTTP/1.1
 Header:
 systemId: SV-IOTFWNCZY628-0000
@@ -74,12 +79,11 @@ Body:{
     "fileInfo": "{"fileHash":"cdf1dfd159684461ed9f44a59afbb730","fileCreator":"test123"}",
     "file":（读取出的文件流）
 }
+```
 
-```  
+- **请求应答**
 
-**请求应答**
-
-```java
+```
 {
     "retCode":"00000",
     "retInfo":"成功",
@@ -91,42 +95,43 @@ Body:{
         "httpsUrl":"https://resource.haier.net/rsservice/v1/download/SY-0000/resources/85d1e38c753d4109847b036dbb258ce8"
     }
 }
-
 ```
 
 ### 申请密钥接口
 **使用说明**  
 > 下载文件需要密钥，因此下载文件之前需要获得密钥。
 
-**接口描述**  
-?> **接入地 址：**  `/rsservice/v1/applySecretKey `  
+**接口描述**
 
- **HTTP Method：** POST
+- **接入地 址：**  `/rsservice/v1/applySecretKey `
 
-**输入参数**  
+- **HTTP Method：** POST
+
+- **输入参数**
+
 | 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
-|:------：|:-----:|:-----:|:------:|:------:|:------:|  
-| fileUrl | String | Body | 是 | 文件的url |&emsp;|  
-| expiryTime | int | Body| 是 |秘钥的有效期(单位为分钟)，最大值为：60*24即24小时|&emsp;|  
+|:------：|:-----:|:-----:|:------:|:------:|:------:|
+| fileUrl | String | Body | 是 | 文件的url |&emsp;|
+| expiryTime | int | Body| 是 |秘钥的有效期(单位为分钟)，最大值为：60*24即24小时|&emsp;|
 
-**输出参数**  
+- **输出参数**
 
 | 参数名称 | 类型 | 位置 | 说明 | 备注 |
 | ------- |:----------:|:-----:|:---------:|
-| secretKey | String | Body |秘钥（定长8字节）|&emsp;|  
-| fileHash | String | Body |原始文件的hash（定长32字节）|&emsp;|  
-| fileSize | long | Body |文件的大小，单位为：byte（字节）|&emsp;|  
-| alg | String | Body |服务端计算文件hash的算法|&emsp;|  
-| httpUrl | String | Body |文件使用http协议的url|&emsp;|  
-| httpsUrl | String | Body |文件使用https协议的url|&emsp;|  
-| retCode | String | Body |请求响应返回码|&emsp;|  
-| retInfo | String | Body |请求响应返回信息|&emsp;|  
+| secretKey | String | Body |秘钥（定长8字节）|&emsp;|
+| fileHash | String | Body |原始文件的hash（定长32字节）|&emsp;|
+| fileSize | long | Body |文件的大小，单位为：byte（字节）|&emsp;|
+| alg | String | Body |服务端计算文件hash的算法|&emsp;|
+| httpUrl | String | Body |文件使用http协议的url|&emsp;|
+| httpsUrl | String | Body |文件使用https协议的url|&emsp;|
+| retCode | String | Body |请求响应返回码|&emsp;|
+| retInfo | String | Body |请求响应返回信息|&emsp;|
 
 **示例**
 
-**请求样例** 
+-**请求样例**
 
-```java  
+```
 Header：
 Connection: keep-alive
 systemId: SY-0000
@@ -138,11 +143,11 @@ Body:{
     "expiryTime":60
 }
 
-```  
+```
 
-**请求应答**
+-**请求应答**
 
-```java
+```
 {
     "retCode":"00000",
     "retInfo":"成功",
@@ -155,8 +160,8 @@ Body:{
         "secretKey":"a0550d08"
     }
 }
-
 ```
+
 
 ## 文件上传（2C）
 
@@ -165,48 +170,50 @@ Body:{
 - **接入地址：**  `https:// resource.haier.net ` 
 
 - **接口参数**  
-应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：  
+应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
 **输入参数**  
 | 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|  
-| appId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|  
-| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见附录|  
-| timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|  
-| Content-Type | String | Header | 是 |application/json;charset=UTF-8|  
+|：------：|:-----:|:-----:|:------:|:------|
+| appId | String | Header | 是 |应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
+| sign | String | Header | 是 |对请求进行签名运算产生的签名,签名算法见[附录签名算法示例](#jump2)|
+| timestamp | long | Header | 是 |Unix时间戳，精确到毫秒。|
+| Content-Type | String | Header | 是 |application/json;charset=UTF-8|
 
 - **输出参数**  
 | 参数名称 | 类型  | 位置  | 必填|说明|
-|：------：|:-----:|:-----:|:------:|:------|   
-| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见附录错误码表）|  
-| retInfo | String | Body | 是 |用于调试的返回信息，不支持国际化，也不能直接显示在UI上|  
+|：------：|:-----:|:-----:|:------:|:------|
+| retCode | String | Body| 是 |返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
+| retInfo | String | Body | 是 |用于调试的返回信息，不支持国际化，也不能直接显示在UI上|
 
 ### 文件上传接口
 **使用说明**
 
-> 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照附录
+> 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照[附录错误码表](#jump1)
 
 **接口描述**
 
-?> **接入地 址：**  `/ rsservice/v1/union/upload `  
+- **接入地 址：**  `/rsservice/v1/union/upload`
 
-**HTTP Method：** POST
+- **HTTP Method：** POST
 
-**输入参数**  
+- **输入参数**
+
 | 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
 |:------：|:-----:|:-----:|:------:|:------:|:------:|  
 | file | file | Body | 是 | 源文件 |目前文件最大限制为10MB|  
 | fileInfo | String | Body| 是 |fileInfo组成的json字符串|&emsp;|  
 
-**输入参数对象说明**  
-| **名称** | 文件信息对象 |&emsp;| fileInfo |   
-| ------------- |:----------:|:-----:|:--------:|  
-|**字段名**|**类型**|**必填**|**说明**|**备注**|  
-|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位具体算法见附录|  
-|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|  
-|uploadClientId| String | 是 |DeviceId或者UserId|&emsp;|  
-|expiryTime| int | 是 |文件的过期时间和秘钥的过期时间|单位：小时，文件有效期和秘钥有效期都为此时间，文件过期则从服务端删除，无法再下载。最大限制为7天，即168小时|  
+    **输入参数对象说明**
 
-**输出参数**  
+| **名称** | 文件信息对象 |&emsp;| fileInfo |
+| ------------- |:----------:|:-----:|:--------:|
+|**字段名**|**类型**|**必填**|**说明**|**备注**|
+|fileHash| String | 是 |文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
+|fileCreator| String | 否 |文件创建者|长度限制为：32位，不可使用特殊字符|
+|uploadClientId| String | 是 |DeviceId或者UserId|&emsp;|
+|expiryTime| int | 是 |文件的过期时间和秘钥的过期时间|单位：小时，文件有效期和秘钥有效期都为此时间，文件过期则从服务端删除，无法再下载。最大限制为7天，即168小时|
+
+- **输出参数**
 
 | 参数名称 | 类型 | 位置 | 说明 | 备注 |
 | ------- |:----------:|:-----:|:---------:|
@@ -222,9 +229,9 @@ Body:{
 
 **示例**
 
-**请求样例** 
+- **请求样例** 
 
-```java  
+```
 POST /rsservice/v1/union/upload HTTP/1.1
 Header:
 appId: MB-IOTFWNCZY628-0000
@@ -236,12 +243,11 @@ Body:{
     "fileInfo": "{"fileHash":"cdf1dfd159684461ed9f44a59afbb730","fileCreator":"test123","uploadClientId":"04FA834BDE0F","expiryTime":24}",
     "file":（读取出的文件流）
 }
-
 ```  
 
-**请求应答**
+- **请求应答**
 
-```java
+```
 {
     "retCode":"00000",
     "retInfo":"成功",
@@ -253,22 +259,22 @@ Body:{
         "httpsUrl":"https://resource.haier.net/rsservice/v1/download/SY-0000/resources/85d1e38c753d4109847b036dbb258ce8"
     }
 }
-
 ```
 
 
 ## 文件下载接口
 **使用说明**
 
-> 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照附录
+> 上传文件，成功时返回文件的url和密钥，失败时返回错误码，错误码参照[附录错误码表](#jump1)
 
 **接口描述**
 
-?> **接入地 址：**  `/rsservice/v1/download/{业务参数} `  
+- **接入地 址：**  `/rsservice/v1/download/{业务参数} `  
 
- **HTTP Method：** GET
+- **HTTP Method：** GET
 
-**输入参数**  
+- **输入参数**
+
 | 参数名称 | 类型 | 位置 | 必填 | 说明 | 备注 |
 |:------：|:-----:|:-----:|:------:|:------:|:------:|
 | secretKey | String | header或者url中 | 是 | 文件秘钥 |定长8字节|
@@ -281,7 +287,8 @@ Body:{
 7 如果Range参数填写的不符合规则，则返回错误码，如：Range: bytes=1.5-10  |  
 | showInBrowser | Boolean | header或者url中 | 否 | 是否在浏览器中进行文件预览 |该参数的意义为，文件通过浏览器打开时，是否需要在浏览器预览直接显示出来，例如图片，文本，默认值为（false）不显示，弹框下载|
 
-**输出参数**  
+- **输出参数**
+
 | 参数名称 | 类型 | 位置 | 说明 | 备注 |
 | ------- |:----------:|:-----:|:---------:|
 | file | InputStream | Body |源文件|&emsp;|
@@ -291,22 +298,21 @@ Body:{
 
 **示例**
 
-**请求样例** 
+- **请求样例** 
 
-```java  
- GET
+```
+GET
 /rsservice/v1/download/MB-IOTFWNCZY628-0000/resources/85d1e38c753d4109847b036dbb258ce8  HTTP/1.1
 Header:
 secretKey: a6bf288b
 Host: resource.haier.net
 Content-Type: application/octet-stream
 Connection: Keep-Alive
-
 ```  
 
-**成功的请求应答**
+- **成功的请求应答**
 
-```java  
+```
 HTTP/1.1 200 
 Header:
 Accept-Ranges: bytes
@@ -316,12 +322,11 @@ hash：04b4b4ed28ee58ce4ecacaae1c00d032
 Content-Disposition: attachment;filename=20200311.jpeg
 Content-Type: application/octet-stream
 Body:文件流
-
 ```
 
-**失败的请求应答**
+- **失败的请求应答**
 
-```java  
+```
 HTTP /1.1 511 
  Header:
  Content-Type: application/json;charset=UTF-8
@@ -330,41 +335,43 @@ HTTP /1.1 511
     "retCode":"B00001",
     "retInfo":"秘钥不存在,请重新申请"
 }
-
-```  
+```
 
 **备注说明**  
->1.Content-Disposition: attachment;filename=20200311.jpeg
+>1. Content-Disposition: attachment;filename=20200311.jpeg
 此header表示文件直接在浏览器上访问时弹出文件下载对话框，默认的保存文件名为20200311.jpeg  
 2. 如果需要在浏览器中进行预览文件，则需要在请求url中加入secretKey和showInBrowser参数。
 例如：
-http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/resources/ad425f70b7404cfaa8fc73b74d728892?**secretKey=f28aeb42&showInBrowser=true**  
-3.当下载文件时，如果服务端错误，HttpCode则会返回511，并且响应体body会返回标准的uws结构体
+http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/resources/ad425f70b7404cfaa8fc73b74d728892?/secretKey=f28aeb42&showInBrowser=true  
+3. 当下载文件时，如果服务端错误，HttpCode则会返回511，并且响应体body会返回标准的uws结构体
 如果服务端正确，HttpCode则会返回200，响应体返回文件流
 
 
 ## 附录
+<a id="jump1"> </a> 
 ###公共错误码
-|  错误码  |  描述  |  
-|：----：|：----：|  
-|B00001|秘钥不存在,请重新申请|  
-|B00002|文件不存在|  
-|B00003|文件hash对比错误，文件不完整|  
-|B00004|参数不符合规则要求|  
-|B00005|秘钥多于10个,无法继续申请|  
-|B00006|秘钥与文件不匹配|  
-|B00007|文件url错误|  
-|B00008|文件名长度超过512位，不符合规则要求|  
-|B00009|文件创建者长度超过32位，不符合规则要求|  
-|B00010|range参数不符合规则要求|  
-|B00011|秘钥有效期不符合规则|  
-|B00012|文件大小超过限制|  
-|B00013|系统错误|  
+
+|  错误码  |  描述  |
+|：----：|：----：|
+|B00001|秘钥不存在,请重新申请|
+|B00002|文件不存在|
+|B00003|文件hash对比错误，文件不完整|
+|B00004|参数不符合规则要求|
+|B00005|秘钥多于10个,无法继续申请|
+|B00006|秘钥与文件不匹配|
+|B00007|文件url错误|
+|B00008|文件名长度超过512位，不符合规则要求|
+|B00009|文件创建者长度超过32位，不符合规则要求|
+|B00010|range参数不符合规则要求|
+|B00011|秘钥有效期不符合规则|
+|B00012|文件大小超过限制|
+|B00013|系统错误|
 |B00014|文件下载失败，请重试|
 
+<a id="jump2"> </a> 
 ###签名算法示例
 
-```java  
+```
 String getSign(String systemId, String systemKey, String timestamp, String body,String url){：
 URL urlObj = new URL(url);
     url=urlObj.getPath();
@@ -403,12 +410,11 @@ String BinaryToHexString(byte[] bytes) {
     }
     return hex.toString();
 }
-
-```  
-
+```
+<a id="jump3"> </a> 
 ###文件上传示例
 
-```java  
+```
 public static void sendFile(String url, Map<String, Object> headers, String body, File file) throws Exception {
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httppost = new HttpPost(url);
@@ -456,11 +462,12 @@ public static void sendFile(String url, Map<String, Object> headers, String body
         sendFile(url, header, JSON.toJSONString(param), uploadFile);
     }
 
-```  
+```
 
+<a id="jump4"> </a> 
 ###文件下载示例
 
-```java  
+```
 public void getDownloadTest() {
         int times = 13283 / 1024;
         try {
@@ -503,13 +510,12 @@ public void getDownloadTest() {
             e.printStackTrace();
         }
     }
+```
 
-```  
-
+<a id="jump5"> </a> 
 ###文件hash值算法
 
-```java  
-
+```
 //取文件的md5-hash值
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -588,9 +594,5 @@ public class MD5Util{
         }
         return s;
     }
-}  
-
-```  
-
-
-
+}
+```
