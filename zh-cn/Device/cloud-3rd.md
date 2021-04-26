@@ -122,7 +122,8 @@ Request Headers:
 	            ],
 	            "productCodeT":"AQ0055M6N",
 	            "productNameT":"XG-150QH/AA恒氧新风机",
-	            "totalPermission":{"control":true,"set":true,"view":true},          "wifiType":"111c120024000810330200118999990000000000000000000000000000000000"
+	            "totalPermission":{"control":true,"set":true,"view":true},
+                "wifiType":"111c120024000810330200118999990000000000000000000000000000000000"
               },
               {
 	            "deviceId":"DC330D861B7C",
@@ -138,7 +139,8 @@ Request Headers:
 	            ],
 	            "productCodeT":"AJ0261M07",
 	            "productNameT":"除湿",
-	             "totalPermission":{"control":true,"set":true,"view":true},      "wifiType":"200861080082032421059278f9beccb244ad62bd7dd223670db151b71678bc40"
+	            "totalPermission":{"control":true,"set":true,"view":true},
+                "wifiType":"200861080082032421059278f9beccb244ad62bd7dd223670db151b71678bc40"
                }
              ],
   "retCode":"00000",
