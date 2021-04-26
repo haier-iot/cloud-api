@@ -78,7 +78,7 @@ payload|List<DeviceInfoVO>|Body|必填|返回数据
 **请求样例**
 
 ```
-POST http://uws.haier.net /dcs/third-party-cloud/add/user/third-party/device
+POST https://uws.haier.net /dcs/third-party-cloud/add/user/third-party/device
 
 POST data:
 [no cookies]
@@ -205,7 +205,7 @@ payload|DeviceVersion|Body|必填|返回数据
 
 
 ```
-POST http://uws.haier.net/dcs/third-party-cloud/get/device/detail
+POST https://uws.haier.net/dcs/third-party-cloud/get/device/detail
 
 POST data:
 	{
@@ -367,7 +367,7 @@ payload|ShadowBeanVO|Body|必填|返回数据
 **请求样例**
 
 ```
-POST http://uws.haier.net/dcs/third-party-cloud/get/device/status
+POST https://uws.haier.net/dcs/third-party-cloud/get/device/status
 
 POST data:
 	{
@@ -719,7 +719,7 @@ payload|String|Body|必填|当次请求的sn
 **请求样例**
 
 ```
-POST http://uws.haier.net/dcs/third-party-cloud/update/device/cmd
+POST https://uws.haier.net/dcs/third-party-cloud/update/device/cmd
 
 POST data:
 	{
@@ -801,7 +801,7 @@ payload|Boolean|Body|必填|返回数据
 
 
 ```
-POST http://uws.haier.net/dcs/third-party-cloud/delete/user/third-party/device
+POST https://uws.haier.net/dcs/third-party-cloud/delete/user/third-party/device
 
 POST data:
 	{
@@ -889,7 +889,7 @@ payload|List<DeviceModel>|Body|必填|返回数据
 **请求样例**
 
 ```
-POST http://uws.haier.net/dcs/third-party-cloud/get/third-party/device-models
+POST https://uws.haier.net/dcs/third-party-cloud/get/third-party/device-models
 
 POST data:
 
