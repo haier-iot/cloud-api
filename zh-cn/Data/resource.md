@@ -11,21 +11,19 @@
 - **接入地址：**  `https://resource.haier.net `
 
 - **接口参数**  
-应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：  
-**输入参数**
+应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
 
+**输入参数**  
 |参数名称|类型|位置|必填|说明|
-|:------:|:-----:|:-----:|:------:|:------|
+|:------:|:-----:|:-----:|:------:|:------:|
 |systemId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
 |sign|String|Header|是|对请求进行签名运算产生的签名,签名算法见|
 |timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
 |Content-Type|String|Header|是|application/json;charset=UTF-8|
 
-
-**输出参数**
-
+**输出参数**  
 |参数名称|类型|位置|必填|说明|
-|:------:|:-----:|:-----:|:------:|:------|
+|:------:|:-----:|:-----:|:------:|:------:|
 |retCode|String|Body|是|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
 |retInfo|String|Body|是|用于调试的返回信息，不支持国际化，也不能直接显示在UI上|
 
@@ -48,8 +46,8 @@
 
 **输入参数对象说明**
 
-|**名称**|文件信息对象|&emsp;|fileInfo|
-|:------:|:----------:|:-----:|:--------:|
+|**名称**|文件信息对象|&emsp;|&emsp;|fileInfo|
+|:------:|:----------:|:-----:|:--------:|:--------:|
 |**字段名**|**类型**|**必填**|**说明**|**备注**|
 |fileHash|String|是|文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
 |fileCreator|String|否|文件创建者|长度限制为：32位，不可使用特殊字符|
@@ -133,7 +131,7 @@ Body:{
 
 **示例**
 
--**请求样例**
+- **请求样例**
 
 ```
 Header：
@@ -148,7 +146,7 @@ Body:{
 }
 ```
 
--**请求应答**
+- **请求应答**
 
 ```
 {
@@ -172,10 +170,11 @@ Body:{
 
 - **接入地址：**  `https:// resource.haier.net ` 
 
-- **接口参数**  
-应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
+- **接口参数** 
+  应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
 
-**输入参数**  
+  **输入参数**  
+
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------|
 |appId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
@@ -183,7 +182,8 @@ Body:{
 |timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
 |Content-Type|String|Header|是|application/json;charset=UTF-8|
 
-**输出参数**  
+  **输出参数**  
+
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------|
 |retCode|String|Body|是|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
@@ -248,7 +248,7 @@ Body:{
     "fileInfo": "{"fileHash":"cdf1dfd159684461ed9f44a59afbb730","fileCreator":"test123","uploadClientId":"04FA834BDE0F","expiryTime":24}",
     "file":（读取出的文件流）
 }
-```  
+```
 
 - **请求应答**
 
@@ -285,9 +285,8 @@ Body:{
 |secretKey|String|header或者url中|是|文件秘钥|定长8字节|
 |Range|String|header|否|分包下载|参见[输入参数备注](#memo1)|
 |showInBrowser|Boolean|header或者url中|否|是否在浏览器中进行文件预览|该参数的意义为，文件通过浏览器打开时，是否需要在浏览器预览直接显示出来，例如图片，文本，默认值为（false）不显示，弹框下载|
-<a id="memo1"></a>
+<a id="memo1"> </a> **输入参数备注**
 
-**输入参数备注**
 1. Range:bytes=128-1024 表示下载128-1024段的文件字节（不包括第1024的字节）。  
 2. Range: bytes=0-表示下载全部文件  
 3. Range: bytes=-2048 表示下载0-2048文件字节  
@@ -317,7 +316,7 @@ secretKey: a6bf288b
 Host: resource.haier.net
 Content-Type: application/octet-stream
 Connection: Keep-Alive
-```  
+```
 
 - **成功的请求应答**
 
@@ -337,28 +336,29 @@ Body:文件流
 
 ```
 HTTP /1.1 511 
- Header:
- Content-Type: application/json;charset=UTF-8
- Content-Length: 64
- Body:{
+Header:
+Content-Type: application/json;charset=UTF-8
+Content-Length: 64
+Body:{
     "retCode":"B00001",
     "retInfo":"秘钥不存在,请重新申请"
 }
 ```
 
 **备注说明**  
+
 >1. Content-Disposition: attachment;filename=20200311.jpeg
 此header表示文件直接在浏览器上访问时弹出文件下载对话框，默认的保存文件名为20200311.jpeg  
-2. 如果需要在浏览器中进行预览文件，则需要在请求url中加入secretKey和showInBrowser参数。
+>2. 如果需要在浏览器中进行预览文件，则需要在请求url中加入secretKey和showInBrowser参数。
 例如：
 http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/resources/ad425f70b7404cfaa8fc73b74d728892?/secretKey=f28aeb42&showInBrowser=true  
-3. 当下载文件时，如果服务端错误，HttpCode则会返回511，并且响应体body会返回标准的uws结构体
+>3. 当下载文件时，如果服务端错误，HttpCode则会返回511，并且响应体body会返回标准的uws结构体
 如果服务端正确，HttpCode则会返回200，响应体返回文件流
 
 
 ## 附录
 
-<a id="jump1"></a>
+<a id="jump1"> </a>
 
 ###公共错误码
 
@@ -379,9 +379,7 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 |B00013|系统错误|
 |B00014|文件下载失败，请重试|
 
-
-<a id="jump2"></a>
-
+<a id="jump2"> </a>
 ### 签名算法示例
 
 ```
@@ -426,109 +424,105 @@ String BinaryToHexString(byte[] bytes) {
 ```
 
 <a id="jump3"> </a>
-
 ### 文件上传示例
 
 ```
 public static void sendFile(String url, Map<String, Object> headers, String body, File file) throws Exception {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httppost = new HttpPost(url);
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        //第一个参数为 相当于 Form表单提交的file框的name值 第二个参数就是我们要发送文件对象了
-        //第三个参数是文件名
-        InputStream inputStream = new FileInputStream(file);   builder.addBinaryBody("file",IOUtils.toByteArray(inputStream),ContentType.create("multipart/form-data"), file.getName());
-        // 构建的json串
-        builder.addTextBody("fileInfo", body, ContentType.create("multipart/form-data", Consts.UTF_8));
-        HttpEntity entity = builder.build();
-        if (null != headers && headers.size() > 0) {
-            for (Map.Entry<String, Object> entry : headers.entrySet()) {
-                httppost.addHeader(entry.getKey(), entry.getValue().toString());
-            }
-        }
-        httppost.setEntity(entity);
-        try {
-            HttpResponse response = httpClient.execute(httppost);
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                String result = EntityUtils.toString(response.getEntity());
-                System.out.println(result);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if (inputStream!=null){
-                inputStream.close();
-            }
+    HttpClient httpClient = HttpClientBuilder.create().build();
+    HttpPost httppost = new HttpPost(url);
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    //第一个参数为 相当于 Form表单提交的file框的name值 第二个参数就是我们要发送文件对象了
+    //第三个参数是文件名
+    InputStream inputStream = new FileInputStream(file);   builder.addBinaryBody("file",IOUtils.toByteArray(inputStream),ContentType.create("multipart/form-data"), file.getName());
+    // 构建的json串
+    builder.addTextBody("fileInfo", body, ContentType.create("multipart/form-data", Consts.UTF_8));
+    HttpEntity entity = builder.build();
+    if (null != headers && headers.size() > 0) {
+        for (Map.Entry<String, Object> entry : headers.entrySet()) {
+            httppost.addHeader(entry.getKey(), entry.getValue().toString());
         }
     }
-    public static void main(String[] args) throws Exception {
-        String url = "http://127.0.0.1:14400/rsservice/v1/upload";
-        String path = "F:\\img\\20200311.jpeg";
-        File uploadFile = new File(path);
-        Map<String, Object> header = new HashMap<>();
-        Map<String, Object> param = new HashMap<>();
-        param.put("fileCreator", "test123");
-        param.put("fileHash", GetFileMD5.getFileMD5(path));
-        long times = System.currentTimeMillis();
-        String sign = SignUtil.getSign("SV-TEST-0000", "6b75451bb7aedcad289c123456", String.valueOf(times),"", url);
-        header.put("sign", sign);
-        header.put("systemId", "SV-TEST-0000");
-        header.put("timestamp", times);
-        sendFile(url, header, JSON.toJSONString(param), uploadFile);
+    httppost.setEntity(entity);
+    try {
+        HttpResponse response = httpClient.execute(httppost);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            String result = EntityUtils.toString(response.getEntity());
+            System.out.println(result);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+        if (inputStream!=null){
+            inputStream.close();
+        }
     }
-
+}
+public static void main(String[] args) throws Exception {
+    String url = "http://127.0.0.1:14400/rsservice/v1/upload";
+    String path = "F:\\img\\20200311.jpeg";
+    File uploadFile = new File(path);
+    Map<String, Object> header = new HashMap<>();
+    Map<String, Object> param = new HashMap<>();
+    param.put("fileCreator", "test123");
+    param.put("fileHash", GetFileMD5.getFileMD5(path));
+    long times = System.currentTimeMillis();
+    String sign = SignUtil.getSign("SV-TEST-0000", "6b75451bb7aedcad289c123456", String.valueOf(times),"", url);
+    header.put("sign", sign);
+    header.put("systemId", "SV-TEST-0000");
+    header.put("timestamp", times);
+    sendFile(url, header, JSON.toJSONString(param), uploadFile);
+}
 ```
 
 <a id="jump4"> </a>
-
 ### 文件下载示例
 
 ```
 public void getDownloadTest() {
-        int times = 13283 / 1024;
-        try {
-            for (int i = 0; i <= times ; i++) {
-                int start = i*1024;
-                int end = (i+1)*1024;
-                Map<String, Object> params = new HashMap<>();
-                Map<String, Object> header = new HashMap<>();
-                String url = "http://127.0.0.1:14500/rsservice/v1/download/SV-IOTFWNCZY628-0000/resources/38fe1549ed1c48a998ce3d108af0c70d";
-                header.put("secretKey", "a6bf288b");
-                header.put("Range", "bytes="+start+"-"+end);
-                //header.put("Range", "bytes=0-");
-                header.put("Content-Type", "application/octet-stream");
-                HttpClient httpClient = HttpClientBuilder.create().build();
-                URIBuilder uriBuilder = new URIBuilder(url);
-                if (null != params && !params.isEmpty()) {
-                    for (Map.Entry<String, Object> entry : params.entrySet()) {
-                        uriBuilder.addParameter(entry.getKey(), (String) entry.getValue());
-                    }
-                }
-                URI uri = uriBuilder.build();
-                HttpGet httpGet = new HttpGet(uri);
-                if (header != null) {
-                    for (Map.Entry<String, Object> entry : header.entrySet()) {
-                        httpGet.setHeader(entry.getKey(), entry.getValue().toString());
-                    }
-                }
-                HttpResponse response = httpClient.execute(httpGet);
-                if (response.getStatusLine().getStatusCode() == 200) {
-                    HttpEntity entity = response.getEntity();
-                    InputStream stream = entity.getContent();
-                    File file=new File("F://img//test.jpeg");
-                    OutputStream out=new FileOutputStream(file,true);
-                    out.write(IOUtils.toByteArray(stream));
-                    out.flush();
-                    out.close();
+    int times = 13283 / 1024;
+    try {
+        for (int i = 0; i <= times ; i++) {
+            int start = i*1024;
+            int end = (i+1)*1024;
+            Map<String, Object> params = new HashMap<>();
+            Map<String, Object> header = new HashMap<>();
+            String url = "http://127.0.0.1:14500/rsservice/v1/download/SV-IOTFWNCZY628-0000/resources/38fe1549ed1c48a998ce3d108af0c70d";
+            header.put("secretKey", "a6bf288b");
+            header.put("Range", "bytes="+start+"-"+end);
+            //header.put("Range", "bytes=0-");
+            header.put("Content-Type", "application/octet-stream");
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            URIBuilder uriBuilder = new URIBuilder(url);
+            if (null != params && !params.isEmpty()) {
+                for (Map.Entry<String, Object> entry : params.entrySet()) {
+                    uriBuilder.addParameter(entry.getKey(), (String) entry.getValue());
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            URI uri = uriBuilder.build();
+            HttpGet httpGet = new HttpGet(uri);
+            if (header != null) {
+                for (Map.Entry<String, Object> entry : header.entrySet()) {
+                    httpGet.setHeader(entry.getKey(), entry.getValue().toString());
+                }
+            }
+            HttpResponse response = httpClient.execute(httpGet);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream stream = entity.getContent();
+                File file=new File("F://img//test.jpeg");
+                OutputStream out=new FileOutputStream(file,true);
+                out.write(IOUtils.toByteArray(stream));
+                out.flush();
+                out.close();
+            }
         }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 ```
 <a id="jump5"> </a>
-
 ### 文件hash值算法
 
 ```
