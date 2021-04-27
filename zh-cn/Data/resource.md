@@ -10,10 +10,11 @@
 
 - **接入地址：**  `https://resource.haier.net `
 
-- **接口参数**  
-应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
+- **接口参数** 
+  应用与uws交互中，应用需要在每个请求Header中传入一些固定的参数；uws的每个响应中也会包含固定的响应码，具体如下：
 
-**输入参数**  
+  **输入参数**  
+
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------:|
 |systemId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
@@ -21,7 +22,8 @@
 |timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
 |Content-Type|String|Header|是|application/json;charset=UTF-8|
 
-**输出参数**  
+​      **输出参数**  
+
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------:|
 |retCode|String|Body|是|返回码（其中00000代表请求成功,其它代表错误，错误码及描述见[附录错误码表](#jump1)）|
@@ -182,7 +184,7 @@ Body:{
 |timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
 |Content-Type|String|Header|是|application/json;charset=UTF-8|
 
-  **输出参数**  
+​      **输出参数**  
 
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------|
@@ -360,7 +362,7 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 
 <a id="jump1"> </a>
 
-###公共错误码
+### 公共错误码
 
 |错误码|描述|
 |:----:|:----:|
