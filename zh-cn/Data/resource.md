@@ -18,7 +18,7 @@
 |参数名称|类型|位置|必填|说明|
 |:------:|:-----:|:-----:|:------:|:------:|
 |systemId|String|Header|是|应用ID，40位以内字符,Haier U+ 云平台全局唯一。|
-|sign|String|Header|是|对请求进行签名运算产生的签名,签名算法见|
+|sign|String|Header|是|对请求进行签名运算产生的签名,签名算法见[附件签名算法示例](#jump2)|
 |timestamp|long|Header|是|Unix时间戳，精确到毫秒。|
 |Content-Type|String|Header|是|application/json;charset=UTF-8|
 
@@ -437,7 +437,8 @@ public static void sendFile(String url, Map<String, Object> headers, String body
     builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
     //第一个参数为 相当于 Form表单提交的file框的name值 第二个参数就是我们要发送文件对象了
     //第三个参数是文件名
-    InputStream inputStream = new FileInputStream(file);   builder.addBinaryBody("file",IOUtils.toByteArray(inputStream),ContentType.create("multipart/form-data"), file.getName());
+    InputStream inputStream = new FileInputStream(file);
+    builder.addBinaryBody("file",IOUtils.toByteArray(inputStream),ContentType.create("multipart/form-data"), file.getName());
     // 构建的json串
     builder.addTextBody("fileInfo", body, ContentType.create("multipart/form-data", Consts.UTF_8));
     HttpEntity entity = builder.build();
