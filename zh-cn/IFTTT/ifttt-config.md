@@ -864,6 +864,330 @@ Body
 |  retInfo  |String| Body  |必填| &emsp;|
 
 
+## 判断该场景下规则的条件以及动作等是否正确
+
+**使用说明**
+
+>根据场景id判断该场景下规则的条件以及动作等是否正确，返回Map<String,List<String>> ,key 为规则id,value为校验符合要求,可以开启的动作集合。
+
+ **接口描述**
+
+?> **接入地 址：**  `/iftttscene/scene/ruleJudgement`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| sceneId| String |&emsp;| Body|必填 |&emsp; | 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  ruleMap  |Map<String,List<String>| Body  |必填| &emsp;|
+
+
+
+## 根据场景模板Id保存规则参数信息
+
+**使用说明**
+
+>根据场景模板Id下载场景,并且更新下载后的场景的规则参数信息。
+ **接口描述**
+
+?> **接入地 址：**  `/iftttscene/scene/saveTemplate`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id | 
+| templateId| String |32| Body| 必填|场景模板Id | 
+| sceneTagList| List<SceneTagDto> |N/A| Body|选填|场景位置标签 |
+| ruleSettings| RuleSettings[] |N/A| Body| 必填|type:必填，枚举类型可选值condition或者action；</br>id：模板的条件或者行为Id，取决于type；数据结构定义：</br>`{`</br>`"mac":"A123456",`</br>`"clazz":"00123"  //设备大类加中类；这个必须跟海极网一致`</br>`}`</br>如果同一型号需要传入多个设备，数据格式如下：</br>`{"mac":"mac1,mac2,mac3","clazz":"02012"}`</br>和V2.3不一样的是去除了wifitype</br>value:选填 数据结构定义：</br>`{`</br>` "value":"open", //具体的值；`</br>`"desc":"开机"   //具体值的描述`</br>`}`|   
+   
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  sceneId  |String| Body  |必填|返回保存下载后场景更新规则参数成功的场景Id|
+
+
+
+## 批量更新规则的参数
+
+**使用说明**
+
+>批量更新规则详情 说明：如果需要更新的场景是手动触发类（例如，一键离家）那么每次更新规则系统都会判断当前更新后的场景是否满足实例化条件，如果满足则立即实例化并且场景的isOpen为true表示场景已经开启满足触发要求；如果是开关类场景，则只会更新最新场景的数据不会进行实例化，如果需要实例化需要APP调用手动开启场景接口。
+ **接口描述**
+
+?> **接入地 址：**  `/iftttscene/scene/rule/updateSettings`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| settings| RuleSettings[] |N/A| Body| 必填|如果同一型号需要传入多个设备，数据格式如下：`{"mac":"mac1,mac2,mac3","clazz":"02012"}`和V2.3不一样的是去除了wifitype| 
+| familyId| String |32| Body| 必填|&emsp;| 
+
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | Object| Body  |必填|如果成功返回success；如果失败返回错误信息|
+
+
+
+
+
+## 获取家庭规则参数设置
+
+**使用说明**
+
+>根据familyId和场景id查询家庭规则设置，其中条件或者动作未设置参数(即没有配置设备信息，外部条件信息等)也会返回记录。
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/getRuleSettingsByFamilyId`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |N/A| Body| 必填|家庭Id| 
+| sceneIds| String[] |N/A| Body| 选填|场景id数组| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | List<RuleSettings>| Body  |必填|显示为null|
+
+
+
+## 手动执行类场景列表查询
+
+**使用说明**
+
+>查询家庭下手动执行类场景列表
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/ listManuallySceneByFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id| 
+| limit| Int |N/A| Body| 必填|每页显示的记录数最多100条，默认30条| 
+| cursor| Int |N/A| Body| 必填|从0开始| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | Pagination<UserSceneDto >| Body  |必填|1.	显示场景中的描述信息, 其中的规则rules中只显示规则Id和规则名称以及规则描述, 同时记录按照createTime（创建时间）倒序。</br>2.	返回为null的字段被过滤掉，不显示。|
+
+
+
+
+## 开关类场景列表查询
+
+**使用说明**
+
+>平台触发类场景列表查询
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/listPlatformSceneByFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id| 
+| limit| Int |N/A| Body| 必填|每页显示的记录数最多100条，默认30条| 
+| cursor| Int |N/A| Body| 必填|从0开始| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | Pagination<UserSceneDto >| Body  |必填|1.	显示场景中的描述信息, 其中的规则rules中只显示规则Id和规则名称以及规则描述, 同时记录按照createTime（创建时间）倒序。</br>2.	返回为null的字段被过滤掉，不显示。|
+
+
+
+
+## 根据系统id查询场景列表
+
+**使用说明**
+
+>根据系统id查询场景列表，进行应用隔离,系统id根据UAG获取区分。
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/listFamilySceneBySystemId`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id| 
+| limit| Int |N/A| Body| 必填|默认10条| 
+| cursor| Int |N/A| Body| 必填|从0开始| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | Pagination<UserSceneDto >| Body  |必填|1.	显示场景中的描述信息, 其中的规则rules中只显示规则Id和规则名称以及规则描述, 同时记录按照createTime（创建时间）倒序。</br>2.	返回为null的字段被过滤掉，不显示。|
+
+
+
+## 根据属性id查询场景
+
+**使用说明**
+
+>根据设备id 查询场景列表
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/listSceneBySettings`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id| 
+| param| Map<String,String> |N/A| Body| 必填|{“id”: “mac”}id值：设备mac值
+| 
+| limit| Int |N/A| Body| 必填|每页显示的记录数最多100条，默认30条| 
+| cursor| Int |N/A| Body| 必填|从0开始| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  data  | Pagination<UserSceneDto >| Body  |必填|1.	显示场景中的描述信息, 其中的规则rules中只显示规则Id和规则名称以及规则描述, 同时记录按照createTime（创建时间）倒序。</br>2.	返回为null的字段被过滤掉，不显示。|
+
+
+
+
+
+
+## 根据场景名称查询场景
+
+**使用说明**
+
+>根据场景名称模糊查询场景列表
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/ listSceneBySceneName`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| familyId| String |32| Body| 必填|家庭Id| 
+| sceneName| String |场景名称| Body| 选填|场景名称| 
+
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |只读| &emsp;|
+|  retInfo  |String| Body  |只读| &emsp;|
+|  data  | List<UserSceneDto >| Body  |只读|返回为null的字段被过滤掉，不显示|
+
+
+
+## 查询家庭下标签信息
+
+**使用说明**
+
+>获取家庭下场景标签列表
+
+ **接口描述**
+?> **接入地 址：**  `/iftttscene/scene/listSceneTagByFamily`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|    
+| familyId| String |32| Body| 必填|家庭Id| 
+     
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |String| Body  |必填| &emsp;|
+|  retInfo  |String| Body  |必填| &emsp;|
+|  tagList  |List<SceneTagDto>| Body  |必填| 用户场景标签|
+
+
+
+## 组件ID查询家庭场景列表
+
+**使用说明**
+
+>通过组件ID和家庭ID查询家庭下的场景列表。 
+
+
+**接口描述**
+
+?> **接入地 址：**  `/iftttscene/scene/getSceneListByComponentId`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|         
+| componentId| String |N/A| Body| 必填|组件Id|  
+| familyId| String |N/A| Body| 必填|家庭Id| 
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  | String| Body  |必填|&emsp;|
+|  retInfo  | String| Body  |必填|&emsp;|
+|  data  | List<UserSceneDto >| Body  |必填|返回为null的字段被过滤掉，不显示。|
 
 
 
