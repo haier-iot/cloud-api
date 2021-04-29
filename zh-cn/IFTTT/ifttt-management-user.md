@@ -31,9 +31,9 @@
 |  retInfo  |  String | Body  |  必填 |  &emsp; |
 |  data  |  String[] | Body  |  必填 | 下载后的新场景Id   |
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```java  
 Header：
 appId: MB-****-0000
@@ -96,9 +96,9 @@ Body
 |  data  | Object| Body  |  必填 |显示为：null |
 
 
- 2、请求样例  
+**示例**    
 
-**用户请求**
+**请求样例**
 ```java  
 Header：
 appId: MB-****-0000
@@ -161,9 +161,9 @@ Body
 |  data  | Object| Body  |  必填 |返回创建成功后的场景ID |
 
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```java  
 Header：
 appId: MB-****-0000
@@ -473,9 +473,9 @@ Body
 | ------------- |:----------:|:-----:|:--------:|:---------:|
 |  data  |Pagination<SceneDto>| Body  |  必填 |显示场景中的描述信息,其中的规则rules中带有规则Id和规则名称以及规则描述,同时记录按照创建时间倒序|
 
- 2、请求样例  
+**示例**  
 
-**用户请求**
+**请求样例**
 ```java  
 Header：
 appId: MB-****-0000
