@@ -987,36 +987,6 @@ Body
 
 
 
-## 查询场景执行状态
-
-**使用说明**
-
->根据场景id 查询场景场景执行状态
-
- **接口描述**
-?> **接入地 址：**  `/iftttscene/scene/getOperationLogInfo`  
- **HTTP Method：** POST
-
-**输入参数**  
-
-| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
-| ------- |:------:|:-----:|:----:|:----:|:----:|         
-| familyId| String |32| Body| 必填|家庭Id| 
-| sceneId| String |32| Body| 必填|场景id
-| 
-| sequenceid| String |32| Body| 必填|场景执行id| 
-
-     
-
-**输出参数**  
-
-|   名称      |     类型      | 位置  |必填 |说明|
-| ------------- |:----------:|:-----:|:--------:|:---------:|
-|  retCode  |String| Body  |只读| &emsp;|
-|  retInfo  |String| Body  |只读| &emsp;|
-|  data  | SceneOperationLogDto| Body  |只读|返回家庭下场景的操作记录|
-
-
 
 ## 根据场景名称查询场景
 
