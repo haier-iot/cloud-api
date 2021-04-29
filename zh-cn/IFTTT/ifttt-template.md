@@ -90,6 +90,7 @@ Body
 **接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/template/find/template-info`  
+
  **HTTP Method：** POST
 
 **输入参数**  
@@ -116,7 +117,8 @@ Body
 
 >根据场景模板Id下载场景,并设置参数，如果该场景是开关类场景则把场景打开。
 
- **接口描述**
+**接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/sceneEnabled`  
  **HTTP Method：** POST
 
