@@ -3,7 +3,8 @@
 
 ## 天气服务
 
-### 介绍  
+### 介绍
+
 **简介**
 >  为了方便各产业及APP开发者调用天气服务接口
 
@@ -244,7 +245,7 @@
             "windLevel":"4"
         },
         "aqiForecast":{
-            "2020-09-02":{
+            "2020-09-02":{获取历史天气信息
                 "pm25":"6",
                 "aqi":"20",
                 "updateTime":"2020-09-03 14:00:00"
@@ -255,9 +256,9 @@
     "retInfo":"成功"
 }
 
-```
+```  
 
-## 获取历史天气信息（只支持国内）
+### 获取历史天气信息（只支持国内）
 
 **使用说明**  
 >提供通过位置信息获取区域历史天气信息的服务。用户提交位置信息（经纬度或区域名称），系统通过位置信息计算所在的区域，并返回区域的历史天气信息。
@@ -456,6 +457,7 @@ POST data:
 **切源后：**
 
 > 由于新的天气服务供应商未提供天气现象和conditionId的对应关系，因此天气服务不再提供和维护旧的关系
+
 |conditionId|icon（白天）|icon（夜间）|中文|
 |:-----:|:-----:|:-----:|:-----:|
 |晴_白天|W晴_白天|W晴_白天|晴|
@@ -772,8 +774,7 @@ POST data:
 **示例（schemaVersion = v2）**
 
 - **用户请求**
-
-    ?> https:// uws.haier.net/rcs/location /area-json?schemaVersion=v2
+?> https:// uws.haier.net/rcs/location /area-json?schemaVersion=v2
 
 - **请求应答**
     ```json
@@ -813,7 +814,7 @@ POST data:
 
 - **用户请求**
 
-    ?> https://uws.haier.net/rcs/location/area-json
+?> https://uws.haier.net/rcs/location/area-json
 
 - **请求应答**
     ```json
@@ -901,9 +902,9 @@ POST data:
 > 2.	当请求参数为区域名称时，不填这个参数，填入时，也不生效
 
 **备注**
- areaId和国家，省，市，区名称选填一种即可，都填按照areaId处理。
-1.	区域信息为区域编码时，只在areaId字段填写上级城市区域编码，其他字段不填。
-2.	区域信息为区域名称时，areaId字段不填，当前区域，包括其上级所有的城市名称都必须填，其余字段不填。例如：district字段填入”西城区”时,city字段必须填入”北京市”,province字段必须填入”北京市”,不可以只填入district字段、而city或province字段不填。。
+> areaId和国家，省，市，区名称选填一种即可，都填按照areaId处理。
+>1.	区域信息为区域编码时，只在areaId字段填写上级城市区域编码，其他字段不填。
+>2.	区域信息为区域名称时，areaId字段不填，当前区域，包括其上级所有的城市名称都必须填，其余字段不填。例如：district字段填入”西城区”时,city字段必须填入”北京市”,province字段必须填入”北京市”,不可以只填入district字段、而city或province字段不填。
 
 - **输出参数**
 
