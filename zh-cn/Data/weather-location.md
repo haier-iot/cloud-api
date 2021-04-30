@@ -8,7 +8,7 @@
 >  为了方便各产业及APP开发者调用天气服务接口
 
 **公共参数**
-- **接入地址：**  `https://uws.haier.net/rcs/weather/`
+- ?> **接入地址：**  `https://uws.haier.net/rcs/weather/`
 
 - **LocationDto：地址信息**
 |字段名称|类型|说明|备注|必须|
@@ -103,7 +103,7 @@
 
 **接口描述**  
 
-- ?> **接入地 址：**  `/current-forecast？types=current&types=aqi&types=aqiForecast&types=alert&types=hourForecast&types= indexForecast&types= dayForecast`
+- ?> **接入地 址：**  `/current-forecast?types=current&types=aqi&types=aqiForecast&types=alert&types=hourForecast&types=indexForecast&types=dayForecast`
 
      **HTTP Method：** POST
 
@@ -258,6 +258,7 @@
 ```
 
 ## 获取历史天气信息（只支持国内）
+
 **使用说明**  
 >提供通过位置信息获取区域历史天气信息的服务。用户提交位置信息（经纬度或区域名称），系统通过位置信息计算所在的区域，并返回区域的历史天气信息。
 
@@ -354,6 +355,7 @@ POST data:
 - **实况天气conditionId与icon对应关系**
 
 **原天气服务供应商：**
+
 |conditionId|icon（白天）|icon（夜间）|中文|
 |:-----:|:-----:|:-----:|:-----:|
 |1|0|30|晴|
@@ -560,12 +562,14 @@ POST data:
 
 ## 地址服务
 
-### 介绍  
+### 介绍
+
 ** 简介**
+
 >  为了方便各产业及APP开发者调用位置服务接口
 
 **公共参数**
-- **接入地址：**  `https://uws.haier.net/rcs/location/`
+- ?> **接入地址：**  `https://uws.haier.net/rcs/location/`
 
 - **Area：区域信息（schemaVersion ="v1"的数据结构）**
 |字段名称|类型|说明|备注|必须|
@@ -588,7 +592,8 @@ POST data:
 |longitude|double|经度|&emsp;|&emsp;|
 |pinyinName|String|拼音名称|&emsp;|&emsp;|
 
-- ** 区域Json格式示例**
+- **区域Json格式示例**
+
     - **V1版本**
     ```json
     {
@@ -767,6 +772,7 @@ POST data:
 **示例（schemaVersion = v2）**
 
 - **用户请求**
+
     ?> https:// uws.haier.net/rcs/location /area-json?schemaVersion=v2
 
 - **请求应答**
@@ -806,6 +812,7 @@ POST data:
 **示例（schemaVersion不传）**
 
 - **用户请求**
+
     ?> https://uws.haier.net/rcs/location/area-json
 
 - **请求应答**

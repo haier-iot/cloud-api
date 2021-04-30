@@ -385,7 +385,7 @@ http://resource.haier.net/rsservice/v1/download/MB-IOTFWNCZY628-0000/5b8d7de3/re
 <a id="jump2"> </a>
 ### 签名算法示例
 
-```
+```java
 String getSign(String systemId, String systemKey, String timestamp, String body,String url){
     URL urlObj = new URL(url);
     url=urlObj.getPath();
@@ -429,7 +429,7 @@ String BinaryToHexString(byte[] bytes) {
 <a id="jump3"> </a>
 ### 文件上传示例
 
-```
+```java
 public static void sendFile(String url, Map<String, Object> headers, String body, File file) throws Exception {
     HttpClient httpClient = HttpClientBuilder.create().build();
     HttpPost httppost = new HttpPost(url);
@@ -482,7 +482,7 @@ public static void main(String[] args) throws Exception {
 <a id="jump4"> </a>
 ### 文件下载示例
 
-```
+```java
 public void getDownloadTest() {
     int times = 13283 / 1024;
     try {
@@ -529,7 +529,7 @@ public void getDownloadTest() {
 <a id="jump5"> </a>
 ### 文件hash值算法
 
-```
+```java
 //取文件的md5-hash值
 import java.io.*;
 import java.nio.ByteBuffer;
