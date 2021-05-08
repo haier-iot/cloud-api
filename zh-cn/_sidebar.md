@@ -79,23 +79,32 @@
 	* [介绍](zh-cn/Device-dev/devcie-devlp-intro) 
 	* [物联模组类](zh-cn/Device-dev/module)
 	* [设备SDK类](#)
-		* [Linux](zh-cn/Device-dev/dev-linux)
-		* [Android](zh-cn/Device-dev/dev-android)
-		* [RTOS](zh-cn/Device-dev/dev-rtos)	
+		* [Linux版开发指导](zh-cn/Device-dev/dev-linux)
+		* [Linux版资料下载](zh-cn/Device-dev/dev-linux)
+		* [Android版开发指导](zh-cn/Device-dev/dev-android)
+		* [Android版资料下载](zh-cn/Device-dev/dev-android-get)
+		* [RTOS版开发指导](zh-cn/Device-dev/dev-rtos)
+		* [RTOS版资料下载](zh-cn/Device-dev/dev-rtos)		
 		
 	* [云设备类](zh-cn/Device-dev/dev-direct)	
 
 	* [云云对接类](zh-cn/Device-dev/device-c2c)
 
 
-* [应用开发<sup style="color:red">(new)<sup>](#)
-	* [介绍](zh-cn/App-dev/Introduce) 
+* [应用开发](#)
+	
 	* [移动端SDK](#)
-		* [Android](zh-cn/App-dev/App-dev-Android)
-		* [IOS](zh-cn/App-dev/App-dev-IOS)
-	* [统计分析SDK](zh-cn/App-dev/App-dev-uAnalytics-Intro)
-		* [Android](zh-cn/App-dev/App-dev-uAnalytics)
-
+		* [介绍](zh-cn/App-dev/Introduce) 
+		* [Android版开发指导](zh-cn/App-dev/App-dev-Android)
+		* [Android版资料下载](zh-cn/App-dev/App-dev-Android)
+		* [IOS版开发指导](zh-cn/App-dev/App-dev-IOS)
+		* [IOS版资料下载](zh-cn/App-dev/App-dev-IOS)
+	* [统计分析SDK](#)
+		* [介绍](zh-cn/App-dev/App-dev-uAnalytics-Intro)
+		* [Android版开发指导](zh-cn/App-dev/App-dev-uAnalytics)
+		* [Android版资料下载](zh-cn/App-dev/App-dev-uAnalytics)
+		* [IOS版开发指导](zh-cn/App-dev/App-dev-uAnalytics)
+		* [IOS版资料下载](zh-cn/App-dev/App-dev-uAnalytics)
 
 * [常见问题<sup style="color:red">(new)<sup>](#)
 	* [移动SDK相关问题](zh-cn/Questions/usdk-qa) 
