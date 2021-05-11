@@ -392,7 +392,7 @@ Request Headers:
 {
 	"retCode":"00000",
 	"retInfo":"成功",
-	"refreshToken":"TGTV5FR3XH20S0B2E7G56V1CMQ4T67,
+	"refreshToken":"TGTV5FR3XH20S0B2E7G56V1CMQ4T67",
 	"accessToken":"TGTNS633MLE2OHV2P03YB3Q6E44K00",
 	"scope":"auth_app",
 	"expire":"2160000"
