@@ -1,6 +1,6 @@
 # Android SmartDevice SDK
 
-Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入和控制功能，能够使用在有屏的 Android 系统的智能设备上，将设备接入到 U+ 平台，并与 U+ 设备交互。
+Android SmartDevice SDK 是一款移动应用开发套件，能够实现在带屏的 Android 系统智能硬件上，将设备接入到 U+ 平台并与 U+ 设备交互。
 
 
 ![图片][p1]
@@ -10,27 +10,28 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 
 **设备接入**  
  
-&emsp;&emsp;启动/停止 SDK  
-&emsp;&emsp;添加/删除设备  
-&emsp;&emsp;属性和报警上报  
-&emsp;&emsp;大数据上报  
+&emsp;&emsp;启动、停止SDK服务  
+&emsp;&emsp;注册、上线、删除设备  
+&emsp;&emsp;属性集、报警、大数据上报  
 &emsp;&emsp;开启绑定时间窗  
 &emsp;&emsp;设备自绑定  
-&emsp;&emsp;P2P 音视频功能，包含语音对讲和视频录制  
-&emsp;&emsp;FOTA 升级
+&emsp;&emsp;P2P音视频功能，包含语音对讲和视频录制  
+&emsp;&emsp;FOTA升级 
 
 **设备控制**
  
-&emsp;&emsp;设备入网  
 &emsp;&emsp;设备搜索  
+&emsp;&emsp;设备入网  
 &emsp;&emsp;设备控制  
 &emsp;&emsp;状态变化主动上报  
-&emsp;&emsp;报警信息上报  
-&emsp;&emsp;结合 uSDK 为设备实现授权，从而和帐号下的其他设备交互
+&emsp;&emsp;消息分发  
+&emsp;&emsp;集合用户侧SDK为设备授权 
 
 **场景控制**  
-
-&emsp;&emsp;离线控制 
+ 
+&emsp;&emsp;下载脚本指令  
+&emsp;&emsp;启动、停止本地场景  
+&emsp;&emsp;执行本地场景命令  
 
 ## 开发文档
 
@@ -51,8 +52,15 @@ Android SmartDevice SDK 是一款移动应用开发套件，包含设备接入�
 
 ![图片][p4]
 
+**选择** 配网方式
+
+![图片][p5]
 
 ### API
+
+**0. 特殊说明**  
+不同版本SDK业务非全部向下兼容，请根据项目实际需要选择对应版本。  
+SDK使用遇到问题请联系IOT技术支持团队，以下API基于6.2.0版本。
 
 **1. 设置日志级别**
 
@@ -95,17 +103,11 @@ StartOption startOption = new StartOption.Builder()
 mSmartDeviceManager.startService(startOption, new ICallback() {
     @Override
     public void onSuccess(Object result) {
-        mSmartDeviceManager.addListener(SmartDeviceActivity.this);
-        HaierToast.makeText(this, "SmartDevice 启动成功", Toast.LENGTH_SHORT).show();
-        updateTitle();
-        dialog.dismiss();
+        /*添加监听事件*/
     }
     
     @Override
     public void onFailure(uSDKError error) {
-        HaierToast.makeText(this, "SmartDevice 启动失败：" + error.toString(), Toast.LENGTH_SHORT).show();
-        updateTitle();
-        dialog.dismiss();
     }
 });
 ```
@@ -127,7 +129,7 @@ mSmartDeviceManager.stopService()
 
 注册上线成功的设备是可授权设备，通过移动端 SDK  对此设备进行授权后，具备控制其他设备的能力。
 
-> 若网络不可用情况下，调用此接口可以执行成功，但设备无法与 U+云进行网络连接及数据通信。程序内部会不断尝试与 U+云建立连接。
+> 若网络不可用情况下，调用此接口可以执行成功，但设备无法与 U+云进行网络连接及数据通信。
 
 <a id="jump1"> </a>
 **3.1 注册、上线网关设备**  
@@ -149,13 +151,11 @@ RegisterGatewayDevice registerGatewayDevice = new RegisterGatewayDevice.Builder(
                                                                        .deviceKey()
                                                                        .build();
 SmartDeviceManager.getInstance().registerGatewayDevice(registerGatewayDevice, new ICallback<RegisterResult>() {
-    /*注册设备成功*/
     @Override
     public void onSuccess(RegisterResult result) {
         registerResult = result
     }
     
-    /*注册设备失败，需根据错误码分析失败原因*/
     @Override
     public void onFailure(uSDKError error) {
         registerResult = null;
@@ -186,17 +186,12 @@ GatewayDevice gatewayDevice = new GatewayDevice.Builder()
                                                .builder();
                                   
 SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallback<String>() {
-    /*设备上线成功*/
     @Override
-    public void onSuccess(String result) {
-        String msg = "gatewayDevice online: "+ result;
-    }
+    public void onSuccess(String result) {}
     
-    /*设备上线失败，需根据错误码分析失败原因*/
+
     @Override
-    public void onFailure(uSDKError error) {
-        String msg = "gatewayDevice 添加失败：" + error.toString();
-    }
+    public void onFailure(uSDKError error) {}
 });
 ```
  
@@ -219,17 +214,11 @@ RegisterSlaveDevice registerSlaveDevice = new RegisterSlaveDevice.Builder()
                                                                  .deviceKey()
                                                                  .build();
 SmartDeviceManager.getInstance().registerSlaveDevice(registerSlaveDevice, new ICallback<RegisterResult>() {
-    /*注册设备成功*/
     @Override
-    public void onSuccess(RegisterResult result) {
-        String msg = "slaveDevice online: "+ result;
-    }
+    public void onSuccess(RegisterResult result) {}
     
-    /*注册设备失败，需根据错误码分析失败原因*/
     @Override
-    public void onFailure(uSDKError error) {
-        String msg = "slaveDevice 添加失败：" + error.toString();
-    }
+    public void onFailure(uSDKError error) {}
 }
 ```
 
@@ -257,17 +246,11 @@ SlaveDevice slaveDevice = new SlaveDevice.Builder()
                                          .upgradeVersion()
                                          .builder();
 SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallback<String>() {
-    /*设备上线成功*/
     @Override
-    public void onSuccess(String result) {
-        String msg = "gatewayDevice online: "+ result;
-    }
+    public void onSuccess(String result) {}
     
-    /*设备上线失败，需根据错误码分析失败原因*/
     @Override
-    public void onFailure(uSDKError error) {
-        String msg = "gatewayDevice 添加失败：" + error.toString();
-    }
+    public void onFailure(uSDKError error) {}
 });
 ```
 
@@ -296,16 +279,15 @@ SmartDeviceManager.getInstance().generalDeviceOnline(generalDevice, new ICallbac
 当不需要使用设备接入功能或需要退出 APP 之前，需要将之前添加的设备实例从 SDK  中移除，可以有效减少资源消耗。
 
 ```
-USmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
+SmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
     @Override
     public void onCallback(uSDKErrorConst errorConst) {
         String msg;
         if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-            msg = "smart device  删除成功";
+            ...
         } else {
-            msg = "smart device  删除失败：" + errorConst;
+            ...
         }
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 });
 ```
@@ -316,7 +298,7 @@ USmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
 
 > **SDK和云的连接是免维护的，自带重连机制。**
 
-实现IUSmartDeviceManagerListener  接口并注册该接口得到连接状态信息。
+实现IUSmartDeviceManagerListener接口并注册该接口得到连接状态信息。
   
 ```
 /**
@@ -347,20 +329,16 @@ public void onCloudState(int state) {
  * pairValue  海极网中创建的硬件设备的属性值
  */
 ArrayList<USmartDevicePair> pairs = new ArrayList<>(4);
-pairs.add(new USmartDevicePair("model", model));
-pairs.add(new USmartDevicePair("humidity", humidity));
-pairs.add(new USmartDevicePair("timedTurnOn", timedTurnOn));
-pairs.add(new USmartDevicePair("onOffStatus", onOffStatus));
-mSmartDevice.reportStatus(pairList, new IuSDKCallback() {
-     @Override
-     public void onCallback(uSDKErrorConst errorConst) {
-        String msg;
-        if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-            msg = "reportStatus 成功";
-        } else {
-            msg = "reportStatus 失败：" + errorConst;
-        }
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+...
+mSmartDevice.reportStatus(pairList, new ICallback<Void>() {
+    @Override
+    public void onSuccess(Void aVoid) {
+
+    }
+
+    @Override
+    public void onFailure(uSDKError uSDKError) {
+
     }
 });
 ```
@@ -375,21 +353,19 @@ mSmartDevice.reportStatus(pairList, new IuSDKCallback() {
 
 
 ```
-String pairName = "Alarm";
-String pairName = "Alarm1";
 USmartDevicePair smartDevicePair = new USmartDevicePair(pairName, pairValue);
 List<USmartDevicePair> pairList = new ArrayList<>();
+...
 pairList.add(smartDevicePair);
-mSmartDevice.reportAlarm(pairList, new IuSDKCallback() {
-     @Override
-     public void onCallback(uSDKErrorConst errorConst) {
-        String msg;
-        if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-            msg = "reportAlarm 成功";
-        } else {
-            msg = "reportAlarm 失败：" + errorConst;
-        }
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+mSmartDevice.reportAlarm(pairList, new ICallback<Void>() {
+    @Override
+    public void onSuccess(Void aVoid) {
+
+    }
+
+    @Override
+    public void onFailure(uSDKError uSDKError) {
+
     }
 });
 ```
@@ -403,35 +379,17 @@ mSmartDevice.reportAlarm(pairList, new IuSDKCallback() {
 
 ```
 String type = "String";
-String bigData = null;
-try{
-    JSONArray array = new JSONArray();
-    JSONObject attr1 = new JSONObject();
-    attr1.put("laundryCycle","10");
-    JSONObject attr2 = new JSONObject();
-    attr2.put("dryMode","0");
-    JSONObject attr3 = new JSONObject();
-    attr3.put("autoDetergentStatus","true");
-    JSONObject attr4 = new JSONObject();
-    attr4.put("autoDisinfectantStatus","true");
-    array.put(attr1);
-    array.put(attr2);
-    array.put(attr3);
-    array.put(attr4);
-    bigData = array.toString();
-} catch (JSONException e) {
-    e.printStackTrace();
-}
-mSmartDevice.reportBigData(type, Base64.encodeToString(bigData.getBytes(), Base64.NO_WRAP), new IuSDKCallback() {
+String bigData = "";
+...
+mSmartDevice.reportBigData(type, Base64.encodeToString(bigData.getBytes(), Base64.NO_WRAP), new ICallback<Void>() {
     @Override
-    public void onCallback(uSDKErrorConst errorConst) {
-        if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-            String msg;
-            msg = "reportBigData 成功";
-        } else {
-            msg = "reportBigData 失败: " + errorConst;
-        }
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    public void onSuccess(Void aVoid) {
+
+    }
+
+    @Override
+    public void onFailure(uSDKError uSDKError) {
+
     }
 });
 ```
@@ -463,19 +421,24 @@ if（cloudConnectState != 251）{
 
 while(flag&&retryTimes > 0){
     retryTimes--;
-    mSmartDevice.bindWindow(timeOut, new IuSDKCallback() {
+    absSmartDevice.bindWindow(timeout1, new ICallback<Void>() {
         @Override
-        public void onCallback(uSDKErrorConst errorConst) {
-            String msg;
-            if (uSDKErrorConst.RET_USDK_OK == errorConst) {
-                msg = "开启绑定时间窗成功";
-                retryTimes=-1;
-                flag =false;
-            } else {
-                msg = "开启绑定时间窗失败：" + errorConst;
-            }
+        public void onSuccess(Void aVoid) {
+            retryTimes = -1;
+            flag = false;
+        }
+
+        @Override
+        public void onFailure(uSDKError uSDKError) {
+            
         }
     });
+    
+    try{
+        Thread.sleep(500)
+    } catch (Exception e){
+    
+    }
 }
 ```
 
@@ -554,7 +517,7 @@ public USmartOpRsp onDeviceOpCallback(String devId, int reqSn, String opName, Li
 **8. 设备自绑定功能**
 
 从 5.1.0 版本开始，通过本 SDK 接入的设备可以实现设备自绑定功能。
-> 即**通过 AbsSmartDevice 设备对象的 bindDevice  方法将设备自己和帐号建立关联关系，绑定到云平台的操作**。
+> **通过 AbsSmartDevice 设备对象的 bindDevice  方法将设备自己和帐号建立关联关系，绑定到云平台的操作**。
 >   
 >此方法大多使用在有屏幕的智能设备上。
 
@@ -574,41 +537,18 @@ AbsSmartDevice mOnlineDevice = SmartDeviceManager.getInstance().getOnlineDeviceB
  * 60     绑定超时时间，单位:秒
  */
 mOnlineDevice.bindDevice(java.lang.String token, 60, new ICallback<Void>() {
-    
-    /*为SDK方法执行成功的回调，不是绑定业务的执行结果*/
-     @Override
-     public void onSuccess(Void result) {
-        String msg = "绑定 device: " + mOnlineDevice.getDeviceId() + " sucess";
+    @Override
+    public void onSuccess(Void result) {
+        
     }
     
-    /*为SDK方法执行失败的回调，需根据返回错误码进行处理*/
     @Override
     public void onFailure(uSDKError error) {
-        String msg = "绑定 device: " + mOnlineDevice.getDeviceId() + " 失败: " + error.getCode();
-   }
-}
-```
-  
-  
-> 这里的onSuccess回调为 SDK 方法的执行结果，**不是绑定业务的执行结果**。   
-> 绑定业务的执行结果，在 SmartDeviceListener 类的 onDeviceBindCallback 回调方法中。
-
-```
-/**
-* 设备自绑定的执行结果回调
-* @param devId    设备  mac
-* @param sn       请求  sn
-* @param result   0 成功，非 0 失败
-*/
-@Override
-public void onDeviceBindCallback(String devId, int sn, int result) {
-    String msg = "绑定结果: " + result + " devid= " + devId + " sn= " + sn;
-    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    UplusDevice.addLog(msg);
+        
+    }
 }
 ```
 
-> **此 SmartDeviceListener 的设置需要在注册上线设备方法前调用，否则 SmartDeviceListener 中的回调方法不会被触发**
 
 **9. 获取绑定二维码信息**
 
@@ -616,7 +556,6 @@ public void onDeviceBindCallback(String devId, int sn, int result) {
 
 ```
 if(MainActivity.cloudStateFlag != 251){
-    Toast.makeText(this, "未连接到 U+云，不能获取二维码信息", 1).show();
     return;
 }
 
@@ -626,14 +565,11 @@ if(MainActivity.cloudStateFlag != 251){
  */
 USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback() {
     
-    /*成功获取二维码信息，包含 typeid、设备 mac 及加密信息内容*/
     @Override
     public void onSuccess(Object o) {
-        /*info：手机端 SDK 端绑定设备需要使用的信息*/
         String info = o.toString();
     }
     
-    /*获取二维码信息失败，需根据返回错误码进行处理和分析*/
     @Override
     public void onFailure(uSDKError uSDKError) {
         
@@ -641,39 +577,8 @@ USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback(
 });
 ```
 
-**10. P2P 音视频功能**
-
-SmartDevice 6.0.0 版本支持音视频功能，即通过设备端 SDK 上报视频，配合
-usdk 8.0.0 版本在 APP 端实时展示视频内容，并支持在视频播放过程中语音对讲及上报报警内容。
-
-**10.1 注册上线设备对象音视频监听**
-
-
-```
-/**
- * 连接音视频云状态
- * 0  未连接成功
- * 1  连接成功
- */
-public void addSmartDeviceVideoListener(ISmartDeviceVideoListener listener) {
-    onIotVideoCloudState(int state) {
-    
-    }
-}
-
-```
-
-**10.2 对象音视频初始化**
-
-```
-/**
- * path 此路径为此应用进程中的目录
- * cb   回调成功即初始化成功
- */
-public void initIotVideo(java.lang.String path, <any> cb)
-```
-
 [p1]:_media/_android/p1.png
 [p2]:_media/_android/p2.png
 [p3]:_media/_android/p3.png
 [p4]:_media/_android/p4.png
+[p5]:_media/_android/p5.png
