@@ -10,15 +10,28 @@ Android SmartDevice SDK 是一款移动应用开发套件，能够实现在带�
 
 **设备接入**  
  
-![图片][p6]
+&emsp;&emsp;启动、停止SDK服务  
+&emsp;&emsp;注册、上线、删除设备  
+&emsp;&emsp;属性集、报警、大数据上报  
+&emsp;&emsp;开启绑定时间窗  
+&emsp;&emsp;设备自绑定  
+&emsp;&emsp;P2P音视频功能，包含语音对讲和视频录制  
+&emsp;&emsp;FOTA升级 
 
 **设备控制**
  
-![图片][p7]
+&emsp;&emsp;设备搜索  
+&emsp;&emsp;设备入网  
+&emsp;&emsp;设备控制  
+&emsp;&emsp;状态变化主动上报  
+&emsp;&emsp;消息分发  
+&emsp;&emsp;集合用户侧SDK为设备授权 
 
 **场景控制**  
-
-![图片][p8]
+ 
+&emsp;&emsp;下载脚本指令  
+&emsp;&emsp;启动、停止本地场景  
+&emsp;&emsp;执行本地场景命令  
 
 ## 开发文档
 
@@ -569,6 +582,3 @@ USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback(
 [p3]:_media/_android/p3.png
 [p4]:_media/_android/p4.png
 [p5]:_media/_android/p5.png
-[p6]:_media/_android/p6.png
-[p7]:_media/_android/p7.png
-[p8]:_media/_android/p8.png
