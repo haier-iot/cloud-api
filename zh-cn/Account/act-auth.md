@@ -280,7 +280,7 @@ POST https://uws.haier.net/uaccount/v2/auth/shareCode
 POST data:
 	{
 	"accessToken":"TGTH5FR2XH20S0C2E7G56V1CMQ4000",
-	"shareClientId":"MB-T**2-0000",
+	"shareAppId":"MB-T**2-0000",
 	"shareClientId":"456FEW334DD" 
 	}
 
@@ -288,11 +288,11 @@ POST data:
 
 Request Headers:
 	Connection: keep-alive
-	appId: MB-TEST-0000
+	appId: MB-**-0000
 	appVersion: 2.4.0
 	clientId: 123
 	sequenceId: 20161020153428000015
-	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	sign:da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
 	timestamp: 1533882163013 
 	language: en
 	timezone: +8
@@ -342,7 +342,7 @@ D00026|禁止分享此会话|分享会话的accessToken不能分享给其他终�
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 code|String|Body|必填|会话分享验证码    
-  
+
 
 **输出参数**
 
@@ -362,7 +362,7 @@ POST https://uws.haier.net/uaccount/v2/auth/shareToken
 
 POST data: 
 	{
-	"code":" da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7 " 
+	"code":"da48b7de0a9bd0639b43fc40948176821784d3c01276870cceccf0b6564624e7" 
 	}
 
 [no cookies]
@@ -373,7 +373,7 @@ Request Headers:
 	appVersion: 2.4.0
 	clientId: 456FEW334DD
 	sequenceId: 20161020153428000015
-	sign: da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
+	sign:da55be21096d188394c39dd307e7ce7aa3e4c5c38f9f171da39d3a151d0595bb
 	timestamp: 1533882163013 
 	language: en
 	timezone: +8
