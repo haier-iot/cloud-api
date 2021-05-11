@@ -10,7 +10,7 @@
 
 ##  版本资料
 
-### SmartDevice SDK 6.2.0
+### V6.2.0
 
 2021.3.25 发布
 
@@ -22,7 +22,7 @@
 
 &emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
 
-### SmartDevice SDK 6.1.0
+### V6.1.0
 
 2021.3.5 发布  
 
@@ -38,7 +38,7 @@
 &emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
 
 
-### SmartDevice SDK 6.0.0
+### V6.0.0
 
 2020.12.10 发布  
 
