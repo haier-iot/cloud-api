@@ -1638,6 +1638,133 @@ https://{baseuri}/fcs/find/records
 
 
 
+## 用户根据applicationId查询家庭申请  
+
+**使用说明**
+
+> 用户根据查询applicationId查询申请加入家庭的记录，在接口2.7.2.30用户申请加入家庭时会推送消息，含有applicationId字段，使用此参数查询申请历史记录  
+
+**接口描述**
+
+?> **接入地 址：**  `/ufm/v1/protected/familyService/application/ applicationHistory`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型  | 参数名      | 位置  | 必填|说明|
+| ------- |:--------:|:-----:|:-------:|:-------:|
+|  String    | applicationId | Body| 必填|申请唯一ID|
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  String | applicationId  |   body  | &emsp;  | 申请uuid |
+|  String | userId  |   body  | &emsp;  | 用户id，申请用户 |
+|  String | familyId  |   body  | &emsp;  | 家庭id |
+|  String | familyName  |   body  | &emsp;  | 家庭名称 |
+|  String | applicationTime  |   body  | &emsp;  | 申请时间 |
+|  Integer | applicationStatus  |   body  | &emsp;  | 0，未处理状态，1，家庭管理员已经同意；2家庭管理员拒绝；3.已经过期；4申请已经撤销，5.邀请已被删除（4，5状态目前不存在） |
+|  String | applicationMessage  |   body  | 可能为空  |根据申请状态的一句话提示 |
+
+
+
+**示例**  
+
+**请求样例**
+```
+/ufm/v1/protected/familyService/application/ application History
+
+{
+"applicationId ": " 9de5705ae9fb4567a3735aedaef853e8 "
+ }
+
+
+
+```  
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功"
+}
+
+
+```
+
+**接口错误码**  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008、E31105、E31108、E31130、E31131、E31132、E31133、E31405、E31406、E31411、 E31141、 E31142、E31143、E3144
+
+
+## 家庭成员或管理员查询设备家庭信息  
+
+**使用说明**
+
+> 验证用户token,如果用户是设备所属家庭的管理员，家庭成员或者设备绑定用户，返回设备所属家庭 ，否则返回没有权限或不存在家庭信息
+
+
+**接口描述**
+
+?> **接入地 址：**  `/ufm/v1/protected/shareDeviceService/deviceFamilyInfo`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 类型  | 参数名      | 位置  | 必填|说明|
+| ------- |:--------:|:-----:|:-------:|:-------:|
+|  String    | deviceId | Body| 是|设备ID|     
+
+
+**输出参数**  
+
+|   类型      |     参数名      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+| FamilyInfo | family  |   body  |  必填 | 家庭信息列表 |
+
+
+
+**示例**  
+
+**请求样例**
+```
+https://{baseuri}/ufm/v1/protected/shareDeviceService/deviceFamilyInfo
+
+{
+"deviceId":"04F*****9C3"
+}
+
+
+
+```  
+
+**请求应答**
+
+```
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"familyInfo": {
+		"familyId": "570188853710000000",
+		"familyName": "我的家庭",
+		"createTime": "2021-04-02 14:55:10",
+		"familyLocation": {},
+		"securityLevel": "0",
+		"deviceCount": "0",
+		"memberCount": "0",
+		"virtualMemberCount": "0"
+	}
+}
+
+
+```
+
+**接口错误码**  
+> A00001、A00002、A00003、A00004、A00005、B00001、B00002、B00003、B00004、B00006、C00001、C00002、C00003、C00004、D00001、D00002、D00003、D00004、D00005、D00006、D00007、D00008 F31217 E31109
+
+
 
 
 
