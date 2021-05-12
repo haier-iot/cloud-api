@@ -1646,7 +1646,7 @@ https://{baseuri}/fcs/find/records
 
 **接口描述**
 
-?> **接入地 址：**  `/ufm/v1/protected/familyService/application/ applicationHistory`  
+?> **接入地 址：**  `/ufm/v1/protected/familyService/application/applicationHistory`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1674,7 +1674,7 @@ https://{baseuri}/fcs/find/records
 
 **请求样例**
 ```
-/ufm/v1/protected/familyService/application/ application History
+/ufm/v1/protected/familyService/application/application History
 
 {
 "applicationId ": " 9de5705ae9fb4567a3735aedaef853e8 "
@@ -1703,7 +1703,7 @@ https://{baseuri}/fcs/find/records
 
 **使用说明**
 
-> 验证用户token,如果用户是设备所属家庭的管理员，家庭成员或者设备绑定用户，返回设备所属家庭 ，否则返回没有权限或不存在家庭信息
+> 验证用户token,如果用户是设备所属家庭的管理员，家庭成员或者设备绑定用户，返回设备所属家庭，否则返回没有权限或不存在家庭信息
 
 
 **接口描述**
@@ -1722,7 +1722,7 @@ https://{baseuri}/fcs/find/records
 
 |   类型      |     参数名      | 位置  |必填 |说明|
 | ------------- |:----------:|:-----:|:--------:|:---------:|
-| FamilyInfo | family  |   body  |  必填 | 家庭信息列表 |
+| family | FamilyInfo  |   body  |  必填 | 家庭信息列表 |
 
 
 
