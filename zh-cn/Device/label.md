@@ -4,10 +4,63 @@
 
 > 功能标签接口使用Https协议，使用`https://uws.haier.net/rcs/label/`进行访问
 
+本文档使用接口类型定义接口url，关键字为toc和tob  
+例如/rcs/label/{url_type}/add/label  
+toC接口为：/rcs/label/toc/add/label  
+toB接口为：/rcs/label/tob/add/label
+
+
+## 签名认证
+
+> 调用方需要对发送到uws的请求进行签名，执行签名计算的签名值需要赋值到Header头中的sign属性（见公共部分说明），以便服务端进行签名验证。签名算法区分toC接口和toB接口两种方式。  
+
+
+**待签名字符串为**：  
+toC：url + body +appId+appKey +timestamp；  
+toB：url + body +systemId+systemKey +timestamp；
+
+
+| 名称 | 说明 |
+| :----------: |:----------:|
+|url 字符串| 指请求的接口地址去除https://域名+端口 后剩余的路径部分|
+|Body字符串| 指应用发送请求的Body部分去除所有空白字符后的JSON字符串，没有body时为空字符串（不是null） |  
+|appId| Header头中的属性，海极网申请移动应用时获取 | 
+|appKey| 在海极网给应用申请的appKey，不能作为参数传递，仅参与签名计算 |
+|systemId| Header头中的属性，海极网申请云应用时获取 |
+|systemKey| 在海极网给应用申请的systemKey，不能作为参数传递，仅参与签名计算 |
+|timestamp| Header头中的属性，时间戳 |
+
 
 ## 公共结构
 
-**labelType**  
+
+**请求头信息定义（ToC）**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+appId|String|Header|必填|app应用ID，toC接口使用
+clientId|String|Header|必填|客户端ID， 主要用途为唯一标识客户端 (例如，手机)，可调用usdk得到客户端ID的值
+accessToken|String|Header|必填|安全令牌token，IoT token长度30位字符；用户中心token32位字符；
+sign|String|Header|必填|对请求进行签名运算产生的签名
+timestamp|long|Header|必填|Unix时间戳，精确到毫秒
+appVersion|String|Header|非必填|应用版本最多32 位字符,应用版本标识
+apiVersion|String|Header|必填|接口版本，默认传v1
+Content-Type|String|Header|必填|必须为application/json;charset=UTF-8
+
+
+**请求头信息定义（ToB）**
+
+参数名|类型|位置|必填|说明
+:-|:-:|:-:|:-:|:-
+systemId|String|Header|必填|云服务，云应用ID,SV开头，toB使用
+sign|String|Header|必填|对请求进行签名运算产生的签名
+timestamp|long|Header|必填|Unix时间戳，精确到毫秒
+appVersion|String|Header|非必填|应用版本最多32 位字符,应用版本标识
+apiVersion|String|Header|必填|接口版本，默认传1.0
+Content-Type|String|Header|必填|必须为application/json;charset=UTF-8
+
+
+**标签类型labelType**  
 
 | **名称** | 标签类型 | labelType |   
 | :----------: |:----------:|:-----:|
@@ -21,7 +74,7 @@
 |情景模式| scene | 安防70面板 |
 
 
-**labelAction**
+**标签行为labelAction**
 
 | **名称** | 标签行为 |
 | :----------: |:----------:|
@@ -38,7 +91,7 @@
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/add/label`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/add/label`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -58,6 +111,8 @@ userId|String|Body|非必填|userId，家庭场景下传家庭成员的userId；
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
+retCode|String|Body|必填|错误码
+retInfo|String|Body|必填|错误详细信息
 payload|Object|Body|必填|payload
 labelId|String|payload|必填|标签ID
 
@@ -115,7 +170,7 @@ Body:
 </div>
 
 
-## 查询标签信息
+## 根据标签ID查询标签信息
 
 **使用说明**
 
@@ -123,7 +178,7 @@ Body:
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/get/label`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/get/label`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -210,7 +265,7 @@ Body
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/find/labels-by-properties`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/find/labels-by-properties`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -480,7 +535,7 @@ Body:
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/update/label`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/update/label`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -549,7 +604,7 @@ Body:
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/delete/label`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/delete/label`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -617,7 +672,7 @@ Body:
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/delete/labels`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/delete/labels`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -684,7 +739,7 @@ Body:
 
 **接口描述**
 
-?> **接入地址：** `{url_type}/delete/labels-by-deviceId`</br>
+?> **接入地址：** `https://uws.haier.net/rcs/label/{url_type}/delete/labels-by-deviceId`</br>
 **HTTP Method：** POST 
 
 **输入参数**
@@ -740,3 +795,19 @@ Body:
 > 23100、23110、23800、23810、23400、23410、23420、23430
 
 </div>
+
+
+## 错误码
+
+
+| **错误码** | **描述** |
+| :----------: |:----------:|
+|23100| 必填参数不能为空|
+|23110| 参数类型错误 |  
+|23800| 数据库访问异常 | 
+|23810| 远程调用失败 |
+|23400| 用户不存在 |
+|23410| 删除标签失败 |
+|23420| 标签已存在 |
+|23430| 不允许删除关联标签 |
+
