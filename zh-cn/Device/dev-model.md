@@ -317,7 +317,7 @@ retInfo|String|Body|是|错误描述信息，本描述信息仅是用于调试�
 |**字段名**|**类型**|**说明**|**备注**|  
 |pageIndex| long | 页码 |默认1，不能为0|  
 |pageSize| long | 每页数量限制|默认50，不能为0|  
- 
+
 
 **ServiceDeviceInfosRequestDto**  
 
