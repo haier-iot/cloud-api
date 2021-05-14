@@ -20,7 +20,7 @@
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-accessToken|String|Header|必填|安全令牌 token，30位字符。  
+accessToken|String|Header|必填|安全令牌 token，32位字符。  
 systemId|String|Header|必填|海极网申请的systemId 
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
@@ -168,7 +168,7 @@ Request Headers:
 :-|:-:|:-:|:-:|:-
 deviceId|String|Body|必填|| 
 systemId|String|Header|必填|海极网申请的systemId 
-accessToken|String|Header|必填|安全令牌 token，30位字符。    
+accessToken|String|Header|必填|安全令牌 token，32位字符。    
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
 Content-Type|String|Header|必填|互联网媒体信息，默认为"application/json;charset=UTF-8" 
@@ -282,7 +282,7 @@ Request Headers:
 deviceId|String|Body|必填|| 
 part|String|Body|必填|过滤参数；查询结果一定返回shadowBaseInfo部分；通过过滤参数控制返回其他部分；等于1时，其他只返回reported部分；等于2时，其他只返回desired部分；等于0时，其他部分全部返回；默认值为0；   
 systemId|String|Header|必填|海极网申请的systemId
-accessToken|String|Header|必填|安全令牌 token，30位字符。    
+accessToken|String|Header|必填|安全令牌 token，32位字符。    
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
 Content-Type|String|Header|必填|互联网媒体信息，默认为"application/json;charset=UTF-8" 
@@ -703,7 +703,7 @@ Request Headers:
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
 systemId|String|Header|必填|海极网申请的systemId 
-accessToken|String|Header|必填|安全令牌 token，30位字符。 
+accessToken|String|Header|必填|安全令牌 token，32位字符。 
 deviceId|String|Body|必填||
 cmdName|String|Body|非必填| 组命令id（1.若该操作为组命令操作，则该值必填。2.若该操作为单命令操作，则该值不需要传递）
 cmdArgs|Map<String,String>|Body|必填| 一组命令,即属性集合（key-value）。（若该操作为单命令操作，则该值必须只有一对key-value。）
@@ -788,7 +788,7 @@ Request Headers:
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:- 
 systemId|String|Header|必填|海极网申请的systemId 
-accessToken|String|Header|必填|安全令牌 token，30位字符。 
+accessToken|String|Header|必填|安全令牌 token，32位字符。 
 deviceId|String|Body|必填||    
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
@@ -866,7 +866,7 @@ Request Headers:
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:- 
 systemId|String|Header|必填|海极网申请的systemId 
-accessToken|String|Header|必填|安全令牌 token，30位字符。 
+accessToken|String|Header|必填|安全令牌 token，32位字符。 
 sign|String|Header|必填|对请求进行签名运算产生的签名 
 timestamp|String|Header|必填|应传入用户所在地时间戳，long型时间戳,精确到毫秒
 Content-Type|String|Header|必填|互联网媒体信息，默认为"application/json;charset=UTF-8" 
