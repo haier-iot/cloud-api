@@ -40,7 +40,7 @@ toB：url + body +systemId+systemKey +timestamp；
 :-|:-:|:-:|:-:|:-
 appId|String|Header|必填|app应用ID，toC接口使用
 clientId|String|Header|必填|客户端ID， 主要用途为唯一标识客户端 (例如，手机)，可调用usdk得到客户端ID的值
-accessToken|String|Header|必填|安全令牌token，IoT token长度30位字符；用户中心token32位字符；
+accessToken|String|Header|必填|安全令牌token，32位字符；
 sign|String|Header|必填|对请求进行签名运算产生的签名
 timestamp|long|Header|必填|Unix时间戳，精确到毫秒
 appVersion|String|Header|非必填|应用版本最多32 位字符,应用版本标识
