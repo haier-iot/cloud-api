@@ -353,7 +353,3278 @@ POST data:
 }
 ```
 
+### 获取当前及未来天气信息（V2）  
+
+**使用说明**  
+>通过城市区域信息获取对应城市的未来天气信息
+
+**接口描述**  
+
+- ?> **接入地 址：**  `/rcs/weather/current-forecast`
+
+     **HTTP Method：** POST
+
+- **输入参数**
+
+|参数名称|类型|位置|必填|说明|
+|:------:|:-----:|:-----:|:------:|:------:|
+|types|List<String>|Header|否|天气数据类型详见天气数据种类说明|
+|apiVersion|String|Header|是|V2|
+|longitude|Double|Body|否|使用经纬度获取天气数据时，两者须同时出现|
+|latitude|Double|Body|否|纬度|
+|areaId|String|Body|否|区域码|
+|province|String|Body|否|依次为省市区支持两种组合查询：省+市、省+市+区；支持模糊名称，如：北京市-北京市-西城区和北京-北京-西城是相同的|
+|city|String|Body|否|&emsp;|
+|district|String|Body|否|&emsp;|
+|yesterday|Boolean|Body|否|是否需要查询昨天的天气信息；true，则返回昨天的天气信息，flase则不返回|
+|days|Integer|Body|否|获取预测信息的时间范围，最高不超过当前允许值，目前暂定为15天|
+|province|Date|url|否|批量查询结束日期(2019-12-13)|
+
+- **输出参数**
+
+|参数名称|类型|位置|说明|
+|:-------:|:----------:|:---------:|:---------:|
+|retCode|String|Body|错误码|
+|retInfo|String|Body|错误详细信息|
+|payload|Object|Body|Payload|
+|airCondition|AirCondition|payload|实时空气质量|
+|Language|String|payload|当前语言|
+|alerts|List<Alert>|payload|气象预警|
+|aqiForecast|Map<String,AirCondition>|payload|空气质量预测|
+|area|Area|payload|当前城市区域信息|
+|dayForecast|Map<String,DayWeather>|payload|天级天气预报|
+|hourForecast|Map<String,WeatherCondition>|payload|小时级天气预报|
+|indexForecast|Map<String,List<Index>|payload|指数预报|
+|weatherCondition|WeatherCondition|payload|实时天气|
+
+**示例**
+
+- **用户请求** 
+    - **用户请求（经纬度）**
+    ```json
+    POST data:
+    {
+        "latitude": 39.928353,
+        "longitude": 116.416357
+    }
+    ```
+    - **用户请求（区域码）**
+    ```json
+    POST data:
+    {
+        "areaId": "110101"
+    }
+    ```
+    - **用户请求（区域名称）**
+    ```json
+    POST data:
+    {
+        "city": "北京",
+        "district": "西城",
+        "province": "北京"
+    }
+	
+    ```
+
+- **请求应答**
+```json
+{
+  "payload": {
+    "airCondition": {
+      "aqi": "51",
+      "pm25": "36",
+      "updateTime": "2021-04-22 17:00:00"
+    },
+    "alerts": [],
+    "aqiForecast": {
+      "2021-04-22": {
+        "aqi": "54",
+        "updateTime": "2021-04-22 17:30:02.161"
+      },
+      "2021-04-23": {
+        "aqi": "68",
+        "updateTime": "2021-04-22 17:30:02.161"
+      }
+    },
+    "area": {
+      "areaId": "110101",
+      "city": "北京市",
+      "country": "中国",
+      "district": "东城区",
+      "province": "北京市"
+    },
+    "dayForecast": {
+      "2021-04-21": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-04-21 05:27:00",
+          "temp": "16",
+          "windDir": "南风",
+          "windLevel": "3"
+        },
+        "humidity": "55",
+        "night": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunSet": "2021-04-21 18:58:00",
+          "temp": "16",
+          "windDir": "南风",
+          "windLevel": "3"
+        }
+      },
+      "2021-04-22": {
+        "day": {
+          "condition": "小雨",
+          "conditionId": "http://resource.haier.net/download/weather/W小雨.png",
+          "sunRise": "2021-04-22 05:26:00",
+          "temp": "13",
+          "windDir": "东南风",
+          "windLevel": "2"
+        },
+        "humidity": "69",
+        "night": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunSet": "2021-04-22 18:59:00",
+          "temp": "13",
+          "windDir": "东南风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-23": {
+        "day": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunRise": "2021-04-23 05:24:00",
+          "temp": "16",
+          "windDir": "东南风",
+          "windLevel": "2"
+        },
+        "humidity": "59",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-04-23 19:00:00",
+          "temp": "16",
+          "windDir": "东南风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-24": {
+        "day": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunRise": "2021-04-24 05:23:00",
+          "temp": "16",
+          "windDir": "东南风",
+          "windLevel": "2"
+        },
+        "humidity": "49",
+        "night": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunSet": "2021-04-24 19:01:00",
+          "temp": "16",
+          "windDir": "东南风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-25": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-04-25 05:22:00",
+          "temp": "16",
+          "windDir": "西南风",
+          "windLevel": "3"
+        },
+        "humidity": "45",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-04-25 19:02:00",
+          "temp": "16",
+          "windDir": "西南风",
+          "windLevel": "3"
+        }
+      },
+      "2021-04-26": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-04-26 05:20:00",
+          "temp": "15",
+          "windDir": "西南风",
+          "windLevel": "2"
+        },
+        "humidity": "35",
+        "night": {
+          "condition": "小雨",
+          "conditionId": "http://resource.haier.net/download/weather/W小雨.png",
+          "sunSet": "2021-04-26 19:03:00",
+          "temp": "15",
+          "windDir": "西南风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-27": {
+        "day": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunRise": "2021-04-27 05:19:00",
+          "temp": "17",
+          "windDir": "西北风",
+          "windLevel": "4"
+        },
+        "humidity": "15",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-04-27 19:04:00",
+          "temp": "17",
+          "windDir": "西北风",
+          "windLevel": "4"
+        }
+      },
+      "2021-04-28": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-04-28 05:18:00",
+          "temp": "17",
+          "windDir": "西北风",
+          "windLevel": "2"
+        },
+        "humidity": "13",
+        "night": {
+          "condition": "小雨",
+          "conditionId": "http://resource.haier.net/download/weather/W小雨.png",
+          "sunSet": "2021-04-28 19:05:00",
+          "temp": "17",
+          "windDir": "西北风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-29": {
+        "day": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunRise": "2021-04-29 05:16:00",
+          "temp": "14",
+          "windDir": "北风",
+          "windLevel": "2"
+        },
+        "humidity": "19",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-04-29 19:06:00",
+          "temp": "14",
+          "windDir": "北风",
+          "windLevel": "2"
+        }
+      },
+      "2021-04-30": {
+        "day": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunRise": "2021-04-30 05:15:00",
+          "temp": "17",
+          "windDir": "东北风",
+          "windLevel": "0"
+        },
+        "humidity": "19",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-04-30 19:07:00",
+          "temp": "17",
+          "windDir": "东北风",
+          "windLevel": "0"
+        }
+      },
+      "2021-05-01": {
+        "day": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunRise": "2021-05-01 05:14:00",
+          "temp": "19",
+          "windDir": "西南风",
+          "windLevel": "3"
+        },
+        "humidity": "25",
+        "night": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunSet": "2021-05-01 19:08:00",
+          "temp": "19",
+          "windDir": "西南风",
+          "windLevel": "3"
+        }
+      },
+      "2021-05-02": {
+        "day": {
+          "condition": "小雨",
+          "conditionId": "http://resource.haier.net/download/weather/W小雨.png",
+          "sunRise": "2021-05-02 05:13:00",
+          "temp": "20",
+          "windDir": "东风",
+          "windLevel": "3"
+        },
+        "humidity": "34",
+        "night": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunSet": "2021-05-02 19:09:00",
+          "temp": "20",
+          "windDir": "东风",
+          "windLevel": "3"
+        }
+      },
+      "2021-05-03": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-05-03 05:11:00",
+          "temp": "17",
+          "windDir": "东北风",
+          "windLevel": "2"
+        },
+        "humidity": "45",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-05-03 19:10:00",
+          "temp": "17",
+          "windDir": "东北风",
+          "windLevel": "2"
+        }
+      },
+      "2021-05-04": {
+        "day": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunRise": "2021-05-04 05:10:00",
+          "temp": "19",
+          "windDir": "西北风",
+          "windLevel": "3"
+        },
+        "humidity": "22",
+        "night": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunSet": "2021-05-04 19:11:00",
+          "temp": "19",
+          "windDir": "西北风",
+          "windLevel": "3"
+        }
+      },
+      "2021-05-05": {
+        "day": {
+          "condition": "晴",
+          "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+          "sunRise": "2021-05-05 05:09:00",
+          "temp": "22",
+          "windDir": "北风",
+          "windLevel": "2"
+        },
+        "humidity": "14",
+        "night": {
+          "condition": "多云",
+          "conditionId": "http://resource.haier.net/download/weather/W多云.png",
+          "sunSet": "2021-05-05 19:12:00",
+          "temp": "22",
+          "windDir": "北风",
+          "windLevel": "2"
+        }
+      },
+      "2021-05-06": {
+        "day": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunRise": "2021-05-06 05:08:00",
+          "temp": "23",
+          "windDir": "西北风",
+          "windLevel": "2"
+        },
+        "humidity": "13",
+        "night": {
+          "condition": "阴",
+          "conditionId": "http://resource.haier.net/download/weather/W阴.png",
+          "sunSet": "2021-05-06 19:13:00",
+          "temp": "23",
+          "windDir": "西北风",
+          "windLevel": "2"
+        }
+      }
+    },
+    "hourForecast": {
+      "2021-04-22 17:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "59",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1007",
+        "qpf": "0.0",
+        "realFeel": "15",
+        "snow": "0.0",
+        "temp": "15",
+        "windDir": "东北风"
+      },
+      "2021-04-22 18:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "60",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1008",
+        "qpf": "0.0",
+        "realFeel": "14",
+        "snow": "0.0",
+        "temp": "14",
+        "windDir": "东南风"
+      },
+      "2021-04-22 19:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "68",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1009",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "东南风"
+      },
+      "2021-04-22 20:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "72",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1009",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-22 21:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1009",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-22 22:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "74",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-22 23:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "74",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东北风"
+      },
+      "2021-04-23 00:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1011",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "北风"
+      },
+      "2021-04-23 01:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "72",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "西北风"
+      },
+      "2021-04-23 02:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "71",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "西北风"
+      },
+      "2021-04-23 03:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "71",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "西北风"
+      },
+      "2021-04-23 04:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "72",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "北风"
+      },
+      "2021-04-23 05:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1010",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "东北风"
+      },
+      "2021-04-23 06:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "72",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1011",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "东北风"
+      },
+      "2021-04-23 07:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "66",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1012",
+        "qpf": "0.0",
+        "realFeel": "14",
+        "snow": "0.0",
+        "temp": "14",
+        "windDir": "东北风"
+      },
+      "2021-04-23 08:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "58",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "15",
+        "snow": "0.0",
+        "temp": "15",
+        "windDir": "东北风"
+      },
+      "2021-04-23 09:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "53",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "17",
+        "snow": "0.0",
+        "temp": "17",
+        "windDir": "东北风"
+      },
+      "2021-04-23 10:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "49",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "18",
+        "snow": "0.0",
+        "temp": "18",
+        "windDir": "东风"
+      },
+      "2021-04-23 11:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "45",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东风"
+      },
+      "2021-04-23 12:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "44",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 13:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "43",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 14:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "41",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 15:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "44",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 16:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "47",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "20",
+        "snow": "0.0",
+        "temp": "20",
+        "windDir": "东南风"
+      },
+      "2021-04-23 17:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "48",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 18:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "50",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1013",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东南风"
+      },
+      "2021-04-23 19:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "55",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1014",
+        "qpf": "0.0",
+        "realFeel": "17",
+        "snow": "0.0",
+        "temp": "17",
+        "windDir": "东南风"
+      },
+      "2021-04-23 20:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "60",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1016",
+        "qpf": "0.0",
+        "realFeel": "16",
+        "snow": "0.0",
+        "temp": "16",
+        "windDir": "东南风"
+      },
+      "2021-04-23 21:00:00": {
+        "condition": "阴",
+        "conditionId": "阴",
+        "humidity": "65",
+        "iconDay": "http://resource.haier.net/download/weather/W阴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W阴.png",
+        "pressure": "1017",
+        "qpf": "0.0",
+        "realFeel": "15",
+        "snow": "0.0",
+        "temp": "15",
+        "windDir": "东南风"
+      },
+      "2021-04-23 22:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "68",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1017",
+        "qpf": "0.0",
+        "realFeel": "14",
+        "snow": "0.0",
+        "temp": "14",
+        "windDir": "东南风"
+      },
+      "2021-04-23 23:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "71",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1018",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "东南风"
+      },
+      "2021-04-24 00:00:00": {
+        "condition": "阴",
+        "conditionId": "阴",
+        "humidity": "68",
+        "iconDay": "http://resource.haier.net/download/weather/W阴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W阴.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "东南风"
+      },
+      "2021-04-24 01:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1018",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-24 02:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-24 03:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "75",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "东南风"
+      },
+      "2021-04-24 04:00:00": {
+        "condition": "阴",
+        "conditionId": "阴",
+        "humidity": "74",
+        "iconDay": "http://resource.haier.net/download/weather/W阴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W阴.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "西北风"
+      },
+      "2021-04-24 05:00:00": {
+        "condition": "雾",
+        "conditionId": "雾",
+        "humidity": "73",
+        "iconDay": "http://resource.haier.net/download/weather/W雾.png",
+        "iconNight": "http://resource.haier.net/download/weather/W雾.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "12",
+        "snow": "0.0",
+        "temp": "12",
+        "windDir": "西北风"
+      },
+      "2021-04-24 06:00:00": {
+        "condition": "雾",
+        "conditionId": "雾",
+        "humidity": "71",
+        "iconDay": "http://resource.haier.net/download/weather/W雾.png",
+        "iconNight": "http://resource.haier.net/download/weather/W雾.png",
+        "pressure": "1020",
+        "qpf": "0.0",
+        "realFeel": "13",
+        "snow": "0.0",
+        "temp": "13",
+        "windDir": "西北风"
+      },
+      "2021-04-24 07:00:00": {
+        "condition": "阴",
+        "conditionId": "阴",
+        "humidity": "67",
+        "iconDay": "http://resource.haier.net/download/weather/W阴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W阴.png",
+        "pressure": "1020",
+        "qpf": "0.0",
+        "realFeel": "14",
+        "snow": "0.0",
+        "temp": "14",
+        "windDir": "东北风"
+      },
+      "2021-04-24 08:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "62",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1021",
+        "qpf": "0.0",
+        "realFeel": "15",
+        "snow": "0.0",
+        "temp": "15",
+        "windDir": "北风"
+      },
+      "2021-04-24 09:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "51",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1021",
+        "qpf": "0.0",
+        "realFeel": "16",
+        "snow": "0.0",
+        "temp": "16",
+        "windDir": "东北风"
+      },
+      "2021-04-24 10:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "38",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1020",
+        "qpf": "0.0",
+        "realFeel": "18",
+        "snow": "0.0",
+        "temp": "18",
+        "windDir": "东北风"
+      },
+      "2021-04-24 11:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "31",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1020",
+        "qpf": "0.0",
+        "realFeel": "19",
+        "snow": "0.0",
+        "temp": "19",
+        "windDir": "东北风"
+      },
+      "2021-04-24 12:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "28",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1019",
+        "qpf": "0.0",
+        "realFeel": "20",
+        "snow": "0.0",
+        "temp": "20",
+        "windDir": "东风"
+      },
+      "2021-04-24 13:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "26",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1018",
+        "qpf": "0.0",
+        "realFeel": "21",
+        "snow": "0.0",
+        "temp": "21",
+        "windDir": "东风"
+      },
+      "2021-04-24 14:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "24",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1017",
+        "qpf": "0.0",
+        "realFeel": "21",
+        "snow": "0.0",
+        "temp": "21",
+        "windDir": "东南风"
+      },
+      "2021-04-24 15:00:00": {
+        "condition": "晴",
+        "conditionId": "晴",
+        "humidity": "24",
+        "iconDay": "http://resource.haier.net/download/weather/W晴.png",
+        "iconNight": "http://resource.haier.net/download/weather/W晴.png",
+        "pressure": "1017",
+        "qpf": "0.0",
+        "realFeel": "21",
+        "snow": "0.0",
+        "temp": "21",
+        "windDir": "东南风"
+      },
+      "2021-04-24 16:00:00": {
+        "condition": "多云",
+        "conditionId": "多云",
+        "humidity": "25",
+        "iconDay": "http://resource.haier.net/download/weather/W多云.png",
+        "iconNight": "http://resource.haier.net/download/weather/W多云.png",
+        "pressure": "1017",
+        "qpf": "0.0",
+        "realFeel": "21",
+        "snow": "0.0",
+        "temp": "21",
+        "windDir": "东南风"
+      }
+    },
+    "indexForecast": {
+      "2021-04-22": [
+        {
+          "desc": "综合天气季节考虑,天气很冷",
+          "level": "很冷",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "晚秋装，薄毛衣+西装/薄毛衣+外套",
+          "level": "凉爽",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气很冷,不适合逛街",
+          "level": "不适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气很冷,不适合运动",
+          "level": "不适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气很冷,心情易较差",
+          "level": "不舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气很冷,不适合美发",
+          "level": "不适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气很冷,容易起皮,不建议化妆",
+          "level": "不适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气很冷,不适合约会",
+          "level": "不适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较好,今天适合洗车",
+          "level": "较适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气很冷,不适合旅游",
+          "level": "不适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气很冷,不适合夜生活",
+          "level": "不适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-23": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,易发感冒",
+          "level": "易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较好,今天适合洗车",
+          "level": "较适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "可以放飞硬翅沙燕、软翅鹰",
+          "level": "较适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较不宜晨练",
+          "level": "较不宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-24": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-25": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-26": [
+        {
+          "desc": "综合天气季节考虑,天气凉爽",
+          "level": "凉爽",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "不太适宜，天气阴沉，不利于水分的迅速蒸发，不太适宜晾晒。若需要晾晒，请尽量选择通风的地点",
+          "level": "不适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气凉爽,心情舒适",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,不宜晨练",
+          "level": "不宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-27": [
+        {
+          "desc": "综合天气季节考虑,天气舒适",
+          "level": "舒适",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "晚秋装，薄毛衣+西装/薄毛衣+外套",
+          "level": "凉爽",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气舒适,非常适合逛街",
+          "level": "适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件极佳，非常利于垂钓",
+          "level": "非常利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气舒适,非常适合运动",
+          "level": "适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气舒适,心情非常好",
+          "level": "舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气舒适,非常适合美发",
+          "level": "适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气舒适,适合化妆",
+          "level": "适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气舒适,非常适合约会",
+          "level": "适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "今天天气很凉,多穿衣",
+          "level": "很凉",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气适宜,非常适合旅游",
+          "level": "适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气舒适,非常适合夜生活",
+          "level": "适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-28": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "适宜，天气不错，适宜晾晒，赶快吧久久未见阳光的衣物搬出来晒一晒太阳吧",
+          "level": "适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-29": [
+        {
+          "desc": "综合天气季节考虑,天气凉爽",
+          "level": "凉爽",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "晚秋装，薄毛衣+西装/薄毛衣+外套",
+          "level": "凉爽",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气凉爽,心情舒适",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "可以放飞硬翅沙燕、软翅鹰",
+          "level": "较适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较不宜晨练",
+          "level": "较不宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-04-30": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件极佳，非常利于垂钓",
+          "level": "非常利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "暖和",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较不宜晨练",
+          "level": "较不宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "一般人群不易过敏，敏感人群可能过敏",
+          "level": "不易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-01": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件极佳，非常利于垂钓",
+          "level": "非常利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "外出时戴好遮阳帽、太阳镜和太阳伞等，涂擦SPF指数大于15的防晒霜",
+          "level": "中等",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "极少人需要开机",
+          "level": "舒适",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较适宜晨练",
+          "level": "较适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-02": [
+        {
+          "desc": "综合天气季节考虑,天气舒适",
+          "level": "舒适",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "晚秋装，薄毛衣+西装/薄毛衣+外套",
+          "level": "凉爽",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "不太适宜，天气阴沉，不利于水分的迅速蒸发，不太适宜晾晒。若需要晾晒，请尽量选择通风的地点",
+          "level": "不适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气舒适,非常适合逛街",
+          "level": "适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件极佳，非常利于垂钓",
+          "level": "非常利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气舒适,非常适合运动",
+          "level": "适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气舒适,心情非常好",
+          "level": "舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气舒适,非常适合美发",
+          "level": "适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "可以适当采取一些防护措施。如：涂擦防护霜等",
+          "level": "弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "凉快",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气舒适,适合化妆",
+          "level": "适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气舒适,非常适合约会",
+          "level": "适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气较差,较不适宜洗车",
+          "level": "较不适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气适宜,非常适合旅游",
+          "level": "适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气舒适,非常适合夜生活",
+          "level": "适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况一般",
+          "level": "一般",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,较不宜晨练",
+          "level": "较不宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通一般",
+          "level": "一般",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-03": [
+        {
+          "desc": "综合天气季节考虑,天气凉爽",
+          "level": "凉爽",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "基本适宜，天气不错，晴朗时的阳光仍能满足您驱潮消毒杀菌的晾晒需求。",
+          "level": "基本适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气凉爽,心情舒适",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "凉快",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气凉爽,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气凉爽,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,适宜晨练",
+          "level": "适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-04": [
+        {
+          "desc": "综合天气季节考虑,天气温暖",
+          "level": "温暖",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+西装/衬衣+薄毛衣",
+          "level": "温暖",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气温暖,比较适合逛街",
+          "level": "比较适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气温暖,比较适合运动",
+          "level": "比较适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气温暖,心情比较好",
+          "level": "比较舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气温暖,比较适合美发",
+          "level": "比较适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "不必开机",
+          "level": "凉快",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气温暖,适合化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气温暖,比较适合约会",
+          "level": "比较适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气温暖,非常适合旅游",
+          "level": "比较适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气温暖,比较适合夜生活",
+          "level": "比较适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,适宜晨练",
+          "level": "适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-05": [
+        {
+          "desc": "综合天气季节考虑,天气热",
+          "level": "热",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+马甲/衬衣+夹克",
+          "level": "热",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气热,不适合逛街",
+          "level": "不适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气热,不适合运动",
+          "level": "不适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气热,心情较容易烦躁",
+          "level": "不舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气热,不适合美发,易出汗有气味",
+          "level": "不适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "除上述防护措施外，上午十点至下午四点时段避免外出或尽可能在遮荫处",
+          "level": "强",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "极少人需要开机",
+          "level": "舒适",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气热,不建议化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气热,不适合约会",
+          "level": "不适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气热,不适合旅游",
+          "level": "不适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气热,不适合夜生活,易出汗有气味",
+          "level": "不适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,基本不会中暑",
+          "level": "不易中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "可以放飞硬翅沙燕、软翅鹰",
+          "level": "较适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "各类人群可正常活动",
+          "level": "优",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,适宜晨练",
+          "level": "适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ],
+      "2021-05-06": [
+        {
+          "desc": "综合天气季节考虑,天气热",
+          "level": "热",
+          "name": "舒适度指数"
+        },
+        {
+          "desc": "春秋装，衬衣+马甲/衬衣+夹克",
+          "level": "热",
+          "name": "穿衣指数"
+        },
+        {
+          "desc": "天气很好，极适合晾晒，抓紧时机吧",
+          "level": "很适宜晾晒",
+          "name": "晾晒指数"
+        },
+        {
+          "desc": "天气热,不适合逛街",
+          "level": "不适合",
+          "name": "逛街指数"
+        },
+        {
+          "desc": "气象条件较好，利于垂钓",
+          "level": "利于垂钓",
+          "name": "钓鱼指数"
+        },
+        {
+          "desc": "天气热,不适合运动",
+          "level": "不适合",
+          "name": "运动指数"
+        },
+        {
+          "desc": "天气热,心情较容易烦躁",
+          "level": "不舒适",
+          "name": "心情指数"
+        },
+        {
+          "desc": "天气热,不适合美发,易出汗有气味",
+          "level": "不适合",
+          "name": "美发指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "防晒指数"
+        },
+        {
+          "desc": "不需要采取防护措施",
+          "level": "最弱",
+          "name": "紫外线指数"
+        },
+        {
+          "desc": "少数人需要开机",
+          "level": "稍热",
+          "name": "空调开启指数"
+        },
+        {
+          "desc": "不必带雨具",
+          "level": "不需要",
+          "name": "雨伞指数"
+        },
+        {
+          "desc": "天气热,不建议化妆",
+          "level": "比较适合",
+          "name": "化妆指数"
+        },
+        {
+          "desc": "天气热,不适合约会",
+          "level": "不适合",
+          "name": "约会指数"
+        },
+        {
+          "desc": "综合天气季节考虑,极易发感冒",
+          "level": "极易发",
+          "name": "感冒指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,今日较不宜划船",
+          "level": "不适宜",
+          "name": "划船指数"
+        },
+        {
+          "desc": "适合洗衣",
+          "level": "适合",
+          "name": "洗衣指数"
+        },
+        {
+          "desc": "正常",
+          "level": "正常",
+          "name": "风寒指数"
+        },
+        {
+          "desc": "天气不错,今天非常适合洗车",
+          "level": "适宜",
+          "name": "洗车指数"
+        },
+        {
+          "desc": "天气热,不适合旅游",
+          "level": "不适宜",
+          "name": "旅游指数"
+        },
+        {
+          "desc": "天气热,不适合夜生活,易出汗有气味",
+          "level": "不适合",
+          "name": "夜生活指数"
+        },
+        {
+          "desc": "不适宜",
+          "level": "不适宜",
+          "name": "啤酒指数"
+        },
+        {
+          "desc": "综合天气考虑,室外作业者需预防中暑",
+          "level": "需预防中暑",
+          "name": "中暑指数"
+        },
+        {
+          "desc": "可以放飞硬翅沙燕、软翅鹰",
+          "level": "较适宜",
+          "name": "放风筝指数"
+        },
+        {
+          "desc": "极少数异常敏感人群应减少户外活动",
+          "level": "良",
+          "name": "空气污染扩散指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,路况较差",
+          "level": "较差",
+          "name": "路况指数"
+        },
+        {
+          "desc": "综合天气考虑,适宜晨练",
+          "level": "适宜",
+          "name": "晨练指数"
+        },
+        {
+          "desc": "综合天气、温度、风速、能见度考虑,交通较差",
+          "level": "较差",
+          "name": "交通指数"
+        },
+        {
+          "desc": "敏感人群容易过敏",
+          "level": "易过敏",
+          "name": "过敏指数"
+        }
+      ]
+    },
+    "language": "zh-cn",
+    "weatherCondition": {
+      "condition": "晴",
+      "conditionId": "http://resource.haier.net/download/weather/W晴.png",
+      "humidity": "59",
+      "precipitation": "0",
+      "pressure": "1007",
+      "sunRise": "2021-04-22 05:26:00",
+      "sunSet": "2021-04-22 18:59:00",
+      "temp": "15",
+      "updateTime": "2021-04-22 17:30:01",
+      "windDir": "东北风",
+      "windLevel": "2"
+    }
+  },
+  "retCode": "00000",
+  "retInfo": "成功"
+}
+```
+
 ### 对应表
+- **天气数据种类说明**
+|种类名称|中文含义|包含参数说明|
+|:--------:|:--------:|:--------:|
+|current|实时天气|返回字段详见<b>实时天气</b>|
+|alert|气象告警|返回字段详见<b>气象预警</b>|
+|aqi|实时空气质量|返回字段详见<b>空气质量</b>|
+|aqiForecast|空气质量预测|返回字段详见<b>实时空气质量</b>|
+|hourForecast|小时级天气预报|返回字段详见<b>小时级天气预报</b>|
+|dayForecast|天级天气预报|返回字段详见<b>天级天气预报</b>|
+|indexForecast|指数预报|返回字段详见<b>指数预报</b>|
+
+
 - **实况天气conditionId与icon对应关系**
 
 **原天气服务供应商：**
@@ -687,7 +3958,7 @@ POST data:
 
 **接口描述**  
 
-- ?> **接入地 址：**  `/place？latitude=39.92999& longitude=123.78906`
+- ?> **接入地 址：**  `/place?latitude=39.92999&longitude=123.78906`
 
      **HTTP Method：** POST
 
@@ -840,7 +4111,7 @@ POST data:
 
 **接口描述**  
 
-- ?> **接入地 址：**  `/area？areaId=101000100`
+- ?> **接入地 址：**  `/area?areaId=101000100`
 
      **HTTP Method：** POST
 
