@@ -39,21 +39,21 @@ Android SmartDevice SDK 是一款移动应用开发套件，能够实现在带�
 
 ## 海极网配置
 
-**创建功能集时接入方式选择** 设备SDK(Android)
+创建功能集时接入方式选择 **设备SDK(Android)**
 
 ![图片][p2]
 
 
-**记录生成的设备唯一标识** typeID **和** DeviceKey  
+记录生成的设备唯一标识 **typeID** 和 **deviceKey** 
 
 ![图片][p3]
 
 
-**记录生成的** 成品编码  
+记录生成的 **成品编码**  
 
 ![图片][p4]
 
-**选择** 配网方式
+选择 **配网方式**
 
 ![图片][p6]
 
@@ -259,7 +259,7 @@ SmartDeviceManager.getInstance().gatewayDeviceOnline(gatewayDevice, new ICallbac
 
 **3.3 注册、上线附件设备**
 
-接口流程及参数参考 [3.2](#jump2)
+接口流程及参数参考 [3.1](#jump2)
 ```
 SmartDeviceManager.getInstance().registerAnnexDevice(registerAnnexDevice, new ICallback<RegisterResult>())
         
@@ -275,7 +275,7 @@ SmartDeviceManager.getInstance().registerGeneralDevice(registerGeneralDevice, ne
 SmartDeviceManager.getInstance().generalDeviceOnline(generalDevice, new ICallback<String>())
 ```
 
-接口流程及参数可参考 [3.1](#jump1)
+接口流程及参数可参考 [3.2](#jump1)
 
 **3.5 删除设备**
 
