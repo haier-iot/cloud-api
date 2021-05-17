@@ -33,10 +33,11 @@ Android SmartDevice SDK 是一款移动应用开发套件，能够实现在带�
 &emsp;&emsp;启动、停止本地场景  
 &emsp;&emsp;执行本地场景命令  
 
-## 开发文档
+## 运行环境 
 
+![图片][p6]
 
-### 设备接入
+## 海极网配置
 
 **创建功能集时接入方式选择** 设备SDK(Android)
 
@@ -54,14 +55,14 @@ Android SmartDevice SDK 是一款移动应用开发套件，能够实现在带�
 
 **选择** 配网方式
 
-![图片][p5]
+![图片][p6]
 
-### API
+## 接口说明
 
-**0. 特殊说明**  
+**0. 技术支持说明**  
 
-不同版本SDK业务非全部向下兼容，请根据项目实际需要选择对应版本。  
-SDK使用遇到问题请联系IOT技术支持团队，以下API基于6.2.0版本。
+不同版本SDK业务非全部向下兼容，请根据项目实际需要选择对应版本。以下API基于6.2.0版本
+> SDK使用遇到问题请联系 U+ IOT技术支持团队。
 
 **1. 设置日志级别**
 
@@ -178,6 +179,7 @@ SmartDeviceManager.getInstance().registerGatewayDevice(registerGatewayDevice, ne
  */
 GatewayDevice gatewayDevice = new GatewayDevice.Builder()
                                                .deviceId(registerResult.getDevId())
+                                               .deviceName()
                                                .upCodeT()
                                                .uplusId()
                                                .deviceKey()
@@ -583,3 +585,4 @@ USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback(
 [p3]:_media/_android/p3.png
 [p4]:_media/_android/p4.png
 [p5]:_media/_android/p5.png
+[p6]:_media/_android/p6.png
