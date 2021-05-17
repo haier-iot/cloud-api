@@ -124,7 +124,6 @@ clientSecret|String|Body|必填|第三方云秘钥secret
 openId|String|Body|必填|第三方云账号id
 retCode|String|Body|必填|返回码
 retInfo|String|Body|必填|返回码描述
- 
 
 
 
@@ -166,7 +165,7 @@ Content-Length: 27
 错误码|描述|情景 
 :-|:-:|:-
 00000|成功|授权码验证成功  
-   
+
 
 
 
