@@ -100,6 +100,7 @@ StartOption startOption = new StartOption.Builder()
                                          .rootCA(mRootCa)
                                          .authPath(authPath)
                                          .netCardName(netCardName)
+                                         .context(context)
                                          .build();
                                          
 mSmartDeviceManager.startService(startOption, new ICallback() {
@@ -301,7 +302,6 @@ SmartDeviceManager.getInstance().delDevice(deviceID, new IuSDKCallback() {
 
 > **SDK和云的连接是免维护的，自带重连机制。**
 
-实现IUSmartDeviceManagerListener接口并注册该接口得到连接状态信息。
   
 ```
 /**
@@ -331,7 +331,7 @@ public void onCloudState(int state) {
  * pairName   海极网中创建的硬件设备的属性名
  * pairValue  海极网中创建的硬件设备的属性值
  */
-ArrayList<USmartDevicePair> pairs = new ArrayList<>(4);
+ArrayList<SmartDevicePair> pairs = new ArrayList<>(4);
 ...
 mSmartDevice.reportStatus(pairList, new ICallback<Void>() {
     @Override
@@ -356,8 +356,8 @@ mSmartDevice.reportStatus(pairList, new ICallback<Void>() {
 
 
 ```
-USmartDevicePair smartDevicePair = new USmartDevicePair(pairName, pairValue);
-List<USmartDevicePair> pairList = new ArrayList<>();
+SmartDevicePair smartDevicePair = new SmartDevicePair(pairName, pairValue);
+List<SmartDevicePair> pairList = new ArrayList<>();
 ...
 pairList.add(smartDevicePair);
 mSmartDevice.reportAlarm(pairList, new ICallback<Void>() {
@@ -449,10 +449,10 @@ while(flag&&retryTimes > 0){
 
 **7.1 接收读属性命令**
 
-SmartDevice 接入设备接收到读属性命令时，需要实现 IUSmartDeviceListener  类的该接口方法，根据业务需要处理该读属性命令并完成读属性应答，并调用设备属性上报方法上报设备所有属性。
+SmartDevice 接入设备接收到读属性命令时，需要实现 ISmartDeviceListener  类的该接口方法，根据业务需要处理该读属性命令并完成读属性应答，并调用设备属性上报方法上报设备所有属性。
 
 > 例：在读属性回调中接收到读取开机命令，需要将该命令经过处理后发送给设备底板，  
-将底板执行结果赋值给 USmartReadRsp 对象，并调用设备属性上报方法上报设备所有属性。
+将底板执行结果赋值给 SmartReadRsp 对象，并调用设备属性上报方法上报设备所有属性。
 
 
 ```
@@ -460,11 +460,11 @@ SmartDevice 接入设备接收到读属性命令时，需要实现 IUSmartDevice
  * 读属性回调: 通过该接口可以获取指定设备的属性
  * 读属性应答: 执行读属性回调后需调用此接口将结果返回给 uGW server
  */
-public USmartReadRsp onDeviceReadCallback(String devId, int reqSn, String name) {
+public SmartReadRsp onDeviceReadCallback(String devId, int reqSn, String name) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
     if (null == device) {
-        USmartReadRsp readRsp = new USmartReadRsp(reqSn);
-        readRsp.setResult(USmartDeviceManager.RESULT_ERR);
+        SmartReadRsp readRsp = new SmartReadRsp(reqSn);
+        readRsp.setResult(SmartDeviceManager.RESULT_ERR);
         return readRsp;
     }
     return device.read(reqSn, name);
@@ -473,7 +473,7 @@ public USmartReadRsp onDeviceReadCallback(String devId, int reqSn, String name) 
 
 **7.2 接收写属性命令**
 
-SmartDevice 接入设备接收到单命令或写属性命令时，需要实现 IUSmartDeviceListener  类的该接口方法，根据业务需要处理该写属性命令，并返回写属性应答结果和最新的设备所有属性。
+SmartDevice 接入设备接收到单命令或写属性命令时，需要实现 ISmartDeviceListener  类的该接口方法，根据业务需要处理该写属性命令，并返回写属性应答结果和最新的设备所有属性。
 
 > 例：在写属性回调中接收到开机命令，需要将该命令经过处理后发送给设备底板，  
 将底板执行结果赋值给 UBaseSmartRsp  对象并返回，然后调用属性上报方法上报设备所有属性。
@@ -483,11 +483,11 @@ SmartDevice 接入设备接收到单命令或写属性命令时，需要实现 I
  * 写属性回调: 通过该接口可以更新接入设备的可写属性
  * 写属性应答: 执行写属性回调后需调用此接口将结果返回给 uGW server
  */
-public UBaseSmartRsp onDeviceWriteCallback(String devId, int reqSn, String name, String value) {
+public BaseSmartRsp onDeviceWriteCallback(String devId, int reqSn, String name, String value) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
     if (null == device) {
-        UBaseSmartRsp smartRsp = new UBaseSmartRsp(reqSn);
-        smartRsp.setResult(USmartDeviceManager.RESULT_ERR);
+        BaseSmartRsp smartRsp = new BaseSmartRsp(reqSn);
+        smartRsp.setResult(SmartDeviceManager.RESULT_ERR);
         return smartRsp;
     }
     return device.write(reqSn, name, value);
@@ -496,21 +496,21 @@ public UBaseSmartRsp onDeviceWriteCallback(String devId, int reqSn, String name,
 
 **7.3 接收操作/组命令**
 
-SmartDevice 接入设备接收到组命令或操作命令时，需要实现 IUSmartDeviceListener  类的该接口方法，根据业务需要处理该操作命令，并返回操作应答结果和最新的设备所有属性。
+SmartDevice 接入设备接收到组命令或操作命令时，需要实现 ISmartDeviceListener  类的该接口方法，根据业务需要处理该操作命令，并返回操作应答结果和最新的设备所有属性。
 
 > 例：在操作或组命令回调中接收到获取所有属性命令，需要将该命令经过处理后发送给设备底板，  
-> 将底板执行结果和设备所有属性赋值给  USmartOpRsp 对象并返回，完成控制结果和所有属性的上报。
+> 将底板执行结果和设备所有属性赋值给  SmartOpRsp 对象并返回，完成控制结果和所有属性的上报。
 
 ```
 /**
  * 操作性回调: 通过该接口可以更新接入设备的可操作属性
  * 操作性应答: 执行操作回调后需调用此接口将结果返回给 uGW server
  */
-public USmartOpRsp onDeviceOpCallback(String devId, int reqSn, String opName, List<USmartDevicePair> pairList) {
+public SmartOpRsp onDeviceOpCallback(String devId, int reqSn, String opName, List<SmartDevicePair> pairList) {
     UplusDevice device = MyApplication.getUplusDevice(devId);
     if (null == device) {
-        USmartOpRsp opRsp = new USmartOpRsp(reqSn);
-        opRsp.setResult(USmartDeviceManager.RESULT_ERR);
+        SmartOpRsp opRsp = new SmartOpRsp(reqSn);
+        opRsp.setResult(SmartDeviceManager.RESULT_ERR);
         return opRsp;
     } 
     return device.op(reqSn, opName, pairList);
@@ -566,7 +566,7 @@ if(MainActivity.cloudStateFlag != 251){
  * timeOut       20-120，建议 30 秒
  * mSmartDevice  添加成功的主设备或子设备对象
  */
-USmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback() {
+SmartDeviceManager.getInstance().getBindQRCode(mSmartDevice, 30, new ICallback() {
     
     @Override
     public void onSuccess(Object o) {
