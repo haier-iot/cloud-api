@@ -476,7 +476,7 @@ public SmartReadRsp onDeviceReadCallback(String devId, int reqSn, String name) {
 SmartDevice 接入设备接收到单命令或写属性命令时，需要实现 ISmartDeviceListener  类的该接口方法，根据业务需要处理该写属性命令，并返回写属性应答结果和最新的设备所有属性。
 
 > 例：在写属性回调中接收到开机命令，需要将该命令经过处理后发送给设备底板，  
-将底板执行结果赋值给 UBaseSmartRsp  对象并返回，然后调用属性上报方法上报设备所有属性。
+将底板执行结果赋值给 BaseSmartRsp  对象并返回，然后调用属性上报方法上报设备所有属性。
 
 ```
 /**
