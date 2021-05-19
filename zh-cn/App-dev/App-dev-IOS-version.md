@@ -1,19 +1,14 @@
-**1. uSDK开发手册**   
+# uSDK-IOS资料下载  #
 
-简介：uSDK开发手册的使用对象是使用uSDK开发APP的开发者。开发者可以通过此手册，可以了解uSDK的用法、关键流程以及常见问题。   
+## 支持有效期   
 
-**2. uSDK Demo**
+支持有效期：新版本uSDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。  
 
-简介：uSDK示例工程的使用对象是使用uSDK的APP开发者。开发者通过此示例工程，可以了解uSDK的应用方法及流程。  
-
-**3. iOS uSDK开发包下载**
+## 版本资料 
 
 
-支持有效期：新版本SDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。    
-
-----------
-
-- **iOS uSDK_8.5.0**   
+### IOS uSDK_8.5.0 
+ 
 
   版本号： v8.5.0
   发布日期：2021.04.30
@@ -22,7 +17,7 @@
   更新日志：
   新增功能
 
-  ##### 一、外部修改
+ 一、外部修改
 
   uSDKDevice.h新增接口
 
@@ -34,30 +29,31 @@
    @param failure 订阅失败的回调
    @since 8.5.0
    */
-  - (void)subscribeResourceWithDecode:(NSString *)resourceName success:(void(^)(void))success failure:(void(^)(NSError *error))failure; 
+  
+- (void)subscribeResourceWithDecode:(NSString *)resourceName success:(void(^)(void))success failure:(void(^)(NSError *error))failure; 
+/**
+ 新的接收资源数据  
+ @param device 设备对象
+ @param resource 资源名称
+ @param JSONData 资源数据
+ @since 8.5.0
+ */  
+- (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
+  uSDKCameraScanQRCodeBindInfo 新增必填字段productCode
   /**
-   新的接收资源数据  
-   @param device 设备对象
-   @param resource 资源名称
-   @param JSONData 资源数据
-   @since 8.5.0
-   */  
-  - (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
-    uSDKCameraScanQRCodeBindInfo 新增必填字段productCode
-    /**
-     成品编码，必填
-     */
-    @property (nonatomic, copy) NSString *productCode;
-    新增本地视频回放、本地图片获取和获取云存视频m3u8地址
-    uSDKPlaybackPlayer.h新增接口
-    /// 回放文件
-    @interface uSDKPlaybackItem: NSObject
-    /// 回放文件起始时间（秒）
-    @property (nonatomic, assign) NSTimeInterval startTime;
-    /// 回放文件结束时间（秒）
-    @property (nonatomic, assign) NSTimeInterval endTime;
-    /// 回放文件持续时间（秒）
-    @property (nonatomic, assign) NSTimeInterval duration; 
+   成品编码，必填
+   */
+  @property (nonatomic, copy) NSString *productCode;
+  新增本地视频回放、本地图片获取和获取云存视频m3u8地址
+  uSDKPlaybackPlayer.h新增接口
+  /// 回放文件
+  @interface uSDKPlaybackItem: NSObject
+  /// 回放文件起始时间（秒）
+  @property (nonatomic, assign) NSTimeInterval startTime;
+  /// 回放文件结束时间（秒）
+  @property (nonatomic, assign) NSTimeInterval endTime;
+  /// 回放文件持续时间（秒）
+  @property (nonatomic, assign) NSTimeInterval duration; 
   @end 
   /// 回放文件分页
   @interface uSDKPlaybackPage<uSDKItem>: NSObject
@@ -67,11 +63,11 @@
   @property (nonatomic, assign) uint32_t  totalPage;
   /// 回放文件数组
   @property (nonatomic, strong) NSArray<uSDKItem> *items;
-  
+
   @end
-  
+
   @interface uSDKPictureItem : NSObject
-  
+
   /// 图片ID
   @property (nonatomic, assign) uint32_t id;
   /// 图片时间
@@ -84,202 +80,199 @@
   @property (nonatomic, copy) NSString *describe;
   /// 缩略图base64编码
   @property (nonatomic, copy) NSString *thumbnail;
-  
+
   @end
-  
+
   @interface uSDKPlaybackPlayer : uSDKPlayer
-  
-  /**
-  
-   * 创建播放器
-     *
-   * @param device 设备对象
-   * @param completionHandler 结果回调
-     */
-  
-  + (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
-        completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler;
-  
-  /**
-  
-   * 获取有回放文件的日期列表
-   * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
-   * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
-   * @param startTime 开始时间戳（秒）
-   * @param endTime 结束时间戳（秒）
-   * @param completionHandler 结果回调
-     */
-  
-  - (void)getPlaybackDateListOfpageIndex:(uint32_t)pageIndex
-        countPerPage:(uint32_t)countPerPage
-           startTime:(NSTimeInterval)startTime
-             endTime:(NSTimeInterval)endTime
-    completionHandler:(void (^)(uSDKPlaybackPage<NSNumber *> *_Nullable page, NSError *_Nullable error))completionHandler;
-  
-  /**
-  
-   * 获取一页回放文件列表
-   * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
-   * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
-   * @param startTime 开始时间戳（秒）
-   * @param endTime 结束时间戳（秒）
-   * @param completionHandler 结果回调
-   * @note 请根据实际情况合理设置查询时间范围和分页，`时间跨度太长`或`每页数量过大`会增加设备查询时间， 建议[startTime, endTime]区间不超过24小时 或 countPerPage不超过1440个文件.
-     */
-  
-  - (void)getPlaybackListV2OfpageIndex:(uint32_t)pageIndex
-        countPerPage:(uint32_t)countPerPage
-           startTime:(NSTimeInterval)startTime
-             endTime:(NSTimeInterval)endTime
-    completionHandler:(void (^)(uSDKPlaybackPage<uSDKPlaybackItem *> *_Nullable page, NSError *_Nullable error))completionHandler;
-  
-  /**
-  
-   * 获取可以查看的照片列表
-   * @param startTime 起始时间
-   * @param endTime 结束时间
-   * @param photoID 图片ID  注：查询首页图片列表时photoID传参为0，查询下一页图片列表时photoID传参为上一页最后一张图片的photoID
-   * @param count 要查询的照片个数，范围是0到10
-   * @param completionHandler 结果回调
-   * @note 1.查询首页：使用参数【startTime，endTime，count】 ，photoID 传参为0 ，查询首页前count张图片，并且记录查询到的最后一张图片id；
-   * 2.查询下一页：使用参数【startTime，id，endTime，count】，photoID 传参为上一页最后一张图片的photoID，查询下一页的count张图片，并且并且记录查询到的最后一张图片id；
-   * 3.同第2步，持续查询下一页，直到查询不到任何内容；
-      */
-  
-  - (void)getPhotoListWithStartTime:(NSTimeInterval)startTime
-        endTime:(NSTimeInterval)endTime
-        photoID:(uint32_t)photoID
-          count:(uint32_t)count
-    completionHandler:(void(^)(NSArray<uSDKPictureItem*> *items, NSError *_Nullable error))completionHandler;
-  
-  /**
-  
-   * 获取设备的本地图片内容
-   * @param photoID 图片ID
-   * @param timeout 超时时间 范围建议5-10秒左右
-   * @param completionHandler 结果回调
-     */
-  
-  - (void)getLocalPhotoDataWithPhotoID:(uint32_t)photoID
-        timeout:(NSTimeInterval)timeout
-    completionHandler:(void(^)(NSData *data, NSError *_Nullable error))completionHandler;
-  
-  
-  /**
-  
-   * 获取云存视频可播放日期信息
-   * - 用于终端用户在云存页面中对云存服务时间内的日期进行标注，区分出是否有云存视频文件。
-   * @param timezone 相对于0时区的秒数，例如东八区28800
-   * @param completionHandler 回调结果
-     */
-  
-  - (void)getCloudVideoDateListWithTimezone:(NSInteger)timezone
-        completionHandler:(void(^)(NSArray<NSNumber *> *items, NSError *_Nullable error))completionHandler;
-  
-  /** 获取云存回放文件列表
-  
-   *  获取云存列表，用户对时间轴渲染
-   *  @param startTime 开始UTC时间,单位秒
-   *  @param endTime 结束UTC时间,单位秒 超过一天只返回一天
-   *  @param completionHandler 回调结果
-      */
-  
-  - (void)getCloudVideoPlayListWithStartTime:(NSTimeInterval)startTime
-        endTime:(NSTimeInterval)endTime
-    completionHandler:(void (^)(NSArray<uSDKPlaybackItem *> *items, NSError *_Nullable error))completionHandler;
-  
-  /** 获取云存回放 m3u8 播放地址
-  
-   * @param startTime 开始UTC时间,单位秒
-   * @param endTime 结束UTC时间,单位秒 填 0 则默认播放到最新为止
-   * @param completionHandler 回调结果
-     */
-  
-  - (void)getCloudVideoPlayAddressWithStartTime:(NSTimeInterval)startTime
-        endTiem:(NSTimeInterval)endTime
-    completionHandler:(void (^)(NSString *url, NSError *_Nullable error))completionHandler;
-  
-  /**
-  
-   * 设置回放参数.
-   * @param item 播放的文件(可跨文件).
-   * @param time 指定播放起始时间点（秒），取值范围`playbackItem.startTime >= time <= playbackItem.endTime`.
-     */
-  
-  - (void)setPlaybackItem:(uSDKPlaybackItem *)item
-        seekToTime:(NSTimeInterval)time;
-  
-  /// 暂停
-  
-  - (void)pause;
-  
-  /// 恢复
-  
-  - (void)resume;
-  
-  @end
-  uSDKPlayer.h新增播放器代理协议
-  /**
-  
-   *  播放时间回调
-   *  @param player 播放器实例
-   *  @param PTS 时间戳
-      */
-  
-  - (void)player:(uSDKPlayer *)player didUpdatePTS:(NSTimeInterval)PTS;
-  
-  /**
-  
-   *  SD卡回放文件播放结束
-   *  @param player 播放器实例
-   *  @param startTime 当前播放结束的文件的开始时间
-      */
-  
-  - (void)player:(uSDKPlayer *)player didFinishPlaybackFile:(NSTimeInterval)startTime;
-    uSDKConstantInfo.h新增音视频相关错误码
-    /**
-      *  视频功能内部错误
-         */
-          ERR_USDK_PLAYER_INTERNAL_FAILURE = -20001,
-          /**
-      *  无本地回放视频
-         */
-          ERR_USDK_PLAYER_PLAYBACKLIST_EMPTY = -20001,
-          /**
-      *  视频分辨率已改变
-         */
-          ERR_USDK_PLAYER_RESOLUTION_CHANGED =  -20003,
-          /**
-      *  超过设备可支持的最大P2P通道数
-         */
-          ERR_USDK_PLAYER_DEVICE_CALLING_ALL_CHN_BUSY = 20004,
-          /**
-      *  P2P通道消息发送失败
-         */
-          ERR_USEK_PLAYER_MESSAGE_SEND_FAILURE = -20005,
-          /**
-      *  P2P通道消息发送超时
-         */
-          ERR_USEK_PLAYER_MESSAGE_SEND_TIMEOUT = -20006,
-          /**
-      *  设备正在录制
-         */
-          ERR_USDK_PLAYER_RECORDER_IS_RUNNING = -20007,
-          /**
-      *  APP端通道连接数已达上限
-         */
-          ERR_USDK_PLAYER_EXCEEDS_MAX_NUMBER = -20008,
-  
-  ##### 二、内部优化
 
-  1.配置文件下载地址变更
+/**
+
+ * 创建播放器
+   *
+ * @param device 设备对象
+ * @param completionHandler 结果回调
+   */
+* (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
+      completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler;
+
+/**
+
+ * 获取有回放文件的日期列表
+ * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
+ * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
+ * @param startTime 开始时间戳（秒）
+ * @param endTime 结束时间戳（秒）
+ * @param completionHandler 结果回调
+   */
+
+- (void)getPlaybackDateListOfpageIndex:(uint32_t)pageIndex
+      countPerPage:(uint32_t)countPerPage
+         startTime:(NSTimeInterval)startTime
+           endTime:(NSTimeInterval)endTime
+  completionHandler:(void (^)(uSDKPlaybackPage<NSNumber *> *_Nullable page, NSError *_Nullable error))completionHandler;
+
+/**
+
+ * 获取一页回放文件列表
+ * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
+ * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
+ * @param startTime 开始时间戳（秒）
+ * @param endTime 结束时间戳（秒）
+ * @param completionHandler 结果回调
+ * @note 请根据实际情况合理设置查询时间范围和分页，`时间跨度太长`或`每页数量过大`会增加设备查询时间， 建议[startTime, endTime]区间不超过24小时 或 countPerPage不超过1440个文件.
+   */
+
+- (void)getPlaybackListV2OfpageIndex:(uint32_t)pageIndex
+      countPerPage:(uint32_t)countPerPage
+         startTime:(NSTimeInterval)startTime
+           endTime:(NSTimeInterval)endTime
+  completionHandler:(void (^)(uSDKPlaybackPage<uSDKPlaybackItem *> *_Nullable page, NSError *_Nullable error))completionHandler;
+
+/**
+
+ * 获取可以查看的照片列表
+ * @param startTime 起始时间
+ * @param endTime 结束时间
+ * @param photoID 图片ID  注：查询首页图片列表时photoID传参为0，查询下一页图片列表时photoID传参为上一页最后一张图片的photoID
+ * @param count 要查询的照片个数，范围是0到10
+ * @param completionHandler 结果回调
+ * @note 1.查询首页：使用参数【startTime，endTime，count】 ，photoID 传参为0 ，查询首页前count张图片，并且记录查询到的最后一张图片id；
+ * 2.查询下一页：使用参数【startTime，id，endTime，count】，photoID 传参为上一页最后一张图片的photoID，查询下一页的count张图片，并且并且记录查询到的最后一张图片id；
+ * 3.同第2步，持续查询下一页，直到查询不到任何内容；
+    */
+
+- (void)getPhotoListWithStartTime:(NSTimeInterval)startTime
+      endTime:(NSTimeInterval)endTime
+      photoID:(uint32_t)photoID
+        count:(uint32_t)count
+  completionHandler:(void(^)(NSArray<uSDKPictureItem*> *items, NSError *_Nullable error))completionHandler;
+
+/**
+
+ * 获取设备的本地图片内容
+ * @param photoID 图片ID
+ * @param timeout 超时时间 范围建议5-10秒左右
+ * @param completionHandler 结果回调
+   */
+
+- (void)getLocalPhotoDataWithPhotoID:(uint32_t)photoID
+      timeout:(NSTimeInterval)timeout
+  completionHandler:(void(^)(NSData *data, NSError *_Nullable error))completionHandler;
+
+
+/**
+
+ * 获取云存视频可播放日期信息
+ * - 用于终端用户在云存页面中对云存服务时间内的日期进行标注，区分出是否有云存视频文件。
+ * @param timezone 相对于0时区的秒数，例如东八区28800
+ * @param completionHandler 回调结果
+   */
+
+- (void)getCloudVideoDateListWithTimezone:(NSInteger)timezone
+      completionHandler:(void(^)(NSArray<NSNumber *> *items, NSError *_Nullable error))completionHandler;
+
+/** 获取云存回放文件列表
+
+ *  获取云存列表，用户对时间轴渲染
+ *  @param startTime 开始UTC时间,单位秒
+ *  @param endTime 结束UTC时间,单位秒 超过一天只返回一天
+ *  @param completionHandler 回调结果
+    */
+
+- (void)getCloudVideoPlayListWithStartTime:(NSTimeInterval)startTime
+      endTime:(NSTimeInterval)endTime
+  completionHandler:(void (^)(NSArray<uSDKPlaybackItem *> *items, NSError *_Nullable error))completionHandler;
+
+/** 获取云存回放 m3u8 播放地址
+
+ * @param startTime 开始UTC时间,单位秒
+ * @param endTime 结束UTC时间,单位秒 填 0 则默认播放到最新为止
+ * @param completionHandler 回调结果
+   */
+
+- (void)getCloudVideoPlayAddressWithStartTime:(NSTimeInterval)startTime
+      endTiem:(NSTimeInterval)endTime
+  completionHandler:(void (^)(NSString *url, NSError *_Nullable error))completionHandler;
+
+/**
+
+ * 设置回放参数.
+ * @param item 播放的文件(可跨文件).
+ * @param time 指定播放起始时间点（秒），取值范围`playbackItem.startTime >= time <= playbackItem.endTime`.
+   */
+
+- (void)setPlaybackItem:(uSDKPlaybackItem *)item
+      seekToTime:(NSTimeInterval)time;
+
+/// 暂停
+- (void)pause;
+
+/// 恢复
+
+- (void)resume;
+
+@end
+uSDKPlayer.h新增播放器代理协议
+/**
+
+ *  播放时间回调
+ *  @param player 播放器实例
+ *  @param PTS 时间戳
+    */
+
+- (void)player:(uSDKPlayer *)player didUpdatePTS:(NSTimeInterval)PTS;
+
+/**
+
+ *  SD卡回放文件播放结束
+ *  @param player 播放器实例
+ *  @param startTime 当前播放结束的文件的开始时间
+    */
+*  (void)player:(uSDKPlayer *)player didFinishPlaybackFile:(NSTimeInterval)startTime;
+  uSDKConstantInfo.h新增音视频相关错误码
+  /**
+  *  视频功能内部错误
+     */
+      ERR_USDK_PLAYER_INTERNAL_FAILURE = -20001,
+      /**
+  *  无本地回放视频
+     */
+      ERR_USDK_PLAYER_PLAYBACKLIST_EMPTY = -20001,
+      /**
+  *  视频分辨率已改变
+     */
+      ERR_USDK_PLAYER_RESOLUTION_CHANGED =  -20003,
+      /**
+  *  超过设备可支持的最大P2P通道数
+     */
+      ERR_USDK_PLAYER_DEVICE_CALLING_ALL_CHN_BUSY = 20004,
+      /**
+  *  P2P通道消息发送失败
+     */
+      ERR_USEK_PLAYER_MESSAGE_SEND_FAILURE = -20005,
+      /**
+  *  P2P通道消息发送超时
+     */
+      ERR_USEK_PLAYER_MESSAGE_SEND_TIMEOUT = -20006,
+      /**
+  *  设备正在录制
+     */
+      ERR_USDK_PLAYER_RECORDER_IS_RUNNING = -20007,
+      /**
+  *  APP端通道连接数已达上限
+     */
+      ERR_USDK_PLAYER_EXCEEDS_MAX_NUMBER = -20008,
+
+二、内部优化
+
+1.配置文件下载地址变更
 2.uSDKMonitorPlayer和uSDKPlaybackPlayer中destroyPlayer接口统一定义在父类uSDKPlayer中
-  3.创建播放器时向平台请求tid、accessid、accesstoken的逻辑统一放到分类uSDKPlayer+uSDKPrivatePlayer.h中实现
-  4.内部新增接口getDeviceScanQRcodeWithQRCodeInfo，去网络请求判断是否支持新的扫码绑定，内部增加扫码绑定的逻辑，和安防绑定的逻辑分开走。
-  
-  
+3.创建播放器时向平台请求tid、accessid、accesstoken的逻辑统一放到分类uSDKPlayer+uSDKPrivatePlayer.h中实现
+4.内部新增接口getDeviceScanQRcodeWithQRCodeInfo，去网络请求判断是否支持新的扫码绑定，内部增加扫码绑定的逻辑，和安防绑定的逻辑分开走。
 
-- **iOS uSDK_8.4.0**    
+
+
+### **iOS uSDK_8.4.0**  ###
 
 版本号： v8.4.0    
 
@@ -367,7 +360,7 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 
 ----------
 
-- **iOS uSDK_8.3.0**      
+### **iOS uSDK_8.3.0**   ###    
 
 版本号： v8.3.0   
 
@@ -432,7 +425,7 @@ MD5值：65EFA79B2C417A9558B254E9BF943E99
 
 ----------
 
-- **iOS uSDK_8.2.0**    
+### **iOS uSDK_8.2.0**   ###  
 
 版本号： v8.2.0   
 
@@ -482,7 +475,7 @@ MD5值：0B7D9309709F48E84EB281DB31A6D220
 
 ----------
 
-- **iOS uSDK_8.1.1**    
+###  **iOS uSDK_8.1.1**     ###
 
 版本号： v8.1.1    
 发布日期：2021.1.8    
@@ -501,7 +494,7 @@ MD5值：059E057A2891E8872FD1A9CE9850B213
 
 ----------
 
-- **iOS uSDK_8.1.0**    
+### **iOS uSDK_8.1.0**     ###
 
 版本号： v8.1.0    
 发布日期：2020.12.23   
@@ -547,7 +540,7 @@ MD5值：4689EB4BE4490F024FF35D30D0135FC1
 
 ----------
 
-- **iOS uSDK_8.0.0**   
+### **iOS uSDK_8.0.0**    ###
 
 版本号： v8.0.0  
 发布日期：2020.12.07   
@@ -673,8 +666,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 ----------
 
-
-- **iOS uSDK_6.1.1**     
+### **iOS uSDK_6.1.1**    ###  
 
 版本号： v6.1.1  
  发布日期：2020.09.15  
@@ -693,7 +685,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 ----------
 
-- **iOS uSDK_6.1.0**   
+### **iOS uSDK_6.1.0**   ### 
 
 版本号： v6.1.0    
  发布日期：2020.09.04   
@@ -807,7 +799,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 
 
-- **iOS uSDK_6.0.1**    
+### **iOS uSDK_6.0.1**   ###  
 
 版本号： v6.0.1   
 发布日期：2020.07.27   
@@ -828,7 +820,7 @@ MD5值：D534E44EB36CF5C6887F0BEEE73E395D
 
 ----------
 
-- **iOS uSDK_6.0.0**
+### **iOS uSDK_6.0.0** ###
 
 版本号： v6.0.0  
 发布日期：2020.07.13  
@@ -993,165 +985,5 @@ MD5值：8BAEFC10DED08895D23C5D393CF37B77
 3.9. 配置绑定优化：无效参数（10001）问题的解决  
 
 ----------
-
-
-- **iOS uSDK_5.8.1**
-
-版本号： v5.8.1  
-发布日期：2020.05.20  
-MD5值：96CDF4D39DD2B765AFEA6DB1118A1F46  
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-更新日志：  
-
-1.新增功能  
-1.1新增非安全设备获取bindInfo接口(见SDKBinding.h)  
-
-​         +(void)unSafeDeviceBindInfoWithSuccess:(void(^)(NSString *bindInfo))success
-​         failure:(void(^)(NSError *error))failure;
-
-2.接口变更    
- 无    
-3.内部优化及BUG修改   
-3.1 `uSDKDevice`中的`getBindInfo`方法中增加`self class`类型判断，防止自创建`uSDKDevice`类型崩溃   
-3.2 修复`uSDKDeviceListManager`中方法`uSDKDidConnectToCloud`疑似导致crash问题  
-3.3 打印日志功能，`os_log`打印全部使用`os_log_error`，使windows第三方工具也可以抓到实时日志  
-3.4 打印日志功能，DEBUG模式下采用sync方式打印日志，方便crash时的问题追踪(async时，崩溃后最后的日志还是打印不出来)；RELEASE模式下采用async方式打印日志，防止sync可能导致的阻塞问题  
-
-
-
-- **iOS uSDK_5.7.0**
-
-版本号： v5.7.0  
-发布日期：2020.02.27  
-MD5值：5F449B0E1A1F9B5E4C7A0717927D700F   
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-
-更新日志：  
-
-1.新增功能  
-
-1.1 标记设备进入焦点（详情页）(见uSDKDevice类)  
-
-​    //进入焦点后，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道。重复进入返回NO
-​    
-    - (BOOL)inFocus;
-
- 
-
-
-
-
-
-1.2 标记设备退出焦点（详情页）(见uSDKDevice类)  
-
-​    // 重复退出返回NO
-​    
-    - (BOOL)outFocus;   
-
-
-1.3 新增zigbee绑定_失败错误码   
-
-​    // App进入后台导致的超时
-​    
-​    ERR_USDK_ENTER_BACKGROUND_TIMEOUT = -13026
-
- 
-
-
-
-
-
-1.4 新增蓝牙配置时设备需要触发进配置的错误码   
-
-​    // 设备需要触发进配置
-​    
-​    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
-
- 
-
-
-
-
-
-2.接口变更  
-  无    
-3.内部优化及BUG修改  
-3.1 优化账号下绑定设备非常多时,上线慢的问题。  
-3.2 fix 控制设备时可能出现crash的问题。  
-3.3 fix _蓝牙搜索中可能会因为deviceID==nil 造成的crash问题。  
-3.4 zigbee配网内部优化。  
-3.5 uSDK使用新的log功能。  
-3.6 控制打点，args中增加个新字段：APP版本号 – pver。  
-3.7 cloudoffline 打点， 去掉app前后台这个字段。  
-
-
-----------
-
-- **iOS uSDK_5.6.1**
-
-版本号： v5.6.1  
-发布日期：2019.12.13  
-MD5值：121D2C1ED1D28C5DDD678FFE3887A3AF   
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-更新日志：  
-1.新增功能  
-1.1 新增网关子机绑定信息类(uSDKSlaveDeviceBindInfo)   
-
-​    //该对象必填,需要使用从uSDK中返回的设备对象，不能自己创建
-​    @property (nonatomic, strong) uSDKDevice *masterDevice;
-​    //设备的uplusID，必填
-​    @property (nonatomic, copy) NSString *uplusID;
-​    //设备的产品编码，必填
-​    @property (nonatomic, copy) NSString *productCode;
-​    //超时时间，30-120s，默认60s
-​    @property (nonatomic, assign) NSTimeInterval timeoutInterval;
-
-1.2 新增开始进入组网模式阶段的错误码（uSDKBindProgresStartNetworkingMode）  
-
-​    //参数为空
-​    UGW_RSP_INVALID_PARAM -25001
-​    //设备类型不支持
-​    UGW_RSP_INVALID_PRODUCT_CODE  -25023
-​    //配对模式已开启，重复开启
-​    UGW_RSP_REPEAT_STARTPAIR  -25024
-​    //开启配对失败
-​    UGW_RSP_STARTPAIR_FAILED  -25022
-
-1.3  新增开始组网阶段的错误码（uSDKBindProgresStartNetworking）  
-
-​    //配对超时
-​    UGW_RSP_PAIR_TIMEOUT -25026
-​    //配对设备个数达上限
-​    UGW_RSP_PAIR_DEV_MAX  -25025
-
-1.4 新增开始绑定子机阶段的错误码（uSDKBindProgresStartBindSlaveDevice）   
-
-​    //添加并绑定设备失败  
-​    UGW_RSP_BIND_ERROR -25027
-​    //退出配对模式（人为操作设备或APP取消配网）
-​    UGW_RSP_EXIT_PAIR -25028
-
-1.5 新增网关子机绑定功能（uSDKBinding）  
-
-​    /**
-​    网关子机设备与网关配对，并将网关子机设备绑定到云平台
-​    调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
-​    @param bindInfo 网关子机绑定信息类
-​    @param progressNotify 进度回调，共三个进度回调：
-    1. uSDKBindProgressStartEnterNetworkingMode
-        2. uSDKBindProgressStartNetworking
-        3. uSDKBindProgressStartBindSlaveDevice
-        @param success 配置绑定成功时的block回调，只有配置和绑定都成功会通过success block进行回调
-        @param failure 配置绑定失败时的block回调，任何一个过程失败都会通过failure block进行回调
-        */  
-    + (void)bindSlaveDeviceWithBindInfo:(uSDKSlaveDeviceBindInfo *)bindInfo
-          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-        success:(void(^)(uSDKDevice *device))success
-        failure:(void(^)(NSError *error))failure;
-
-2.接口变更  
- 无   
-3.内部优化   
- 无  
 
 
