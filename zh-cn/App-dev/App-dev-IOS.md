@@ -30,13 +30,13 @@
 
 在WWDC 16 中，Apple 表示将继续在iOS 10 和macOS 10.12 里收紧对普通 HTTP 的访问限制。从 2017 年1 月1 日起，所有的新提交 app 默认是不允许使用NSAllowsArbitraryLoads 来绕过 ATS 限制的，开发者可以选择使用NSExceptionDomains 来针对特定的域名开放 HTTP 应该要相对容易过审核。如果你想App 中的网址都通过ATS 验证，只有少数一些网址例外的话，你可以为少数的网址添加NSExceptionDomains,并且在下面添加你需要添加的网址即可。然后对每个网址进行分别的设置，其中将NSIncludeSubdomains 和NSExceptionAllowsInsecureHttpLoads 设置成YES，NSExceptionRequiresForwardSecrecy 设置为NO，即可不通过ATS 验证。      
 开发者需要在项目info.plist 进行如下设置：    
- ![info.pllist]:media\info.pllist.png
+ ![info.pllist][info-pllist]
 
 ### 在XCode 的Other linker flag 中设置-ObjC
 
 集成uSDK5.4.0 及以后版本，需要在Build settings 中的Other linker flag  
 中添加-ObjC 属性。如截图：       
- ![Objc]:media\Objc.png
+ ![Objc][Objc]
 
 ### 开发测试环境配置及确认
 
@@ -62,19 +62,19 @@ Ping uhome.haier.net得到的IP为：47.93.125.250 或 123.57.182.237
 
 本图简要介绍uSDK物联App主要业务运行流程，红色文字：App与uSDK交互，黑色文字：App与U+云交互：
 
- ![基本业务流程]:media\pic1.png
+ ![基本业务流程][pic1]
 
 ## 配置入网流程
 
 参考下列流程开发配置设备入网功能，特别说明：启动uSDK是配置入网功能的前提；只使用uSDK配置入网功能的App，完成设备入网后，可执行退出uSDK。
 
- ![配置入网流程]:media\pic2.png
+ ![配置入网流程][pic2]
 
 ## 使用uSDK控制设备流程说明图
 
 以下流程图适用于使用uSDK进行设备配置入网，控制的App，OPENAPI请更换为UWS或对应服务。
 
- ![控制流程图]:media\pic6.png
+ ![控制流程图][pic6]
 
 ## uSDK业务开发详解
 
@@ -212,7 +212,7 @@ uSDKDeviceManager.getDeviceList()，本方法也支持设备类型过滤。
 已连接(connected)：App已连接智能设备，可以发送控制指令，查询属性状态等，是我们可以交互的设备。       
 离线(off_line)：App不断开与智能设备连接的情况下，智能设备发生异常。     
 
- ![设备连接状态]:media\pic4.png
+ ![设备连接状态][pic4]
 
 未连接、连接中、已连接、离线都是设备（uSDKDevice）的连接状态。App连接或断开智能设备将触发连接状态的变化： 
 ①智能设备正常入网后是未连接（被我们发现）  
@@ -1681,9 +1681,9 @@ MD5值：121D2C1ED1D28C5DDD678FFE3887A3AF
 
 
 
-[info.pllist]:media/info.pllist.png
-[控制流程图]:media/pic6.png
-[Objc]:media/Objc.png
-[基本业务流程]:media/pic1.png
-[配置入网流程]:media/pic2.png
-[设备的连接状态]:media/pic4.png
+[info.pllist]:../App-dev/_media/info-pllist.png
+[控制流程图]:../App-dev/_media/pic6.png
+[Objc]:../App-dev/_media/Objc.png
+[基本业务流程]:../App-dev/_media/pic1.png
+[配置入网流程]:../App-dev/_media/pic2.png
+[设备的连接状态]:../App-dev/_media/pic4.png
