@@ -1,4 +1,4 @@
-# 移动端 SDK Android #
+# uSDK-Android开发指导 #
 
 ## 实验开发环境搭建 ##
 
@@ -532,7 +532,6 @@ uSDKError.getErrorCode()
 
 
 
-  
 
 
 
