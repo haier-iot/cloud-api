@@ -1,437 +1,432 @@
 ## Android版资料 ##   
 
-**1. uSDK开发手册**  
+1. uSDK开发手册  
 
 简介：uSDK开发手册的使用对象是使用uSDK开发APP的开发者。开发者可以通过此手册，可以了解uSDK的用法、关键流程以及常见问题。    
 
-**2. uSDK Demo**
+2. uSDK Demo
 
 简介：uSDK示例工程的使用对象是使用uSDK的APP开发者。开发者通过此示例工程，可以了解uSDK的应用方法及流程。     
 
 
-**3. Android uSDK开发包下载**   
+3. Android uSDK开发包下载   
 
 支持有效期：新版本SDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。   
 
 ----------
-- **Android uSDK_8.5.0**   
+- ##### Android uSDK_8.5.0   
 
-  版本号： v8.5.0
-  发布日期：2021.04.30
-  MD5值：A32B8E21261D917CE8BE775004FE83F3
-  下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.5.0_Phone_Android_20210429155736_20210511092354389.zip) 
-  更新日志：
+版本号： v8.5.0
+发布日期：2021.04.30
+MD5值：A32B8E21261D917CE8BE775004FE83F3
+下载链接：点击下载 
+更新日志：
 
-  ##### 新增接口
+新增接口
 
-  1.新增类
-  MonitorPlaybackPlayer – 音视频回放核心类
-  IMonitorPlayerListener – 音视频回放状态接口
-  MonitorPlaybackListener – 获取音视频列表回调类
-  MessagePlaybackNode – 音视频播放节点信息
-  MonitorCloudVideoListener – 获取云端音视频回调类
+1.新增类
+MonitorPlaybackPlayer – 音视频回放核心类
+IMonitorPlayerListener – 音视频回放状态接口
+MonitorPlaybackListener – 获取音视频列表回调类
+MessagePlaybackNode – 音视频播放节点信息
+MonitorCloudVideoListener – 获取云端音视频回调类
 
-  2.MonitorPlaybackPlayer.java接口说明
+2.MonitorPlaybackPlayer.java接口说明
 
-  ```
-  /**
-  
-   * 初始化视频回放
-   * @param sdkDevice
-   * @param iCallback
-     */
-     public static void createPlaybackPlayer(uSDKDevice sdkDevice, VideoView videoView, ICallback<MonitorPlaybackPlayer> iCallback)
-  
-  示例：
-  MonitorPlaybackPlayer.createPlaybackPlayer(mDevice, sdkVideoView, new ICallback<MonitorPlaybackPlayer>() {
-      @Override
-      public void onSuccess(MonitorPlaybackPlayer monitorPlaybackPlayer) {
-          mMonitorPlaybackPlayer = monitorPlaybackPlayer;
-          addPlaybackListener();
-      }
-  
-      @Override
-      public void onFailure(uSDKError error) {
-           
-      }
-  
-  });
-  
-  /**
-  
-   * 播放器状态回调监听
-   * @param monitorPlayerListener
-     */
-     public void addPlayerListener(IMonitorPlayerListener monitorPlayerListener)
-  
-  /**
-  
-   * 获取设备端sd卡中存在录像的日期列表
-   * @param startTime (单位毫秒)
-   * @param endTime (单位毫秒)
-   * @param pageIndex 查询页
-   * @param countPerPage 每页大小
-   * @param monitorPlaybackListener
-     */
-     public void getPlaybackDateList(long startTime, long endTime, int pageIndex, int countPerPage, MonitorPlaybackListener<MonitorPlaybackExistDateMessage> monitorPlaybackListener)
-  
-  /**
-  
-   * 获取回放详情列表
-   * 开始时间-结束时间的时间差不允许大于一个月
-   * @param startTime (单位毫秒)
-   * @param endTime (单位毫秒)
-   * @param pageIndex 查询页
-   * @param countPerPage 每页大小
-   * @param recordType 筛选类型, null为不筛选
-   * @param monitorPlayerListener 回调
-     */
-     public void getPlaybackList(long startTime, long endTime, int pageIndex, int countPerPage, String recordType, MonitorPlaybackListener<MonitorPlaybackMessage> monitorPlayerListener)
-  
-  /**
-  
-   * 指定时间播放
-   * @param startTime 时间（毫秒）
-   * @param messagePlaybackNode 播放节点信息
-     */
-     public void seekToTime(long startTime, MessagePlaybackNode messagePlaybackNode)
-  
-  /**
-  
-   * 播放
-     */
-     public void videoPlay()
-  
-  /**
-  
-   * 是否正在播放
-   * @return
-     */
-     public boolean isPlaying()
-  
-  /**
-  
-   * 暂停
-     */
-     public void pause()
-  
-  /**
-  
-   * 继续
-     */
-     public void resume()
-  
-  /**
-  
-   * 停止
-     */
-     public void videoStop()
-  
-  /**
-  
-   * 设置是否静音
-   * @param on true(静音) false(非静音)
-     */
-     public void mute(boolean on)
-  
-  /**
-  
-   * 设置播放数据信息
-   * @param startTime （毫秒）
-   * @param messagePlaybackNode 播放节点信息
-     */
-     public void setDataResource(long startTime, MessagePlaybackNode messagePlaybackNode)
-  
-  /**
-  
-   * 获取可以查看的照片列表
-   * @param startTime (单位秒)
-   * @param endTime (单位秒)
-   * @param count 每页条数 0~10
-   * @param photoId 图片ID,查询首页图片传0，查询下一页传上一个最后一个图片的ID
-   * @param monitorPlaybackListener
-     */
-     public void getDevicePhotoList(long startTime, long endTime, int count, int timeout, MonitorPlaybackListener<List<MonitorPhotoListBean>> monitorPlaybackListener)
-  
-  /**
-  
-   * 获取本地图片详情
-   * @param photoId 图片ID
-   * @param timeout 超时时间  单位秒
-     */
-     public void getLocalPhotoDataByPhotoId(int photoId, int timeout, ICallback<byte[]> iCallback)
-  
-  /**
-  
-   * 获取有云存视频可播放日期信息
-   * 用于终端用户在云存页面中对云存服务时间内的日期进行标注，区分出是否有云存视频文件
-   * @param timezone 相对于0时区的秒数，例如东八区28800
-   * @param monitorCloudVideoListener
-     */
-     public void getCloudVideoDateListByTimezone(int timezone, MonitorCloudVideoListener<DateBean> monitorCloudVideoListener)
-  
-  /**
-  
-   * 获取云回放存在视频数据的时间段列表
-   * 由于查询的数据大小限制，起始到结束时间差需要小于等于一天
-   * @param startTime 单位秒
-   * @param endTime 单位秒
-   * @param monitorCloudVideoListener 回调
-     */
-     public void getCloudVideoPlayListByDeviceId(long startTime, long endTime, MonitorCloudVideoListener<List<VideoPlayListBean.DataBean>> monitorCloudVideoListener)
-  
-  /**
-  
-   *  获取回放的 m3u8 列表
-   *  @param startTime 单位秒
-   *  @param endTime 单位秒
-   *  @param monitorCloudVideoListener 回调
-      */
-      public void getVideoPlayAddressByDeviceId(long startTime, long endTime, MonitorCloudVideoListener<PlayAddressBean> monitorCloudVideoListener)
-  
-  /**
-  
-   * 释放资源
-     */
-     public void destroyPlayer()
-  
-  2. 新增回调接口
-     public interface IMonitorPlayerListener {
-  
-      /**
-  
-       * 播放器状态回调
-       * @param status
-         */
-          void onPlayerStatusUpdate(MonitorPlayerStatus status);
-  
-      /**
-  
-       * 播放错误回调
-       * @param error
-         */
-          void onReceiveError(uSDKError error);
-  
-      /**
-  
-       * 音视频回放时间戳
-       * @param time 单位毫秒
-         */
-          void onTime(long time);
-  
-      /**
-  
-       * 回放文件播放结束
-       * @param time 单位毫秒
-         */
-          void onPlayFileFinished(long time);
-         }
-  
-  3. 新增回调接口
-     public interface MonitorPlaybackListener<T> {
-  
-      /**
-  
-       * 获取视频列表开始
-         */
-          void onStart();
-  
-      /**
-  
-       * 获取视频列表成功
-       * @param t
-         */
-          void onSuccess(T t);
-  
-      /**
-  
-       * 获取视频列表失败
-       * @param sdkError
-         */
-          void onError(uSDKError sdkError);
-         }
-  
-  4. 播放节点信息类
-     public class MessagePlaybackNode {
-  
-      public long startTime;
-      public long endTime;
-      public String recordType = "";
-  
-      public long getStartTime() {
-          return startTime;
-      }
-  
-      public void setStartTime(long startTime) {
-          this.startTime = startTime;
-      }
-  
-      public long getEndTime() {
-          return endTime;
-      }
-  
-      public void setEndTime(long endTime) {
-          this.endTime = endTime;
-      }
-  
-      public String getRecordType() {
-          return recordType;
-      }
-  
-      public void setRecordType(String recordType) {
-          this.recordType = recordType;
-      }
-  
-      public long getDuration(){
-          return endTime - startTime;
-      }
-  
-      @Override
-      public String toString() {
-          return "MessagePlaybackNode{" +
-                  "startTime=" + startTime +
-                  ", endTime=" + endTime +
-                  ", recordType='" + recordType + '\'' +
-                  '}';
-      }
-     }
-  
-  5. 获取音视频云播放列表类
-     public interface MonitorCloudVideoListener<T> {
-  
-      /**
-  
-       * 获取云端视频开始
-         */
-          void onStart();
-  
-      /**
-  
-       * 获取云端视频成功
-       * @param t
-         */
-          void onSuccess(T t);
-  
-      /**
-  
-       * 获取云端视频失败
-       * @param sdkError
-         */
-          void onFail(uSDKError sdkError);
-         }
-  
-  6. 图片类型枚举
-     public enum PlayerImageType {
-  
-      /**
-  
-       * 报警图片
-         */
-  
-      IMAGE_TYPE_ALARM,
-  
-      /**
-  
-       * 事件图片
-         */
-          IMAGE_TYPE_EVENT,
-  
-      /**
-  
-       * 普通图片
-         */
-          IMAGE_TYPE_NORAM,
-         }
-  
-  7. ErrorConst类中新增枚举
-     /**
-  
-   * 视频功能内部错误
-     */
-     ERR_USER_MONITOR_FUNCTION_INTERNAL(-20001, "视频功能内部错误"),
-  
-  /**
-  
-   * 无本地回放视频
-     */
-     ERR_USER_NO_LOCAL_PLAYBACK(-20002, "无本地回放视频"),
-  
-  /**
-  
-   * 视频分辨率已改变
-     */
-     ERR_USER_MONITOR_RESOLUTION_CHANGED(-20003, "视频分辨率已改变"),
-  
-  /**
-  
-   * 超过设备可支持的最大P2P通道数
-     */
-     ERR_USER_MAXIMUM_CHANNEL_EXCEEDED(-20004, "超过设备可支持的最大P2P通道数"),
-  
-  /**
-  
-   * P2P通道消息发送失败
-     */
-     ERR_USER_CHANNEL_MESSAGE_SEND_FAILED(-20005, "P2P通道消息发送失败"),
-  
-  /**
-  
-   * P2P通道消息发送超时
-     */
-     ERR_USER_CHANNEL_MESSAGE_SEND_TIMEOUT(-20006, "P2P通道消息发送超时"),
-  
-  /**
-  
-   * 设备正在录制
-     */
-     ERR_USER_DEVICE_RECORD(-20007, "设备正在录制"),
-  
-  /**
-  
-   * APP端通道连接数已达上限
-     */
-     ERR_USER_CHANNEL_NUMBER_FULL(-20008, "APP端通道连接数已达上限"),
-  
-  /**
-  
-   * 获取数据失败
-     */
-     ERR_USER_FAIL_GET_DATA(-20009, "获取数据失败");
-  
-  8. uSDKDevice.java接口变更
-     /**
-  
-  * 订阅资源
-  * 需要在{@link #setDeviceListener(IuSDKDeviceListener)}时传入接口{@link IuSDKDeviceListenerWithResource}的实现
-    *
-  * @param resName  资源名称
-  * @param callback 回调接口
-  * @since v8.5.0
+/**
+
+ * 初始化视频回放
+ * @param sdkDevice
+ * @param iCallback
+   */
+   public static void createPlaybackPlayer(uSDKDevice sdkDevice, VideoView videoView, ICallback<MonitorPlaybackPlayer> iCallback)
+
+示例：
+MonitorPlaybackPlayer.createPlaybackPlayer(mDevice, sdkVideoView, new ICallback<MonitorPlaybackPlayer>() {
+    @Override
+    public void onSuccess(MonitorPlaybackPlayer monitorPlaybackPlayer) {
+        mMonitorPlaybackPlayer = monitorPlaybackPlayer;
+        addPlaybackListener();
+    }
+
+​    @Override
+​    public void onFailure(uSDKError error) {
+​         
+​    }
+
+});
+
+/**
+
+ * 播放器状态回调监听
+ * @param monitorPlayerListener
+   */
+   public void addPlayerListener(IMonitorPlayerListener monitorPlayerListener)
+
+/**
+
+ * 获取设备端sd卡中存在录像的日期列表
+ * @param startTime (单位毫秒)
+ * @param endTime (单位毫秒)
+ * @param pageIndex 查询页
+ * @param countPerPage 每页大小
+ * @param monitorPlaybackListener
+   */
+   public void getPlaybackDateList(long startTime, long endTime, int pageIndex, int countPerPage, MonitorPlaybackListener<MonitorPlaybackExistDateMessage> monitorPlaybackListener)
+
+/**
+
+ * 获取回放详情列表
+ * 开始时间-结束时间的时间差不允许大于一个月
+ * @param startTime (单位毫秒)
+ * @param endTime (单位毫秒)
+ * @param pageIndex 查询页
+ * @param countPerPage 每页大小
+ * @param recordType 筛选类型, null为不筛选
+ * @param monitorPlayerListener 回调
+   */
+   public void getPlaybackList(long startTime, long endTime, int pageIndex, int countPerPage, String recordType, MonitorPlaybackListener<MonitorPlaybackMessage> monitorPlayerListener)
+
+/**
+
+ * 指定时间播放
+ * @param startTime 时间（毫秒）
+ * @param messagePlaybackNode 播放节点信息
+   */
+   public void seekToTime(long startTime, MessagePlaybackNode messagePlaybackNode)
+
+/**
+
+ * 播放
+   */
+   public void videoPlay()
+
+/**
+
+ * 是否正在播放
+ * @return
+   */
+   public boolean isPlaying()
+
+/**
+
+ * 暂停
+   */
+   public void pause()
+
+/**
+
+ * 继续
+   */
+   public void resume()
+
+/**
+
+ * 停止
+   */
+   public void videoStop()
+
+/**
+
+ * 设置是否静音
+ * @param on true(静音) false(非静音)
+   */
+   public void mute(boolean on)
+
+/**
+
+ * 设置播放数据信息
+ * @param startTime （毫秒）
+ * @param messagePlaybackNode 播放节点信息
+   */
+   public void setDataResource(long startTime, MessagePlaybackNode messagePlaybackNode)
+
+/**
+
+ * 获取可以查看的照片列表
+ * @param startTime (单位秒)
+ * @param endTime (单位秒)
+ * @param count 每页条数 0~10
+ * @param photoId 图片ID,查询首页图片传0，查询下一页传上一个最后一个图片的ID
+ * @param monitorPlaybackListener
+   */
+   public void getDevicePhotoList(long startTime, long endTime, int count, int timeout, MonitorPlaybackListener<List<MonitorPhotoListBean>> monitorPlaybackListener)
+
+/**
+
+ * 获取本地图片详情
+ * @param photoId 图片ID
+ * @param timeout 超时时间  单位秒
+   */
+   public void getLocalPhotoDataByPhotoId(int photoId, int timeout, ICallback<byte[]> iCallback)
+
+/**
+
+ * 获取有云存视频可播放日期信息
+ * 用于终端用户在云存页面中对云存服务时间内的日期进行标注，区分出是否有云存视频文件
+ * @param timezone 相对于0时区的秒数，例如东八区28800
+ * @param monitorCloudVideoListener
+   */
+   public void getCloudVideoDateListByTimezone(int timezone, MonitorCloudVideoListener<DateBean> monitorCloudVideoListener)
+
+/**
+
+ * 获取云回放存在视频数据的时间段列表
+ * 由于查询的数据大小限制，起始到结束时间差需要小于等于一天
+ * @param startTime 单位秒
+ * @param endTime 单位秒
+ * @param monitorCloudVideoListener 回调
+   */
+   public void getCloudVideoPlayListByDeviceId(long startTime, long endTime, MonitorCloudVideoListener<List<VideoPlayListBean.DataBean>> monitorCloudVideoListener)
+
+/**
+
+ *  获取回放的 m3u8 列表
+ *  @param startTime 单位秒
+ *  @param endTime 单位秒
+ *  @param monitorCloudVideoListener 回调
     */
-    public void subscribeResourceWithDecode(String resName, ICallback<Void> callback)
-  ```
-  9. ```
-     DeviceListener.java接口变更
-     public void onReceiveDecodeResource(uSDKDevice device, String resource, String data)
-     ```
+    public void getVideoPlayAddressByDeviceId(long startTime, long endTime, MonitorCloudVideoListener<PlayAddressBean> monitorCloudVideoListener)
 
+/**
 
-  ##### 内部优化
+ * 释放资源
+   */
+   public void destroyPlayer()
+
+2. 新增回调接口
+   public interface IMonitorPlayerListener {
+
+    /**
+
+     * 播放器状态回调
+     * @param status
+       */
+        void onPlayerStatusUpdate(MonitorPlayerStatus status);
+
+    /**
+
+     * 播放错误回调
+     * @param error
+       */
+        void onReceiveError(uSDKError error);
+
+    /**
+
+     * 音视频回放时间戳
+     * @param time 单位毫秒
+       */
+        void onTime(long time);
+
+    /**
+
+     * 回放文件播放结束
+     * @param time 单位毫秒
+       */
+        void onPlayFileFinished(long time);
+       }
+
+3. 新增回调接口
+   public interface MonitorPlaybackListener<T> {
+
+    /**
+
+     * 获取视频列表开始
+       */
+        void onStart();
+
+    /**
+
+     * 获取视频列表成功
+     * @param t
+       */
+        void onSuccess(T t);
+
+    /**
+
+     * 获取视频列表失败
+     * @param sdkError
+       */
+        void onError(uSDKError sdkError);
+       }
+
+4. 播放节点信息类
+   public class MessagePlaybackNode {
+
+    public long startTime;
+    public long endTime;
+    public String recordType = "";
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getRecordType() {
+        return recordType;
+    }
+
+    public void setRecordType(String recordType) {
+        this.recordType = recordType;
+    }
+
+    public long getDuration(){
+        return endTime - startTime;
+    }
+
+    @Override
+    public String toString() {
+        return "MessagePlaybackNode{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", recordType='" + recordType + ''' +
+                '}';
+    }
+   }
+
+5. 获取音视频云播放列表类
+   public interface MonitorCloudVideoListener<T> {
+
+    /**
+
+     * 获取云端视频开始
+       */
+        void onStart();
+
+    /**
+
+     * 获取云端视频成功
+     * @param t
+       */
+        void onSuccess(T t);
+
+    /**
+
+     * 获取云端视频失败
+     * @param sdkError
+       */
+        void onFail(uSDKError sdkError);
+       }
+
+6. 图片类型枚举
+   public enum PlayerImageType {
+
+    /**
+
+     * 报警图片
+       */
+
+    IMAGE_TYPE_ALARM,
+
+    /**
+
+     * 事件图片
+       */
+        IMAGE_TYPE_EVENT,
+
+    /**
+
+     * 普通图片
+       */
+        IMAGE_TYPE_NORAM,
+       }
+
+7. ErrorConst类中新增枚举
+   /**
+
+ * 视频功能内部错误
+   */
+   ERR_USER_MONITOR_FUNCTION_INTERNAL(-20001, "视频功能内部错误"),
+
+/**
+
+ * 无本地回放视频
+   */
+   ERR_USER_NO_LOCAL_PLAYBACK(-20002, "无本地回放视频"),
+
+/**
+
+ * 视频分辨率已改变
+   */
+   ERR_USER_MONITOR_RESOLUTION_CHANGED(-20003, "视频分辨率已改变"),
+
+/**
+
+ * 超过设备可支持的最大P2P通道数
+   */
+   ERR_USER_MAXIMUM_CHANNEL_EXCEEDED(-20004, "超过设备可支持的最大P2P通道数"),
+
+/**
+
+ * P2P通道消息发送失败
+   */
+   ERR_USER_CHANNEL_MESSAGE_SEND_FAILED(-20005, "P2P通道消息发送失败"),
+
+/**
+
+ * P2P通道消息发送超时
+   */
+   ERR_USER_CHANNEL_MESSAGE_SEND_TIMEOUT(-20006, "P2P通道消息发送超时"),
+
+/**
+
+ * 设备正在录制
+   */
+   ERR_USER_DEVICE_RECORD(-20007, "设备正在录制"),
+
+/**
+
+ * APP端通道连接数已达上限
+   */
+   ERR_USER_CHANNEL_NUMBER_FULL(-20008, "APP端通道连接数已达上限"),
+
+/**
+
+ * 获取数据失败
+   */
+   ERR_USER_FAIL_GET_DATA(-20009, "获取数据失败");
+
+8. uSDKDevice.java接口变更
+   /**
+
+* 订阅资源
+* 需要在{@link #setDeviceListener(IuSDKDeviceListener)}时传入接口{@link IuSDKDeviceListenerWithResource}的实现
+  *
+* @param resName  资源名称
+* @param callback 回调接口
+* @since v8.5.0
+  */
+  public void subscribeResourceWithDecode(String resName, ICallback<Void> callback)
+
+9. DeviceListener.java接口变更
+   public void onReceiveDecodeResource(uSDKDevice device, String resource, String data)
+
+内部优化
 
   ota升级优化
 
 
-- **Android uSDK_8.4.0**     
+- ##### Android uSDK_8.4.0     
 
 版本号： v8.4.0    
 发布日期：2021.03.23    
 MD5值：86F55528A8C6829669DCD4E00B196CF3    
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.4.0_Phone_Android_20210323100244_20210330132915768.zip)     
+下载链接：点击下载     
 更新日志：    
-**新增接口组相关接口变更**      
+新增接口组相关接口变更      
 
 1. 新增回调接口         
-
 
 ​    /**
 ​     *进度回调接口    
@@ -460,12 +455,6 @@ MD5值：86F55528A8C6829669DCD4E00B196CF3
 ​    void onComplete(CT ct, uSDKError error);
 ​    }
 
- 
-
-
-
-
-
 
 2. uSDKDevice.java接口变更    
 
@@ -479,17 +468,19 @@ MD5值：86F55528A8C6829669DCD4E00B196CF3
 ​    public void fetchGroupableDeviceList(ICallback<List<uSDKDevice>> callback);
 ​     
 ​    /**
-     * 创建分组，返回组设备对象,
-          * 创建完成后需要主动调用 {@link #addDevicesToGroup(List, int, IProgressCallback)}添加设备
-          *
-          * @param timeout  超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
-               * @param callback 创建分组， 失败时，回调具体错误码; 接口执行成功时，回调创建好的组设备
-               * @since v8.5.0
-                    */
-                public void createGroup(int timeout, ICallback<uSDKDevice> callback);
+
+创建分组，返回组设备对象,
+ 创建完成后需要主动调用 {@link #addDevicesToGroup(List, int, IProgressCallback)}添加设备
+     *
+
+@param timeout  超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
+ @param callback 创建分组， 失败时，回调具体错误码; 接口执行成功时，回调创建好的组设备
+
+@since v8.5.0
+/
+    public void createGroup(int timeout, ICallback<uSDKDevice> callback);
 
 
-​     
 ​    /**
 ​     * 向组设备中添加设备，要求当前device对象为组设备
 ​     *
@@ -520,7 +511,7 @@ MD5值：86F55528A8C6829669DCD4E00B196CF3
 ​    public void deleteGroup(ICallback<Void> callback);
 
 
-**内部优化**     
+内部优化     
 
 uSDK Client：     
 1.新增zigbee组设备支持；   
@@ -543,14 +534,14 @@ CAE
 
 
 ----------
-- **Android uSDK_8.3.0**      
+- ##### Android uSDK_8.3.0      
 
 版本号： v8.3.0   
 发布日期：2021.03.03    
 MD5值：7A466ACF6E977807AC1971DFF6D64AAA   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.3.0_Phone_Android_20210303124515_20210315163741095.zip)     
+下载链接：点击下载     
 更新日志：     
-**新增接口**    
+新增接口    
 新增NFC标签功能接口：    
 1.新增类     
 NFCUtil – NFC 标签解析、更新工具类   
@@ -560,45 +551,53 @@ ICallback – 请求的回调
 2.NFCUtil.java接口说明     
 
 ​    /**
-     * 解析NFC标签数据，异步
-          *
-          * @param ndefRecord NFC标签原始数据，例如：
-               *   zj.haier.net?untype=original&nsn=FFFF00000000&mac=C00000000000&model=CEAAJXX00&hwp=A0VF&s=abcdef
-               *
-               * @param completed  接口回调 成功返回 NFCInfo 类对象， 错误返回 uSDKError
-                    *   {@link NFCInfo}
-                    *   {@link ICallback#onSuccess(Object)}
-                         *   {@link ICallback#onFailure(uSDKError)}
-                              */
-                        public static void parseNFCTagData(String ndefRecord, ICallback<NFCInfo> completed);
-                        /**
-                              * 更新 NFC设备信息，异步，需在 NFCInfo 中设置 deviceID。
-                                   *
-                                   * @param info  NFCInfo对象， deviceId, nfcSerialNumber, mac 和 productCode 为必填项
-                                        *  {@link NFCInfo#setDeviceID(String)}
-                                        *  {@link NFCInfo#setNFCSerialNumber(String)}
-                                             *  {@link NFCInfo#setMAC(String)}
-                                             *  {@link NFCInfo#setProductCode(String)}
-                                                  *
-                                                  * @param completed 接口回调 成功返回 Void，失败返回 uSDKError
-                                                       *  {@link ICallback#onSuccess(Object)}
-                                                       *  {@link ICallback#onFailure(uSDKError)}
-                                                            *
-                                                       ​     */
-                                            ​    public static void updateNFCDeviceInfo(NFCInfo info, ICallback<Void> completed);
+
+解析NFC标签数据，异步
+
+@param ndefRecord NFC标签原始数据，例如：
+   zj.haier.net?untype=original&nsn=FFFF00000000&mac=C00000000000&model=CEAAJXX00&hwp=A0VF&s=abcdef
+     *
+
+@param completed  接口回调 成功返回 NFCInfo 类对象， 错误返回 uSDKError
+   {@link NFCInfo}
+
+{@link ICallback#onSuccess(Object)}
+
+{@link ICallback#onFailure(uSDKError)}
+     */
+    public static void parseNFCTagData(String ndefRecord, ICallback<NFCInfo> completed);
+    /**
+
+更新 NFC设备信息，异步，需在 NFCInfo 中设置 deviceID。
+
+@param info  NFCInfo对象， deviceId, nfcSerialNumber, mac 和 productCode 为必填项
+  {@link NFCInfo#setDeviceID(String)}
+
+{@link NFCInfo#setNFCSerialNumber(String)}
+  {@link NFCInfo#setMAC(String)}
+
+{@link NFCInfo#setProductCode(String)}
+
+@param completed 接口回调 成功返回 Void，失败返回 uSDKError
+  {@link ICallback#onSuccess(Object)}
+
+{@link ICallback#onFailure(uSDKError)}
+
+​     */
+​    public static void updateNFCDeviceInfo(NFCInfo info, ICallback<Void> completed);
 
 
 3.NFCInfo.java字段列表    
 
-| **名称**                | **类型** | **是否必须** | **说明**       |
-| ----------------------- | -------- | ------------ | -------------- |
-| deviceID                | String   | 必须         | 设备ID         |
-| hwProductID             | String   | 可选         | 华为 productId |
-| MAC                     | String   | 必须         | Mac地址        |
-| NFCSerialNumber  String | String   | 必须         | 序列号         |
-| productCode             | String   | 必须         | 产品编码       |
+| 名称                    | 类型   | 是否必须 | 说明           |
+| ----------------------- | ------ | -------- | -------------- |
+| deviceID                | String | 必须     | 设备ID         |
+| hwProductID             | String | 可选     | 华为 productId |
+| MAC                     | String | 必须     | Mac地址        |
+| NFCSerialNumber  String | String | 必须     | 序列号         |
+| productCode             | String | 必须     | 产品编码       |
 
-**内部优化**     
+内部优化     
 uSDK:    
 1.ClientId埋点；    
 2.Smartlink配置失败返601时进行重试    
@@ -618,12 +617,12 @@ CAE：
 
 ----------
 
-- **Android uSDK_8.2.0**    
+- Android uSDK_8.2.0    
 
 版本号： v8.2.0     
 发布日期：2021.02.04     
 MD5值：C92F76A66F7D4AC3C507A956E4198E6A   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.2.0_Phone_Android_20210205165559298.zip)    
+下载链接：点击下载    
 
 注意事项1：不支持海外环境。     
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用。    
@@ -673,16 +672,14 @@ Android Studio工程可以参考如下配置：
 3.2 支持蓝牙门锁OTA   
 3.3 支持蓝牙门锁的绑定    
 
-
-
 ----------
 
-- **Android uSDK_8.1.1**   
+- Android uSDK_8.1.1   
 
 版本号： v8.1.1   
 发布日期：2021.1.8   
 MD5值：25E61F109E9C717722D051591E8695DA   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.1.1_Phone_Android_20210114160830269.zip)   
+下载链接：点击下载   
 注意事项1：不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用     
 
@@ -694,16 +691,14 @@ MD5值：25E61F109E9C717722D051591E8695DA
 3.内部优化及BUG修改   
 3.1 该版本修复蓝牙体脂秤数据更新没有给app上报的问题。    
 
-
-
 ----------
 
-- **Android uSDK_8.1.0**   
+- Android uSDK_8.1.0   
 
 版本号： v8.1.0  
 发布日期：2020.12.23   
 MD5值：0E81AEEADB547D43BE4424F140E8168A   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.1.0_Phone_Android_20201228102147320.zip)   
+下载链接：点击下载   
 注意事项1：此版本不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用   
 更新日志：   
@@ -714,33 +709,35 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
 1.3.1 Binding类中增加接口bindDeviceBySmartLinkAuto接口    
 
 ​    /**
-     * SmartLink配置绑定接口，将指定的设备接入指定的WiFi，
-          * 并将设备绑定到云平台
-          * 调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
+
+SmartLink配置绑定接口，将指定的设备接入指定的WiFi，
+ 并将设备绑定到云平台
+
+调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
+
+对比于{@link Binding#bindDeviceBySmartLink(SmartLinkBindInfo, IBindResultCallback)}
+ 本接口会在内部计算是否满足转softAp的条件，如果满足，自动执行SoftAp配置绑定
+     *
+
+SmartLink绑定依次上报以下两个状态
+ <ol>
+     *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
+     *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
+     * </ol>
+   * <p>
+     * 如果满足转SoftAp，绑定依次上报以下三个状态
+          * <ol>
+          *  <li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
+          *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
+          *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
+          * </ol>
+          * <p>
                *
-               * 对比于{@link Binding#bindDeviceBySmartLink(SmartLinkBindInfo, IBindResultCallback)}
-                    * 本接口会在内部计算是否满足转softAp的条件，如果满足，自动执行SoftAp配置绑定
-                    *
-                    * SmartLink绑定依次上报以下两个状态
-                         * <ol>
-                         *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
-                         *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
-                         * </ol>
-                         * <p>
-                              *
-                              * 如果满足转SoftAp，绑定依次上报以下三个状态
-                                   * <ol>
-                                   *  <li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
-                                   *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
-                                   *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
-                                   * </ol>
-                                   * <p>
-                                        *
-                                        * @param bindInfo 配置信息
-                                             * @param cb   绑定结果回调接口
-                                             */
-                                    @Keep
-                                    public void bindDeviceBySmartLinkAuto(SmartLinkBindInfo bindInfo, IAutoBindCallback<uSDKDevice> cb)
+               * @param bindInfo 配置信息
+                    * @param cb   绑定结果回调接口
+                    */
+                @Keep
+                public void bindDeviceBySmartLinkAuto(SmartLinkBindInfo bindInfo, IAutoBindCallback<uSDKDevice> cb)
 
 1.3.2  SmartLinkBindInfo#Builder增加应用分类和成品编码的写入接口   
 
@@ -763,6 +760,7 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
 ​    */
 ​    public interface IAutoBindCallback<R> extends IBindCallback<R> {
 ​    /**
+
      * uSDK内部自动连接模块热点失败，请求APP协助热点切换
           * @param softApSsid
           */
@@ -817,18 +815,18 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
 ----------
 
 
-- **Android uSDK_8.0.0**
+- ##### Android uSDK_8.0.0
 
 版本号： v8.0.0   
 发布日期：2020.12.07   
 MD5值：78DF1B23D362F42755F1AE90DAC67018   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.0.0_Phone_Android_20201211175355894.zip)   
+下载链接：点击下载   
 注意事项1：此版本不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用    
 更新日志：   
 1.新增功能   
 1.1 新增支持蓝牙体脂秤，绑定和属性上报    
-1.1.1. ConfigType新增`BLE_ADV`枚举，代表新支持的蓝牙广播设备    
+1.1.1. ConfigType新增BLE_ADV枚举，代表新支持的蓝牙广播设备    
 1.1.2. Binding内部新增void bindBLEAdvDevice接口   
 1.1.3. 增加BLEAdvBindInfo实体类，传递广播设备发现信息   
 
@@ -836,42 +834,43 @@ MD5值：78DF1B23D362F42755F1AE90DAC67018
 
 1.1.4. 属性上报通过原有的设备属性上报通知给App   
 1.2. 增加P2P音视频能力设备接入   
-1.2.1 增加`VideoView`控件承载视频播放View   
-1.2.2 增加`MonitorPlayer`来持有媒体播放的控制功能   
-1.3 增加`IMonitorPlayerListener`播放监听器   
+1.2.1 增加VideoView控件承载视频播放View   
+1.2.2 增加MonitorPlayer来持有媒体播放的控制功能   
+1.3 增加IMonitorPlayerListener播放监听器   
      //播放器状态回调
      void onPlayerStatusUpdate(MonitorPlayerStatus status);
      
      // 播放错误回调
      void onReceiveError(uSDKError error);    
-1.4 新增`MonitorPlayerStatus`枚举   
+1.4 新增MonitorPlayerStatus枚举   
 1.5 新增获取路由器信息    
 1.5.1 新增实体类 （ConfigRouterInfo.java）   
 
 ​       /**
       * 获取ssid   
             *
-            * @return ssid of wifi   
+      * @return ssid of wifi   
+            */
+      ​      public String getSsid();   
+      ​      /**
+      * 获取路由器的bssid   
+            *
+            * @return bssid of wifi   
                   */
-            ​      public String getSsid();   
+            ​      public String getBssid();   
             ​      /**
-                  * 获取路由器的bssid   
-                        *
-                        * @return bssid of wifi   
-                              */
-                        ​      public String getBssid();   
-                        ​      /**
-                              * 获取路由器的密码   
-                                    *
-                                    * @return password of wifi   
-                                          */
-                                    ​      public String getPassword();   
-                                    ​      /**
-                                          * 是否切换了网络 
-                                                *
-                                                * @return true: 切网，false: 正常未切网   
-                                                      */
-                                                ​      public boolean isNeedSwitchNetwork();   
+            
+            * 获取路由器的密码   
+                  *
+                  * @return password of wifi   
+                        */
+                  ​      public String getPassword();   
+                  ​      /**
+                        * 是否切换了网络 
+                              *
+                              * @return true: 切网，false: 正常未切网   
+                                    */
+                              ​      public boolean isNeedSwitchNetwork();   
 
 1.5.2 2. Binding类中新增获取路由器信息接口     
 
@@ -976,12 +975,12 @@ MD5值：78DF1B23D362F42755F1AE90DAC67018
 ​      }
 
 1.7.3 新增设置权限回调接口（ DeviceScanner.java）     
-      `public void setScannerListener(ScannerListener listener);`
+      public void setScannerListener(ScannerListener listener);
 
 1.8 新增错误码   
-1.8.1. `-16021`: 不支持获取配置的路由器信息     
-1.8.2. `-16022`: 获取路由器信息失败   
-1.8.3. `-16023`: 获取路由器信息超时   
+1.8.1. -16021: 不支持获取配置的路由器信息     
+1.8.2. -16022: 获取路由器信息失败   
+1.8.3. -16023: 获取路由器信息超时   
 
 2.接口变更   
  无   
@@ -999,12 +998,12 @@ MD5值：78DF1B23D362F42755F1AE90DAC67018
 
 ----------
 
-- **Android uSDK_6.2.1**   
+- Android uSDK_6.2.1   
 
 版本号： v6.2.1   
 发布日期：2020.10.14  
 MD5值：72EE689C195650C7FB54C156E6B2B845   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.2.1_Phone_Android_20201023102752356.zip)   
+下载链接：点击下载   
 注意事项1：此版本不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用   
 更新日志：   
@@ -1020,13 +1019,13 @@ MD5值：72EE689C195650C7FB54C156E6B2B845
 
 ----------
 
-- **Android uSDK_6.2.0**   
+- Android uSDK_6.2.0   
 
 
 版本号： v6.2.0   
 发布日期：2020.09.24   
 MD5值：EB63AA7EB3639B710C231A0FE0CE30D3   
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.2.0_Phone_Android_20200924135413217.zip)    
+下载链接：点击下载    
 注意事项1：此版本不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用    
 更新日志：  
@@ -1047,12 +1046,12 @@ MD5值：EB63AA7EB3639B710C231A0FE0CE30D3
 ----------
 
 
-- **Android uSDK_6.1.1**    
+- Android uSDK_6.1.1    
 
 版本号： v6.1.1   
 发布日期：2020.09.15  
 MD5值：DBDE4625AB59881CA4DB3531826C8347  
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.1.1_Phone_Android_20200924135317509.zip)  
+下载链接：点击下载  
 注意事项1：此版本不支持海外环境。  
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用  
 更新日志：  
@@ -1071,22 +1070,22 @@ MD5值：DBDE4625AB59881CA4DB3531826C8347
 ----------
 
 
-- **Android uSDK_6.1.0**    
+- Android uSDK_6.1.0    
 
 版本号： v6.1.0  
  发布日期：2020.09.04  
  MD5值：4A5C53F82B11C5F1DEF9EDE5C5D1614  
- 下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.1.0_Phone_Android_20200907155553790.zip)  
+ 下载链接：点击下载  
  注意事项1：此版本不支持海外环境。  
  注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用  
  更新日志：  
 
 1.新增功能    
-1.1.  查询设备网络信号质量(见`uSDKDevice`)   
+1.1.  查询设备网络信号质量(见uSDKDevice)   
 
 ​    public void getNetworkQualityV2(final ICallback<uSDKNetworkQualityInfoV2> callback);
 
-1.2 新增网络质量信息类（见 `uSDKNetworkQualityInfoV2`）   
+1.2 新增网络质量信息类（见 uSDKNetworkQualityInfoV2）   
 
 ​    public uSDKDeviceConnectStatus getDeviceConnectStatus()//获取设备的链接状态
 ​    public String getMachineId()//设备机器编号
@@ -1102,14 +1101,14 @@ MD5值：DBDE4625AB59881CA4DB3531826C8347
 ​    public String getLanIP()//获取设备所连接的路由器的内网IP
 ​    public String getModuleVersion()//获取设备的模块版本描述,版本格式; 软件版本号/软件类型/硬件版本号/硬件类型
 
-1.3 新增 `uSDKDeviceConnectStatus` 枚举   
+1.3 新增 uSDKDeviceConnectStatus 枚举   
 
 ​        CLOUD_CONNECTED("远程连接")
 ​        LOCAL_CONNECTED("本地连接")
 ​        LOCAL_BLE_CONNECTED("蓝牙连接")
 ​        OFFLINE("离线")
 
-1.4 新增获取故障信息的接口（见`uSDKDevice`）   
+1.4 新增获取故障信息的接口（见uSDKDevice）   
 
 ​    public uSDKFaultInformation getSDKFaultInformation()
 
@@ -1118,7 +1117,7 @@ MD5值：DBDE4625AB59881CA4DB3531826C8347
 ​    public int getStateCode()
 ​    public int getState()
 
-1.6 新增故障信息回调方法（见`DeviceListener`）   
+1.6 新增故障信息回调方法（见DeviceListener）   
 
 
 ​    public void onUpdateFaultInformation(uSDKFaultInformation faultInformation)
@@ -1148,12 +1147,12 @@ MD5值：DBDE4625AB59881CA4DB3531826C8347
 ----------
 
 
-- **Android uSDK_6.0.2**  
+- Android uSDK_6.0.2  
 
 版本号：v6.0.2  
 发布日期：2020.08.03  
 MD5值：A62F7795D722829BDC3B843DED346510  
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.0.1_Phone_Android_20200727112651916.zip)   
+下载链接：点击下载   
 注意事项1：此版本不支持海外环境。  
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用   
 更新日志：   
@@ -1167,12 +1166,12 @@ MD5值：A62F7795D722829BDC3B843DED346510
 
 ----------
 
-- **Android uSDK_6.0.1**  
+- Android uSDK_6.0.1  
 
 版本号：v6.0.1  
 发布日期：2020.07.27  
 MD5值：DFCC151551747FFC17CACAA646A5025C  
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.0.1_Phone_Android_20200727112651916.zip)  
+下载链接：点击下载  
 注意事项1：此版本不支持海外环境。  
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用  
 更新日志：   
@@ -1187,12 +1186,12 @@ MD5值：DFCC151551747FFC17CACAA646A5025C
 
 ----------
 
-- **Android uSDK_6.0.0**
+- Android uSDK_6.0.0
 
 版本号：v6.0.0  
 发布日期：2020.07.13  
 MD5值：A54DB129EAFF543301836C2D4E3C590B  
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK6.0.0_Phone_Android_20200713111734073.zip)  
+下载链接：点击下载  
 注意事项1：此版本不支持海外环境。  
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用   
 
@@ -1201,7 +1200,7 @@ MD5值：A54DB129EAFF543301836C2D4E3C590B
 
 1.新增功能  
 1.1  启动待配置状态的新直连设备搜索  
-`DeviceScanner.startScanConfigurableDevice(final IuSDKCallback callback);`
+DeviceScanner.startScanConfigurableDevice(final IuSDKCallback callback);
 
 1.2 验证码方式绑定新直连设备  
 1.2.1 获取新直连绑定验证码方式绑定信息（见NewDirectLinkVerificationCodeBindInfo）   
@@ -1281,7 +1280,7 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 1.7 无效命令    
 
-对支持无效命令的设备，进行操作`(read/write/op)`，触发无效命令时，会携带无效命令标识上报给`App`，无效命令标识的值放到`uSDKError`的`failureReason`对应的值中。   
+对支持无效命令的设备，进行操作(read/write/op)，触发无效命令时，会携带无效命令标识上报给App，无效命令标识的值放到uSDKError的failureReason对应的值中。   
 
 1.7.1 read新增接口   
 
@@ -1307,11 +1306,11 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 1.8 softAp通知App切网   
 
-无论设备侧发起绑定，还是用户侧发起绑定，在发送配置信息后都会通过`switchNetworkNotify`通知`App`进行切网   
+无论设备侧发起绑定，还是用户侧发起绑定，在发送配置信息后都会通过switchNetworkNotify通知App进行切网   
 
 1.9 配置绑定增加重试接口   
 
-当配置绑定返回`ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）`时，可以通过该接口尝试进行重试绑定   
+当配置绑定返回ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）时，可以通过该接口尝试进行重试绑定   
 
 ​    /**
 ​    绑定重试接口
@@ -1331,7 +1330,7 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 2.1配置绑定优化：无效参数（10001）问题的解决   
 
-softap配网不再校验`iotDevBssid`, 而是校验`iotDevSSID`,修改SoftApBindInfo.Buidler, 如下：   
+softap配网不再校验iotDevBssid, 而是校验iotDevSSID,修改SoftApBindInfo.Buidler, 如下：   
 
 ​     /**
      * 设备 soft ap 热点的 bssid
@@ -1360,13 +1359,13 @@ softap配网不再校验`iotDevBssid`, 而是校验`iotDevSSID`,修改SoftApBind
 3.内部优化及BUG修改   
 3.1 uSDK就绪性能优化；   
 3.2 纯蓝牙设备历史数据逻辑，uSDK收到BLE模块发送的空包导致的异常;   
-3.3 uSDK清单文件增加权限要求`android.permission.BLUETOOTH`、`android.permission.BLUETOOTH_ADMIN`,解决APP未声明此权限时的崩溃问题;   
+3.3 uSDK清单文件增加权限要求android.permission.BLUETOOTH、android.permission.BLUETOOTH_ADMIN,解决APP未声明此权限时的崩溃问题;   
 
  
 
 ----------
 
-- **Android uSDK_5.8.2**  
+- Android uSDK_5.8.2  
 
 版本号：v5.8.2  
 发布日期：2020.06.28  
@@ -1383,7 +1382,7 @@ MD5值：74713F56EB99EA522668E1E2FAAEA122
 
 ----------
 
-- **Android uSDK_5.7.0**   
+- Android uSDK_5.7.0   
 
 版本号：v5.7.0  
 发布日期：2020.02.27   
@@ -1397,7 +1396,7 @@ MD5值：64198BB25BCCC188E4C1AD14C4D8A66D
 ​    public boolean inFocus() 
 
 1.2. 新增标记设备退出焦点（详情页）  
-`public boolean outFocus()`
+public boolean outFocus()
 
 1.3 新增蓝牙配置时设备需要触发进配置的错误码（见uSDKErrorConst）  
 
