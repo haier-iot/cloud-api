@@ -34,7 +34,6 @@
   2.MonitorPlaybackPlayer.java接口说明
 
   ```
-  ​```
   /**
   
    * 初始化视频回放
@@ -410,19 +409,17 @@
   * @since v8.5.0
     */
     public void subscribeResourceWithDecode(String resName, ICallback<Void> callback)
-  ​```
+  ```
   9. ```
      DeviceListener.java接口变更
      public void onReceiveDecodeResource(uSDKDevice device, String resource, String data)
-  ```
+     ```
 
 
-  ```
-  
   ##### 内部优化
-  
+
   ota升级优化
-  
+
 
 - **Android uSDK_8.4.0**     
 
@@ -436,32 +433,32 @@ MD5值：86F55528A8C6829669DCD4E00B196CF3
 1. 新增回调接口         
 
 
-    /**
-     *进度回调接口    
-     *@param <PT> 参数化类型之入参类型
-     *@param <CT> 参数化类型之结果类型
-     *@since v8.5.0   
-     */
-    public interface IProgressCallback<PT, CT>{
-     
-    /**
-     *当处理进度
-     *
-     *@param pt正在处理的对象
-     *@param error 错误码
-    */
-    @Keep
-    void onProgress(PT pt, uSDKError error);
-     
-    /**
-     *回调完成
-     *
-     *@param ct处理的结果对象
-     *@param error 错误码
-     */
-    @Keep
-    void onComplete(CT ct, uSDKError error);
-    }
+​    /**
+​     *进度回调接口    
+​     *@param <PT> 参数化类型之入参类型
+​     *@param <CT> 参数化类型之结果类型
+​     *@since v8.5.0   
+​     */
+​    public interface IProgressCallback<PT, CT>{
+​     
+​    /**
+​     *当处理进度
+​     *
+​     *@param pt正在处理的对象
+​     *@param error 错误码
+​    */
+​    @Keep
+​    void onProgress(PT pt, uSDKError error);
+​     
+​    /**
+​     *回调完成
+​     *
+​     *@param ct处理的结果对象
+​     *@param error 错误码
+​     */
+​    @Keep
+​    void onComplete(CT ct, uSDKError error);
+​    }
 
  
 
@@ -473,23 +470,23 @@ MD5值：86F55528A8C6829669DCD4E00B196CF3
 2. uSDKDevice.java接口变更    
 
 
-    /**
-     *获取可与当前设备分到同一组的设备列表, 当前设备要求有ZigBee能力或BLEMesh能力
-     *
-     *@param callback 接口执行完成时回调; 失败时，回调具体错误码; 接口执行成功时，devices也可能为空，表示接口执行成功，但没有可分组设备
-     *@since v8.5.0
-     */
-    public void fetchGroupableDeviceList(ICallback<List<uSDKDevice>> callback);
-     
-    /**
+​    /**
+​     *获取可与当前设备分到同一组的设备列表, 当前设备要求有ZigBee能力或BLEMesh能力
+​     *
+​     *@param callback 接口执行完成时回调; 失败时，回调具体错误码; 接口执行成功时，devices也可能为空，表示接口执行成功，但没有可分组设备
+​     *@since v8.5.0
+​     */
+​    public void fetchGroupableDeviceList(ICallback<List<uSDKDevice>> callback);
+​     
+​    /**
      * 创建分组，返回组设备对象,
-     * 创建完成后需要主动调用 {@link #addDevicesToGroup(List, int, IProgressCallback)}添加设备
-     *
-     * @param timeout  超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
-     * @param callback 创建分组， 失败时，回调具体错误码; 接口执行成功时，回调创建好的组设备
-     * @since v8.5.0
-     */
-    public void createGroup(int timeout, ICallback<uSDKDevice> callback);
+          * 创建完成后需要主动调用 {@link #addDevicesToGroup(List, int, IProgressCallback)}添加设备
+          *
+          * @param timeout  超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
+               * @param callback 创建分组， 失败时，回调具体错误码; 接口执行成功时，回调创建好的组设备
+               * @since v8.5.0
+                    */
+                public void createGroup(int timeout, ICallback<uSDKDevice> callback);
 
 
 ​     
@@ -562,33 +559,33 @@ ICallback – 请求的回调
 
 2.NFCUtil.java接口说明     
 
-    /**
+​    /**
      * 解析NFC标签数据，异步
-     *
-     * @param ndefRecord NFC标签原始数据，例如：
-     *   zj.haier.net?untype=original&nsn=FFFF00000000&mac=C00000000000&model=CEAAJXX00&hwp=A0VF&s=abcdef
-     *
-     * @param completed  接口回调 成功返回 NFCInfo 类对象， 错误返回 uSDKError
-     *   {@link NFCInfo}
-     *   {@link ICallback#onSuccess(Object)}
-     *   {@link ICallback#onFailure(uSDKError)}
-     */
-    public static void parseNFCTagData(String ndefRecord, ICallback<NFCInfo> completed);
-    /**
-     * 更新 NFC设备信息，异步，需在 NFCInfo 中设置 deviceID。
-     *
-     * @param info  NFCInfo对象， deviceId, nfcSerialNumber, mac 和 productCode 为必填项
-     *  {@link NFCInfo#setDeviceID(String)}
-     *  {@link NFCInfo#setNFCSerialNumber(String)}
-     *  {@link NFCInfo#setMAC(String)}
-     *  {@link NFCInfo#setProductCode(String)}
-     *
-     * @param completed 接口回调 成功返回 Void，失败返回 uSDKError
-     *  {@link ICallback#onSuccess(Object)}
-     *  {@link ICallback#onFailure(uSDKError)}
-     *
-     */
-    public static void updateNFCDeviceInfo(NFCInfo info, ICallback<Void> completed);
+          *
+          * @param ndefRecord NFC标签原始数据，例如：
+               *   zj.haier.net?untype=original&nsn=FFFF00000000&mac=C00000000000&model=CEAAJXX00&hwp=A0VF&s=abcdef
+               *
+               * @param completed  接口回调 成功返回 NFCInfo 类对象， 错误返回 uSDKError
+                    *   {@link NFCInfo}
+                    *   {@link ICallback#onSuccess(Object)}
+                         *   {@link ICallback#onFailure(uSDKError)}
+                              */
+                        public static void parseNFCTagData(String ndefRecord, ICallback<NFCInfo> completed);
+                        /**
+                              * 更新 NFC设备信息，异步，需在 NFCInfo 中设置 deviceID。
+                                   *
+                                   * @param info  NFCInfo对象， deviceId, nfcSerialNumber, mac 和 productCode 为必填项
+                                        *  {@link NFCInfo#setDeviceID(String)}
+                                        *  {@link NFCInfo#setNFCSerialNumber(String)}
+                                             *  {@link NFCInfo#setMAC(String)}
+                                             *  {@link NFCInfo#setProductCode(String)}
+                                                  *
+                                                  * @param completed 接口回调 成功返回 Void，失败返回 uSDKError
+                                                       *  {@link ICallback#onSuccess(Object)}
+                                                       *  {@link ICallback#onFailure(uSDKError)}
+                                                            *
+                                                       ​     */
+                                            ​    public static void updateNFCDeviceInfo(NFCInfo info, ICallback<Void> completed);
 
 
 3.NFCInfo.java字段列表    
@@ -634,15 +631,15 @@ MD5值：C92F76A66F7D4AC3C507A956E4198E6A
 Android Studio工程可以参考如下配置：     
 
 
-    android {
-    defaultConfig {
-    //必须高于等于16
-    minSdkVersion 16
-    }  
-    compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-    }
+​    android {
+​    defaultConfig {
+​    //必须高于等于16
+​    minSdkVersion 16
+​    }  
+​    compileOptions {
+​    sourceCompatibility JavaVersion.VERSION_1_8
+​    targetCompatibility JavaVersion.VERSION_1_8
+​    }
 ​    } 
 
 更新日志：   
@@ -650,24 +647,24 @@ Android Studio工程可以参考如下配置：
 增加设备事件通知    
 增加uSDKDeviceEvent实体类,包装收到的上报的设备事件，内部包含事件名称，事件类型和附带的属性信息    
 
-    public class uSDKDeviceEvent {
-    public String getName() {
-    }
-       
-    public String getType() {
-    }
-       
-    public List<DeviceAttribute> getAttrs() {
-    }
-     
-    }
+​    public class uSDKDeviceEvent {
+​    public String getName() {
+​    }
+​       
+​    public String getType() {
+​    }
+​       
+​    public List<DeviceAttribute> getAttrs() {
+​    }
+​     
+​    }
 以上事件通过IuSDKDeviceListener接口上报。事件接口为Java8的默认实现，需要关注事件的可重写该接口    
 
-    public interface IuSDKDeviceListener {
-      void onDeviceEvent(uSDKDevice device, List<uSDKDeviceEvent> events);
-      void onDeviceAlarm(uSDKDevice device, List<uSDKDeviceAlarm> alarms);
-      void onDeviceAttributeChange(uSDKDevice device, List<uSDKDeviceAttribute> attrs);   
-    }
+​    public interface IuSDKDeviceListener {
+​      void onDeviceEvent(uSDKDevice device, List<uSDKDeviceEvent> events);
+​      void onDeviceAlarm(uSDKDevice device, List<uSDKDeviceAlarm> alarms);
+​      void onDeviceAttributeChange(uSDKDevice device, List<uSDKDeviceAttribute> attrs);   
+​    }
 
 2.接口变更   
  无    
@@ -716,34 +713,34 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
 1.3 增加smartLink转SoftAp配置绑定的接口    
 1.3.1 Binding类中增加接口bindDeviceBySmartLinkAuto接口    
 
-    /**
+​    /**
      * SmartLink配置绑定接口，将指定的设备接入指定的WiFi，
-     * 并将设备绑定到云平台
-     * 调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
-     *
-     * 对比于{@link Binding#bindDeviceBySmartLink(SmartLinkBindInfo, IBindResultCallback)}
-     * 本接口会在内部计算是否满足转softAp的条件，如果满足，自动执行SoftAp配置绑定
-     *
-     * SmartLink绑定依次上报以下两个状态
-     * <ol>
-     *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
-     *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
-     * </ol>
-     * <p>
-     *
-     * 如果满足转SoftAp，绑定依次上报以下三个状态
-     * <ol>
-     *  <li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
-     *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
-     *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
-     * </ol>
-     * <p>
-     *
-     * @param bindInfo 配置信息
-     * @param cb   绑定结果回调接口
-     */
-    @Keep
-    public void bindDeviceBySmartLinkAuto(SmartLinkBindInfo bindInfo, IAutoBindCallback<uSDKDevice> cb)
+          * 并将设备绑定到云平台
+          * 调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
+               *
+               * 对比于{@link Binding#bindDeviceBySmartLink(SmartLinkBindInfo, IBindResultCallback)}
+                    * 本接口会在内部计算是否满足转softAp的条件，如果满足，自动执行SoftAp配置绑定
+                    *
+                    * SmartLink绑定依次上报以下两个状态
+                         * <ol>
+                         *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
+                         *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
+                         * </ol>
+                         * <p>
+                              *
+                              * 如果满足转SoftAp，绑定依次上报以下三个状态
+                                   * <ol>
+                                   *  <li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
+                                   *  <li>发送配置信息:{@link BindProgress#SEND_CONFIG_INFO}</li>
+                                   *  <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>
+                                   * </ol>
+                                   * <p>
+                                        *
+                                        * @param bindInfo 配置信息
+                                             * @param cb   绑定结果回调接口
+                                             */
+                                    @Keep
+                                    public void bindDeviceBySmartLinkAuto(SmartLinkBindInfo bindInfo, IAutoBindCallback<uSDKDevice> cb)
 
 1.3.2  SmartLinkBindInfo#Builder增加应用分类和成品编码的写入接口   
 
@@ -752,7 +749,7 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
  	     * @param appTypeCode
  	     */
  	    public Builder appTypeCode(String appTypeCode)
- 	
+
  	    /**
  	     * 设置成品编码
  	     * @param productCode
@@ -761,53 +758,53 @@ MD5值：0E81AEEADB547D43BE4424F140E8168A
 
 1.3.3 增加IAutoBindCallback接口类    
 
-    /**
-    IBindCallback继承自ISoftApResultCallback，并且未增加接口
-    */
-    public interface IAutoBindCallback<R> extends IBindCallback<R> {
-    /**
+​    /**
+​    IBindCallback继承自ISoftApResultCallback，并且未增加接口
+​    */
+​    public interface IAutoBindCallback<R> extends IBindCallback<R> {
+​    /**
      * uSDK内部自动连接模块热点失败，请求APP协助热点切换
-     * @param softApSsid
-     */
-    void switchToSoftApRequest(String softApSsid);
-    }
+          * @param softApSsid
+          */
+        void switchToSoftApRequest(String softApSsid);
+        }
 
 1.4 增加子机配置绑定中RISCO设备配置绑定接口    
 
  SlaveDeviceBindInfo#Builder增加自定义扩展参数的接口   
 
-    /**
+​    /**
      * RISCO设备绑定，自定义扩展参数
-     * @param extendInfo
-     * @return
-     */
-    public Builder extendInfo(String extendInfo)
+          * @param extendInfo
+          * @return
+               */
+            public Builder extendInfo(String extendInfo)
 
 1.5 uSDK支持主东服务链路跟踪埋点    
 1.5.1 Trace类增加带traceId的构建Trace对象的接口    
 
-    /**   
+​    /**   
      * 根据businessId和自定义traceId创建一个新的跟踪链对象,
-     * 如果传入的businessId重复,则会将之前创建的对象更新为一个全新的链式跟踪
-     *
-     * @param businessId 业务Id
-     * @param traceId 长队为32位的字串
-     * @return 跟踪链对象
-     */
-    public static Trace createTrace(String traceId, String businessId) 
+          * 如果传入的businessId重复,则会将之前创建的对象更新为一个全新的链式跟踪
+          *
+          * @param businessId 业务Id
+               * @param traceId 长队为32位的字串
+               * @return 跟踪链对象
+                    */
+                public static Trace createTrace(String traceId, String businessId) 
 
 1.5.2 Trace类增加带traceId的addDITraceNode接口   
 
-     /**
+​     /**
      * 添加DI跟踪节点(DI) <br/>
-     * <p>
-     * 适配CAE打点，如果customTraceId为空，则使用uTrace内置traceId打点，不为空,则使用传入的traceId作为id标识
-     *
-     * @param customTraceId 自定义traceId
-     * @param node          DI跟踪节点对象
-     * @return 发送的结果
-     */
-    public int addDITraceNode(String customTraceId, DITraceNode node) 
+          * <p>
+          * 适配CAE打点，如果customTraceId为空，则使用uTrace内置traceId打点，不为空,则使用传入的traceId作为id标识
+          *
+          * @param customTraceId 自定义traceId
+          * @param node          DI跟踪节点对象
+          * @return 发送的结果
+          */
+        public int addDITraceNode(String customTraceId, DITraceNode node) 
 
 2.接口变更   
  无   
@@ -835,7 +832,7 @@ MD5值：78DF1B23D362F42755F1AE90DAC67018
 1.1.2. Binding内部新增void bindBLEAdvDevice接口   
 1.1.3. 增加BLEAdvBindInfo实体类，传递广播设备发现信息   
 
-     Builder 设置搜索上来的可发现设备，setConfigurableDevice(ConfigurableDevice)   
+​     Builder 设置搜索上来的可发现设备，setConfigurableDevice(ConfigurableDevice)   
 
 1.1.4. 属性上报通过原有的设备属性上报通知给App   
 1.2. 增加P2P音视频能力设备接入   
@@ -851,132 +848,132 @@ MD5值：78DF1B23D362F42755F1AE90DAC67018
 1.5 新增获取路由器信息    
 1.5.1 新增实体类 （ConfigRouterInfo.java）   
 
-       /**
+​       /**
       * 获取ssid   
-      *
-      * @return ssid of wifi   
-      */
-      public String getSsid();   
-      /**
-      * 获取路由器的bssid   
-      *
-      * @return bssid of wifi   
-      */
-      public String getBssid();   
-      /**
-      * 获取路由器的密码   
-      *
-      * @return password of wifi   
-      */
-      public String getPassword();   
-      /**
-      * 是否切换了网络 
-      *
-      * @return true: 切网，false: 正常未切网   
-      */
-      public boolean isNeedSwitchNetwork();   
+            *
+            * @return ssid of wifi   
+                  */
+            ​      public String getSsid();   
+            ​      /**
+                  * 获取路由器的bssid   
+                        *
+                        * @return bssid of wifi   
+                              */
+                        ​      public String getBssid();   
+                        ​      /**
+                              * 获取路由器的密码   
+                                    *
+                                    * @return password of wifi   
+                                          */
+                                    ​      public String getPassword();   
+                                    ​      /**
+                                          * 是否切换了网络 
+                                                *
+                                                * @return true: 切网，false: 正常未切网   
+                                                      */
+                                                ​      public boolean isNeedSwitchNetwork();   
 
 1.5.2 2. Binding类中新增获取路由器信息接口     
 
-        /**
+​        /**
        * 获取路由器信息
-       *
-       * @param timeout  超时时间
-       * @param callback 获取路由器信息回调接口
-       */
-    public void getConfigRouterInfo(int timeout, ICallback<uSDKConfigRouterInfo> callback);
+              *
+              * @param timeout  超时时间
+                     * @param callback 获取路由器信息回调接口
+                     */
+            public void getConfigRouterInfo(int timeout, ICallback<uSDKConfigRouterInfo> callback);
 
 1.6 设备搜索新增接口   
 1.6.1 新增搜索特性枚举    
 
-       public enum SearchState {
-       //启用SoftAp热点搜索
-       WIFI_ENABLE(1),  
-       //启用蓝牙搜索
-       BLE_ENABLE(1 << 1),
-       //已入网代理搜索
-       PROXY_ENABLE(1 << 2),   
-       //新直连搜索
-       NEW_DIRECT_LINK_ENABLE(1 << 3);
-       }   
+​       public enum SearchState {
+​       //启用SoftAp热点搜索
+​       WIFI_ENABLE(1),  
+​       //启用蓝牙搜索
+​       BLE_ENABLE(1 << 1),
+​       //已入网代理搜索
+​       PROXY_ENABLE(1 << 2),   
+​       //新直连搜索
+​       NEW_DIRECT_LINK_ENABLE(1 << 3);
+​       }   
 1.6.2 新增特性控制接口(DeviceScanner.java)    
 
-        /**
+​        /**
      * 使能搜索特性
-     * 示例代码
-     * <pre>{@code
-     *  // 启用新直连搜索
-     *  // 启用Wifi搜索
-     *  // 启用已入网代理设备搜索
-     *  // 启用蓝牙搜索
-     *  int features = SearchState.WIFI_ENABLE.mask
-     * | SearchState.NEW_DIRECT_LINK_ENABLE.mask
-     * | SearchState.PROXY_ENABLE.mask
-     * | SearchState.BLE_ENABLE.mask;
-     *
-     * enableSearchFeature(features);
-     * }</pre>
-     *
-     * @apiNote 目前仅支持对SoftAp搜索使能控制，其他暂无法控制，默认是开启的
-     * @param features 搜索特性
-     * @since v8.0.0
-     */
-    public void enableSearchFeature(int features);
+          * 示例代码
+          * <pre>{@code
+               *  // 启用新直连搜索
+               *  // 启用Wifi搜索
+               *  // 启用已入网代理设备搜索
+               *  // 启用蓝牙搜索
+               *  int features = SearchState.WIFI_ENABLE.mask
+               * | SearchState.NEW_DIRECT_LINK_ENABLE.mask
+               * | SearchState.PROXY_ENABLE.mask
+               * | SearchState.BLE_ENABLE.mask;
+               *
+               * enableSearchFeature(features);
+               * }</pre>
+          ​     *
+               * @apiNote 目前仅支持对SoftAp搜索使能控制，其他暂无法控制，默认是开启的
+                    * @param features 搜索特性
+                    * @since v8.0.0
+                         */
+                    public void enableSearchFeature(int features);
 
 1.7  新增权限相关接口   
 1.7.1 新增扫描权限监听接口    
 
-      public interface ScannerListener {
-      // 当权限不合法时
-       //@param permission uSDK 需要的系统权限枚举
-      void onPermissionInvalid(Permission permission);
-      }   
+​      public interface ScannerListener {
+​      // 当权限不合法时
+​       //@param permission uSDK 需要的系统权限枚举
+​      void onPermissionInvalid(Permission permission);
+​      }   
 
 1.7.2 新增权限控制枚举    
 
-      public enum Permission {
-      //蓝牙未打开
-      BLE_DISABLE(),
-      // 需要蓝牙相关权限
-      BLE_INVALID(Manifest.permission.ACCESS_FINE_LOCATION),
-      //wifi没有打开
-      WIFI_DISABLE(),
-      /**  
+​      public enum Permission {
+​      //蓝牙未打开
+​      BLE_DISABLE(),
+​      // 需要蓝牙相关权限
+​      BLE_INVALID(Manifest.permission.ACCESS_FINE_LOCATION),
+​      //wifi没有打开
+​      WIFI_DISABLE(),
+​      /**  
        * 需要Wifi相关权限
-       * Android 9：
-       * 成功调用 WifiManager.startScan() 需要满足以下所有条件：
-       *
-       * 1. 应用拥有 ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION 权限。
-       * 2. 应用拥有 CHANGE_WIFI_STATE 权限。
-       * 3. 设备已启用位置信息服务（位于设置 > 位置信息下）。
-       * Android 10（API 级别 29）及更高版本：
-       * 成功调用 WifiManager.startScan() 需要满足以下所有条件：
-       *
-       * 如果您的应用以 Android 10（API 级别 29）SDK 或更高版本为目标平台，应用需要拥有 ACCESS_FINE_LOCATION 权限。
-       * 如果您的应用以低于 Android 10（API 级别 29）的 SDK 为目标平台，应用需要拥有 ACCESS_COARSE_LOCATION 或 ACCESS_FINE_LOCATION 权限。
-       * 应用拥有 CHANGE_WIFI_STATE 权限。
-       * 设备已启用位置信息服务（位于设置 > 位置信息下）。
-       * 若要成功调用 WifiManager.getScanResults()，请确保满足以下所有条件：
-       *
-       * 如果您的应用以 Android 10（API 级别 29）SDK 或更高版本为目标平台，应用需要拥有 ACCESS_FINE_LOCATION 权限。
-       * 如果您的应用以低于 Android 10（API 级别 29）的 SDK 为目标平台，应用需要拥有 ACCESS_COARSE_LOCATION 或 ACCESS_FINE_LOCATION 权限。
-       * 应用拥有 ACCESS_WIFI_STATE 权限。
-       * 设备已启用位置信息服务（位于设置 > 位置信息下）。
-       */
-      WIFI_INVALID(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
-      
-      private String[] permissions;
-      
-      Permission(String... perms) {
-      permissions = perms;
-      }
-      
-      @Keep
-      @Nullable
-      public String[] getSystemPermissions() {
-      return permissions;
-      }
-      }
+              * Android 9：
+              * 成功调用 WifiManager.startScan() 需要满足以下所有条件：
+                     *
+                     * 1. 应用拥有 ACCESS_FINE_LOCATION 或 ACCESS_COARSE_LOCATION 权限。
+                            * 2. 应用拥有 CHANGE_WIFI_STATE 权限。
+                     * 3. 设备已启用位置信息服务（位于设置 > 位置信息下）。
+                     * Android 10（API 级别 29）及更高版本：
+                     * 成功调用 WifiManager.startScan() 需要满足以下所有条件：
+                       *
+                     * 如果您的应用以 Android 10（API 级别 29）SDK 或更高版本为目标平台，应用需要拥有 ACCESS_FINE_LOCATION 权限。
+                     * 如果您的应用以低于 Android 10（API 级别 29）的 SDK 为目标平台，应用需要拥有 ACCESS_COARSE_LOCATION 或 ACCESS_FINE_LOCATION 权限。
+                     * 应用拥有 CHANGE_WIFI_STATE 权限。
+                     * 设备已启用位置信息服务（位于设置 > 位置信息下）。
+                     * 若要成功调用 WifiManager.getScanResults()，请确保满足以下所有条件：
+                       *
+                     * 如果您的应用以 Android 10（API 级别 29）SDK 或更高版本为目标平台，应用需要拥有 ACCESS_FINE_LOCATION 权限。
+                     * 如果您的应用以低于 Android 10（API 级别 29）的 SDK 为目标平台，应用需要拥有 ACCESS_COARSE_LOCATION 或 ACCESS_FINE_LOCATION 权限。
+                     * 应用拥有 ACCESS_WIFI_STATE 权限。
+                     * 设备已启用位置信息服务（位于设置 > 位置信息下）。
+                       */
+                  WIFI_INVALID(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+
+​      private String[] permissions;
+​      
+​      Permission(String... perms) {
+​      permissions = perms;
+​      }
+​      
+​      @Keep
+​      @Nullable
+​      public String[] getSystemPermissions() {
+​      return permissions;
+​      }
+​      }
 
 1.7.3 新增设置权限回调接口（ DeviceScanner.java）     
       `public void setScannerListener(ScannerListener listener);`
@@ -1087,50 +1084,50 @@ MD5值：DBDE4625AB59881CA4DB3531826C8347
 1.新增功能    
 1.1.  查询设备网络信号质量(见`uSDKDevice`)   
 
-    public void getNetworkQualityV2(final ICallback<uSDKNetworkQualityInfoV2> callback);
+​    public void getNetworkQualityV2(final ICallback<uSDKNetworkQualityInfoV2> callback);
 
 1.2 新增网络质量信息类（见 `uSDKNetworkQualityInfoV2`）   
 
-    public uSDKDeviceConnectStatus getDeviceConnectStatus()//获取设备的链接状态
-    public String getMachineId()//设备机器编号
-    public boolean isOnLine()//获取设备是否远程在线
-    public long getStatusLastChangeTime()//获取设备最后一次状态变化时间，格林威治时间
-    public String getNetType()//获取设备的网络类型,例如 "Wifi"
-    public String getSsid()//获取设备所连接的路由器名称
-    public int getRssi()//获取设备所连接的路由器网络信号强度
-    public int getPrssi()//获取设备所连接的路由器网络信号强度百分比
-    public int getSignalLevel()//获取设备所连接的路由器网络信号质量等级,取值: 0 未知,1 优,2 良,3 合格,4 差
-    public int getIlostRatio()//获取设备所连接的路由器 广域网丢包率
-    public int getIts()//获取设备所连接的路由器 广域网延时
-    public String getLanIP()//获取设备所连接的路由器的内网IP
-    public String getModuleVersion()//获取设备的模块版本描述,版本格式; 软件版本号/软件类型/硬件版本号/硬件类型
+​    public uSDKDeviceConnectStatus getDeviceConnectStatus()//获取设备的链接状态
+​    public String getMachineId()//设备机器编号
+​    public boolean isOnLine()//获取设备是否远程在线
+​    public long getStatusLastChangeTime()//获取设备最后一次状态变化时间，格林威治时间
+​    public String getNetType()//获取设备的网络类型,例如 "Wifi"
+​    public String getSsid()//获取设备所连接的路由器名称
+​    public int getRssi()//获取设备所连接的路由器网络信号强度
+​    public int getPrssi()//获取设备所连接的路由器网络信号强度百分比
+​    public int getSignalLevel()//获取设备所连接的路由器网络信号质量等级,取值: 0 未知,1 优,2 良,3 合格,4 差
+​    public int getIlostRatio()//获取设备所连接的路由器 广域网丢包率
+​    public int getIts()//获取设备所连接的路由器 广域网延时
+​    public String getLanIP()//获取设备所连接的路由器的内网IP
+​    public String getModuleVersion()//获取设备的模块版本描述,版本格式; 软件版本号/软件类型/硬件版本号/硬件类型
 
 1.3 新增 `uSDKDeviceConnectStatus` 枚举   
 
-        CLOUD_CONNECTED("远程连接")
-        LOCAL_CONNECTED("本地连接")
-        LOCAL_BLE_CONNECTED("蓝牙连接")
-        OFFLINE("离线")
+​        CLOUD_CONNECTED("远程连接")
+​        LOCAL_CONNECTED("本地连接")
+​        LOCAL_BLE_CONNECTED("蓝牙连接")
+​        OFFLINE("离线")
 
 1.4 新增获取故障信息的接口（见`uSDKDevice`）   
 
-    public uSDKFaultInformation getSDKFaultInformation()
+​    public uSDKFaultInformation getSDKFaultInformation()
 
 1.5 新增设备故障信息类（见uSDKFaultInformation）   
 
-    public int getStateCode()
-    public int getState()
+​    public int getStateCode()
+​    public int getState()
 
 1.6 新增故障信息回调方法（见`DeviceListener`）   
 
 
-    public void onUpdateFaultInformation(uSDKFaultInformation faultInformation)
+​    public void onUpdateFaultInformation(uSDKFaultInformation faultInformation)
 
 
 
 1.7 新增通过蓝牙修改设备侧SSID&PWD的接口（见uSDKDevice）   
 
-    public void updateRouterSSID(String ssid, String password, String bSsid, int timeout, IuSDKUpdateRouterSSIDCallBack updateRouterSSIDCallBack)  
+​    public void updateRouterSSID(String ssid, String password, String bSsid, int timeout, IuSDKUpdateRouterSSIDCallBack updateRouterSSIDCallBack)  
 
 
 2.接口变更   
@@ -1209,78 +1206,78 @@ MD5值：A54DB129EAFF543301836C2D4E3C590B
 1.2 验证码方式绑定新直连设备  
 1.2.1 获取新直连绑定验证码方式绑定信息（见NewDirectLinkVerificationCodeBindInfo）   
 
-    NewDirectLinkVerificationCodeBindInfo bindInfo = new NewDirectLinkVerificationCodeBindInfo.Builder()   
-    .setConfigurableDevice(currentDeviceInfo)// 传入scanner上报的可配置设备  
-    .setVerificationCode(code) // 传入验证码  
-    .csNode(csNode)  
-    .timeout(timeout)  
-    .build();  
+​    NewDirectLinkVerificationCodeBindInfo bindInfo = new NewDirectLinkVerificationCodeBindInfo.Builder()   
+​    .setConfigurableDevice(currentDeviceInfo)// 传入scanner上报的可配置设备  
+​    .setVerificationCode(code) // 传入验证码  
+​    .csNode(csNode)  
+​    .timeout(timeout)  
+​    .build();  
 
 1.2.2 验证码方式绑定新直连设备(见uSDKBinding)   
 
-       /** 
+​       /** 
      * 验证码方式新直连设备绑定
-     * @param bindInfo 绑定信息，包含待配置设备信息和验证码
-     * @param cb 绑定状态及结果回调
-     */
-    public void bindNewDirectLinkDevice(NewDirectLinkVerificationCodeBindInfo bindInfo, IBindResultCallback<uSDKDevice> cb)
+          * @param bindInfo 绑定信息，包含待配置设备信息和验证码
+          * @param cb 绑定状态及结果回调
+               */
+            public void bindNewDirectLinkDevice(NewDirectLinkVerificationCodeBindInfo bindInfo, IBindResultCallback<uSDKDevice> cb)
 
 1.3 手动确认校验方式绑定新直连设备   
 1.3.1 获取新直连绑定验证码方式绑定信息（见uSDKNewDirectLinkManualConfirmBindInfo）  
 
-       NewDirectLinkManualConfirmBindInfo bindInfo = new NewDirectLinkManualConfirmBindInfo.Builder()
-    .setConfigurableDevice(configurableDevice) // 传入scanner上报的可配置设备
-    .csNode(csNode)
-    .timeout(timeout)
-    .build();
+​       NewDirectLinkManualConfirmBindInfo bindInfo = new NewDirectLinkManualConfirmBindInfo.Builder()
+​    .setConfigurableDevice(configurableDevice) // 传入scanner上报的可配置设备
+​    .csNode(csNode)
+​    .timeout(timeout)
+​    .build();
 
 1.3.2 手动确认校验方式绑定新直连设备（见uSDKbinding）  
 
-    /**  
+​    /**  
      * 手动方式（按键）新直连设备绑定
-     * @param bindInfo 包含待配置设备信息
-     * @param cb 绑定状态及结果回调
-     */
-    public void bindNewDirectLinkDevice(NewDirectLinkManualConfirmBindInfo bindInfo, IBindResultCallback<uSDKDevice> cb)
+          * @param bindInfo 包含待配置设备信息
+          * @param cb 绑定状态及结果回调
+               */
+            public void bindNewDirectLinkDevice(NewDirectLinkManualConfirmBindInfo bindInfo, IBindResultCallback<uSDKDevice> cb)
 
 1.4 自发现蓝牙设备可发现已配置的蓝牙设备   
 
 1.4.1 增加ConfigStatus枚举类定义   
 
-    public enum ConfigStatus {
-    CONFIG_ABLE("可配置"),
-    TRIGGER_CONFIG_ABLE("触发可配置"),
-    ALREADY_CONFIGURED("已经配置");
-    }
+​    public enum ConfigStatus {
+​    CONFIG_ABLE("可配置"),
+​    TRIGGER_CONFIG_ABLE("触发可配置"),
+​    ALREADY_CONFIGURED("已经配置");
+​    }
 
 1.4.2  ConfigurableDevice增加接口，获取可配置设备的配置状态   
 
-    //获取配置状态
-    public ConfigStatus getConfigStatus() {
-    }
+​    //获取配置状态
+​    public ConfigStatus getConfigStatus() {
+​    }
 
 1.5 uSDK启动项里增加开启蓝牙搜索配置(见uSDKStartOptions)   
 uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制设备搜索   
 
-    /**
+​    /**
      * 设置是否默认开启蓝牙可控制设备搜索，该值默认为true
-     * @param isBleSearchControllableDevice
-     * @return
-     */
-    
-    public Builder isBleSearchControllableDevice(boolean isBleSearchControllableDevice) {
-    this.isBleSearchControllableDevice = isBleSearchControllableDevice;
-    return this;
-    }
+          * @param isBleSearchControllableDevice
+          * @return
+               */
+
+​    public Builder isBleSearchControllableDevice(boolean isBleSearchControllableDevice) {
+​    this.isBleSearchControllableDevice = isBleSearchControllableDevice;
+​    return this;
+​    }
 
 1.6 大循环下获取设备的模块信息(见uSDKDevice)   
 
-    /**
+​    /**
      * 获取设备模块信息
-     * @param timeout 执行命令超时时长，单位为秒.超时时长最小为5秒，最长为120秒，建议值15秒
-     * @param callback 业务回调结果{@link ModuleInfo}对象
-     */
-    public void getModuleInfo(int timeout, ICallback<ModuleInfo> callback)
+          * @param timeout 执行命令超时时长，单位为秒.超时时长最小为5秒，最长为120秒，建议值15秒
+          * @param callback 业务回调结果{@link ModuleInfo}对象
+               */
+            public void getModuleInfo(int timeout, ICallback<ModuleInfo> callback)
 
 1.7 无效命令    
 
@@ -1288,25 +1285,25 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 1.7.1 read新增接口   
 
-    //根据属性名读取设备的属性值，属性值会在回调函数中返回，并更新设备对应的属性值
-      public void readAttribute(final String name, final ICallback<String> callback(){}
-      public void readAttribute(final String name, final int timeout, final ICallback<String> callback)
-      public void readAttribute(final String name, final int timeout, final Trace diTrace, final ICallback<String> callback) {}
+​    //根据属性名读取设备的属性值，属性值会在回调函数中返回，并更新设备对应的属性值
+​      public void readAttribute(final String name, final ICallback<String> callback(){}
+​      public void readAttribute(final String name, final int timeout, final ICallback<String> callback)
+​      public void readAttribute(final String name, final int timeout, final Trace diTrace, final ICallback<String> callback) {}
 
 
 1.7.2 write新增接口   
 
-    //写入设备属性值,回调中只返回是否成功,如果写入成功，设备对应的属性值会在设备属性变化上报中更新(超时时间15s)
-      public void writeAttribute(String name, String value, final ICallback<Void> callback) {}
-      public void writeAttribute(String name, String value, int timeout, final ICallback<Void> callback)
-      public void writeAttribute(final String name, final String value, final int timeout, final Trace diTrace, final ICallback<Void> callback)
+​    //写入设备属性值,回调中只返回是否成功,如果写入成功，设备对应的属性值会在设备属性变化上报中更新(超时时间15s)
+​      public void writeAttribute(String name, String value, final ICallback<Void> callback) {}
+​      public void writeAttribute(String name, String value, int timeout, final ICallback<Void> callback)
+​      public void writeAttribute(final String name, final String value, final int timeout, final Trace diTrace, final ICallback<Void> callback)
 
 1.7.3  op新增接口   
 
-    //执行设备命令操作的方法.默认超时时长为15秒.每一种设备都有自己特定的命令集，详细的命令集描述请参看对应的设备ID文档
-     public void execOperation(String operationName, List<uSDKArgument> args, final ICallback<Void> callback)
-     public void execOperation(String operationName, List<uSDKArgument> args, int timeout, final ICallback<Void> callback)
-      public void execOperation(String operationName, List<uSDKArgument> args, int timeout, final Trace diTrace, final ICallback<Void> callback)
+​    //执行设备命令操作的方法.默认超时时长为15秒.每一种设备都有自己特定的命令集，详细的命令集描述请参看对应的设备ID文档
+​     public void execOperation(String operationName, List<uSDKArgument> args, final ICallback<Void> callback)
+​     public void execOperation(String operationName, List<uSDKArgument> args, int timeout, final ICallback<Void> callback)
+​      public void execOperation(String operationName, List<uSDKArgument> args, int timeout, final Trace diTrace, final ICallback<Void> callback)
 
 1.8 softAp通知App切网   
 
@@ -1316,15 +1313,15 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 当配置绑定返回`ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）`时，可以通过该接口尝试进行重试绑定   
 
-    /**
-    绑定重试接口
-    当错误码为ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）时需要调用重试接口试图重新绑定设备，
-    会返回-16018的接口bindDeviceByBLE、bindPureBLEDevice、bindDeviceBySoftAp、bindDeviceBySmartLink、bindDeviceByQRCode、bindNewDirectLinkDevice
-    @param timeoutInterval 绑定超时时间（单位是秒，范围为10秒-180秒）
-    @param success 绑定成功时的block回调
-    @param failure 绑定失败时的block回调
-    @since 6.0.0
-    */
+​    /**
+​    绑定重试接口
+​    当错误码为ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）时需要调用重试接口试图重新绑定设备，
+​    会返回-16018的接口bindDeviceByBLE、bindPureBLEDevice、bindDeviceBySoftAp、bindDeviceBySmartLink、bindDeviceByQRCode、bindNewDirectLinkDevice
+​    @param timeoutInterval 绑定超时时间（单位是秒，范围为10秒-180秒）
+​    @param success 绑定成功时的block回调
+​    @param failure 绑定失败时的block回调
+​    @since 6.0.0
+​    */
     + (void)retryBindDeviceWithTimeoutInterval:(NSTimeInterval)timeoutInterval
        success:(void(^)(uSDKDevice *device))success
        failure:(void(^)(NSError *error))failure;
@@ -1336,28 +1333,28 @@ uSDKStartOptions.Builder增加方法，设置是否默认开启蓝牙可控制�
 
 softap配网不再校验`iotDevBssid`, 而是校验`iotDevSSID`,修改SoftApBindInfo.Buidler, 如下：   
 
-     /**
+​     /**
      * 设备 soft ap 热点的 bssid
-     * @param bssid
-     * @return
-     * @deprecated 6.0.0
-     */
-    @Deprecated
-    public Builder iotDevBssid(String bssid) {
-    this.mIotDevBssid = NetUtil.correctBSSID(bssid);
-    return this;
-    
-    }
-    
-    /**
+          * @param bssid
+          * @return
+               * @deprecated 6.0.0
+               */
+            @Deprecated
+            public Builder iotDevBssid(String bssid) {
+            this.mIotDevBssid = NetUtil.correctBSSID(bssid);
+            return this;
+
+​    }
+​    
+​    /**
      * 设备 soft ap 热点的 ssid
-     * @param ssid
-     * @return
-     */
-    public Builder iotDeviceSSID(String ssid) {
-    this.mIotDeviceSSID = ssid;
-    return this;
-    }
+          * @param ssid
+          * @return
+               */
+            public Builder iotDeviceSSID(String ssid) {
+            this.mIotDeviceSSID = ssid;
+            return this;
+            }
 
 
 3.内部优化及BUG修改   
@@ -1396,16 +1393,16 @@ MD5值：64198BB25BCCC188E4C1AD14C4D8A66D
 1.新增功能  
 1.1 新增标记设备进入焦点（详情页）(见uSDKDevice类)  
 
-    // 进入焦点后，退出焦点前，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道  
-    public boolean inFocus() 
+​    // 进入焦点后，退出焦点前，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道  
+​    public boolean inFocus() 
 
 1.2. 新增标记设备退出焦点（详情页）  
 `public boolean outFocus()`
 
 1.3 新增蓝牙配置时设备需要触发进配置的错误码（见uSDKErrorConst）  
 
-    // 设备需要触发进配置
-    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
+​    // 设备需要触发进配置
+​    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
  2.接口变更  
  无   
 3.内部优化及BUG修改  

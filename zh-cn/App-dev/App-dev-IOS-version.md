@@ -1,18 +1,18 @@
-
 **1. uSDK开发手册**   
 
 简介：uSDK开发手册的使用对象是使用uSDK开发APP的开发者。开发者可以通过此手册，可以了解uSDK的用法、关键流程以及常见问题。   
 
 **2. uSDK Demo**
 
-简介：uSDK示例工程的使用对象是使用uSDK的APP开发者。开发者通过此示例工程，可以了解uSDK的应用方法及流程。     
+简介：uSDK示例工程的使用对象是使用uSDK的APP开发者。开发者通过此示例工程，可以了解uSDK的应用方法及流程。  
+
 **3. iOS uSDK开发包下载**
 
 
 支持有效期：新版本SDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。    
 
-
 ----------
+
 - **iOS uSDK_8.5.0**   
 
   版本号： v8.5.0
@@ -26,28 +26,22 @@
 
   uSDKDevice.h新增接口
 
-  ```
   /**
    订阅资源新接口，数据会进行加解密， 对应的delegate回调为新的:- (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
-  
   
    @param resourceName 资源名称
    @param success 订阅成功的回调
    @param failure 订阅失败的回调
    @since 8.5.0
    */
-  
-  - (void)subscribeResourceWithDecode:(NSString *)resourceName success:(void(^)(void))success failure:(void(^)(NSError *error))failure;
-  
+  - (void)subscribeResourceWithDecode:(NSString *)resourceName success:(void(^)(void))success failure:(void(^)(NSError *error))failure; 
   /**
-   新的接收资源数据
-  
+   新的接收资源数据  
    @param device 设备对象
    @param resource 资源名称
    @param JSONData 资源数据
    @since 8.5.0
-   */
-  
+   */  
   - (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
     uSDKCameraScanQRCodeBindInfo 新增必填字段productCode
     /**
@@ -63,10 +57,8 @@
     /// 回放文件结束时间（秒）
     @property (nonatomic, assign) NSTimeInterval endTime;
     /// 回放文件持续时间（秒）
-    @property (nonatomic, assign) NSTimeInterval duration;
-  
-  @end
-  
+    @property (nonatomic, assign) NSTimeInterval duration; 
+  @end 
   /// 回放文件分页
   @interface uSDKPlaybackPage<uSDKItem>: NSObject
   /// 当前页码索引
@@ -277,20 +269,24 @@
       *  APP端通道连接数已达上限
          */
           ERR_USDK_PLAYER_EXCEEDS_MAX_NUMBER = -20008,
-  ```
-
+  
   ##### 二、内部优化
 
   1.配置文件下载地址变更
-  2.uSDKMonitorPlayer和uSDKPlaybackPlayer中destroyPlayer接口统一定义在父类uSDKPlayer中
+2.uSDKMonitorPlayer和uSDKPlaybackPlayer中destroyPlayer接口统一定义在父类uSDKPlayer中
   3.创建播放器时向平台请求tid、accessid、accesstoken的逻辑统一放到分类uSDKPlayer+uSDKPrivatePlayer.h中实现
   4.内部新增接口getDeviceScanQRcodeWithQRCodeInfo，去网络请求判断是否支持新的扫码绑定，内部增加扫码绑定的逻辑，和安防绑定的逻辑分开走。
+  
+  
 
 - **iOS uSDK_8.4.0**    
 
 版本号： v8.4.0    
+
 发布日期：2021.03.22        
+
 MD5值：B0E8073E25A10B62AB776F2C82D63F50       
+
 下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.4.0_Phone_iOS_20210318174107_20210330132958513.zip)    
 
 更新日志：      
@@ -299,121 +295,123 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 
 1.uSDKDevice.h组控接口变更    
 
-    /**
-     组设备的成员列表
-     @since 8.4.0
-     */
-    @property (nonatomic, strong, readonly) NSArray<uSDKDevice *> *groupMembers;
-    
-    /**
-    获取可与当前设备分到同一组的设备列表, 当前设备要求有zigbee能力或BLEMesh能力
-     
-    @param completionHandler 接口执行完成时回调，error == nil表示接口执行成功，接口执行成功时，devices也可能为空，表示接口执行成功，但没有可分组设备
-    @since 8.4.0
-    */
+​    /**
+​     组设备的成员列表
+​     @since 8.4.0
+​     */
+​    @property (nonatomic, strong, readonly) NSArray<uSDKDevice *> *groupMembers;
+​    
+​    /**
+​    获取可与当前设备分到同一组的设备列表, 当前设备要求有zigbee能力或BLEMesh能力
+​     
+​    @param completionHandler 接口执行完成时回调，error == nil表示接口执行成功，接口执行成功时，devices也可能为空，表示接口执行成功，但没有可分组设备
+​    @since 8.4.0
+​    */
     - (void)fetchGroupableDeviceListCompletionHandler:(void(^)(NSArray<uSDKDevice *> *devices, NSError *error))completionHandler;
-     
-    /**
-    创建分组，返回组设备对象
-     
-    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
-    @param completionHandler 接口执行完成时回调，error == nil表示组创建成功，注意组设备虽然创建成功，但没有任何设备被成功添加到该组中，
-    需要主动调用addDevices:toGroupWithTimeoutInterval:progressNotify:completionHandler:函数去添加进组中。
-    @since 8.4.0
-    */
+
+​    /**
+​    创建分组，返回组设备对象
+​     
+​    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
+​    @param completionHandler 接口执行完成时回调，error == nil表示组创建成功，注意组设备虽然创建成功，但没有任何设备被成功添加到该组中，
+​    需要主动调用addDevices:toGroupWithTimeoutInterval:progressNotify:completionHandler:函数去添加进组中。
+​    @since 8.4.0
+​    */
     - (void)createGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-    completionHandler:(void(^)(uSDKDevice *device, NSError *error))completionHandler;
-     
-    /**
-    向组设备中添加设备，要求当前device对象为组设备
-     
-    @param devices 需要添加到组设备的设备列表，可以添加到组设备的设备列表需要通过接口``
-    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
-    @param progressNotify 进度通知，上报每个设备的添加结果，如果error == nil则表示添加成功
-    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
-    @since 8.4.0
-    */
+        completionHandler:(void(^)(uSDKDevice *device, NSError *error))completionHandler;
+
+​    /**
+​    向组设备中添加设备，要求当前device对象为组设备
+​     
+​    @param devices 需要添加到组设备的设备列表，可以添加到组设备的设备列表需要通过接口``
+​    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据添加设备的多少动态调整参数
+​    @param progressNotify 进度通知，上报每个设备的添加结果，如果error == nil则表示添加成功
+​    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
+​    @since 8.4.0
+​    */
     - (void)addDevices:(NSArray<uSDKDevice *> *)devices
-    toGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-    progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-    completionHandler:(void(^)(NSError *error))completionHandler;
-     
-    /**
-    从组设备中移除设备，要求当前device对象为组设备
-     
-    @param devices 需要从组设备中删除的设备列表
-    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据删除设备的多少动态调整参数
-    @param progressNotify 进度通知，上报每个设备的删除结果，如果error == nil则表示设备删除成功
-    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
-    @since 8.4.0
-    */
+        toGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+        completionHandler:(void(^)(NSError *error))completionHandler;
+
+​    /**
+​    从组设备中移除设备，要求当前device对象为组设备
+​     
+​    @param devices 需要从组设备中删除的设备列表
+​    @param timeoutInterval 超时时间，取值范围30-180秒，App可根据删除设备的多少动态调整参数
+​    @param progressNotify 进度通知，上报每个设备的删除结果，如果error == nil则表示设备删除成功
+​    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
+​    @since 8.4.0
+​    */
     - (void)removeDevices:(NSArray<uSDKDevice *> *)devices
-    fromGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-    progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-    completionHandler:(void(^)(NSError *error))completionHandler;
-     
-    /**
-    删除组设备，要求当前device对象为组设备
-     
-    @param completionHandler 接口执行完成时回调，error == nil表示组删除成功
-    @since 8.4.0
-    */
+        fromGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+        completionHandler:(void(^)(NSError *error))completionHandler;
+
+​    /**
+​    删除组设备，要求当前device对象为组设备
+​     
+​    @param completionHandler 接口执行完成时回调，error == nil表示组删除成功
+​    @since 8.4.0
+​    */
     - (void)deleteGroupCompletionHandler:(void(^)(NSError *error))completionHandler;
 
-
 2.内部修改  
+
 2.1 按照新方案更新了内部逻辑    
+
 2.2 H2面板增加了zigbee连接方式的支持。    
+
 2.3 新增uSDKMutableDevice+uSDKGroupOperation类，用于分发mesh和zigbee不同通道的组控相关的功能。    
 
 
-
-
-
-
-
-
 ----------
+
 - **iOS uSDK_8.3.0**      
 
 版本号： v8.3.0   
+
 发布日期：2021.03.02    
+
 MD5值：65EFA79B2C417A9558B254E9BF943E99    
+
 下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.3.0_Phone_iOS_20210302105710_20210315163827028.zip)     
+
 更新日志：    
+
 **新增功能**    
 1.新增NFC数据解析和数据更新的功能        
 
 
-    //uSDKUtil.h
-    @interface uSDKNFCUtil : NSObject 
-    /**
+​    //uSDKUtil.h
+​    @interface uSDKNFCUtil : NSObject 
+​    /**
      * 解析NFC标签数据
-     * @param NdefRecord   NFC标签原始数据
-     * @param complete接口回调 成功返回uSDKNFCInfo类，失败返回error
-     **/
+          * @param NdefRecord   NFC标签原始数据
+          * @param complete接口回调 成功返回uSDKNFCInfo类，失败返回error
+               **/
     + (void)parseNFCTagDataWithNdefRecord:(NSString*)NdefRecord
-     complete:(void(^)(uSDKNFCInfo *NFCInfo, NSError *error))complete;
-    /**
+          complete:(void(^)(uSDKNFCInfo *NFCInfo, NSError *error))complete;
+        /**
      * 更新NFC设备信息
-     *  @param NFCInfoNFC标签解析后数据
-     *  @param complete接口回调 失败返回error
-     */
+          *  @param NFCInfoNFC标签解析后数据
+          *  @param complete接口回调 失败返回error
+               */
     + (void)updateNFCDeviceInfoWithNFCInfo:(uSDKNFCInfo*)NFCInfo
       complete:(void(^)(NSError *error))complete;
-    @end 
+        @end 
 
 2.新增NFCInfo类     
 
-    //uSDKInfo.h     
-    //NFC标签数据解析结果
-    @interface uSDKNFCInfo : NSObject     
-    @property (nonatomic, copy) NSString *NFCSerialNumber;  //NFC标签序列号    
-    @property (nonatomic, copy) NSString *MAC;  //设备MAC    
-    @property (nonatomic, copy) NSString *deviceID; //设备ID
-    @property (nonatomic, copy) NSString *productCode;  //设备成品编码
-    @property (nonatomic, copy) NSString *hwProductID; //华为的PID
-    @end
+​    //uSDKInfo.h     
+​    //NFC标签数据解析结果
+​    @interface uSDKNFCInfo : NSObject     
+​    @property (nonatomic, copy) NSString *NFCSerialNumber;  //NFC标签序列号    
+​    @property (nonatomic, copy) NSString *MAC;  //设备MAC    
+​    @property (nonatomic, copy) NSString *deviceID; //设备ID
+​    @property (nonatomic, copy) NSString *productCode;  //设备成品编码
+​    @property (nonatomic, copy) NSString *hwProductID; //华为的PID
+​    @end
 
 **内部优化**    
 1.只订阅，不获取属性时，忽略属性上报    
@@ -433,39 +431,45 @@ MD5值：65EFA79B2C417A9558B254E9BF943E99
 
 
 ----------
+
 - **iOS uSDK_8.2.0**    
 
 版本号： v8.2.0   
+
 发布日期：2021.02.04    
-MD5值：0B7D9309709F48E84EB281DB31A6D220     
+
+MD5值：0B7D9309709F48E84EB281DB31A6D220    
+
+
 下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.2.0_Phone_iOS_20210205170244003.zip)       
+
 注意事项1：不支持国海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用更新日志：    
 1.新增功能   
 1.1 新增事件上报自定义类 uSDKDeviceEvent   
 
-    //uSDK设备事件信息类，用于描述设备的事件消息。   
-    
-    @interface uSDKDeviceEvent : NSObject
-    
-    //事件名称-标准定义
-    @property (nonatomic, copy, readonly) NSString *name;
-    
-    // 事件类型[ message消息;alarm报警;fault故障;]
-    @property (nonatomic, copy, readonly) NSString *type;
-    
-    // 该事件附带的属性列表
-    @property (nonatomic, strong) NSArray<uSDKDeviceAttribute*> *attrs;
-    @end  
+​    //uSDK设备事件信息类，用于描述设备的事件消息。   
+​    
+​    @interface uSDKDeviceEvent : NSObject
+​    
+​    //事件名称-标准定义
+​    @property (nonatomic, copy, readonly) NSString *name;
+​    
+​    // 事件类型[ message消息;alarm报警;fault故障;]
+​    @property (nonatomic, copy, readonly) NSString *type;
+​    
+​    // 该事件附带的属性列表
+​    @property (nonatomic, strong) NSArray<uSDKDeviceAttribute*> *attrs;
+​    @end  
 
 1.2 新增事件上报代理回调（见uSDKDevice.h）    
 
-    /**
+​    /**
      * 设备事件回调
-     * @param device 事件上报的设备对象
-     * @param events 事件
-     */
-    -(void)device:(uSDKDevice *)device didReceiveEvent:(NSArray<uSDKDeviceEvent*>*)events ;
+          * @param device 事件上报的设备对象
+          * @param events 事件
+               */
+            -(void)device:(uSDKDevice *)device didReceiveEvent:(NSArray<uSDKDeviceEvent*>*)events ;
 
 2.接口变更  
  无    
@@ -509,30 +513,30 @@ MD5值：4689EB4BE4490F024FF35D30D0135FC1
 1.新增功能   
 1.1 根据自定义traceId创建链式跟踪对象（见uTraceNode.h）     
 
-    /**
-     根据自定义traceId创建链式跟踪对象 
-     1.该方法针对App主动服务业务使用
-     2.调用埋点方法时，bId的值：
-    2.1对于DI点，bId = uTraceNodeDI.bId
-    2.2对于CS/CR点，bId = businessID
-      
-     @param traceID 链式跟踪ID，不能为空，且要求为32个字符长度的uuid字符串
-     @param businessID 业务ID，可以为空
-     @return uTrace对象
-     @since 8.1.0
-     */
+​    /**
+​     根据自定义traceId创建链式跟踪对象 
+​     1.该方法针对App主动服务业务使用
+​     2.调用埋点方法时，bId的值：
+​    2.1对于DI点，bId = uTraceNodeDI.bId
+​    2.2对于CS/CR点，bId = businessID
+​      
+​     @param traceID 链式跟踪ID，不能为空，且要求为32个字符长度的uuid字符串
+​     @param businessID 业务ID，可以为空
+​     @return uTrace对象
+​     @since 8.1.0
+​     */
     + (uTrace *)createTraceWithTraceID:(NSString *)traceID businessID:(NSString *)businessID;
 
 1.2 网关子设备绑定接口，绑定信息uSDKSlaveDeviceBindInfo中新增属性，用于RISCO设备接入
 在uSDKSlaveDeviceBindInfo.h中新增加属性    
 
-    /**
-    通用扩展信息，可以为空，SDK不做校验，仅透传
-     
-    如：RISCO设备接入时，需传入扩展信息：ip/port/Identification Code，信息格式需App开发者与设备侧协商。
-    @since 8.1.0
-    */
-    @property (nonatomic, copy) NSString *extendInfo;
+​    /**
+​    通用扩展信息，可以为空，SDK不做校验，仅透传
+​     
+​    如：RISCO设备接入时，需传入扩展信息：ip/port/Identification Code，信息格式需App开发者与设备侧协商。
+​    @since 8.1.0
+​    */
+​    @property (nonatomic, copy) NSString *extendInfo;
 
 
 2.接口变更   
@@ -557,93 +561,94 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 1.1.1 BLE Mesh设备搜索BLE Mesh设备进入配网模式后，可以通过自发现待入网设备接口   [uSDKDeviceScanner startScanConfigurableDevice]进行搜索，在返回的uSDK DeviceInfo中增加了uSDKDeviceConfigTypeBLEMesh的配网方式    
 
 
-      typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {
-    	uSDKDeviceConfigTypeBLEMesh = (1UL << 3),
-    };   
+​      typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {
+​    	uSDKDeviceConfigTypeBLEMesh = (1UL << 3),
+​    };   
 
 1.1.2 BLE Mesh设备配网对于支持BLE Mesh配网方式的设备，在配网时，需要调用新增的BLE Mesh配网接口   
 
-    //uSDKBinding.h+ (void)bindBLEMeshDevice:(uSDKBLEMeshBindInfo *)bindInfo 
-       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-      success:(void(^)(uSDKDevice *device))success
-      failure:(void(^)(NSError *error))failure;   
+​    //uSDKBinding.h+ (void)bindBLEMeshDevice:(uSDKBLEMeshBindInfo *)bindInfo 
+​       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+​      success:(void(^)(uSDKDevice *device))success
+​      failure:(void(^)(NSError *error))failure;   
 
 1.1.3 BLE Mesh组设备对于BLE Mesh设备，可以将多个具有相同功能集的设备加入一个组，并生成一个新的组设备。 如:将房间内所有的灯加入一个组，会生成一个组设备，可以直接对组设备进行控制，即会对加入到这个组设备的所有设备生效    
 1.1.3.1 获取可分组设备列表 可以根据某个device对象，获取可以与这个设备加入同一个组的设备列表    
 
-    //uSDKDevice.h- (void)getBLEMeshGroupDeviceListSuccess:(void(^)(NSArray<uSDKDevice *> *devices))success failure:(void(^)(NSError *error))failure;   
+​    //uSDKDevice.h- (void)getBLEMeshGroupDeviceListSuccess:(void(^)(NSArray<uSDKDevice *> *devices))success failure:(void(^)(NSError *error))failure;   
 
 1.1.3.2 创建设备分组   
 调用获取可分组设备列表接口后，可以在返回的列表中选择一个或多个设备，与当前设备对象加入同一个组，创建成功后，会产生一个新的uSDKDevice设备 对象   
 创建组的过程分为两步，第一步是创建组设备对象，第二步是将选择的设备和当前设备对象加入到这个新创建的组中     
 
-    //uSDKDevice.h- (void)createBLEMeshGroupWithDevices:(NSArray<uSDKDevice *> *)devices 
-    	timeoutInterval:(NSTimeInterval)timeoutInterval 
-    	progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify 
-    	success:(void(^)(uSDKDevice *device))success 
-    	failure:(void(^)(NSError *error))failure;
+​    //uSDKDevice.h- (void)createBLEMeshGroupWithDevices:(NSArray<uSDKDevice *> *)devices 
+​    	timeoutInterval:(NSTimeInterval)timeoutInterval 
+​    	progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify 
+​    	success:(void(^)(uSDKDevice *device))success 
+​    	failure:(void(^)(NSError *error))failure;
 
 1.3.3 向组设备中添加成员 组创建成功后，可以向组内继续添加新的成员，在调用该接口时，要求当前device对象为组设备    
 
-    //uSDKDevice.h- (void)addDevices:(NSArray<uSDKDevice *> *)devices toBLEMeshGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval 
-    progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-       success:(void(^)(void))success
-       failure:(void(^)(NSError *error))failure;
+​    //uSDKDevice.h- (void)addDevices:(NSArray<uSDKDevice *> *)devices toBLEMeshGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval 
+​    progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+​       success:(void(^)(void))success
+​       failure:(void(^)(NSError *error))failure;
 
 1.3.4 从组内删除成员 组创建成功后，可以向组内继续添加新的成员，在调用该接口时，要求当前device对象为组设备    
 
-    //uSDKDevice.h- (void)removeDevices:(NSArray<uSDKDevice *> *)devices fromBLEMeshGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval 
-       progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-      success:(void(^)(void))success
-      failure:(void(^)(NSError *error))failure;
+​    //uSDKDevice.h- (void)removeDevices:(NSArray<uSDKDevice *> *)devices fromBLEMeshGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval 
+​       progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+​      success:(void(^)(void))success
+​      failure:(void(^)(NSError *error))failure;
 
 1.3.5 删除组设备 组设备不能解绑，但可以删除，删除组设备后，会自动解绑    
 
-    //uSDKDevice.h- (void)deleteBLEMeshGroupSuccess:(void(^)(void))success 
-      failure:(void(^)(NSError *error))failure;
+​    //uSDKDevice.h- (void)deleteBLEMeshGroupSuccess:(void(^)(void))success 
+​      failure:(void(^)(NSError *error))failure;
 
 1.4 增加BLE Mesh OTA    
 针对BLE Mesh设备OTA，依然沿用原FOTA接口，使用方式不变 。    
 1.5是 增加BLE ADV设备管理    
 1.5.1 BLE ADV设备搜索未绑定的BLE ADV设备可以通过自发现待入网设备接口[uSDKDeviceScanner startScanConfigurableDevice]进行搜索，在返回的uSDKDeviceIn fo中增加了uSDKDeviceConfigTypeBLEADV的配网方式     
 
-    typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {
-    uSDKDeviceConfigTypeBLEADV = (1UL << 5),
-    };
+​    typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {
+​    uSDKDeviceConfigTypeBLEADV = (1UL << 5),
+​    };
 
 1.5.2 BLE ADV设备配网对于支持BLE ADV配网方式的设备，在配网时，需要调用新增的BLE ADV配网接口 
 //uSDKBinding.h+ (void)bindBLEADVDevice:(uSDKBLEADVBindInfo *)bindInfo  
 
-          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-                 success:(void(^)(uSDKDevice *device))success
-                 failure:(void(^)(NSError *error))failure;  
+​          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+​                 success:(void(^)(uSDKDevice *device))success
+​                 failure:(void(^)(NSError *error))failure;  
 
 1.5.3 uSDK设备属性类新增设备属性的时间戳，精确到毫秒(目前该字段，只有BLE_ADV设备 才会有值， 开发者可以不用关心这个字段)     
 
 
-    //uSDKBinding.h@property (nonatomic, assign) uint64_t timeStamp;   
+​    //uSDKBinding.h@property (nonatomic, assign) uint64_t timeStamp;   
 
 1.6. 增加uSDK音视频P2P功能    
 新增uSDKPlayer.h核心播放器， uSDKMonitorPlayer.h 监控播放器。 uSDKPlayer为抽象类，不要直接实例化，请使用其派生类:uSDKMonitorP layer使用监控播放器可以实现手机与设备之间 实时的音视频播放信息。    
 1.7. 获取路由器信息    
 当WiFi网络中存在已入网设备时，需要配置另外一台设备到该WiFi网络，可以通过此接口获取该WiFi网络的路由器SSID和密码      
 
-    //uSDKBinding.h
+​    //uSDKBinding.h
     + (void)getConfigRouterInfo:(NSTimeInterval)timeoutInterval
-    	success:(void(^)(uSDKConfigRouterInfo *routerInfo))success
-    	failure:(void(^)(NSError *error))failure;
+        	success:(void(^)(uSDKConfigRouterInfo *routerInfo))success
+        	failure:(void(^)(NSError *error))failure;
 
 1.8 uSDKDeviceScanner增加wifi、ble开关通知    
 
-    typedef NS_ENUM(NSUInteger, uSDKInvalidPermission) { 
-    uSDKBleInvalid,
-    uSDKNetWorkInvalid,
-    };
-    /** 
-     @param scanner uSDKDeviceScanner
-     @param invalidPermission
-     */
+​    typedef NS_ENUM(NSUInteger, uSDKInvalidPermission) { 
+​    uSDKBleInvalid,
+​    uSDKNetWorkInvalid,
+​    };
+​    /** 
+​     @param scanner uSDKDeviceScanner
+​     @param invalidPermission
+​     */
     - (void)deviceScanner:(uSDKDeviceScanner*)scanner didPermissionInvalid:(uSDKInvalidPermission *) invalidPermission; 
+
 2.接口变更  
  无  
 3.内部优化及BUG修改   
@@ -701,58 +706,58 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 1.新增功能    
 1.1.  查询设备网络信号质量(见`uSDKDevice.h`)   
 
-     @param success 成功的回调（uSDKNetworkQualityInfo：设备网络质量信息类，具体的网络质量指标 请进该类中查看）
-     @param failure 失败的回调
-     @since 6.1.0
-     */
+​     @param success 成功的回调（uSDKNetworkQualityInfo：设备网络质量信息类，具体的网络质量指标 请进该类中查看）
+​     @param failure 失败的回调
+​     @since 6.1.0
+​     */
      - (void)getNetworkQualityV2Success:(void(^)(uSDKNetworkQualityInfoV2 *networkQuality))success
-     failure:(void(^)(NSError *error))failure;
+          failure:(void(^)(NSError *error))failure;
 
 1.2 新增uSDK与设备的连接状态  
 
-    typedef NS_ENUM(NSUInteger, uSDKDeviceConnectStatus) {  
-     //大循环在线
-    uSDKDeviceConnectStatusCloudConnected,
-    
-    // 大循环不在线、小循环在线
-    uSDKDeviceConnectStatusLocalConnected,
-    
-    // 大小循环均不在线，BLE在线
-    uSDKDeviceConnectStatusBleConnected,
-       
-    // 大小循环、BLE均不在线
-    uSDKDeviceConnectStatusOffline
-    };
+​    typedef NS_ENUM(NSUInteger, uSDKDeviceConnectStatus) {  
+​     //大循环在线
+​    uSDKDeviceConnectStatusCloudConnected,
+​    
+​    // 大循环不在线、小循环在线
+​    uSDKDeviceConnectStatusLocalConnected,
+​    
+​    // 大小循环均不在线，BLE在线
+​    uSDKDeviceConnectStatusBleConnected,
+​       
+​    // 大小循环、BLE均不在线
+​    uSDKDeviceConnectStatusOffline
+​    };
 
 
 1.3 新增设备网络质量信息类（见`uSDKNetworkQualityInfoV2.h`）   
 
-    /**
-     设备网络质量查询结果，其中connectStatus为uSDK与设备当前的连接状态，其他属性均为云平台返回的结果
-     */
-    @interface uSDKNetworkQualityInfoV2 : NSObject
+​    /**
+​     设备网络质量查询结果，其中connectStatus为uSDK与设备当前的连接状态，其他属性均为云平台返回的结果
+​     */
+​    @interface uSDKNetworkQualityInfoV2 : NSObject
 
 1.4. 新增设备故障信息（见`uSDKFaultInformation`）    
 
 //`uSDKDeviceInfo`类中新增了属性`faultInfo`，在设备广播故障期间，`app`同时可以从属性中获取当前设备的`故障信息`。
 
-    @interface uSDKFaultInformation : NSObject
-    
-    @property (nonatomic, assign) NSInteger state;
-    
-    @property (nonatomic, assign) NSInteger stateCode;
-    
-    @end
+​    @interface uSDKFaultInformation : NSObject
+​    
+​    @property (nonatomic, assign) NSInteger state;
+​    
+​    @property (nonatomic, assign) NSInteger stateCode;
+​    
+​    @end
 
 1.5. 接收设备故障事件信息（见`uSDKDeviceDelegate`）   
 
 //在设备配置绑定成功后，如果用户家里路由器断电或修改密码，会导致设备连不上路由器，此时设备(目前只有云芯二代3.2.00版本支持)通过蓝牙广播故障事件，手机侧在收到设备故障广播时会通过下面代理通知App.  
 
-    @protocol uSDKDeviceDelegate;
-    /// 设备故障信息上报
-    /// @param device 设备对象
-    /// @param faultInformation 故障信息类
-    /// @since 6.1.0
+​    @protocol uSDKDeviceDelegate;
+​    /// 设备故障信息上报
+​    /// @param device 设备对象
+​    /// @param faultInformation 故障信息类
+​    /// @since 6.1.0
     - (void)device:(uSDKDevice *)device didUpdateFaultInformation:(uSDKFaultInformation *)faultInformation;
 
 
@@ -761,23 +766,23 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
  `app`在收到上面的代理回调后，可以调用下面的接口修改模块连接的`ssid`和`password`，修改成功后，会通过上面代理回调`App`，`state == 0, stateCode == 0`，并将属性`faultInfo`中的`state`和`stateCode`都置为0  
 
-      目前只支持云芯二代3.2.00模块   
-     @param ssid 路由器的ssid，必选
-     @param password 路由器的密码，必选
-     @param bssid 路由器的bssid，可选
-     @param timeoutInterval 超时时间[30,120]
-     @param progressNotify 更新进度通知
-     @param success 成功回调
-     @param failure 失败回调
-     @since 6.1.0
-      
+​      目前只支持云芯二代3.2.00模块   
+​     @param ssid 路由器的ssid，必选
+​     @param password 路由器的密码，必选
+​     @param bssid 路由器的bssid，可选
+​     @param timeoutInterval 超时时间[30,120]
+​     @param progressNotify 更新进度通知
+​     @param success 成功回调
+​     @param failure 失败回调
+​     @since 6.1.0
+​      
     - (void)updateRouterSSID:(NSString *)ssid
-    password:(NSString *)password
+        password:(NSString *)password
        bssid:(NSString *)bssid
-     timeoutInterval:(NSTimeInterval)timeoutInterval
+          timeoutInterval:(NSTimeInterval)timeoutInterval
       progressNotify:(void(^)(uSDKRouterInfoUpdateProgress updateProgress))progressNotify
-     success:(void(^)(void))success
-     failure:(void(^)(NSError *error))failure;
+          success:(void(^)(void))success
+          failure:(void(^)(NSError *error))failure;
 
 
 
@@ -841,99 +846,99 @@ MD5值：8BAEFC10DED08895D23C5D393CF37B77
 
 1.2.1 获取新直连绑定验证码方式绑定信息（见uSDKNewDirectLinkVerificationCodeBindInfo）  
 
-    /**
-     通过uSDKDeviceScanner扫描到的新直连设备对象，device.configType & uSDKDeviceConfigTypeNewDirectLink == 1表示该设备支持新直连配网
-     */
-    @property (nonatomic, strong) uSDKDeviceInfo *deviceInfo;
-    // 验证码  长度[6,63]
-    @property (nonatomic, copy) NSString *verificationCode;
+​    /**
+​     通过uSDKDeviceScanner扫描到的新直连设备对象，device.configType & uSDKDeviceConfigTypeNewDirectLink == 1表示该设备支持新直连配网
+​     */
+​    @property (nonatomic, strong) uSDKDeviceInfo *deviceInfo;
+​    // 验证码  长度[6,63]
+​    @property (nonatomic, copy) NSString *verificationCode;
 
 1.2.2 验证码方式绑定新直连设备   
 
-    @interface uSDKbinding
-    /**
-     新直连设备手动确认方式绑定接口
-    
-     @param bindInfo 新直连绑定验证码方式绑定信息
-     @param progressNotify 进度上报，共四个进度上报
-     1.参数校验成功后上报uSDKBindProgressConnectDevice
-     2.与设备建立连接成功时上报uSDKBindProgressSendConfigInfo
-     3.设备开始校验时上报uSDKBindProgressVerification
-     4.设备开始绑定时上报uSDKBindProgressBindDevice
-     @param success 配网成功时的block回调
-     @param failure 配网失败时的block回调
-     @since 6.0.0
-     */
-     +(void)bindNewDirectLinkDeviceWithManualConfirmBindInfo:(uSDKNewDirectLinkManualConfirmBindInfo *)bindInfo
-       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-      success:(void(^)(uSDKDevice *device))success
-      failure:(void(^)(NSError *error))failure;
+​    @interface uSDKbinding
+​    /**
+​     新直连设备手动确认方式绑定接口
+​    
+​     @param bindInfo 新直连绑定验证码方式绑定信息
+​     @param progressNotify 进度上报，共四个进度上报
+​     1.参数校验成功后上报uSDKBindProgressConnectDevice
+​     2.与设备建立连接成功时上报uSDKBindProgressSendConfigInfo
+​     3.设备开始校验时上报uSDKBindProgressVerification
+​     4.设备开始绑定时上报uSDKBindProgressBindDevice
+​     @param success 配网成功时的block回调
+​     @param failure 配网失败时的block回调
+​     @since 6.0.0
+​     */
+​     +(void)bindNewDirectLinkDeviceWithManualConfirmBindInfo:(uSDKNewDirectLinkManualConfirmBindInfo *)bindInfo
+​       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+​      success:(void(^)(uSDKDevice *device))success
+​      failure:(void(^)(NSError *error))failure;
 
 
 1.3 手动确认校验方式绑定新直连设备   
 
 1.3.1 获取新直连绑定验证码方式绑定信息（见uSDKNewDirectLinkManualConfirmBindInfo）   
 
-    /**
-     通过uSDKDeviceScanner扫描到的新直连设备对象，device.configType & uSDKDeviceConfigTypeNewDirectLink == 1表示该设备支持新直连配网
-     */
-    @property (nonatomic, strong) uSDKDeviceInfo *deviceInfo;
-    
-    1.3.2 手动确认校验方式绑定新直连设备（见uSDKbinding）
-    /**
-     新直连设备手动确认方式绑定接口
-     @param bindInfo 新直连绑定验证码方式绑定信息。
-     @param progressNotify 进度上报，共四个进度上报
-     1.参数校验成功后上报uSDKBindProgressConnectDevice
-     2.与设备建立连接成功时上报uSDKBindProgressSendConfigInfo
-     3.设备开始校验时上报uSDKBindProgressVerification
-     4.设备开始绑定时上报uSDKBindProgressBindDevice
-     @param success 配网成功时的block回调
-     @param failure 配网失败时的block回调
-     */
-     +(void)bindNewDirectLinkDeviceWithManualConfirmBindInfo:(uSDKNewDirectLinkManualConfirmBindInfo *)bindInfo
-       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-      success:(void(^)(uSDKDevice *device))success
-      failure:(void(^)(NSError *error))failure;
+​    /**
+​     通过uSDKDeviceScanner扫描到的新直连设备对象，device.configType & uSDKDeviceConfigTypeNewDirectLink == 1表示该设备支持新直连配网
+​     */
+​    @property (nonatomic, strong) uSDKDeviceInfo *deviceInfo;
+​    
+​    1.3.2 手动确认校验方式绑定新直连设备（见uSDKbinding）
+​    /**
+​     新直连设备手动确认方式绑定接口
+​     @param bindInfo 新直连绑定验证码方式绑定信息。
+​     @param progressNotify 进度上报，共四个进度上报
+​     1.参数校验成功后上报uSDKBindProgressConnectDevice
+​     2.与设备建立连接成功时上报uSDKBindProgressSendConfigInfo
+​     3.设备开始校验时上报uSDKBindProgressVerification
+​     4.设备开始绑定时上报uSDKBindProgressBindDevice
+​     @param success 配网成功时的block回调
+​     @param failure 配网失败时的block回调
+​     */
+​     +(void)bindNewDirectLinkDeviceWithManualConfirmBindInfo:(uSDKNewDirectLinkManualConfirmBindInfo *)bindInfo
+​       progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+​      success:(void(^)(uSDKDevice *device))success
+​      failure:(void(^)(NSError *error))failure;
 
 
 1.4 自发现蓝牙设备可发现已配置的蓝牙设备  
 
 通过`uSDKDeviceScanner`类发现的蓝牙设备列表中，如果***设备已配置，但未连接***，也依然可以通过该类发现，在`uSDKDeviceInfo`中新增属性用于标识设备的配置状态  
 
-    //设备当前可配置状态
-    typedef NS_ENUM(NSUInteger, uSDKDeviceConfigState) {
-    //设备当前状态已配置
-    uSDKDeviceConfigStateConfigured,
-    //设备当前状态可配置
-    uSDKDeviceConfigStateConfigurable,
-    //设备当前状态可触发进配置
-    uSDKDeviceConfigStateTriggerConfigurable,
-    };
-    
-    @interface uSDKDeviceInfo
-    //设备当前的可配置状态
-    @property (nonatomic, assign, readonly) uSDKDeviceConfigState configState;
+​    //设备当前可配置状态
+​    typedef NS_ENUM(NSUInteger, uSDKDeviceConfigState) {
+​    //设备当前状态已配置
+​    uSDKDeviceConfigStateConfigured,
+​    //设备当前状态可配置
+​    uSDKDeviceConfigStateConfigurable,
+​    //设备当前状态可触发进配置
+​    uSDKDeviceConfigStateTriggerConfigurable,
+​    };
+​    
+​    @interface uSDKDeviceInfo
+​    //设备当前的可配置状态
+​    @property (nonatomic, assign, readonly) uSDKDeviceConfigState configState;
 
 
 1.5 uSDK启动项里增加开启蓝牙搜索配置(见uSDKStartOptions)  
 
-    //默认为YES，表示开启BLE可控设备搜索，如果不想开启，则将该属性置为NO
-    @property (nonatomic, assign) BOOL enableBLEControllableSearch;
+​    //默认为YES，表示开启BLE可控设备搜索，如果不想开启，则将该属性置为NO
+​    @property (nonatomic, assign) BOOL enableBLEControllableSearch;
 
 1.6 大循环下获取设备的模块信息(见uSDKDevice)   
 
-    /**
-     获取设备模块信息
-     @param timeout 超时时间(s)，最小5s，最长120s，建议值15s
-     @param success 成功的回调, 返回uSDKModuleInfo对象
+​    /**
+​     获取设备模块信息
+​     @param timeout 超时时间(s)，最小5s，最长120s，建议值15s
+​     @param success 成功的回调, 返回uSDKModuleInfo对象
     1. 接口只要执行成功，就会通过success block返回
-    2. 但uSDKModuleInfo中具体数据依赖云平台，可能有的字段是空的，可能全都是空的
-     @param failure 失败的回调, 返回NSError对象
-     */
+        2. 但uSDKModuleInfo中具体数据依赖云平台，可能有的字段是空的，可能全都是空的
+          @param failure 失败的回调, 返回NSError对象
+          */
     - (void)deviceModuleInfoWithTimeout:(NSTimeInterval)timeout
-    success:(void(^)(uSDKModuleInfo *info))success
-    failure:(void(^)(NSError *error))failure;
+        success:(void(^)(uSDKModuleInfo *info))success
+        failure:(void(^)(NSError *error))failure;
 
 1.7 无效命令  
 
@@ -945,35 +950,35 @@ MD5值：8BAEFC10DED08895D23C5D393CF37B77
 1.9 配置绑定增加重试接口   
 当配置绑定返回`ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）`时，可以通过该接口尝试进行重试绑定  
 
-    /**
-    绑定重试接口
-    当错误码为ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）时需要调用重试接口试图重新绑定设备，
-    会返回-16018的接口bindDeviceByBLE、bindPureBLEDevice、bindDeviceBySoftAp、bindDeviceBySmartLink、bindDeviceByQRCode、bindNewDirectLinkDevice
-    
-    @param timeoutInterval 绑定超时时间（单位是秒，范围为10秒-180秒）
-    @param success 绑定成功时的block回调
-    @param failure 绑定失败时的block回调
-    @since 6.0.0
-     */
-     +(void)retryBindDeviceWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-       success:(void(^)(uSDKDevice *device))success
-       failure:(void(^)(NSError *error))failure;
+​    /**
+​    绑定重试接口
+​    当错误码为ERR_USDK_BIND_TIMEOUT_NEED_RETRY_BIND（-16018）时需要调用重试接口试图重新绑定设备，
+​    会返回-16018的接口bindDeviceByBLE、bindPureBLEDevice、bindDeviceBySoftAp、bindDeviceBySmartLink、bindDeviceByQRCode、bindNewDirectLinkDevice
+​    
+​    @param timeoutInterval 绑定超时时间（单位是秒，范围为10秒-180秒）
+​    @param success 绑定成功时的block回调
+​    @param failure 绑定失败时的block回调
+​    @since 6.0.0
+​     */
+​     +(void)retryBindDeviceWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+​       success:(void(^)(uSDKDevice *device))success
+​       failure:(void(^)(NSError *error))failure;
 
 2.接口变更   
 
 2.1针对`softap`配网，修改参数`deviceBSSID`为`deviceSSID`, softap配网不再校验`iotDevBssid`(见uSDKSoftApBindInfo)  
 
-    /**
-     设备SoftAp热点的SSID，必填
-     如果在调用softap绑定接口时，手机连接的热点与该属性的值不匹配，则返回-13016(未连接到设备热点)错误
-     */
-    @property (nonatomic, copy) NSString* iotDeviceSSID;
-    
-    /**
-     设备SoftAp热点的BSSID
-     @deprecated 6.0.0 属性废弃后，不再校验该属性
-     */
-    @property (nonatomic, copy) NSString* iotDevBssid DEPRECATED_ATTRIBUTE;
+​    /**
+​     设备SoftAp热点的SSID，必填
+​     如果在调用softap绑定接口时，手机连接的热点与该属性的值不匹配，则返回-13016(未连接到设备热点)错误
+​     */
+​    @property (nonatomic, copy) NSString* iotDeviceSSID;
+​    
+​    /**
+​     设备SoftAp热点的BSSID
+​     @deprecated 6.0.0 属性废弃后，不再校验该属性
+​     */
+​    @property (nonatomic, copy) NSString* iotDevBssid DEPRECATED_ATTRIBUTE;
 
 3.内部优化及BUG修改   
 
@@ -1001,8 +1006,8 @@ MD5值：96CDF4D39DD2B765AFEA6DB1118A1F46
 1.新增功能  
 1.1新增非安全设备获取bindInfo接口(见SDKBinding.h)  
 
-         +(void)unSafeDeviceBindInfoWithSuccess:(void(^)(NSString *bindInfo))success
-         failure:(void(^)(NSError *error))failure;
+​         +(void)unSafeDeviceBindInfoWithSuccess:(void(^)(NSString *bindInfo))success
+​         failure:(void(^)(NSError *error))failure;
 
 2.接口变更    
  无    
@@ -1027,8 +1032,8 @@ MD5值：5F449B0E1A1F9B5E4C7A0717927D700F
 
 1.1 标记设备进入焦点（详情页）(见uSDKDevice类)  
 
-    //进入焦点后，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道。重复进入返回NO
-    
+​    //进入焦点后，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道。重复进入返回NO
+​    
     - (BOOL)inFocus;
 
  
@@ -1036,31 +1041,34 @@ MD5值：5F449B0E1A1F9B5E4C7A0717927D700F
 
 
 
+
 1.2 标记设备退出焦点（详情页）(见uSDKDevice类)  
 
-    // 重复退出返回NO
-    
+​    // 重复退出返回NO
+​    
     - (BOOL)outFocus;   
 
 
 1.3 新增zigbee绑定_失败错误码   
 
-    // App进入后台导致的超时
-    
-    ERR_USDK_ENTER_BACKGROUND_TIMEOUT = -13026
+​    // App进入后台导致的超时
+​    
+​    ERR_USDK_ENTER_BACKGROUND_TIMEOUT = -13026
 
  
+
 
 
 
 
 1.4 新增蓝牙配置时设备需要触发进配置的错误码   
 
-    // 设备需要触发进配置
-    
-    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
+​    // 设备需要触发进配置
+​    
+​    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
 
  
+
 
 
 
@@ -1089,59 +1097,61 @@ MD5值：121D2C1ED1D28C5DDD678FFE3887A3AF
 1.新增功能  
 1.1 新增网关子机绑定信息类(uSDKSlaveDeviceBindInfo)   
 
-    //该对象必填,需要使用从uSDK中返回的设备对象，不能自己创建
-    @property (nonatomic, strong) uSDKDevice *masterDevice;
-    //设备的uplusID，必填
-    @property (nonatomic, copy) NSString *uplusID;
-    //设备的产品编码，必填
-    @property (nonatomic, copy) NSString *productCode;
-    //超时时间，30-120s，默认60s
-    @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+​    //该对象必填,需要使用从uSDK中返回的设备对象，不能自己创建
+​    @property (nonatomic, strong) uSDKDevice *masterDevice;
+​    //设备的uplusID，必填
+​    @property (nonatomic, copy) NSString *uplusID;
+​    //设备的产品编码，必填
+​    @property (nonatomic, copy) NSString *productCode;
+​    //超时时间，30-120s，默认60s
+​    @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 1.2 新增开始进入组网模式阶段的错误码（uSDKBindProgresStartNetworkingMode）  
 
-    //参数为空
-    UGW_RSP_INVALID_PARAM -25001
-    //设备类型不支持
-    UGW_RSP_INVALID_PRODUCT_CODE  -25023
-    //配对模式已开启，重复开启
-    UGW_RSP_REPEAT_STARTPAIR  -25024
-    //开启配对失败
-    UGW_RSP_STARTPAIR_FAILED  -25022
+​    //参数为空
+​    UGW_RSP_INVALID_PARAM -25001
+​    //设备类型不支持
+​    UGW_RSP_INVALID_PRODUCT_CODE  -25023
+​    //配对模式已开启，重复开启
+​    UGW_RSP_REPEAT_STARTPAIR  -25024
+​    //开启配对失败
+​    UGW_RSP_STARTPAIR_FAILED  -25022
 
 1.3  新增开始组网阶段的错误码（uSDKBindProgresStartNetworking）  
 
-    //配对超时
-    UGW_RSP_PAIR_TIMEOUT -25026
-    //配对设备个数达上限
-    UGW_RSP_PAIR_DEV_MAX  -25025
+​    //配对超时
+​    UGW_RSP_PAIR_TIMEOUT -25026
+​    //配对设备个数达上限
+​    UGW_RSP_PAIR_DEV_MAX  -25025
 
 1.4 新增开始绑定子机阶段的错误码（uSDKBindProgresStartBindSlaveDevice）   
 
-    //添加并绑定设备失败  
-    UGW_RSP_BIND_ERROR -25027
-    //退出配对模式（人为操作设备或APP取消配网）
-    UGW_RSP_EXIT_PAIR -25028
+​    //添加并绑定设备失败  
+​    UGW_RSP_BIND_ERROR -25027
+​    //退出配对模式（人为操作设备或APP取消配网）
+​    UGW_RSP_EXIT_PAIR -25028
 
 1.5 新增网关子机绑定功能（uSDKBinding）  
 
-    /**
-    网关子机设备与网关配对，并将网关子机设备绑定到云平台
-    调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
-    @param bindInfo 网关子机绑定信息类
-    @param progressNotify 进度回调，共三个进度回调：
+​    /**
+​    网关子机设备与网关配对，并将网关子机设备绑定到云平台
+​    调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
+​    @param bindInfo 网关子机绑定信息类
+​    @param progressNotify 进度回调，共三个进度回调：
     1. uSDKBindProgressStartEnterNetworkingMode
-    2. uSDKBindProgressStartNetworking
-    3. uSDKBindProgressStartBindSlaveDevice
-    @param success 配置绑定成功时的block回调，只有配置和绑定都成功会通过success block进行回调
-    @param failure 配置绑定失败时的block回调，任何一个过程失败都会通过failure block进行回调
-    */  
+        2. uSDKBindProgressStartNetworking
+        3. uSDKBindProgressStartBindSlaveDevice
+        @param success 配置绑定成功时的block回调，只有配置和绑定都成功会通过success block进行回调
+        @param failure 配置绑定失败时的block回调，任何一个过程失败都会通过failure block进行回调
+        */  
     + (void)bindSlaveDeviceWithBindInfo:(uSDKSlaveDeviceBindInfo *)bindInfo
-     progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-    success:(void(^)(uSDKDevice *device))success
-    failure:(void(^)(NSError *error))failure;
+          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+        success:(void(^)(uSDKDevice *device))success
+        failure:(void(^)(NSError *error))failure;
 
 2.接口变更  
  无   
 3.内部优化   
  无  
+
+
