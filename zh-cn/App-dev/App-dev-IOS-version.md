@@ -1,19 +1,14 @@
-**1. uSDK开发手册**   
+# uSDK-IOS资料下载  #
 
-简介：uSDK开发手册的使用对象是使用uSDK开发APP的开发者。开发者可以通过此手册，可以了解uSDK的用法、关键流程以及常见问题。   
+## 支持有效期   
 
-**2. uSDK Demo**
+支持有效期：新版本uSDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。  
 
-简介：uSDK示例工程的使用对象是使用uSDK的APP开发者。开发者通过此示例工程，可以了解uSDK的应用方法及流程。  
-
-**3. iOS uSDK开发包下载**
+## 版本资料 
 
 
-支持有效期：新版本SDK发布起，APP新接入大版本SDK的支持有效期为6-12个月，APP新接入小版本SDK的支持有效期为3-6个月。    
-
-----------
-
-- **iOS uSDK_8.5.0**   
+### IOS uSDK_8.5.0 
+ 
 
   版本号： v8.5.0
   发布日期：2021.04.30
@@ -22,7 +17,7 @@
   更新日志：
   新增功能
 
-  ##### 一、外部修改
+ 一、外部修改
 
   uSDKDevice.h新增接口
 
@@ -210,7 +205,6 @@
       seekToTime:(NSTimeInterval)time;
 
 /// 暂停
-
 - (void)pause;
 
 /// 恢复
@@ -269,7 +263,7 @@ uSDKPlayer.h新增播放器代理协议
      */
       ERR_USDK_PLAYER_EXCEEDS_MAX_NUMBER = -20008,
 
-##### 二、内部优化
+二、内部优化
 
 1.配置文件下载地址变更
 2.uSDKMonitorPlayer和uSDKPlaybackPlayer中destroyPlayer接口统一定义在父类uSDKPlayer中
@@ -278,7 +272,7 @@ uSDKPlayer.h新增播放器代理协议
 
 
 
-*  **iOS uSDK_8.4.0**    
+### **iOS uSDK_8.4.0**  ###
 
 版本号： v8.4.0    
 
@@ -366,7 +360,7 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 
 ----------
 
-- **iOS uSDK_8.3.0**      
+### **iOS uSDK_8.3.0**   ###    
 
 版本号： v8.3.0   
 
@@ -431,7 +425,7 @@ MD5值：65EFA79B2C417A9558B254E9BF943E99
 
 ----------
 
-- **iOS uSDK_8.2.0**    
+### **iOS uSDK_8.2.0**   ###  
 
 版本号： v8.2.0   
 
@@ -481,7 +475,7 @@ MD5值：0B7D9309709F48E84EB281DB31A6D220
 
 ----------
 
-- **iOS uSDK_8.1.1**    
+###  **iOS uSDK_8.1.1**     ###
 
 版本号： v8.1.1    
 发布日期：2021.1.8    
@@ -500,7 +494,7 @@ MD5值：059E057A2891E8872FD1A9CE9850B213
 
 ----------
 
-- **iOS uSDK_8.1.0**    
+### **iOS uSDK_8.1.0**     ###
 
 版本号： v8.1.0    
 发布日期：2020.12.23   
@@ -546,7 +540,7 @@ MD5值：4689EB4BE4490F024FF35D30D0135FC1
 
 ----------
 
-- **iOS uSDK_8.0.0**   
+### **iOS uSDK_8.0.0**    ###
 
 版本号： v8.0.0  
 发布日期：2020.12.07   
@@ -672,8 +666,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 ----------
 
-
-- **iOS uSDK_6.1.1**     
+### **iOS uSDK_6.1.1**    ###  
 
 版本号： v6.1.1  
  发布日期：2020.09.15  
@@ -692,7 +685,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 ----------
 
-- **iOS uSDK_6.1.0**   
+### **iOS uSDK_6.1.0**   ### 
 
 版本号： v6.1.0    
  发布日期：2020.09.04   
@@ -806,7 +799,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 
 
 
-- **iOS uSDK_6.0.1**    
+### **iOS uSDK_6.0.1**   ###  
 
 版本号： v6.0.1   
 发布日期：2020.07.27   
@@ -827,7 +820,7 @@ MD5值：D534E44EB36CF5C6887F0BEEE73E395D
 
 ----------
 
-- **iOS uSDK_6.0.0**
+### **iOS uSDK_6.0.0** ###
 
 版本号： v6.0.0  
 发布日期：2020.07.13  
@@ -992,165 +985,5 @@ MD5值：8BAEFC10DED08895D23C5D393CF37B77
 3.9. 配置绑定优化：无效参数（10001）问题的解决  
 
 ----------
-
-
-- **iOS uSDK_5.8.1**
-
-版本号： v5.8.1  
-发布日期：2020.05.20  
-MD5值：96CDF4D39DD2B765AFEA6DB1118A1F46  
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-更新日志：  
-
-1.新增功能  
-1.1新增非安全设备获取bindInfo接口(见SDKBinding.h)  
-
-​         +(void)unSafeDeviceBindInfoWithSuccess:(void(^)(NSString *bindInfo))success
-​         failure:(void(^)(NSError *error))failure;
-
-2.接口变更    
- 无    
-3.内部优化及BUG修改   
-3.1 `uSDKDevice`中的`getBindInfo`方法中增加`self class`类型判断，防止自创建`uSDKDevice`类型崩溃   
-3.2 修复`uSDKDeviceListManager`中方法`uSDKDidConnectToCloud`疑似导致crash问题  
-3.3 打印日志功能，`os_log`打印全部使用`os_log_error`，使windows第三方工具也可以抓到实时日志  
-3.4 打印日志功能，DEBUG模式下采用sync方式打印日志，方便crash时的问题追踪(async时，崩溃后最后的日志还是打印不出来)；RELEASE模式下采用async方式打印日志，防止sync可能导致的阻塞问题  
-
-
-
-- **iOS uSDK_5.7.0**
-
-版本号： v5.7.0  
-发布日期：2020.02.27  
-MD5值：5F449B0E1A1F9B5E4C7A0717927D700F   
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-
-更新日志：  
-
-1.新增功能  
-
-1.1 标记设备进入焦点（详情页）(见uSDKDevice类)  
-
-​    //进入焦点后，如果大循环控制超时，则提升蓝牙通道的优先级高于大循环且低于小循环通道。重复进入返回NO
-​    
-    - (BOOL)inFocus;
-
- 
-
-
-
-
-
-1.2 标记设备退出焦点（详情页）(见uSDKDevice类)  
-
-​    // 重复退出返回NO
-​    
-    - (BOOL)outFocus;   
-
-
-1.3 新增zigbee绑定_失败错误码   
-
-​    // App进入后台导致的超时
-​    
-​    ERR_USDK_ENTER_BACKGROUND_TIMEOUT = -13026
-
- 
-
-
-
-
-
-1.4 新增蓝牙配置时设备需要触发进配置的错误码   
-
-​    // 设备需要触发进配置
-​    
-​    ERR_USDK_DEVICE_NEED_TRIGGER_CONFIG = -13027
-
- 
-
-
-
-
-
-2.接口变更  
-  无    
-3.内部优化及BUG修改  
-3.1 优化账号下绑定设备非常多时,上线慢的问题。  
-3.2 fix 控制设备时可能出现crash的问题。  
-3.3 fix _蓝牙搜索中可能会因为deviceID==nil 造成的crash问题。  
-3.4 zigbee配网内部优化。  
-3.5 uSDK使用新的log功能。  
-3.6 控制打点，args中增加个新字段：APP版本号 – pver。  
-3.7 cloudoffline 打点， 去掉app前后台这个字段。  
-
-
-----------
-
-- **iOS uSDK_5.6.1**
-
-版本号： v5.6.1  
-发布日期：2019.12.13  
-MD5值：121D2C1ED1D28C5DDD678FFE3887A3AF   
-注意事项：如需统计分析功能，请与统计分析SDK3.2.0版本搭配使用  
-更新日志：  
-1.新增功能  
-1.1 新增网关子机绑定信息类(uSDKSlaveDeviceBindInfo)   
-
-​    //该对象必填,需要使用从uSDK中返回的设备对象，不能自己创建
-​    @property (nonatomic, strong) uSDKDevice *masterDevice;
-​    //设备的uplusID，必填
-​    @property (nonatomic, copy) NSString *uplusID;
-​    //设备的产品编码，必填
-​    @property (nonatomic, copy) NSString *productCode;
-​    //超时时间，30-120s，默认60s
-​    @property (nonatomic, assign) NSTimeInterval timeoutInterval;
-
-1.2 新增开始进入组网模式阶段的错误码（uSDKBindProgresStartNetworkingMode）  
-
-​    //参数为空
-​    UGW_RSP_INVALID_PARAM -25001
-​    //设备类型不支持
-​    UGW_RSP_INVALID_PRODUCT_CODE  -25023
-​    //配对模式已开启，重复开启
-​    UGW_RSP_REPEAT_STARTPAIR  -25024
-​    //开启配对失败
-​    UGW_RSP_STARTPAIR_FAILED  -25022
-
-1.3  新增开始组网阶段的错误码（uSDKBindProgresStartNetworking）  
-
-​    //配对超时
-​    UGW_RSP_PAIR_TIMEOUT -25026
-​    //配对设备个数达上限
-​    UGW_RSP_PAIR_DEV_MAX  -25025
-
-1.4 新增开始绑定子机阶段的错误码（uSDKBindProgresStartBindSlaveDevice）   
-
-​    //添加并绑定设备失败  
-​    UGW_RSP_BIND_ERROR -25027
-​    //退出配对模式（人为操作设备或APP取消配网）
-​    UGW_RSP_EXIT_PAIR -25028
-
-1.5 新增网关子机绑定功能（uSDKBinding）  
-
-​    /**
-​    网关子机设备与网关配对，并将网关子机设备绑定到云平台
-​    调用该接口前，需要成功调用uSDKDeviceManager中的connectToCloud接口
-​    @param bindInfo 网关子机绑定信息类
-​    @param progressNotify 进度回调，共三个进度回调：
-    1. uSDKBindProgressStartEnterNetworkingMode
-        2. uSDKBindProgressStartNetworking
-        3. uSDKBindProgressStartBindSlaveDevice
-        @param success 配置绑定成功时的block回调，只有配置和绑定都成功会通过success block进行回调
-        @param failure 配置绑定失败时的block回调，任何一个过程失败都会通过failure block进行回调
-        */  
-    + (void)bindSlaveDeviceWithBindInfo:(uSDKSlaveDeviceBindInfo *)bindInfo
-          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
-        success:(void(^)(uSDKDevice *device))success
-        failure:(void(^)(NSError *error))failure;
-
-2.接口变更  
- 无   
-3.内部优化   
- 无  
 
 
