@@ -95,7 +95,7 @@
 	
 	* [移动端SDK](#)
 
-		* [uSDK介绍](zh-cn/App-dev/Introduce) 
+		* [uSDK介绍](zh-cn/App-dev/uSDk-Introduce) 
 		* [uSDK-Android开发指导](zh-cn/App-dev/App-dev-Android)
 		* [uSDK-Android资料下载](zh-cn/App-dev/App-dev-IOS-version)
 		* [uSDK-IOS开发指导](zh-cn/App-dev/App-dev-IOS)
