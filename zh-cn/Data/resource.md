@@ -210,11 +210,10 @@ Body:{
 |file|file|Body|是|源文件|目前文件最大限制为10MB|
 |fileInfo|String|Body|是|fileInfo组成的json字符串|&emsp;|
 
-**输入参数对象说明**
+**输入参数fileInfo说明**
 
-|**名称**|文件信息对象|&emsp;|fileInfo|
-|:-----:|:-----:|:-----:|:-----:|
-|**字段名**|**类型**|**必填**|**说明**|**备注**|
+|字段名|类型|必填|说明|备注|
+|:-----:|:-----:|:-----:|:-----:|:-----:|
 |fileHash|String|是|文件的hash值|原始文件的hash，定长32位具体算法见[附录文件hash值算法](#jump5)|
 |fileCreator|String|否|文件创建者|长度限制为：32位，不可使用特殊字符|
 |uploadClientId|String|是|DeviceId或者UserId|&emsp;|
