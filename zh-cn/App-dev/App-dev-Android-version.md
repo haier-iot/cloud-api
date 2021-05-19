@@ -13,7 +13,6 @@
 
 - 发布日期：2021.04.30
 
-
 - MD5值：A32B8E21261D917CE8BE775004FE83F3
 
 - 下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.5.0_Phone_Android_20210429155736_20210511092354389.zip) 
