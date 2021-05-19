@@ -45,19 +45,20 @@ AppId、Appkey统一通过海极网上申请，开发者中心-我的应用 ，�
 
 本图简要介绍uSDK物联App主要业务运行流程，红色文字：App与uSDK交互，黑色文字：App与U+云交互。   
 
- ![基本业务流程]:media\pic1.png
-
+ ![基本业务流程][pic1]
 
 ### 配置入网流程
 
-考下列流程开发配置设备入网功能，特别说明：启动uSDK是配置入网功能的前提；只使用uSDK配置入网功能的App，完成设备入网后，可执行退出uSDK。      
- ![配置入网流程]:media\pic2.png
+考下列流程开发配置设备入网功能，特别说明：启动uSDK是配置入网功能的前提；只使用uSDK配置入网功能的App，完成设备入网后，可执行退出uSDK。 
+     
+ ![配置入网流程][pic2]
 
 
 ### 使用uSDK控制设备流程说明图
 
 以下流程图适用于使用uSDK进行设备配置入网，控制的App，OPENAPI请更换为UWS或对应服务。    
- ![控制流程图]:media\pic3.png
+
+ ![控制流程图][pic3]
 
 ## uSDK业务开发详解 ##
 
@@ -247,8 +248,9 @@ App只关心设备池里的某类设备（例如：酒柜设备）：
 
 连接中(connecting)：App正在与设备建立连接。   
 已连接(connected)：App已连接智能设备，可以发送控制指令，查询属性状态等，是我们可以交互的设备。   
-离线(off_line)：App不断开与智能设备连接的情况下，智能设备发生异常。    
- ![设备连接状态]:media\pic4.png
+离线(off_line)：App不断开与智能设备连接的情况下，智能设备发生异常。 
+   
+ ![设备连接状态][pic4]
 
 未连接、连接中、已连接、离线都是设备（uSDKDevice）的连接状态。App连接或断开智能设备将触发连接状态的变化：          
 ①智能设备正常入网后是未连接（被我们发现）    
@@ -376,7 +378,8 @@ App执行uSDKDeviceManager.connectToCloud连接用户接入网关，账号登录
 
 5)小循环VS大循环：它们是两种情景的描述。小循环指的是App与智能设备在同一无线局域网。大循环是说App需要借助U+云用户接入网关才能和设备进行交互的情景，此时App与设备通常不在同一网络。
 
- ![大循环]:media\pic5.png
+
+ ![大循环][pic5]
 
 6) 由于加密需要，设备运行设备时间必须准确，当前时间需要超过2015年3月1日
 
@@ -531,9 +534,10 @@ uSDKError.getErrorCode()
 
 
 
+
 [^-^]:常用图片注释
-[基本业务流程]:media/pic1.png
-[配置入网流程]:media/pic2.png
-[控制流程图]:media/pic3.png
-[设备连接状态]:media/pic4.png
-[大循环]:media/pic5.png
+[pic1]:../App-dev/_media/pic1.png
+[pic2]:../App-dev/_media/pic2.png
+[pic3]:../App-dev/_media/pic3.png
+[pic4]:../App-dev/_media/pic4.png
+[pic5]:../App-dev/_media/pic5.png
