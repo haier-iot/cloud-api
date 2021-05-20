@@ -230,8 +230,8 @@ m2m|否|Json对象|m2m本期暂不支持
 
 第三方推送服务|资料
 :-:|:-:
-极光推送|`https：//docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中Android部分
-FCM|`https：//firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
+极光推送|`https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中Android部分
+FCM|`https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
 
 
 
@@ -252,8 +252,8 @@ m2m|否|Json对象|m2m本期暂不支持
 
 第三方推送服务|资料
 :-:|:-:
-极光推送|`https：//docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中IOS部分
-FCM|`https：//firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
+极光推送|`https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/#notification`中IOS部分
+FCM|`https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages`
 
 **Data**  
 
@@ -284,10 +284,10 @@ extParam|否|ExtParam|自定义业务数据
 
 属性|是否必填|值类型|描述
 :-:|:-:|:-:|:-
-showType|否|int|实时消息的显示样式：</br>-1：不显示，app一般用于无UI展示，直接处理消息内容；</br>0： toast；</br>2： 弹框，业务事件及button 按钮自定义见 btns 封装；</br>4： 红色感叹号显示；</br>20：弹框，无按钮；</br>21：弹框,一个按钮；无相应业务事件处理；</br>22：弹框，确定、取消两个按钮，均无业务事件处理
+showType|否|int|实时消息的显示样式：</br>-1：不显示，app一般用于无UI展示，直接处理消息内容；</br>0：toast；</br>2：弹框，业务事件及button按钮自定义见btns封装；
 title|否|string|实时消息的弹框标题
 content|否|string|实时消息的弹框内容 
-btns|否|Button|弹框显示的按钮，详见Button对象定义  
+btns|否|Button[]|弹框显示的按钮，详见Button对象定义  
 
 
 **Button**   
@@ -308,11 +308,11 @@ callId|否|int|按钮事件调用id，用来标识此按钮单击事件在ExtDat
 属性|是否必填|值类型|描述
 :-:|:-:|:-:|:-
 expireTime|否|int|业务消息在本地系统的有效时间。若该值超出时间范围则在 APP 端视为无效消息，不进行业务处理。若为空或无此字段不处理
-isMsgCenter|否|int|实是否存储在 APP 消息中心。若为空或无此字段不处理，取值为 0：不存储 1：存储
-device|否|Device[]|控制类消息要控制的设备信息，详见Device对象定义 
-devControl|否|DevControl|设备控制指令信息，与device配合使用，详见DevControl对象定义  
 api|否|API|调用App端API，详见API对象定义
-page|否|Page|消息分页信息，详见Page对象定义    
+targetPage|否|String|目标页面地址，收到消息时App打开的目标页面
+reviewPage|否|String|消息中心查看地址，若存在，消息中心点击跳转此页面查看内容（由业务定制此页面）
+pages|否|Page[]|页面跳转，支持多个跳转，与Button中callId匹配，若相等代表该Button的目标页面
+devControls|否|DevControl[]|设备控制，支持多个设备控制，与Button中callId匹配，若相等代表该Button的目标设备控制消息    
 
 
 **Device**   
@@ -349,7 +349,8 @@ cmdList|是|json object|标准模型的命令键值对集合
 :-:|:-:|:-:|:-
 callId|否|int|调用者id。若为空或无此字段，则代表自动调用 
 apiType|是|string|api定义。如附录中的删除家庭处理为：DELEATE_FAMILY
-params|否|json object|按钮在alert索引序号，由0开始。该API接口定义的入参集合   
+params|否|json object|按钮在alert索引序号，由0开始。该API接口定义的入参集合
+apiType|否|string|BSM业务中设置为UPDATE_BO_STATUS   
 
 
 
@@ -362,9 +363,40 @@ params|否|json object|按钮在alert索引序号，由0开始。该API接口定
 
 属性|是否必填|值类型|描述
 :-:|:-:|:-:|:-
-callId|否|int|调用者id。若为空或无此字段，则代表自动调用，否则根据Button 的callId响应 
+callId|否|int|调用者id。若为空或无此字段，则代表自动调用，否则根据Button 的callId响应
 url|是|string|页面唯一地址。如是native页面，则需在VDN的DNS表中页面保持一致
 params|否|int[]|参数键值对集合。页面跳转参数集合   
+
+
+
+**bsms**  
+
+>业务对象相关内容    
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+boCategory|是|int|业务对象类型，默认是0
+boId|是|string|业务对象ID
+boInfo|是|boInfo|业务对象信息
+boStatus|是|int|业务对象状态 0新增   
+
+
+
+**boInfo**  
+
+>业务对象信息    
+
+以下为各属性的具体说明：
+
+
+属性|是否必填|值类型|描述
+:-:|:-:|:-:|:-
+familyId|是|string|家庭ID
+boName|是|string|业务对象名称
+createdTime|是|date|创建时间   
 
 
 
@@ -388,11 +420,12 @@ actWithNotify|否|Boolean|消息附属在通知里有效。</br>true：收到通
 
 属性|是否必填|值类型|描述
 :-:|:-:|:-:|:-
-msgName|否|String|消息名字
-businessType|是|int|消息类型，App端根据此分类进行消息展示。取值如下：</br>0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（场景引擎，菜谱分享等）</br>2：运营类（广告，运营等）
-expires|否|int|消息在客户端离线时在第三方推送平台缓存时间，过期将不再推送给客户端。单位为秒，最长86400秒，如未指定则默认为86400秒。  
+msgName|否|String|消息名字 如SCENE_BSM
+businessType|是|int|消息类型，App端根据此分类进行消息展示。取值如下：</br>-1：不属于任何类型</br>0：系统类（系统类消息，例如推送升级，热修复等）</br>1：设备类（洗衣机、安防、菜谱分享等）</br>2：运营类（广告，运营等）</br>3：场景类</br>4：家庭类</br>5：活动类</br>6：服务提醒</br>7：交易物流</br>8：会员服务</br>9：在线客服</br>10：问题反馈</br>11：众播消息</br>未定义枚举值不允许私自使用
+expires|否|int|消息在客户端离线时在第三方推送平台缓存时间，过期将不再推送给客户端。单位为秒，最长86400秒，如未指定则默认为86400秒。
 priority|否|int|见priority备注
-iguangOptions|否|json object|见jiguangOptions备注
+msgExpires|否|int|存储在历史消息中的消息过期时间，过期后在App消息中心将无法查询。单位为小时。取值如下：</br>-1：系统默认设置（1年后消息将被自动清除）；</br>0：立即过期；</br>大于0：过期时间(单位小时，不超过一年8760)
+jiguangOptions|否|json object|见jiguangOptions备注
 
 priority备注：  
 
@@ -438,9 +471,6 @@ jiguangOptions备注：
 				"showType": 21,
 				"title": "test message",
 				"content": "This is a test message"
-			},
-			"extData": {
-				"isMsgCenter": 1
 			}
 		}
 	},
@@ -498,6 +528,8 @@ msgId|是|String|消息的唯一标识，默认此属性值由消息推送服务
 msgName|否|String|消息的名称，取值请参考Options中msgName定义，默认此属性值由消息推送服务自动根据Options中msgName填充，如发送方设置值将被覆盖
 businessType|否，正常业务为必填，阅后即焚、空消息为非必填|int|消息分类，取值请参考Options中businessType定义，默认此属性值由消息推送服务自动根据Options中businessType填充
 priority|否|int|默认此属性值由消息推送服务自动根据Options中priority填充，如果发送方设置数值则以发送方设置为准
+uTraceId|否|String|链路跟踪uTraceId标识
+uSpanId|否|String|链路跟踪uSpanId标识
 body|是|Body|实时消息在app端的具体业务及展示方式，详见body章节各对象定义。  
 
 
@@ -511,7 +543,7 @@ eyJtc2dJZCI6IjAwMDAwMDAwMDAxIiwibXNnTmFtZSI6IiIsImJvZHkiOiB7InZpZXciOiB7InNob3dU
 base64解密为：  
 
 ```
-{"msgId":"00000000001","msgName":"","body": {"view": {"showType":21,	"title":"test message","content":"This is a test message"},"extData":{"isMsgCenter":1}}}
+{"msgId":"00000000001","msgName":"","body": {"view": {"showType":21,"title":"test message","content":"This is a test message"}}}
 ```  
 
 **阅后即焚数据模型**
@@ -534,7 +566,6 @@ body备注：
 ```
 { 
 “extData”:{
-“isMsgCenter”:0,
 “api”:{
             “callId”:0,
             “apiType”:0,
@@ -557,7 +588,7 @@ body备注：
 :-:|:-:|:-:|:-
 msgId|是|String|消息的唯一标识，默认此属性值由消息推送服务自动填充
 msgName|是|String|消息的名称，取值为UPN_NULL 
-msgType|是|int|消息的来源，取值：</br>3：状态类，此类消息由消息推送自动触发  （消息状态类，例如阅后即焚通知， 空消息）  
+msgType|是|int|消息的来源，取值：</br>3：状态类，此类消息由消息推送自动触发  （消息状态类，例如阅后即焚通知， 空消息）
 body|是|Body|消息内容，内容为{}。  
 
 需要注意：客户端收到的数据为base64编码后的数据。  
