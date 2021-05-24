@@ -347,8 +347,7 @@ cmdList|是|json object|标准模型的命令键值对集合
 
 属性|是否必填|值类型|描述
 :-:|:-:|:-:|:-
-callId|否|int|调用者id。若为空或无此字段，则代表自动调用 
-apiType|是|string|api定义。如附录中的删除家庭处理为：DELEATE_FAMILY
+callId|否|int|调用者id。若为空或无此字段，则代表自动调用
 params|否|json object|按钮在alert索引序号，由0开始。该API接口定义的入参集合
 apiType|否|string|BSM业务中设置为UPDATE_BO_STATUS   
 
@@ -371,7 +370,7 @@ params|否|int[]|参数键值对集合。页面跳转参数集合
 
 **bsms**  
 
->业务对象相关内容    
+>业务对象信息，主要是用在有新场景时提示用户    
 
 以下为各属性的具体说明：
 
