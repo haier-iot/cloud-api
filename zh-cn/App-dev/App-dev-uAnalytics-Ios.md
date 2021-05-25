@@ -24,8 +24,7 @@
  ![info-pllist][info-pllist]
 1.1.5.	帐号申请
 
-全网器生命周期平台不再使用海极网的账号，迭代为使用员工工号登录， 登录前需要进行权限申请，申请完成，相关业务线审后，会自动开放权限。具体操作，请参照权限开通手册，地址如下: [https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8d c0afa2f](https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8d c0afa2f)  
-
+全网器生命周期平台不再使用海极网的账号，迭代为使用员工工号登录， 登录前需要进行权限申请，申请完成，相关业务线审后，会自动开放权限。具体操作，请参照权限开通手册，地址如下: [https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8dc0afa2f](https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8dc0afa2f)
 1.1.6.	验证数据
 
 当您完成以上的 SDK 嵌入工作后，启动 app，触发 SDK 统计接口，权限审批完成后，您可以大数据 ES 系统中查看上报的数据。  
