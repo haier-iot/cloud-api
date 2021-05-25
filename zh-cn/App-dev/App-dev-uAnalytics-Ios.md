@@ -74,7 +74,7 @@ channel:渠道号,选填,为 nil 或@“”时,SDK 自动作为@"AppStore"渠道
 idfa:广告标识符，选填,可以为 nil 或@“”。
 调用位置：应用启动时调用。示例代码：
 
- ![示例代码][pic7.jpg]
+ ![示例代码][pic7]
 
 
 3.3.	地理位置信息统计功能
@@ -166,7 +166,7 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 调用位置:
 每个 UIViewController 的(void)viewDidAppear:(BOOL)animated 示例代码:
 
- ![示例代码][pic8.jpg]
+ ![示例代码][pic8]
 
 (注意:每次调用，SDK 会检查是否产生新的会话(session 超时)，即生成启动次
 数。)
@@ -180,7 +180,7 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 调用位置:
 UIViewController 的-(void)viewDidDisappear:(BOOL)animated 示例代码:
 
- ![示例代码][pic9.jpg]
+ ![示例代码][pic9]
 
 
 这两个调用不会阻塞应用程序的主线程，也不会影响应用程序的性能。注意如果您的 UIViewController 之间有继承或者控制关系，请不要同时在父和子 UIViewController 中重复添加 eventStart 和 eventEnd 方法，否则会造成统计数据混乱。
@@ -322,17 +322,17 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 
 4.5.	渠道列表
 
-  ![][pic10.jpg]
+  ![][pic10]
 
-  ![][pic11.jpg]
+  ![][pic11]
 
-  ![][pic12.jpg] 
+  ![][pic12] 
 
 4.6.	设备绑定错误列表
 
-   ![][pic13.jpg]
+   ![][pic13]
 
-  ![][pic14.jpg]
+  ![][pic14]
 
 4.7.	EventID 定义
 4.7.1	时长类 EventID 定义
