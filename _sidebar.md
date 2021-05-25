@@ -104,9 +104,9 @@
 	* [统计分析SDK](#)
 		* [分析SDK介绍](zh-cn/App-dev/App-dev-uAnalytics-Intro)
 		* [uAnalytics-Android开发指导](zh-cn/App-dev/App-dev-uAnalytics)
-		* [uAnalytics-Android资料下载](zh-cn/App-dev/App-dev-uAnalytics)
-		* [uAnalytics-IOS开发指导](zh-cn/App-dev/App-dev-uAnalytics)
-		* [uAnalytics-IOS资料下载](zh-cn/App-dev/App-dev-uAnalytics)
+		* [uAnalytics-Android资料下载](zh-cn/App-dev/App-dev-uAnalytics-Android-version)
+		* [uAnalytics-IOS开发指导](zh-cn/App-dev/App-dev-uAnalytics-Ios)
+		* [uAnalytics-IOS资料下载](zh-cn/App-dev/App-dev-uAnalytics-Ios-version)
 
 
 * [常见问题<sup style="color:red">(new)<sup>](#)
