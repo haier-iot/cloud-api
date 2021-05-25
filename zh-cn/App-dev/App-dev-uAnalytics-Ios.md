@@ -16,7 +16,7 @@
 
 如果你想 App 中的网址都通过 ATS 验证，只有少数一些网址例外的话， 你可以为少数的网址添加 NSExceptionDomains,并且在下面添加你需要添加的网址即可。然后对每个网址进行分别的设置，其中将NSIncludeSubdomains 和 NSExceptionAllowsInsecureHttpLoads 设置成YES，NSExceptionRequiresForwardSecrecy 设置为 NO 即可不通过 ATS 验证。
 开发者需要在项目 info.plist 进行如下设置:
- ![info-pllist][info-pllist.jpg]
+ ![info-pllist][info-pllist]
 1.1.5.	帐号申请
 
 全网器生命周期平台不再使用海极网的账号，迭代为使用员工工号登录， 登录前需要进行权限申请，申请完成，相关业务线审后，会自动开放权限。具体操作，请参照权限开通手册，地址如下: [https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8d c0afa2f](https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8d c0afa2f)
