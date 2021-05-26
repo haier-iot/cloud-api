@@ -1,4 +1,4 @@
-# uSDK-IOS资料下载  #
+# uSDK-IOS资料下载  #  
 
 ## 支持有效期   
 
@@ -7,78 +7,160 @@
 ## 版本资料 
 
 
-### IOS uSDK_8.5.0 
+### IOS uSDK_8.5.0     
+
+
+  版本号： v8.5.0    
+
+ 
+  发布日期：2021.04.30    
+
+
+  MD5值：1429A5C9956B2BACA5CAA5960FBDBD7B    
+
+
+  下载链接： [点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.5.0_Phone_iOS_20210430161621_20210511092500310.zip)    
+
+
+  更新日志：  
+  
+
+  新增功能    
+
+
+ 一、外部修改  
+	
+
+  uSDKDevice.h新增接口  
+
+  /**
+   订阅资源新接口，数据会进行加解密， 对应的delegate回调为新的:  
+- (void)device:(uSDKDevice *)  device didReceiveDecodeResource:    
+- 
+- (NSString *)resourcedata:(NSString *)JSONData;  
+- 
+  
+   @param resourceName 资源名称    
+
+
+   @param success 订阅成功的回调   
+  
+
+   @param failure 订阅失败的回调    
+
+
+   @since 8.5.0    
+
+
+   */
+  
+- (void)subscribeResourceWithDecode:(NSString *)resourceName     
+- 
+- success:(void(^)(void))success     
+- 
+- failure:(void(^)(NSError *error))failure;   
+- 
+/**
+ 新的接收资源数据    
+
+ @param device 设备对象  
+
+ @param resource 资源名称  
+
+ @param JSONData 资源数据  
+
+ @since 8.5.0  
+
+ */  
+- (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;  
+- 
+  uSDKCameraScanQRCodeBindInfo 新增必填字段  
+productCode  
+
+  /**  
+
+   成品编码，必填  
+
+   */  
+
+  @property (nonatomic, copy) NSString *productCode;    
+
+
+  新增本地视频回放、本地图片获取和获取云存视频m3u8地址    
+
+
+  uSDKPlaybackPlayer.h新增接口    
+
+
+  /// 回放文件   
  
 
-  版本号： v8.5.0
-  发布日期：2021.04.30
-  MD5值：1429A5C9956B2BACA5CAA5960FBDBD7B
-  下载链接： [点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.5.0_Phone_iOS_20210430161621_20210511092500310.zip)
-  更新日志：
-  新增功能
+  @interface uSDKPlaybackItem: NSObject   
+ 
 
- 一、外部修改
+  /// 回放文件起始时间（秒）    
 
-  uSDKDevice.h新增接口
 
-  /**
-   订阅资源新接口，数据会进行加解密， 对应的delegate回调为新的:- (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
+  @property (nonatomic, assign) NSTimeInterval startTime;    
+
+
+  /// 回放文件结束时间（秒）  
   
-   @param resourceName 资源名称
-   @param success 订阅成功的回调
-   @param failure 订阅失败的回调
-   @since 8.5.0
-   */
   
-- (void)subscribeResourceWithDecode:(NSString *)resourceName success:(void(^)(void))success failure:(void(^)(NSError *error))failure; 
-/**
- 新的接收资源数据  
- @param device 设备对象
- @param resource 资源名称
- @param JSONData 资源数据
- @since 8.5.0
- */  
-- (void)device:(uSDKDevice *)device didReceiveDecodeResource:(NSString *)resource data:(NSString *)JSONData;
-  uSDKCameraScanQRCodeBindInfo 新增必填字段productCode
-  /**
-   成品编码，必填
-   */
-  @property (nonatomic, copy) NSString *productCode;
-  新增本地视频回放、本地图片获取和获取云存视频m3u8地址
-  uSDKPlaybackPlayer.h新增接口
-  /// 回放文件
-  @interface uSDKPlaybackItem: NSObject
-  /// 回放文件起始时间（秒）
-  @property (nonatomic, assign) NSTimeInterval startTime;
-  /// 回放文件结束时间（秒）
-  @property (nonatomic, assign) NSTimeInterval endTime;
-  /// 回放文件持续时间（秒）
-  @property (nonatomic, assign) NSTimeInterval duration; 
-  @end 
-  /// 回放文件分页
-  @interface uSDKPlaybackPage<uSDKItem>: NSObject
-  /// 当前页码索引
-  @property (nonatomic, assign) uint32_t  pageIndex;
-  /// 总页数
-  @property (nonatomic, assign) uint32_t  totalPage;
-  /// 回放文件数组
+  @property (nonatomic, assign) NSTimeInterval endTime;    
+
+
+  /// 回放文件持续时间（秒）   
+ 
+
+  @property (nonatomic, assign) NSTimeInterval duration;  
+  
+
+  @end     
+
+
+  /// 回放文件分页  
+
+  @interface uSDKPlaybackPage<uSDKItem>: NSObject  
+
+  /// 当前页码索引  
+
+  @property (nonatomic, assign) uint32_t  pageIndex;  
+
+  /// 总页数  
+
+  @property (nonatomic, assign) uint32_t  totalPage;  
+  
+  /// 回放文件数组  
+
   @property (nonatomic, strong) NSArray<uSDKItem> *items;
 
   @end
 
   @interface uSDKPictureItem : NSObject
 
-  /// 图片ID
-  @property (nonatomic, assign) uint32_t id;
-  /// 图片时间
-  @property (nonatomic, assign) NSTimeInterval time;
-  /// 图片类型
-  @property (nonatomic, assign) uSDKPlayerImageType type;
-  /// 图片名称
-  @property (nonatomic, copy) NSString *name;
-  /// 图片文本描述
-  @property (nonatomic, copy) NSString *describe;
-  /// 缩略图base64编码
+  /// 图片ID   
+
+  @property (nonatomic, assign) uint32_t id;  
+
+  /// 图片时间  
+
+  @property (nonatomic, assign) NSTimeInterval time;  
+
+  /// 图片类型  
+
+  @property (nonatomic, assign) uSDKPlayerImageType type;  
+
+  /// 图片名称  
+
+  @property (nonatomic, copy) NSString *name;  
+
+  /// 图片文本描述  
+
+  @property (nonatomic, copy) NSString *describe;  
+
+  /// 缩略图base64编码  
+
   @property (nonatomic, copy) NSString *thumbnail;
 
   @end
@@ -97,29 +179,46 @@
 
 /**
 
- * 获取有回放文件的日期列表
- * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
- * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
- * @param startTime 开始时间戳（秒）
- * @param endTime 结束时间戳（秒）
- * @param completionHandler 结果回调
+ * 获取有回放文件的日期列表  
+ *  
+ * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）  
+ * 
+ * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]  
+ * 
+ * @param startTime 开始时间戳（秒）  
+ * 
+ * @param endTime 结束时间戳（秒）  
+ * 
+ * @param completionHandler 结果回调  
+ * 
    */
 
-- (void)getPlaybackDateListOfpageIndex:(uint32_t)pageIndex
-      countPerPage:(uint32_t)countPerPage
-         startTime:(NSTimeInterval)startTime
-           endTime:(NSTimeInterval)endTime
+- (void)getPlaybackDateListOfpageIndex:(uint32_t)pageIndex  
+- 
+      countPerPage:(uint32_t)countPerPage  
+
+         startTime:(NSTimeInterval)startTime  
+
+           endTime:(NSTimeInterval)endTime  
+
   completionHandler:(void (^)(uSDKPlaybackPage<NSNumber *> *_Nullable page, NSError *_Nullable error))completionHandler;
 
 /**
 
- * 获取一页回放文件列表
- * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
- * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
- * @param startTime 开始时间戳（秒）
- * @param endTime 结束时间戳（秒）
- * @param completionHandler 结果回调
- * @note 请根据实际情况合理设置查询时间范围和分页，`时间跨度太长`或`每页数量过大`会增加设备查询时间， 建议[startTime, endTime]区间不超过24小时 或 countPerPage不超过1440个文件.
+ * 获取一页回放文件列表  
+ * 
+ * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）  
+ * 
+ * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]  
+ * 
+ * @param startTime 开始时间戳（秒）  
+ * 
+ * @param endTime 结束时间戳（秒）  
+ * 
+ * @param completionHandler 结果回调  
+ * 
+ * @note 请根据实际情况合理设置查询时间范围和分页，`时间跨度太长`或`每页数量过大`会增加设备查询时间， 建议[startTime, endTime]区间不超过24小时 或 countPerPage不超过1440个文件.  
+ * 
    */
 
 - (void)getPlaybackListV2OfpageIndex:(uint32_t)pageIndex

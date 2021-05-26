@@ -1,22 +1,22 @@
-# 嵌入统计分析uSDK #
-## 安装和部署 ## 
+## 嵌入统计分析uSDK ##
+### 安装和部署 ###
 欢迎使用海尔用户行为数据统计分析 SDK(简称 SDK)，您可以按照如下步骤开始 SDK 的统计分析功能。  
 
-### 获取 AppId 和 AppKey ###
+获取 AppId 和 AppKey
 登录海极网，注册用户并申请开发者，创建应用后即可获得 AppId 和AppKey，具体可参见海极网的“申请开发者流程”。  
 
 海极网:[http://www.haigeek.com](http://www.haigeek.com)  
 
-### 下载 SDK 及资料 ###
+下载 SDK 及资料
 开发者在海极网注册成功，成为海尔 U+开发者后，可以到海极网的文档中心-APP 开发-统计分析 SDK 中下载 SDK、demo 及开发者手册，开始自己程序开发之旅。  
 
 下载地址:[http://www.haigeek.com](http://www.haigeek.com)  
 
-### 导入统计分析 SDK ###
+导入统计分析 SDK
 
 由于数据分析 SDK 升级需要，除了引入 uAnalytics.framework 之外，还需要引入如下系统库文件到应用工程中，方能保证数据分析 SDK 正常运行。系统库文件如下:libsqlite3.0.tbd 或者 libsqlite3.dylib、CoreTelephony.framework、SystemConfiguration.framework。  
 
-### iOS 网络访问新特性 ###
+iOS 网络访问新特性
 
 在 WWDC16 中，Apple 表示将继续在 iOS10 和 macOS10.12 里收紧对普通 HTTP 的访问限制。从 2017 年 1 月 1 日起，所有的新提交 app 默认是不允许使用 NSAllowsArbitraryLoads 来绕过 ATS 限制的，开发者可以选择使用NSExceptionDomains 来针对特定的域名开放 HTTP 应该要相对容易过审核。  
 
@@ -25,11 +25,11 @@
 开发者需要在项目 info.plist 进行如下设置:
  ![info-pllist][info-pllist]  
 
-### 帐号申请 ###
+帐号申请
 
 全网器生命周期平台不再使用海极网的账号，迭代为使用员工工号登录， 登录前需要进行权限申请，申请完成，相关业务线审后，会自动开放权限。具体操作，请参照权限开通手册，地址如下: [https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8dc0afa2f](https://data.haier.net/showdoc/web/#/p/d056b942e1c0e0233e7a58b8dc0afa2f)  
 
-### 验证数据 ###
+验证数据
 
 当您完成以上的 SDK 嵌入工作后，启动 app，触发 SDK 统计接口，权限审批完成后，您可以大数据 ES 系统中查看上报的数据。  
 
@@ -59,7 +59,7 @@ ES 系统的相关疑问，请联系杨强，邮箱:yangqiang.uh@haier.com
 4、查看 LOGCAT 日志，是否有错误日志。   
 
 
-# 统计分析 SDK3.x 版本重大变化 #
+## 统计分析 SDK3.x 版本重大变化 ##
 
 1、3.x 版本不兼容 2.x 版本，升级到 3.x 版本后，需要修改程序代码。  
 
@@ -72,9 +72,9 @@ ES 系统的相关疑问，请联系杨强，邮箱:yangqiang.uh@haier.com
 4、采用加密方式与云平台进行传输数据。  
 
 
-# 统计分析 SDK 业务详解 #
+## 统计分析 SDK 业务详解 ##
 
-## 设置日志输出级别 ##
+### 设置日志输出级别 ###
 
 为了方便开发期间查看行为统计信息，自统计分析 SDK3.1.01 版本开始， 提供了设置日志级别的功能方法，默认为 INFO 级别，该方法可在 SDK 启动前后调用。  
 
@@ -84,7 +84,7 @@ ES 系统的相关疑问，请联系杨强，邮箱:yangqiang.uh@haier.com
 
 调用位置：SDK 启动前调用。
 
-## 启动 SDK ##
+### 启动 SDK ###
 
 SDK 启动是使用其他 API 功能的前提，该方法中需要开发者设置 APPID（必填，由海极网颁发）、APPKEY（必填，由海极网颁发）、渠道名称（选填）、广告标识符（选填）、数据中心（选填、默认为中国）、发送策略（选填,默认实时）等信息。   
 
@@ -108,7 +108,7 @@ idfa:广告标识符，选填,可以为 nil 或@“”。
  ![示例代码][pic7]
 
 
-## 地理位置信息统计功能 ##
+### 地理位置信息统计功能 ###
 
 当开发者可以通过系统 API、百度地图、高德地图等方式获得地理位置信息，并通过如下方法上报到云平台，调用该方法一次上报一次地理位置信息。建议程序启动一次只调用一次该方法。  
 
@@ -125,7 +125,7 @@ longitude 经度
 示例代码:[uAnalytics setLatitude:latitude longitude:longitude];
 
 
-## uSDK 版本统计 ##
+### uSDK 版本统计 ###
 
 APP 使用 uSDK 的 Framework 且 uSDK 启动成功后,可以调用如下接口设置 uSDK 版本信息，此版本信息将在发生异常上报和绑定设备时使用。如果不调用此方法设置 uSDK 版本信息，在发生异常上报和绑定设备的信息中 uSDK 版本将为””。  
 
@@ -140,7 +140,7 @@ uSDKVersion:uSDK 版本号，uSDK 启动成功后通过 API 获取.
 示例代码:[uAnalytics setUSDKVersion:uSDKVersion];
 
 
-## 用户统计功能 ##
+### 用户统计功能 ###
 
 在获得用户唯一标识符后，APP 每次启动调用如下接口，该接口会记录用户唯一标识符并设置到 SDK 的请求消息头中，以确定某一用户在使用该应用。  
 
@@ -153,11 +153,11 @@ userId，用户标识符调用位置:
 启动 SDK 方法，获得用户唯一标识符后调用。示例代码:
 [uAnalytics setUserId:userId];
 
-## 异常信息统计功能 ##
+### 异常信息统计功能 ###
 
 异常信息统计功能分为自动上报崩溃信息和主动上报异常信息两个方法。两个方法不互斥，建议都设置，可以帮助开发者收集应用程序的崩溃信息和异常信息，完善 APP 程序。  
 
-### SDK 自动上报崩溃异常信息 ###
+ SDK 自动上报崩溃异常信息 
 
 SDK 能够自动捕获未知的崩溃信息并在下次启动时上传服务器,默认为自动上报，开发者可以不调用本方法。  
 
@@ -173,7 +173,7 @@ value 是否打开异常捕获功能。
 在启动本 SDK 之后。  
 示例代码:[uAnalytics setExceptionCatchEnabled:YES]
 
-### APP 主动上报异常信息 ###
+APP 主动上报异常信息
 
 此方法需要开发者主动调用，将需要关注的异常信息上报给云平台，帮助开发者改进自己的 APP 程序。  
 
@@ -209,11 +209,11 @@ exceptio:抛出的异常
 }@finally{
 }
 
-## 页面统计功能 ##
+### 页面统计功能 ###
 
 使用时长类事件的统计功能，统计某个页面的使用情况，只有正确的使用页面统计方法才能获得准确的统计数据。  
-
-### 标记一次页面访问的开始   ###
+  
+标记一次页面访问的开始
 
 方法:
 +(void)eventStart:(NSString *)eventide label:(NSString *)label;  
@@ -232,7 +232,7 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 
 (注意:每次调用，SDK 会检查是否产生新的会话(session 超时)，即生成启动次数。)  
 
-### 标记一次页面访问的结束  ### 
+标记一次页面访问的结束
 
 方法:  
 
@@ -250,8 +250,9 @@ UIViewController 的-(void)viewDidDisappear:(BOOL)animated
  ![示例代码][pic9]
 
 
-这两个调用不会阻塞应用程序的主线程，也不会影响应用程序的性能。注意如果您的 UIViewController 之间有继承或者控制关系，请不要同时在父和子 UIViewController 中重复添加 eventStart 和 eventEnd 方法，否则会造成统计数据混乱。
-## 事件次数和事件时长统计功能 ##
+这两个调用不会阻塞应用程序的主线程，也不会影响应用程序的性能。注意如果您的 UIViewController 之间有继承或者控制关系，请不要同时在父和子 UIViewController 中重复添加 eventStart 和 eventEnd 方法，否则会造成统计数据混乱。  
+
+### 事件次数和事件时长统计功能 ###
 
 可以统计某些用户行为的发生次数，时间，变化趋势等，例如设备控制，app 加载耗时等。通常 event_id 用于表示某种行为或功能的统计， event_id 用于唯一标识一个事件。  
 
@@ -268,7 +269,7 @@ UIViewController 的-(void)viewDidDisappear:(BOOL)animated
 
 目前只支持预定义的 event_id，详见 event_id 列表，填写正确的event_id 才能参与正常的数据统计。目前不支持数据分析网站上注册自定义的event_id 统计。  
 
-### 普通事件次数统计 ###
+普通事件次数统计
 
 可以统计事件的发生次数，用于统计用户登录次数、Button 点击次数、用户行为触发次数等。EventId 的使用，见 4.7.2 非时长类 EventID 定义章节。  
 方法一:
@@ -345,7 +346,7 @@ NSDictionary*map_value=[NSDictionarydictionary WithObjectsAndKeys:
 @"00000000000000008080000000041410",  
 @"tid",nil];[uAnalytics event:DEVICE_BIND_EVENT attributes:map_valueacc:3];
 
-### 打点(埋点)事件次数统计 ###
+打点(埋点)事件次数统计
 
 打点事件又称埋点事件，是普通事件次数统计的一种特例，eventId 固定为USER_CLICK_EVENT 的事件。当现有普通事件次数统计功能不能满足开发者的需求时，可以参考打点事件。如果打点事件也不能满足开发者需求，需要自定义，请阅读 3.7.4 自定义事件章节。  
 
@@ -377,7 +378,7 @@ accumulation:事件发生次数，不能为负值，负值时按 0 处理。
 
 关于 param 中 value 值的具体定义需要和云平台同事进行商定，具体工作请联系杨强，邮箱:yangqiang.uh@haier.com
 
-### 事件时长统计 ###
+事件时长统计
 
 可以对耗时类事件的时长进行统计，主要用于用户登陆耗时、APP 加载耗时、页面加载耗时、APP 使用时长等功能的统计。eventStart 和 eventEnd 方法必须成对出现，且参数列表完全相同，才能正常上报事件。  
 EventId 的使用，见4.7.1 时长类 EventID 定义章节。  
@@ -403,14 +404,14 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 
 [uAnalytics eventEnd:USER_LOGIN_DURATION label:@"LoginViewController"];   
  
-### 自定义事件 ###
+自定义事件
 
 目前，由于云平台现有机制，暂不支持 EventID 用户自定义，也不支持统计分析网站上注册自定义的 eventID。如果现有 EventID 列表不能满足用户使用需求，与云平台同事进行沟通商定后，才能够对上报的统计数据进行统计。大数据生命周期平台同事，杨强，邮箱:yangqiang.uh@haier.com  
 
 
-# 数据定义 #
+## 数据定义 ##
 
-## 设备绑定 MAP 定义 ##
+### 设备绑定 MAP 定义 ###
 
 | 含义                       | KEY  | 示例 VALUE                               |
 | -------------------------- | ---- | ---------------------------------------- |
@@ -424,7 +425,7 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 | Typeid(type_id)            | tid  | 00000000000000008080000000041410         |
 | uSDK 版本(usdk_ver)        | uv   | C2.0.02_2014062418_S2.1.00_2014070217    |
 
-## 设备解绑 MAP 定义 ##
+### 设备解绑 MAP 定义 ###
 
 | 含义                  | KEY  | 示例 VALUE                                       |
 | --------------------- | ---- | ------------------------------------------------ |
@@ -432,7 +433,7 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 | 解绑结果(return_code) | rc   | 云平台返回结果                                   |
 |                       |      | 注意:只有 APP 调用解绑接口时，才需要调用该接口。 |
 
-## 设备控制 MAP 定义 ##
+### 设备控制 MAP 定义 ###
 
 | 含义               | Key  | Value                            |
 | ------------------ | ---- | -------------------------------- |
@@ -443,12 +444,13 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 
 注意:目前只支持单命令，不支持组命令
 
-## 打点事件 MAP 定义 ##
+### 打点事件 MAP 定义 ###
 
 | 含义         | Key        | Value                  |
 | ------------ | ---------- | ---------------------- |
-| 打点事件代码 | actioncode | 和云平台同事商定具体值 |
-## 渠道列表 ##
+| 打点事件代码 | actioncode | 和云平台同事商定具体值 |  
+
+### 渠道列表 ###
 
   ![][pic10]
 
@@ -456,23 +458,24 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 
   ![][pic12] 
 
-## 设备绑定错误列表 ##
+### 设备绑定错误列表 ###
 
-   ![][pic13]
+  ![][pic13]
 
   ![][pic14]
 
-## EventID 定义 ## 
+### EventID 定义 ###
 
-### 时长类 EventID 定义 ###
+时长类 EventID 定义
 
 | EventID                          | 值           | 含义            | 参数 |
 | -------------------------------- | ------------ | --------------- | ---- |
 | EventIdConst.USER_LOGIN_DURATION | t_user_login | 用户登陆耗时 ID | 无参 |
 | EventIdConst.APP_LOAD_DURATION   | t_app_load   | APP 加载耗时 ID | 无参 |
 | EventIdConst.PAGE_LOAD_DURATION  | t_page_load  | 页面加载耗时 ID | 无参 |
-| EventIdConst.APP_USE_DURATION    | t_app_use    | App 使用时长 ID | 无参 |
-### 非时长类 EventID 定义 ###
+| EventIdConst.APP_USE_DURATION    | t_app_use    | App 使用时长 ID | 无参 |  
+
+非时长类 EventID 定义
 
 | EventID                           | 值           | 含义        | 参数   |
 | --------------------------------- | ------------ | ----------- | ------ |
@@ -481,13 +484,13 @@ label:事件标签，建议使用英文，使用中文云平台统计会产生�
 | EventIdConst.DEVICE_COMMAND_EVENT | e_dev_cmd    | 设备控制 ID | 见 4.3 |
 | EventIdConst.USER_CLICK_EVENT     | t_user_click | 打点事件 ID | 见 4.4 |
 
-# 注意事项 #
+## 注意事项 ##
 
-## 编码格式 ##
+### 编码格式 ###
 
 SDK 编码格式默认 UTF-8，传递带中文参数请使用 UTF-8 编码，避免出现乱码。
 
-## 兼容问题 ##
+### 兼容问题 ###
 
 对于早期的开发者，若使用 3.0 之前的旧 SDK，使用现在的 SDK3.0 以上版本时报错，是由于新 SDK 不兼容旧版本导致的，需要开发者修改程序代码。
 
