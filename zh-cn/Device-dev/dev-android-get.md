@@ -8,6 +8,20 @@
 
 ##  版本资料
 
+
+### V6.2.1
+
+2021.6.1 发布
+
+- 版本日志  
+1. 修复SDL线程阻塞问题
+2. 修复CAE崩溃问题
+
+- 开发资料
+
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDA6.2.1_20210603131605724.zip)
+
+
 ### V6.2.0
 
 2021.3.25 发布
@@ -18,7 +32,7 @@
 
 - 开发资料
 
-&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDA6.2.0_20210603131533455.zip)
 
 ### V6.1.0
 
@@ -33,7 +47,7 @@
 
 - 开发资料  
 
-&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDA6.1.0_20210603131506388.zip)
 
 
 ### V6.0.0
@@ -47,5 +61,5 @@
 
 - 开发资料  
 
-&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDK6.0_SmartDevice_Android_%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C+_20210119094058819.pdf)
+&emsp;下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/SDA6.0.0_20210603131430432.zip)
 
