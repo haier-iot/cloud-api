@@ -7,7 +7,248 @@
 ## 版本资料 
 
 
-### Android uSDK_8.5.0 
+### Android uSDK_8.5.0     
+
+版本号： v8.6.0  
+
+发布日期：2021.05.31  
+
+MD5值：798926AAFD9BCE0E12E411AA59FBCE4D  
+
+下载链接：[点击下载]()  
+
+更新日志：  
+
+新增接口  
+
+1、新增搜索发现扩展信息Bean
+
+/**
+ * 扩展信息
+ *
+ * @author 18009912 on 2021-04-12
+ * @version 8.6.0
+ */
+public class ExtendInfo {
+
+    /**
+     * 扩展协议办办号
+     */
+    private final String protoVer;
+
+    /**
+     * 秘钥版本
+     */
+    private final String keyVer;
+
+    /**
+     * 支持的配网方式
+     */
+    private final String configVer;
+
+    /**
+     * 硬件版本号
+     */
+    private final String hwVer;
+
+    /**
+     * 硬件平台
+     */
+    private final String hwPlatform;
+
+    public ExtendInfo(String protoVer, String configVer, String keyVer,
+                  String hwVer, String hwPlatform) {
+        this.protoVer = protoVer;
+        this.configVer = configVer;
+        this.keyVer = keyVer;
+        this.hwVer = hwVer;
+        this.hwPlatform = hwPlatform;
+    }
+
+    public String getProtoVer() {
+        return protoVer;
+    }
+
+    public String getKeyVer() {
+        return keyVer;
+    }
+
+    public String getHwVer() {
+        return hwVer;
+    }
+
+    public String getHwPlatform() {
+        return hwPlatform;
+    }
+
+    public String getConfigVer() {
+        return configVer;
+    }
+}  
+
+2、新增配置类型
+
+ConfigType.java新增枚举
+
+/**
+ * SmartLink配置方式
+ *
+ * 1 << 7
+ * @since v8.6.0
+ */
+SMARTLINK(ConfigurableDeviceInfo.CFG_SMARTLINK, "SmartLink"),
+
+/**
+ * 支持先绑后配
+ *
+ * 1 << 8
+ * @since v8.6.0
+ */
+BIND_WITHOUT_WIFI(ConfigurableDeviceInfo.CFG_BIND_WITHOUT_WIFI, "先绑后配");  
+
+3、配置绑定新增无网绑定接口
+
+Binding.java新增bindDeviceWithoutWifi接口
+
+无网绑定
+
+<p>BLE绑定依次上报以下三个状态</p>
+<li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
+<li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>   
+ 
+ <p>相关错误码说明：</p>  
+
+ *   <li><strong><a>0:</a></strong> 接口执行成功</li>
+ *   <li><strong><a>-10001:</a></strong> 无效参数错误</li>
+ *   <li><strong><a>-10002:</a></strong> SDK未启动</li>
+ *   <li><strong><a>-10003:</a></strong> 接口执行超时，建议30-180s，默认60s</li>
+ *   <li><strong><a>-10006:</a></strong> 内部错误</li>
+ *   <li><strong><a>-13020:</a></strong> 密码长度不符合要求</li>
+ *   <li><strong><a>-14037:</a></strong> 蓝牙开关被关闭</li>
+ *   <li><strong><a>-13031:</a></strong> 发送配置请求超时</li>
+ *   <li><strong><a>-16013:</a></strong> 小循环没搜到且mqtt或https消息超时</li>
+ *   <li><strong><a>-16018:</a></strong> 绑定超时需要重试绑定</li>
+ *   <li><strong><a>-16012:</a></strong> 小循环搜到了且mqtt或https消息超时</li>
+ *   <li><strong><a>-14010:</a></strong> 请先调用connectToGateway接口</li>
+ *   <li><strong><a>-13006:</a></strong> 设备正在配置中</li>
+ * </ul>
+ *
+ * @param bindInfo 蓝牙绑定的路由器信息
+ * @param callback 绑定结果回调接口
+ * @since v8.6.0 2021-4-26 13:48:00
+ */
+@Keep
+public void bindDeviceWithoutWifi(WithoutWifiBindInfo bindInfo, IBindResultCallback<uSDKDevice> callback);  
+
+4、可发现设备信息ConfigurableDevice变更
+
+移除获取设备型号信息方法（getDeviceModelInfo()）
+
+新增其他属性获取
+
+/**
+ * 获取扩展字段
+ *
+ * @return 扩展字段
+ * @since v8.6.0
+ */
+public ExtendInfo getExtendInfo();
+
+/**
+ * 获取型号端ID
+ *
+ * @return 型号端ID
+ * @since v8.6.0
+ */
+public String getModelShortID();
+
+/**
+ * 获取可支持的配置方式
+ *
+ * @return 可支持的配置方式
+ * @since v8.6.0
+ */
+public int getAllConfigTypes();
+
+/**
+ * 获取设备分类名称
+ *
+ * @return 设备分类名称
+ * @since v8.6.0
+ */
+public String getAppTypeName();  
+
+5、绑定信息新增设置和获取NFCInfo
+
+(1) 以下类新增获取NFCInfo和通过Builder模式设置NFCInfo，并且支持在已有信息基础上重新构建。
+
+BLEAdvBindInfo.java
+BLEBindInfo.java
+BLEMeshBindInfo.java
+BaseBleBindInfo.java
+CameraQRCodeBindInfo.java
+NewDirectLinkManualConfirmBindInfo.java
+NewDirectLinkVerificationCodeBindInfo.java
+PureBLEBindInfo.java
+QRCodeBindInfo.java
+SlaveDeviceBindInfo.java
+SmartLinkBindInfo.java
+SoftApBindInfo.java
+WithoutWifiBindInfo.java
+
+/**
+ * 获取NFC信息
+ */
+public NFCInfo getNFCInfo();
+
+/**
+ * 支持重新构建
+ */
+public Builder rebuild();
+(2) 以下构建信息中的设置可配置设备方法标记为废弃
+
+BLEAdvBindInfo.java
+BLEBindInfo.java
+BLEMeshBindInfo.java
+PureBLEBindInfo.java
+WithoutWifiBindInfo.java
+
+/**
+ * 设置可配置的设备对象
+ *
+ * @param configurableDevice 可配置的设备对象
+ * @see Builder#setConfigurableDevice(com.haier.uhome.usdk.scanner.ConfigurableDevice)
+ * @deprecated Moved to builder
+ */
+@Deprecated
+public void setConfigurableDevice(ConfigurableDevice configurableDevice);  
+
+内部优化  
+
+uSDK Client  
+
+热点规则升级2.0功能，蓝牙、热点搜索和代理搜索优化;
+搜索设备融合逻辑优化增加对设备状态变化查询成品编码的处理；
+针对于v5蓝牙广播协议Wif&BLE设备支持新配置绑定和先绑后配；
+更新路由器密码优化支持先绑后配设置模块配置信息；
+蓝牙OTA优化，支持复用连接；
+ClientID逻辑优化；
+SoftAp仅绑定模式下，bindCode强制设置为0；
+添加NFC配置绑定功能。  
+
+ucom  
+
+老版本模块更新密码时，不支持复用链接；
+蓝牙OTA优化，支持复用连接；
+支持先绑后配新增协议；
+其他若干优化  
+
+CAE  
+
+事件广播解析器支持V3协议，usdk兼容性将事件广播版本与通用广播版本统一
+云芯二代v5协议扩展字段解析。
+
+### Android uSDK_8.6.0  
 
 - 版本号： v8.5.0
 

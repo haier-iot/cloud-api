@@ -7,8 +7,214 @@
 ## 版本资料 
 
 
-### IOS uSDK_8.5.0     
+### IOS uSDK_8.6.0     
 
+版本号： v8.6.0  
+
+发布日期：2021.05.31   
+
+MD5值：523E828FA8C020EE873C373C4D0A93D7  
+
+下载链接：[点击下载]()  
+
+更新日志：  
+
+一、外部修改    
+
+
+1.新增uSDKBaseBindInfo类,所有的bindinfo类都继承于此类，用于增加一个NFCInfo的公共属性，选填。
+@interface uSDKBaseBindInfo : NSObject
+ 
+/**
+ 选填参数
+ */
+@property(nonatomic, strong) uSDKNFCInfo *NFCInfo;
+ 
+@end
+绑定之前给bindinfo上的NFCInfo赋值就用基类的属性。
+
+2.音视频  
+
+uSDKMonitorPlayer 废弃createPlayerWithDevice:success:failure:方法,新增createPlayerWithDeviceId:success:failure:方法，请尽快更换为新方法创建，如下：
+
+@interface uSDKMonitorPlayer : uSDKPlayer<uSDKPlayerTalkable>
+ 
+/**
+ * 创建播放器
+ *
+ * @param device  device设备对象
+ * @param success 成功，返回uSDKMonitorPlayer对象
+ * @param failure 失败
+ * @deprecated 8.6.0
+ */
++ (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
+                       success:(void(^)(uSDKMonitorPlayer *monitorPlayer))success
+                       failure:(void(^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("Please use [uSDKMonitorPlayer createPlayerWithDeviceId:success:failure]");
+ 
+ 
+/**
+ * 创建播放器
+ *
+ * @param deviceId 设备唯一标识
+ * @param success 成功，返回uSDKMonitorPlayer对象
+ * @param failure 失败
+ */
++ (void)createPlayerWithDeviceId:(NSString* _Nonnull)deviceId
+                       success:(void(^)(uSDKMonitorPlayer *monitorPlayer))success
+                       failure:(void(^)(NSError *error))failure;
+ 
+ 
+@end
+uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增createPlayerWithDeviceId:completionHandler:方法，请尽快更换为新方法创建，如下：
+
+/**
+ * 创建播放器
+ *
+ * @param device 对象
+ * @param completionHandler 结果回调
+ * @deprecated 8.6.0
+ */
++ (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
+             completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler DEPRECATED_MSG_ATTRIBUTE("Please use [uSDKPlaybackPlayer createPlayerWithDeviceId:success:failure]");
+ 
+/**
+ * 创建播放器
+ *
+ * @param deviceId 设备ID
+ * @param completionHandler 结果回调
+ */
++ (void)createPlayerWithDeviceId:(NSString* _Nonnull)deviceId
+             completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler;
+ 
+/**
+ * 获取有回放文件的日期列表
+ * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
+ * @param countPerPage 在[startTime, endTime]时间范围内按每页`countPerPage`个文件查询，每次返回一页的数据，该值由APP设置，取值范围[1, 3200]
+ * @param startTime 开始时间戳（秒）
+ * @param endTime 结束时间戳（秒）
+ * @param completionHandler 结果回调
+ */  
+
+3.无路由先绑接口  
+
+//uSDKBinding.h
+/**
+ 无路由先绑定接口
+ @param bindInfo 配置信息
+ @param progressNotify 进度回调，共三个进度回调：
+    1. uSDKBindProgressConnectDevice
+    2. uSDKBindProgressSendConfigInfo
+    3. uSDKBindProgressBindDevice
+ @param completionHandler 配网完成时的block回调，如果成功，则error == nil
+ 
+  
+获取sessionKe失败。ERR_USDK_CLOUD_COMMON_ERROR = -10008,
+获取sessionKey请求超时。ERR_USDK_HTTP_COMMON_ERROR = -10010，
+绑定过程中 可能出现的错误码：
+   @(1001):@"路由器断电等导致找不到路由器",
+   @(1002):@"用户修改路由信息导致无法连上路由器",
+   @(1003):@"疑似密码错误",
+   @(1004):@"设备未配置WiFi信息",
+ 
+   @(2001):@"收到配置信息但是找不到路由",
+   @(2002):@"密码错误",
+   @(2003):@"疑似密码错误",
+   @(2004):@"配置信息不完整",
+    
+   @(4001):@"连接主网关失败",
+   @(4002):@"连接接入网关失败",
+ 
+   @(5001):@"设备被解绑",
+   @(5002):@"绑定达到上限",
+   @(5003):@"Token失效"
+ 
+ @since 8.6.0
+ */
++ (void)bindDeviceWithoutWifi:(uSDKWithoutWifiBindInfo *)bindInfo
+         progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify
+                completionHandler:(void(^)(uSDKDevice *device, NSError *error))completionHandler;  
+
+4.新增属性  
+
+在uSDKDeviceInfo.h中新增加属性
+
+/**
+ 应用类型名称
+ @since 8.6.0
+*/
+@property (nonatomic, copy, readonly) NSString* apptypeName;
+
+/**
+ 设备支持的所有配置方式
+ @since 8.6.0
+ */
+@property (nonatomic, assign, readonly) uSDKDeviceConfigType allConfigTypes;
+
+
+/**
+ 设备支持的配置方式
+ */
+typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {
+    /**
+     BLE配置方式，调用uSDKBinding.bindDeviceByBLE接口进行配置绑定
+     */
+    uSDKDeviceConfigTypeBLE = (1UL << 0),
+    /**
+     纯BLE配置方式，调用uSDKBinding.bindPureBLEDevice接口进行配置绑定
+     @since 5.4.0
+     */
+    uSDKDeviceConfigTypePureBLE = (1UL << 1) ,
+    /**
+     极路由免密配置
+     @deprecated 5.4.0
+     */
+    uSDKDeviceConfigTypeHiRouter = (1UL << 2),
+    /**
+     BLEMesh配置方式，调用uSDKBinding.bindBLEMeshDevice接口进行配置绑定
+     @since 7.0.0
+     */
+    uSDKDeviceConfigTypeBLEMesh = (1UL << 3),
+    /**
+     新直连配置方式，调用uSDKBinding.bindNewDirectLinkDeviceWithVerificationCodeBindInfo接口进行配置绑定
+     @since 6.0.0
+     */
+    uSDKDeviceConfigTypeNewDirectLink = (1UL << 4),
+    /**
+     蓝牙广播绑定方式，调用uSDKBinding.bindBLEADVDevice接口进行配置绑定
+     @since 8.0.0
+     */
+    uSDKDeviceConfigTypeBLEADV = (1UL << 5),
+    /**
+     softAp配置方式，调用uSDKBinding.bindDeviceBySoftAp接口进行配置绑定
+     @since 8.0.0
+     */
+    uSDKDeviceConfigTypeSoftAP = (1UL << 6),
+    /**
+     smartlink配置方式，调用uSDKBinding.bindDeviceBySmartLink接口进行配置绑定
+     @since 8.6.0
+     */
+    uSDKDeviceConfigTypeSmartlink = (1UL << 7),
+    /**
+     无网先配，调用uSDKBinding.bindDeviceBySmartLink接口进行配置绑定
+     @since 8.6.0
+     */
+    uSDKDeviceConfigTypeBindWithoutWifi = (1UL << 8)
+    
+};
+
+二、内部优化  
+
+uSDKBleSearch、uSDKBleSearch中增加hotSpotName、apptypeName、configType、allConfigTypes的解析。
+uSDKDeviceScanner中搜索合并优化。
+bindDeviceByBLE接口增加对新协议设备的支持。
+设备下载配置文件失败时，新增DI打点。
+蓝牙类设备上报版本信息时，增加machineID字段。
+BLE_OTA中复用安全连接，超时时间从云端获取。
+组件修复蓝牙重复数据不上报的bug
+ 
+
+### IOS uSDK_8.5.0    
+   
 
   版本号： v8.5.0    
 
