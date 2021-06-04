@@ -7,13 +7,13 @@
 ## 版本资料 
 
 
-### Android uSDK_8.6.0     
+### Android uSDK_8.6.1     
 
-版本号： v8.6.0  
+版本号： v8.6.1  
 
-发布日期：2021.05.31  
+发布日期：2021.06.03  
 
-MD5值：798926AAFD9BCE0E12E411AA59FBCE4D  
+MD5值：6DA4F528B6A8383FB23ADE3BB4EDDAEC 
 
 下载链接：[点击下载]()  
 
@@ -115,7 +115,7 @@ Binding.java新增bindDeviceWithoutWifi接口
 <p>BLE绑定依次上报以下三个状态</p>
 <li>连接设备:{@link BindProgress#CONNECT_DEVICE}</li>
 <li>设备绑定:{@link BindProgress#BIND_DEVICE}</li>   
- 
+
  <p>相关错误码说明：</p>  
 
  *   <li><strong><a>0:</a></strong> 接口执行成功</li>
@@ -229,7 +229,9 @@ uSDK Client
 
 热点规则升级2.0功能，蓝牙、热点搜索和代理搜索优化;  
 
-搜索设备融合逻辑优化增加对设备状态变化查询成品编码的处理；  
+搜索设备融合逻辑优化增加对设备状态变化查询成品编码的处理；    
+
+修复平台没有记录成品编码的老设备 不能可配置发现的问题；
 
 针对于v5蓝牙广播协议Wif&BLE设备支持新配置绑定和先绑后配；  
 
@@ -320,7 +322,7 @@ CAE
    * @param monitorPlaybackListener
      */
      public void getPlaybackDateList(long startTime, long endTime, int pageIndex, int countPerPage, MonitorPlaybackListener<MonitorPlaybackExistDateMessage> monitorPlaybackListener)
- 
+
   /**
   
    * 获取回放详情列表
@@ -617,6 +619,9 @@ CAE
   9. ```
      DeviceListener.java接口变更
      public void onReceiveDecodeResource(uSDKDevice device, String resource, String data)
+     ```
+  ```
+  
   ```
 
 
@@ -664,6 +669,8 @@ CAE
     }
 
  
+
+
 
 
 
@@ -754,7 +761,7 @@ CAE
 - 版本日志 
 
   **新增接口**  
- 
+
 新增NFC标签功能接口：    
 1.新增类     
 NFCUtil – NFC 标签解析、更新工具类   
@@ -892,7 +899,7 @@ Android Studio工程可以参考如下配置：
 - 版本日志 
 
 	**注意事项**
- 
+
 注意事项1：不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.5.0版本搭配使用     
 
@@ -1222,7 +1229,7 @@ Android Studio工程可以参考如下配置：
 - 版本日志 
 
  **注意事项**
- 
+
 注意事项1：此版本不支持海外环境。   
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用   
 更新日志：   
@@ -1272,7 +1279,7 @@ Android Studio工程可以参考如下配置：
 - 版本日志 
 
  **注意事项**
- 
+
 注意事项1：此版本不支持海外环境。  
 注意事项2：如需统计分析功能，请与统计分析SDK3.4.0版本搭配使用  
 更新日志：  
