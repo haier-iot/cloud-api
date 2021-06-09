@@ -15,7 +15,9 @@
 
 MD5值：523E828FA8C020EE873C373C4D0A93D7  
 
-下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.6.0_Phone_iOS_20210531193815_20210609092717664.zip)  
+下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.6.0_Phone_iOS_20210531193815_20210609092717664.zip)   
+
+
 
 更新日志：  
 
