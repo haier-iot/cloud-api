@@ -15,7 +15,7 @@
 
 MD5值：523E828FA8C020EE873C373C4D0A93D7  
 
-下载链接：[点击下载]()  
+下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.6.0_Phone_iOS_20210531193815_20210609092717664.zip)  
 
 更新日志：  
 
@@ -25,7 +25,7 @@ MD5值：523E828FA8C020EE873C373C4D0A93D7
 1.新增uSDKBaseBindInfo类,所有的bindinfo类都继承于此类，用于增加一个NFCInfo的公共属性，选填。  
 
 @interface uSDKBaseBindInfo : NSObject
- 
+
 /**  
 
  选填参数  
@@ -33,7 +33,7 @@ MD5值：523E828FA8C020EE873C373C4D0A93D7
  */  
 
 @property(nonatomic, strong) uSDKNFCInfo *NFCInfo;
- 
+
 @end  
 
 绑定之前给bindinfo上的NFCInfo赋值就用基类的属性。
@@ -45,7 +45,7 @@ uSDKMonitorPlayer
 新增createPlayerWithDeviceId:success:failure:方法，请尽快更换为新方法创建，  如下：
 
 @interface uSDKMonitorPlayer : uSDKPlayer<uSDKPlayerTalkable>
- 
+
 /**
  * 创建播放器
  *
@@ -57,8 +57,8 @@ uSDKMonitorPlayer
 + (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
                        success:(void(^)(uSDKMonitorPlayer *monitorPlayer))success
                        failure:(void(^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("Please use [uSDKMonitorPlayer createPlayerWithDeviceId:success:failure]");
- 
- 
+
+
 /**
  * 创建播放器
  *
@@ -69,8 +69,8 @@ uSDKMonitorPlayer
 + (void)createPlayerWithDeviceId:(NSString* _Nonnull)deviceId
                        success:(void(^)(uSDKMonitorPlayer *monitorPlayer))success
                        failure:(void(^)(NSError *error))failure;
- 
- 
+
+
 @end
 uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增createPlayerWithDeviceId:completionHandler:方法，请尽快更换为新方法创建，如下：
 
@@ -83,7 +83,7 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
  */
 + (void)createPlayerWithDevice:(uSDKDevice* _Nonnull)device
              completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler DEPRECATED_MSG_ATTRIBUTE("Please use [uSDKPlaybackPlayer createPlayerWithDeviceId:success:failure]");
- 
+
 /**
  * 创建播放器
  *
@@ -92,7 +92,7 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
  */
 + (void)createPlayerWithDeviceId:(NSString* _Nonnull)deviceId
              completionHandler:(void(^)(uSDKPlaybackPlayer *playbackPlayer, NSError *_Nullable error))completionHandler;
- 
+
 /**
  * 获取有回放文件的日期列表
  * @param pageIndex 页码索引，获取指定页码的回放文件（ pageIndex从0开始递增）
@@ -117,13 +117,13 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
     1. uSDKBindProgressConnectDevice  
     
     2. uSDKBindProgressSendConfigInfo  
-   
+       
     3. uSDKBindProgressBindDevice  
-   
+
  @param completionHandler 配网完成时的block回调，如果成功，则error == nil 
 
  
-  
+
 获取sessionKe失败。ERR_USDK_CLOUD_COMMON_ERROR = -10008,  
 
 获取sessionKey请求超时。ERR_USDK_HTTP_COMMON_ERROR = -10010，  
@@ -138,7 +138,7 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 
    @(1004):@"设备未配置WiFi信息",  
 
- 
+
    @(2001):@"收到配置信息但是找不到路由",  
 
    @(2002):@"密码错误",  
@@ -147,18 +147,18 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 
    @(2004):@"配置信息不完整",  
 
-    
+
    @(4001):@"连接主网关失败",  
 
    @(4002):@"连接接入网关失败",  
 
- 
+
    @(5001):@"设备被解绑",  
 
    @(5002):@"绑定达到上限",  
 
    @(5003):@"Token失效"
- 
+
  @since 8.6.0  
 
  */  
@@ -166,10 +166,10 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 + (void)bindDeviceWithoutWifi:(uSDKWithoutWifiBindInfo *)bindInfo  
 + 
          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify  
-
+    
                 completionHandler:(void(^)(uSDKDevice *device, NSError *error))  
-
-			  completionHandler;  
+    
+	    	  completionHandler;  
 
 4.新增属性  
 
@@ -186,7 +186,7 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 
 @property (nonatomic, copy, readonly) NSString* apptypeName;  
 
- 
+
 /**  
 
  设备支持的所有配置方式  
@@ -208,94 +208,95 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 typedef NS_OPTIONS(NSUInteger, uSDKDeviceConfigType) {  
 
     /**  
-
+    
      BLE配置方式，调用uSDKBinding.bindDeviceByBLE接口进行配置绑定  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeBLE = (1UL << 0),  
-
+    
     /**  
-
+    
      纯BLE配置方式，调用uSDKBinding.bindPureBLEDevice接口进行配置绑定  
-
+    
      @since 5.4.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypePureBLE = (1UL << 1) ,  
-
+    
     /**  
- 
+     
      极路由免密配置  
-
+    
      @deprecated 5.4.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeHiRouter = (1UL << 2),  
-
+    
     /**  
-
+    
      BLEMesh配置方式，调用uSDKBinding.bindBLEMeshDevice接口进行配置绑定  
-
+    
      @since 7.0.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeBLEMesh = (1UL << 3),  
-
+    
     /**  
-
+    
      新直连配置方式，调用uSDKBinding.bindNewDirectLinkDeviceWithVerificationCodeBindInfo接口进行配置绑定  
-
+    
      @since 6.0.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeNewDirectLink = (1UL << 4),  
-
+    
     /**  
-
+    
      蓝牙广播绑定方式，调用uSDKBinding.bindBLEADVDevice接口进行配置绑定  
-
+    
      @since 8.0.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeBLEADV = (1UL << 5),  
-
+    
     /**  
-
+    
      softAp配置方式，调用uSDKBinding.bindDeviceBySoftAp接口进行配置绑定  
-
+    
      @since 8.0.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeSoftAP = (1UL << 6),  
-
+    
     /**  
-
+    
      smartlink配置方式，调用uSDKBinding.bindDeviceBySmartLink接口进行配置绑定  
-
+    
      @since 8.6.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeSmartlink = (1UL << 7),  
-
+    
     /**  
-
+    
      无网先配，调用uSDKBinding.bindDeviceBySmartLink接口进行配置绑定  
-
+    
      @since 8.6.0  
-
+    
      */  
-
+    
     uSDKDeviceConfigTypeBindWithoutWifi = (1UL << 8)  
 
-    
+
+​    
 };  
 
 
@@ -318,11 +319,11 @@ BLE_OTA中复用安全连接，超时时间从云端获取。
  
 
 ### IOS uSDK_8.5.0    
-   
+
 
   版本号： v8.5.0    
 
- 
+
   发布日期：2021.04.30    
 
 
@@ -333,7 +334,7 @@ BLE_OTA中复用安全连接，超时时间从云端获取。
 
 
   更新日志：  
-  
+
 
   新增功能    
 
@@ -354,7 +355,7 @@ BLE_OTA中复用安全连接，超时时间从云端获取。
 
 
    @param success 订阅成功的回调   
-  
+
 
    @param failure 订阅失败的回调    
 
@@ -363,7 +364,7 @@ BLE_OTA中复用安全连接，超时时间从云端获取。
 
 
    */
-  
+
 - (void)subscribeResourceWithDecode:(NSString *)resourceName     
 - 
 - success:(void(^)(void))success     
@@ -403,10 +404,10 @@ productCode
 
 
   /// 回放文件   
- 
+
 
   @interface uSDKPlaybackItem: NSObject   
- 
+
 
   /// 回放文件起始时间（秒）    
 
@@ -415,16 +416,16 @@ productCode
 
 
   /// 回放文件结束时间（秒）  
-  
-  
+
+
   @property (nonatomic, assign) NSTimeInterval endTime;    
 
 
   /// 回放文件持续时间（秒）   
- 
+
 
   @property (nonatomic, assign) NSTimeInterval duration;  
-  
+
 
   @end     
 
@@ -440,7 +441,7 @@ productCode
   /// 总页数  
 
   @property (nonatomic, assign) uint32_t  totalPage;  
-  
+
   /// 回放文件数组  
 
   @property (nonatomic, strong) NSArray<uSDKItem> *items;
@@ -506,9 +507,9 @@ productCode
 - (void)getPlaybackDateListOfpageIndex:(uint32_t)pageIndex  
 - 
       countPerPage:(uint32_t)countPerPage  
-
+    
          startTime:(NSTimeInterval)startTime  
-
+    
            endTime:(NSTimeInterval)endTime  
 
   completionHandler:(void (^)(uSDKPlaybackPage<NSNumber *> *_Nullable page, NSError *_Nullable error))completionHandler;
@@ -709,7 +710,7 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 ​    @param completionHandler 接口执行完成时回调，error == nil表示接口执行成功，接口执行成功时，devices也可能为空，表示接口执行成功，但没有可分组设备
 ​    @since 8.4.0
 ​    */
-    - (void)fetchGroupableDeviceListCompletionHandler:(void(^)(NSArray<uSDKDevice *> *devices, NSError *error))completionHandler;
+​    - (void)fetchGroupableDeviceListCompletionHandler:(void(^)(NSArray<uSDKDevice *> *devices, NSError *error))completionHandler;
 
 ​    /**
 ​    创建分组，返回组设备对象
@@ -719,8 +720,8 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 ​    需要主动调用addDevices:toGroupWithTimeoutInterval:progressNotify:completionHandler:函数去添加进组中。
 ​    @since 8.4.0
 ​    */
-    - (void)createGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-        completionHandler:(void(^)(uSDKDevice *device, NSError *error))completionHandler;
+​    - (void)createGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+​        completionHandler:(void(^)(uSDKDevice *device, NSError *error))completionHandler;
 
 ​    /**
 ​    向组设备中添加设备，要求当前device对象为组设备
@@ -731,10 +732,10 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 ​    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
 ​    @since 8.4.0
 ​    */
-    - (void)addDevices:(NSArray<uSDKDevice *> *)devices
-        toGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-        completionHandler:(void(^)(NSError *error))completionHandler;
+​    - (void)addDevices:(NSArray<uSDKDevice *> *)devices
+​        toGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+​        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+​        completionHandler:(void(^)(NSError *error))completionHandler;
 
 ​    /**
 ​    从组设备中移除设备，要求当前device对象为组设备
@@ -745,10 +746,10 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 ​    @param completionHandler 接口执行完成时回调，参数校验失败时error有值，一旦开始添加，不管是否有设备成功添加到组，error都为nil
 ​    @since 8.4.0
 ​    */
-    - (void)removeDevices:(NSArray<uSDKDevice *> *)devices
-        fromGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
-        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
-        completionHandler:(void(^)(NSError *error))completionHandler;
+​    - (void)removeDevices:(NSArray<uSDKDevice *> *)devices
+​        fromGroupWithTimeoutInterval:(NSTimeInterval)timeoutInterval
+​        progressNotify:(void(^)(uSDKDevice *device, NSError *error))progressNotify
+​        completionHandler:(void(^)(NSError *error))completionHandler;
 
 ​    /**
 ​    删除组设备，要求当前device对象为组设备
@@ -756,7 +757,7 @@ MD5值：B0E8073E25A10B62AB776F2C82D63F50
 ​    @param completionHandler 接口执行完成时回调，error == nil表示组删除成功
 ​    @since 8.4.0
 ​    */
-    - (void)deleteGroupCompletionHandler:(void(^)(NSError *error))completionHandler;
+​    - (void)deleteGroupCompletionHandler:(void(^)(NSError *error))completionHandler;
 
 2.内部修改  
 
@@ -788,20 +789,20 @@ MD5值：65EFA79B2C417A9558B254E9BF943E99
 ​    //uSDKUtil.h
 ​    @interface uSDKNFCUtil : NSObject 
 ​    /**
-     * 解析NFC标签数据
-          * @param NdefRecord   NFC标签原始数据
-          * @param complete接口回调 成功返回uSDKNFCInfo类，失败返回error
-               **/
-    + (void)parseNFCTagDataWithNdefRecord:(NSString*)NdefRecord
-          complete:(void(^)(uSDKNFCInfo *NFCInfo, NSError *error))complete;
-        /**
-     * 更新NFC设备信息
-          *  @param NFCInfoNFC标签解析后数据
-          *  @param complete接口回调 失败返回error
-               */
-    + (void)updateNFCDeviceInfoWithNFCInfo:(uSDKNFCInfo*)NFCInfo
-      complete:(void(^)(NSError *error))complete;
-        @end 
+​     * 解析NFC标签数据
+​          * @param NdefRecord   NFC标签原始数据
+​          * @param complete接口回调 成功返回uSDKNFCInfo类，失败返回error
+​               **/
+​    + (void)parseNFCTagDataWithNdefRecord:(NSString*)NdefRecord
+​          complete:(void(^)(uSDKNFCInfo *NFCInfo, NSError *error))complete;
+​        /**
+​     * 更新NFC设备信息
+​          *  @param NFCInfoNFC标签解析后数据
+​          *  @param complete接口回调 失败返回error
+​               */
+​    + (void)updateNFCDeviceInfoWithNFCInfo:(uSDKNFCInfo*)NFCInfo
+​      complete:(void(^)(NSError *error))complete;
+​        @end 
 
 2.新增NFCInfo类     
 
@@ -867,11 +868,11 @@ MD5值：0B7D9309709F48E84EB281DB31A6D220
 1.2 新增事件上报代理回调（见uSDKDevice.h）    
 
 ​    /**
-     * 设备事件回调
-          * @param device 事件上报的设备对象
-          * @param events 事件
-               */
-            -(void)device:(uSDKDevice *)device didReceiveEvent:(NSArray<uSDKDeviceEvent*>*)events ;
+​     * 设备事件回调
+​          * @param device 事件上报的设备对象
+​          * @param events 事件
+​               */
+​            -(void)device:(uSDKDevice *)device didReceiveEvent:(NSArray<uSDKDeviceEvent*>*)events ;
 
 2.接口变更  
  无    
@@ -927,7 +928,7 @@ MD5值：4689EB4BE4490F024FF35D30D0135FC1
 ​     @return uTrace对象
 ​     @since 8.1.0
 ​     */
-    + (uTrace *)createTraceWithTraceID:(NSString *)traceID businessID:(NSString *)businessID;
+​    + (uTrace *)createTraceWithTraceID:(NSString *)traceID businessID:(NSString *)businessID;
 
 1.2 网关子设备绑定接口，绑定信息uSDKSlaveDeviceBindInfo中新增属性，用于RISCO设备接入
 在uSDKSlaveDeviceBindInfo.h中新增加属性    
@@ -1035,9 +1036,9 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 当WiFi网络中存在已入网设备时，需要配置另外一台设备到该WiFi网络，可以通过此接口获取该WiFi网络的路由器SSID和密码      
 
 ​    //uSDKBinding.h
-    + (void)getConfigRouterInfo:(NSTimeInterval)timeoutInterval
-        	success:(void(^)(uSDKConfigRouterInfo *routerInfo))success
-        	failure:(void(^)(NSError *error))failure;
+​    + (void)getConfigRouterInfo:(NSTimeInterval)timeoutInterval
+​        	success:(void(^)(uSDKConfigRouterInfo *routerInfo))success
+​        	failure:(void(^)(NSError *error))failure;
 
 1.8 uSDKDeviceScanner增加wifi、ble开关通知    
 
@@ -1049,7 +1050,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 ​     @param scanner uSDKDeviceScanner
 ​     @param invalidPermission
 ​     */
-    - (void)deviceScanner:(uSDKDeviceScanner*)scanner didPermissionInvalid:(uSDKInvalidPermission *) invalidPermission; 
+​    - (void)deviceScanner:(uSDKDeviceScanner*)scanner didPermissionInvalid:(uSDKInvalidPermission *) invalidPermission; 
 
 2.接口变更  
  无  
@@ -1111,8 +1112,8 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 ​     @param failure 失败的回调
 ​     @since 6.1.0
 ​     */
-     - (void)getNetworkQualityV2Success:(void(^)(uSDKNetworkQualityInfoV2 *networkQuality))success
-          failure:(void(^)(NSError *error))failure;
+​     - (void)getNetworkQualityV2Success:(void(^)(uSDKNetworkQualityInfoV2 *networkQuality))success
+​          failure:(void(^)(NSError *error))failure;
 
 1.2 新增uSDK与设备的连接状态  
 
@@ -1159,7 +1160,7 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 ​    /// @param device 设备对象
 ​    /// @param faultInformation 故障信息类
 ​    /// @since 6.1.0
-    - (void)device:(uSDKDevice *)device didUpdateFaultInformation:(uSDKFaultInformation *)faultInformation;
+​    - (void)device:(uSDKDevice *)device didUpdateFaultInformation:(uSDKFaultInformation *)faultInformation;
 
 
 1.6 通过蓝牙更新设备侧的路由器SSID和密码.    
@@ -1177,13 +1178,13 @@ MD5值：EEBF44726B93E3519D79D7FF7D44A712
 ​     @param failure 失败回调
 ​     @since 6.1.0
 ​      
-    - (void)updateRouterSSID:(NSString *)ssid
-        password:(NSString *)password
-       bssid:(NSString *)bssid
-          timeoutInterval:(NSTimeInterval)timeoutInterval
-      progressNotify:(void(^)(uSDKRouterInfoUpdateProgress updateProgress))progressNotify
-          success:(void(^)(void))success
-          failure:(void(^)(NSError *error))failure;
+​    - (void)updateRouterSSID:(NSString *)ssid
+​        password:(NSString *)password
+​       bssid:(NSString *)bssid
+​          timeoutInterval:(NSTimeInterval)timeoutInterval
+​      progressNotify:(void(^)(uSDKRouterInfoUpdateProgress updateProgress))progressNotify
+​          success:(void(^)(void))success
+​          failure:(void(^)(NSError *error))failure;
 
 
 
@@ -1333,13 +1334,13 @@ MD5值：8BAEFC10DED08895D23C5D393CF37B77
 ​     获取设备模块信息
 ​     @param timeout 超时时间(s)，最小5s，最长120s，建议值15s
 ​     @param success 成功的回调, 返回uSDKModuleInfo对象
-    1. 接口只要执行成功，就会通过success block返回
-        2. 但uSDKModuleInfo中具体数据依赖云平台，可能有的字段是空的，可能全都是空的
-          @param failure 失败的回调, 返回NSError对象
-          */
-    - (void)deviceModuleInfoWithTimeout:(NSTimeInterval)timeout
-        success:(void(^)(uSDKModuleInfo *info))success
-        failure:(void(^)(NSError *error))failure;
+​    1. 接口只要执行成功，就会通过success block返回
+​        2. 但uSDKModuleInfo中具体数据依赖云平台，可能有的字段是空的，可能全都是空的
+​          @param failure 失败的回调, 返回NSError对象
+​          */
+​    - (void)deviceModuleInfoWithTimeout:(NSTimeInterval)timeout
+​        success:(void(^)(uSDKModuleInfo *info))success
+​        failure:(void(^)(NSError *error))failure;
 
 1.7 无效命令  
 
