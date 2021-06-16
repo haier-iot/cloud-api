@@ -16,7 +16,9 @@
 
 MD5值：185D6071EAF0FEBA5C6AF299A507A423
 
-下载链接：[点击下载]()
+下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.6.2_Phone_iOS_20210615182907_20210616162807020.zip)  
+
+
 
 更新日志：  
 
@@ -285,9 +287,9 @@ uSDKPlaybackPlayer 废弃createPlayerWithDevice:completionHandler:方法,新增c
 + (void)bindDeviceWithoutWifi:(uSDKWithoutWifiBindInfo *)bindInfo  
 + 
          progressNotify:(void(^)(uSDKBindProgressInfo *bindProgressInfo))progressNotify  
-        
+            
                 completionHandler:(void(^)(uSDKDevice *device, NSError *error))  
-        
+            
 	    	  completionHandler;  
 
 4.新增属性  
