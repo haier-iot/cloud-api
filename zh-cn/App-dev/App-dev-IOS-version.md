@@ -124,7 +124,7 @@ uSDKPlayerDelegate增加代理方法- (void)didUpdateSpeed:(uint32_t)speed;
 
 
 
-### IOS uSDK_8.6.0     
+### IOS uSDK_8.6.0    
 
 版本号： v8.6.0  
 
