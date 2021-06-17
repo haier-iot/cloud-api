@@ -6,7 +6,283 @@
 
 ## 版本资料 
 
-### Android uSDK_8.6.1         
+### Android uSDK_8.6.2          
+
+本号： v8.6.2
+
+发布日期：2021.06.16
+
+MD5值：B41F88E95DB2010CE4C9013473ADD45C
+
+下载链接：[点击下载]()
+
+更新日志：
+
+MonitorPlayer、MonitorPlaybackPlayer类 新增接口
+
+1、新增接口说明
+
+/**
+
+ \* 设置分辨率
+
+ \* @param videoDefinition
+
+ \* @param iCallback
+
+ */
+
+public void changeDefinition(VideoDefinition videoDefinition, ICallback<Void> iCallback)
+
+ 
+
+/**
+
+ \* 获取分辨率
+
+ \* @return
+
+ */
+
+public VideoDefinition getDefinition()
+
+ 
+
+/**
+
+ \* 截图
+
+ \* @param path
+
+ \* @param iScreenshotCallback
+
+ */
+
+public void takeScreenshot(String path, IScreenshotCallback iScreenshotCallback)
+
+ 
+
+/**
+
+ \* 开始录像
+
+ \* @param path
+
+ \* @param iRecordingCallback
+
+ \* @return
+
+ */
+
+public boolean startRecording(String path, IRecordingCallback iRecordingCallback)
+
+ 
+
+/**
+
+ \* 停止录像
+
+ */
+
+public void stopRecording()
+
+ 
+
+/**
+
+ \* 是否正在录像
+
+ \* @return
+
+ */
+
+public boolean isRecording()
+
+2、MonitorPlayerListener.java新增速率回调接口
+
+/**
+
+ \* 视频接收速率（轮询去查，每两秒查询一次）
+
+ \* @param speed 字节/秒
+
+ */
+
+void updateSpeed(int speed)
+
+3、新增VideoDefinition枚举
+
+/**
+
+ \* 音视频分辨率枚举
+
+ */
+
+public enum VideoDefinition {
+
+ 
+
+  /**
+
+   \* 高清
+
+   */
+
+  HD,
+
+ 
+
+  /**
+
+   \* 标清
+
+   */
+
+  SD,
+
+ 
+
+  /**
+
+   \* 流畅
+
+   */
+
+  FL
+
+}
+
+4、新增IScreenshotCallback回调
+
+/**
+
+ \* 截图回掉接口
+
+ */
+
+public interface IScreenshotCallback {
+
+ 
+
+  /**
+
+   \* 截图回掉
+
+   \* @param path
+
+   \* @param error
+
+   */
+
+  void onResult(String path, uSDKError error);
+
+}
+
+5、新增IRecordingCallback回调
+
+/**
+
+ \* 录像功能回掉
+
+ */
+
+public interface IRecordingCallback {
+
+ 
+
+  /**
+
+   \* 录像回掉
+
+   \* @param path
+
+   \* @param error
+
+   */
+
+  void onResult(String path, uSDKError error);
+
+ 
+
+ 
+
+  /**
+
+   \* 开始录像回调
+
+   */
+
+  void onStartRecord();
+
+}
+
+6、NFCInfo增加custom字段，下面当前的NFCInfo字段说明
+
+/**
+
+ \* 序列号 (required)
+
+ */
+
+private String NFCSerialNumber;
+
+ 
+
+/**
+
+ \* 华为 productId (options)
+
+ */
+
+private String hwProductID;
+
+ 
+
+/**
+
+ \* mac地址 (required)
+
+ */
+
+private String MAC;
+
+ 
+
+/**
+
+ \* 产品编码 (required)
+
+ */
+
+private String productCode;
+
+ 
+
+/**
+
+ \* 设备ID (required)
+
+ */
+
+private String deviceID;
+
+ 
+
+/**
+
+\* 自定义字段
+
+*/
+
+private String custom;
+
+ 
+
+/** 其它字段均为uSDK内部使用，APP不可使用 */
+
+### Android uSDK_8.6.1          
+
+
 
 版本号： v8.6.1  
 
@@ -669,6 +945,8 @@ CAE
     }
 
  
+
+
 
 
 
