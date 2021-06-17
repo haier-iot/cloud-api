@@ -168,7 +168,8 @@
 |deviceRoleType|String|设备角色类型|目前为附件设备，其他设备暂时未扩展 ，1，附件设备，目前改字段未使用，没有角色信息不返回|  
 |IsMeshDevice|Boolean|是否为mesh设备|&emsp;| 
 |meshGroupId|String|组设备ID|如果不是组设备，该值不存在| 
-|meshGroupType|String|组设备类型|组内设备groupInner，组设备group| 
+|meshGroupType|String|组设备类型|组内设备groupInner，组设备group|
+|deviceNetType|String|设备网器类型|网器：device，非网器 ：nonNetDevice|  
 
 ## UserBriefInfo    
 Map<String,String> 用户属性值key/value  
