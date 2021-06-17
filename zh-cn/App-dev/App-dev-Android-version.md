@@ -14,7 +14,9 @@
 
 MD5值：B41F88E95DB2010CE4C9013473ADD45C
 
-下载链接：[点击下载]()
+下载链接：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/uSDK8.6.2_Phone_Android_20210615191055_20210617154440790.zip)  
+
+
 
 更新日志：
 
