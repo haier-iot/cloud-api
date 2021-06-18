@@ -711,7 +711,7 @@ Body:
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-|detailInfo|	List<TaskInfo>|	Body|	必填|	返回详情；|
+|detailInfo|	List<TaskInfo>|	Body|	必填| 返回详情 |
 
 
 **示例** 
@@ -841,7 +841,7 @@ Body
 
 |   名称      |     类型      | 位置  |必填 |说明|
 | ----- |:----------:|:-----:|:--------:|:---------:|
-|detailInfo|	List<TaskInfo>|	Body|	必填|	返回详情；|
+|detailInfo|	List<TaskInfo>|	Body|	必填| 返回详情 |
 
 
 **示例** 
