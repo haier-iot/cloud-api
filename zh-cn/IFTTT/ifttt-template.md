@@ -4,6 +4,101 @@
 !> **更新时间**：{docsify-updated}  
 
 
+## 查询推荐场景列表
+
+**使用说明**
+
+>查询推荐场景列表
+
+**接口描述**
+
+?> **接入地 址：**  `/scs/recommend/list/template-basic-info`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| familyId     | String |32| Body| 必填|家庭Id|
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String | Body  |  必填 |  &emsp;  |
+|  retInfo  |  String | Body  |  必填 |  &emsp; |
+|  payload  |  Object | Body  |  必填 | ```返回推荐模板列表
+只返回基本信息
+结构例如：[{
+  "sceneName": "lyx0605",
+  "sceneDesc": "lyx0605描述",
+  "familyId" : "aaa",
+  " recSystemId ": "3",
+"triggerType":"platform/manually",
+"tagList":[
+{
+"name":"卧室",
+"id":"867113354427000000"
+}
+],
+  "taskInfo" : {
+	 "cron" : {
+		"minutes" : "",
+		"hours" : "",
+		"day" : "",
+		"month" : "",
+		"week" : "",
+		"year" : ""
+	 },
+	 "activeBeginTime" : "",
+	 "activeEndTime" : "",
+	 "status" : ""		//定时开关状态
+  }
+}
+]```|
+
+
+**示例** 
+
+**请求样例**
+```java  
+Header：
+appId: MB-****-0000
+appVersion: 3.3.0
+clientId: 123456
+sequenceId: 20161020153428000015
+accessToken: TGT1IIOXZJHLWOXF2FED4YZTGIQ3B0
+sign: 51f839ee62312c41931a42d7353b4e74f50d9f03bedfcd1a227f1be2efc7a91e
+timestamp: 1542183603622 
+language: zh-cn
+timezone: +8
+appKey: f50c76fbc8271d361e1f6b5973f54585
+Content-Encoding: utf-8
+Content-type: application/json
+Body
+{
+	"storeSceneIds": ["2258bce4c54d422b940167a8f30f04f3",
+	"6e5faad84ef143e9a497c310e903baa4"],
+	"familyId": "zf_platform"
+}
+
+```  
+
+**请求应答**
+
+```java
+{
+	"retCode": "00000",
+	"retInfo": "成功",
+	"data": ["7fc6f082f77343e2baac4a71b26044f7",
+	"72b1f0084ead44229331e477d0de282a"]
+}
+```
+
+
+
 ## 批量下载基础场景
 
 **使用说明**
@@ -70,8 +165,7 @@ Body
 }
 ```
 
- 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
+
 
 
 
