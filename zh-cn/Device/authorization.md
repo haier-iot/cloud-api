@@ -54,8 +54,6 @@ Request Headers:
 	Content-type: application/json
 Post：
 	{
-	  "mac": "string",
-	  "selfDiscoveryInformationCode": "string",
 	  "productCode":"String"
 	}
 
