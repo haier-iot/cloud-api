@@ -4,6 +4,401 @@
 !> **更新时间**：{docsify-updated}  
 
 
+## 查询推荐场景列表
+
+**使用说明**
+
+>查询推荐场景列表
+
+**接口描述**
+
+?> **接入地 址：**  `/scs/recommend/list/template-basic-info`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| familyId     | String |32| Body| 必填|家庭Id|
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String | Body  |  必填 |  &emsp;  |
+|  retInfo  |  String | Body  |  必填 |  &emsp; |
+|  payload  |  Object | Body  |  必填 | 返回推荐模板列表,返回基本信息结构|
+
+```
+返回基本信息结构
+例如：
+[{
+  "sceneName": "lyx0605",
+  "sceneDesc": "lyx0605描述",
+  "familyId" : "aaa",
+  " recSystemId ": "3",
+"triggerType":"platform/manually",
+"tagList":[
+{
+"name":"卧室",
+"id":"867113354427000000"
+}
+],
+  "taskInfo" : {
+	 "cron" : {
+		"minutes" : "",
+		"hours" : "",
+		"day" : "",
+		"month" : "",
+		"week" : "",
+		"year" : ""
+	 },
+	 "activeBeginTime" : "",
+	 "activeEndTime" : "",
+	 "status" : ""		//定时开关状态
+  }
+}
+]
+```
+
+## 查询推荐场景详情
+
+**使用说明**
+
+>查询推荐场景基本详情
+
+**接口描述**
+
+?> **接入地 址：**  `/scs/recommend/find/template-info`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| templateId | String |32| Body| 必填|&emsp;|
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String | Body  |  必填 |  &emsp;  |
+|  retInfo  |  String | Body  |  必填 |  &emsp; |
+|  payload  |  Object | Body  |  必填 | 返回推荐模板列表,返回基本信息结构|
+
+```
+返回基本信息结构
+例如：
+{
+  "sceneName": "lyx0605",
+  "sceneDesc": "lyx0605描述",
+  "familyId" : "aaa",
+  " recSystemId ": "3123123",
+"triggerType":"platform/manually",
+"tagList":[
+ {
+"name":"卧室",
+"id":"867113354427000000" 
+}
+ ],
+  "rules": [
+    {
+      "when": {
+        "conditions": [
+          {
+            "desc": "用户填写提示的条件描述",		//条件描述需要拼接，联想定语
+            "key": {
+              "id": "87907c5c55114d8896a85780325f8940",
+              "desc": "冷冻室显示温度(℃)"
+            },
+            "operationSign": "equal",
+            "object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+            "value": {
+              "value": "26",
+              "desc": "26℃"
+            },
+            "componentId": "3e8a0dfb038d40fab6c5b4936924086c"
+          },
+		  {
+            "desc": "用户填写提示的条件描述",		//条件描述需要拼接，联想定语
+            "key": {
+              "id": "87907c5c55114d8896a85780325f8940",
+              "desc": "冷冻室显示温度(℃)"
+            },
+            "operationSign": "equal",
+			"object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+            "value": {
+              "value": "26",
+              "desc": "26℃"
+            },
+            "componentId": "3e8a0dfb038d40fab6c5b4936924086c",
+		    "logicalSign" : "&&"
+          }
+        ]
+      },
+      "then": {
+        "actions": [
+          {
+            "type": "DeviceControl",
+            "control": {
+              "args": [
+                {
+                  "name": {
+                    "id": "18efb47f7cec4cadbe6e15922ca0bad8",
+                    "desc": "冷藏室设置档位"
+                  },"object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+
+                  "value": {
+                    "value": "0",
+                    "desc" : "0°C"
+                  }
+                }
+              ],
+              "componentId": "3e8a0dfb038d40fab6c5b4936924086c"
+            }
+          },
+          {
+            "type": "MessagePush",
+            "pushMessage": {
+              "msgStrategy": {
+                "notWorkTimeStart": "00:00",
+                "notWorkTimeEnd": "00:00"
+              },
+              "pushType": "family_device",
+              "pushContent": {
+                "msgName": "",
+                "expires": 0,
+                "msgTitle": "lyx0605",
+                "msgContent": "lyx0605"
+              },
+              "showTypes": {
+                "02": "2",
+                "03": "2"
+              },
+              "priority": 2
+            }
+          }
+        ],
+        "desc": "lyx0605执行描述"
+      }
+    }
+  ],
+  "taskInfo" : {
+	 "cron" : {
+		"minutes" : "",
+		"hours" : "",
+		"day" : "",
+		"month" : "",
+		"week" : "",
+		"year" : ""
+	 },
+	 "activeBeginTime" : "",
+	 "activeEndTime" : "",
+	 "status" : ""		//定时开关状态
+  }
+}
+备注：标黄部分object，value值为mac id或者城市code编码，desc为设备名称或者城市名称，但是设备名称是动态变化的，引擎端只保存当前更新参数时的设备名称。
+{
+  "sceneName": "lyx0605",
+  "sceneDesc": "lyx0605描述",
+  "familyId" : "aaa",
+  " recSystemId ": "3123123",
+"triggerType":"platform/manually",
+"tagList":[
+ {
+"name":"卧室",
+"id":"867113354427000000" 
+}
+ ],
+  "rules": [
+    {
+      "when": {
+        "conditions": [
+          {
+            "desc": "用户填写提示的条件描述",		//条件描述需要拼接，联想定语
+            "key": {
+              "id": "87907c5c55114d8896a85780325f8940",
+              "desc": "冷冻室显示温度(℃)"
+            },
+            "operationSign": "equal",
+            "object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+            "value": {
+              "value": "26",
+              "desc": "26℃"
+            },
+            "componentId": "3e8a0dfb038d40fab6c5b4936924086c"
+          },
+		  {
+            "desc": "用户填写提示的条件描述",		//条件描述需要拼接，联想定语
+            "key": {
+              "id": "87907c5c55114d8896a85780325f8940",
+              "desc": "冷冻室显示温度(℃)"
+            },
+            "operationSign": "equal",
+			"object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+            "value": {
+              "value": "26",
+              "desc": "26℃"
+            },
+            "componentId": "3e8a0dfb038d40fab6c5b4936924086c",
+		    "logicalSign" : "&&"
+          }
+        ]
+      },
+      "then": {
+        "actions": [
+          {
+            "type": "DeviceControl",
+            "control": {
+              "args": [
+                {
+                  "name": {
+                    "id": "18efb47f7cec4cadbe6e15922ca0bad8",
+                    "desc": "冷藏室设置档位"
+                  },"object": {
+                "desc": "【空气净化器2】",
+                "value": "0007A8C1C412",
+                "required": false
+            },
+
+                  "value": {
+                    "value": "0",
+                    "desc" : "0°C"
+                  }
+                }
+              ],
+              "componentId": "3e8a0dfb038d40fab6c5b4936924086c"
+            }
+          },
+          {
+            "type": "MessagePush",
+            "pushMessage": {
+              "msgStrategy": {
+                "notWorkTimeStart": "00:00",
+                "notWorkTimeEnd": "00:00"
+              },
+              "pushType": "family_device",
+              "pushContent": {
+                "msgName": "",
+                "expires": 0,
+                "msgTitle": "lyx0605",
+                "msgContent": "lyx0605"
+              },
+              "showTypes": {
+                "02": "2",
+                "03": "2"
+              },
+              "priority": 2
+            }
+          }
+        ],
+        "desc": "lyx0605执行描述"
+      }
+    }
+  ],
+  "taskInfo" : {
+	 "cron" : {
+		"minutes" : "",
+		"hours" : "",
+		"day" : "",
+		"month" : "",
+		"week" : "",
+		"year" : ""
+	 },
+	 "activeBeginTime" : "",
+	 "activeEndTime" : "",
+	 "status" : ""		//定时开关状态
+  }
+}
+备注：标黄部分object，value值为mac id或者城市code编码，desc为设备名称或者城市名称，但是设备名称是动态变化的，引擎端只保存当前更新参数时的设备名称。
+
+```
+
+
+## 查询推荐场景是否存在
+
+**使用说明**
+
+>查询推荐场景是否存在
+
+**接口描述**
+
+?> **接入地 址：**  `/iftttscene/scene/exist/recommend-scene`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| userSceneDto | UserSceneDto |&emsp;| Body| 必填|推荐场景内容|
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String | Body  |  必填 |  &emsp;  |
+|  retInfo  |  String | Body  |  必填 |  &emsp; |
+|  data  |  Boolean | Body  |  必填 | true:存在;false：不存在|
+
+
+
+## 删除推荐的场景
+
+**使用说明**
+
+>删除已下载得推荐场景
+
+**接口描述**
+
+?> **接入地 址：**  `/scs/recommend/delete/template`  
+ **HTTP Method：** POST
+
+**输入参数**  
+
+| 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
+| ------- |:------:|:-----:|:----:|:----:|:----:|
+| templateId | String |32| Body| 必填|&emsp;|
+ 
+
+
+**输出参数**  
+
+|   名称      |     类型      | 位置  |必填 |说明|
+| ------------- |:----------:|:-----:|:--------:|:---------:|
+|  retCode  |  String | Body  |  必填 |  &emsp;  |
+|  retInfo  |  String | Body  |  必填 |  &emsp; |
+|  data  |  Boolean | Body  |  必填 | 返回已删除的推荐模板id</br>结构例如：｛"templateId”:”a12122”｝|
+
+
+
+
+
 ## 批量下载基础场景
 
 **使用说明**
@@ -70,8 +465,7 @@ Body
 }
 ```
 
- 3、错误码  
-> 见 快速开始——常用信息——平台公共错误码 
+
 
 
 
