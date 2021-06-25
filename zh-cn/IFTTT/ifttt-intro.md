@@ -190,7 +190,7 @@ yangjingyuan@haier.com;
 |isOpen               |   Integer          |  场景是否开启|                                 1开启，0关闭;选填|
 |sceneStatus          |   Integer          |  场景运行状态|                                0：关闭；1：开启；2：暂停|
 |sceneEnableStatus    |   Integer          |  场景是否有效|                                 0：无效场景；1：有效场景|
-|sceneLocation        |   String          |  场景运行位置|                                 0无效，1有效|
+|sceneLocation        |   String          |  场景运行位置|                                 本地场景：local；云端场景：cloud；|
 |weight               |   Integer          |  用户场景权重|                                 选填 按该字段进行排序|
 |sortList             |   List<SceneSortDto|  用户场景分类列表|                             选填；最大长度256 多个以,分割 分类只能有一个|
 |tagList              |   List<SceneTagDto>|  用户场景标签编号|                             选填；最大长度256 多个以,分割 （1、如果场景类型为用户自建，则该标签可以被修改；2、如果场景类型为模板下载，该标签不能被用户修改）|
