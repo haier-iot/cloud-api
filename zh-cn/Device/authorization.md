@@ -8,7 +8,7 @@
 
 **接口描述**
 
-?> **接入地址：** `https://uws.haier.net/dcs/device-service-2b/find/device/binding/netinfo`</br>
+?> **接入地址：** `https://internal.uws.haier.net/dcs/device-service-2b/find/device/binding/netinfo`</br>
 **HTTP Method：** POST 
 
 **输入参数**
