@@ -453,7 +453,7 @@ Body
 >获取家庭下场景列表（包括用户自建场景和通过模板下载的场景）。
 
 
- **接口描述**
+**接口描述**
 
 ?> **接入地 址：**  `/iftttscene/scene/listSceneByFamily`  
  **HTTP Method：** POST
@@ -873,6 +873,7 @@ Body
 >查询家庭下手动执行类场景列表
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/ listManuallySceneByFamily`  
  **HTTP Method：** POST
 
@@ -903,6 +904,7 @@ Body
 >平台触发类场景列表查询
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/listPlatformSceneByFamily`  
  **HTTP Method：** POST
 
@@ -933,6 +935,7 @@ Body
 >根据系统id查询场景列表，进行应用隔离,系统id根据UAG获取区分。
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/listFamilySceneBySystemId`  
  **HTTP Method：** POST
 
@@ -962,6 +965,7 @@ Body
 >根据设备id 查询场景列表
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/listSceneBySettings`  
  **HTTP Method：** POST
 
@@ -995,6 +999,7 @@ Body
 >根据场景名称模糊查询场景列表
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/ listSceneBySceneName`  
  **HTTP Method：** POST
 
@@ -1025,6 +1030,7 @@ Body
 >修改场景描述信息（场景名称、场景别名、场景描述）,多余参数不要传，防止修改出错。
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/updateSceneDesc`  
  **HTTP Method：** POST
 
@@ -1054,6 +1060,7 @@ Body
 >修改场景标签，场景id必须，标签信息必须
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/updateSceneTag`  
  **HTTP Method：** POST
 
@@ -1084,6 +1091,7 @@ Body
 >获取家庭下场景标签列表
 
  **接口描述**
+
 ?> **接入地 址：**  `/iftttscene/scene/listSceneTagByFamily`  
  **HTTP Method：** POST
 
