@@ -36,6 +36,42 @@ retInfo|String|Body|是|错误描述信息，本描述信息仅是用于调试�
 payload|DeviceInfomation|Body|否|返回数据
 
 
+**DeviceInfomation**
+
+字段名|类型|说明|备注|
+:-|:-:|:-:|:-:|
+productCode|String|成品编码| |
+modelCode|String|型号名称| |
+typeId|String|typeId| |
+productImg1|String|型号视图图片1| |
+productImg2|String|型号视图图片2| |
+configMode|String|配置方式| |
+step1|String|文案第1步| |
+step1Img|String|文案第1步配图| |
+step2|String|文案第2步| |
+step2Img|String|文案第2步配图| |
+step3|String|文案第3步| |
+step3Img|String|文案第3步配图| |
+step4|String|文案第4步| |
+step4Img|String|文案第4步配图| |
+step5|String|文案第5步| |
+step5Img|String|文案第5步配图| |
+bindSuccess|String|绑定成功描述| |
+bindSuccessImg|String|绑定成功图片| |
+bindFailed|String|绑定失败描述| |
+bindFailedImg|String|绑定失败图片| |
+productDesc|String|产品描述| |
+hotspotName|String|应用类型热点名称| |
+brandCode|String|品牌编码| |
+apptypeCode|String|应用类型编码| |
+deviceRole|String|设备角色| |
+state|String|状态|0：未接入app（未上线） 1：已接入app（已上线）|
+customHotspotCode|String|自发现标识码（1~14位自发现信息）| |
+customHotspotName|String|自发现名称（自发现信息的备注）| |
+apptypeName|String|应用类型名称| |
+
+
+
 **示例**
 
 **请求样例**
@@ -206,7 +242,7 @@ hotspotName|String|应用类型热点名称| |
 brandCode|String|品牌编码| |
 apptypeCode|String|应用类型编码| |
 deviceRole|String|设备角色| |
-state|String|状态|0：未接入app（未上线） 1：已接入app（已上线） |
+state|String|状态|0：未接入app（未上线） 1：已接入app（已上线）|
 customHotspotCode|String|自发现标识码（1~14位自发现信息）| |
 customHotspotName|String|自发现名称（自发现信息的备注）| |
 apptypeName|String|应用类型名称| |
