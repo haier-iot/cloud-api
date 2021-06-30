@@ -170,21 +170,86 @@ Content-Type|String|Header|是|本接口Payload内容仅支持UTF-8编码的Json
 参数名|描述|必填|
 :-|:-:|:-:|
 client_id|为第三方给海尔颁发的应用标识|是|
-
-
-
+response_type|为授权方式,这里固定为 code|是|
+redirect_uri|海尔用户中心回调地址https://account-api.haier.net/api/user/third/callback/bind|是|
+state|回调code时，原样返回|是|
 
 
 #### 第三方根据code换token接口规范
 
+支持HTTPS
+
+**HTTP Method：** POST
+**Content-Type：**  application/x-www-form-urlencoded
+
+**请求参数** 
+
+参数名|描述|必填|
+:-|:-:|:-:|
+grant_type|这里固定传authorization_code|是|
+code|授权码|是|
+redirect_uri|回调地址|是|
+
+```
+
+response：
+	{
+		"access_token": "63341c4d-5399-42a8-bb31-65837", 
+		"token_type": "bearer", 
+		"refresh_token": "7d0122b3-90e9-477e-8f9a-4c981bdc40a5",
+		"expires_in": 863999, 
+		"scope": "equipments.admin users.admin openid clients.admin",
+		"user_id": 2005046073
+	}
+
+```
+
 
 #### 第三方刷新登录接口规范
+
+支持HTTPS
+
+**HTTP Method：** POST
+**Content-Type：**  application/x-www-form-urlencoded
+
+**请求参数** 
+
+参数名|描述|必填|
+:-|:-:|:-:|
+client_id|第三方下发的client_id|是|
+client_secret|第三方下发的client_secret|是|
+grant_type|固定值，传refresh_token|是|
+refresh_token|接口3或者本接口返回的refresh_token|是|
+
+```
+
+response：
+	{
+		"access_token":"2YotnFZFEjr1zCsicMWpAA", 
+		"expires_in":3600, 
+		"scope": "openid profile email", 
+		"token_type":"bearer", 
+		"refresh_token":"2YotnFZFEjr1zCsicMWpAA", 
+		"user_id": 2005046073
+	}
+
+```
 
 
 #### 第三方取消授权回调接口规范
 
+支持HTTPS
 
+**HTTP Method：** POST
+**Content-Type：**  application/x-www-form-urlencoded
 
+**请求参数** 
+
+参数名|描述|必填|
+:-|:-:|:-:|
+uId|海尔用户Id|是|
+t|13位时间戳|是|
+sign|签名，算法：sign=MD5(systemId+systemKey+t+uId).toUpperCase()，systemId、systemKey为接入海极网时分配的systemId、systemKey值|是|
 
 
 ### 设备授权接入
@@ -243,6 +308,7 @@ Body：
 }
 
 ```
+
 **请求应答**
 ```
 {
