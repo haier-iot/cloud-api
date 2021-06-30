@@ -152,12 +152,13 @@ B、 要求当前设备具备控制能力：需要确认当前设备已经具备
 C、  组命令和单命令的下发：下发组命令和 getAllProperty 和 getAllAlarm 等命令时使用ugw_control_operation（操作）， 下发单命令时使用 ugw_control_write_property（写）；    
 D、 控制老的六位码设备方式：下发2000zz（获取所有属性） 和 2000zx（获取所有报警） 等命令时，不能够使用 ugw_control_operation 接口，需使用ugw_control_write_property 接口按照单命令的格式进行下发；   
 E、授权设备重启无需重新授权：对设备授权后，授权状态会一直有效，除非对设备解除授权。   
-F、老版SDK特殊流程：Token 和 localkey 在SDK 5.3.0 及以前版本不保存，需要开发者每次重新上电后传 token， SDK 再拿 token 去平台获取 localkey，从而获取控制能力   
-**9、 离线**
+F、老版SDK特殊流程：Token 和 localkey 在SDK 5.3.0 及以前版本不保存，需要开发者每次重新上电后传 token， SDK 再拿 token 去平台获取 localkey，从而获取控制能力
+   
+**9、 离线**   
 A、 SDK 发送心跳包，平台收到心跳后会应答，若 55 秒没有收到会重新发送，重新发送两次，如果 3 分钟均没收到平台的心跳回复，设备主动离线；相同机制，如果网关平台 3 分钟没有收到心跳包，同样会断开连接；   
 B、 网络原因导致连接不上平台，当 CAE 调用底层 connect 接口去连接服务器时，connect 返回错误码 265: No route to host，表示网络不可达， 说明为设备网络不通，相关日志举例为：[domain 203.130.41.39 res_id 4 ip 203.130.41.39][connect fd 23 ret -1 err 265: No route to host]    
-C、 每次向云平台上报数据， CAE 均会调用多个系统 API 去执行写操作，当执行超时[CAE][D][2019-05-22 14:15:37.626000][coap_retransmit:663][** retransmission#2 of tid 43203, id 52495, now -9716095 base 18954 timeout 2332 t -9725721]， 超时 3000ms 会主动断开连接并重新联网，此超时可能为网络连接原因或者系统上报数据量大且频繁导致；
+C、 每次向云平台上报数据， CAE 均会调用多个系统 API 去执行写操作，当执行超时[CAE][D][2019-05-22 14:15:37.626000][coap_retransmit:663][retransmission#2 of tid 43203, id 52495, now -9716095 base 18954 timeout 2332 t -9725721]， 超时 3000ms 会主动断开连接并重新联网，此超时可能为网络连接原因或者系统上报数据量大且频繁导致；
 
 
 
-[特点]:media/_linux/Linuxfeature.png 
+[特点]:_media/_linux/Linuxfeature.png 
