@@ -261,8 +261,10 @@ Body:{
         "fileHash":"3556498",
         "alg":"md5",
         "fileSize":12034,
-        "httpUrl":"http://resource.haier.net/rsservice/v1/download/SY-0000/resources/85d1e38c753d4109847b036dbb258ce8",
-        "httpsUrl":"https://resource.haier.net/rsservice/v1/download/SY-0000/resources/85d1e38c753d4109847b036dbb258ce8"
+        "httpUrl":"http://resource.haier.net/rsservice/v1/download/ MB-IOTFWNCZY628-0000/04FA834BDE0F/resources/85d1e38c753d4109847b036dbb258ce8",
+        "httpsUrl":"https://resource.haier.net/rsservice/v1/download/ MB-IOTFWNCZY628-0000/04FA834BDE0F/resources/85d1e38c753d4109847b036dbb258ce8",
+        "secretKey":"a0550d08",
+        "expiryTime":1601795631000
     }
 }
 ```
