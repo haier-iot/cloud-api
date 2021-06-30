@@ -158,8 +158,8 @@ F、老版SDK特殊流程：Token 和 localkey 在SDK 5.3.0 及以前版本不�
    
 **9、 离线**   
 A、 SDK 发送心跳包，平台收到心跳后会应答，若 55 秒没有收到会重新发送，重新发送两次，如果 3 分钟均没收到平台的心跳回复，设备主动离线；相同机制，如果网关平台 3 分钟没有收到心跳包，同样会断开连接；   
-B、 网络原因导致连接不上平台，当 CAE 调用底层 connect 接口去连接服务器时，connect 返回错误码 265: No route to host，表示网络不可达， 说明为设备网络不通，相关日志举例为：[domain 203.130.41.39 res_id 4 ip 203.130.41.39][connect fd 23 ret -1 err 265: No route to host]    
-C、 每次向云平台上报数据， CAE 均会调用多个系统 API 去执行写操作，当执行超时[CAE][D][2019-05-22 14:15:37.626000][coap_retransmit:663][retransmission#2 of tid 43203, id 52495, now -9716095 base 18954 timeout 2332 t -9725721]， 超时 3000ms 会主动断开连接并重新联网，此超时可能为网络连接原因或者系统上报数据量大且频繁导致；
+B、 网络原因导致连接不上平台，当 CAE 调用底层 connect 接口去连接服务器时，connect 返回错误码 265: No route to host，表示网络不可达， 说明为设备网络不通，相关日志举例为：`[domain 203.130.41.39 res_id 4 ip 203.130.41.39][connect fd 23 ret -1 err 265: No route to host] `   
+C、 每次向云平台上报数据， CAE 均会调用多个系统 API 去执行写操作，当执行超时`[CAE][D][2019-05-22 14:15:37.626000][coap_retransmit:663][retransmission#2 of tid 43203, id 52495, now -9716095 base 18954 timeout 2332 t -9725721]`， 超时 3000ms 会主动断开连接并重新联网，此超时可能为网络连接原因或者系统上报数据量大且频繁导致；
 
 
 
