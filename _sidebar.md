@@ -80,11 +80,11 @@
 	* [物联模组类](zh-cn/Device-dev/module)
 	* [设备SDK类](#)
 		* [Linux版开发指导](zh-cn/Device-dev/dev-linux)
-		* [Linux版资料下载](zh-cn/Device-dev/dev-linux)
+		* [Linux版资料下载](zh-cn/Device-dev/dev-linux-get)
 		* [Android版开发指导](zh-cn/Device-dev/dev-android)
 		* [Android版资料下载](zh-cn/Device-dev/dev-android-get)
 		* [RTOS版开发指导](zh-cn/Device-dev/dev-rtos)
-		* [RTOS版资料下载](zh-cn/Device-dev/dev-rtos)
+		* [RTOS版资料下载](zh-cn/Device-dev/dev-rtos-get)
 		
 	* [云设备类](zh-cn/Device-dev/dev-direct)	
 
