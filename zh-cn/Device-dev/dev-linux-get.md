@@ -29,7 +29,8 @@
 **smartdevice_Linux版5.9.1开发手册**  
 smartdevice_Linux版5.9.1开发手册(全功能版)：   
 smartdevice_Linux版5.9.1开发手册(设备接入版)：  
-5.9.1版Linux x86—64系统测试资料：
+
+**5.9.1版Linux x86—64系统测试资料**:
 
 
 
@@ -47,6 +48,7 @@ smartdevice_Linux版5.9.1开发手册(设备接入版)：
 6. 联通性打点；  
 7. 非安全设备协议版本号更新；  
 
+**开发资料**
 
 **smartdevice_Linux版5.8.0开发手册**   
 LINUX设备端-5.8.0单机版SDK开发手册：[点击下载](https://resource.haigeek.com/download/resource/selfService/admin/LINUX%E8%AE%BE%E5%A4%87%E7%AB%AF-5.8.0%E5%8D%95%E6%9C%BA%E7%89%88SDK%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C_20201020133048683.pdf)  
@@ -61,13 +63,15 @@ LINUX设备端-5.8.0全功能版SDK测试资料： [点击下载](https://resour
 1. 支持一次配置绑定多台设备；   
 2. 支持热点名称由底板定义；   
 
+**开发资料**
+
 **smartdevice_Linux版5.7.0开发手册**    
 LINUX设备端-5.7.0单机版SDK开发手册：<a href="zh-cn\devicesDevelopment\Linux\media\LINUX设备端-5.7.0单机版SDK开发手册.pdf" target="_blank">点击下载</a>    
 LINUX设备端-5.7.0全功能版SDK开发手册：<a href="zh-cn\devicesDevelopment\Linux\media\LINUX设备端-5.7.0全功能版SDK开发手册.pdf" target="_blank">点击下载</a>       
 LINUX设备端-5.7.0全功能版SDK测试资料：<a href="zh-cn\devicesDevelopment\Linux\media\LINUX设备端-5.7.0全功能版SDK测试资料.zip" target="_blank">点击下载</a>    
 
 
-## v5.6.0版 ##
+### v5.6.0版
 
 **v5.6.0版本功能：**  
 发布日期：2020年06月30日    
@@ -92,7 +96,9 @@ LINUX设备端-5.6.0全功能版SDK开发手册：[点击下载](https://resourc
 [点击下载](https://resource.haigeek.com/download/resource/selfService/admin/Smartdevice_Linux_5.6.0%E5%85%A8%E5%8A%9F%E8%83%BDX86_64%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E8%B5%84%E6%96%99_20200630173511987.zip)   
 
 
-----------
+
+### v5.5.0版
+
 **v5.5.0版本功能：**  
 发布日期：2020年04月20日   
   - 支持整机升级；
@@ -113,4 +119,4 @@ LINUX设备端-5.5.0全功能版SDK开发手册：[点击下载](https://resourc
 **Linux x86_64系统测试资料：**    
 [点击下载](https://resource.haigeek.com/download/resource/selfService/admin/5.5.0_x86_64_smartdevice_202004201601_20200420162830550.zip)  
 
-----------
+
