@@ -117,6 +117,24 @@ softdwareVers|String|软件版本号|
 netType|String|网络类型|可取值：</br>unknown,位置网络或设备不支持挽留过质量上报；</br>Wifi：WIFI网络
 strength|String|信号强度|
 
+**DevNetQuality**
+设备网络质量详细信息
+
+参数名|类型|说明|备注
+:-|:-:|:-:|:-
+machineId|String|设备id标识|
+isOnLine|Boolean|在线状态|true：在线，false：离线
+statusLastChangeTime|Long|设备状态变化时间|-1:无效的时间，>0正常值
+netType|String|设备连接网络类型|如：“Wifi”，如不存在，则为空字符串“”
+ssid|String|设备连接的网络名称|如不存在，则为空字符串“”
+rssi|Integer|网络信号强度|-100：无效值；正常值范围：最大值4，最小值-96；
+prssi|Integer|网络信号强度百分比|-1：无效的百分比；>0正常值
+signalLevel|Integer|网络信号质量等级|0：未知；1：优；2：良；3：合格；4：差
+ilostRatio|Integer|广域网丢包率|-1: 无效的丢包率值（不参与信号等级计算）；>0 正常值
+its|Integer|广域网延时|单位：ms，-1：无效的延时（不参与信号等级计算）；>0 正常值
+lanIP|String|内网ip|如不存在，则为空字符串“”
+moduleVersion|String|模块版本描述|如不存在，则为空字符串“”，版本格式：软件版本号/软件类型/硬件版本号/硬件类型
+
 **DeviceStatus**
 设备状态
 
