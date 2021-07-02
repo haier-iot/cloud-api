@@ -974,8 +974,7 @@ Body
 | 参数名  | 类型    | 最大长度  |位置  | 必填|说明|
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
 | familyId| String |32| Body| 必填|家庭Id| 
-| param| Map<String,String> |N/A| Body| 必填|{“id”: “mac”}id值：设备mac值
-| 
+| param| Map<String,String> |N/A| Body| 必填|{“id”: “mac”}id值：设备mac值| 
 | limit| Int |N/A| Body| 必填|每页显示的记录数最多100条，默认30条| 
 | cursor| Int |N/A| Body| 必填|从0开始| 
      
