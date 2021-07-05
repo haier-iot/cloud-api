@@ -9,7 +9,7 @@
 
 第三方可以通过数据推送服务，订阅海尔设备消息功能，实现海尔设备数据与第三方平台的互通。设备消息包括设备的上下线，设备状态属性，设备告警，以及设备的大数据信息。目前支持根据设备的typeid进行推送。  
 
-设备数据订阅包括设备基础配置信息以及设备运行状态的实时信息。
+设备数据订阅包括设备基础配置信息以及设备运行状态的实时信息。  
 1、	设备基础信息，包括设备版本、绑定信息、型号等；  
 2、	运行状态，包括故障、wifi信息、心跳、离线原因等。
 
@@ -53,7 +53,7 @@
 
 **说明**  
 
-调用方需要对发送到wss的请求进行签名，执行签名计算的签名值需要赋值到URL的sign属性，以便服务端进行签名验证。  
+>调用方需要对发送到wss的请求进行签名，执行签名计算的签名值需要赋值到URL的sign属性，以便服务端进行签名验证。  
 
 **参数介绍**  
 
@@ -211,11 +211,10 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
 }
 
 ```
-**说明**  
-
-(1)注意，客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。
-(2)订阅端一次最多能发起500个订阅关系（约typeId数乘以topic数）。
-
+说明  
+>
+(1)	客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
+(2)	订阅端一次最多能发起500个订阅关系（约typeId数乘以topic数）。
 
 云端向客户端返回订阅结果的响应JSON字符串格式数据如下：
 
@@ -228,10 +227,7 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
         "desc":"subscribed ok"
     }
 }
-
-
 ```
-
 
 **错误码**
 
@@ -257,9 +253,9 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
 }
 
 ```
-**说明**  
-
-(1)注意，客户端调用取消订阅接口后，服务端将不再存储取消订阅topic的消息。当客户端重新订阅topic后，服务端向客户端推送当前最新消息。如果客户端想保留历史消息，直接关闭当前session连接即可。
+说明  
+>
+(1)	客户端调用取消订阅接口后，服务端将不再存储取消订阅topic的消息。当客户端重新订阅topic后，服务端向客户端推送当前最新消息。如果客户端想保留历史消息，直接关闭当前session连接即可。  
 
 云端向客户端返回订阅结果的响应JSON字符串格式数据如下：
 
@@ -277,7 +273,7 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
 
 **错误码**
 
-> 34001, 34004,34006, 34999  
+> 34001, 34004, 34006, 34999  
 
 
 ### 关闭连接功能
@@ -287,6 +283,7 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
 > 关闭连接具体无交互接口，只需客户端关闭session即可。  
 
 注意：SDK订阅是有具体接口的，此外当group下的所有订阅关系都取消后，Websocket订阅服务会自动检测到并关闭当前session连接。
+
 
 ### 示例  
 
@@ -305,9 +302,10 @@ Tomcat的Websocket实现依赖包举例如下：
 ```
 
 
-注：  
-(1) 如上插件版本最低适用于JDK8环境。  
-(2) 如果本地项目是SpringBoot Web工程，因为其已经默认内嵌了Tomcat相关jar（同时包含了Tomcat针对Websocket的相关实现jar），所以不必在pom.xml中单独做Websocket相关引入，但必须注意Tomcat相关jar的引用范围，如下示意：    
+说明：  
+>
+(1)	如上插件版本最低适用于JDK8环境。  
+(2)	如果本地项目是SpringBoot Web工程，因为其已经默认内嵌了Tomcat相关jar（同时包含了Tomcat针对Websocket的相关实现jar），所以不必在pom.xml中单独做Websocket相关引入，但必须注意Tomcat相关jar的引用范围，如下示意：
 
 ```xml
 <dependency>
@@ -394,11 +392,9 @@ Tomcat的Websocket实现依赖包举例如下：
 ####  6、 整示例代码（可复用）
 
 代码功能：  
-(1)	支持Client端订阅消息。
-
-(2)	支持心跳检测，心跳功能简单支持当客户端和服务器端连接处于无数据交互状态时才发送心跳检测消息，有数据交互时不发送。支持连接断开后指定时间进行重连尝试。
-
-
+>
+(1)	支持Client端订阅消息。  
+(2)	支持心跳检测，心跳功能简单支持当客户端和服务器端连接处于无数据交互状态时才发送心跳检测消息，有数据交互时不发送。支持连接断开后指定时间进行重连尝试。  
 
 ```java
 import com.haier.iot.business.msgplatform.websocket.client.MsgProcessor;
@@ -433,10 +429,12 @@ public class TestSubscribeMsg {
 
 
 
-
 public interface MsgProcessor {
     void processorMsg(String msg);
 }
+
+
+
 import com.google.common.base.Throwables;
 import org.apache.tomcat.websocket.WsWebSocketContainer;
 import org.slf4j.Logger;
@@ -632,14 +630,14 @@ public class WebsocketSubscriberClient {
 
 ```
 
+说明：
+(1)	心跳的JSON字符串格式如下：  
 
-注:  
-(1)	心跳的JSON字符串格式如下：
 ```json
   `{"cmd": "keepAlive"}`  
 
 ```
-服务端相应如下（红色部分为示例数据）：
+(2)	服务端相应如下：  
 ```json
 {
     "cmd":"keepAlive",
@@ -653,7 +651,8 @@ public class WebsocketSubscriberClient {
 
 由于网络闪断、Websocket Server服务端重启升级等原因，势必造成已有Websocket Client接入端连接中断，所以强烈建议Websocket Client接入端代码增加自动重连机制，可参照3.9示例中绿色标注代码或在此基础上优化。
 
-注：</br>
+说明：
+>
 (1)	自动重连尝试间隔可逐步递增，如5s尝试一次连接，如果不成功则2min后再尝试一次连接，如果还未成功则5min后再尝试连接一次。</br>
 (2)	如果(1)未重连成功，则可尝试在以(1)为一个周期，持续循环重连。</br>
 (3)	建议重连尝试间隔不易过短或频繁,如几秒钟一循环,以防止瞬间大量访问,对服务端造成连接压力。
