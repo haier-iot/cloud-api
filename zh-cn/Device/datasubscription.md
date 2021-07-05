@@ -9,7 +9,7 @@
 
 第三方可以通过数据推送服务，订阅海尔设备消息功能，实现海尔设备数据与第三方平台的互通。设备消息包括设备的上下线，设备状态属性，设备告警，以及设备的大数据信息。目前支持根据设备的typeid进行推送。  
 
-设备数据订阅包括设备基础配置信息以及设备运行状态的实时信息。  
+设备数据订阅包括设备基础配置信息以及设备运行状态的实时信息：  
 1、	设备基础信息，包括设备版本、绑定信息、型号等；  
 2、	运行状态，包括故障、wifi信息、心跳、离线原因等。
 
@@ -45,7 +45,8 @@
 | :-------------: |:-------------:|:-----:|
 |数据订阅|`wss://mp-stp.haier.net/wsserver`|外网域名|
 |数据订阅|`ws://internal.mp-stp.haier.net/wsserver`|内网域名|
-|数据订阅|`wss://mp-stp-kfz.haier.net/wsserver`|开发者环境接入地址|
+|数据订阅|`wss://mp-stp-kfz.haier.net/wsserver`|开发者环境接入地址|  
+
 **说明**
 >请优先使用内网域名进行访问，内网域名访问不通时再使用外网域名。内网会更加稳定，访问服务速度也更快。
 
@@ -201,7 +202,6 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
 客户端向云端发送的JSON字符串格式数据如下：  
 
 ```json  
-
 {
     "cmd":"subscribe",
     "topics":[
@@ -209,9 +209,8 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
         "DEV_BIGDATA"
     ]
 }
-
 ```
-说明  
+说明：
 >
 (1)	客户端一个连接情况下只能发起一次订阅消息(服务器端做了限制，多发不起作用)，订阅信息中的多个topic多个keys，其中如果有任何一个订阅验证失败，则本次请求全部订阅均失败，只有当全部topic的keys订阅成功，则本次订阅成功。  
 (2)	订阅端一次最多能发起500个订阅关系（约typeId数乘以topic数）。
@@ -251,7 +250,6 @@ wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timest
         "DEV_BIGDATA"
     ]
 }
-
 ```
 说明  
 >
@@ -338,7 +336,6 @@ Tomcat的Websocket实现依赖包举例如下：
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 ```
 
 
@@ -369,9 +366,6 @@ Tomcat的Websocket实现依赖包举例如下：
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
 ```
 
 #### 5、 关闭当前客户端连接
@@ -428,11 +422,9 @@ public class TestSubscribeMsg {
 }
 
 
-
 public interface MsgProcessor {
     void processorMsg(String msg);
 }
-
 
 
 import com.google.common.base.Throwables;
@@ -626,11 +618,10 @@ public class WebsocketSubscriberClient {
         }
     }
 }
-
-
 ```
 
 说明：
+
 (1)	心跳的JSON字符串格式如下：  
 
 ```json
