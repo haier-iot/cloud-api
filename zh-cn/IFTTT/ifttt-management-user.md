@@ -1129,7 +1129,6 @@ Body
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
 | componentId| String |N/A| Body| 必填|组件Id|  
 | familyId| String |N/A| Body| 必填|家庭Id| 
- 
 
 
 **输出参数**  
