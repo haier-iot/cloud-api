@@ -87,7 +87,7 @@ Location: {redirect_uri}?code=SplxlOBeZQQYbYS6WxSbIA&state={state}
 
 **使用说明**
 
-通过oauth登录获取的token获取海尔token，其中：  
+通过oauth登录获取的code获取海尔token，其中：  
 1. Oauth登录返回的code，使用授权码换取token，code有效期为10分钟，只能使用1次；  
 2. refresh token默认有效期为1年，失效过后，需要海尔账号重新授权；
 3. 在RefreshToken的有效期内，使用接口“刷新海尔token，/ucs/uia/refresh/token”，获取到的RefreshToken有效期不会延长，只会重新刷新10天accessToken的有效期；
