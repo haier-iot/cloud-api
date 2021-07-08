@@ -999,7 +999,7 @@ Body
 
  **接口描述**
 
-?> **接入地 址：**  `/iftttscene/scene/ listSceneBySceneName`  
+?> **接入地 址：**  `/iftttscene/scene/listSceneBySceneName`  
  **HTTP Method：** POST
 
 **输入参数**  
