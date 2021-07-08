@@ -36,16 +36,14 @@
 
 ### 接入方式  
 
-本服务提供的所有接口仅支持wss协议请求。  
-在开发、联调时，应用开发者应该连接开发者环境，通过配置应用开发者访问外网的路由器（设置路由器的dns），可以连接到不同的开发环境。  
+外网仅支持wss协议请求，内网支持ws协议。  
 
 ### 接入地址  
 
 | **接口分类** | **接入地址** |**备注**|
 | :-------------: |:-------------:|:-----:|
-|数据订阅|`wss://mp-stp.haier.net/wsserver`|外网域名|
 |数据订阅|`ws://internal.mp-stp.haier.net/wsserver`|内网域名|
-|数据订阅|`wss://mp-stp-kfz.haier.net/wsserver`|开发者环境接入地址|  
+|数据订阅|`wss://mp-stp.haier.net/wsserver`|外网域名|  
 
 **说明**
 >请优先使用内网域名进行访问，内网域名访问不通时再使用外网域名。内网会更加稳定，访问服务速度也更快。
@@ -167,7 +165,7 @@ data|String|body|必填|响应结果
 **请求地址**
 
 ```java  
-wss://mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timestamp=1491013448629&sign=c70500c16563b5ccc7d032831bff34a5cb02c147ca6beeffff54d22d262a319e
+ws://internal.mp-stp.haier.net/wsserver/websocket?systemId=SV-BLKALPHA21-0001-123&timestamp=1491013448629&sign=c70500c16563b5ccc7d032831bff34a5cb02c147ca6beeffff54d22d262a319e
 ```
 
 **用户请求** 无  
@@ -328,7 +326,7 @@ Tomcat的Websocket实现依赖包举例如下：
 
 ```java
         try {
-            String url = "wss://mp-stp.haier.net/wsserver/ /websocket?systemId=SV-IOTFWNCZY628-0000&timestamp=1598929399737&sign=a8fecc091d188bceb5efca840e42337c8d3e5a7c4ee6dcf5fa68f58596dd3ca0"
+            String url = "ws://internal.mp-stp.haier.net/wsserver/websocket?systemId=SV-IOTFWNCZY628-0000&timestamp=1598929399737&sign=a8fecc091d188bceb5efca840e42337c8d3e5a7c4ee6dcf5fa68f58596dd3ca0"
             WebsocketSubscriberClient client = new WebsocketSubscriberClient(url,cmdInfos,processor);
         } catch (Exception e) {
             e.printStackTrace();
@@ -400,7 +398,7 @@ public class TestSubscribeMsg {
 
     private static void buildConnectionAndSubscribeMsg() {
         try {
-         String url = "wss://mp-stp.haier.net/wsserver/ /websocket?systemId=SV-IOTFWNCZY628-0000&timestamp=1598929399737&sign=a8fecc091d188bceb5efca840e42337c8d3e5a7c4ee6dcf5fa68f58596dd3ca0"
+         String url = "ws://internal.mp-stp.haier.net/wsserver/websocket?systemId=SV-IOTFWNCZY628-0000&timestamp=1598929399737&sign=a8fecc091d188bceb5efca840e42337c8d3e5a7c4ee6dcf5fa68f58596dd3ca0"
             String cmdInfo= "{\"cmd\":\"subscribe\", \"topics\":[\"DEV_STATUS\", \"DEV_BIGDATA\"]}";
             List<String> cmdInfos = new ArrayList<>();
             cmdInfos.add(cmdInfo);
