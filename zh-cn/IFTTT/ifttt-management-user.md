@@ -999,7 +999,7 @@ Body
 
  **接口描述**
 
-?> **接入地 址：**  `/iftttscene/scene/ listSceneBySceneName`  
+?> **接入地 址：**  `/iftttscene/scene/listSceneBySceneName`  
  **HTTP Method：** POST
 
 **输入参数**  
@@ -1129,7 +1129,6 @@ Body
 | ------- |:------:|:-----:|:----:|:----:|:----:|         
 | componentId| String |N/A| Body| 必填|组件Id|  
 | familyId| String |N/A| Body| 必填|家庭Id| 
- 
 
 
 **输出参数**  
