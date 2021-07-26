@@ -444,7 +444,7 @@ Body
 
 参数名|类型|位置|必填|说明
 :-|:-:|:-:|:-:|:-
-deviceId|String|body|必填|设备ID 
+deviceId|String|url|必填|设备ID 
 
 
 **输出参数**
