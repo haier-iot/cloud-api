@@ -59,6 +59,7 @@
 	* [场景统计](zh-cn/IFTTT/ifttt-count)
 	* [场景数据订阅](zh-cn/IFTTT/ifttt-subdata)
 	* [设备场景管理](zh-cn/IFTTT/ifttt-management-device)
+	* [场景推荐服务](zh-cn/IFTTT/ifttt-recommend)
 	* [APP（Portal）](zh-cn/IFTTT/ifttt-app-portal)
 
 
