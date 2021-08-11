@@ -121,7 +121,7 @@ Content-Type|application/x-www-form-urlencoded|是|&nbsp;|&nbsp;|
 **Body** 
 
 名称|类型|是否必须|示例|备注|
-:-|:-:|:-:|:-:|:-:|:-
+:-|:-:|:-:|:-:|:-
 userSceneDto|text|是|UserSceneDto|UserSceneDto|
 
 > 返回数据
@@ -282,9 +282,6 @@ familyId|string|必须|&nbsp;|&nbsp;|&nbsp;|
 
 **接口描述**
 
-```
-
-```
 > 请求参数
 
 **Headers** 
